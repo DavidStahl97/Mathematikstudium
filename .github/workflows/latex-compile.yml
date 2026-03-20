@@ -1,0 +1,45 @@
+name: LaTeX kompilieren
+
+on:
+  push:
+    branches: [main, master]
+    paths:
+      - 'skripte/**.tex'
+      - '.github/workflows/latex-compile.yml'
+  pull_request:
+    paths:
+      - 'skripte/**.tex'
+  workflow_dispatch:
+
+jobs:
+  compile-latex:
+    name: LaTeX zu PDF kompilieren
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Repository auschecken
+        uses: actions/checkout@v4
+
+      - name: TeX Live installieren
+        uses: xu-cheng/latex-action@v3
+        with:
+          root_file: skripte/beispiel.tex
+          latexmk_use_lualatex: false
+          latexmk_use_xelatex: false
+          args: -pdf -interaction=nonstopmode -file-line-error
+
+      - name: PDF als Artefakt hochladen
+        uses: actions/upload-artifact@v4
+        with:
+          name: mathematik-zusammenfassung-pdf
+          path: skripte/beispiel.pdf
+          retention-days: 30
+
+      - name: PDF in releases hochladen (nur bei Push auf main/master)
+        if: github.event_name == 'push' && (github.ref == 'refs/heads/main' || github.ref == 'refs/heads/master')
+        uses: softprops/action-gh-release@v2
+        with:
+          tag_name: pdf-latest
+          name: "Aktuelle PDFs"
+          files: skripte/beispiel.pdf
+          make_latest: true
