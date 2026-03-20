@@ -11,6 +11,9 @@ on:
       - 'skripte/**.tex'
   workflow_dispatch:
 
+permissions:
+  contents: write
+
 jobs:
   compile-latex:
     name: LaTeX zu PDF kompilieren
@@ -21,12 +24,19 @@ jobs:
         uses: actions/checkout@v4
 
       - name: TeX Live installieren
-        uses: xu-cheng/latex-action@v3
-        with:
-          root_file: skripte/beispiel.tex
-          latexmk_use_lualatex: false
-          latexmk_use_xelatex: false
-          args: -pdf -interaction=nonstopmode -file-line-error
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y \
+            texlive-latex-base \
+            texlive-latex-extra \
+            texlive-lang-german \
+            texlive-fonts-recommended
+
+      - name: PDF kompilieren
+        run: |
+          cd skripte
+          pdflatex -interaction=nonstopmode -file-line-error beispiel.tex
+          pdflatex -interaction=nonstopmode -file-line-error beispiel.tex
 
       - name: PDF als Artefakt hochladen
         uses: actions/upload-artifact@v4
