@@ -1,0 +1,102 @@
+\documentclass[a4paper,12pt]{article}
+
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[ngerman]{babel}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{amsthm}
+\usepackage{geometry}
+\geometry{margin=2.5cm}
+
+\theoremstyle{definition}
+\newtheorem{definition}{Definition}[section]
+\newtheorem{satz}[definition]{Satz}
+\newtheorem{beispiel}[definition]{Beispiel}
+
+\theoremstyle{remark}
+\newtheorem{beweis}{Beweis}
+
+\title{Mathematik -- Zusammenfassung\\
+       \large Analysis I}
+\author{Mathematikstudium}
+\date{\today}
+
+\begin{document}
+
+\maketitle
+\tableofcontents
+\newpage
+
+\section{Folgen und Konvergenz}
+
+\begin{definition}[Konvergenz einer Folge]
+Eine Folge $(a_n)_{n \in \mathbb{N}}$ heißt \textbf{konvergent} gegen den
+Grenzwert $a \in \mathbb{R}$, wenn gilt:
+\[
+  \forall \varepsilon > 0 \;\exists N \in \mathbb{N} \;\forall n \geq N:
+  \quad |a_n - a| < \varepsilon.
+\]
+Man schreibt dann $\lim_{n \to \infty} a_n = a$.
+\end{definition}
+
+\begin{satz}[Eindeutigkeit des Grenzwerts]
+Der Grenzwert einer konvergenten Folge ist eindeutig bestimmt.
+\end{satz}
+
+\begin{beweis}
+Seien $a$ und $b$ beide Grenzwerte von $(a_n)$. Für beliebiges
+$\varepsilon > 0$ existieren $N_1, N_2 \in \mathbb{N}$ mit
+$|a_n - a| < \varepsilon/2$ für $n \geq N_1$ und
+$|a_n - b| < \varepsilon/2$ für $n \geq N_2$.
+Für $n \geq \max(N_1, N_2)$ gilt dann:
+\[
+  |a - b| \leq |a - a_n| + |a_n - b| < \frac{\varepsilon}{2} +
+  \frac{\varepsilon}{2} = \varepsilon.
+\]
+Da $\varepsilon > 0$ beliebig war, folgt $|a - b| = 0$, also $a = b$.
+\end{beweis}
+
+\begin{beispiel}
+Die Folge $a_n = \dfrac{1}{n}$ konvergiert gegen $0$:
+\[
+  \lim_{n \to \infty} \frac{1}{n} = 0.
+\]
+\end{beispiel}
+
+\section{Stetigkeit}
+
+\begin{definition}[Stetigkeit]
+Eine Funktion $f: D \to \mathbb{R}$ heißt \textbf{stetig} in $x_0 \in D$,
+wenn gilt:
+\[
+  \forall \varepsilon > 0 \;\exists \delta > 0 \;\forall x \in D:
+  \quad |x - x_0| < \delta \;\Rightarrow\; |f(x) - f(x_0)| < \varepsilon.
+\]
+\end{definition}
+
+\begin{satz}[Zwischenwertsatz]
+Sei $f: [a,b] \to \mathbb{R}$ stetig und $f(a) \cdot f(b) < 0$.
+Dann existiert ein $c \in (a,b)$ mit $f(c) = 0$.
+\end{satz}
+
+\section{Differentialrechnung}
+
+\begin{definition}[Ableitung]
+Die Funktion $f: D \to \mathbb{R}$ heißt in $x_0 \in D$
+\textbf{differenzierbar}, wenn der Grenzwert
+\[
+  f'(x_0) \;=\; \lim_{h \to 0} \frac{f(x_0 + h) - f(x_0)}{h}
+\]
+existiert. Man nennt $f'(x_0)$ die \textbf{Ableitung} von $f$ in $x_0$.
+\end{definition}
+
+\begin{satz}[Produktregel]
+Sind $f$ und $g$ in $x_0$ differenzierbar, so ist auch $f \cdot g$
+differenzierbar und es gilt:
+\[
+  (f \cdot g)'(x_0) = f'(x_0)\,g(x_0) + f(x_0)\,g'(x_0).
+\]
+\end{satz}
+
+\end{document}
