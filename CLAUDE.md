@@ -24,8 +24,22 @@ curl -s "https://api.github.com/repos/DavidStahl97/Mathematikstudium/actions/run
 Logs selbst (Volltext) benötigen Admin-Rechte (403). Step-Status reicht aber meist zur Diagnose.
 
 ## PRs erstellen
-Die lokale Gitea-Proxy-API unterstützt keine PR-Erstellung. PRs müssen manuell auf GitHub erstellt werden:
-- URL: `https://github.com/DavidStahl97/Mathematikstudium/compare/main...<branch>`
+PRs können über die GitHub API erstellt werden. Den Token beim Benutzer anfragen (`GITHUB_TOKEN`):
+
+```bash
+curl -s -X POST "https://api.github.com/repos/DavidStahl97/Mathematikstudium/pulls" \
+  -H "Authorization: Bearer $GITHUB_TOKEN" \
+  -H "Accept: application/vnd.github.v3+json" \
+  -H "Content-Type: application/json" \
+  -d '{
+    "title": "PR-Titel",
+    "body": "Beschreibung",
+    "head": "<branch>",
+    "base": "main"
+  }' | python3 -c "import sys,json; pr=json.load(sys.stdin); print(pr['html_url'])"
+```
+
+Falls kein Token vorhanden: `https://github.com/DavidStahl97/Mathematikstudium/compare/main...<branch>`
 
 ## LaTeX / GitHub Action
 - TeX-Dateien liegen in `skripte/`
@@ -38,4 +52,4 @@ Die lokale Gitea-Proxy-API unterstützt keine PR-Erstellung. PRs müssen manuell
 1. Action-Runs via API prüfen (`actions/runs` → `jobs`)
 2. Fehlerhafte Steps identifizieren
 3. Fix auf neuem Branch committen und pushen
-4. Benutzer bittet, PR zu mergen (oder Link zum PR-Erstellen schicken)
+4. PR via GitHub API erstellen (Token beim Benutzer anfragen falls nötig)
