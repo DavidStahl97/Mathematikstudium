@@ -11,6 +11,7 @@ Generiert MkDocs-Dokumentation aus der skripte/-Ordnerstruktur.
 
 import os
 import shutil
+import urllib.parse
 import yaml
 from pathlib import Path
 
@@ -29,11 +30,12 @@ def tex_to_title(stem: str) -> str:
     return stem.replace("_", ".").replace("-", " ").title()
 
 
-def build_tree(skripte_path: Path, docs_path: Path) -> list:
+def build_tree(skripte_path: Path, docs_path: Path, site_url: str) -> list:
     """
     Rekursiv Ordner traversieren, .md-Dateien erzeugen, Nav-Liste zurückgeben.
     skripte_path: aktueller Pfad in skripte/
     docs_path:    korrespondierender Pfad in docs/
+    site_url:     absolute Basis-URL der GitHub Pages Site (mit trailing slash)
     """
     items = []
 
@@ -41,7 +43,7 @@ def build_tree(skripte_path: Path, docs_path: Path) -> list:
         if entry.is_dir():
             sub_docs = docs_path / entry.name
             sub_docs.mkdir(parents=True, exist_ok=True)
-            sub_items = build_tree(entry, sub_docs)
+            sub_items = build_tree(entry, sub_docs, site_url)
             if sub_items:
                 items.append({folder_to_title(entry.name): sub_items})
 
@@ -70,6 +72,17 @@ def build_tree(skripte_path: Path, docs_path: Path) -> list:
             rel_pdf_from_dir = os.path.relpath(pdf_dest, docs_path)
             rel_pdf_for_page = "../" + rel_pdf_from_dir
 
+            # Absoluter URL zur PDF (für PDF.js Viewer benötigt)
+            pdf_rel_url = str(rel_from_docs / f"{stem}.pdf").replace("\\", "/")
+            pdf_absolute_url = f"{site_url}assets/pdfs/{pdf_rel_url}"
+            pdf_encoded = urllib.parse.quote(pdf_absolute_url, safe="")
+
+            # Relativer Pfad vom Seitenverzeichnis zum PDF.js Viewer
+            # MkDocs rendert page.md als page/index.html → depth = Tiefe + 1
+            depth = len(rel_from_docs.parts) + 1
+            viewer_prefix = "../" * depth
+            viewer_url = f"{viewer_prefix}assets/pdfjs/web/viewer.html"
+
             # Markdown-Seite generieren
             md_file = docs_path / f"{stem}.md"
             md_content = f"""# {title}
@@ -80,12 +93,12 @@ def build_tree(skripte_path: Path, docs_path: Path) -> list:
 
 <br><br>
 
-<embed
-  src="{rel_pdf_for_page}"
-  type="application/pdf"
+<iframe
+  src="{viewer_url}?file={pdf_encoded}"
   width="100%"
   height="850px"
-/>
+  style="border: none;"
+></iframe>
 """
             md_file.write_text(md_content, encoding="utf-8")
 
@@ -110,9 +123,14 @@ def main():
         encoding="utf-8",
     )
 
+    # site_url für PDF.js-Viewer-Links aus mkdocs.yml lesen
+    with open(MKDOCS_FILE, encoding="utf-8") as f:
+        config = yaml.safe_load(f)
+    site_url = config.get("site_url", "").rstrip("/") + "/"
+
     # Docs-Baum aufbauen
     print("Generiere Docs aus skripte/ ...")
-    nav_skripte = build_tree(SKRIPTE_DIR, DOCS_DIR)
+    nav_skripte = build_tree(SKRIPTE_DIR, DOCS_DIR, site_url)
 
     nav = [{"Home": "index.md"}] + nav_skripte
 

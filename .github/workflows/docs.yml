@@ -44,6 +44,17 @@ jobs:
       - name: Docs generieren (docs/ + mkdocs.yml nav)
         run: python generate_docs.py
 
+      - name: PDF.js herunterladen
+        run: |
+          PDFJS_TAG=$(curl -sf "https://api.github.com/repos/mozilla/pdf.js/releases/latest" \
+            | python3 -c "import sys,json; print(json.load(sys.stdin)['tag_name'])")
+          PDFJS_VERSION=${PDFJS_TAG#v}
+          echo "Lade PDF.js ${PDFJS_TAG} herunter ..."
+          curl -sfL "https://github.com/mozilla/pdf.js/releases/download/${PDFJS_TAG}/pdfjs-${PDFJS_VERSION}-dist.zip" \
+            -o pdfjs.zip
+          unzip -q pdfjs.zip -d docs/assets/pdfjs
+          rm pdfjs.zip
+
       - name: MkDocs bauen
         run: mkdocs build
 
