@@ -3,6 +3,9 @@
 ## Repository
 Mathe-Zusammenfassungen als LaTeX-Skripte, kompiliert zu PDF via GitHub Actions.
 
+## Pfade
+Der Ordner `Mathematikstudium` ist als Workspace freigegeben – immer **relative Pfade** verwenden, nie absolute (kein `D:\source\repos\Mathematikstudium\...`).
+
 ## Git & Push
 - Branch-Schema: `claude/<beschreibung>-<sessionId>`
 - Push mit: `git push -u origin <branch-name>`

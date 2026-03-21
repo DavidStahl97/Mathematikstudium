@@ -1,0 +1,62 @@
+\documentclass[a4paper,12pt]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[ngerman]{babel}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{amsthm}
+\usepackage{enumitem}
+\usepackage{geometry}
+\geometry{a4paper, margin=2.5cm}
+
+\title{Einsendeaufgaben -- Lektion 1\\[0.5em]
+\large Modul 61111: Mathematische Grundlagen}
+\author{}
+\date{}
+
+\begin{document}
+\maketitle
+
+\section*{Aufgabe 1.6}
+
+Sei $A = \mathrm{diag}(a_1, a_2, a_3)$ eine Diagonalmatrix mit paarweise verschiedenen Diagonaleinträgen $a_1, a_2, a_3$ (d.\,h.\ $a_i \neq a_j$ für $i \neq j$).
+
+\textbf{Behauptung:} Jede Matrix $X \in \mathbb{R}^{3 \times 3}$ mit $AX = XA$ ist eine Diagonalmatrix.
+
+\medskip
+\textbf{Beweis:}
+
+Sei $X = (x_{ij})_{1 \le i,j \le 3}$. Wir berechnen $AX$ und $XA$:
+\[
+  AX =
+  \begin{pmatrix} a_1 & 0 & 0 \\ 0 & a_2 & 0 \\ 0 & 0 & a_3 \end{pmatrix}
+  \begin{pmatrix} x_{11} & x_{12} & x_{13} \\ x_{21} & x_{22} & x_{23} \\ x_{31} & x_{32} & x_{33} \end{pmatrix}
+  =
+  \begin{pmatrix} a_1 x_{11} & a_1 x_{12} & a_1 x_{13} \\
+                  a_2 x_{21} & a_2 x_{22} & a_2 x_{23} \\
+                  a_3 x_{31} & a_3 x_{32} & a_3 x_{33} \end{pmatrix},
+\]
+\[
+  XA =
+  \begin{pmatrix} x_{11} & x_{12} & x_{13} \\ x_{21} & x_{22} & x_{23} \\ x_{31} & x_{32} & x_{33} \end{pmatrix}
+  \begin{pmatrix} a_1 & 0 & 0 \\ 0 & a_2 & 0 \\ 0 & 0 & a_3 \end{pmatrix}
+  =
+  \begin{pmatrix} a_1 x_{11} & a_2 x_{12} & a_3 x_{13} \\
+                  a_1 x_{21} & a_2 x_{22} & a_3 x_{23} \\
+                  a_1 x_{31} & a_2 x_{32} & a_3 x_{33} \end{pmatrix}.
+\]
+
+Aus $AX = XA$ folgt durch Vergleich der Einträge für $i \neq j$:
+\[
+  a_i \, x_{ij} = a_j \, x_{ij},
+  \quad\text{also}\quad
+  (a_i - a_j)\, x_{ij} = 0.
+\]
+Da $a_i \neq a_j$ für $i \neq j$ vorausgesetzt ist, folgt $x_{ij} = 0$ für alle $i \neq j$.
+
+Damit ist $X$ eine Diagonalmatrix:
+\[
+  X = \begin{pmatrix} x_{11} & 0 & 0 \\ 0 & x_{22} & 0 \\ 0 & 0 & x_{33} \end{pmatrix}. \qed
+\]
+
+\end{document}

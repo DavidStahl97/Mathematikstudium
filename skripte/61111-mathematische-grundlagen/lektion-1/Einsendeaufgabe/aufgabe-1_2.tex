@@ -1,0 +1,64 @@
+\documentclass[a4paper,12pt]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[ngerman]{babel}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{amsthm}
+\usepackage{enumitem}
+\usepackage{geometry}
+\geometry{a4paper, margin=2.5cm}
+
+\title{Einsendeaufgaben -- Lektion 1\\[0.5em]
+\large Modul 61111: Mathematische Grundlagen}
+\author{}
+\date{}
+
+\begin{document}
+\maketitle
+
+\section*{Aufgabe 1.2}
+
+\begin{enumerate}[label=\alph*)]
+
+\item Behauptung: $\displaystyle\sum_{i=1}^{n} i \cdot 2^i = (n-1)\cdot 2^{n+1} + 2$ für alle $n \in \mathbb{N}$.
+
+\textbf{Induktionsanfang} ($n = 1$):
+\[
+  \sum_{i=1}^{1} i \cdot 2^i = 1 \cdot 2 = 2 = (1-1)\cdot 2^{1+1} + 2 = (n-1)\cdot 2^{n+1} + 2. \checkmark
+\]
+
+\textbf{Induktionsschritt} ($n \to n+1$):
+\begin{align*}
+  \sum_{i=1}^{n+1} i \cdot 2^i
+    &= (n+1)\cdot 2^{n+1} + \sum_{i=1}^{n} i \cdot 2^i \\
+    &\stackrel{\mathrm{I.V.}}{=} (n+1)\cdot 2^{n+1} + (n-1)\cdot 2^{n+1} + 2 \\
+    &= 2^{n+1}\bigl((n+1) + (n-1)\bigr) + 2 \\
+    &= 2^{n+1} \cdot 2n + 2 \\
+    &= \bigl((n+1)-1\bigr)\cdot 2^{(n+1)+1} + 2. \qed
+\end{align*}
+
+\item Behauptung: $6 \mid 7^n - 1$ für alle $n \in \mathbb{N}$.
+
+\textbf{Induktionsanfang} ($n = 1$):
+\[
+  7^1 - 1 = 6, \quad \text{also gilt } 6 \mid 7^1 - 1. \checkmark
+\]
+
+\textbf{Induktionsschritt} ($n \to n+1$): Zu zeigen ist $6 \mid 7^{n+1} - 1$.
+
+Es gilt:
+\begin{align*}
+  7^{n+1} - 1 &= 7^n \cdot 7 - 1
+               = 7^n \cdot 7 - 7 + 6
+               = (7^n - 1) \cdot 7 + 6.
+\end{align*}
+Nach Induktionsvoraussetzung gilt $6 \mid 7^n - 1$.
+Da außerdem $6 \mid 6$ gilt, folgt $6 \mid (7^n - 1) \cdot 7 + 6$,
+denn allgemein gilt: aus $a \mid b$ und $a \mid c$ folgt $a \mid b + c$
+(elementare Zahlentheorie).
+Wegen der Gleichheit $(7^n - 1) \cdot 7 + 6 = 7^{n+1} - 1$ ist die Behauptung bewiesen. \qed
+
+\end{enumerate}
+
+\end{document}
