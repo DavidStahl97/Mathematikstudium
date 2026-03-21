@@ -1,0 +1,61 @@
+\documentclass[a4paper,12pt]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[ngerman]{babel}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{enumitem}
+\usepackage{geometry}
+\geometry{a4paper, margin=2.5cm}
+
+\title{Einsendeaufgaben -- Lektion 3\\[0.5em]
+\large Modul 61111: Mathematische Grundlagen}
+\author{}
+\date{}
+
+\begin{document}
+\maketitle
+
+\section*{Aufgabe 3.3}
+
+\begin{enumerate}[label=\alph*)]
+
+    \item
+    \[
+        f_1(v+w)
+        = \begin{pmatrix}v_1+w_1-v_2-w_2\\2v_1+2w_1\\3v_2+3w_2\end{pmatrix}
+        = \begin{pmatrix}v_1-v_2\\2v_1\\3v_2\end{pmatrix}
+        + \begin{pmatrix}w_1-w_2\\2w_1\\3w_2\end{pmatrix}
+        = f_1(v) + f_1(w)
+    \]
+
+    \[
+        f_1(\lambda v)
+        = \begin{pmatrix}\lambda x - \lambda y\\2\lambda x\\3\lambda y\end{pmatrix}
+        = \lambda \begin{pmatrix}x-y\\2x\\3y\end{pmatrix}
+        = \lambda f_1(v)
+    \]
+
+    $\Rightarrow f_1$ ist eine lineare Abbildung.
+
+    \item keine lineare Abbildung, da
+    \[
+        f_2\!\left(\lambda\begin{pmatrix}x\\y\end{pmatrix}\right)
+        = \begin{pmatrix}\lambda x + \lambda^2 y^2\\2\lambda x\\3\lambda y - 1\end{pmatrix}
+        \neq
+        \begin{pmatrix}\lambda x + \lambda y^2\\2\lambda x\\3\lambda y - \lambda\end{pmatrix}
+        = \lambda f_2\!\left(\begin{pmatrix}x\\y\end{pmatrix}\right)
+    \]
+
+    \item keine lineare Abbildung, da
+    \[
+        f_3\!\left(\lambda\begin{pmatrix}x\\y\end{pmatrix}\right)
+        = \begin{pmatrix}\lambda(x-y)\\2\lambda^2 xy\\3\lambda y\end{pmatrix}
+        \neq
+        \begin{pmatrix}\lambda(x-y)\\2\lambda xy\\3\lambda y\end{pmatrix}
+        = \lambda f_3\!\left(\begin{pmatrix}x\\y\end{pmatrix}\right)
+    \]
+
+\end{enumerate}
+
+\end{document}
