@@ -1,0 +1,48 @@
+\documentclass[a4paper,12pt]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[ngerman]{babel}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{enumitem}
+\usepackage{geometry}
+\geometry{a4paper, margin=2.5cm}
+
+\title{Einsendeaufgaben -- Lektion 4\\[0.5em]
+\large Modul 61111: Mathematische Grundlagen}
+\author{}
+\date{}
+
+\begin{document}
+\maketitle
+
+\section*{Aufgabe 4.6}
+
+Sei $a \in A_1 \cup A_2$ und $b \in B_1 \cap B_2$ beliebig.
+
+\begin{enumerate}[label=\arabic*., start=2]
+
+    \item zu zeigen: $(A_1 \cup A_2) \cup (B_1 \cap B_2) = \mathbb{R}$
+    \begin{align*}
+        (A_1 \cup A_2) \cup (B_1 \cap B_2)
+        &= (A_1 \cup A_2 \cup B_1) \cap (A_1 \cup A_2 \cup B_2) \\
+        &= (A_2 \cup \mathbb{R}) \cap (A_1 \cup \mathbb{R}) = \mathbb{R}
+    \end{align*}
+
+    \item $\forall a \in A_1 \cup A_2\; \forall b \in B_1 \cap B_2 : a \leq b$
+
+    Sei $a \in A_1 \cup A_2$ und $b \in B_1 \cap B_2$ beliebig.
+
+    \underline{Fall 1: $a \in A_1$}
+
+    Da $b \in B_1$ folgt $a \leq b$.
+
+    \underline{Fall 2: $a \in A_2$}
+
+    Da $b \in B_2$ folgt $a \leq b$.
+
+\end{enumerate}
+
+Trennungszahl ist gleich $(A_1 | B_1)$ wenn $A_1 \supseteq A_2$, ansonsten andersrum.
+
+\end{document}
