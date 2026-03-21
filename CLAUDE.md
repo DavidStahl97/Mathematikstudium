@@ -48,6 +48,44 @@ Falls kein Token vorhanden: `https://github.com/DavidStahl97/Mathematikstudium/c
 - `permissions: contents: write` ist nötig für den Release-Upload-Schritt
 - **Nicht** `xu-cheng/latex-action@v3` verwenden – Docker-basiert, fehleranfällig
 
+## Docs-Generierung (GitHub Pages)
+
+### Konzept
+- `docs/` wird **nicht im Repo gespeichert** – steht in `.gitignore`
+- `generate_docs.py` erzeugt `docs/` vollständig aus der `skripte/`-Ordnerstruktur
+- Der Workflow kompiliert LaTeX → generiert Docs → deployed via `mkdocs gh-deploy`
+- Die GitHub Page liegt auf dem `gh-pages`-Branch (automatisch von mkdocs verwaltet)
+
+### Ordnerstruktur in `skripte/`
+```
+skripte/
+└── <modul>/               # z.B. 61111-mathematische-grundlagen
+    └── <lektion>/         # z.B. lektion-1
+        └── <aufgabentyp>/ # z.B. Einsendeaufgabe
+            └── <aufgabe>.tex  # z.B. aufgabe-1_1.tex
+```
+- Ordnernamen werden zu Nav-Titeln: `lektion-1` → `Lektion 1`, `_` → `.` bei Dateinamen
+- `.tex`-Dateien sind die Blätter (Leafs) des Navigationsbaums
+- Jede `.tex`-Datei erzeugt eine Seite mit eingebetteter PDF + Download-Button
+
+### `generate_docs.py`
+- Löscht `docs/` und baut es komplett neu auf
+- Kopiert PDFs nach `docs/assets/pdfs/<relativer-pfad>/`
+- Erstellt `.md`-Seiten mit `<embed>`-Tag für die PDF
+- Aktualisiert den `nav:`-Abschnitt in `mkdocs.yml` automatisch
+- Lokal ausführbar (PDFs müssen vorher in `skripte/` liegen): `python generate_docs.py`
+
+### Workflow-Ablauf (`.github/workflows/latex-compile.yml`)
+1. TeX Live installieren
+2. Alle `.tex` → `.pdf` kompilieren (`pdflatex` zweimal)
+3. `pip install mkdocs-material pyyaml`
+4. `python generate_docs.py`
+5. `mkdocs gh-deploy --force`
+
+### mkdocs.yml
+- Kein `nav:`-Abschnitt im Repo – wird von `generate_docs.py` zur Laufzeit eingefügt
+- Theme: Material, Sprache: de, Features: navigation.tabs, navigation.sections
+
 ## Typischer Fix-Workflow
 1. Action-Runs via API prüfen (`actions/runs` → `jobs`)
 2. Fehlerhafte Steps identifizieren
