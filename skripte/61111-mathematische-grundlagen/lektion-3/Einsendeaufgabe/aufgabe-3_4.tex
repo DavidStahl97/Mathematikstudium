@@ -1,0 +1,89 @@
+\documentclass[a4paper,12pt]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[ngerman]{babel}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{enumitem}
+\usepackage{geometry}
+\geometry{a4paper, margin=2.5cm}
+
+\title{Einsendeaufgaben -- Lektion 3\\[0.5em]
+\large Modul 61111: Mathematische Grundlagen}
+\author{}
+\date{}
+
+\begin{document}
+\maketitle
+
+\section*{Aufgabe 3.4}
+
+\begin{enumerate}[label=\alph*)]
+
+    \setcounter{enumi}{1}
+    \item
+    \glqq$\Rightarrow$\grqq-Richtung:
+
+    Sei $x = y$. Nach der Eigenschaft einer Abbildung folgt direkt $f(x) = f(y)$.
+
+    \medskip
+    \glqq$\Leftarrow$\grqq-Richtung:
+
+    Beweis durch Kontraposition.
+
+    Sei $x \neq y$. Fallunterscheidung nach linearer Unabhängigkeit:
+
+    \medskip
+    \textbf{Fall 1:} $x$ und $y$ sind linear abhängig.
+
+    Es gibt also ein $k \in \mathbb{K}$ mit $k \neq 0$, sodass $y = k \cdot x$. Wegen $x \neq y$ muss ebenfalls $k \neq 1$ gelten.
+
+    Wir definieren eine lineare Abbildung $f: V \to \mathbb{K}$ mit $f$ (für Satz a). Es gilt also $f(x) \neq 0$. Damit können wir folgern:
+    \[
+        f(y) = f(k \cdot x) = k \cdot f(x) \neq f(x)
+    \]
+    wegen $k \neq 0$, $k \neq 1$, $f(x) \neq 0$ und $f(x), f(y) \in \mathbb{K}$.
+
+    \medskip
+    \textbf{Fall 2:} $x$ und $y$ sind linear unabhängig.
+
+    Nach Korollar 7.3.5 lässt sich $x$ und $y$ zu einer Basis $\{v_1, \ldots, x, \ldots, y, \ldots, v_m\}$ ergänzen.
+
+    Da ein Körper aus mindestens zwei Elementen $k_1$ und $k_2$ besteht, definieren wir
+    \[
+        f_B \colon \{v_1, \ldots, x, \ldots, y, \ldots, v_m\} \to \mathbb{K}, \quad
+        v \mapsto \begin{cases} k_1, & v \neq y \\ k_2, & v = y \end{cases}
+    \]
+
+    Wir führen dann $f_B$ zu einer linearen Abbildung $f: V \to \mathbb{K}$ fort.
+
+    Nach der Definition von $f_B$ gilt dann $f(x) \neq f(y)$.
+
+    \item
+    Da $V$ endlich dimensional ist, ist laut der Definition 7.4.1 $\dim(V) = n < \infty$ mit $n \in \mathbb{N}$ oder $\dim(V) = 0$. Demnach eine Fallunterscheidung:
+
+    \medskip
+    \textbf{Fall 1:} $\dim(V) = 0$
+
+    Nach Definition 7.4.1 gilt $V = \{0\}$. Wegen der Voraussetzung $v \neq 0$ für alle $v \in V$ sind keine Fälle zu untersuchen. Die Aussage gilt trivialerweise.
+
+    \medskip
+    \textbf{Fall 2:} $\dim(V) = n < \infty$
+
+    Nach Definition 7.4.1 ist $V$ endlich erzeugt. Nach Proposition 7.2.8 lässt sich das Erzeugendensystem auf eine Basis $v_1, \ldots, v_m$ mit $m \in \mathbb{N}$ reduzieren.
+
+    Nach dem Austauschlemma existiert eine Basis $v_1, \ldots, v_{i-1}, v, v_{i+1}, \ldots, v_m$ mit $1 \leq i \leq m$.
+
+    Da $\dim(V) > 0$ gilt nach der Definition 7.4.1 $W \neq \{0\}$, also existiert ein $w_0 \in W$ mit $w_0 \neq 0$.
+
+    Wir definieren jetzt die Abbildung der Basisvektoren:
+    \[
+        f_B \colon \{v_1, \ldots, v_{i-1}, v, v_{i+1}, \ldots, v_m\} \to W, \quad
+        v \mapsto w_0
+    \]
+
+    $f_B$ lässt sich zu einer linearen Abbildung $f: V \to W$ fortsetzen. Da $f(v) = w_0 \neq 0$ gilt, stimmt die Aussage auch im zweiten Fall $\dim(V) = n < \infty$.
+
+\end{enumerate}
+
+\end{document}
