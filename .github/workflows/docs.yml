@@ -1,0 +1,88 @@
+name: GitHub Pages mit MkDocs deployen
+
+on:
+  push:
+    branches: [main, master]
+    paths:
+      - 'skripte/**.tex'
+      - 'docs/**'
+      - 'mkdocs.yml'
+      - '.github/workflows/docs.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  build-and-deploy:
+    name: PDFs kompilieren und Seite deployen
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Repository auschecken
+        uses: actions/checkout@v4
+
+      - name: TeX Live installieren
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y \
+            texlive-latex-base \
+            texlive-latex-extra \
+            texlive-lang-german \
+            texlive-fonts-recommended
+
+      - name: Alle .tex-Dateien zu PDFs kompilieren
+        run: |
+          mkdir -p docs/pdfs
+          for texfile in skripte/*.tex; do
+            basename=$(basename "$texfile" .tex)
+            echo "Kompiliere $texfile ..."
+            cd skripte
+            pdflatex -interaction=nonstopmode -file-line-error "$basename.tex"
+            pdflatex -interaction=nonstopmode -file-line-error "$basename.tex"
+            cd ..
+            cp "skripte/$basename.pdf" "docs/pdfs/$basename.pdf"
+            echo "  -> docs/pdfs/$basename.pdf"
+          done
+
+      - name: pdfs.md dynamisch generieren
+        run: |
+          cat > docs/pdfs.md << 'MARKDOWNEOF'
+          # Skripte (PDF)
+
+          Alle verfügbaren mathematischen Skripte als PDF zum Download und zur Ansicht.
+
+          MARKDOWNEOF
+
+          for pdffile in docs/pdfs/*.pdf; do
+            basename=$(basename "$pdffile" .pdf)
+            # Dateiname lesbarer machen (Unterstriche -> Leerzeichen)
+            display=$(echo "$basename" | sed 's/_/ /g' | sed 's/\b./\u&/g')
+            cat >> docs/pdfs.md << ENTRY
+
+          ## $display
+
+          <a href="pdfs/$basename.pdf" target="_blank" class="md-button md-button--primary">
+            PDF ansehen / herunterladen
+          </a>
+
+          <iframe src="pdfs/$basename.pdf" width="100%" height="800px" style="border: 1px solid #ccc; border-radius: 4px; margin-top: 8px;">
+            <p>Ihr Browser unterstützt keine eingebetteten PDFs.
+            <a href="pdfs/$basename.pdf">PDF herunterladen</a>.</p>
+          </iframe>
+
+          ENTRY
+          done
+
+          echo "" >> docs/pdfs.md
+          echo "> Zuletzt aktualisiert: $(date '+%d.%m.%Y %H:%M') UTC" >> docs/pdfs.md
+
+      - name: Python und MkDocs einrichten
+        run: |
+          pip install mkdocs-material
+
+      - name: MkDocs bauen und auf gh-pages deployen
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          mkdocs gh-deploy --force
