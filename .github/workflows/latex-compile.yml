@@ -3,19 +3,15 @@ name: Docs generieren und deployen
 on:
   push:
     branches: [main, master]
-    paths:
-      - 'skripte/**'
-      - 'generate_docs.py'
-      - 'mkdocs.yml'
-      - '.github/workflows/latex-compile.yml'
+  pull_request:
   workflow_dispatch:
 
 permissions:
   contents: write
 
 jobs:
-  build-and-deploy:
-    name: LaTeX kompilieren, Docs generieren, GitHub Pages deployen
+  build:
+    name: LaTeX kompilieren und Docs generieren
     runs-on: ubuntu-latest
 
     steps:
@@ -48,10 +44,21 @@ jobs:
       - name: Docs generieren (docs/ + mkdocs.yml nav)
         run: python generate_docs.py
 
-      - name: Git-Nutzer konfigurieren
+      - name: MkDocs bauen
+        run: mkdocs build
+
+      - name: HTML-Seite als Artefakt hochladen
+        uses: actions/upload-artifact@v4
+        with:
+          name: docs-site
+          path: site/
+
+      - name: Git konfigurieren
+        if: github.ref == 'refs/heads/main' || github.ref == 'refs/heads/master'
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
 
-      - name: GitHub Pages deployen
+      - name: Deploy zu gh-pages
+        if: github.ref == 'refs/heads/main' || github.ref == 'refs/heads/master'
         run: mkdocs gh-deploy --force
