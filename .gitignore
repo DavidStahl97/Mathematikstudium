@@ -1,0 +1,15 @@
+# Generierte Docs (werden in der GitHub Action erzeugt)
+docs/
+
+# LaTeX-Hilfsdateien
+*.aux
+*.log
+*.toc
+*.out
+*.synctex.gz
+
+# Kompilierte PDFs (werden in der Action erzeugt)
+skripte/**/*.pdf
+
+# MkDocs Site-Output (lokal)
+site/
