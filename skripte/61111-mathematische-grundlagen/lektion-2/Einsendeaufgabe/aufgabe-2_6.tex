@@ -1,0 +1,53 @@
+\documentclass[a4paper,12pt]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[ngerman]{babel}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{enumitem}
+\usepackage{geometry}
+\geometry{a4paper, margin=2.5cm}
+
+\title{Einsendeaufgaben -- Lektion 2\\[0.5em]
+\large Modul 61111: Mathematische Grundlagen}
+\author{}
+\date{}
+
+\begin{document}
+\maketitle
+
+\section*{Aufgabe 2.6}
+
+Sei $S \subseteq V$. Zu zeigen: $S$ ist Unterraum von $V$ $\iff$ $S = \langle S \rangle$.
+
+\bigskip
+\noindent\textbf{($\Rightarrow$)} Sei $S$ Unterraum von $V$. Zu zeigen: $S = \langle S \rangle$.
+
+Per Kontraposition: Angenommen $S \neq \langle S \rangle$, dann existiert ein
+$v \in \langle S \rangle$ mit $v \notin S$. Da $v$ als Linearkombination
+\[
+  v = \sum_{n} a_n x_n, \quad x_n \in S,
+\]
+dargestellt werden kann, aber $v \notin S$, ist $S$ nicht abgeschlossen unter
+Linearkombinationen und daher kein Unterraum. (Widerspruch)
+
+Die drei Unterraumeigenschaften zeigen $\langle S \rangle \subseteq S$ direkt:
+\begin{enumerate}[label=\arabic*.]
+  \item $0$ liegt immer in $\langle S \rangle$ (als leere Summe), also auch $0 \in S$.
+
+  \item Sei $v, w \in S$. Wegen $S = \langle S \rangle$ folgt, dass $v + w$ als
+  Linearkombination von Elementen aus $S$ dargestellt werden kann
+  (mit Koeffizienten $1$ und $1$), also $v + w \in \langle S \rangle = S$.
+
+  \item Sei $v \in S$ und $\lambda \in K$. Dann gilt:
+  \[
+    \lambda v = \lambda \sum_{n} a_n x_n = \sum_{n} (\lambda a_n) x_n
+    \implies \lambda v \in \langle S \rangle \implies \lambda v \in S.
+  \]
+\end{enumerate}
+
+\bigskip
+\noindent\textbf{($\Leftarrow$)} Sei $S = \langle S \rangle$. Da $\langle S \rangle$
+stets ein Unterraum ist, ist auch $S$ ein Unterraum.
+
+\end{document}

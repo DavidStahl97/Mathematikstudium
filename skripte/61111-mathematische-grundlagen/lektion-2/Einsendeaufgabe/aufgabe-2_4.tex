@@ -1,0 +1,73 @@
+\documentclass[a4paper,12pt]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[ngerman]{babel}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{enumitem}
+\usepackage{geometry}
+\geometry{a4paper, margin=2.5cm}
+
+\title{Einsendeaufgaben -- Lektion 2\\[0.5em]
+\large Modul 61111: Mathematische Grundlagen}
+\author{}
+\date{}
+
+\begin{document}
+\maketitle
+
+\section*{Aufgabe 2.4}
+
+\begin{enumerate}[label=\alph*)]
+
+\item $U_1$ ist \textbf{kein Unterraum}. Zum Beispiel gilt
+\[
+  -1 \cdot \begin{pmatrix}1 & b \\ c & d\end{pmatrix} \notin U_1.
+\]
+
+\item $U_2$ ist ein \textbf{Unterraum}, da:
+
+\begin{enumerate}[label=\arabic*.]
+  \item $0 \in U_2$, da $2 \cdot 0 - 0 = 0$ und $0 + 0 + 0 = 0$.
+
+  \item Zu zeigen: $\forall A, B \in U_2 : A + B \in U_2$.\\
+  Sei $A = \begin{pmatrix}a & b \\ c & d\end{pmatrix}$ und
+  $B = \begin{pmatrix}e & f \\ g & h\end{pmatrix}$ beliebig.
+  Dann gilt $A + B \in U_2$, da:
+  \begin{align*}
+    2(a+e) - (b+f) &= (2a-b) + (2e-f) = 0 + 0 = 0, \\
+    (a+e) + (b+f) + (c+g) &= (a+b+c) + (e+f+g) = 0 + 0 = 0.
+  \end{align*}
+
+  \item Zu zeigen: $\forall A \in U_2,\, \forall \lambda \in \mathbb{R} : \lambda A \in U_2$.\\
+  Sei $A = \begin{pmatrix}a & b \\ c & d\end{pmatrix}$ und $\lambda \in \mathbb{R}$ beliebig.
+  Dann gilt $\lambda A \in U_2$, da:
+  \begin{align*}
+    2\lambda a - \lambda b &= \lambda(2a - b) = \lambda \cdot 0 = 0, \\
+    \lambda a + \lambda b + \lambda c &= \lambda(a + b + c) = \lambda \cdot 0 = 0.
+  \end{align*}
+\end{enumerate}
+
+\item $U_3$ ist \textbf{kein Unterraum}. Gegenbeispiel:
+\[
+  \begin{pmatrix}a & 1 \\ c & 0\end{pmatrix},\;
+  \begin{pmatrix}a & 0 \\ c & 1\end{pmatrix} \in U_3,
+  \quad\text{aber}\quad
+  \begin{pmatrix}a & 1 \\ c & 0\end{pmatrix}
+  + \begin{pmatrix}a & 0 \\ c & 1\end{pmatrix}
+  = \begin{pmatrix}2a & 1 \\ 2c & 1\end{pmatrix} \notin U_3.
+\]
+
+\item $U_4$ ist \textbf{kein Unterraum}. Gegenbeispiel:
+\[
+  \begin{pmatrix}0 & 0 \\ 1 & d\end{pmatrix},\;
+  \begin{pmatrix}0 & 1 \\ -1 & d\end{pmatrix} \in U_4,
+  \quad\text{aber}\quad
+  \begin{pmatrix}0 & 0 \\ 1 & d\end{pmatrix}
+  + \begin{pmatrix}0 & 1 \\ -1 & d\end{pmatrix}
+  = \begin{pmatrix}0 & 1 \\ 0 & 2d\end{pmatrix} \notin U_4.
+\]
+
+\end{enumerate}
+
+\end{document}

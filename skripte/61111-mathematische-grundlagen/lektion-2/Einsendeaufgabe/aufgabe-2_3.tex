@@ -1,0 +1,46 @@
+\documentclass[a4paper,12pt]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[ngerman]{babel}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{enumitem}
+\usepackage{geometry}
+\geometry{a4paper, margin=2.5cm}
+
+\title{Einsendeaufgaben -- Lektion 2\\[0.5em]
+\large Modul 61111: Mathematische Grundlagen}
+\author{}
+\date{}
+
+\begin{document}
+\maketitle
+
+\section*{Aufgabe 2.3}
+
+\begin{enumerate}[label=\alph*)]
+
+\item Sei $\lambda \in K \setminus \{0\}$ und $v, w \in V$ beliebig. Setze
+\[
+  x := \frac{v - w}{\lambda}.
+\]
+Dann folgt:
+\[
+  \lambda x + w = \lambda \cdot \frac{v - w}{\lambda} + w = v - w + w = v. \qquad \checkmark
+\]
+
+\item Gilt \textbf{nicht}. Gegenbeispiel:
+\[
+  V = \mathbb{R}^2, \quad v = \begin{pmatrix}1\\0\end{pmatrix}, \quad w = \begin{pmatrix}0\\1\end{pmatrix}.
+\]
+Es ist $\lambda v = \begin{pmatrix}\lambda\\0\end{pmatrix} \neq \begin{pmatrix}0\\1\end{pmatrix}$ für alle $\lambda \in \mathbb{R}$.
+
+\item Sei $\lambda \in K \setminus \{0\}$ und $v \in V$ mit $\lambda v = 0$ beliebig.
+Wegen $\lambda \neq 0$ folgt:
+\[
+  v = \frac{0}{\lambda} = 0.
+\]
+
+\end{enumerate}
+
+\end{document}

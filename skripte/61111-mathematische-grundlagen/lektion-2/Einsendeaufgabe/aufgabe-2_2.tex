@@ -1,0 +1,97 @@
+\documentclass[a4paper,12pt]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[ngerman]{babel}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{enumitem}
+\usepackage{geometry}
+\geometry{a4paper, margin=2.5cm}
+
+\title{Einsendeaufgaben -- Lektion 2\\[0.5em]
+\large Modul 61111: Mathematische Grundlagen}
+\author{}
+\date{}
+
+\begin{document}
+\maketitle
+
+\section*{Aufgabe 2.2}
+
+Gauß-Elimination auf der erweiterten Koeffizientenmatrix:
+
+\[
+\left(\begin{array}{ccc|c}
+2 & 4 & 2 & 12t \\
+2 & 12 & 7 & 12t+7 \\
+1 & 10 & 6 & 7t+8
+\end{array}\right)
+\xrightarrow{Z_{2,1}(-1),\; Z_{3,1}\!\left(-\tfrac{1}{2}\right)}
+\left(\begin{array}{ccc|c}
+2 & 4 & 2 & 12t \\
+0 & 8 & 5 & 7 \\
+0 & 8 & 5 & t+8
+\end{array}\right)
+\xrightarrow{Z_{3,2}(-1)}
+\left(\begin{array}{ccc|c}
+2 & 4 & 2 & 12t \\
+0 & 8 & 5 & 7 \\
+0 & 0 & 0 & t+1
+\end{array}\right)
+\]
+
+Damit das Gleichungssystem lösbar ist, muss $t + 1 = 0$, also $t = -1$.
+
+\bigskip
+\noindent\textbf{Dann sei $t = -1$:}
+
+\[
+\left(\begin{array}{ccc|c}
+2 & 4 & 2 & -12 \\
+0 & 8 & 5 & 7 \\
+0 & 0 & 0 & 0
+\end{array}\right)
+\xrightarrow{Z_1\!\left(\tfrac{1}{2}\right),\; Z_2\!\left(\tfrac{1}{8}\right)}
+\left(\begin{array}{ccc|c}
+1 & 2 & 1 & -6 \\
+0 & 1 & \tfrac{5}{8} & \tfrac{7}{8} \\
+0 & 0 & 0 & 0
+\end{array}\right)
+\xrightarrow{Z_{1,2}(-2)}
+\left(\begin{array}{ccc|c}
+1 & 0 & -\tfrac{1}{4} & -\tfrac{31}{4} \\
+0 & 1 & \tfrac{5}{8} & \tfrac{7}{8} \\
+0 & 0 & 0 & 0
+\end{array}\right)
+\]
+
+Eine partikuläre Lösung (mit $x_3 = 0$):
+\[
+d = \begin{pmatrix}-\tfrac{31}{4}\\\tfrac{7}{8}\\0\end{pmatrix}.
+\]
+
+\noindent\textbf{Lösung der homogenen Gleichung} ($x_3$ frei):
+\[
+\left(\begin{array}{ccc}
+1 & 0 & -\tfrac{1}{4} \\
+0 & 1 & \tfrac{5}{8} \\
+0 & 0 & 0
+\end{array}\right)
+\implies
+\mathcal{U} = \left\{
+a_1 \begin{pmatrix}-\tfrac{1}{4}\\\tfrac{5}{8}\\-1\end{pmatrix}
+\;\middle|\; a_1 \in \mathbb{R}
+\right\}.
+\]
+
+Die vollständige Lösungsmenge ist:
+\[
+\mathcal{L} = d + \mathcal{U}
+= \left\{
+\begin{pmatrix}-\tfrac{31}{4}\\\tfrac{7}{8}\\0\end{pmatrix}
++ a_1 \begin{pmatrix}-\tfrac{1}{4}\\\tfrac{5}{8}\\-1\end{pmatrix}
+\;\middle|\; a_1 \in \mathbb{R}
+\right\}.
+\]
+
+\end{document}
