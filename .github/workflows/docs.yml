@@ -15,67 +15,32 @@ permissions:
 
 jobs:
   build-and-deploy:
-    name: PDFs kompilieren und Seite deployen
+    name: LaTeX zu HTML konvertieren und Seite deployen
     runs-on: ubuntu-latest
 
     steps:
       - name: Repository auschecken
         uses: actions/checkout@v4
 
-      - name: TeX Live installieren
+      - name: Pandoc installieren
         run: |
           sudo apt-get update
-          sudo apt-get install -y \
-            texlive-latex-base \
-            texlive-latex-extra \
-            texlive-lang-german \
-            texlive-fonts-recommended
+          sudo apt-get install -y pandoc
 
-      - name: Alle .tex-Dateien zu PDFs kompilieren
+      - name: LaTeX-Dateien zu Markdown konvertieren
         run: |
-          mkdir -p docs/pdfs
+          mkdir -p docs/skripte
           for texfile in skripte/*.tex; do
+            [ -f "$texfile" ] || continue
             basename=$(basename "$texfile" .tex)
-            echo "Kompiliere $texfile ..."
-            cd skripte
-            pdflatex -interaction=nonstopmode -file-line-error "$basename.tex"
-            pdflatex -interaction=nonstopmode -file-line-error "$basename.tex"
-            cd ..
-            cp "skripte/$basename.pdf" "docs/pdfs/$basename.pdf"
-            echo "  -> docs/pdfs/$basename.pdf"
+            echo "Konvertiere $texfile -> docs/skripte/$basename.md ..."
+            pandoc "$texfile" \
+              --from=latex \
+              --to=markdown+tex_math_dollars \
+              --wrap=none \
+              --output="docs/skripte/$basename.md"
+            echo "  -> OK"
           done
-
-      - name: pdfs.md dynamisch generieren
-        run: |
-          cat > docs/pdfs.md << 'MARKDOWNEOF'
-          # Skripte (PDF)
-
-          Alle verfügbaren mathematischen Skripte als PDF zum Download und zur Ansicht.
-
-          MARKDOWNEOF
-
-          for pdffile in docs/pdfs/*.pdf; do
-            basename=$(basename "$pdffile" .pdf)
-            # Dateiname lesbarer machen (Unterstriche -> Leerzeichen)
-            display=$(echo "$basename" | sed 's/_/ /g' | sed 's/\b./\u&/g')
-            cat >> docs/pdfs.md << ENTRY
-
-          ## $display
-
-          <a href="$basename.pdf" target="_blank" class="md-button md-button--primary">
-            PDF ansehen / herunterladen
-          </a>
-
-          <iframe src="$basename.pdf" width="100%" height="800px" style="border: 1px solid #ccc; border-radius: 4px; margin-top: 8px;">
-            <p>Ihr Browser unterstützt keine eingebetteten PDFs.
-            <a href="$basename.pdf">PDF herunterladen</a>.</p>
-          </iframe>
-
-          ENTRY
-          done
-
-          echo "" >> docs/pdfs.md
-          echo "> Zuletzt aktualisiert: $(date '+%d.%m.%Y %H:%M') UTC" >> docs/pdfs.md
 
       - name: Python und MkDocs einrichten
         run: |
