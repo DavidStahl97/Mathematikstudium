@@ -1,0 +1,76 @@
+\documentclass[a4paper,12pt]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[ngerman]{babel}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{enumitem}
+\usepackage{geometry}
+\geometry{a4paper, margin=2.5cm}
+
+\title{Einsendeaufgaben -- Lektion 3\\[0.5em]
+\large Modul 61111: Mathematische Grundlagen}
+\author{}
+\date{}
+
+\begin{document}
+\maketitle
+
+\section*{Aufgabe 3.1}
+
+\begin{enumerate}[label=\alph*)]
+
+    \item
+    \[
+        a_1(-u) + a_2(u+v+w)
+        = (-a_1+a_2)\,u + a_2\,v + a_2\,w = 0
+    \]
+    Da $u,v,w$ linear unabhängig ist, muss $a_2 = 0$ sein.
+    Außerdem muss $-a_1+a_2 = 0$ sein. Wegen $a_2 = 0$
+    muss $a_1 = 0$ sein.
+
+    $\Rightarrow$ $-u$, $u+v+w$ sind linear unabhängig.
+
+    \item
+    \[
+        a_1(u+v) + a_2(v+w) + a_3(v-w)
+        = a_1\,u + (-a_1+a_2+a_3)\,v + (a_2-a_3)\,w
+        = 0
+    \]
+    Wegen linearer Unabhängigkeit muss $a_1 = 0$ sein.
+    Aus $-a_1+a_2+a_3 = a_2+a_3 = 0$
+    und $a_2 = a_3$ wegen $a_2-a_3 = 0$
+    folgt $a_2 = a_3 = 0$.
+
+    $\Rightarrow$ $u+v$, $v+w$, $v-w$ linear unabhängig.
+
+    \item
+    \[
+        a_1(u-v) + a_2(u-w) + a_3(v+w)
+        = (a_1+a_2)\,u + (-a_1+a_3)\,v + (-a_2+a_3)\,w
+    \]
+    Gleichungssystem aufstellen:
+    \[
+        \begin{pmatrix} 1 & 1 & 0 \\ -1 & 0 & 1 \\ 0 & -1 & 1 \end{pmatrix}
+        \begin{pmatrix} a_1 \\ a_2 \\ a_3 \end{pmatrix} = \mathbf{0}
+    \]
+    L\"{o}sung durch Zeilenumformungen:
+    \[
+        \begin{pmatrix} 1 & 1 & 0 \\ -1 & 0 & 1 \\ 0 & -1 & 1 \end{pmatrix}
+        \;\Big|\; Z_{2+1}(1)
+        \longrightarrow
+        \begin{pmatrix} 1 & 1 & 0 \\ 0 & 1 & 1 \\ 0 & -1 & 1 \end{pmatrix}
+        \;\Big|\; Z_{3+2}(1)
+        \longrightarrow
+        \begin{pmatrix} 1 & 1 & 0 \\ 0 & 1 & 1 \\ 0 & 0 & 2 \end{pmatrix}
+    \]
+    $\Rightarrow$ 3 Pivot-Positionen
+
+    $\Rightarrow$ Die homogene Gleichung besitzt nur die triviale L\"{o}sung
+    $a_1 = a_2 = a_3 = 0$
+
+    $\Rightarrow$ $u-v$, $u-w$, $v+w$ ist linear unabhängig.
+
+\end{enumerate}
+
+\end{document}
