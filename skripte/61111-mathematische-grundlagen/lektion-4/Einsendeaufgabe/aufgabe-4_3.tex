@@ -1,0 +1,43 @@
+\documentclass[a4paper,12pt]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[ngerman]{babel}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{enumitem}
+\usepackage{geometry}
+\geometry{a4paper, margin=2.5cm}
+
+\title{Einsendeaufgaben -- Lektion 4\\[0.5em]
+\large Modul 61111: Mathematische Grundlagen}
+\author{}
+\date{}
+
+\begin{document}
+\maketitle
+
+\section*{Aufgabe 4.3}
+
+\begin{enumerate}[label=\alph*)]
+
+    \item
+    \[
+        \lim_{n \to \infty} \frac{n^3 + 2n - 5}{5n^3 + n^2}
+        = \lim_{n \to \infty} \frac{1 + \dfrac{2}{n^2} - \dfrac{5}{n^3}}{5 + \dfrac{1}{n}}
+        = \frac{1}{5}
+    \]
+
+    \item
+    Da die Folge $(b_n)$ mit $b_n = (-1)^n$ beschränkt ist und die Folge $(a_n)$
+    mit $a_n = \dfrac{n}{3n^2 - 2}$ eine Nullfolge ist,
+    folgt mit Proposition 13.4.9, dass $(a_n \cdot b_n)$ ebenfalls eine Nullfolge ist.
+
+    Also:
+    \[
+        \lim_{n \to \infty} \frac{(-1)^n \, n}{3n^2 - 2}
+        = \lim_{n \to \infty} b_n \cdot a_n = 0
+    \]
+
+\end{enumerate}
+
+\end{document}
