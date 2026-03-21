@@ -16,16 +16,9 @@ theme:
     - search.highlight
     - content.code.copy
 
-markdown_extensions:
-  - pymdownx.arithmatex:
-      generic: true
-  - admonition
-  - pymdownx.details
-  - pymdownx.superfences
-
-extra_javascript:
-  - javascripts/mathjax.js
-  - https://unpkg.com/mathjax@3/es5/tex-mml-chtml.js
+nav:
+  - Home: index.md
+  - Skripte (PDF): pdfs.md
 
 plugins:
   - search
