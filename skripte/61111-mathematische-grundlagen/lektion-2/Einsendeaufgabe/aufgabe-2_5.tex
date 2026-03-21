@@ -1,0 +1,65 @@
+\documentclass[a4paper,12pt]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[ngerman]{babel}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{enumitem}
+\usepackage{geometry}
+\geometry{a4paper, margin=2.5cm}
+
+\title{Einsendeaufgaben -- Lektion 2\\[0.5em]
+\large Modul 61111: Mathematische Grundlagen}
+\author{}
+\date{}
+
+\begin{document}
+\maketitle
+
+\section*{Aufgabe 2.5}
+
+Sei $A$ die Matrix mit den gegebenen Vektoren als Zeilen:
+\[
+A = \begin{pmatrix}1 & 1 & 1 \\ 2t & t & 2 \\ 0 & t+2 & 2t\end{pmatrix}.
+\]
+
+\noindent\textbf{Fall $t \neq 0$:}
+
+\[
+A
+\xrightarrow{Z_{2,1}(-2t)}
+\begin{pmatrix}1 & 1 & 1 \\ 0 & -t & 2-2t \\ 0 & t+2 & 2t\end{pmatrix}
+\xrightarrow{Z_{3,2}(1)}
+\begin{pmatrix}1 & 1 & 1 \\ 0 & -t & 2-2t \\ 0 & 2 & 2\end{pmatrix}
+\]
+
+\[
+\xrightarrow{Z_2\!\left(-\tfrac{1}{t}\right),\; Z_3\!\left(\tfrac{1}{2}\right)}
+\begin{pmatrix}1 & 1 & 1 \\ 0 & 1 & \tfrac{2}{t}-2 \\ 0 & 1 & 1\end{pmatrix}
+\xrightarrow{Z_{3,2}(-1)}
+\begin{pmatrix}1 & 1 & 1 \\ 0 & 1 & \tfrac{2}{t}-2 \\ 0 & 0 & 3-\tfrac{2}{t}\end{pmatrix}
+\]
+
+\[
+\xrightarrow{Z_{1,2}(-1),\; Z_{2,3}\!\left(-\tfrac{2}{t}+2\right),\; Z_3\!\left(\tfrac{t}{3t-2}\right)}
+\begin{pmatrix}1 & 0 & 0 \\ 0 & 1 & 0 \\ 0 & 0 & 1\end{pmatrix}
+\]
+
+Die Matrix besitzt 3 Pivot-Positionen. Folglich erzeugt die Teilmenge für alle
+$t \in \mathbb{R} \setminus \{0\}$ ganz $\mathbb{R}^3$.
+
+\bigskip
+\noindent\textbf{Fall $t = 0$:}
+
+\[
+A\big|_{t=0} = \begin{pmatrix}1 & 1 & 1 \\ 0 & 0 & 2 \\ 0 & 2 & 0\end{pmatrix}
+\xrightarrow{\text{Zeilentausch}}
+\begin{pmatrix}1 & 1 & 1 \\ 0 & 2 & 0 \\ 0 & 0 & 2\end{pmatrix}.
+\]
+
+Auch hier besitzt die Matrix 3 Pivot-Positionen, die Teilmenge erzeugt also ganz $\mathbb{R}^3$.
+
+\bigskip
+Also gilt für alle $t \in \mathbb{R}$, dass die Teilmenge ganz $\mathbb{R}^3$ erzeugt.
+
+\end{document}
