@@ -2,16 +2,15 @@
 
 Willkommen zu den mathematischen Zusammenfassungen und Skripten.
 
-Die Inhalte werden automatisch aus LaTeX-Quellen kompiliert und direkt im Browser angezeigt – mit vollständiger Formeldarstellung via MathJax und korrekten Theorem-Umgebungen.
+Diese Seite enthält kompilierte LaTeX-Dokumente als PDF, die automatisch über GitHub Actions erzeugt werden.
 
 ## Verfügbare Skripte
 
-Die Skripte sind über die Navigation erreichbar.
+Alle Skripte sind auf der Seite [Skripte (PDF)](pdfs.md) verfügbar.
 
 ## Über dieses Projekt
 
-- Quelldateien: LaTeX-Dokumente in `skripte/`
-- Bei jedem Push auf `main` automatisch neu kompiliert (`make4ht`)
-- Mathematische Formeln werden via **MathJax** gerendert
+Die Quelldateien liegen als LaTeX-Dokumente im Ordner `skripte/` des Repositories.
+Bei jedem Push auf den `main`-Branch werden die PDFs automatisch neu kompiliert und diese Seite aktualisiert.
 
 [Zum GitHub-Repository](https://github.com/DavidStahl97/Mathematikstudium){ .md-button }
