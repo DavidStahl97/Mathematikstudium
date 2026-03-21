@@ -2,15 +2,16 @@
 
 Willkommen zu den mathematischen Zusammenfassungen und Skripten.
 
-Diese Seite enthält kompilierte LaTeX-Dokumente als PDF, die automatisch über GitHub Actions erzeugt werden.
+Die Inhalte werden automatisch aus LaTeX-Quellen generiert und direkt im Browser mit vollständiger Mathematik-Darstellung angezeigt.
 
 ## Verfügbare Skripte
 
-Alle Skripte sind auf der Seite [Skripte (PDF)](pdfs.md) verfügbar.
+Die Skripte sind über die Navigation erreichbar (Reiter **Skripte**).
 
 ## Über dieses Projekt
 
-Die Quelldateien liegen als LaTeX-Dokumente im Ordner `skripte/` des Repositories.
-Bei jedem Push auf den `main`-Branch werden die PDFs automatisch neu kompiliert und diese Seite aktualisiert.
+- Quelldateien liegen als LaTeX-Dokumente im Ordner `skripte/`
+- Bei jedem Push auf `main` werden die Seiten automatisch neu generiert
+- Mathematische Formeln werden via **MathJax** gerendert
 
 [Zum GitHub-Repository](https://github.com/DavidStahl97/Mathematikstudium){ .md-button }
