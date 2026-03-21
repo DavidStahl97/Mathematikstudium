@@ -1,22 +1,21 @@
-name: LaTeX kompilieren
+name: Docs generieren und deployen
 
 on:
   push:
     branches: [main, master]
     paths:
       - 'skripte/**'
+      - 'generate_docs.py'
+      - 'mkdocs.yml'
       - '.github/workflows/latex-compile.yml'
-  pull_request:
-    paths:
-      - 'skripte/**'
   workflow_dispatch:
 
 permissions:
   contents: write
 
 jobs:
-  compile-latex:
-    name: LaTeX zu PDF kompilieren
+  build-and-deploy:
+    name: LaTeX kompilieren, Docs generieren, GitHub Pages deployen
     runs-on: ubuntu-latest
 
     steps:
@@ -43,9 +42,16 @@ jobs:
               pdflatex -interaction=nonstopmode -file-line-error "$basename.tex")
           done
 
-      - name: PDFs als Artefakt hochladen
-        uses: actions/upload-artifact@v4
-        with:
-          name: mathematik-pdfs
-          path: skripte/**/*.pdf
-          retention-days: 30
+      - name: Python und MkDocs installieren
+        run: pip install mkdocs-material pyyaml
+
+      - name: Docs generieren (docs/ + mkdocs.yml nav)
+        run: python generate_docs.py
+
+      - name: Git-Nutzer konfigurieren
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+
+      - name: GitHub Pages deployen
+        run: mkdocs gh-deploy --force

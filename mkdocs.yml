@@ -16,12 +16,7 @@ theme:
     - search.highlight
     - content.code.copy
 
-nav:
-  - Home: index.md
-  - 61111 Mathematische Grundlagen:
-    - Lektion 1:
-      - Einsendeaufgaben:
-        - Aufgabe 1.1: 61111-mathematische-grundlagen/lektion-1/einsendeaufgaben/aufgabe-1-1.md
+# nav wird von generate_docs.py automatisch generiert
 
 plugins:
   - search
