@@ -62,13 +62,13 @@ jobs:
 
           ## $display
 
-          <a href="pdfs/$basename.pdf" target="_blank" class="md-button md-button--primary">
+          <a href="$basename.pdf" target="_blank" class="md-button md-button--primary">
             PDF ansehen / herunterladen
           </a>
 
-          <iframe src="pdfs/$basename.pdf" width="100%" height="800px" style="border: 1px solid #ccc; border-radius: 4px; margin-top: 8px;">
+          <iframe src="$basename.pdf" width="100%" height="800px" style="border: 1px solid #ccc; border-radius: 4px; margin-top: 8px;">
             <p>Ihr Browser unterstützt keine eingebetteten PDFs.
-            <a href="pdfs/$basename.pdf">PDF herunterladen</a>.</p>
+            <a href="$basename.pdf">PDF herunterladen</a>.</p>
           </iframe>
 
           ENTRY
