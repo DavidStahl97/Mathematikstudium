@@ -43,9 +43,9 @@ Falls kein Token vorhanden: `https://github.com/DavidStahl97/Mathematikstudium/c
 
 ## LaTeX / GitHub Action
 - TeX-Dateien liegen in `skripte/`
-- Workflow: `.github/workflows/latex-compile.yml`
+- Workflow: `.github/workflows/docs.yml`
 - Kompilierung via `apt-get install texlive-*` + `pdflatex` (zweimal für ToC)
-- `permissions: contents: write` ist nötig für den Release-Upload-Schritt
+- `permissions: contents: write` ist nötig für den gh-deploy-Schritt
 - **Nicht** `xu-cheng/latex-action@v3` verwenden – Docker-basiert, fehleranfällig
 
 ## Docs-Generierung (GitHub Pages)
@@ -75,12 +75,14 @@ skripte/
 - Aktualisiert den `nav:`-Abschnitt in `mkdocs.yml` automatisch
 - Lokal ausführbar (PDFs müssen vorher in `skripte/` liegen): `python generate_docs.py`
 
-### Workflow-Ablauf (`.github/workflows/latex-compile.yml`)
+### Workflow-Ablauf (`.github/workflows/docs.yml`)
+- Trigger: bei jedem PR und bei Push auf `main`/`master`
 1. TeX Live installieren
 2. Alle `.tex` → `.pdf` kompilieren (`pdflatex` zweimal)
 3. `pip install mkdocs-material pyyaml`
 4. `python generate_docs.py`
-5. `mkdocs gh-deploy --force`
+5. `mkdocs build` → HTML-Site als Artefakt (`docs-site`) hochladen
+6. `mkdocs gh-deploy --force` (**nur bei main/master**)
 
 ### mkdocs.yml
 - Kein `nav:`-Abschnitt im Repo – wird von `generate_docs.py` zur Laufzeit eingefügt

@@ -1,21 +1,17 @@
-name: GitHub Pages mit MkDocs deployen
+name: Docs generieren und deployen
 
 on:
   push:
     branches: [main, master]
-    paths:
-      - 'skripte/**'
-      - 'docs/**'
-      - 'mkdocs.yml'
-      - '.github/workflows/docs.yml'
+  pull_request:
   workflow_dispatch:
 
 permissions:
   contents: write
 
 jobs:
-  build-and-deploy:
-    name: PDFs kompilieren und Seite deployen
+  build:
+    name: LaTeX kompilieren und Docs generieren
     runs-on: ubuntu-latest
 
     steps:
@@ -31,30 +27,38 @@ jobs:
             texlive-lang-german \
             texlive-fonts-recommended
 
-      - name: Alle .tex-Dateien rekursiv zu PDFs kompilieren
+      - name: Alle .tex-Dateien rekursiv kompilieren
         run: |
           find skripte -name "*.tex" | while read texfile; do
-            relpath="${texfile#skripte/}"
-            reldir=$(dirname "$relpath")
             basename=$(basename "$texfile" .tex)
             texdir=$(dirname "$texfile")
-
             echo "Kompiliere $texfile ..."
             (cd "$texdir" && \
               pdflatex -interaction=nonstopmode -file-line-error "$basename.tex" && \
               pdflatex -interaction=nonstopmode -file-line-error "$basename.tex")
-
-            mkdir -p "docs/pdfs/$reldir"
-            cp "$texdir/$basename.pdf" "docs/pdfs/$reldir/$basename.pdf"
-            echo "  -> docs/pdfs/$reldir/$basename.pdf"
           done
 
-      - name: Python und MkDocs einrichten
-        run: |
-          pip install mkdocs-material
+      - name: Python und MkDocs installieren
+        run: pip install mkdocs-material pyyaml
 
-      - name: MkDocs bauen und auf gh-pages deployen
+      - name: Docs generieren (docs/ + mkdocs.yml nav)
+        run: python generate_docs.py
+
+      - name: MkDocs bauen
+        run: mkdocs build
+
+      - name: HTML-Seite als Artefakt hochladen
+        uses: actions/upload-artifact@v4
+        with:
+          name: docs-site
+          path: site/
+
+      - name: Git konfigurieren
+        if: github.ref == 'refs/heads/main' || github.ref == 'refs/heads/master'
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
-          mkdocs gh-deploy --force
+
+      - name: Deploy zu gh-pages
+        if: github.ref == 'refs/heads/main' || github.ref == 'refs/heads/master'
+        run: mkdocs gh-deploy --force
