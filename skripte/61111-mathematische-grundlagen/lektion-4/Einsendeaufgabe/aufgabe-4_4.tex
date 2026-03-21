@@ -1,0 +1,53 @@
+\documentclass[a4paper,12pt]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[ngerman]{babel}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{enumitem}
+\usepackage{geometry}
+\geometry{a4paper, margin=2.5cm}
+
+\title{Einsendeaufgaben -- Lektion 4\\[0.5em]
+\large Modul 61111: Mathematische Grundlagen}
+\author{}
+\date{}
+
+\begin{document}
+\maketitle
+
+\section*{Aufgabe 4.4}
+
+Sei $\varepsilon > 0$ beliebig. Nach dem Satz des Eudoxos existiert ein $n_0 \in \mathbb{N}$, sodass
+\[
+    n_0 > \frac{16}{\varepsilon}.
+\]
+
+F\"{u}r alle $n \geq n_0$ gilt:
+\[
+    \left| \frac{2n - 14}{n + 1} - 2 \right|
+    = \left| \frac{2n - 14 - 2n - 2}{n + 1} \right|
+    = \left| \frac{-16}{n + 1} \right|
+    = \frac{16}{n + 1}
+    \leq \frac{16}{n_0 + 1}
+    \leq \frac{16}{n_0}
+    < \frac{16}{\frac{16}{\varepsilon}}
+    = \varepsilon
+\]
+
+Also gilt $\displaystyle\lim_{n \to \infty} \frac{2n - 14}{n + 1} = 2$.
+
+Wir setzen $\varepsilon = \dfrac{1}{4}$ und bestimmen $N$:
+\[
+    N > \frac{16}{\frac{1}{4}} = 64.
+\]
+
+Wir w\"{a}hlen $N = 65$ und verifizieren die Konvergenz an:
+
+F\"{u}r alle $n \geq N = 64$ gilt
+\[
+    \left| \frac{2n - 14}{n + 1} - 2 \right|
+    \leq \frac{16}{64} = \frac{1}{4} = \varepsilon.
+\]
+
+\end{document}
