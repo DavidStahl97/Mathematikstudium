@@ -1,0 +1,81 @@
+\documentclass[a4paper,12pt]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[ngerman]{babel}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{enumitem}
+\usepackage{geometry}
+\geometry{a4paper, margin=2.5cm}
+
+\title{Einsendeaufgaben -- Lektion 3\\[0.5em]
+\large Modul 61111: Mathematische Grundlagen}
+\author{}
+\date{}
+
+\begin{document}
+\maketitle
+
+\section*{Aufgabe 3.5}
+
+\begin{enumerate}[label=\alph*)]
+
+    \item
+    \[
+        f(A+C) = (A+C)B = AB + CB = f(A) + f(C)
+    \]
+    \[
+        f(\lambda A) = (\lambda A)B = \lambda(AB) = \lambda f(A)
+    \]
+
+    \item
+    \[
+        f(E_{11}) = \begin{pmatrix}1&0\\0&0\end{pmatrix}\begin{pmatrix}1&3\\3&9\end{pmatrix} = \begin{pmatrix}1&3\\0&0\end{pmatrix}
+        = 1 \cdot E_{11} + 3 \cdot E_{12}
+    \]
+    \[
+        f(E_{12}) = \begin{pmatrix}0&1\\0&0\end{pmatrix}\begin{pmatrix}1&3\\3&9\end{pmatrix} = \begin{pmatrix}3&9\\0&0\end{pmatrix}
+        = 3 \cdot E_{11} + 9 \cdot E_{12}
+    \]
+    \[
+        f(E_{21}) = \begin{pmatrix}0&0\\1&0\end{pmatrix}\begin{pmatrix}1&3\\3&9\end{pmatrix} = \begin{pmatrix}0&0\\1&3\end{pmatrix}
+        = 1 \cdot E_{21} + 3 \cdot E_{22}
+    \]
+    \[
+        f(E_{22}) = \begin{pmatrix}0&0\\0&1\end{pmatrix}\begin{pmatrix}1&3\\3&9\end{pmatrix} = \begin{pmatrix}0&0\\3&9\end{pmatrix}
+        = 3 \cdot E_{21} + 9 \cdot E_{22}
+    \]
+    \[
+        \Rightarrow {}_\varepsilon M_\varepsilon(f) = \begin{pmatrix}1&3&0&0\\3&9&0&0\\0&0&1&3\\0&0&3&9\end{pmatrix}
+    \]
+
+    \item
+    Wegen $\dim(\operatorname{Kern}(f)) = \dim(U)$ in §2.3 reicht es aus, das homogene Gleichungssystem zu lösen:
+    \[
+        \begin{pmatrix}1&3&0&0\\3&9&0&0\\0&0&1&3\\0&0&3&9\end{pmatrix}
+        \quad
+        \begin{array}{l} \\ Z_{21}(-3) \\ \\ Z_{43}(-3) \end{array}
+    \]
+    \[
+        \begin{pmatrix}1&3&0&0\\0&0&0&0\\0&0&1&3\\0&0&0&0\end{pmatrix}
+        \quad \Rightarrow \dim(U) = 2 \quad \Rightarrow \dim(\operatorname{Kern}(f)) = 2
+    \]
+
+    Wegen Satz 8.3.13 gilt
+    \[
+        \operatorname{Rg}(f) = \dim(M_{2,2}(\mathbb{R})) - \dim(\operatorname{Kern}(f)) = 2 \cdot 2 - 2 = 2
+    \]
+
+    \item
+    \[
+        f(B) = BB = \begin{pmatrix}1&3\\3&9\end{pmatrix}\begin{pmatrix}1&3\\3&9\end{pmatrix}
+        = \begin{pmatrix}10&30\\30&90\end{pmatrix}
+        = 10 E_{11} + 30 E_{12} + 30 E_{21} + 90 E_{22}
+    \]
+    \[
+        \Rightarrow \kappa_\varepsilon(f(B)) = \begin{pmatrix}10\\30\\30\\90\end{pmatrix}
+    \]
+
+\end{enumerate}
+
+\end{document}
