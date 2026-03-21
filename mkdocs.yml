@@ -18,7 +18,7 @@ theme:
 
 nav:
   - Home: index.md
-  - Skripte (PDF): pdfs.md
+  - Skripte (PDF): skripte.md
 
 plugins:
   - search
