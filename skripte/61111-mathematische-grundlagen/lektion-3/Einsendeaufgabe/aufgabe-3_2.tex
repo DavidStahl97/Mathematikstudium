@@ -1,0 +1,125 @@
+\documentclass[a4paper,12pt]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[ngerman]{babel}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{enumitem}
+\usepackage{geometry}
+\geometry{a4paper, margin=2.5cm}
+
+\title{Einsendeaufgaben -- Lektion 3\\[0.5em]
+\large Modul 61111: Mathematische Grundlagen}
+\author{}
+\date{}
+
+\begin{document}
+\maketitle
+
+\section*{Aufgabe 3.2}
+
+\begin{enumerate}[label=\alph*)]
+
+    \item \textbf{Bestimmung Basis von $U \cap V$:}
+
+    \[
+        U \cap V = \left\{ v \in \mathbb{R}^3 \;\middle|\;
+        \exists\, a_1, a_2, b_1, b_2 :\;
+        a_1 \begin{pmatrix}1\\2\\3\end{pmatrix}
+        + a_2 \begin{pmatrix}-1\\2\\1\end{pmatrix}
+        = b_1 \begin{pmatrix}-1\\0\\1\end{pmatrix}
+        + b_2 \begin{pmatrix}0\\-1\\1\end{pmatrix}
+        \right\}
+    \]
+
+    Also:
+    \[
+        b_1 \begin{pmatrix}1\\0\\-1\end{pmatrix}
+        + b_2 \begin{pmatrix}0\\1\\-1\end{pmatrix}
+        + a_1 \begin{pmatrix}1\\2\\3\end{pmatrix}
+        + a_2 \begin{pmatrix}-1\\2\\1\end{pmatrix}
+        = \mathbf{0}
+    \]
+
+    \[
+        \Longleftrightarrow
+        \begin{pmatrix}1 & 0 & 1 & -1\\ 0 & 1 & 2 & 2\\ -1 & -1 & 3 & 1\end{pmatrix}
+        \begin{pmatrix}b_1\\b_2\\a_1\\a_2\end{pmatrix} = \mathbf{0}
+    \]
+
+    Lösen der homogenen Gleichung:
+    \[
+        \begin{pmatrix}1 & 0 & 1 & -1\\ 0 & 1 & 2 & 2\\ -1 & -1 & 3 & 1\end{pmatrix}
+        \;\Big|\; Z_{3,1}(1)
+        \longrightarrow
+        \begin{pmatrix}1 & 0 & 1 & -1\\ 0 & 1 & 2 & 2\\ 0 & -1 & 4 & 0\end{pmatrix}
+        \;\Big|\; Z_{3,2}(1)
+    \]
+    \[
+        \longrightarrow
+        \begin{pmatrix}1 & 0 & 1 & -1\\ 0 & 1 & 2 & 2\\ 0 & 0 & 6 & 2\end{pmatrix}
+        \;\Big|\;
+        \begin{array}{l}
+            Z_{1,3}\!\left(-\tfrac{1}{6}\right)\\[2pt]
+            Z_{2,3}\!\left(-\tfrac{1}{3}\right)\\[2pt]
+            Z_3\!\left(\tfrac{1}{6}\right)
+        \end{array}
+        \longrightarrow
+        \begin{pmatrix}1 & 0 & 0 & -\tfrac{4}{3}\\[4pt] 0 & 1 & 0 & \tfrac{4}{3}\\[4pt] 0 & 0 & 1 & \tfrac{1}{3}\end{pmatrix}
+    \]
+
+    Multipliziere Kennziffern und entnehmen:
+
+    \[
+        \begin{pmatrix}1 & 0 & 0 & -\tfrac{4}{3}\\[4pt]
+                        0 & 1 & 0 & \tfrac{4}{3}\\[4pt]
+                        0 & 0 & 1 & \tfrac{1}{3}\\[4pt]
+                        0 & 0 & 0 & -1\end{pmatrix}
+    \]
+
+    \[
+        \Rightarrow \text{für alle }
+        \begin{pmatrix}b_1\\b_2\\a_1\\a_2\end{pmatrix}
+        \in \left\{ \lambda \begin{pmatrix}-\tfrac{4}{3}\\[4pt]\tfrac{4}{3}\\[4pt]\tfrac{1}{3}\\[4pt]-1\end{pmatrix}
+        \;\middle|\; \forall\lambda \in \mathbb{R} \right\}
+    \]
+
+    gilt die homogene Gleichung.
+
+    Also:
+    \[
+        U \cap V
+        = \left\{ \frac{\lambda}{3}\begin{pmatrix}1\\2\\3\end{pmatrix}
+                  - \lambda\begin{pmatrix}-1\\2\\1\end{pmatrix}
+          \;\middle|\; \forall\lambda \in \mathbb{R} \right\}
+        = \left\{ \lambda\begin{pmatrix}1\\2\\3\end{pmatrix}
+                  - 3\lambda\begin{pmatrix}-1\\2\\1\end{pmatrix}
+          \;\middle|\; \forall\lambda \in \mathbb{R} \right\}
+    \]
+    \[
+        = \left\{ \lambda \begin{pmatrix}4\\-4\\0\end{pmatrix}
+          \;\middle|\; \forall\lambda \in \mathbb{R} \right\}
+        = \left\{ -\frac{4}{3}\lambda\begin{pmatrix}-1\\0\\1\end{pmatrix}
+                  + \frac{4}{3}\lambda\begin{pmatrix}0\\-1\\1\end{pmatrix}
+          \;\middle|\; \forall\lambda \in \mathbb{R} \right\}
+    \]
+
+    Wegen $U \cap V = \left\{ \lambda \begin{pmatrix}4\\-4\\0\end{pmatrix} \;\middle|\; \forall\lambda \in \mathbb{R} \right\}$
+    ist $\begin{pmatrix}4\\-4\\0\end{pmatrix}$ bzw.\ $\begin{pmatrix}1\\-1\\0\end{pmatrix}$ die Basis von $U \cap V$.
+
+    \item \textbf{Bestimmung Basis von $U + V$:}
+
+    Wegen a) und
+    \[
+        \dim(U + V) = \dim(U) + \dim(V) - \dim(U \cap V)
+    \]
+    folgt $\dim(U + V) = 3$. \quad $(\dim(U) = \dim(V) = 2)$
+
+    Da $U + V$ ein Unterraum von $\mathbb{R}^3$ ist und
+    $\dim(U + V) = \dim(\mathbb{R}^3)$ gilt, folgt $U + V = \mathbb{R}^3$.
+
+    Die Einheitsvektoren $e_1, e_2, e_3$ sind also eine Basis von $U + V$.
+
+\end{enumerate}
+
+\end{document}
