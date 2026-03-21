@@ -1,0 +1,160 @@
+\documentclass[a4paper,12pt]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[ngerman]{babel}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{enumitem}
+\usepackage{geometry}
+\geometry{a4paper, margin=2.5cm}
+
+\title{Einsendeaufgaben -- Lektion 4\\[0.5em]
+\large Modul 61111: Mathematische Grundlagen}
+\author{}
+\date{}
+
+\begin{document}
+\maketitle
+
+\section*{Aufgabe 4.1}
+
+\begin{enumerate}[label=\alph*)]
+
+    \item
+    Da Division durch $0$ nicht definiert ist, muss $x \notin \{0, -1, -2, -3\}$.
+
+    Untersuchung des ersten Terms $\dfrac{1-\frac{1}{x}}{1+\frac{1}{x}}$:
+    \[
+        \frac{1-\frac{1}{x}}{1+\frac{1}{x}} = \frac{x-1}{x+1}
+    \]
+
+    \underline{Fall 1: $x > -1$}
+
+    Es gilt $\dfrac{x-1}{x+1} < 1$, da
+    \[
+        \frac{x-1}{x+1} < 1 \iff x-1 < x+1 \iff -1 < 1
+    \]
+
+    \underline{Fall 2: $x < -1$}
+
+    Es gilt $\dfrac{x-1}{x+1} > 1$, da
+    \[
+        \frac{x-1}{x+1} > 1 \iff x-1 < x+1 \iff -1 < 1
+    \]
+
+    Untersuchung des zweiten Terms:
+    \[
+        \frac{1-\frac{1}{x+2}}{1+\frac{1}{x+2}} = \frac{x+1}{x+3}
+    \]
+    Wir setzen $x = y - 2$:
+    \[
+        \frac{x+1}{x+3} = \frac{y-1}{y+1}
+    \]
+    $\dfrac{y-1}{y+1}$ ist gleich dem ersten Term aus der ersten Untersuchung.
+    Wir wenden $y = x+2$ an und erhalten:
+
+    \underline{Fall 1: $x > -3$}
+    \[
+        \frac{x+1}{x+3} < 1
+    \]
+
+    \underline{Fall 2: $x < -3$}
+    \[
+        \frac{x+1}{x+3} > 1
+    \]
+
+    Aus den Untersuchungen können wir schlussfolgern:
+
+    \underline{Fall 1: $x > -1$}
+    \[
+        \frac{1-\frac{1}{x}}{1+\frac{1}{x}} + \frac{1-\frac{1}{x+2}}{1+\frac{1}{x+2}} < 1 + 1 = 2
+    \]
+
+    \underline{Fall 2: $x < -3$}
+    \[
+        \frac{1-\frac{1}{x}}{1+\frac{1}{x}} + \frac{1-\frac{1}{x+2}}{1+\frac{1}{x+2}} > 1 + 1 = 2
+    \]
+
+    Es fehlt noch der 3. Fall: $x = -1$ und $x = -3$ muss nicht untersucht werden,
+    da es am Anfang schon ausgeschlossen wurde.
+
+    \underline{Fall 3: $-3 < x < -1$}
+    \[
+        \frac{1-\frac{1}{x}}{1+\frac{1}{x}} + \frac{1-\frac{1}{x+2}}{1+\frac{1}{x+2}}
+        = \frac{x-1}{x+1} + \frac{x+1}{x+3}
+        = \frac{(x-1)(x+3) + (x+1)^2}{(x+1)(x+3)}
+        = \frac{2(x^2+2x-1)}{(x+1)(x+3)} < 2
+    \]
+
+    Da $-3 < x < -1$, ist der Nenner negativ, weil $(x+1)$ negativ, aber $(x+3)$ positiv ist.
+
+    Vereinfachung der Ungleichung:
+    \[
+        \frac{2(x^2+2x-1)}{(x+1)(x+3)} < 2
+    \]
+    \[
+        \iff \frac{x^2+2x-1}{(x+1)(x+3)} < 1
+    \]
+    \[
+        \iff x^2+2x-1 > (x+1)(x+3) = x^2+4x+3
+    \]
+    \[
+        \iff -2x > 4
+    \]
+    \[
+        \iff x < -2
+    \]
+
+    Demnach muss $x$ in Fall 3 kleiner als $-2$ sein.
+
+    Insgesamt gilt die Ungleichung
+    \[
+        \frac{1-\frac{1}{x}}{1+\frac{1}{x}} + \frac{1-\frac{1}{x+2}}{1+\frac{1}{x+2}} < 2
+    \]
+    für alle $x \in (-3, -2) \cup (-1, \infty)$.
+
+    \item
+    Da die Wurzel nur für positive Zahlen definiert ist, muss gelten:
+    \[
+        3x + 1 \geq 0
+    \]
+    Folglich muss $x \geq -\dfrac{1}{3}$ sein.
+
+    Da $\sqrt{3x+1}$ positiv ist, kann die Ungleichung quadriert werden:
+    \[
+        \sqrt{3x+1} < x+1
+    \]
+    \[
+        \iff 3x+1 < (x+1)^2
+    \]
+    \[
+        \iff 3x+1 < x^2+2x+1
+    \]
+    \[
+        \iff x < x^2
+    \]
+
+    \underline{Fall 1: $x > 0$}
+    \[
+        x < x^2 \iff 1 < x
+    \]
+
+    \underline{Fall 2: $-\frac{1}{3} \leq x < 0$}
+    \[
+        x < x^2 \iff 1 > x
+    \]
+
+    \underline{Fall 3: $x = 0$}
+    \[
+        x < x^2 \iff 0 < 0
+    \]
+
+    Aus den Äquivalenzen lässt sich schließen:
+    \[
+        \sqrt{3x+1} < x+1
+    \]
+    für alle $x \in \left[-\dfrac{1}{3}, 0\right) \cup (1, \infty)$.
+
+\end{enumerate}
+
+\end{document}
