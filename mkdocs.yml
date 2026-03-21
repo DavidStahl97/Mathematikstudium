@@ -18,10 +18,10 @@ theme:
 
 nav:
   - Home: index.md
-  - Module:
-    - 61111 Mathematische Grundlagen:
-      - Lektion 1:
-        - Einsendeaufgaben: 61111-mathematische-grundlagen/lektion-1/einsendeaufgaben.md
+  - 61111 Mathematische Grundlagen:
+    - Lektion 1:
+      - Einsendeaufgaben:
+        - Aufgabe 1.1: 61111-mathematische-grundlagen/lektion-1/einsendeaufgaben/aufgabe-1-1.md
 
 plugins:
   - search
