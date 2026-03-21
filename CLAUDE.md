@@ -93,8 +93,9 @@ skripte/
 - Theme: Material, Sprache: de, Features: navigation.tabs, navigation.sections
 
 ## Umgang mit LaTeX-Lösungen (Einsendeaufgaben)
-- **Keinen Text erfinden** – nur das aufschreiben, was aus den handschriftlichen PDFs klar hervorgeht
+- **Nur transkribieren** – ausschließlich das in LaTeX übertragen, was im handschriftlichen PDF steht. Keinen eigenen Erklärungstext, Zwischenschritte oder Formulierungen erfinden oder ergänzen.
 - **Nicht selbst korrigieren** – wenn etwas fehlerhaft oder unleserlich erscheint, beim Benutzer nachfragen
+- **Kein eigener Text** – kein „Aus den Gleichungen folgt:", kein „Damit ist die Lösungsmenge:", keine selbst formulierten Sätze – nur was im PDF steht
 - Der Benutzer muss die Lösungen selbst erarbeiten; Claude dient nur zur Transkription
 
 ## Typischer Fix-Workflow

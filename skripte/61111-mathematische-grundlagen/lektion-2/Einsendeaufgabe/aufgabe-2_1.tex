@@ -59,34 +59,24 @@ Wir wenden den Gauß-Algorithmus auf die erweiterte Koeffizientenmatrix an:
 Da die letzte Zeile $0 = \tfrac{5}{2}$ liefert, hat $Ax = b$ \textbf{keine Lösung}.
 
 \bigskip
-\noindent\textbf{Lösungsmenge der homogenen Gleichung $Ax = 0$:}
-
-Die Zeilenstufenform von $A$ hat Pivots in den Spalten 1, 2, 4; die freien
-Variablen sind $x_3$ und $x_5$:
+\noindent\textbf{Aufstellung der Lösungsmenge der homogenen Gleichung:}
 
 \[
 \left(\begin{array}{ccccc}
-1 & 0 & -1 & 0 & 2 \\
-0 & 1 & 1 & 0 & 1 \\
-0 & 0 & 0 & 1 & 2 \\
-0 & 0 & 0 & 0 & 0
+1 & 0 & -1 & 0 &  2 \\
+0 & 1 &  1 & 0 &  1 \\
+0 & 0 & -1 & 0 &  0 \\
+0 & 0 &  0 & 1 &  2 \\
+0 & 0 &  0 & 0 & -1
 \end{array}\right)
 \]
 
-Aus den Gleichungen folgt:
-\begin{align*}
-x_1 &= x_3 - 2x_5, \\
-x_2 &= -x_3 - x_5, \\
-x_4 &= -2x_5.
-\end{align*}
-
-Damit ist die Lösungsmenge der homogenen Gleichung:
 \[
 \mathcal{U} = \left\{
 a_1 \begin{pmatrix}-1\\1\\-1\\0\\0\end{pmatrix}
 + a_2 \begin{pmatrix}2\\1\\0\\2\\-1\end{pmatrix}
 \;\middle|\; a_1, a_2 \in \mathbb{R}
-\right\}.
+\right\}
 \]
 
 \end{document}
