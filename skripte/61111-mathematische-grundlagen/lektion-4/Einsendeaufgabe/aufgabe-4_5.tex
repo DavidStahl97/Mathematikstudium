@@ -1,0 +1,61 @@
+\documentclass[a4paper,12pt]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[ngerman]{babel}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{enumitem}
+\usepackage{geometry}
+\geometry{a4paper, margin=2.5cm}
+
+\title{Einsendeaufgaben -- Lektion 4\\[0.5em]
+\large Modul 61111: Mathematische Grundlagen}
+\author{}
+\date{}
+
+\begin{document}
+\maketitle
+
+\section*{Aufgabe 4.5}
+
+\begin{enumerate}[label=\alph*)]
+
+    \item
+    \underline{„$\Rightarrow$"-Richtung:}
+
+    Sei $(a_n)$ und $(b_n)$ konvergent, dann folgt aus Proposition 13.4.12 direkt, dass
+    $(a_n + b_n)$ und $(a_n - b_n)$ konvergieren.
+
+    \underline{„$\Leftarrow$"-Richtung:}
+
+    Sei $(a_n + b_n)$ und $(a_n - b_n)$ konvergent.
+
+    Es gilt:
+    \[
+        a_n = \frac{1}{2}(2a_n) = \frac{1}{2}\bigl((a_n + b_n) + (a_n - b_n)\bigr)
+    \]
+    \[
+        b_n = \frac{1}{2}(2b_n) = \frac{1}{2}\bigl((a_n + b_n) - (a_n - b_n)\bigr)
+    \]
+
+    Da $(a_n + b_n)$ und $(a_n - b_n)$ konvergieren, folgt aus Proposition 13.4.12,
+    dass $(a_n)$ und $(b_n)$ ebenfalls konvergieren.
+
+    \item
+    Gilt nicht, da z.\,B. $(a_n)$ mit $a_n = n$ und $(b_n)$ mit $b_n = -n$ divergieren,
+    aber $(a_n + b_n)$ konvergiert, da $a_n + b_n = 0$ für alle $n \in \mathbb{N}$.
+
+    \item
+    Gilt nicht.
+
+    Beispiel:
+    \[
+        a_n = \frac{1}{n}, \quad b_n = (-1)^n
+    \]
+
+    Da $(a_n)$ eine Nullfolge und $(b_n)$ beschränkt ist, gilt wegen der Proposition 13.4.9,
+    dass $(a_n b_n)$ konvergiert. Allerdings divergiert $(b_n)$.
+
+\end{enumerate}
+
+\end{document}
