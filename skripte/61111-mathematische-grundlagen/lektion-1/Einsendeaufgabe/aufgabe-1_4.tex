@@ -1,0 +1,81 @@
+\documentclass[a4paper,12pt]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[ngerman]{babel}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{enumitem}
+\usepackage{geometry}
+\geometry{a4paper, margin=2.5cm}
+
+\title{Einsendeaufgaben -- Lektion 1\\[0.5em]
+\large Modul 61111: Mathematische Grundlagen}
+\author{}
+\date{}
+
+\begin{document}
+\maketitle
+
+\section*{Aufgabe 1.4}
+
+Seien $M$, $N$ Mengen und $f: M \to N$ eine Abbildung.
+
+\begin{enumerate}[label=\alph*)]
+
+\item \textbf{Behauptung:} $f$ ist injektiv $\Longleftrightarrow$ es existiert eine Abbildung $g: N \to M$ mit $g \circ f = \mathrm{id}_M$.
+
+\medskip
+\textit{Richtung} ``$\Rightarrow$'':
+
+Sei $f$ injektiv. Wir konstruieren $g: N \to M$ mit $g \circ f = \mathrm{id}_M$.
+
+Hinweis: Die Aufgabe setzt $M \neq \emptyset$ voraus. Denn mit $M = \emptyset$ ist $f$ trivialerweise injektiv; wenn $N \neq \emptyset$, existiert dann keine Abbildung $g: N \to M$.
+
+Also $M \neq \emptyset$. Sei $m_0 \in M$ ein beliebiges (fest gewähltes) Element. Wir definieren:
+\[
+  g = \{(n, m) \in N \times M \mid f(m) = n\}
+      \;\cup\;
+      \{(n, m_0) \in N \times M \mid n \notin \mathrm{Bild}(f)\}.
+\]
+Der zweite Teil ist notwendig, da $\mathrm{Bild}(f)$ eine echte Teilmenge von $N$ sein kann, $g$ aber auf ganz $N$ definiert sein muss.
+
+Da $f$ injektiv ist, gibt es zu jedem $n \in \mathrm{Bild}(f)$ genau ein $m \in M$ mit $f(m) = n$. Zu jedem $n \notin \mathrm{Bild}(f)$ gibt es genau ein $m_0$ mit $(n, m_0) \in g$. Also ist $g$ eine (wohldefinierte) Abbildung.
+
+Nun gilt $g \circ f = \mathrm{id}_M$: Sei $m \in M$ beliebig. $f$ bildet $m$ auf $n := f(m) \in N$ ab. Nach Definition von $g$ bildet $g$ das $n$ wieder auf $m$ ab. Also $g(f(m)) = m$.
+
+\medskip
+\textit{Richtung} ``$\Leftarrow$'':
+
+Es existiere $g: N \to M$ mit $g \circ f = \mathrm{id}_M$.
+Zu zeigen: Für alle $m, n \in M$ mit $f(m) = f(n)$ folgt $m = n$.
+
+Aus $f(m) = f(n)$ folgt $g(f(m)) = g(f(n))$, also
+\[
+  m = g(f(m)) = g(f(n)) = n,
+\]
+wegen der Voraussetzung $g \circ f = \mathrm{id}_M$. \qed
+
+\item \textbf{Behauptung:} $f$ ist surjektiv $\Longleftrightarrow$ es existiert eine Abbildung $g: N \to M$ mit $f \circ g = \mathrm{id}_N$.
+
+\medskip
+\textit{Richtung} ``$\Rightarrow$'':
+
+Da $f$ surjektiv ist, existiert zu jedem $n \in N$ mindestens ein $m \in M$ mit $(m, n) \in f$. Wir definieren $g: N \to M$, indem wir für jedes $n \in N$ ein solches $m$ auswählen und $g(n) := m$ setzen. Es folgt dann:
+\[
+  f(g(n)) = f(m) = n,
+\]
+also $f \circ g = \mathrm{id}_N$.
+
+\medskip
+\textit{Richtung} ``$\Leftarrow$'':
+
+Es existiere $g: N \to M$ mit $f \circ g = \mathrm{id}_N$.
+Sei $n \in N$ beliebig. Setze $m := g(n) \in M$. Wegen der Voraussetzung gilt:
+\[
+  f(m) = f(g(n)) = n.
+\]
+Also $(m, n) \in f$, d.\,h.\ $n \in \mathrm{Bild}(f)$. Da $n$ beliebig war, ist $f$ surjektiv. \qed
+
+\end{enumerate}
+
+\end{document}

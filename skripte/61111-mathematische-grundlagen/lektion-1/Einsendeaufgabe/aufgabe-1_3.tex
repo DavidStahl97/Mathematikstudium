@@ -1,0 +1,72 @@
+\documentclass[a4paper,12pt]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[ngerman]{babel}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{enumitem}
+\usepackage{geometry}
+\geometry{a4paper, margin=2.5cm}
+
+\title{Einsendeaufgaben -- Lektion 1\\[0.5em]
+\large Modul 61111: Mathematische Grundlagen}
+\author{}
+\date{}
+
+\begin{document}
+\maketitle
+
+\section*{Aufgabe 1.3}
+
+\begin{enumerate}[label=\alph*)]
+
+\item $f: \mathbb{Z} \to \mathbb{Z} \times \mathbb{Z},\; x \mapsto (|x|, x^2)$
+
+$f$ ist \textbf{nicht injektiv}, da z.\,B.\ $f(1) = (1,1) = f(-1)$ gilt.
+
+\item $f: \mathbb{Z} \to \mathbb{Z} \times \mathbb{Z},\; x \mapsto (x, x)$
+
+Aus $f(x) = f(y)$ folgt $(x, x) = (y, y)$, also muss $x = y$ gelten.
+Demnach ist $f$ \textbf{injektiv}.
+
+\item $f: \mathbb{Z} \to \mathbb{Z} \times \mathbb{Z},\; x \mapsto (x, 1)$
+
+$f$ ist \textbf{nicht surjektiv}, da z.\,B.\ $(0, 0) \notin \mathrm{Bild}(f)$.
+
+\item $f: \mathbb{Z} \to \mathbb{Z} \times \mathbb{Z},\; z \mapsto
+\begin{cases}
+  \left(\dfrac{z}{2},\, 0\right) & \text{wenn } 2 \mid z, \\[6pt]
+  \left(0,\, \dfrac{z+1}{2}\right) & \text{wenn } 2 \nmid z.
+\end{cases}$
+
+\medskip
+\textbf{Behauptung:}
+$\mathrm{Bild}(f) = \{(z, 0) \mid z \in \mathbb{Z}\} \cup \{(0, z) \mid z \in \mathbb{Z}\}$.
+
+\medskip
+\textit{Richtung} ``$\subseteq$'':
+
+Sei $z \in \mathbb{Z}$ beliebig.
+\begin{itemize}
+  \item Wenn $2 \mid z$ gilt, gibt es ein $x \in \mathbb{Z}$ mit $2x = z$.
+        Dann ist $f(z) = \left(\frac{z}{2}, 0\right) \in \{(x, 0) \mid x \in \mathbb{Z}\}$.
+  \item Wenn $2 \nmid z$ gilt, gibt es ein $x \in \mathbb{Z}$ mit $2x = z + 1$.
+        Dann ist $f(z) = \left(0, \frac{z+1}{2}\right) \in \{(0, x) \mid x \in \mathbb{Z}\}$.
+\end{itemize}
+
+\textit{Richtung} ``$\supseteq$'':
+
+Sei $z \in \mathbb{Z}$ beliebig.
+\begin{itemize}
+  \item $(z, 0) = \left(\frac{2z}{2}, 0\right) = f(2z) \in \mathrm{Bild}(f)$,
+        da $2 \mid 2z$.
+  \item $(0, z) = \left(0, \frac{(2z-1)+1}{2}\right) = f(2z-1) \in \mathrm{Bild}(f)$,
+        da $2 \nmid (2z-1)$.
+\end{itemize}
+
+Aus ``$\subseteq$'' und ``$\supseteq$'' folgt
+$\mathrm{Bild}(f) = \{(z, 0) \mid z \in \mathbb{Z}\} \cup \{(0, z) \mid z \in \mathbb{Z}\}$. \qed
+
+\end{enumerate}
+
+\end{document}

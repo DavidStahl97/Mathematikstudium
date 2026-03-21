@@ -1,0 +1,45 @@
+\documentclass[a4paper,12pt]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[ngerman]{babel}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{enumitem}
+\usepackage{geometry}
+\geometry{a4paper, margin=2.5cm}
+
+\title{Einsendeaufgaben -- Lektion 1\\[0.5em]
+\large Modul 61111: Mathematische Grundlagen}
+\author{}
+\date{}
+
+\begin{document}
+\maketitle
+
+\section*{Aufgabe 1.5}
+
+Seien $b \in \mathbb{R} \setminus \{0\}$ und
+\[
+  A := \begin{pmatrix} 1 & \tfrac{1}{b} \\ \tfrac{1}{b} & 1 \end{pmatrix},
+  \qquad
+  B := \begin{pmatrix} 1 & b \\ b & 1 \end{pmatrix}.
+\]
+
+\textbf{Behauptung:} $AB = A + B$.
+
+\medskip
+\textbf{Beweis:}
+\begin{align*}
+  AB
+  &= \begin{pmatrix} 1 & \tfrac{1}{b} \\ \tfrac{1}{b} & 1 \end{pmatrix}
+     \begin{pmatrix} 1 & b \\ b & 1 \end{pmatrix}
+   = \begin{pmatrix} 1 \cdot 1 + \tfrac{1}{b} \cdot b & 1 \cdot b + \tfrac{1}{b} \cdot 1 \\[4pt]
+                     \tfrac{1}{b} \cdot 1 + 1 \cdot b  & \tfrac{1}{b} \cdot b + 1 \cdot 1 \end{pmatrix}
+   = \begin{pmatrix} 1+1 & b + \tfrac{1}{b} \\[4pt] \tfrac{1}{b} + b & 1+1 \end{pmatrix} \\[6pt]
+  &= \begin{pmatrix} 2 & b + \tfrac{1}{b} \\ b + \tfrac{1}{b} & 2 \end{pmatrix}
+   = \begin{pmatrix} 1 & \tfrac{1}{b} \\ \tfrac{1}{b} & 1 \end{pmatrix}
+   + \begin{pmatrix} 1 & b \\ b & 1 \end{pmatrix}
+   = A + B. \qed
+\end{align*}
+
+\end{document}
