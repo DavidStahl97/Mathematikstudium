@@ -15,31 +15,67 @@ permissions:
 
 jobs:
   build-and-deploy:
-    name: LaTeX zu HTML konvertieren und Seite deployen
+    name: LaTeX zu HTML kompilieren und Seite deployen
     runs-on: ubuntu-latest
 
     steps:
       - name: Repository auschecken
         uses: actions/checkout@v4
 
-      - name: Pandoc installieren
+      - name: TeX Live und tex4ht installieren
         run: |
           sudo apt-get update
-          sudo apt-get install -y pandoc
+          sudo apt-get install -y \
+            texlive-latex-base \
+            texlive-latex-extra \
+            texlive-lang-german \
+            texlive-fonts-recommended \
+            tex4ht
 
-      - name: LaTeX-Dateien zu Markdown konvertieren
+      - name: LaTeX zu HTML kompilieren (make4ht)
         run: |
-          mkdir -p docs/skripte
+          mkdir -p docs/latex docs/skripte
+
           for texfile in skripte/*.tex; do
             [ -f "$texfile" ] || continue
             basename=$(basename "$texfile" .tex)
-            echo "Konvertiere $texfile -> docs/skripte/$basename.md ..."
-            pandoc "$texfile" \
-              --from=latex \
-              --to=markdown+tex_math_dollars \
-              --wrap=none \
-              --output="docs/skripte/$basename.md"
-            echo "  -> OK"
+            echo "=== Kompiliere $texfile ==="
+
+            # In temporärem Verzeichnis arbeiten
+            tmpdir=$(mktemp -d)
+            cp "$texfile" "$tmpdir/$basename.tex"
+            cd "$tmpdir"
+
+            # make4ht: LaTeX -> HTML mit MathJax für Formeln
+            # "mathjax" = MathJax statt Bilder für Mathe
+            # "-u"       = UTF-8 Ausgabe
+            make4ht -u "$basename.tex" "mathjax" 2>&1 || true
+
+            cd -
+
+            # HTML + CSS + eventuelle Bilder kopieren
+            cp "$tmpdir/$basename.html" "docs/latex/$basename.html" 2>/dev/null && echo "  -> docs/latex/$basename.html OK" || echo "  -> WARNUNG: $basename.html nicht gefunden"
+            cp "$tmpdir/$basename.css"  "docs/latex/$basename.css"  2>/dev/null || true
+            # Sonstige erzeugte Dateien (Bilder etc.)
+            find "$tmpdir" -maxdepth 1 -type f ! -name "*.tex" ! -name "*.log" ! -name "*.aux" \
+              ! -name "*.html" ! -name "*.css" -exec cp {} docs/latex/ \; 2>/dev/null || true
+
+            # MkDocs-Seite mit iframe erzeugen
+            # Pfad: docs/skripte/name.md -> site/skripte/name/ (MkDocs use_directory_urls=true)
+            # HTML liegt bei:              site/latex/name.html
+            # Relativer Pfad vom iframe:   ../../latex/name.html
+            cat > "docs/skripte/$basename.md" << MDEOF
+          # $basename
+
+          <iframe
+            id="latex-frame-$basename"
+            src="../../latex/$basename.html"
+            style="width:100%; height:80vh; border:none;"
+            onload="this.style.height = this.contentDocument.body.scrollHeight + 32 + 'px'">
+          </iframe>
+          MDEOF
+
+            echo "  -> docs/skripte/$basename.md OK"
           done
 
       - name: Python und MkDocs einrichten

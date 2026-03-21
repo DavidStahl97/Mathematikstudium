@@ -2,16 +2,16 @@
 
 Willkommen zu den mathematischen Zusammenfassungen und Skripten.
 
-Die Inhalte werden automatisch aus LaTeX-Quellen generiert und direkt im Browser mit vollständiger Mathematik-Darstellung angezeigt.
+Die Inhalte werden automatisch aus LaTeX-Quellen kompiliert und direkt im Browser angezeigt – mit vollständiger Formeldarstellung via MathJax und korrekten Theorem-Umgebungen.
 
 ## Verfügbare Skripte
 
-Die Skripte sind über die Navigation erreichbar (Reiter **Skripte**).
+Die Skripte sind über die Navigation erreichbar.
 
 ## Über dieses Projekt
 
-- Quelldateien liegen als LaTeX-Dokumente im Ordner `skripte/`
-- Bei jedem Push auf `main` werden die Seiten automatisch neu generiert
+- Quelldateien: LaTeX-Dokumente in `skripte/`
+- Bei jedem Push auf `main` automatisch neu kompiliert (`make4ht`)
 - Mathematische Formeln werden via **MathJax** gerendert
 
 [Zum GitHub-Repository](https://github.com/DavidStahl97/Mathematikstudium){ .md-button }
