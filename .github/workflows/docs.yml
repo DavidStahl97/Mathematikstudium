@@ -4,7 +4,7 @@ on:
   push:
     branches: [main, master]
     paths:
-      - 'skripte/**.tex'
+      - 'skripte/**'
       - 'docs/**'
       - 'mkdocs.yml'
       - '.github/workflows/docs.yml'
@@ -31,48 +31,23 @@ jobs:
             texlive-lang-german \
             texlive-fonts-recommended
 
-      - name: Alle .tex-Dateien zu PDFs kompilieren
+      - name: Alle .tex-Dateien rekursiv zu PDFs kompilieren
         run: |
-          mkdir -p docs/pdfs
-          for texfile in skripte/*.tex; do
+          find skripte -name "*.tex" | while read texfile; do
+            relpath="${texfile#skripte/}"
+            reldir=$(dirname "$relpath")
             basename=$(basename "$texfile" .tex)
+            texdir=$(dirname "$texfile")
+
             echo "Kompiliere $texfile ..."
-            cd skripte
-            pdflatex -interaction=nonstopmode -file-line-error "$basename.tex"
-            pdflatex -interaction=nonstopmode -file-line-error "$basename.tex"
-            cd ..
-            cp "skripte/$basename.pdf" "docs/pdfs/$basename.pdf"
-            echo "  -> docs/pdfs/$basename.pdf"
+            (cd "$texdir" && \
+              pdflatex -interaction=nonstopmode -file-line-error "$basename.tex" && \
+              pdflatex -interaction=nonstopmode -file-line-error "$basename.tex")
+
+            mkdir -p "docs/pdfs/$reldir"
+            cp "$texdir/$basename.pdf" "docs/pdfs/$reldir/$basename.pdf"
+            echo "  -> docs/pdfs/$reldir/$basename.pdf"
           done
-
-      - name: skripte.md dynamisch generieren
-        run: |
-          cat > docs/skripte.md << 'MARKDOWNEOF'
-          # Skripte (PDF)
-
-          Alle verfügbaren mathematischen Skripte als PDF zum Download und zur Ansicht.
-
-          MARKDOWNEOF
-
-          for pdffile in docs/pdfs/*.pdf; do
-            basename=$(basename "$pdffile" .pdf)
-            # Dateiname lesbarer machen (Unterstriche -> Leerzeichen)
-            display=$(echo "$basename" | sed 's/_/ /g' | sed 's/\b./\u&/g')
-            cat >> docs/skripte.md << ENTRY
-
-          ## $display
-
-          <a href="../pdfs/$basename.pdf" target="_blank" class="md-button md-button--primary">
-            PDF ansehen / herunterladen
-          </a>
-
-          <embed src="../pdfs/$basename.pdf" type="application/pdf" width="100%" height="800px" style="border: 1px solid #ccc; border-radius: 4px; margin-top: 8px;" />
-
-          ENTRY
-          done
-
-          echo "" >> docs/skripte.md
-          echo "> Zuletzt aktualisiert: $(date '+%d.%m.%Y %H:%M') UTC" >> docs/skripte.md
 
       - name: Python und MkDocs einrichten
         run: |

@@ -4,11 +4,11 @@ on:
   push:
     branches: [main, master]
     paths:
-      - 'skripte/**.tex'
+      - 'skripte/**'
       - '.github/workflows/latex-compile.yml'
   pull_request:
     paths:
-      - 'skripte/**.tex'
+      - 'skripte/**'
   workflow_dispatch:
 
 permissions:
@@ -32,24 +32,20 @@ jobs:
             texlive-lang-german \
             texlive-fonts-recommended
 
-      - name: PDF kompilieren
+      - name: Alle .tex-Dateien rekursiv kompilieren
         run: |
-          cd skripte
-          pdflatex -interaction=nonstopmode -file-line-error beispiel.tex
-          pdflatex -interaction=nonstopmode -file-line-error beispiel.tex
+          find skripte -name "*.tex" | while read texfile; do
+            basename=$(basename "$texfile" .tex)
+            texdir=$(dirname "$texfile")
+            echo "Kompiliere $texfile ..."
+            (cd "$texdir" && \
+              pdflatex -interaction=nonstopmode -file-line-error "$basename.tex" && \
+              pdflatex -interaction=nonstopmode -file-line-error "$basename.tex")
+          done
 
-      - name: PDF als Artefakt hochladen
+      - name: PDFs als Artefakt hochladen
         uses: actions/upload-artifact@v4
         with:
-          name: mathematik-zusammenfassung-pdf
-          path: skripte/beispiel.pdf
+          name: mathematik-pdfs
+          path: skripte/**/*.pdf
           retention-days: 30
-
-      - name: PDF in releases hochladen (nur bei Push auf main/master)
-        if: github.event_name == 'push' && (github.ref == 'refs/heads/main' || github.ref == 'refs/heads/master')
-        uses: softprops/action-gh-release@v2
-        with:
-          tag_name: pdf-latest
-          name: "Aktuelle PDFs"
-          files: skripte/beispiel.pdf
-          make_latest: true

@@ -1,5 +1,5 @@
 site_name: Mathematikstudium
-site_description: Mathematische Zusammenfassungen und Skripte
+site_description: Zusammenfassungen und Einsendeaufgaben zum Mathematikstudium
 site_url: https://davidstahl97.github.io/Mathematikstudium/
 
 theme:
@@ -18,7 +18,10 @@ theme:
 
 nav:
   - Home: index.md
-  - Skripte (PDF): skripte.md
+  - Module:
+    - 61111 Mathematische Grundlagen:
+      - Lektion 1:
+        - Einsendeaufgaben: 61111-mathematische-grundlagen/lektion-1/einsendeaufgaben.md
 
 plugins:
   - search
