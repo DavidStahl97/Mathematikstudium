@@ -46,30 +46,27 @@
 
     \item
     \[
-        a_1(u-v) + a_2(u-w) + a_3(v+w)
-        = (a_1+a_2)\,u + (-a_1+a_3)\,v + (-a_2+a_3)\,w
+        a_1(u-v) + a_2(u-w) + a_3(v-w)
+        = (a_1+a_2)\,u + (-a_1+a_3)\,v + (-a_2-a_3)\,w
     \]
     Gleichungssystem aufstellen:
     \[
-        \begin{pmatrix} 1 & 1 & 0 \\ -1 & 0 & 1 \\ 0 & -1 & 1 \end{pmatrix}
+        \begin{pmatrix} 1 & 1 & 0 \\ -1 & 0 & 1 \\ 0 & -1 & -1 \end{pmatrix}
         \begin{pmatrix} a_1 \\ a_2 \\ a_3 \end{pmatrix} = \mathbf{0}
     \]
     L\"{o}sung durch Zeilenumformungen:
     \[
-        \begin{pmatrix} 1 & 1 & 0 \\ -1 & 0 & 1 \\ 0 & -1 & 1 \end{pmatrix}
+        \begin{pmatrix} 1 & 1 & 0 \\ -1 & 0 & 1 \\ 0 & -1 & -1 \end{pmatrix}
         \;\Big|\; Z_{2+1}(1)
         \longrightarrow
-        \begin{pmatrix} 1 & 1 & 0 \\ 0 & 1 & 1 \\ 0 & -1 & 1 \end{pmatrix}
+        \begin{pmatrix} 1 & 1 & 0 \\ 0 & 1 & 1 \\ 0 & -1 & -1 \end{pmatrix}
         \;\Big|\; Z_{3+2}(1)
         \longrightarrow
-        \begin{pmatrix} 1 & 1 & 0 \\ 0 & 1 & 1 \\ 0 & 0 & 2 \end{pmatrix}
+        \begin{pmatrix} 1 & 1 & 0 \\ 0 & 1 & 1 \\ 0 & 0 & 0 \end{pmatrix}
     \]
-    $\Rightarrow$ 3 Pivot-Positionen
+    $\Rightarrow$ 2 Pivot-Positionen
 
-    $\Rightarrow$ Die homogene Gleichung besitzt nur die triviale L\"{o}sung
-    $a_1 = a_2 = a_3 = 0$
-
-    $\Rightarrow$ $u-v$, $u-w$, $v+w$ ist linear unabhängig.
+    $\Rightarrow$ linear abhängig
 
 \end{enumerate}
 
