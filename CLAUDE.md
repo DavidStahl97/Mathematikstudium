@@ -5,6 +5,7 @@ Mathe-Zusammenfassungen als LaTeX-Skripte, kompiliert zu PDF via GitHub Actions.
 
 ## Pfade
 Der Ordner `Mathematikstudium` ist als Workspace freigegeben – immer **relative Pfade** verwenden, nie absolute (kein `D:\source\repos\Mathematikstudium\...`).
+Das aktuelle Arbeitsverzeichnis ist bereits `D:\source\repos\Mathematikstudium` – kein `cd` in dieses Verzeichnis nötig.
 
 ## Git & Push
 - Branch-Schema: `claude/<beschreibung>-<sessionId>`
@@ -90,6 +91,11 @@ skripte/
 ### mkdocs.yml
 - Kein `nav:`-Abschnitt im Repo – wird von `generate_docs.py` zur Laufzeit eingefügt
 - Theme: Material, Sprache: de, Features: navigation.tabs, navigation.sections
+
+## Umgang mit LaTeX-Lösungen (Einsendeaufgaben)
+- **Keinen Text erfinden** – nur das aufschreiben, was aus den handschriftlichen PDFs klar hervorgeht
+- **Nicht selbst korrigieren** – wenn etwas fehlerhaft oder unleserlich erscheint, beim Benutzer nachfragen
+- Der Benutzer muss die Lösungen selbst erarbeiten; Claude dient nur zur Transkription
 
 ## Typischer Fix-Workflow
 1. Action-Runs via API prüfen (`actions/runs` → `jobs`)
