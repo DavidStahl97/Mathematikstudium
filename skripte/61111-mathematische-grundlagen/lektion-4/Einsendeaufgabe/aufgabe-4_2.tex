@@ -1,0 +1,107 @@
+\documentclass[a4paper,12pt]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[ngerman]{babel}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{enumitem}
+\usepackage{geometry}
+\geometry{a4paper, margin=2.5cm}
+
+\title{Einsendeaufgaben -- Lektion 4\\[0.5em]
+\large Modul 61111: Mathematische Grundlagen}
+\author{}
+\date{}
+
+\begin{document}
+\maketitle
+
+\section*{Aufgabe 4.2}
+
+\begin{enumerate}[label=\alph*)]
+
+    \item \underline{$\sup M_1 = 1$}
+
+    Beweis:
+
+    \begin{enumerate}[label=\arabic*.]
+        \item 1 ist eine obere Schranke, da
+        \[
+            \frac{n-1}{n+1} < 1 \Leftrightarrow n-1 < n+1 \Leftrightarrow -1 < 1.
+        \]
+
+        \item Es gilt.
+        \[
+            \lim_{n \to \infty} \frac{n-1}{n+1}
+            = \lim_{n \to \infty} \frac{1 - \frac{1}{n}}{1 + \frac{1}{n}} = 1.
+        \]
+        Dann sei $\varepsilon > 0$ beliebig. Wegen $\dfrac{1-\frac{1}{n}}{1+\frac{1}{n}} \to 1$,
+        existiert ein $n \in \mathbb{N}$, sodass
+        \[
+            \left| \frac{1-\frac{1}{n}}{1+\frac{1}{n}} - 1 \right| < \varepsilon
+        \]
+        Da 1 obere Schranke ist, folgt
+        \[
+            \left| \frac{1-\frac{1}{n}}{1+\frac{1}{n}} - 1 \right|
+            = |-1| \left| 1 - \frac{1-\frac{1}{n}}{1+\frac{1}{n}} \right|
+            = 1 - \frac{1-\frac{1}{n}}{1+\frac{1}{n}} < \varepsilon.
+        \]
+        Also gilt
+        \[
+            1 - \varepsilon < \frac{1-\frac{1}{n}}{1+\frac{1}{n}}
+        \]
+    \end{enumerate}
+
+    \underline{max $M_1$:}
+    existiert nicht, da $\sup M_1 \notin M_1$
+
+    \underline{$\min M_1 = 0$}
+
+    Beweis:
+
+    Da $n \geq 1$ für alle $n \in \mathbb{N}$ gilt, folgt
+    $0 \leq n-1$ und damit $0 \leq \dfrac{n-1}{n+1}$.
+    Und $0 \in M_1$, da für $n=1$
+    \[
+        0 = \frac{1-1}{1+1} = \frac{n-1}{n+1} \text{ gilt.}
+    \]
+
+    \underline{$\inf M_1 = 0$}
+
+    Beweis:
+
+    folgt aus $\min M_1 = \inf M_1$, da Minimum existiert.
+
+    \item $M_2$ besitzt keine untere Schranke.
+
+    Beweis:
+
+    Wir definieren eine Folge $(a_n)$ mit
+    \[
+        a_n = \frac{\left(-1+\frac{1}{n}\right)}{1 + \left(-1+\frac{1}{n}\right)}
+        = \frac{-1+\frac{1}{n}}{\frac{1}{n}} = -n+1
+    \]
+    Die Folge $(a_n)$ besitzt keine untere Schranke.
+    Da jedes $a_n \in M_2$, existiert keine untere Schranke für $M_2$.
+
+    Also existiert kein $\min M_2$ und kein $\inf M_2$.
+
+    Allerdings existiert eine obere Schranke; nämlich die 1:
+
+    Als $x < x+1$ für alle $x \in (-1, \infty)$
+    folgt $\dfrac{x}{x+1} < 1$.
+
+    Die 1 ist sogar das Supremum, da
+    die Folge $(a_n)$ mit $a_n = \dfrac{n}{n+1}$ gegen 1
+    konvergiert und $a_n \in M_2$.
+    $\sup M_2$ liegt nicht in $M_2$, da aus der Annahme
+    \[
+        \frac{x}{1+x} = 1
+    \]
+    der Widerspruch $x = 1+x$
+    folgt.
+    Also existiert kein Maximum.
+
+\end{enumerate}
+
+\end{document}
