@@ -13,3 +13,5 @@ skripte/**/*.pdf
 
 # MkDocs Site-Output (lokal)
 site/
+
+.claude/
