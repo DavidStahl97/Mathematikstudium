@@ -109,19 +109,51 @@ def build_tree(skripte_path: Path, docs_path: Path, site_url: str) -> list:
     return items
 
 
+def find_first_tex_page(module_path: Path) -> str | None:
+    """Gibt den relativen Docs-Pfad zur ersten .tex-Datei im Modul zurück."""
+    for tex in sorted(module_path.rglob("*.tex")):
+        rel = tex.relative_to(SKRIPTE_DIR)
+        return str(rel.with_suffix(".md")).replace("\\", "/")
+    return None
+
+
+def build_module_table(skripte_path: Path) -> str:
+    """Erstellt eine Markdown-Tabelle aller Module mit Links."""
+    rows = []
+    for entry in sorted(skripte_path.iterdir()):
+        if entry.is_dir():
+            title = folder_to_title(entry.name)
+            first_page = find_first_tex_page(entry)
+            if first_page:
+                rows.append(f"| [{title}]({first_page}) |")
+            else:
+                rows.append(f"| {title} |")
+
+    if not rows:
+        return ""
+
+    lines = [
+        "| Modul |",
+        "| ----- |",
+    ] + rows
+    return "\n".join(lines) + "\n"
+
+
 def main():
     # docs/ komplett neu aufbauen
     if DOCS_DIR.exists():
         shutil.rmtree(DOCS_DIR)
     DOCS_DIR.mkdir()
 
-    # Startseite
-    (DOCS_DIR / "index.md").write_text(
+    # Startseite mit Modultabelle
+    module_table = build_module_table(SKRIPTE_DIR)
+    index_content = (
         "# Mathematikstudium\n\n"
         "Willkommen zu den Zusammenfassungen und Einsendeaufgaben.\n\n"
-        "Navigiere über das Menü zu den einzelnen Skripten.\n",
-        encoding="utf-8",
+        "## Module\n\n"
+        + module_table
     )
+    (DOCS_DIR / "index.md").write_text(index_content, encoding="utf-8")
 
     # site_url für PDF.js-Viewer-Links aus mkdocs.yml lesen
     with open(MKDOCS_FILE, encoding="utf-8") as f:
