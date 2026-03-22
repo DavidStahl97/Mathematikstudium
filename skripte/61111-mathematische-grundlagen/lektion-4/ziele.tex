@@ -1,0 +1,403 @@
+\documentclass[a4paper,12pt]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[ngerman]{babel}
+\usepackage{amsmath, amssymb}
+\usepackage{geometry}
+\usepackage{tikz}
+\usetikzlibrary{shapes.geometric, arrows.meta, positioning, fit, backgrounds}
+\usepackage{parskip}
+\usepackage{titlesec}
+\usepackage{booktabs}
+\usepackage{enumitem}
+
+\geometry{left=3cm, right=3cm, top=2.5cm, bottom=2.5cm}
+
+\titleformat{\section}{\large\bfseries}{}{0em}{}[\titlerule]
+\titleformat{\subsection}{\normalsize\bfseries}{}{0em}{}
+
+\tikzset{
+  box/.style={rectangle, draw, rounded corners=3pt, text width=4.5cm,
+              align=center, minimum height=1.0cm, font=\small, inner sep=4pt},
+  boxw/.style={box, text width=5.5cm},
+  arrow/.style={-{Latex[length=2mm]}, thick},
+}
+
+\begin{document}
+
+\begin{center}
+  {\LARGE\bfseries Studierhinweise zu Lektion 4}\\[0.5em]
+  {\large Mathematische Grundlagen (Modul 61111)}
+\end{center}
+
+\vspace{1em}
+
+Diese Lektion eröffnet den Analysis-Teil des Moduls. Im Zentrum steht die Frage,
+was die reellen Zahlen~$\mathbb{R}$ gegenüber anderen Körpern so besonders macht -- und
+warum Analysis ohne $\mathbb{R}$ nicht funktioniert.
+
+In \textbf{Kapitel~12} werden neun Axiome für $\mathbb{R}$ vorgestellt: fünf Körperaxiome,
+drei Ordnungsaxiome und das entscheidende Schnittaxiom (Axiom der Ordnungsvollständigkeit).
+Aus diesen Axiomen leiten wir systematisch die Bruchrechnung, den Umgang mit Ungleichungen,
+den Absolutbetrag, Intervalle sowie das Supremumsprinzip her -- das Herzstück, das
+$\mathbb{R}$ von~$\mathbb{Q}$ unterscheidet. Am Ende von Kapitel~12 zeigen wir, dass
+$p$-te Wurzeln aus nichtnegativen reellen Zahlen stets existieren und eindeutig sind.
+
+In \textbf{Kapitel~13} wird der Begriff des Grenzwertes einer reellen Folge
+präzisiert. Dieser Begriff ist das unverzichtbare Werkzeug aller Analysis. Neben
+der formalen $\varepsilon$-Definition lernen Sie Rechenregeln für konvergente Folgen
+sowie vier wichtige Konvergenzprinzipien kennen: das Monotonieprinzip, den Satz
+von Bolzano-Weierstraß, das Cauchy-Kriterium und das Prinzip der Intervallschachtelung.
+
+Lesen Sie diesen Lehrtext \emph{aktiv}: Schreiben Sie jeden Beweisschritt selbst nach,
+und überprüfen Sie jede Ungleichung an einem kleinen Zahlenbeispiel, bevor Sie weiterlesen.
+Kapitel~13 ist Grundlage der gesamten weiteren Analysis -- lassen Sie hier keine Lücken.
+
+% -----------------------------------------------------------------------
+\section*{Struktur der Lektion 4}
+
+\begin{center}
+\begin{tikzpicture}[node distance=0.55cm and 0.9cm]
+
+  % Column headers
+  \node[font=\bfseries\small] (h1) at (0,0)    {Kap.\,12: Reelle Zahlen};
+  \node[font=\bfseries\small] (h2) at (7.5,0)  {Kap.\,13: Grenzwerte von Folgen};
+
+  % Kap 12 boxes
+  \node[box, below=0.8cm of h1] (ax1) {12.1 Körperaxiome\\(A1)--(A5)};
+  \node[box, below=0.5cm of ax1] (ax2) {12.1 Ordnungsaxiome\\(A6)--(A8)};
+  \node[box, below=0.5cm of ax2] (ax3) {12.1 Schnittaxiom\\(A9)};
+  \node[box, below=0.5cm of ax3] (fk)  {12.2.1 Bruchrechnung\\Vorzeichenregeln};
+  \node[box, below=0.5cm of fk]  (un)  {12.2.2 Ungleichungen\\Betrag, Abstand, Intervalle};
+  \node[box, below=0.5cm of un]  (sup) {12.2.3 Supremum, Infimum\\Supremumsprinzip};
+  \node[box, below=0.5cm of sup] (wur) {12.2.4 $p$-te Wurzeln\\Binomischer Lehrsatz};
+
+  % Kap 13 boxes
+  \node[box, below=0.8cm of h2] (gw)  {13.1 Grenzwertbegriff\\$\varepsilon$-Definition, Limes};
+  \node[box, below=0.5cm of gw]  (eig) {13.2 Eigenschaften\\Eindeutigkeit, Beschränktheit};
+  \node[box, below=0.5cm of eig] (div) {13.3 Divergente Folgen};
+  \node[box, below=0.5cm of div] (rec) {13.4 Rechenregeln\\Summe, Produkt, Quotient};
+  \node[box, below=0.5cm of rec] (mon) {13.5 Monotonieprinzip};
+  \node[box, below=0.5cm of mon] (bw)  {13.5 Bolzano-Weierstraß};
+  \node[box, below=0.5cm of bw]  (cau) {13.5 Cauchy-Kriterium};
+  \node[box, below=0.5cm of cau] (ivs) {13.5 Intervallschachtelung};
+
+  % Arrows Kap 12
+  \draw[arrow] (ax1) -- (ax2);
+  \draw[arrow] (ax2) -- (ax3);
+  \draw[arrow] (ax1.east) -- ++(0.3,0) |- (fk.east);
+  \draw[arrow] (ax2.east) -- ++(0.3,0) |- (un.east);
+  \draw[arrow] (ax3) -- (sup);
+  \draw[arrow] (sup) -- (wur);
+
+  % Arrows Kap 13
+  \draw[arrow] (gw)  -- (eig);
+  \draw[arrow] (eig) -- (div);
+  \draw[arrow] (div) -- (rec);
+  \draw[arrow] (rec) -- (mon);
+  \draw[arrow] (mon) -- (bw);
+  \draw[arrow] (bw)  -- (cau);
+  \draw[arrow] (cau) -- (ivs);
+
+  % Cross-chapter
+  \draw[arrow] (sup.east) -- ++(0.4,0) |- (gw.west);
+  \draw[arrow] (sup.east) -- ++(0.4,0) |- (mon.west);
+
+\end{tikzpicture}
+\end{center}
+
+\newpage
+
+% -----------------------------------------------------------------------
+\section*{Zielelement 12.1 -- Die Axiome der reellen Zahlen}
+
+\subsection*{Lerninhalte}
+
+\begin{center}
+\begin{tikzpicture}[node distance=0.55cm and 1.0cm]
+  \node[box] (k)  {Körperaxiome (A1)--(A5):\\$\mathbb{R}$ ist ein Körper};
+  \node[box, below=0.5cm of k] (o)  {Ordnungsaxiome (A6)--(A8):\\Trichotomie, Transitivität,\\Monotoniegesetze};
+  \node[box, below=0.5cm of o] (s)  {Schnittaxiom (A9):\\Dedekind'scher Schnitt $(A|B)$,\\Trennungszahl};
+  \node[box, below=0.5cm of s] (u)  {Unterschied $\mathbb{R}$ vs.\ $\mathbb{Q}$:\\angeordneter Körper -- nicht hinreichend};
+  \draw[arrow] (k) -- (o);
+  \draw[arrow] (o) -- (s);
+  \draw[arrow] (s) -- (u);
+\end{tikzpicture}
+\end{center}
+
+\subsection*{Lernziele}
+
+Nach Durcharbeiten dieses Abschnitts sollten Sie:
+\begin{itemize}
+  \item die neun Axiome der reellen Zahlen benennen und in drei Gruppen einteilen können,
+  \item erklären können, warum weder die Körperaxiome noch die Ordnungsaxiome allein $\mathbb{R}$
+        von $\mathbb{Q}$ unterscheiden,
+  \item den Begriff des Dedekind'schen Schnittes $(A|B)$ und der Trennungszahl definieren können,
+  \item verstehen, warum $\mathbb{F}_2$ kein angeordneter Körper ist,
+  \item das Schnittaxiom (A9) in eigenen Worten erläutern können (geometrische Intuition:
+        Lückenlosigkeit der Zahlengeraden).
+\end{itemize}
+
+\subsection*{Selbstkontrollelement 12.1}
+
+Sei $A = \{x \in \mathbb{Q} \mid x < \sqrt{2}\}$ und $B = \{x \in \mathbb{Q} \mid x > \sqrt{2}\}$.
+Erklären Sie, warum $(A|B)$ ein Dedekind'scher Schnitt der rationalen Zahlen ist,
+und was das Schnittaxiom für die reellen Zahlen in diesem Zusammenhang leistet.
+
+\newpage
+
+% -----------------------------------------------------------------------
+\section*{Zielelement 12.2.1--12.2.2 -- Folgerungen: Bruchrechnung und Ungleichungen}
+
+\subsection*{Lerninhalte}
+
+\begin{center}
+\begin{tikzpicture}[node distance=0.55cm and 1.0cm]
+  \node[box] (br)  {Bruchrechnung, Vorzeichen\\ (Prop.\,12.2.1)};
+  \node[box, below=0.5cm of br] (un) {Grundlegendes über Ungleichungen\\ (Prop.\,12.2.3--12.2.5)};
+  \node[box, below=0.5cm of un] (be) {Bernoulli'sche Ungleichung $(1+x)^n \geq 1+nx$};
+  \node[box, below=0.5cm of be] (bt) {Betrag $|a|$, Dreiecksungleichung\\$|a+b| \leq |a|+|b|$};
+  \node[box, below=0.5cm of bt] (ab) {Abstand $d(a,b) = |a-b|$\\$\varepsilon$-Umgebungen $U_\varepsilon(x_0)$};
+  \node[box, below=0.5cm of ab] (iv) {Intervalle: offen, abgeschlossen,\\ halboffen, uneigentlich};
+  \draw[arrow] (br) -- (un);
+  \draw[arrow] (un) -- (be);
+  \draw[arrow] (be) -- (bt);
+  \draw[arrow] (bt) -- (ab);
+  \draw[arrow] (ab) -- (iv);
+\end{tikzpicture}
+\end{center}
+
+\subsection*{Lernziele}
+
+Nach Durcharbeiten dieses Abschnitts sollten Sie:
+\begin{itemize}
+  \item Ungleichungen mit den Grundregeln (Addition, Multiplikation, Vorzeichenwechsel)
+        manipulieren und das Umdrehen des Ungleichungszeichens bei Multiplikation mit negativen
+        Zahlen sicher anwenden können,
+  \item die Bernoulli'sche Ungleichung anwenden und ihren Beweis per Induktion skizzieren können,
+  \item den Absolutbetrag und seine Eigenschaften (Dreiecksungleichung, Multiplikativität) kennen,
+  \item $\varepsilon$-Umgebungen als Intervallschreibweise und als Betragsbedingung
+        $|x - x_0| < \varepsilon$ ausdrücken können,
+  \item die verschiedenen Intervalltypen $(a,b)$, $[a,b]$, $(a,b]$, $[a,b)$ sowie
+        uneigentliche Intervalle benennen und auf der Zahlengeraden darstellen können.
+\end{itemize}
+
+\subsection*{Selbstkontrollelement 12.2.1--12.2.2}
+
+Beweisen Sie: Für alle $a, b \in \mathbb{R}$ gilt $|a - b| \geq \bigl||a| - |b|\bigr|$.\\
+\emph{Hinweis:} Wenden Sie die Dreiecksungleichung auf $a = (a-b)+b$ an.
+
+\newpage
+
+% -----------------------------------------------------------------------
+\section*{Zielelement 12.2.3 -- Supremum, Infimum und Supremumsprinzip}
+
+\subsection*{Lerninhalte}
+
+\begin{center}
+\begin{tikzpicture}[node distance=0.55cm and 1.0cm]
+  \node[box] (mm) {Minimum, Maximum\\(müssen in $M$ liegen)};
+  \node[box, below=0.5cm of mm] (sc) {Obere und untere Schranken\\(müssen nicht in $M$ liegen)};
+  \node[box, below=0.5cm of sc] (si) {Supremum $\sup M$\\Infimum $\inf M$};
+  \node[box, below=0.5cm of si] (sp) {Supremumsprinzip:\\jede nicht leere, nach oben beschränkte\\Menge besitzt ein Supremum};
+  \node[box, below=0.5cm of sp] (ae) {Satz des Archimedes:\\$\mathbb{N}$ ist nicht beschränkt};
+  \node[box, below=0.5cm of ae] (eu) {Satz des Eudoxos:\\$\forall\varepsilon > 0\;\exists\,m\in\mathbb{N}: \tfrac{1}{m} < \varepsilon$};
+  \node[box, below=0.5cm of eu] (dq) {$\mathbb{Q}$ liegt dicht in $\mathbb{R}$};
+  \draw[arrow] (mm) -- (sc);
+  \draw[arrow] (sc) -- (si);
+  \draw[arrow] (si) -- (sp);
+  \draw[arrow] (sp) -- (ae);
+  \draw[arrow] (ae) -- (eu);
+  \draw[arrow] (eu) -- (dq);
+\end{tikzpicture}
+\end{center}
+
+\subsection*{Lernziele}
+
+Nach Durcharbeiten dieses Abschnitts sollten Sie:
+\begin{itemize}
+  \item den Unterschied zwischen Minimum/Maximum und unteren/oberen Schranken erklären können,
+  \item Supremum und Infimum einer Menge $M$ anhand der Definition 12.2.47 identifizieren können,
+  \item das Supremumsprinzip (Satz 12.2.52) formulieren und seine Äquivalenz zum Schnittaxiom
+        erläutern können (Korollar 12.2.56),
+  \item den Satz des Archimedes (12.2.57) und den Satz des Eudoxos (12.2.58) anwenden können,
+  \item verstehen, warum $\mathbb{Q}$ dicht in $\mathbb{R}$ liegt (Korollar 12.2.59).
+\end{itemize}
+
+\subsection*{Selbstkontrollelement 12.2.3}
+
+Sei $M = \bigl\{\tfrac{n-1}{n+1} \bigm| n \in \mathbb{N}\bigr\}$.
+Bestimmen Sie $\sup M$, $\inf M$, $\max M$ (falls existent) und $\min M$ (falls existent)
+und begründen Sie Ihre Antwort.
+
+\newpage
+
+% -----------------------------------------------------------------------
+\section*{Zielelement 12.2.4 -- $p$-te Wurzeln}
+
+\subsection*{Lerninhalte}
+
+\begin{center}
+\begin{tikzpicture}[node distance=0.55cm and 1.0cm]
+  \node[box] (bk)  {Binomialkoeffizient $\binom{n}{k}$};
+  \node[box, below=0.5cm of bk]  (bl) {Binomischer Lehrsatz\\$(a+b)^p = \sum_{k=0}^p \binom{p}{k}a^{p-k}b^k$};
+  \node[box, below=0.5cm of bl]  (de) {Definition $p$-te Wurzel aus $a\geq 0$:\\$r \geq 0$ mit $r^p = a$};
+  \node[box, below=0.5cm of de]  (eu) {Eindeutigkeit (Lemma 12.2.66):\\$x < y \Leftrightarrow x^p < y^p$};
+  \node[box, below=0.5cm of eu]  (ex) {Existenz (Satz 12.2.68):\\Supremumsprinzip liefert $\sqrt[p]{a}$};
+  \node[box, below=0.5cm of ex]  (po) {Potenzen mit rationalem Exponent\\$a^{s/p} = \sqrt[p]{a^s}$, Potenzregeln};
+  \draw[arrow] (bk) -- (bl);
+  \draw[arrow] (bl) -- (de);
+  \draw[arrow] (de) -- (eu);
+  \draw[arrow] (eu) -- (ex);
+  \draw[arrow] (ex) -- (po);
+\end{tikzpicture}
+\end{center}
+
+\subsection*{Lernziele}
+
+Nach Durcharbeiten dieses Abschnitts sollten Sie:
+\begin{itemize}
+  \item den Binomialkoeffizienten berechnen und den binomischen Lehrsatz anwenden können,
+  \item die Definition der $p$-ten Wurzel kennen und verstehen, warum nur $r \geq 0$
+        zugelassen ist,
+  \item die Eindeutigkeit von $\sqrt[p]{a}$ mit Lemma~12.2.66 begründen können,
+  \item die Beweisidee der Existenz (Satz 12.2.68) skizzieren können (Supremum
+        der Menge $M = \{y \geq 0 \mid y^p < a\}$),
+  \item die Potenzregeln für rationale Exponenten (Proposition 12.2.78) kennen,
+  \item wissen, warum $\sqrt{2}$ irrational ist (Proposition 12.2.72).
+\end{itemize}
+
+\subsection*{Selbstkontrollelement 12.2.4}
+
+Berechnen Sie $\binom{6}{2}$ und $\binom{6}{4}$.
+Geben Sie außerdem an: Warum kann $\sqrt[3]{-8}$ gemäß Definition 12.2.64 nicht als dritte Wurzel aus $-8$ bezeichnet werden?
+
+\newpage
+
+% -----------------------------------------------------------------------
+\section*{Zielelement 13.1--13.2 -- Der Grenzwertbegriff}
+
+\subsection*{Lerninhalte}
+
+\begin{center}
+\begin{tikzpicture}[node distance=0.55cm and 1.0cm]
+  \node[box] (fo) {Reelle Folge $(a_n)$:\\Abbildung $f:\mathbb{N}\to\mathbb{R}$};
+  \node[box, below=0.5cm of fo] (fa) {„Fast alle" Folgenglieder,\\Endstücke $(a_n)_{n>n_0}$};
+  \node[box, below=0.5cm of fa] (ko) {Konvergenz gegen $a$:\\$\forall\varepsilon>0\;\exists\,n_0:\forall n>n_0:\;|a_n - a|<\varepsilon$};
+  \node[box, below=0.5cm of ko] (gw) {Grenzwert (Limes) $\lim_{n\to\infty} a_n = a$\\Eindeutigkeit (Prop.\,13.2.1)};
+  \node[box, below=0.5cm of gw] (tf) {Teilfolge $(a_{n_k})$:\\Konvergenz gegen denselben Grenzwert};
+  \node[box, below=0.5cm of tf] (bs) {Beschränktheit konvergenter Folgen};
+  \draw[arrow] (fo) -- (fa);
+  \draw[arrow] (fa) -- (ko);
+  \draw[arrow] (ko) -- (gw);
+  \draw[arrow] (gw) -- (tf);
+  \draw[arrow] (tf) -- (bs);
+\end{tikzpicture}
+\end{center}
+
+\subsection*{Lernziele}
+
+Nach Durcharbeiten dieses Abschnitts sollten Sie:
+\begin{itemize}
+  \item die $\varepsilon$-Definition der Konvergenz (Definition 13.1.8) auswendig kennen
+        und auf konkrete Folgen anwenden können,
+  \item verstehen, was „fast alle Folgenglieder" bedeutet, und den Unterschied
+        zu „alle" erläutern können,
+  \item die Konvergenz einfacher Folgen (z.\,B.\ $(\tfrac{1}{n})$, $(\tfrac{1}{\sqrt[p]{n}})$,
+        $(q^n)$ für $|q|<1$) direkt aus der Definition beweisen können,
+  \item die Eindeutigkeit des Grenzwertes (Proposition 13.2.1) kennen,
+  \item verstehen, warum jede Teilfolge einer konvergenten Folge gegen denselben
+        Grenzwert konvergiert, und dieses Kriterium zur Divergenzprüfung einsetzen können.
+\end{itemize}
+
+\subsection*{Selbstkontrollelement 13.1--13.2}
+
+Sei $(a_n) = \bigl(\tfrac{2n-14}{n+1}\bigr)$. Bestimmen Sie den Grenzwert und zeigen Sie
+mit der $\varepsilon$-Definition, dass die Folge gegen diesen Grenzwert konvergiert.
+
+\newpage
+
+% -----------------------------------------------------------------------
+\section*{Zielelement 13.3--13.4 -- Divergenz und Rechnen mit Folgen}
+
+\subsection*{Lerninhalte}
+
+\begin{center}
+\begin{tikzpicture}[node distance=0.55cm and 1.0cm]
+  \node[box] (dv)  {Divergenz: Negation\\der Konvergenz\\(Proposition 13.3.2)};
+  \node[box, below=0.5cm of dv] (vg) {Vergleichssatz (Prop.\,13.4.1):\\$a_n \leq b_n \Rightarrow \lim a_n \leq \lim b_n$};
+  \node[box, below=0.5cm of vg] (es) {Einschnürungssatz (Prop.\,13.4.3):\\$a_n \leq c_n \leq b_n \Rightarrow \lim c_n = \lim a_n$};
+  \node[box, below=0.5cm of es] (nf) {Nullfolge $\times$ beschränkte Folge\\= Nullfolge (Prop.\,13.4.9)};
+  \node[box, below=0.5cm of nf] (rr) {Rechenregeln (Prop.\,13.4.12):\\$\lim(a_n \pm b_n)$, $\lim a_n b_n$,\\$\lim(a_n / b_n)$};
+  \draw[arrow] (dv) -- (vg);
+  \draw[arrow] (vg) -- (es);
+  \draw[arrow] (es) -- (nf);
+  \draw[arrow] (nf) -- (rr);
+\end{tikzpicture}
+\end{center}
+
+\subsection*{Lernziele}
+
+Nach Durcharbeiten dieses Abschnitts sollten Sie:
+\begin{itemize}
+  \item Divergenz einer Folge formal charakterisieren und an Beispielen nachweisen können
+        (z.\,B.\ $((-1)^n)$, $(n)$),
+  \item Vergleichssatz und Einschnürungssatz anwenden können,
+  \item die Rechenregeln für konvergente Folgen (Proposition 13.4.12) anwenden und dabei
+        beachten, dass sie nur von rechts nach links gelesen werden dürfen,
+  \item Grenzwerte rationaler Folgen durch Kürzen des führenden Terms berechnen können,
+  \item wissen, dass aus der Konvergenz von $(a_n b_n)$ \emph{nicht} auf die Konvergenz
+        von $(a_n)$ oder $(b_n)$ geschlossen werden darf.
+\end{itemize}
+
+\subsection*{Selbstkontrollelement 13.3--13.4}
+
+Berechnen Sie $\displaystyle\lim_{n\to\infty}\frac{n^3+2n-5}{5n^3+n^2}$ und begründen Sie
+jeden Schritt mit den Rechenregeln.
+Geben Sie außerdem ein Beispiel für eine Nullfolge $(b_n)$ mit $b_n \neq 0$, für die
+$\bigl(\tfrac{1}{b_n}\bigr)$ divergiert.
+
+\newpage
+
+% -----------------------------------------------------------------------
+\section*{Zielelement 13.5 -- Vier Konvergenzprinzipien}
+
+\subsection*{Lerninhalte}
+
+\begin{center}
+\begin{tikzpicture}[node distance=0.55cm and 1.0cm]
+  \node[box] (mp) {Monotonieprinzip (Satz 13.5.2):\\monotone $+$ beschränkte Folge\\$\Rightarrow$ konvergent};
+  \node[box, right=0.7cm of mp] (bw) {Bolzano-Weierstraß (Satz 13.5.13):\\beschränkte Folge $\Rightarrow$\\konvergente Teilfolge};
+  \node[box, below=0.8cm of mp] (cf) {Cauchyfolge (Def.\,13.5.14):\\$\forall\varepsilon>0\;\exists\,n_0:\forall m,n>n_0:\;|a_m-a_n|<\varepsilon$};
+  \node[box, right=0.7cm of cf] (cp) {Cauchy-Prinzip (Satz 13.5.16):\\konvergent $\Leftrightarrow$ Cauchyfolge};
+  \node[box, below=0.8cm of cf] (is) {Intervallschachtelung $\langle a_n|b_n\rangle$\\(Satz 13.5.22):\\genau eine Zahl in allen $[a_n,b_n]$};
+  \node[box, right=0.7cm of is] (eu) {Euler'sche Zahl $e$:\\$e = \lim_{n\to\infty}(1+\tfrac{1}{n})^n$};
+  \draw[arrow] (mp.south) -- (cf.north);
+  \draw[arrow] (bw.south) -- (cp.north);
+  \draw[arrow] (cf) -- (is);
+\end{tikzpicture}
+\end{center}
+
+\subsection*{Lernziele}
+
+Nach Durcharbeiten dieses Abschnitts sollten Sie:
+\begin{itemize}
+  \item das Monotonieprinzip formulieren, seinen Beweis skizzieren und anwenden können
+        (insbesondere: monotone Folge konvergiert $\Leftrightarrow$ beschränkt),
+  \item den Satz von Bolzano-Weierstraß (jede beschränkte Folge hat eine konvergente Teilfolge)
+        kennen und zum Nachweis von Konvergenzeigenschaften verwenden können,
+  \item den Begriff der Cauchyfolge erklären und Cauchy-Folgen erkennen,
+  \item das Cauchy-Konvergenzprinzip (konvergent $\Leftrightarrow$ Cauchyfolge) anwenden können,
+  \item das Prinzip der Intervallschachtelung verstehen und wissen, dass genau eine reelle Zahl
+        in allen Intervallen liegt,
+  \item die Euler'sche Zahl $e$ als Grenzwert von $\bigl((1+\tfrac{1}{n})^{n+1}\bigr)$
+        und $\bigl(\sum_{k=0}^{n}\tfrac{1}{k!}\bigr)$ kennen.
+\end{itemize}
+
+\subsection*{Selbstkontrollelement 13.5}
+
+Sei $(a_n)$ mit $a_n = \sum_{k=1}^{n}\tfrac{1}{k^2}$. Zeigen Sie, dass $(a_n)$ monoton wachsend
+und beschränkt ist (Hinweis: $\tfrac{1}{k^2} \leq \tfrac{1}{k(k-1)}$ für $k \geq 2$), und
+schließen Sie auf Konvergenz. Ist $\lim a_n$ explizit bekannt?
+
+\end{document}

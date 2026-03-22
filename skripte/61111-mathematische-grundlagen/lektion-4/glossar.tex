@@ -1,0 +1,399 @@
+\documentclass[a4paper,12pt]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[ngerman]{babel}
+\usepackage{amsmath, amssymb}
+\usepackage{geometry}
+\usepackage{parskip}
+\usepackage{titlesec}
+\usepackage{enumitem}
+\usepackage{array}
+\usepackage{booktabs}
+
+\geometry{left=3cm, right=3cm, top=2.5cm, bottom=2.5cm}
+
+\titleformat{\section}{\large\bfseries}{}{0em}{}[\titlerule]
+\titleformat{\subsection}{\normalsize\bfseries\scshape}{}{0em}{}
+
+% Glossar-Eintrag: Nummer, fetter Titel, Inhalt
+\newcommand{\gentry}[3]{%
+  \noindent\textbf{#1\quad #2}\nopagebreak\\[0.2em]
+  #3\par\smallskip
+}
+
+\begin{document}
+
+\begin{center}
+  {\LARGE\bfseries Glossar zu Lektion 4}\\[0.5em]
+  {\large Mathematische Grundlagen (Modul 61111)}
+\end{center}
+
+\vspace{1em}
+
+Dieses Glossar fasst die wesentlichen Definitionen, Merkregeln und Sätze der
+vierten Lektion kompakt zusammen. Nummerierungen entsprechen dem Lehrtext.
+
+% ======================================================================
+\section*{12.1 \quad Die Axiome der reellen Zahlen}
+
+\gentry{12.1.1}{Körperaxiome (A1)--(A5)}{%
+  $\mathbb{R}$ ist ein Körper: kommutativ, assoziativ, Distributivgesetz, neutrale Elemente
+  $0$ und $1$, additive und multiplikative Inverse.
+}
+
+\gentry{12.1.4}{Ordnungsaxiome (A6)--(A8)}{%
+  Für je zwei $a, b \in \mathbb{R}$ gilt genau eines: $a < b$, $a = b$, $a > b$ (Trichotomie).
+  Transitivität: $a < b$ und $b < c \Rightarrow a < c$.
+  Monotoniegesetz: $a < b \Rightarrow a + c < b + c$ und, für $c > 0$: $ac < bc$.
+}
+
+\gentry{12.1.5}{Angeordneter Körper}{%
+  Ein Körper $K$, der die Axiome (A6)--(A8) erfüllt.
+  Sowohl $\mathbb{Q}$ als auch $\mathbb{R}$ sind angeordnete Körper. $\mathbb{F}_2$ ist keiner.
+}
+
+\gentry{12.1.6}{Dedekind'scher Schnitt}{%
+  Ein Paar $(A|B)$ nichtleerer Teilmengen von $\mathbb{R}$ mit $A \cup B = \mathbb{R}$
+  und $a < b$ für alle $a \in A$, $b \in B$.
+  Eine Zahl $t \in \mathbb{R}$ heißt \textbf{Trennungszahl}, wenn $a \leq t \leq b$
+  für alle $a \in A$, $b \in B$.
+}
+
+\gentry{12.1.8}{Schnittaxiom (A9)}{%
+  Jeder Dedekind'sche Schnitt besitzt \emph{genau eine} Trennungszahl.
+  Dieses Axiom unterscheidet $\mathbb{R}$ von $\mathbb{Q}$ (Ordnungsvollständigkeit).
+}
+
+% ======================================================================
+\section*{12.2.1 \quad Folgerungen aus den Körperaxiomen}
+
+\gentry{12.2.1}{Proposition (Bruchrechnung)}{%
+  Für $a,b,c,d \in \mathbb{R}$ ($b,d \neq 0$):
+  \begin{itemize}[topsep=2pt,itemsep=1pt]
+    \item $(-a)b = -(ab)$, \quad $(-a)(-b) = ab$
+    \item $\dfrac{a}{b} \pm \dfrac{c}{d} = \dfrac{ad \pm bc}{bd}$, \quad
+          $\dfrac{a}{b} \cdot \dfrac{c}{d} = \dfrac{ac}{bd}$, \quad
+          $\dfrac{a/b}{c/d} = \dfrac{ad}{bc}$
+  \end{itemize}
+}
+
+% ======================================================================
+\section*{12.2.2 \quad Folgerungen aus den Ordnungsaxiomen}
+
+\gentry{12.2.3}{Proposition (Grundlegendes über Ungleichungen)}{%
+  $a < b \Leftrightarrow b - a > 0$; \quad $a < 0 \Leftrightarrow -a > 0$; \quad
+  $a < b \Leftrightarrow -b < -a$.
+}
+
+\gentry{12.2.4}{Proposition}{%
+  Gleichgerichtete Ungleichungen dürfen addiert werden:
+  aus $a < b$ und $c < d$ folgt $a + c < b + d$.
+}
+
+\gentry{12.2.9}{Proposition}{%
+  Ist $a < b$ und $c < 0$, so gilt $ac > bc$.
+  \textbf{Merkregel 12.2.11:} Multiplikation mit negativer Zahl dreht das Ungleichungszeichen um.
+}
+
+\gentry{12.2.12}{Proposition}{%
+  Gleichgerichtete positive Ungleichungen dürfen multipliziert werden:
+  aus $0 < a < b$ und $0 < c < d$ folgt $ac < bd$.
+}
+
+\gentry{12.2.17}{Bernoulli'sche Ungleichung}{%
+  Für alle $x \geq -1$ und $n \in \mathbb{N}$: $(1+x)^n \geq 1 + nx$.
+}
+
+\gentry{12.2.19}{Betrag}{%
+  \[
+    |a| = \begin{cases} a, & \text{falls } a \geq 0, \\ -a, & \text{falls } a < 0. \end{cases}
+  \]
+}
+
+\gentry{12.2.20}{Bemerkung (Eigenschaften des Betrags)}{%
+  $|a| \geq 0$; \quad $|a| = 0 \Leftrightarrow a = 0$; \quad $|a| = |-a|$; \quad
+  $a \leq |a|$, $-a \leq |a|$.\\
+  Für $\alpha > 0$: $|x| \leq \alpha \Leftrightarrow -\alpha \leq x \leq \alpha$.
+}
+
+\gentry{12.2.21}{Proposition (Grundeigenschaften des Betrags)}{%
+  $|ab| = |a||b|$; \quad $\left|\dfrac{a}{b}\right| = \dfrac{|a|}{|b|}$ ($b \neq 0$).\\
+  \textbf{Dreiecksungleichung:} $|a+b| \leq |a| + |b|$.\\
+  $\bigl||a|-|b|\bigr| \leq |a-b|$.
+}
+
+\gentry{12.2.24}{Abstand}{%
+  $d(a,b) := |a-b|$. Es gilt $d(a,b) = d(b,a)$ und
+  $d(a,b) \leq d(a,c) + d(c,b)$ (Dreiecksungleichung).
+}
+
+\gentry{12.2.29}{Intervalle}{%
+  Für $a \leq b$:
+  \begin{itemize}[topsep=2pt,itemsep=1pt]
+    \item $(a,b) = \{x \in \mathbb{R} \mid a < x < b\}$ \quad (offen)
+    \item $[a,b] = \{x \in \mathbb{R} \mid a \leq x \leq b\}$ \quad (abgeschlossen)
+    \item $(a,b]$: links halboffen; \quad $[a,b)$: rechts halboffen
+  \end{itemize}
+}
+
+\gentry{12.2.32}{$\varepsilon$-Umgebung}{%
+  Sei $x_0 \in \mathbb{R}$, $\varepsilon > 0$.
+  $U_\varepsilon(x_0) := (x_0 - \varepsilon,\, x_0 + \varepsilon) = \{x \in \mathbb{R} \mid |x - x_0| < \varepsilon\}$
+  \quad (offene $\varepsilon$-Umgebung).\\
+  $U_\varepsilon[x_0] := [x_0 - \varepsilon,\, x_0 + \varepsilon] = \{x \in \mathbb{R} \mid |x - x_0| \leq \varepsilon\}$
+  \quad (abgeschlossene $\varepsilon$-Umgebung).
+}
+
+% ======================================================================
+\section*{12.2.3 \quad Folgerungen aus dem Schnittaxiom}
+
+\gentry{12.2.36}{Minimum, Maximum}{%
+  $m \in M$ heißt \textbf{Minimum} von $M$, wenn $m \leq x$ für alle $x \in M$.\\
+  $m \in M$ heißt \textbf{Maximum} von $M$, wenn $x \leq m$ für alle $x \in M$.\\
+  Minimum und Maximum müssen in $M$ liegen und sind eindeutig (falls vorhanden).
+}
+
+\gentry{12.2.42}{Beschränktheit}{%
+  $M$ heißt \textbf{nach oben beschränkt}, wenn ein $b \in \mathbb{R}$ mit $x \leq b$
+  für alle $x \in M$ existiert (obere Schranke).\\
+  \textbf{Nach unten beschränkt}: analoges $a \in \mathbb{R}$ mit $a \leq x$.\\
+  \textbf{Beschränkt}: nach oben und unten beschränkt.
+}
+
+\gentry{12.2.47}{Supremum, Infimum}{%
+  $S$ heißt \textbf{Supremum} (kleinste obere Schranke) von $M$, wenn:
+  \begin{enumerate}[label=(\arabic*),topsep=2pt,itemsep=1pt]
+    \item $S$ ist obere Schranke von $M$,
+    \item zu jedem $\varepsilon > 0$ gibt es $y \in M$ mit $y > S - \varepsilon$.
+  \end{enumerate}
+  \textbf{Infimum} (größte untere Schranke) analog.
+  Schreibweise: $\sup M$, $\inf M$. Beide sind eindeutig (falls vorhanden).
+}
+
+\gentry{12.2.48}{Bemerkung}{%
+  Hat $M$ ein Maximum, so ist $\max M = \sup M$. Hat $M$ ein Minimum, so ist $\min M = \inf M$.
+}
+
+\gentry{12.2.52}{Supremumsprinzip}{%
+  Jede nicht leere, nach oben beschränkte Teilmenge $M \subseteq \mathbb{R}$
+  besitzt ein Supremum.\\
+  \textbf{Korollar 12.2.56:} Das Supremumsprinzip ist äquivalent zum Schnittaxiom (A9).
+}
+
+\gentry{12.2.53}{Infimumsprinzip (Korollar)}{%
+  Jede nicht leere, nach unten beschränkte Teilmenge $M \subseteq \mathbb{R}$
+  besitzt ein Infimum.
+}
+
+\gentry{12.2.57}{Satz des Archimedes}{%
+  Die Menge $\mathbb{N}$ ist nicht nach oben beschränkt.
+}
+
+\gentry{12.2.58}{Satz des Eudoxos}{%
+  Zu jedem $\varepsilon > 0$ gibt es ein $m \in \mathbb{N}$ mit $\dfrac{1}{m} < \varepsilon$.
+}
+
+\gentry{12.2.59}{$\mathbb{Q}$ liegt dicht in $\mathbb{R}$}{%
+  Zu jeder reellen Zahl $a$ und jedem $\varepsilon > 0$ gibt es ein $r \in \mathbb{Q}$
+  mit $|r - a| < \varepsilon$.
+}
+
+% ======================================================================
+\section*{12.2.4 \quad $p$-te Wurzeln}
+
+\gentry{12.2.60}{Binomialkoeffizient}{%
+  \[
+    \binom{n}{k} = \frac{n(n-1)\cdots(n-k+1)}{1 \cdot 2 \cdots k}, \qquad \binom{n}{0} = 1.
+  \]
+}
+
+\gentry{12.2.62}{Binomischer Lehrsatz}{%
+  Für alle $a,b \in \mathbb{R}$ und $p \in \mathbb{N}$:
+  \[
+    (a+b)^p = \sum_{k=0}^{p} \binom{p}{k} a^{p-k} b^k.
+  \]
+}
+
+\gentry{12.2.64}{$p$-te Wurzel}{%
+  Sei $a \geq 0$, $p \in \mathbb{N}$. Eine Zahl $r$ heißt \textbf{$p$-te Wurzel} aus $a$, wenn
+  $r \geq 0$ und $r^p = a$.
+  Für $p = 2$: Wurzel. Notation: $\sqrt[p]{a}$ (für $p=2$: $\sqrt{a}$).
+}
+
+\gentry{12.2.66}{Lemma}{%
+  Für $x, y > 0$ und $p \in \mathbb{N}$: $x^p > 0$ und $x < y \Leftrightarrow x^p < y^p$.
+}
+
+\gentry{12.2.69}{Korollar (Existenz und Eindeutigkeit)}{%
+  Zu jeder reellen Zahl $a \geq 0$ und jedem $p \in \mathbb{N}$ gibt es genau eine
+  $p$-te Wurzel $\sqrt[p]{a}$.
+}
+
+\gentry{12.2.72}{Proposition}{%
+  $\sqrt{2}$ ist irrational.
+}
+
+\gentry{12.2.76}{Potenz mit rationalem Exponent}{%
+  Sei $a > 0$, $r = s/p$ mit $s,p \in \mathbb{N}$:
+  \[
+    a^r = \sqrt[p]{a^s}, \qquad a^{-r} = \frac{1}{\sqrt[p]{a^s}}, \qquad a^0 = 1.
+  \]
+}
+
+\gentry{12.2.78}{Potenzregeln für rationale Exponenten}{%
+  Für $a,b > 0$ und $r,r' \in \mathbb{Q}$:
+  $a^r a^{r'} = a^{r+r'}$; \quad $(a^r)^{r'} = a^{rr'}$; \quad $a^r b^r = (ab)^r$.
+}
+
+% ======================================================================
+\section*{13.1 \quad Der Grenzwertbegriff}
+
+\gentry{13.1.1}{Reelle Folge}{%
+  Eine Abbildung $f:\mathbb{N} \to \mathbb{R}$. Schreibweise: $(a_n)_{n \in \mathbb{N}}$ oder $(a_n)$,
+  wobei $a_n = f(n)$. Folgenglieder $a_n$ sind stets verschieden als Elemente der Folge
+  zu betrachten, auch wenn $a_n = a_m$ für $n \neq m$.
+}
+
+\gentry{13.1.2}{Endstück, „fast alle"}{%
+  Für $n_0 \in \mathbb{N}$ heißt $(a_n)_{n > n_0}$ ein \textbf{Endstück} der Folge.\\
+  \textbf{Fast alle} Glieder haben eine Eigenschaft~$\mathcal{A}$, wenn es ein $n_0$ gibt,
+  sodass alle Glieder des Endstücks $(a_n)_{n > n_0}$ die Eigenschaft~$\mathcal{A}$ haben.
+}
+
+\gentry{13.1.6}{Konvergenz (anschaulich)}{%
+  $(a_n)$ \textbf{konvergiert} gegen $a \in \mathbb{R}$, wenn in jeder $\varepsilon$-Umgebung
+  von~$a$ fast alle Glieder von $(a_n)$ liegen.
+}
+
+\gentry{13.1.8}{Konvergenz ($\varepsilon$-Definition)}{%
+  $(a_n)$ konvergiert gegen $a \in \mathbb{R}$, wenn gilt:
+  \[
+    \forall\,\varepsilon > 0\;\exists\,n_0 \in \mathbb{N}\;\forall\,n > n_0 : |a_n - a| < \varepsilon.
+  \]
+  Die Zahl $a$ heißt \textbf{Grenzwert} oder \textbf{Limes} von $(a_n)$.
+  Schreibweise: $\lim_{n\to\infty} a_n = a$.
+}
+
+% ======================================================================
+\section*{13.2 \quad Eigenschaften konvergenter Folgen}
+
+\gentry{13.2.1}{Proposition}{%
+  Eine konvergente Folge besitzt \emph{genau einen} Grenzwert.
+}
+
+\gentry{13.2.3}{Teilfolge}{%
+  Ist $(n_1, n_2, \ldots)$ eine streng wachsende Folge natürlicher Zahlen ($n_i < n_{i+1}$),
+  so heißt $(a_{n_1}, a_{n_2}, \ldots)$ eine \textbf{Teilfolge} von $(a_n)$.
+}
+
+\gentry{13.2.4}{Proposition}{%
+  Jede Teilfolge einer konvergenten Folge $(a_n)$ konvergiert gegen $\lim a_n$.
+}
+
+\gentry{13.2.6}{Beschränkte Folge}{%
+  $(a_n)$ heißt \textbf{beschränkt}, wenn die Menge $\{a_1, a_2, \ldots\}$ beschränkt ist.
+}
+
+\gentry{13.2.7}{Proposition}{%
+  Jede konvergente Folge ist beschränkt.
+}
+
+% ======================================================================
+\section*{13.3 \quad Divergente Folgen}
+
+\gentry{13.3.1}{Divergenz}{%
+  Eine Folge $(a_n)$ heißt \textbf{divergent}, wenn sie nicht konvergent ist.
+}
+
+\gentry{13.3.2}{Proposition}{%
+  $(a_n)$ konvergiert \emph{nicht} gegen $a$ genau dann, wenn es eine $\varepsilon_0$-Umgebung
+  von $a$ gibt, sodass eine Teilfolge von $(a_n)$ vollständig außerhalb von $U_{\varepsilon_0}(a)$ liegt.
+}
+
+% ======================================================================
+\section*{13.4 \quad Das Rechnen mit konvergenten Folgen}
+
+\gentry{13.4.1}{Vergleichssatz}{%
+  Konvergieren $(a_n)$ gegen $a$ und $(b_n)$ gegen $b$, und gilt fast immer $a_n \leq b_n$,
+  so folgt $a \leq b$.
+}
+
+\gentry{13.4.3}{Einschnürungssatz}{%
+  Konvergieren $(a_n)$ und $(b_n)$ gegen $a$, und gilt fast immer $a_n \leq c_n \leq b_n$,
+  so konvergiert $(c_n)$ gegen $a$.
+}
+
+\gentry{13.4.5}{Nullfolge}{%
+  Eine Folge, die gegen $0$ konvergiert.
+}
+
+\gentry{13.4.7}{Betragssatz}{%
+  Konvergiert $(a_n)$ gegen $a$, so konvergiert $(|a_n|)$ gegen $|a|$.
+}
+
+\gentry{13.4.9}{Proposition}{%
+  Ist $(a_n)$ eine Nullfolge und $(b_n)$ beschränkt, so ist $(a_n b_n)$ eine Nullfolge.
+}
+
+\gentry{13.4.12}{Rechenregeln für konvergente Folgen}{%
+  Sei $(a_n) \to a$ und $(b_n) \to b$. Dann gilt:
+  \begin{enumerate}[label=(\arabic*),topsep=2pt,itemsep=1pt]
+    \item $(a_n + b_n) \to a + b$
+    \item $(a_n b_n) \to ab$
+    \item $(\alpha a_n) \to \alpha a$ für $\alpha \in \mathbb{R}$
+    \item $(a_n - b_n) \to a - b$
+    \item Falls $b \neq 0$ und fast alle $b_n \neq 0$: $\bigl(\tfrac{a_n}{b_n}\bigr) \to \tfrac{a}{b}$
+  \end{enumerate}
+  \textbf{Achtung:} Die Regeln gelten nur von rechts nach links;
+  aus der Konvergenz von $(a_n + b_n)$ folgt \emph{nicht}, dass $(a_n)$ oder $(b_n)$ konvergieren.
+}
+
+% ======================================================================
+\section*{13.5 \quad Vier Prinzipien der Konvergenztheorie}
+
+\gentry{13.5.1}{Monotone Folge}{%
+  $(a_n)$ heißt \textbf{monoton wachsend}, wenn $a_n \leq a_{n+1}$ für alle $n$;
+  \textbf{monoton fallend}, wenn $a_n \geq a_{n+1}$ für alle $n$.
+}
+
+\gentry{13.5.2}{Monotonieprinzip}{%
+  Jede monotone, beschränkte Folge konvergiert.\\
+  -- Monoton wachsend und beschränkt: konvergiert gegen $\sup\{a_n \mid n \in \mathbb{N}\}$.\\
+  -- Monoton fallend und beschränkt: konvergiert gegen $\inf\{a_n \mid n \in \mathbb{N}\}$.\\
+  \textbf{Korollar 13.5.3:} Eine monotone Folge konvergiert genau dann, wenn sie beschränkt ist.
+}
+
+\gentry{13.5.6}{Euler'sche Zahl $e$}{%
+  $e := \lim_{n \to \infty}\!\left(1+\tfrac{1}{n}\right)^{n+1}$.
+  Es gilt auch $e = \lim_{n\to\infty}\sum_{k=0}^{n}\tfrac{1}{k!}$
+  und $\lim_{n\to\infty}(1+\tfrac{1}{n})^n = e$. Näherungswert: $e \approx 2{,}718$.
+}
+
+\gentry{13.5.13}{Auswahlprinzip von Bolzano-Weierstraß}{%
+  Jede beschränkte Folge enthält eine konvergente Teilfolge.
+}
+
+\gentry{13.5.14}{Cauchyfolge}{%
+  $(a_n)$ heißt \textbf{Cauchyfolge}, wenn gilt:
+  \[
+    \forall\,\varepsilon > 0\;\exists\,n_0 \in \mathbb{N}\;\forall\,m,n > n_0: |a_m - a_n| < \varepsilon.
+  \]
+  Anschaulich: späte Folgenglieder liegen beliebig dicht beieinander.
+}
+
+\gentry{13.5.17}{Cauchy'sches Konvergenzprinzip}{%
+  Eine reelle Folge $(a_n)$ ist genau dann konvergent, wenn sie eine Cauchyfolge ist.
+}
+
+\gentry{13.5.20}{Intervallschachtelung}{%
+  Eine Folge abgeschlossener Intervalle $I_n = [a_n, b_n]$ heißt \textbf{Intervallschachtelung}
+  $\langle a_n \mid b_n \rangle$, wenn $I_{n+1} \subseteq I_n$ für alle $n$ und die
+  Intervalllängen $(b_n - a_n)$ eine Nullfolge bilden.
+}
+
+\gentry{13.5.22}{Prinzip der Intervallschachtelung}{%
+  In jeder Intervallschachtelung $\langle a_n \mid b_n \rangle$ gibt es genau eine reelle
+  Zahl $a$, die in allen Intervallen $[a_n, b_n]$ liegt.
+}
+
+\end{document}

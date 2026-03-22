@@ -1,0 +1,507 @@
+\documentclass[a4paper,12pt]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[ngerman]{babel}
+\usepackage{amsmath, amssymb}
+\usepackage{geometry}
+\usepackage{parskip}
+\usepackage{titlesec}
+\usepackage{enumitem}
+\usepackage{array}
+\usepackage{booktabs}
+
+\geometry{left=3cm, right=3cm, top=2.5cm, bottom=2.5cm}
+
+\titleformat{\section}{\large\bfseries}{}{0em}{}[\titlerule]
+\titleformat{\subsection}{\normalsize\bfseries\scshape}{}{0em}{}
+
+% Glossar-Eintrag: Nummer, fetter Titel, Inhalt
+\newcommand{\gentry}[3]{%
+  \noindent\textbf{#1\quad #2}\nopagebreak\\[0.2em]
+  #3\par\smallskip
+}
+
+\begin{document}
+
+\begin{center}
+  {\LARGE\bfseries Glossar zu Lektion 5}\\[0.5em]
+  {\large Mathematische Grundlagen (Modul 61111)}
+\end{center}
+
+\vspace{1em}
+
+Dieses Glossar fasst die wesentlichen Definitionen, Merkregeln und Sätze der
+fünften Lektion kompakt zusammen. Nummerierungen entsprechen dem Lehrtext.
+
+% ======================================================================
+\section*{Kapitel 14 \quad Funktionen}
+
+\subsection*{14.1 \quad Grundlagen und erste Beispiele}
+
+\gentry{14.1.1}{Funktion}{%
+  Sei $D \subseteq \mathbb{R}$ nicht leer. Eine \textbf{Funktion} $f$ auf $D$ ist eine
+  Abbildung $f: D \to \mathbb{R}$. Das \textbf{Bild} ist
+  $f(D) = \{y \in \mathbb{R} \mid \exists\, x \in D: f(x) = y\}$.
+}
+
+\gentry{14.1.2}{Graph}{%
+  Der \textbf{Graph} von $f: D \to \mathbb{R}$ ist die Menge
+  $\{(x, f(x)) \mid x \in D\} \subseteq D \times \mathbb{R}$.
+}
+
+\gentry{14.1.3}{Dirichletfunktion}{%
+  $f: \mathbb{R} \to \mathbb{R}$, definiert durch $f(x) = 1$ für $x \in \mathbb{Q}$ und
+  $f(x) = 0$ für $x \in \mathbb{R} \setminus \mathbb{Q}$. Nicht grafisch darstellbar;
+  in keinem Punkt stetig.
+}
+
+\gentry{14.1.4}{Komposition (Analysis)}{%
+  Seien $f: D \to \mathbb{R}$ und $g: D' \to \mathbb{R}$ mit $f(D) \subseteq D'$.
+  Dann ist $(g \circ f)(x) = g(f(x))$ für alle $x \in D$.
+  \textit{Unterschied zur LA:} Es wird nur $f(D) \subseteq D'$ gefordert, nicht
+  $f(D) = D'$.
+}
+
+\gentry{14.1.6}{Bemerkung (Umkehrfunktion)}{%
+  Eine Funktion $f: D \to \mathbb{R}$ besitzt genau dann eine Umkehrfunktion
+  $f^{-1}: f(D) \to \mathbb{R}$, wenn $f$ \textbf{injektiv} ist.
+}
+
+\gentry{14.1.7}{Umkehrfunktion}{%
+  Sei $f: D \to \mathbb{R}$ injektiv. Die Funktion
+  $f^{-1}: f(D) \to \mathbb{R}$ mit $f^{-1} \circ f = \mathrm{id}_D$ und
+  $f \circ f^{-1} = \mathrm{id}_{f(D)}$ heißt \textbf{Umkehrfunktion} von $f$.
+}
+
+\gentry{14.1.9}{Monotonie}{%
+  $f: D \to \mathbb{R}$ heißt \textbf{monoton wachsend} (bzw.\ \textbf{fallend}),
+  falls $x < y$ $\Rightarrow$ $f(x) \le f(y)$ (bzw.\ $f(x) \ge f(y)$).
+  Sie heißt \textbf{streng monoton wachsend} (bzw.\ \textbf{fallend}),
+  falls $x < y$ $\Rightarrow$ $f(x) < f(y)$ (bzw.\ $f(x) > f(y)$).
+}
+
+\gentry{14.1.11}{Proposition (streng monoton $\Rightarrow$ injektiv)}{%
+  Jede streng monotone Funktion $f: D \to \mathbb{R}$ ist injektiv.
+  Ist $f$ streng monoton wachsend (bzw.\ fallend), so ist auch $f^{-1}$ streng
+  monoton wachsend (bzw.\ fallend).
+}
+
+\gentry{14.1.14}{Merkregel (Graph der Umkehrfunktion)}{%
+  Den Graph von $f^{-1}$ erhält man durch Spiegelung des Graphen von $f$
+  an der Diagonale $d = \{(z, z) \mid z \in \mathbb{R}\}$.
+}
+
+\gentry{14.1.15}{Algebraische Verknüpfungen von Funktionen}{%
+  Seien $f, g: D \to \mathbb{R}$ und $a \in \mathbb{R}$. Definiert für alle $x \in D$:
+  $(f \pm g)(x) = f(x) \pm g(x)$;\; $(af)(x) = af(x)$;\; $(fg)(x) = f(x)g(x)$.
+  Falls $g(x) \neq 0$: $\left(\frac{f}{g}\right)(x) = \frac{f(x)}{g(x)}$.
+}
+
+\gentry{14.1.19}{Restriktion}{%
+  Sei $D' \subseteq D$, $D' \neq \emptyset$. Die Funktion
+  $f|_{D'}: D' \to \mathbb{R}$, $x \mapsto f(x)$, heißt \textbf{Restriktion}
+  (Einschränkung) von $f$ auf $D'$.
+}
+
+\gentry{14.1.20}{Beschränktheit}{%
+  $f: D \to \mathbb{R}$ heißt \textbf{nach oben beschränkt}, wenn $\exists\, b \in \mathbb{R}$:
+  $f(x) \le b$ für alle $x \in D$; \textbf{nach unten beschränkt}, wenn
+  $\exists\, a \in \mathbb{R}$: $a \le f(x)$ für alle $x$. \textbf{Beschränkt}
+  bedeutet beides.
+}
+
+% ======================================================================
+\subsection*{14.2 \quad Beispiele}
+
+\gentry{14.2.2}{Produkt von Polynomen}{%
+  Seien $p = \sum_{i=0}^n a_i T^i$ und $q = \sum_{j=0}^m b_j T^j \in K[T]$.
+  Das Produkt ist $pq = \sum_k c_k T^k$ mit
+  $c_k = \sum_{i+j=k} a_i b_j$.
+}
+
+\gentry{14.2.5}{Gradformel}{%
+  Seien $p, q \in K[T]$ mit $\mathrm{Grad}(p) = n \ge 0$ und $\mathrm{Grad}(q) = m \ge 0$.
+  Dann gilt $\mathrm{Grad}(pq) = n + m$.
+}
+
+\gentry{14.2.6}{Proposition (Division mit Rest)}{%
+  Zu $p, q \in K[T]$ mit $q \neq 0$ gibt es eindeutig bestimmte $f, r \in K[T]$
+  mit $p = fq + r$ und $\mathrm{Grad}(r) < \mathrm{Grad}(q)$.
+}
+
+\gentry{14.2.7}{Nullstelle}{%
+  Sei $p \in K[T]$. Ein $\lambda \in K$ mit $\tilde{p}(\lambda) = \sum_i a_i \lambda^i = 0$
+  heißt \textbf{Nullstelle} von $p$.
+}
+
+\gentry{14.2.8}{Proposition (Nullstellen und Faktoren)}{%
+  $\lambda \in K$ ist genau dann Nullstelle von $p \in K[T]$, wenn
+  $p = (T - \lambda) \cdot q$ für ein Polynom $q \in K[T]$.
+}
+
+\gentry{14.2.9}{Korollar (Anzahl der Nullstellen)}{%
+  Ein Polynom $p \in K[T]$, $p \neq 0$, vom Grad $n \ge 0$ hat höchstens $n$
+  verschiedene Nullstellen.
+}
+
+\gentry{14.2.10}{Polynomfunktion}{%
+  Zu $p = \sum_{i=0}^n a_i T^i \in \mathbb{R}[T]$ ist die \textbf{Polynomfunktion}
+  $\tilde{p}: \mathbb{R} \to \mathbb{R}$ definiert durch
+  $\tilde{p}(x) = \sum_{i=0}^n a_i x^i$.
+}
+
+\gentry{14.2.13}{Satz (Identitätssatz für Polynomfunktionen)}{%
+  Seien $p, q \in \mathbb{R}[T]$ mit $\mathrm{Grad}(p) = n$, $\mathrm{Grad}(q) = m$.
+  Gilt $\tilde{p}(x) = \tilde{q}(x)$ für mehr als $\max(n, m)$ verschiedene $x \in \mathbb{R}$,
+  so ist $m = n$ und $a_i = b_i$ für alle $i$.
+}
+
+\gentry{14.2.16}{Rationale Funktion}{%
+  Seien $\tilde{p}, \tilde{q}: \mathbb{R} \to \mathbb{R}$ Polynomfunktionen. Dann heißt
+  $\dfrac{\tilde{p}}{\tilde{q}}: \mathbb{R} \setminus \{\text{Nullstellen von } q\} \to \mathbb{R}$
+  eine \textbf{rationale Funktion}.
+}
+
+\gentry{14.2.21}{Allgemeine Potenz $a^\rho$}{%
+  Sei $a > 0$, $\rho \in \mathbb{R}$. Wähle eine Folge $(r_n)$ rationaler Zahlen mit
+  $r_n \to \rho$. Dann ist $a^\rho := \lim_{n \to \infty} a^{r_n}$.
+  (Der Grenzwert ist unabhängig von der Wahl von $(r_n)$.)
+  Für $a = 0$, $\rho > 0$: $0^\rho = 0$.
+}
+
+\gentry{14.2.32}{Satz (Potenzregeln für reelle Exponenten)}{%
+  Seien $a, b > 0$ und $\rho, \sigma \in \mathbb{R}$:
+  \begin{enumerate}[label=\arabic*.,topsep=2pt,itemsep=1pt]
+    \item $a^\rho a^\sigma = a^{\rho+\sigma}$
+    \item $\frac{a^\rho}{a^\sigma} = a^{\rho-\sigma}$
+    \item $a^\rho b^\rho = (ab)^\rho$
+    \item $\frac{a^\rho}{b^\rho} = \left(\frac{a}{b}\right)^\rho$
+    \item $(a^\rho)^\sigma = a^{\rho\sigma}$
+  \end{enumerate}
+}
+
+\gentry{14.2.33}{Satz (Potenzfunktion)}{%
+  Sei $\rho \in \mathbb{R}$, $\rho \neq 0$, $f: (0,\infty) \to \mathbb{R}$, $x \mapsto x^\rho$.
+  Dann: $\mathrm{Bild}(f) = (0,\infty)$; $f$ ist streng monoton wachsend für $\rho > 0$,
+  streng monoton fallend für $\rho < 0$; $f^{-1}(x) = x^{1/\rho}$.
+}
+
+\gentry{14.2.34}{Exponentialfunktion}{%
+  Sei $a > 0$. Die Funktion $\mathrm{exp}_a: \mathbb{R} \to \mathbb{R}$,
+  $\mathrm{exp}_a(x) = a^x$, heißt \textbf{Exponentialfunktion} zur Basis $a$.
+}
+
+\gentry{14.2.35}{Satz (Eigenschaften der Exponentialfunktion)}{%
+  Sei $a > 0$:
+  \begin{itemize}[topsep=2pt,itemsep=1pt]
+    \item Für $a \neq 1$: $\mathrm{Bild}(\mathrm{exp}_a) = (0,\infty)$; für $a = 1$: $\mathrm{exp}_1 = \hat{1}$.
+    \item $a > 1$: streng monoton wachsend; $0 < a < 1$: streng monoton fallend.
+    \item $\mathrm{exp}_a(0) = 1$, $\mathrm{exp}_a(1) = a$.
+    \item $\mathrm{exp}_a(x+y) = \mathrm{exp}_a(x) \cdot \mathrm{exp}_a(y)$ für alle $x, y \in \mathbb{R}$.
+  \end{itemize}
+}
+
+\gentry{14.2.37}{Notation ($e$-Funktion)}{%
+  Die Funktion $\mathrm{exp}_e$ wird mit $\mathrm{exp}$ (ohne Index) bezeichnet.
+  Man schreibt $e^x$ für $\mathrm{exp}(x)$.
+}
+
+\gentry{14.2.39}{Satz}{%
+  Sei $(x_n)$ eine Nullfolge mit $x_n > -1$ und $x_n \neq 0$. Dann gilt
+  $\displaystyle\lim_{n \to \infty} (1 + x_n)^{1/x_n} = e$.
+}
+
+\gentry{14.2.40}{Logarithmus}{%
+  Sei $a > 0$, $a \neq 1$. Die Umkehrfunktion von $\mathrm{exp}_a$ heißt
+  \textbf{Logarithmus zur Basis} $a$, bezeichnet $\log_a: (0,\infty) \to \mathbb{R}$.
+}
+
+\gentry{14.2.42}{Satz (Eigenschaften des Logarithmus)}{%
+  Sei $a > 0$, $a \neq 1$:
+  \begin{itemize}[topsep=2pt,itemsep=1pt]
+    \item $\mathrm{Bild}(\log_a) = \mathbb{R}$.
+    \item $a > 1$: streng monoton wachsend; $0 < a < 1$: streng monoton fallend.
+    \item $\log_a(1) = 0$, $\log_a(a) = 1$.
+    \item $\log_a(xy) = \log_a(x) + \log_a(y)$ und $\log_a\!\left(\frac{x}{y}\right) = \log_a(x) - \log_a(y)$.
+    \item $\log_a(x^\rho) = \rho \log_a(x)$ für alle $\rho \in \mathbb{R}$, $x > 0$.
+  \end{itemize}
+}
+
+\gentry{14.2.43}{Natürlicher Logarithmus}{%
+  Die Funktion $\log_e: (0,\infty) \to \mathbb{R}$ wird mit $\ln$ bezeichnet und
+  \textbf{natürlicher Logarithmus} genannt.
+}
+
+\gentry{14.2.44}{Proposition}{%
+  Sei $a > 0$:
+  \begin{itemize}[topsep=2pt,itemsep=1pt]
+    \item Für alle $x > 0$: $x^a = \exp(a \ln x)$.
+    \item Für alle $x \in \mathbb{R}$: $\mathrm{exp}_a(x) = \exp(x \ln a)$.
+    \item Für $a \neq 1$ und alle $x > 0$: $\log_a(x) = \dfrac{\ln(x)}{\ln(a)}$.
+  \end{itemize}
+}
+
+% ======================================================================
+\section*{Kapitel 15 \quad Stetigkeit}
+
+\subsection*{15.1 \quad Grundlagen, Beispiele, erste Eigenschaften}
+
+\gentry{15.1.1}{Stetigkeit}{%
+  $f: D \to \mathbb{R}$ heißt \textbf{stetig in} $a \in D$, wenn für jede Folge
+  $(a_n)$ in $D$ mit $a_n \to a$ gilt: $f(a_n) \to f(a)$.
+  $f$ heißt \textbf{stetig auf} $D$, wenn $f$ in jedem $a \in D$ stetig ist.
+}
+
+\gentry{15.1.4}{Beispiele stetiger Funktionen}{%
+  Die allgemeine Potenzfunktion $x \mapsto x^\rho$, die Exponentialfunktion
+  $\mathrm{exp}_a$ und der Logarithmus $\log_a$ sind auf ihren jeweiligen
+  Definitionsbereichen stetig.
+}
+
+\gentry{15.1.9}{Satz ($\varepsilon$-$\delta$-Kriterium für Stetigkeit)}{%
+  $f: D \to \mathbb{R}$ ist genau dann in $a \in D$ stetig, wenn gilt:
+  \[
+    \forall\, \varepsilon > 0 \;\exists\, \delta > 0 \;\forall\, x \in D:
+    \quad |x - a| < \delta \;\Rightarrow\; |f(x) - f(a)| < \varepsilon.
+  \]
+}
+
+\gentry{15.1.11}{Proposition (Rechenregeln für Stetigkeit)}{%
+  Seien $f, g: D \to \mathbb{R}$ stetig in $a$, $\alpha \in \mathbb{R}$.
+  Dann sind $f \pm g$, $\alpha f$, $fg$ und (falls $g \neq 0$) $f/g$ stetig in $a$.
+  Außerdem: Ist $h: E \to \mathbb{R}$ mit $f(D) \subseteq E$ stetig in $f(a)$,
+  so ist $h \circ f$ stetig in $a$.
+}
+
+\gentry{15.1.13}{Proposition}{%
+  Polynomfunktionen sind auf ganz $\mathbb{R}$ stetig. Rationale Funktionen sind
+  auf ihrem Definitionsbereich stetig.
+}
+
+% ======================================================================
+\subsection*{15.2 \quad Stetige Funktionen auf Intervallen}
+
+\gentry{15.2.2}{Satz (Nullstellensatz von Bolzano)}{%
+  Sei $f: [a,b] \to \mathbb{R}$ stetig mit $f(a) < 0 < f(b)$ (oder umgekehrt).
+  Dann gibt es mindestens ein $x \in (a,b)$ mit $f(x) = 0$.
+}
+
+\gentry{15.2.3}{Nullstelle}{%
+  Ein $x \in D$ mit $f(x) = 0$ heißt \textbf{Nullstelle} von $f: D \to \mathbb{R}$.
+}
+
+\gentry{15.2.4}{Korollar (Zwischenwertsatz von Bolzano)}{%
+  Sei $f: [a,b] \to \mathbb{R}$ stetig, und sei $d$ eine Zahl zwischen $f(a)$ und $f(b)$.
+  Dann gibt es ein $x_d \in [a,b]$ mit $f(x_d) = d$.
+  Insbesondere ist das Bild einer stetigen Funktion auf einem Intervall wieder
+  ein Intervall.
+}
+
+\gentry{15.2.8}{Satz}{%
+  Sei $f: [a,b] \to \mathbb{R}$ stetig. Dann ist $f([a,b])$ ein abgeschlossenes
+  und beschränktes Intervall.
+}
+
+\gentry{15.2.9}{Korollar (Satz vom Minimum und Maximum)}{%
+  Sei $f: [a,b] \to \mathbb{R}$ stetig. Dann gibt es Stellen $x_1, x_2 \in [a,b]$
+  mit $f(x_1) \le f(x) \le f(x_2)$ für alle $x \in [a,b]$.
+}
+
+\gentry{15.2.10}{Lemma}{%
+  Sei $f: [a,b] \to \mathbb{R}$ injektiv und stetig. Dann ist $f$ streng monoton.
+}
+
+\gentry{15.2.12}{Korollar}{%
+  Sei $I$ ein Intervall und $f: I \to \mathbb{R}$ stetig. Genau dann ist $f$
+  injektiv, wenn $f$ streng monoton ist.
+}
+
+\gentry{15.2.14}{Proposition}{%
+  Sei $f: I \to \mathbb{R}$ injektiv und stetig, $I$ ein Intervall. Dann ist
+  die Umkehrfunktion $f^{-1}: f(I) \to \mathbb{R}$ ebenfalls stetig.
+}
+
+% ======================================================================
+\subsection*{15.3 \quad Grenzwerte von Funktionen}
+
+\gentry{15.3.1}{Häufungspunkt}{%
+  $a \in \mathbb{R}$ heißt \textbf{Häufungspunkt} von $M \subseteq \mathbb{R}$,
+  wenn es eine Folge $(a_n)$ in $M \setminus \{a\}$ gibt mit $a_n \to a$.
+}
+
+\gentry{15.3.4}{Konvergenz einer Funktion}{%
+  $f: D \to \mathbb{R}$ heißt \textbf{konvergent in} $a$ (einem Häufungspunkt von $D$),
+  wenn $(f(a_n))$ für jede Folge $(a_n)$ in $D \setminus \{a\}$ mit $a_n \to a$
+  konvergiert.
+}
+
+\gentry{15.3.8}{Definition (Grenzwert)}{%
+  Ist $f$ konvergent in $a$, so heißt der Grenzwert einer solchen Folge
+  $(f(a_n))$ der \textbf{Grenzwert} von $f$ in $a$:
+  $\displaystyle\lim_{x \to a} f(x) = b$.
+  (Dieser Grenzwert ist unabhängig von der Wahl der Folge.)
+}
+
+\gentry{15.3.9}{Proposition}{%
+  Sei $a \in D$ ein Häufungspunkt von $D$. Dann gilt:
+  $f$ ist genau dann stetig in $a$, wenn $\displaystyle\lim_{x \to a} f(x) = f(a)$.
+}
+
+\gentry{15.3.11}{Stetige Fortsetzung}{%
+  Sei $a \notin D$ ein Häufungspunkt und $\lim_{x \to a} f(x) = c$.
+  Die Funktion $g: D \cup \{a\} \to \mathbb{R}$ mit $g|_D = f$ und $g(a) = c$
+  heißt \textbf{stetige Fortsetzung} von $f$ auf $D \cup \{a\}$.
+}
+
+\gentry{15.3.14}{Hebbare Unstetigkeit}{%
+  $f: D \to \mathbb{R}$ besitzt in $a \in D$ eine \textbf{hebbare Unstetigkeit},
+  wenn $f|_{D\setminus\{a\}}$ auf $D$ stetig fortgesetzt werden kann, also
+  $\lim_{x \to a} f(x)$ existiert (aber $\neq f(a)$ ist).
+}
+
+\gentry{15.3.15}{Satz ($\varepsilon$-$\delta$-Kriterium für Grenzwert)}{%
+  $\displaystyle\lim_{x \to a} f(x) = b$ genau dann, wenn gilt:
+  \[
+    \forall\, \varepsilon > 0 \;\exists\, \delta > 0 \;\forall\, x \in D \setminus \{a\}:
+    \quad 0 < |x - a| < \delta \;\Rightarrow\; |f(x) - b| < \varepsilon.
+  \]
+}
+
+\gentry{15.3.17}{Proposition (Rechenregeln für Funktionenkonvergenz)}{%
+  Seien $\lim_{x\to a} f(x) = u$ und $\lim_{x \to a} g(x) = v$, $\alpha \in \mathbb{R}$.
+  Dann gilt:
+  $\lim_{x\to a}(f \pm g)(x) = u \pm v$;\;
+  $\lim_{x\to a}(\alpha f)(x) = \alpha u$;\;
+  $\lim_{x\to a}(fg)(x) = uv$;\;
+  $\lim_{x\to a}(f/g)(x) = u/v$ (falls $v \neq 0$).
+}
+
+% ======================================================================
+\section*{Kapitel 16 \quad Differenzierbarkeit}
+
+\subsection*{16.1 \quad Die Ableitung einer Funktion}
+
+\gentry{16.1.1}{Differenzierbarkeit und Ableitung}{%
+  $f: I \to \mathbb{R}$ heißt \textbf{differenzierbar in} $a \in I$, wenn
+  \[
+    f'(a) := \lim_{x \to a} \frac{f(x) - f(a)}{x - a}
+    = \lim_{h \to 0} \frac{f(a+h) - f(a)}{h}
+  \]
+  existiert. $f'(a)$ heißt \textbf{Ableitung} von $f$ in $a$.
+}
+
+\gentry{16.1.3}{Proposition (differenzierbar $\Rightarrow$ stetig)}{%
+  Ist $f$ in $a$ differenzierbar, so ist $f$ in $a$ stetig.
+  (Die Umkehrung gilt im Allgemeinen nicht.)
+}
+
+\gentry{16.1.5}{Differenzenquotient}{%
+  Der Bruch $\dfrac{f(x) - f(a)}{x - a}$ ($x \neq a$) heißt \textbf{Differenzenquotient}.
+  Er ist die Steigung der \textbf{Sekante} durch $(a, f(a))$ und $(x, f(x))$.
+}
+
+\gentry{16.1.6}{Merkregel (Tangente)}{%
+  Die Ableitung $f'(a)$ ist die \textbf{Steigung der Tangente} an den Graphen von
+  $f$ im Punkt $(a, f(a))$. Die Tangente hat die Gleichung $y = f(a) + f'(a)(x-a)$.
+}
+
+\gentry{16.1.7}{Lokale Extrema}{%
+  $f: D \to \mathbb{R}$ hat in $a \in D$ ein \textbf{lokales Maximum} (bzw.\
+  \textbf{Minimum}), wenn es eine $\delta$-Umgebung $U_\delta(a)$ gibt, sodass
+  $f(x) \le f(a)$ (bzw.\ $f(x) \ge f(a)$) für alle $x \in U_\delta(a) \cap D$.
+}
+
+\gentry{16.1.8}{Globale Extrema}{%
+  $f$ hat in $a$ ein \textbf{globales Maximum} (bzw.\ \textbf{Minimum}),
+  wenn $f(a) \ge f(x)$ (bzw.\ $f(a) \le f(x)$) für alle $x \in D$.
+  Globale Extrema sind stets auch lokale Extrema.
+}
+
+\gentry{16.1.10}{Innerer Punkt}{%
+  $x \in X \subseteq \mathbb{R}$ heißt \textbf{innerer Punkt} von $X$, wenn
+  $\exists\, \delta > 0: U_\delta(x) \subseteq X$.
+}
+
+\gentry{16.1.12}{Proposition (notwendige Bedingung für Extrema)}{%
+  Sei $f: I \to \mathbb{R}$ in einem inneren Punkt $a \in I$ differenzierbar.
+  Hat $f$ in $a$ ein lokales Extremum, so gilt $f'(a) = 0$.
+  \textit{Vorsicht:} Die Umkehrung gilt nicht.
+}
+
+% ======================================================================
+\subsection*{16.2 \quad Differentiationsregeln}
+
+\gentry{16.2.1}{Proposition (Rechenregeln der Differentialrechnung)}{%
+  Seien $f, g: I \to \mathbb{R}$ in $a$ differenzierbar, $\alpha \in \mathbb{R}$:
+  \begin{itemize}[topsep=2pt,itemsep=1pt]
+    \item \textbf{Summenregel:} $(f \pm g)'(a) = f'(a) \pm g'(a)$
+    \item \textbf{Faktorregel:} $(\alpha f)'(a) = \alpha f'(a)$
+    \item \textbf{Produktregel:} $(fg)'(a) = f(a)g'(a) + f'(a)g(a)$
+    \item \textbf{Quotientenregel:} $\left(\frac{f}{g}\right)'(a) = \dfrac{f'(a)g(a) - f(a)g'(a)}{(g(a))^2}$
+      \quad (falls $g(a) \neq 0$)
+  \end{itemize}
+}
+
+\gentry{16.2.2}{Korollar (Reziprokregel)}{%
+  Ist $g$ in $a$ differenzierbar mit $g(a) \neq 0$, so gilt
+  $\left(\dfrac{1}{g}\right)'(a) = -\dfrac{g'(a)}{(g(a))^2}$.
+}
+
+\gentry{16.2.3}{Satz (Kettenregel)}{%
+  Sei $g$ in $a$ und $f$ in $g(a)$ differenzierbar, $\mathrm{Bild}(g) \subseteq I_f$.
+  Dann ist $f \circ g$ in $a$ differenzierbar, und es gilt:
+  \[
+    (f \circ g)'(a) = f'(g(a)) \cdot g'(a).
+  \]
+}
+
+\gentry{16.2.4}{Proposition (Ableitung der Umkehrfunktion)}{%
+  Sei $f: I \to \mathbb{R}$ stetig, streng monoton und in $a$ differenzierbar mit
+  $f'(a) \neq 0$. Dann ist $f^{-1}$ in $b = f(a)$ differenzierbar, und es gilt:
+  \[
+    (f^{-1})'(b) = \frac{1}{f'(a)} = \frac{1}{f'(f^{-1}(b))}.
+  \]
+}
+
+% ======================================================================
+\subsection*{16.3 \quad Ableitungen wichtiger Funktionen}
+
+\gentry{16.3.1}{Proposition (Polynomfunktionen)}{%
+  Polynomfunktionen $f(x) = \sum_{i=0}^n a_i x^i$ sind auf ganz $\mathbb{R}$
+  differenzierbar, und es gilt $f'(x) = \sum_{i=1}^n i a_i x^{i-1}$.
+}
+
+\gentry{16.3.2}{Proposition (ganze Potenzen)}{%
+  Für alle $k \in \mathbb{Z}$ und $x \neq 0$ (falls $k < 0$) gilt:
+  $(x^k)' = k x^{k-1}$.
+}
+
+\gentry{16.3.4}{Satz (Exponentialfunktion)}{%
+  Für alle $a > 0$ und alle $x \in \mathbb{R}$ gilt:
+  $\mathrm{exp}_a'(x) = \mathrm{exp}_a(x) \cdot \ln(a)$, insbesondere $\exp'(x) = \exp(x)$.
+}
+
+\gentry{16.3.5}{Korollar (natürlicher Logarithmus)}{%
+  $\ln: (0,\infty) \to \mathbb{R}$ ist differenzierbar, und es gilt $\ln'(x) = \dfrac{1}{x}$.
+}
+
+\gentry{16.3.6}{Korollar (allgemeiner Logarithmus)}{%
+  Für $a > 0$, $a \neq 1$, ist $\log_a$ differenzierbar, und es gilt
+  $\log_a'(x) = \dfrac{1}{x \ln(a)}$.
+}
+
+\gentry{16.3.7}{Korollar (allgemeine Potenzfunktion)}{%
+  Für $a \in \mathbb{R}$, $f(x) = x^a$ auf $(0,\infty)$: $f$ ist differenzierbar,
+  und es gilt $f'(x) = a x^{a-1}$.
+}
+
+\gentry{16.3.11}{Satz (Winkelfunktionen)}{%
+  Sinus und Cosinus sind auf $\mathbb{R}$ differenzierbar. Es gilt:
+  \[
+    \sin'(x) = \cos(x), \qquad \cos'(x) = -\sin(x).
+  \]
+  Verwendet werden dabei die Eigenschaften SinCos-1 bis SinCos-5,
+  insbesondere $\lim_{x\to 0}\frac{\sin x}{x} = 1$.
+}
+
+\end{document}

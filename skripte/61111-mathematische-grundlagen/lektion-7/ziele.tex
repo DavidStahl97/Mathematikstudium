@@ -1,0 +1,310 @@
+\documentclass[a4paper,12pt]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[ngerman]{babel}
+\usepackage{amsmath, amssymb}
+\usepackage{geometry}
+\usepackage{tikz}
+\usepackage{tikz-cd}
+\usetikzlibrary{shapes.geometric, arrows.meta, positioning, fit, backgrounds}
+\usepackage{parskip}
+\usepackage{titlesec}
+\usepackage{booktabs}
+\usepackage{enumitem}
+
+\geometry{left=3cm, right=3cm, top=2.5cm, bottom=2.5cm}
+
+\titleformat{\section}{\large\bfseries}{}{0em}{}[\titlerule]
+\titleformat{\subsection}{\normalsize\bfseries}{}{0em}{}
+
+\tikzset{
+  box/.style={rectangle, draw, rounded corners=3pt, text width=4.5cm,
+              align=center, minimum height=1.0cm, font=\small, inner sep=4pt},
+  boxw/.style={box, text width=5.5cm},
+  arrow/.style={-{Latex[length=2mm]}, thick},
+}
+
+\begin{document}
+
+\begin{center}
+  {\LARGE\bfseries Studierhinweise zu Lektion 7}\\[0.5em]
+  {\large Mathematische Grundlagen (Modul 61111)}
+\end{center}
+
+\vspace{1em}
+
+Diese Lektion ist zweigeteilt. Das erste Kapitel schließt den Analysis-Teil des
+Moduls ab: Es wird das \textbf{Riemann-Integral} eingeführt, das die intuitive
+Vorstellung von Flächeninhalten präzisiert. Anschließend verbindet der erste und
+zweite \textbf{Hauptsatz der Differential- und Integralrechnung} das Integrieren
+mit dem Differenzieren, was die praktische Berechnung von Integralen erst
+ermöglicht.
+
+Der weitaus umfangreichere zweite Teil führt in die \textbf{formale Logik} ein.
+Die Aussagenlogik und die Prädikatenlogik sind künstliche Sprachen, die
+mathematische Sachverhalte ohne Mehrdeutigkeiten ausdrücken. Sie bilden die
+Grundlage für Anwendungen in der Digitaltechnik, Komplexitätstheorie,
+Datenbanken und Logikprogrammierung.
+
+Lesen Sie mathematische Texte nie passiv: Vollziehen Sie jeden Schritt nach,
+konstruieren Sie eigene Beispiele, und prüfen Sie, ob Sie Definitionen aus dem
+Gedächtnis reproduzieren können -- gerade bei der Logik, wo die Präzision der
+Formulierungen entscheidend ist.
+
+% -----------------------------------------------------------------------
+\section*{Struktur der Lektion 7}
+
+\begin{center}
+\begin{tikzpicture}[node distance=0.6cm and 1.0cm]
+
+  % Column headers
+  \node[font=\bfseries\small] (h1) at (0,0)   {Kapitel 20: Integration};
+  \node[font=\bfseries\small] (h2) at (8.0,0) {Kapitel 21: Logik};
+
+  % Kapitel 20 boxes
+  \node[box, below=0.8cm of h1] (ri)  {20.1 Riemann-Integral\\Partition, Unter-/Obersumme,\\Integrierbarkeit};
+  \node[box, below=0.5cm of ri]  (hs)  {20.2 Hauptsätze\\Stammfunktion, partielle\\Integration, Substitution};
+
+  % Kapitel 21: two columns
+  \node[box, text width=3.8cm, below=0.8cm of h2, xshift=-2.3cm] (al1) {21.1.1 Syntax\\Atome, Formeln,\\Präzedenz\-regeln};
+  \node[box, text width=3.8cm, below=0.8cm of h2, xshift=+2.3cm] (pl1) {21.2.2 Syntax\\Terme, Formeln,\\Quantoren};
+  \node[box, text width=3.8cm, below=0.5cm of al1] (al2) {21.1.2 Semantik\\Bewertung, Wahr\-heitstafel,\\Tautologie, Folgerung};
+  \node[box, text width=3.8cm, below=0.5cm of pl1] (pl2) {21.2.3 Semantik\\Interpretation,\\Universum, Wahrheit};
+  \node[box, text width=3.8cm, below=0.5cm of al2] (al3) {21.1.3 Normalformen\\NNF, KNF, DNF};
+  \node[box, text width=3.8cm, below=0.5cm of pl2] (pl3) {21.2.4 Normalformen\\NNF, pränexe NF};
+  \node[box, text width=3.8cm, below=0.5cm of al3] (al4) {21.1.4 Beweise\\Äquivalenz- und\\Schlussregeln};
+  \node[box, text width=3.8cm, below=0.5cm of pl3] (pl4) {21.2.5 Beweise\\$\forall$-i, $\exists$-i,\\Syllogismus};
+
+  % Kapitel 21 header labels
+  \node[font=\small\bfseries, above=0.3cm of al1] {21.1 Aussagenlogik};
+  \node[font=\small\bfseries, above=0.3cm of pl1] {21.2 Prädikatenlogik};
+
+  % Arrows Kap 20
+  \draw[arrow] (ri) -- (hs);
+
+  % Arrows AL
+  \draw[arrow] (al1) -- (al2);
+  \draw[arrow] (al2) -- (al3);
+  \draw[arrow] (al3) -- (al4);
+
+  % Arrows PL
+  \draw[arrow] (pl1) -- (pl2);
+  \draw[arrow] (pl2) -- (pl3);
+  \draw[arrow] (pl3) -- (pl4);
+
+  % Cross arrow: AL → PL
+  \draw[arrow] (al1.east) -- ++(0.5,0) |- (pl1.west);
+
+  % Cross arrow: Kap20 → Kap21
+  \draw[arrow] (hs.east) -- ++(0.4,0) |- (al1.west);
+
+\end{tikzpicture}
+\end{center}
+
+\newpage
+
+% -----------------------------------------------------------------------
+\section*{Zielelement 20.1 -- Das Riemann-Integral}
+
+\subsection*{Lerninhalte}
+
+\begin{center}
+\begin{tikzpicture}[node distance=0.6cm and 1.0cm]
+  \node[box] (par)  {Partition $P$ von $[a,b]$\\$a = t_0 < t_1 < \cdots < t_n = b$};
+  \node[box, below=0.5cm of par] (us)  {Untersumme $U(f,P)$\\Obersumme $O(f,P)$};
+  \node[box, below=0.5cm of us]  (vf)  {Verfeinerung $Q$ von $P$:\\$U(f,P) \le U(f,Q)$,\; $O(f,P) \ge O(f,Q)$};
+  \node[box, below=0.5cm of vf]  (int) {Integrierbarkeit:\\$\sup U = \inf O$\\Riemann-Integral $\int_a^b f$};
+  \node[box, below=0.5cm of int] (rec) {Rechenregeln:\\Linearität, Additivität,\\Abschätzung $m(b-a) \le \int \le M(b-a)$};
+  \node[box, below=0.5cm of rec] (ubs) {Unbestimmtes Integral\\$F(x) = \int_a^x f(t)\,dt$ ist stetig};
+  \draw[arrow] (par) -- (us);
+  \draw[arrow] (us)  -- (vf);
+  \draw[arrow] (vf)  -- (int);
+  \draw[arrow] (int) -- (rec);
+  \draw[arrow] (rec) -- (ubs);
+\end{tikzpicture}
+\end{center}
+
+\subsection*{Lernziele}
+
+Nach Durcharbeiten dieses Abschnitts sollten Sie:
+\begin{itemize}
+  \item den Begriff der Partition sowie von Unter- und Obersumme erklären und
+        für konkrete Funktionen berechnen können,
+  \item das Verhalten von Unter-/Obersummen bei Verfeinerungen verstehen
+        (Lemma~20.1.5) und begründen können,
+  \item die Definition der Riemann-Integrierbarkeit (Definition~20.1.7) kennen
+        und die $\varepsilon$-Charakterisierung (Proposition~20.1.9) anwenden können,
+  \item die Rechenregeln der Integration (Linearität, Additivität über Intervalle,
+        Abschätzung) sicher einsetzen können,
+  \item die Stetigkeit des unbestimmten Integrals $F(x) = \int_a^x f(t)\,dt$
+        begründen können (Satz~20.1.14).
+\end{itemize}
+
+\subsection*{Selbstkontrollelement 20.1}
+
+Zeigen Sie, dass die Funktion $f : [0,1] \to \mathbb{R}$ mit
+\[
+  f(x) = \begin{cases} 1, & x \in \{0, \tfrac{1}{2}, 1\}, \\ 0, & \text{sonst} \end{cases}
+\]
+nach Proposition~20.1.9 integrierbar ist, und bestimmen Sie $\int_0^1 f(x)\,dx$.
+
+\newpage
+
+% -----------------------------------------------------------------------
+\section*{Zielelement 20.2 -- Hauptsätze der Differential- und Integralrechnung}
+
+\subsection*{Lerninhalte}
+
+\begin{center}
+\begin{tikzpicture}[node distance=0.6cm and 1.0cm]
+  \node[box] (hs1) {1.\ Hauptsatz:\\$F(x)=\!\int_a^x\! f(t)\,dt \Rightarrow F'(c)=f(c)$\\(falls $f$ in $c$ stetig)};
+  \node[box, below=0.5cm of hs1] (stf) {Stammfunktion $g$ mit $g'=f$\\Korollar: stetig $\Rightarrow$ integrierbar};
+  \node[box, below=0.5cm of stf] (hs2) {2.\ Hauptsatz:\\$\int_a^b f = g(b) - g(a)$};
+  \node[box, below=0.5cm of hs2] (tab) {Tabelle der Stammfunktionen\\(Polynome, $\exp$, $\ln$, $\sin$, $\cos$, \ldots)};
+  \node[box, below=0.5cm of tab] (pi)  {Partielle Integration\\$\int f g' = fg\big|_a^b - \int f' g$};
+  \node[box, below=0.5cm of pi]  (sub) {Substitutionsregel\\$\int_a^b f(g(x))g'(x)\,dx = \int_{g(a)}^{g(b)} f(u)\,du$};
+  \draw[arrow] (hs1) -- (stf);
+  \draw[arrow] (stf) -- (hs2);
+  \draw[arrow] (hs2) -- (tab);
+  \draw[arrow] (tab) -- (pi);
+  \draw[arrow] (pi)  -- (sub);
+\end{tikzpicture}
+\end{center}
+
+\subsection*{Lernziele}
+
+Nach Durcharbeiten dieses Abschnitts sollten Sie:
+\begin{itemize}
+  \item den ersten und zweiten Hauptsatz der Differential- und Integralrechnung
+        formulieren und beweisen können,
+  \item aus dem ersten Hauptsatz folgern können, dass jede stetige Funktion eine
+        Stammfunktion besitzt (Korollar~20.2.4),
+  \item den zweiten Hauptsatz zur Berechnung von Integralen anwenden können,
+        indem Sie eine Stammfunktion bestimmen,
+  \item die Stammfunktionen elementarer Funktionen aus der Tabelle~20.2.7
+        abrufen und einsetzen können,
+  \item partielle Integration und Substitutionsregel korrekt anwenden können,
+        insbesondere das richtige Identifizieren von $f$, $g$ bzw.\ $g'$.
+\end{itemize}
+
+\subsection*{Selbstkontrollelement 20.2}
+
+Berechnen Sie die folgenden Integrale:
+\begin{enumerate}[label=(\alph*)]
+  \item $\displaystyle\int_0^1 x e^x\,dx$ \quad (partielle Integration)
+  \item $\displaystyle\int_0^{\pi/2} \sin^3(x)\cos(x)\,dx$ \quad (Substitution)
+\end{enumerate}
+
+\newpage
+
+% -----------------------------------------------------------------------
+\section*{Zielelement 21.1 -- Aussagenlogik}
+
+\subsection*{Lerninhalte}
+
+\begin{center}
+\begin{tikzpicture}[node distance=0.6cm and 1.0cm]
+  \node[box] (syn)  {Syntax:\\Atome, Formeln induktiv,\\Junktoren $\lnot,\land,\lor,\to,\leftrightarrow$};
+  \node[box, below=0.5cm of syn] (pra) {Präzedenz- und\\Klammerregeln};
+  \node[box, below=0.5cm of pra] (sem) {Semantik: Bewertung $I$\\Wahrheitstafel, Tautologie,\\Widerspruch, Erfüllbarkeit};
+  \node[box, below=0.5cm of sem] (fol) {Semantische Folgerung $\alpha \models \beta$\\Logische Äquivalenz $\alpha \approx \beta$};
+  \node[box, below=0.5cm of fol] (nor) {Normalformen:\\NNF, KNF, DNF};
+  \node[box, below=0.5cm of nor] (bew) {Formale Beweise:\\Äquivalenz- und Schlussregeln\\(mp, mt, con, simp, add)};
+  \draw[arrow] (syn) -- (pra);
+  \draw[arrow] (pra) -- (sem);
+  \draw[arrow] (sem) -- (fol);
+  \draw[arrow] (fol) -- (nor);
+  \draw[arrow] (nor) -- (bew);
+\end{tikzpicture}
+\end{center}
+
+\subsection*{Lernziele}
+
+Nach Durcharbeiten dieses Abschnitts sollten Sie:
+\begin{itemize}
+  \item den induktiven Aufbau aussagenlogischer Formeln (Definition~21.1.1)
+        erklären und konkrete Ausdrücke auf ihre Korrektheit prüfen können,
+  \item Präzedenzregeln anwenden und überflüssige Klammern entfernen können,
+  \item einer Formel für eine gegebene Bewertung einen Wahrheitswert zuordnen
+        und vollständige Wahrheitstafeln aufstellen können,
+  \item die Begriffe tautologisch, widerspruchsvoll, erfüllbar und falsifizierbar
+        unterscheiden und anhand von Wahrheitstafeln nachweisen können,
+  \item semantische Folgerung ($\alpha \models \beta$) und logische Äquivalenz
+        ($\alpha \approx \beta$) definieren und die Zusammenhänge aus Bemerkung~21.1.22
+        kennen,
+  \item die De-Morganschen Gesetze und weitere Äquivalenzregeln (21.1.26) anwenden,
+  \item Formeln in Negationsnormalform, konjunktive und disjunktive Normalform
+        überführen können,
+  \item formale Beweisfolgen mit den Äquivalenz- und Schlussregeln aufstellen können,
+        insbesondere Modus ponens und Modus tollens sicher einsetzen.
+\end{itemize}
+
+\subsection*{Selbstkontrollelement 21.1}
+
+Sei $\alpha = (A \to B) \land (B \to C)$.
+\begin{enumerate}[label=(\alph*)]
+  \item Stellen Sie die vollständige Wahrheitstafel von $\alpha$ auf.
+  \item Ist $\alpha$ eine Tautologie? Begründen Sie.
+  \item Leiten Sie mit einer formalen Beweisfolge aus $\alpha$ und der Prämisse $A$
+        die Formel $C$ her.
+  \item Überführen Sie $\alpha$ in KNF.
+\end{enumerate}
+
+\newpage
+
+% -----------------------------------------------------------------------
+\section*{Zielelement 21.2 -- Prädikatenlogik}
+
+\subsection*{Lerninhalte}
+
+\begin{center}
+\begin{tikzpicture}[node distance=0.6cm and 1.0cm]
+  \node[box] (trm)  {Terme: Variablen $V$,\\Konstanten $K$, Funktions\-symbole $F$};
+  \node[box, below=0.5cm of trm] (frm) {Formeln: Prädikate $P(t_1,\ldots,t_n)$,\\Gleichung $t_1=t_2$, Junktoren,\\Quantoren $\forall$, $\exists$};
+  \node[box, below=0.5cm of frm] (bnd) {Freie / gebundene Variablen\\Wirkungsbereich eines Quantors\\Konsistente Umbenennung};
+  \node[box, below=0.5cm of bnd] (int) {Interpretation $(U, I)$\\Universum, Zuordnung\\zu Konstanten, Funktionen, Prädikaten};
+  \node[box, below=0.5cm of int] (nor) {Normalformen:\\NNF, pränexe Normalform (PNF)};
+  \node[box, below=0.5cm of nor] (bew) {Formale Beweise:\\$\forall$-Instantiierung, $\exists$-Instantiierung\\Syllogismus (Aristoteles)};
+  \draw[arrow] (trm) -- (frm);
+  \draw[arrow] (frm) -- (bnd);
+  \draw[arrow] (bnd) -- (int);
+  \draw[arrow] (int) -- (nor);
+  \draw[arrow] (nor) -- (bew);
+\end{tikzpicture}
+\end{center}
+
+\subsection*{Lernziele}
+
+Nach Durcharbeiten dieses Abschnitts sollten Sie:
+\begin{itemize}
+  \item Terme und prädikatenlogische Formeln induktiv aufbauen und erkennen können,
+  \item freie und gebundene Vorkommen von Variablen in einer Formel bestimmen
+        und den Wirkungsbereich jedes Quantors angeben können,
+  \item eine Formel konsistent umbenennen können (Merkregel~21.2.17),
+  \item einer Formel für eine konkrete Interpretation einen Wahrheitswert zuordnen
+        (Definition~21.2.22),
+  \item die Äquivalenzregeln für Quantoren (Proposition~21.2.32) kennen und
+        anwenden können: Quantorwechsel, Quantortausch, Quantorzusammenfassung,
+        Quantorelimination, Quantifizierung,
+  \item Formeln in die Negationsnormalform und die pränexe Normalform überführen,
+  \item einfache prädikatenlogische Argumente mit $\forall$-Instantiierung und
+        $\exists$-Instantiierung formal beweisen können.
+\end{itemize}
+
+\subsection*{Selbstkontrollelement 21.2}
+
+Sei $\alpha = \forall x \exists y\, P(x, y)$.
+\begin{enumerate}[label=(\alph*)]
+  \item Bestimmen Sie für jede der folgenden Interpretationen den Wahrheitswert
+        von $\alpha$:
+        \begin{enumerate}[label=(\roman*)]
+          \item $U = \mathbb{N}$,\quad $I(P) = \{(m,n) \mid m < n\}$.
+          \item $U = \{0\}$,\quad $I(P) = \emptyset$.
+        \end{enumerate}
+  \item Begründen Sie, warum $\forall x \exists y\, P(x,y)$ im Allgemeinen
+        \emph{nicht} äquivalent zu $\exists y \forall x\, P(x,y)$ ist.
+  \item Überführen Sie die Formel $\neg(\forall x\, P(x) \land \exists y\, Q(y))$
+        in Negationsnormalform.
+\end{enumerate}
+
+\end{document}
