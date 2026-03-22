@@ -1,0 +1,542 @@
+\documentclass[a4paper,12pt]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[ngerman]{babel}
+\usepackage{amsmath, amssymb}
+\usepackage{geometry}
+\usepackage{parskip}
+\usepackage{titlesec}
+\usepackage{enumitem}
+\usepackage{array}
+\usepackage{booktabs}
+
+\geometry{left=3cm, right=3cm, top=2.5cm, bottom=2.5cm}
+
+\titleformat{\section}{\large\bfseries}{}{0em}{}[\titlerule]
+\titleformat{\subsection}{\normalsize\bfseries\scshape}{}{0em}{}
+
+% Glossar-Eintrag: Nummer, fetter Titel, Inhalt
+\newcommand{\gentry}[3]{%
+  \noindent\textbf{#1\quad #2}\nopagebreak\\[0.2em]
+  #3\par\smallskip
+}
+
+\begin{document}
+
+\begin{center}
+  {\LARGE\bfseries Glossar zu Lektion 7}\\[0.5em]
+  {\large Mathematische Grundlagen (Modul 61111)}
+\end{center}
+
+\vspace{1em}
+
+Dieses Glossar fasst die wesentlichen Definitionen, Merkregeln und Sätze der
+siebten Lektion kompakt zusammen.
+Nummerierungen entsprechen dem Lehrtext.
+
+% ======================================================================
+\section*{20.1 \quad Das Riemann-Integral}
+
+\gentry{20.1.1}{Partition}{%
+  Sei $a < b$. Eine \textbf{Partition} $P$ des Intervalls $[a,b]$ sind endlich
+  viele Punkte $t_0, t_1, \ldots, t_n$ mit
+  \[
+    a = t_0 < t_1 < \cdots < t_n = b.
+  \]
+}
+
+\gentry{20.1.2}{Unter- und Obersumme}{%
+  Sei $f : [a,b] \to \mathbb{R}$ beschränkt, $P = (t_0, \ldots, t_n)$ eine Partition.
+  Für $1 \le i \le n$:
+  \[
+    m_i = \inf\{f(x) \mid t_{i-1} \le x \le t_i\},\quad
+    M_i = \sup\{f(x) \mid t_{i-1} \le x \le t_i\}.
+  \]
+  \textbf{Untersumme:}
+  $U(f,P) = \sum_{i=1}^n m_i(t_i - t_{i-1})$.\quad
+  \textbf{Obersumme:}
+  $O(f,P) = \sum_{i=1}^n M_i(t_i - t_{i-1})$.\\
+  Es gilt stets $U(f,P) \le O(f,P)$.
+}
+
+\gentry{20.1.4}{Verfeinerung}{%
+  Eine Partition $Q$ von $[a,b]$ heißt \textbf{Verfeinerung} von $P$, wenn
+  $\{t_0,\ldots,t_n\} \subseteq \{t'_0,\ldots,t'_m\}$.
+}
+
+\gentry{20.1.5}{Lemma (Verfeinerung)}{%
+  Sei $Q$ eine Verfeinerung von $P$. Dann gilt:
+  \[
+    U(f,P) \le U(f,Q) \quad\text{und}\quad O(f,P) \ge O(f,Q).
+  \]
+  Verfeinerungen vergrößern Untersummen und verkleinern Obersummen.
+}
+
+\gentry{20.1.6}{Proposition}{%
+  Für beliebige Partitionen $P_1$, $P_2$ von $[a,b]$ gilt:
+  \[
+    U(f,P_1) \le O(f,P_2).
+  \]
+  Untersummen sind nie größer als Obersummen.
+}
+
+\gentry{20.1.7}{Riemann-Integral (Definition)}{%
+  $f : [a,b] \to \mathbb{R}$ beschränkt heißt \textbf{integrierbar} auf $[a,b]$, wenn
+  \[
+    \sup\{U(f,P)\} = \inf\{O(f,P)\}
+  \]
+  (über alle Partitionen $P$).
+  Dieser gemeinsame Wert heißt \textbf{Riemann-Integral} und wird mit
+  $\displaystyle\int_a^b f$ oder $\displaystyle\int_a^b f(x)\,dx$ bezeichnet.
+  \begin{itemize}[topsep=2pt,itemsep=1pt]
+    \item $a$: untere Integrationsgrenze;\quad $b$: obere Integrationsgrenze
+    \item $f$: Integrand;\quad $x$: Integrationsvariable (beliebig wählbar)
+  \end{itemize}
+}
+
+\gentry{20.1.9}{Proposition ($\varepsilon$-Kriterium)}{%
+  $f$ ist auf $[a,b]$ integrierbar genau dann, wenn es zu jedem $\varepsilon > 0$
+  eine Partition $P$ gibt mit
+  \[
+    O(f,P) - U(f,P) < \varepsilon.
+  \]
+}
+
+\gentry{20.1.11}{Proposition (Additivität)}{%
+  Sei $a < c < b$. $f$ ist auf $[a,b]$ integrierbar genau dann, wenn $f$ auf
+  $[a,c]$ und auf $[c,b]$ integrierbar ist. In diesem Fall gilt:
+  \[
+    \int_a^b f(x)\,dx = \int_a^c f(x)\,dx + \int_c^b f(x)\,dx.
+  \]
+}
+
+\gentry{20.1.12}{Notation (Erweiterung)}{%
+  Sei $f$ auf $[a,b]$ integrierbar ($a < b$). Es wird gesetzt:
+  \[
+    \int_a^a f(x)\,dx = 0, \qquad \int_a^b f(x)\,dx = -\int_b^a f(x)\,dx.
+  \]
+}
+
+\gentry{20.1.13}{Lemma (Abschätzung)}{%
+  Sei $f$ integrierbar auf $[a,b]$ und $m \le f(x) \le M$ für alle $x \in [a,b]$.
+  Dann gilt:
+  \[
+    m(b-a) \le \int_a^b f(x)\,dx \le M(b-a).
+  \]
+}
+
+\gentry{20.1.14}{Satz (Stetigkeit des unbestimmten Integrals)}{%
+  Sei $f$ integrierbar auf $[a,b]$. Die Funktion
+  $F : [a,b] \to \mathbb{R}$,\; $F(x) = \int_a^x f(t)\,dt$,
+  ist \textbf{stetig} auf $[a,b]$.
+}
+
+\gentry{20.1.15}{Unbestimmtes Integral}{%
+  Die Funktion $F(x) = \int_a^x f(t)\,dt$ (mit $f$ integrierbar auf $[a,b]$)
+  heißt \textbf{unbestimmtes Integral} von $f$.
+}
+
+\gentry{20.1.16}{Proposition (Rechenregeln)}{%
+  \begin{enumerate}[label=\arabic*.,topsep=2pt,itemsep=1pt]
+    \item Sind $f,g$ integrierbar auf $[a,b]$, so ist $f+g$ integrierbar und
+          $\int_a^b (f+g) = \int_a^b f + \int_a^b g$.
+    \item Ist $f$ integrierbar und $c \in \mathbb{R}$, so ist $cf$ integrierbar und
+          $\int_a^b (cf) = c \int_a^b f$.
+  \end{enumerate}
+}
+
+% ======================================================================
+\section*{20.2 \quad Hauptsätze der Differential- und Integralrechnung}
+
+\gentry{20.2.1}{Satz (1.\ Hauptsatz)}{%
+  Sei $f$ auf $[a,b]$ integrierbar, $F(x) = \int_a^x f(t)\,dt$.
+  Ist $f$ in $c \in [a,b]$ stetig, so ist $F$ in $c$ differenzierbar und
+  \[
+    F'(c) = f(c).
+  \]
+}
+
+\gentry{20.2.3}{Korollar}{%
+  Ist $f$ auf $[a,b]$ stetig, so ist $f$ auf $[a,b]$ integrierbar.
+}
+
+\gentry{20.2.4}{Korollar}{%
+  Ist $f$ auf $[a,b]$ stetig, so besitzt $f$ auf $[a,b]$ eine
+  \textbf{Stammfunktion} (d.\,h.\ eine differenzierbare Funktion $g$ mit $g' = f$).
+}
+
+\gentry{20.2.5}{Satz (2.\ Hauptsatz)}{%
+  Ist $f$ auf $[a,b]$ integrierbar und $g$ irgendeine Stammfunktion von $f$, so gilt:
+  \[
+    \int_a^b f(x)\,dx = g(b) - g(a).
+  \]
+  \textbf{Schreibweise:} $g(b) - g(a) = \bigl[g(x)\bigr]_a^b$.
+}
+
+\gentry{20.2.7}{Merkregel (Stammfunktionen, Auswahl)}{%
+  \[
+  \begin{array}{lll}
+    x^n \;(n \in \mathbb{N}_0) & \rightsquigarrow & \dfrac{1}{n+1} x^{n+1}\\[5pt]
+    x^{-1} \;(x>0) & \rightsquigarrow & \ln x\\[5pt]
+    \exp(x) & \rightsquigarrow & \exp(x)\\[5pt]
+    \cos x & \rightsquigarrow & \sin x\\[5pt]
+    \sin x & \rightsquigarrow & -\cos x\\[5pt]
+    \dfrac{1}{1+x^2} & \rightsquigarrow & \arctan x
+  \end{array}
+  \]
+}
+
+\gentry{20.2.9}{Satz (Partielle Integration)}{%
+  Seien $f, g : [a,b] \to \mathbb{R}$ differenzierbar mit $f', g'$ stetig. Dann:
+  \[
+    \int_a^b f(x)\,g'(x)\,dx
+    = \bigl[f(x)\,g(x)\bigr]_a^b - \int_a^b f'(x)\,g(x)\,dx.
+  \]
+}
+
+\gentry{20.2.12}{Satz (Substitutionsregel)}{%
+  Sei $f : I \to \mathbb{R}$ stetig, $g : [a,b] \to I$ differenzierbar mit $g'$ stetig. Dann:
+  \[
+    \int_a^b f(g(x))\,g'(x)\,dx = \int_{g(a)}^{g(b)} f(u)\,du.
+  \]
+  \textbf{Merkregel:} Ersetze $u = g(x)$; dann ist $du = g'(x)\,dx$.
+}
+
+\gentry{20.2.16}{Satz}{%
+  Der Flächeninhalt des Einheitskreises ist $\pi$.
+}
+
+% ======================================================================
+\section*{21.1 \quad Aussagenlogik}
+
+\subsection*{21.1.1 Syntax}
+
+\gentry{21.1.1}{Aussagenlogische Formeln (induktiv)}{%
+  Sei $\Sigma$ die Menge der \textbf{Atome}. Formeln werden induktiv definiert:
+  \begin{enumerate}[label=\arabic*.,topsep=2pt,itemsep=1pt]
+    \item Jedes Atom ist eine Formel.
+    \item Ist $\alpha$ eine Formel, so ist $(\lnot\alpha)$ eine Formel.
+    \item Für Formeln $\alpha$, $\beta$ sind
+          $(\alpha \land \beta)$, $(\alpha \lor \beta)$,
+          $(\alpha \to \beta)$, $(\alpha \leftrightarrow \beta)$ Formeln.
+    \item Nichts sonst ist eine Formel.
+  \end{enumerate}
+}
+
+\gentry{21.1.3}{Präzedenzregeln}{%
+  Bindungsstärke (stärker $\to$ schwächer):
+  \[
+    \lnot \;\succ\; \land \;\succ\; \lor \;\succ\; \to \;\succ\; \leftrightarrow.
+  \]
+  $\land$, $\lor$ und $\to$ binden \textbf{linksassoziativ};
+  $\leftrightarrow$ braucht keine Klammerung.
+}
+
+\gentry{21.1.7}{Literal}{%
+  Ein \textbf{Literal} ist ein Atom $A$ (positives Literal) oder ein negiertes
+  Atom $\lnot A$ (negatives Literal).
+}
+
+\subsection*{21.1.2 Semantik}
+
+\gentry{21.1.8}{Bewertung / Interpretation}{%
+  Eine Abbildung $I : \Sigma \to \{0, 1\}$ heißt \textbf{Bewertung} (oder
+  \textbf{Interpretation}). Sie ordnet jedem Atom einen Wahrheitswert zu.
+}
+
+\gentry{21.1.9}{Erweiterung auf Formeln}{%
+  Die Bewertung $I$ wird auf Formeln erweitert durch:
+  \[
+  \begin{array}{ll}
+    I(\lnot\alpha) = 1 & \Leftrightarrow I(\alpha) = 0 \\
+    I(\alpha \land \beta) = 1 & \Leftrightarrow I(\alpha)=1 \text{ und } I(\beta)=1 \\
+    I(\alpha \lor \beta) = 1 & \Leftrightarrow I(\alpha)=1 \text{ oder } I(\beta)=1 \\
+    I(\alpha \to \beta) = 1 & \Leftrightarrow I(\alpha)=0 \text{ oder } I(\beta)=1 \\
+    I(\alpha \leftrightarrow \beta) = 1 & \Leftrightarrow I(\alpha)=I(\beta)
+  \end{array}
+  \]
+}
+
+\gentry{21.1.16}{Erfüllbar, tautologisch, widerspruchsvoll, falsifizierbar}{%
+  \begin{itemize}[topsep=2pt,itemsep=1pt]
+    \item \textbf{erfüllbar}: es gibt eine Bewertung $I$ mit $I(\alpha)=1$.
+    \item \textbf{tautologisch} (allgemeingültig): $I(\alpha)=1$ für alle $I$.
+    \item \textbf{widerspruchsvoll} (unerfüllbar): $I(\alpha)=0$ für alle $I$.
+    \item \textbf{falsifizierbar}: es gibt eine Bewertung $I$ mit $I(\alpha)=0$.
+  \end{itemize}
+}
+
+\gentry{21.1.18}{Bemerkung}{%
+  Äquivalent sind: $\alpha$ ist widerspruchsvoll $\;\Leftrightarrow\;$ $\alpha$
+  ist nicht erfüllbar $\;\Leftrightarrow\;$ $\lnot\alpha$ ist tautologisch.
+}
+
+\gentry{21.1.19}{Semantische Folgerung $\alpha \models \beta$}{%
+  $\beta$ folgt semantisch aus $\alpha$, wenn jede Bewertung, die $\alpha$ wahr
+  macht, auch $\beta$ wahr macht.
+}
+
+\gentry{21.1.22}{Bemerkung (Charakterisierungen)}{%
+  \begin{enumerate}[label=\arabic*.,topsep=2pt,itemsep=1pt]
+    \item $\alpha \models \beta \;\Leftrightarrow\; (\alpha \to \beta)$ ist Tautologie.
+    \item $\alpha \models \beta \;\Leftrightarrow\; (\alpha \land \lnot\beta)$ ist widerspruchsvoll.
+    \item $\alpha$ widerspruchsvoll $\;\Leftrightarrow\;$ für alle $\gamma$: $\alpha \models \gamma$.
+  \end{enumerate}
+}
+
+\gentry{21.1.23}{Logische Äquivalenz $\alpha \approx \beta$}{%
+  $\alpha$ und $\beta$ heißen \textbf{logisch äquivalent}, wenn
+  $I(\alpha) = I(\beta)$ für alle Bewertungen $I$ gilt.
+  Äquivalent: $\alpha \models \beta$ und $\beta \models \alpha$.
+}
+
+\gentry{21.1.25}{Proposition (Junktor-Minimierung)}{%
+  Mit nur $\lnot$ und $\lor$ lassen sich alle Junktoren ausdrücken:
+  \begin{itemize}[topsep=2pt,itemsep=1pt]
+    \item $\alpha \to \beta \;\approx\; \lnot\alpha \lor \beta$
+    \item $\alpha \land \beta \;\approx\; \lnot(\lnot\alpha \lor \lnot\beta)$
+    \item $\alpha \leftrightarrow \beta \;\approx\; (\alpha \to \beta) \land (\beta \to \alpha)$
+  \end{itemize}
+}
+
+\gentry{21.1.26}{Proposition (Äquivalenzregeln)}{%
+  \begin{itemize}[topsep=2pt,itemsep=1pt]
+    \item $\lnot\lnot\alpha \approx \alpha$ \hfill (Negationsregel)
+    \item $\alpha \lor \alpha \approx \alpha$,\; $\alpha \land \alpha \approx \alpha$ \hfill (Idempotenz)
+    \item $\alpha \land \beta \approx \beta \land \alpha$,\;
+          $\alpha \lor \beta \approx \beta \lor \alpha$ \hfill (Kommutativität)
+    \item $(\alpha \lor \beta) \lor \gamma \approx \alpha \lor (\beta \lor \gamma)$ \hfill (Assoziativität)
+    \item $(\alpha \land \beta) \lor \gamma \approx (\alpha \lor \gamma) \land (\beta \lor \gamma)$ \hfill (Distributivität)
+    \item $\lnot(\alpha \land \beta) \approx \lnot\alpha \lor \lnot\beta$,\;
+          $\lnot(\alpha \lor \beta) \approx \lnot\alpha \land \lnot\beta$ \hfill (De~Morgan)
+  \end{itemize}
+}
+
+\subsection*{21.1.3 Normalformen}
+
+\gentry{21.1.30}{Negationsnormalform (NNF)}{%
+  Eine Formel ohne $\to$ und $\leftrightarrow$ ist in \textbf{NNF}, wenn jedes
+  Negationszeichen direkt vor einem Atom steht.\\
+  \textbf{Verfahren}: Ersetze $\lnot\lnot\alpha \to \alpha$,
+  $\lnot(\alpha \lor \beta) \to \lnot\alpha \land \lnot\beta$,
+  $\lnot(\alpha \land \beta) \to \lnot\alpha \lor \lnot\beta$ (De~Morgan).
+}
+
+\gentry{21.1.34}{Klausel}{%
+  Eine \textbf{Klausel} ist eine Disjunktion von Literalen:
+  $\alpha_1 \lor \cdots \lor \alpha_n$ (alle $\alpha_i$ Literale).
+  Alle negativ: \textbf{negative Klausel};
+  alle positiv: \textbf{positive Klausel};
+  genau $k$ Literale: \textbf{$k$-Klausel}.
+}
+
+\gentry{21.1.35}{Konjunktive Normalform (KNF)}{%
+  Eine Formel ist in \textbf{KNF}, wenn sie eine Konjunktion von Klauseln ist.\\
+  \textbf{Verfahren}: NNF berechnen, dann Distributivgesetze anwenden:
+  $\alpha \lor (\beta \land \gamma) \to (\alpha \lor \beta) \land (\alpha \lor \gamma)$.
+}
+
+\gentry{21.1.38}{Monom}{%
+  Ein \textbf{Monom} ist eine Konjunktion von Literalen:
+  $\alpha_1 \land \cdots \land \alpha_n$ (alle $\alpha_i$ Literale).
+}
+
+\gentry{21.1.39}{Disjunktive Normalform (DNF)}{%
+  Eine Formel ist in \textbf{DNF}, wenn sie eine Disjunktion von Monomen ist.\\
+  \textbf{Verfahren}: NNF berechnen, dann Distributivgesetze anwenden:
+  $\alpha \land (\beta \lor \gamma) \to (\alpha \land \beta) \lor (\alpha \land \gamma)$.
+}
+
+\subsection*{21.1.4 Formale Beweise}
+
+\gentry{21.1.42}{Gültiges Argument}{%
+  Eine Formel $\alpha_1 \land \cdots \land \alpha_n \to \beta$ heißt
+  \textbf{gültiges Argument}, wenn sie eine Tautologie ist.
+}
+
+\gentry{21.1.46}{Äquivalenzregeln (Tabelle)}{%
+  \begin{center}\small
+  \begin{tabular}{ll}
+    \toprule
+    Formel & äquivalent zu\\
+    \midrule
+    $\alpha \lor \beta$ & $\beta \lor \alpha$ (com)\\
+    $(\alpha \lor \beta) \lor \gamma$ & $\alpha \lor (\beta \lor \gamma)$ (ass)\\
+    $(\alpha \lor \beta) \land \gamma$ & $(\alpha \land \gamma) \lor (\beta \land \gamma)$ (dis)\\
+    $\lnot(\alpha \lor \beta)$ & $\lnot\alpha \land \lnot\beta$ (De~Morgan)\\
+    $\alpha \to \beta$ & $\lnot\alpha \lor \beta$ (imp)\\
+    $\alpha$ & $\lnot\lnot\alpha$ (dn)\\
+    \bottomrule
+  \end{tabular}
+  \end{center}
+  (gilt analog für $\land$; Regeln wirken in beide Richtungen)
+}
+
+\gentry{21.1.48}{Schlussregeln}{%
+  \begin{center}\small
+  \begin{tabular}{lll}
+    \toprule
+    Aus & ableitbar & Name\\
+    \midrule
+    $\alpha$ und $\alpha \to \beta$ & $\beta$ & Modus ponens (mp)\\
+    $\alpha \to \beta$ und $\lnot\beta$ & $\lnot\alpha$ & Modus tollens (mt)\\
+    $\alpha$ und $\beta$ & $\alpha \land \beta$ & Konjunktion (con)\\
+    $\alpha \land \beta$ & $\alpha$,\; $\beta$ & Vereinfachung (simp)\\
+    $\alpha$ & $\alpha \lor \beta$ & Ausdehnung (add)\\
+    \bottomrule
+  \end{tabular}
+  \end{center}
+  \textbf{Schlussregeln wirken nur in eine Richtung.}
+}
+
+\gentry{21.1.53}{Proposition (Deduktionsregel)}{%
+  $\alpha \to (\beta \to \gamma) \;\approx\; (\alpha \land \beta) \to \gamma$.\\
+  Folge: Um $\alpha_1 \land \cdots \land \alpha_n \to (\beta \to \gamma)$ zu beweisen,
+  genügt es, $\alpha_1 \land \cdots \land \alpha_n \land \beta \to \gamma$ herzuleiten.
+}
+
+% ======================================================================
+\section*{21.2 \quad Prädikatenlogik}
+
+\subsection*{21.2.2 Syntax}
+
+\gentry{21.2.3}{Terme (induktiv)}{%
+  Sei $V$ Variablen, $K$ Konstanten, $F$ Funktionssymbole (paarweise disjunkt).
+  Terme:
+  \begin{enumerate}[label=\arabic*.,topsep=2pt,itemsep=1pt]
+    \item Jede Variable $x \in V$ ist ein Term.
+    \item Jede Konstante $a \in K$ ist ein Term.
+    \item Sind $t_1,\ldots,t_n$ Terme und $f \in F$ $n$-stellig, so ist
+          $f(t_1,\ldots,t_n)$ ein Term.
+  \end{enumerate}
+}
+
+\gentry{21.2.5}{Prädikatenlogische Formeln (induktiv)}{%
+  Sei $R$ Menge von Prädikatssymbolen. Formeln:
+  \begin{enumerate}[label=\arabic*.,topsep=2pt,itemsep=1pt]
+    \item $P(t_1,\ldots,t_n)$ für $P \in R$ $n$-stellig und Terme $t_i$
+          (\textbf{Primformel}).
+    \item $t_1 = t_2$ für Terme $t_1, t_2$ (Primformel).
+    \item $(\lnot\alpha)$, $(\alpha \land \beta)$, $(\alpha \lor \beta)$ für Formeln $\alpha$, $\beta$.
+    \item $\forall x\,\alpha$ und $\exists x\,\alpha$ für Formeln $\alpha$.
+  \end{enumerate}
+  $\alpha \to \beta$ und $\alpha \leftrightarrow \beta$ als Abkürzungen.
+}
+
+\gentry{21.2.7}{Präzedenz}{%
+  Es gelten die Präzedenzregeln der Aussagenlogik; zusätzlich binden
+  $\forall$ und $\exists$ \textbf{stärker} als alle aussagenlogischen Junktoren.
+}
+
+\gentry{21.2.9}{Wirkungsbereich, gebundene Variable}{%
+  In $\forall x\,\alpha$ und $\exists x\,\alpha$ ist $\alpha$ der
+  \textbf{Wirkungsbereich} des Quantors. Der Quantor \textbf{bindet} alle freien
+  Vorkommen von $x$ in $\alpha$ (außer solchen, die durch einen inneren Quantor
+  gebunden sind).
+}
+
+\gentry{21.2.11}{Freie / gebundene Variable}{%
+  Ein Vorkommen von $x$ heißt \textbf{frei}, wenn es nicht im Wirkungsbereich
+  eines Quantors mit Variable $x$ liegt, andernfalls \textbf{gebunden}.
+}
+
+\gentry{21.2.14}{Geschlossene Formel}{%
+  Eine Formel ohne freie Variablen heißt \textbf{geschlossene Formel}.
+}
+
+\gentry{21.2.16/17}{Konsistente Umbenennung}{%
+  Eine Formel ist \textbf{konsistent umbenannt}, wenn (1)~keine Variable zugleich
+  frei und gebunden vorkommt, und (2)~verschiedene Quantoren sich auf verschiedene
+  Variablen beziehen.\\
+  \textbf{Verfahren}: Ersetze freie Vorkommen von $x$ durch neue Variable $z$,
+  falls $x$ auch gebunden vorkommt; benenne Quantoren mit gleichem Namen sukzessive um.
+}
+
+\subsection*{21.2.3 Semantik}
+
+\gentry{21.2.21}{Interpretation}{%
+  Eine \textbf{Interpretation} zu einer Signatur $\Sigma = (K, F, R)$ besteht aus
+  \begin{enumerate}[label=(\alph*),topsep=2pt,itemsep=1pt]
+    \item einer nichtleeren Menge $U$ (Universum / Grundbereich),
+    \item einer Abbildung $I$, die jedem Konstantensymbol $a$ ein Element $I(a) \in U$,
+          jedem $n$-stelligen Funktionssymbol $f$ eine Funktion $I(f): U^n \to U$ und
+          jedem $n$-stelligen Prädikatssymbol $P$ eine Relation $I(P) \subseteq U^n$ zuordnet.
+  \end{enumerate}
+}
+
+\gentry{21.2.22}{Wahrheit einer Formel (Teil 2)}{%
+  \[
+  \begin{array}{ll}
+    I(\exists x\,\alpha) = 1 & \Leftrightarrow \exists u \in U: I[x/u](\alpha)=1\\
+    I(\forall x\,\alpha) = 1 & \Leftrightarrow \forall u \in U: I[x/u](\alpha)=1\\
+    I(P(t_1,\ldots,t_n)) = 1 & \Leftrightarrow (I(t_1),\ldots,I(t_n)) \in I(P)\\
+    I(t_1 = t_2) = 1 & \Leftrightarrow I(t_1) = I(t_2)
+  \end{array}
+  \]
+  $I[x/u]$: Interpretation, bei der $x$ durch $u \in U$ ersetzt wird.
+}
+
+\gentry{21.2.26}{Erfüllbar, tautologisch usw.\ (PL)}{%
+  Analog zur Aussagenlogik, aber „Bewertung" wird durch „Interpretation" ersetzt.
+  \textbf{Wichtig:} Die Menge erfüllbarer prädikatenlogischer Formeln ist
+  \emph{nicht entscheidbar}.
+}
+
+\gentry{21.2.32}{Proposition (Äquivalenzregeln für Quantoren)}{%
+  \begin{enumerate}[label=\arabic*.,topsep=2pt,itemsep=1pt]
+    \item $\lnot(\exists x\,\alpha) \approx \forall x(\lnot\alpha)$;\quad
+          $\lnot(\forall x\,\alpha) \approx \exists x(\lnot\alpha)$ \hfill\emph{(Quantorwechsel)}
+    \item $\exists x\exists y\,\alpha \approx \exists y\exists x\,\alpha$;\quad
+          $\forall x\forall y\,\alpha \approx \forall y\forall x\,\alpha$ \hfill\emph{(Quantortausch)}
+    \item $\exists x\,\alpha \lor \exists x\,\beta \approx \exists x(\alpha \lor \beta)$;\quad
+          $\forall x\,\alpha \land \forall x\,\beta \approx \forall x(\alpha \land \beta)$
+          \hfill\emph{(Quantorzusammenfassung)}
+    \item Ist $x$ nicht frei in $\alpha$: $\exists x\,\alpha \approx \alpha$;\quad
+          $\forall x\,\alpha \approx \alpha$ \hfill\emph{(Quantorelimination)}
+    \item Ist $x$ nicht frei in $\beta$:
+          $\exists x\,\alpha \land \beta \approx \exists x(\alpha \land \beta)$;\quad
+          $\forall x\,\alpha \lor \beta \approx \forall x(\alpha \lor \beta)$
+          (und analog) \hfill\emph{(Quantifizierung)}
+  \end{enumerate}
+  \textbf{Achtung:} $\forall x\,\alpha \lor \forall x\,\beta \not\approx \forall x(\alpha \lor \beta)$
+  und $\exists x\,\alpha \land \exists x\,\beta \not\approx \exists x(\alpha \land \beta)$.
+}
+
+\subsection*{21.2.4 Normalformen}
+
+\gentry{21.2.38}{NNF (Prädikatenlogik)}{%
+  Eine Formel ist in \textbf{NNF}, wenn jedes Negationszeichen direkt vor einer
+  Primformel steht. Zusätzlich zu den aussagenlogischen NNF-Regeln:
+  $\lnot(\exists x\,\alpha) \to \forall x(\lnot\alpha)$ und
+  $\lnot(\forall x\,\alpha) \to \exists x(\lnot\alpha)$.
+}
+
+\gentry{21.2.41}{Pränexe Normalform (PNF)}{%
+  Eine Formel ist in \textbf{pränexer Normalform}, wenn sie die Gestalt
+  $Q_1 x_1 \cdots Q_n x_n\, \beta$ hat, wobei $Q_i \in \{\forall,\exists\}$ und
+  $\beta$ quantorenfrei ist.
+  \textbf{Präfix}: die Quantorfolge; \textbf{Kern}: $\beta$.\\
+  \textbf{Verfahren}: NNF + konsistente Umbenennung + Quantifizierungsregeln anwenden
+  (Quantoren nach außen ziehen).
+}
+
+\subsection*{21.2.5 Formale Beweise}
+
+\gentry{21.2.47}{Schlussregeln (PL)}{%
+  \begin{itemize}[topsep=2pt,itemsep=1pt]
+    \item \textbf{$\forall$-Instantiierung ($\forall$-i):} Aus $\forall x\,\alpha$
+          folgt $\alpha[x/t]$, wobei $t$ ein variablenfreier Term ist.
+    \item \textbf{$\exists$-Instantiierung ($\exists$-i):} Aus $\exists x\,\alpha$
+          folgt $\alpha[x/a]$, wobei $a$ ein \emph{völlig neues} Konstantensymbol
+          ist, das bisher nicht verwendet wurde.
+  \end{itemize}
+  \textbf{Achtung:} Schlussregeln nur auf die gesamte Formel, nicht auf Teilformeln
+  anwenden.
+}
+
+\gentry{}{Merkregel (Notation $\alpha[x/t]$)}{%
+  $\alpha[x/t]$: Die Formel, die aus $\alpha$ entsteht, indem jedes
+  \emph{freie} Vorkommen von $x$ durch den Term $t$ ersetzt wird.
+}
+
+\end{document}

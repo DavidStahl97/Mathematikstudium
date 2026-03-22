@@ -1,0 +1,516 @@
+\documentclass[a4paper,12pt]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[ngerman]{babel}
+\usepackage{amsmath, amssymb}
+\usepackage{geometry}
+\usepackage{parskip}
+\usepackage{titlesec}
+\usepackage{enumitem}
+\usepackage{array}
+\usepackage{booktabs}
+
+\geometry{left=3cm, right=3cm, top=2.5cm, bottom=2.5cm}
+
+\titleformat{\section}{\large\bfseries}{}{0em}{}[\titlerule]
+\titleformat{\subsection}{\normalsize\bfseries\scshape}{}{0em}{}
+
+% Glossar-Eintrag: Nummer, fetter Titel, Inhalt
+\newcommand{\gentry}[3]{%
+  \noindent\textbf{#1\quad #2}\nopagebreak\\[0.2em]
+  #3\par\smallskip
+}
+
+\begin{document}
+
+\begin{center}
+  {\LARGE\bfseries Glossar zu Lektion 6}\\[0.5em]
+  {\large Mathematische Grundlagen (Modul 61111)}
+\end{center}
+
+\vspace{1em}
+
+Dieses Glossar fasst die wesentlichen Definitionen, Merkregeln und Sätze der
+sechsten Lektion kompakt zusammen. Nummerierungen entsprechen dem Lehrtext.
+
+% ======================================================================
+\section*{17 \quad Höhere Ableitungen}
+
+\gentry{17.0.1}{Definition ($k$-te Ableitung)}{%
+  Sei $f$ eine Funktion. Wenn $f^{(k)}(a)$ für ein $k \ge 1$ existiert, so
+  heißt $f$ in $a$ \textbf{$k$-mal differenzierbar}, und $f^{(k)}(a)$ wird
+  \textbf{$k$-te Ableitung von $f$ in $a$} genannt. Es gilt $f^{(1)} = f'$
+  und $f^{(k+1)} = (f^{(k)})'$.
+}
+
+% -----------------------------------------------------------------------
+\subsection*{17.1 \quad Der Mittelwertsatz}
+
+\gentry{17.1.2}{Satz von Rolle}{%
+  Sei $f:[a,b]\to\mathbb{R}$ stetig und im Inneren differenzierbar. Gilt
+  $f(a) = f(b)$, so gibt es ein $x_0 \in (a,b)$ mit $f'(x_0) = 0$.
+}
+
+\gentry{17.1.1}{Satz (Mittelwertsatz der Differentialrechnung)}{%
+  Sei $f:[a,b]\to\mathbb{R}$ stetig und im Inneren differenzierbar. Dann gibt
+  es mindestens ein $x_0 \in (a,b)$ mit
+  \[
+    f'(x_0) = \frac{f(b)-f(a)}{b-a}.
+  \]
+  \textbf{Geometrische Interpretation:} Es gibt einen Punkt, in dem die Tangente
+  parallel zur Sekante liegt.
+}
+
+\gentry{17.1.3}{Korollar}{%
+  Sei $g_1' = g_2'$ auf dem Intervall $I$. Dann gilt $g_1 = g_2 + \hat{c}$
+  für eine Konstante $c\in\mathbb{R}$.
+  \textbf{Merkregel:} Zwei Funktionen mit gleicher Ableitung unterscheiden sich
+  nur durch eine additive Konstante.
+}
+
+\gentry{17.1.5/6}{Korollar (Charakterisierung der e-Funktion)}{%
+  Ist $f$ differenzierbar mit $f'(x) = f(x)$ für alle $x$, so gilt $f = c\cdot\exp$.
+  Insbesondere ist $\exp$ die \emph{einzige} differenzierbare Funktion mit
+  $f = f'$ und $f(0) = 1$.
+}
+
+\gentry{17.1.8}{Korollar (Monotonie und Ableitung)}{%
+  Sei $f$ stetig auf $I$ und differenzierbar im Inneren.
+  \begin{itemize}[topsep=2pt,itemsep=1pt]
+    \item $f' \ge 0 \;\Rightarrow\; f$ wächst; \quad $f' > 0 \;\Rightarrow\; f$ wächst streng monoton.
+    \item $f' \le 0 \;\Rightarrow\; f$ fällt; \quad $f' < 0 \;\Rightarrow\; f$ fällt streng monoton.
+  \end{itemize}
+}
+
+\gentry{17.1.9}{Korollar (Lokale Extrema, Vorzeichenwechsel)}{%
+  Ist $f'(x_0) = 0$ und wechselt $f'$ in $x_0$ das Vorzeichen von $+$ nach $-$
+  (bzw.\ $-$ nach $+$), so ist $x_0$ ein lokales Maximum (bzw.\ Minimum).
+}
+
+\gentry{17.1.10}{Korollar (Lokale Extrema, zweite Ableitung)}{%
+  Ist $f'(x_0) = 0$ und $f''$ existiert in $x_0$, so gilt:
+  \begin{itemize}[topsep=2pt,itemsep=1pt]
+    \item $f''(x_0) < 0 \;\Rightarrow\; x_0$ ist lokales Maximum.
+    \item $f''(x_0) > 0 \;\Rightarrow\; x_0$ ist lokales Minimum.
+    \item $f''(x_0) = 0$: keine Aussage möglich.
+  \end{itemize}
+}
+
+\gentry{17.1.13}{Proposition (Verallg.\ Mittelwertsatz)}{%
+  Seien $f,g$ stetig auf $[a,b]$ und differenzierbar auf $(a,b)$. Dann gibt es
+  ein $x_0 \in (a,b)$ mit
+  \[
+    (f(b)-f(a))\,g'(x_0) = (g(b)-g(a))\,f'(x_0).
+  \]
+}
+
+\gentry{17.1.14}{Satz (Regel von de l'Hospital)}{%
+  Sei $\lim_{x\to a}f(x) = \lim_{x\to a}g(x) = 0$, $g'(x)\ne 0$ auf $U_\varepsilon(a)\setminus\{a\}$.
+  Falls $\lim_{x\to a}\frac{f'(x)}{g'(x)}$ existiert, so gilt:
+  \[
+    \lim_{x\to a}\frac{f(x)}{g(x)} = \lim_{x\to a}\frac{f'(x)}{g'(x)}.
+  \]
+  \textbf{Achtung:} Die Regel darf nur angewendet werden, wenn Zähler und
+  Nenner gegen $0$ streben. Der Spezialfall (17.1.15) gilt, wenn $g'$ stetig
+  ist und $g'(a)\ne 0$.
+}
+
+% -----------------------------------------------------------------------
+\subsection*{17.2 \quad Taylorpolynome und Satz von Taylor}
+
+\gentry{17.2.1}{Definition (Taylorpolynom)}{%
+  Sei $f$ eine Funktion, für die $f^{(1)}(a),\ldots,f^{(n)}(a)$ existieren.
+  Das \textbf{$n$-te Taylorpolynom von $f$ in $a$} ist
+  \[
+    P_{n,a}(x) = \sum_{k=0}^{n} \frac{f^{(k)}(a)}{k!}(x-a)^k.
+  \]
+  Wichtige Beispiele (Entwicklungspunkt $a=0$):
+  \begin{itemize}[topsep=2pt,itemsep=1pt]
+    \item $\exp$: $P_{n,0}(x) = 1 + x + \frac{x^2}{2!} + \cdots + \frac{x^n}{n!}$
+    \item $\sin$: $P_{2n+1,0}(x) = x - \frac{x^3}{3!} + \frac{x^5}{5!} - \cdots + (-1)^n\frac{x^{2n+1}}{(2n+1)!}$
+    \item $\cos$: $P_{2n,0}(x) = 1 - \frac{x^2}{2!} + \frac{x^4}{4!} - \cdots + (-1)^n\frac{x^{2n}}{(2n)!}$
+    \item $\ln(1+x)$: $P_{n,0}(x) = x - \frac{x^2}{2} + \frac{x^3}{3} - \cdots + (-1)^{n-1}\frac{x^n}{n}$
+  \end{itemize}
+}
+
+\gentry{17.2.7}{Definition (Restglied)}{%
+  $R_{n,a}(x) := f(x) - P_{n,a}(x)$ heißt \textbf{Restglied}.
+}
+
+\gentry{17.2.8/9}{Satz von Taylor}{%
+  Seien $f',\ldots,f^{(n+1)}$ auf einem Intervall $I$ mit $a \in I$ definiert.
+  Dann gibt es $t_0, t_1 \in [a,x]$ (oder $[x,a]$) mit:
+  \begin{itemize}[topsep=2pt,itemsep=1pt]
+    \item \textbf{Cauchy-Form:} $R_{n,a}(x) = \dfrac{f^{(n+1)}(t_1)}{n!}(x-t_1)^n(x-a)$
+    \item \textbf{Lagrange-Form:} $R_{n,a}(x) = \dfrac{f^{(n+1)}(t_0)}{(n+1)!}(x-a)^{n+1}$
+  \end{itemize}
+}
+
+\gentry{17.2.12}{Korollar (Restgliedabschätzung)}{%
+  Gilt $|f^{(n+1)}(t)| \le K$ für alle $t \in I$, so folgt
+  \[
+    |R_{n,a}(x)| \le \frac{K}{(n+1)!}\,|x-a|^{n+1} \quad\text{für alle } x \in I.
+  \]
+}
+
+\gentry{17.2.13}{Lemma}{%
+  Für alle $a \in \mathbb{R}$ gilt $\displaystyle\lim_{n\to\infty} \frac{a^n}{n!} = 0$.
+}
+
+\gentry{17.2.14}{Proposition}{%
+  Gilt $|f^{(n)}(t)| \le \alpha K^n$ für alle $t \in I$ und alle $n \in \mathbb{N}$,
+  so ist $(R_{n,a}(x))$ eine Nullfolge, und die Taylorreihe konvergiert gegen $f(x)$.
+}
+
+% ======================================================================
+\section*{18 \quad Reihen}
+
+% -----------------------------------------------------------------------
+\subsection*{18.1 \quad Definitionen, Beispiele, erste Eigenschaften}
+
+\gentry{18.1.1}{Definition (Reihe)}{%
+  Sei $(a_n)$ eine Folge. Die Folge $(s_n)$ mit $s_n = \sum_{k=1}^n a_k$ heißt
+  \textbf{Reihe} und wird mit $\sum_{n=1}^{\infty} a_n$ bezeichnet. Die $s_n$
+  heißen \textbf{Partialsummen}.
+}
+
+\gentry{18.1.2}{Definition (Konvergenz)}{%
+  Eine Reihe $\sum a_n$ heißt \textbf{konvergent}, wenn die Folge $(s_n)$ konvergiert.
+  Ihr Grenzwert wird ebenfalls mit $\sum_{n=1}^{\infty} a_n$ bezeichnet.
+  \textbf{Achtung:} Das Symbol $\sum a_n$ bezeichnet sowohl die Folge der
+  Partialsummen als auch (bei Konvergenz) deren Grenzwert.
+}
+
+\gentry{18.1.6}{Definition (Harmonische Reihe)}{%
+  $\displaystyle\sum_{k=1}^{\infty} \frac{1}{k}$ heißt \textbf{harmonische Reihe}. Sie ist divergent.
+}
+
+\gentry{18.1.7/8/9}{Geometrische Reihe}{%
+  $\displaystyle\sum_{n=0}^{\infty} q^n$ heißt \textbf{geometrische Reihe}. Es gilt:
+  \[
+    \sum_{k=0}^{n} q^k = \frac{1-q^{n+1}}{1-q} \quad (q\ne 1).
+  \]
+  \textbf{Konvergenz:} Die geometrische Reihe konvergiert genau dann, wenn $|q| < 1$,
+  und ihr Grenzwert ist $\dfrac{1}{1-q}$.
+}
+
+\gentry{18.1.10}{Definition (Taylorreihe)}{%
+  Sei $f$ auf $I$ unendlich oft differenzierbar, $a \in I$. Die Reihe
+  $\displaystyle\sum_{k=0}^{\infty} \frac{f^{(k)}(a)}{k!}(x-a)^k$
+  heißt \textbf{Taylorreihe von $f$ im Entwicklungspunkt $a$}.
+}
+
+\gentry{18.1.11}{Proposition}{%
+  Die Taylorreihe konvergiert genau dann gegen $f(x)$, wenn die Folge der
+  Restglieder $(R_{n,a}(x))$ eine Nullfolge ist.
+}
+
+\gentry{18.1.13}{Definition (Exponentialreihe)}{%
+  $\displaystyle\sum_{n=0}^{\infty} \frac{x^n}{n!} = \exp(x)$ für alle $x \in \mathbb{R}$
+  heißt \textbf{Exponentialreihe}.
+}
+
+\gentry{18.1.14/15}{Logarithmusreihe / Alternierende harmonische Reihe}{%
+  $\displaystyle\sum_{n=1}^{\infty} (-1)^{n-1}\frac{x^n}{n}$ heißt \textbf{Logarithmusreihe};
+  sie konvergiert für $x \in (-1,1]$ gegen $\ln(1+x)$.
+  Für $x=1$: $\displaystyle\sum_{n=1}^{\infty} \frac{(-1)^{n-1}}{n} = \ln 2$
+  (\textbf{alternierende harmonische Reihe}).
+}
+
+\gentry{18.1.16}{Proposition}{%
+  Ist $\sum a_n$ konvergent, so ist $(a_n)$ eine Nullfolge (und die Folge
+  der Partialsummen beschränkt). \textbf{Umkehrung gilt nicht!}
+  (Gegenbeispiel: harmonische Reihe.)
+}
+
+\gentry{18.1.19}{Proposition (Cauchy-Kriterium für Reihen)}{%
+  $\sum a_n$ konvergiert genau dann, wenn es zu jedem $\varepsilon > 0$ ein $n_0$ gibt
+  mit $|a_{m+1} + \cdots + a_n| < \varepsilon$ für alle $n > m \ge n_0$.
+}
+
+\gentry{18.1.20}{Proposition (Rechenregeln)}{%
+  Sind $\sum a_n$ und $\sum b_n$ konvergent, so gilt:
+  $\sum(a_n+b_n) = \sum a_n + \sum b_n$ und $\sum ca_n = c\sum a_n$.
+}
+
+% -----------------------------------------------------------------------
+\subsection*{18.2 \quad Konvergenzkriterien}
+
+\gentry{18.2.1}{Satz (Majorantenkriterium)}{%
+  Gilt $|a_n| \le b_n$ für alle $n$ und konvergiert $\sum b_n$, so konvergieren
+  auch $\sum a_n$ und $\sum |a_n|$, und $|\sum a_n| \le \sum b_n$.
+}
+
+\gentry{18.2.6}{Korollar (Minorantenkriterium)}{%
+  Gilt fast immer $a_n \ge b_n \ge 0$ und divergiert $\sum b_n$, so divergiert
+  auch $\sum a_n$.
+}
+
+\gentry{18.2.8}{Satz (Quotientenkriterium)}{%
+  Gilt $\frac{|a_{n+1}|}{|a_n|} \le q < 1$ fast immer, so konvergieren $\sum a_n$
+  und $\sum|a_n|$. Gilt fast immer $\frac{|a_{n+1}|}{|a_n|} \ge 1$, so divergiert $\sum a_n$.
+  \textbf{Achtung:} $\frac{|a_{n+1}|}{|a_n|} < 1$ für alle $n$ ohne festes $q$
+  reicht nicht für Konvergenz.
+}
+
+\gentry{18.2.11}{Satz (Wurzelkriterium)}{%
+  Gilt $\sqrt[n]{|a_n|} \le q < 1$ fast immer, so konvergieren $\sum a_n$ und
+  $\sum|a_n|$. Gilt fast immer $\sqrt[n]{|a_n|} \ge 1$, so sind $\sum a_n$ und
+  $\sum|a_n|$ divergent.
+}
+
+\gentry{18.2.14}{Korollar}{%
+  Konvergiert die Wurzelfolge $(\sqrt[n]{|a_n|})$ oder die Quotientenfolge
+  $\bigl(\frac{|a_{n+1}|}{|a_n|}\bigr)$ gegen $\alpha$, so gilt:
+  \begin{itemize}[topsep=2pt,itemsep=1pt]
+    \item $\alpha < 1 \;\Rightarrow\; \sum a_n$ absolut konvergent.
+    \item $\alpha > 1 \;\Rightarrow\; \sum a_n$ divergent.
+    \item $\alpha = 1 \;\Rightarrow\;$ keine Aussage möglich.
+  \end{itemize}
+}
+
+\gentry{18.2.17/18}{Definition (Cosinus- und Sinusreihe)}{%
+  Die Reihe $\displaystyle\sum_{n=0}^{\infty}(-1)^n\frac{x^{2n}}{(2n)!}$ heißt \textbf{Cosinusreihe},
+  die Reihe $\displaystyle\sum_{n=0}^{\infty}(-1)^n\frac{x^{2n+1}}{(2n+1)!}$ heißt \textbf{Sinusreihe}.
+  Beide konvergieren für alle $x \in \mathbb{R}$.
+}
+
+\gentry{18.2.19/20}{Definition (Binomialreihe)}{%
+  Für $\alpha \in \mathbb{R}$ und $n \in \mathbb{N}$ setzt man
+  $\binom{\alpha}{0}=1$, $\binom{\alpha}{n} = \frac{\alpha(\alpha-1)\cdots(\alpha-n+1)}{n!}$.
+  Die Reihe $\displaystyle\sum_{n=0}^{\infty}\binom{\alpha}{n}x^n$ heißt \textbf{Binomialreihe}.
+}
+
+\gentry{18.2.21/22}{Proposition (Binomialreihe)}{%
+  Für $\alpha \notin \mathbb{N}_0$ konvergiert die Binomialreihe für $|x| < 1$ und
+  divergiert für $|x| > 1$. Für alle $x \in [0,1)$ gilt
+  $\displaystyle\sum_{n=0}^{\infty}\binom{\alpha}{n}x^n = (1+x)^\alpha$.
+}
+
+\gentry{18.2.24}{Satz (Leibniz-Kriterium)}{%
+  Ist $(b_n)$ eine monoton fallende Nullfolge (mit $b_n \ge 0$), so konvergiert
+  die alternierende Reihe $\displaystyle\sum_{n=1}^{\infty}(-1)^{n-1}b_n$.
+}
+
+% -----------------------------------------------------------------------
+\subsection*{18.3 \quad Absolute Konvergenz}
+
+\gentry{18.3.1}{Definition (Absolute Konvergenz)}{%
+  $\sum a_n$ heißt \textbf{absolut konvergent}, wenn $\sum|a_n|$ konvergiert.
+}
+
+\gentry{18.3.4}{Proposition}{%
+  Absolut konvergent $\Rightarrow$ konvergent. Die Umkehrung gilt nicht
+  (Gegenbeispiel: alternierende harmonische Reihe).
+}
+
+\gentry{18.3.5/6}{Definition / Satz (Umordnung)}{%
+  Ist $\pi:\mathbb{N}\to\mathbb{N}$ bijektiv, so heißt $\sum a_{\pi(n)}$
+  \textbf{Umordnung} von $\sum a_n$.
+  Ist $\sum a_n$ absolut konvergent, so konvergiert jede Umordnung, und
+  $\sum a_{\pi(n)} = \sum a_n$.
+}
+
+\gentry{18.3.7}{Satz (Umordnungssatz von Riemann)}{%
+  Ist $\sum a_n$ konvergent aber \emph{nicht} absolut konvergent, so gibt es
+  zu jeder reellen Zahl $c$ eine Umordnung mit Grenzwert $c$, und auch
+  divergente Umordnungen.
+}
+
+% -----------------------------------------------------------------------
+\subsection*{18.4 \quad Potenzreihen}
+
+\gentry{18.4.1}{Definition (Potenzreihe)}{%
+  Eine Reihe $\displaystyle\sum_{n=0}^{\infty} a_n(x-a)^n$ heißt \textbf{Potenzreihe}
+  mit Mittelpunkt $a$ und Koeffizienten $a_n$. Ohne Einschränkung betrachtet
+  man meist Potenzreihen mit Mittelpunkt $0$: $\sum a_n x^n$.
+}
+
+\gentry{18.4.4}{Definition (Konvergenzradius)}{%
+  Sei $M = \{x \ge 0 \mid \sum a_n x^n \text{ konvergiert}\}$.
+  Ist $M$ beschränkt, so heißt $R = \sup M$ der \textbf{Konvergenzradius}.
+  Ist $M$ unbeschränkt, so setzt man $R = \infty$.
+}
+
+\gentry{18.4.7}{Proposition}{%
+  Eine Potenzreihe mit Konvergenzradius $R$ konvergiert für alle $|x| < R$
+  absolut und divergiert für alle $|x| > R$.
+}
+
+\gentry{18.4.8}{Definition (Konvergenzintervall)}{%
+  Das Intervall $(-R, R)$ heißt \textbf{Konvergenzintervall}
+  (für $R = \infty$: ganz $\mathbb{R}$).
+}
+
+\gentry{18.4.9/11}{Definition (Häufungswert, Limes superior/inferior)}{%
+  $\alpha$ heißt \textbf{Häufungswert} von $(a_n)$, wenn in jeder
+  $\varepsilon$-Umgebung von $\alpha$ unendlich viele Folgenglieder liegen.
+  \textbf{Limes superior} $\limsup a_n$: größter Häufungswert;
+  \textbf{Limes inferior} $\liminf a_n$: kleinster Häufungswert.
+  Für konvergente Folgen: $\liminf a_n = \lim a_n = \limsup a_n$.
+}
+
+\gentry{18.4.13}{Satz (Cauchy-Hadamard)}{%
+  Sei $\sum a_n x^n$ eine Potenzreihe.
+  \begin{itemize}[topsep=2pt,itemsep=1pt]
+    \item Ist $\limsup\sqrt[n]{|a_n|} = a \ne 0$, so gilt $R = \dfrac{1}{a}$.
+    \item Ist $\limsup\sqrt[n]{|a_n|} = 0$, so gilt $R = \infty$.
+    \item Ist $(\sqrt[n]{|a_n|})$ unbeschränkt, so gilt $R = 0$.
+  \end{itemize}
+}
+
+\gentry{18.5.1}{Tabelle (Konvergente Reihen)}{%
+  \begin{tabular}{lll}
+    \toprule
+    Bezeichnung & Definition & Konvergenzradius \\
+    \midrule
+    Binomialreihe   & $\sum_{n=0}^{\infty}\binom{\alpha}{n}x^n$             & $R=1$ ($\alpha\notin\mathbb{N}_0$) \\
+    Exponentialreihe & $\sum_{n=0}^{\infty}\frac{x^n}{n!}$                  & $R=\infty$ \\
+    Logarithmusreihe & $\sum_{n=1}^{\infty}(-1)^{n-1}\frac{x^n}{n}$         & $R=1$ \\
+    Geometrische R.  & $\sum_{n=0}^{\infty} x^n$                             & $R=1$ \\
+    Sinusreihe       & $\sum_{n=0}^{\infty}(-1)^n\frac{x^{2n+1}}{(2n+1)!}$ & $R=\infty$ \\
+    Cosinusreihe     & $\sum_{n=0}^{\infty}(-1)^n\frac{x^{2n}}{(2n)!}$     & $R=\infty$ \\
+    \bottomrule
+  \end{tabular}
+}
+
+% -----------------------------------------------------------------------
+\subsection*{18.5 \quad Potenzreihen und Summenfunktionen}
+
+\gentry{18.5.2}{Definition (Summenfunktion)}{%
+  Sei $\sum a_n x^n$ eine Potenzreihe mit Konvergenzradius $R > 0$ und
+  Konvergenzintervall $K$. Die Funktion $f:K\to\mathbb{R}$,
+  $f(x) = \sum_{n=0}^{\infty} a_n x^n$ heißt zugehörige \textbf{Summenfunktion}.
+}
+
+\gentry{18.5.4}{Satz (Stetigkeit)}{%
+  Summenfunktionen sind stetig auf ihrem Konvergenzintervall.
+}
+
+\gentry{18.5.5}{Satz (Differenzierbarkeit)}{%
+  Summenfunktionen sind differenzierbar auf ihrem Konvergenzintervall, und es gilt
+  \[
+    f'(x) = \sum_{n=1}^{\infty} a_n \cdot n \cdot x^{n-1}.
+  \]
+  Die Potenzreihen $\sum a_n x^n$ und $\sum n\,a_n x^{n-1}$ haben denselben
+  Konvergenzradius. \textbf{Merkregel:} Gliedweise Differentiation ist erlaubt.
+}
+
+\gentry{18.5.6/8}{Korollar}{%
+  Summenfunktionen sind unendlich oft differenzierbar. Jede Potenzreihe ist
+  die Taylorentwicklung ihrer Summenfunktion im Entwicklungspunkt~$0$.
+}
+
+\gentry{18.5.9/11}{Stammfunktion}{%
+  Eine Funktion $F$ heißt \textbf{Stammfunktion} zu $f$ auf $I$, wenn
+  $F'(x) = f(x)$ für alle $x \in I$ gilt. Zwei Stammfunktionen unterscheiden
+  sich nur durch eine Konstante. Eine Stammfunktion der Summenfunktion
+  $f(x) = \sum a_n x^n$ ist $F(x) = \sum \frac{a_n}{n+1}x^{n+1}$.
+}
+
+% ======================================================================
+\section*{19 \quad Elementare Funktionen}
+
+% -----------------------------------------------------------------------
+\subsection*{19.1 \quad Trigonometrische Funktionen}
+
+\gentry{19.1.1}{Satz (Existenz der Winkelfunktionen)}{%
+  Die durch die Reihendarstellungen definierten Funktionen
+  \[
+    \sin(x) = \sum_{n=0}^{\infty}(-1)^n\frac{x^{2n+1}}{(2n+1)!}, \qquad
+    \cos(x) = \sum_{n=0}^{\infty}(-1)^n\frac{x^{2n}}{(2n)!}
+  \]
+  erfüllen die Eigenschaften (SinCos-1) bis (SinCos-5): Stetigkeit, Ungerade-/
+  Geradeheit, Additionstheoreme, $\lim_{x\to 0}\frac{\sin x}{x}=1$, $\cos(0)=1$.
+}
+
+\gentry{19.1.2}{Korollar (Trig.\ Pythagoras)}{%
+  Für alle $x \in \mathbb{R}$: $\sin^2(x) + \cos^2(x) = 1$.
+}
+
+\gentry{19.1.3}{Korollar (Beschränktheit)}{%
+  Für alle $x \in \mathbb{R}$: $|\sin(x)| \le 1$ und $|\cos(x)| \le 1$.
+}
+
+\gentry{19.1.6}{Definition (Kreiszahl $\pi$)}{%
+  Die einzige Nullstelle von $\cos$ im Intervall $[0,2]$ wird mit $\frac{\pi}{2}$
+  bezeichnet. Die Zahl $\pi$ heißt \textbf{Kreiszahl} ($\pi \approx 3{,}14159\ldots$).
+}
+
+\gentry{19.1.11}{Satz (Sinus und Cosinus, Zusammenfassung)}{%
+  Ableitungen: $\sin' = \cos$, $\cos' = -\sin$.\\
+  Spezielle Werte: $\sin(0)=0$, $\sin(\frac{\pi}{2})=1$, $\sin(\pi)=0$,
+  $\cos(0)=1$, $\cos(\frac{\pi}{2})=0$, $\cos(\pi)=-1$.\\
+  Bildbereich: $[-1,1]$.\\
+  Periodizität: kleinste positive Periode $2\pi$.\\
+  Nullstellen: $\{k\pi \mid k\in\mathbb{Z}\}$ für $\sin$;
+  $\{(k+\tfrac{1}{2})\pi \mid k\in\mathbb{Z}\}$ für $\cos$.
+}
+
+\gentry{19.1.12}{Definition (Tangens und Cotangens)}{%
+  $\tan(x) = \dfrac{\sin(x)}{\cos(x)}$ auf $\mathbb{R}\setminus\{(k+\tfrac{1}{2})\pi \mid k\in\mathbb{Z}\}$;
+  \quad $\cot(x) = \dfrac{\cos(x)}{\sin(x)}$ auf $\mathbb{R}\setminus\{k\pi \mid k\in\mathbb{Z}\}$.
+}
+
+\gentry{19.1.13}{Satz (Tangens und Cotangens)}{%
+  Ableitungen: $\tan'(x) = \dfrac{1}{\cos^2(x)} = 1+\tan^2(x)$;\quad
+  $\cot'(x) = -\dfrac{1}{\sin^2(x)} = -(1+\cot^2(x))$.\\
+  Bildbereich: $\mathbb{R}$ für beide.\\
+  Periodizität: kleinste positive Periode $\pi$.\\
+  Monotonie: $\tan$ wächst streng auf $((k-\tfrac{1}{2})\pi,(k+\tfrac{1}{2})\pi)$;
+  $\cot$ fällt streng auf $(k\pi,(k+1)\pi)$.
+}
+
+% -----------------------------------------------------------------------
+\subsection*{19.2 \quad Zyklometrische Funktionen}
+
+\gentry{19.2.1}{Definition (Zyklometrische Funktionen)}{%
+  \begin{itemize}[topsep=2pt,itemsep=1pt]
+    \item $\arcsin:[{-1,1}] \to [{-\tfrac{\pi}{2},\tfrac{\pi}{2}}]$: Umkehrung von $\sin|_{[-\pi/2,\pi/2]}$
+    \item $\arccos:[{-1,1}] \to [{0,\pi}]$: Umkehrung von $\cos|_{[0,\pi]}$
+    \item $\arctan:\mathbb{R} \to ({-\tfrac{\pi}{2},\tfrac{\pi}{2}})$: Umkehrung von $\tan|_{(-\pi/2,\pi/2)}$
+    \item $\operatorname{arccot}:\mathbb{R} \to (0,\pi)$: Umkehrung von $\cot|_{(0,\pi)}$
+  \end{itemize}
+  Es gilt: $\arccos(x) = \tfrac{\pi}{2} - \arcsin(x)$ und
+  $\operatorname{arccot}(x) = \tfrac{\pi}{2} - \arctan(x)$.
+}
+
+\gentry{19.2.3}{Satz (Ableitungen der zyklometrischen Funktionen)}{%
+  \[
+    \arcsin'(x) = \frac{1}{\sqrt{1-x^2}} \quad (x\in(-1,1)), \qquad
+    \arctan'(x) = \frac{1}{1+x^2} \quad (x\in\mathbb{R}).
+  \]
+  Spezielle Werte: $\arcsin(0)=0$, $\arcsin(\pm 1)=\pm\tfrac{\pi}{2}$,
+  $\arctan(0)=0$, $\arctan(\pm 1) = \pm\tfrac{\pi}{4}$.
+}
+
+% -----------------------------------------------------------------------
+\subsection*{19.3 \quad Exponentialfunktion, Logarithmus und allgemeine Potenz}
+
+\gentry{19.3.1}{Satz (Exponentialfunktion)}{%
+  $\exp:\mathbb{R}\to(0,\infty)$, $\exp(x)=e^x$. Reihendarstellung: $\sum_{n=0}^{\infty}\frac{x^n}{n!}$.
+  Ableitung: $\exp'=\exp$. Spezielle Werte: $\exp(0)=1$, $\exp(1)=e$.
+  Streng monoton wachsend. Wichtige Gleichung: $\exp(x+y)=\exp(x)\cdot\exp(y)$.
+}
+
+\gentry{19.3.2}{Satz (Natürlicher Logarithmus)}{%
+  $\ln:(0,\infty)\to\mathbb{R}$, Umkehrfunktion von $\exp$.
+  Reihendarstellung: $\ln(1+x) = \sum_{n=1}^{\infty}(-1)^{n-1}\frac{x^n}{n}$ für $|x|<1$.
+  Ableitung: $\ln'(x) = \dfrac{1}{x}$. Streng monoton wachsend.
+  Gleichungen: $\ln(xy)=\ln x+\ln y$, $\ln(x^\alpha)=\alpha\ln x$.
+}
+
+\gentry{19.3.3}{Satz (Allgemeine Potenz)}{%
+  $f:(0,\infty)\to\mathbb{R}$, $f(x)=x^\alpha$ für $\alpha\in\mathbb{R}$.
+  Reihendarstellung: $(1+x)^\alpha = \sum_{n=0}^{\infty}\binom{\alpha}{n}x^n$ für $|x|<1$.
+  Ableitung: $f'(x) = \alpha x^{\alpha-1}$.
+}
+
+\gentry{19.3.4}{Proposition}{%
+  Sei $a > 0$. Dann gilt:
+  $x^a = \exp(a\ln x)$; \quad
+  $a^x = \exp(x\ln a)$; \quad
+  $\log_a(x) = \dfrac{\ln x}{\ln a}$ (für $a \ne 1$).
+}
+
+\end{document}

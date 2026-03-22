@@ -1,0 +1,443 @@
+\documentclass[a4paper,12pt]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[ngerman]{babel}
+\usepackage{amsmath, amssymb}
+\usepackage{geometry}
+\usepackage{tikz}
+\usetikzlibrary{shapes.geometric, arrows.meta, positioning, fit, backgrounds}
+\usepackage{parskip}
+\usepackage{titlesec}
+\usepackage{booktabs}
+\usepackage{enumitem}
+
+\geometry{left=3cm, right=3cm, top=2.5cm, bottom=2.5cm}
+
+\titleformat{\section}{\large\bfseries}{}{0em}{}[\titlerule]
+\titleformat{\subsection}{\normalsize\bfseries}{}{0em}{}
+
+\tikzset{
+  box/.style={rectangle, draw, rounded corners=3pt, text width=4.5cm,
+              align=center, minimum height=1.0cm, font=\small, inner sep=4pt},
+  boxw/.style={box, text width=5.5cm},
+  arrow/.style={-{Latex[length=2mm]}, thick},
+}
+
+\begin{document}
+
+\begin{center}
+  {\LARGE\bfseries Studierhinweise zu Lektion 6}\\[0.5em]
+  {\large Mathematische Grundlagen (Modul 61111)}
+\end{center}
+
+\vspace{1em}
+
+In dieser Lektion treten Sie in das Herzstück der Analysis ein. Kapitel~17 behandelt
+\emph{höhere Ableitungen} differenzierbarer Funktionen. Im Mittelpunkt steht der
+\textbf{Mittelwertsatz}, dessen einfacher Beweis weitreichende Folgerungen hat: Er
+charakterisiert die Exponentialfunktion eindeutig, sichert die Eindeutigkeit der
+Winkelfunktionen und liefert die \emph{Regel von de l'Hospital} zur Berechnung
+schwieriger Grenzwerte. Der \textbf{Satz von Taylor} erlaubt es, beliebig oft
+differenzierbare Funktionen durch Polynome zu approximieren und das Restglied
+explizit abzuschätzen.
+
+In Kapitel~18 werden \textbf{Reihen} als Folgen von Partialsummen eingeführt.
+Da Grenzwerte von Reihen selten direkt berechenbar sind, stehen
+\emph{Konvergenzkriterien} im Vordergrund: Majoranten-, Minoranten-,
+Quotienten-, Wurzel- und Leibniz-Kriterium. Das Konzept der \emph{absoluten
+Konvergenz} und der \emph{Potenzreihe} führt zu den sogenannten
+\textbf{Summenfunktionen}, die stetig und sogar beliebig oft differenzierbar sind.
+
+Kapitel~19 rundet die Lektion ab, indem Sinus, Cosinus, Tangens,
+Arcusfunktionen, Exponentialfunktion, Logarithmus und allgemeine Potenzen als
+\textbf{elementare Funktionen} sauber definiert und untersucht werden -- meist
+über ihre Reihendarstellungen aus Kapitel~18.
+
+Lesen Sie keinen Satz, ohne ihn verstanden zu haben. Zeichnen Sie Skizzen,
+rechnen Sie Beispiele nach und lösen Sie die eingebetteten Aufgaben, bevor
+Sie in die Lösungen schauen.
+
+% -----------------------------------------------------------------------
+\section*{Struktur der Lektion 6}
+
+\begin{center}
+\begin{tikzpicture}[node distance=0.55cm and 0.7cm]
+
+  % Column headers
+  \node[font=\bfseries\small] (h1) at (0,0)      {Kapitel 17: Höhere Ableitungen};
+  \node[font=\bfseries\small] (h2) at (6.5,0)    {Kapitel 18: Reihen};
+  \node[font=\bfseries\small] (h3) at (12.5,0)   {Kapitel 19: Elem.\ Funktionen};
+
+  % Kap 17
+  \node[box, below=0.8cm of h1] (mvs) {17.1 Mittelwertsatz\\(Satz von Rolle)};
+  \node[box, below=0.5cm of mvs] (flg) {17.1 Folgerungen\\Monotonie, Extrema,\\de l'Hospital};
+  \node[box, below=0.5cm of flg] (tay) {17.2 Taylorpolynome\\$P_{n,a}(x)$, Restglied};
+  \node[box, below=0.5cm of tay] (sat) {17.2 Satz von Taylor\\Cauchy-/Lagrange-Form};
+
+  % Kap 18
+  \node[box, below=0.8cm of h2] (rei) {18.1 Reihen: Definition\\Partialsummen, Beispiele};
+  \node[box, below=0.5cm of rei] (kon) {18.2 Konvergenzkriterien\\Majorante, Quotient,\\Wurzel, Leibniz};
+  \node[box, below=0.5cm of kon] (abs) {18.3 Absolute Konvergenz\\Umordnungssatz};
+  \node[box, below=0.5cm of abs] (pot) {18.4 Potenzreihen\\Konvergenzradius (Cauchy-Hadamard)};
+  \node[box, below=0.5cm of pot] (sum) {18.5 Summenfunktionen\\stetig, differenzierbar};
+
+  % Kap 19
+  \node[box, below=0.8cm of h3] (sin) {19.1 sin und cos\\als Summenfunktionen};
+  \node[box, below=0.5cm of sin] (kre) {19.1 Kreiszahl $\pi$,\\Periodizität, tan, cot};
+  \node[box, below=0.5cm of kre] (zyc) {19.2 Zyklometrische\\Funktionen\\arcsin, arccos, arctan};
+  \node[box, below=0.5cm of zyc] (exp) {19.3 exp, ln,\\allgemeine Potenz};
+
+  % Kap 17 arrows
+  \draw[arrow] (mvs) -- (flg);
+  \draw[arrow] (flg) -- (tay);
+  \draw[arrow] (tay) -- (sat);
+
+  % Kap 18 arrows
+  \draw[arrow] (rei) -- (kon);
+  \draw[arrow] (kon) -- (abs);
+  \draw[arrow] (abs) -- (pot);
+  \draw[arrow] (pot) -- (sum);
+
+  % Kap 19 arrows
+  \draw[arrow] (sin) -- (kre);
+  \draw[arrow] (kre) -- (zyc);
+  \draw[arrow] (zyc) -- (exp);
+
+  % Cross-chapter arrows
+  \draw[arrow] (sat.east) -- ++(0.3,0) |- (rei.west);
+  \draw[arrow] (sum.east) -- ++(0.3,0) |- (sin.west);
+
+\end{tikzpicture}
+\end{center}
+
+\newpage
+
+% -----------------------------------------------------------------------
+\section*{Zielelement 17.1 -- Der Mittelwertsatz und seine Folgerungen}
+
+\subsection*{Lerninhalte}
+
+\begin{center}
+\begin{tikzpicture}[node distance=0.6cm and 1.0cm]
+  \node[box] (rol) {Satz von Rolle (17.1.2):\\$f(a)=f(b)$ $\Rightarrow$ $\exists\,x_0$: $f'(x_0)=0$};
+  \node[box, below=0.5cm of rol] (mvs) {Mittelwertsatz (17.1.1):\\$f'(x_0)=\dfrac{f(b)-f(a)}{b-a}$};
+  \node[box, below=0.5cm of mvs] (mon) {Monotonie aus Vorzeichen von $f'$\\(Korollar 17.1.8)};
+  \node[box, below=0.5cm of mon] (ext) {Lokale Extrema:\\Korollare 17.1.9 und 17.1.10};
+  \node[box, below=0.5cm of ext] (lhp) {Regel von de l'Hospital (17.1.14)\\$\lim \frac{f}{g} = \lim \frac{f'}{g'}$};
+  \draw[arrow] (rol) -- (mvs);
+  \draw[arrow] (mvs) -- (mon);
+  \draw[arrow] (mon) -- (ext);
+  \draw[arrow] (ext) -- (lhp);
+\end{tikzpicture}
+\end{center}
+
+\subsection*{Lernziele}
+
+Nach Durcharbeiten dieses Abschnitts sollten Sie:
+\begin{itemize}
+  \item den Satz von Rolle und den Mittelwertsatz kennen, geometrisch interpretieren
+        und beweisen können,
+  \item aus dem Vorzeichen von $f'$ auf das Monotonieverhalten von $f$ schließen
+        können (Korollar~17.1.8),
+  \item lokale Extrema mit den Kriterien 17.1.9 und 17.1.10 identifizieren können,
+  \item die Regel von de l'Hospital anwenden können, inklusive des Spezialfalls 17.1.15,
+        und wissen, wann sie \emph{nicht} anwendbar ist,
+  \item die Folgerungen aus dem Mittelwertsatz verstehen: Eindeutigkeit der
+        Exponentialfunktion (17.1.6) und der Winkelfunktionen (17.1.7).
+\end{itemize}
+
+\subsection*{Selbstkontrollelement 17.1}
+
+Berechnen Sie $\displaystyle\lim_{x \to 0} \frac{1 - \cos(x)}{x^2}$ mit der Regel von de l'Hospital.
+Begründen Sie, warum der Spezialfall (Korollar~17.1.15) beim ersten Schritt
+\emph{nicht} direkt anwendbar ist.
+
+\newpage
+
+% -----------------------------------------------------------------------
+\section*{Zielelement 17.2 -- Taylorpolynome und Satz von Taylor}
+
+\subsection*{Lerninhalte}
+
+\begin{center}
+\begin{tikzpicture}[node distance=0.6cm and 1.0cm]
+  \node[box] (koef) {Koeffizienten $a_k = \dfrac{f^{(k)}(a)}{k!}$};
+  \node[box, below=0.5cm of koef] (def) {Taylorpolynom $P_{n,a}(x)$ (Def.~17.2.1)};
+  \node[box, below=0.5cm of def] (rest) {Restglied $R_{n,a}(x) = f(x) - P_{n,a}(x)$};
+  \node[box, below=0.5cm of rest] (form) {Cauchy-Form und Lagrange-Form\\des Restglieds (17.2.10)};
+  \node[box, below=0.5cm of form] (absch) {Restgliedabschätzung (17.2.12):\\$|R_{n,a}(x)| \le \dfrac{K}{(n+1)!}|x-a|^{n+1}$};
+  \node[box, below=0.5cm of absch] (bsp) {Beispiele: exp, sin, cos, ln};
+  \draw[arrow] (koef) -- (def);
+  \draw[arrow] (def) -- (rest);
+  \draw[arrow] (rest) -- (form);
+  \draw[arrow] (form) -- (absch);
+  \draw[arrow] (absch) -- (bsp);
+\end{tikzpicture}
+\end{center}
+
+\subsection*{Lernziele}
+
+Nach Durcharbeiten dieses Abschnitts sollten Sie:
+\begin{itemize}
+  \item Taylorpolynome einer Funktion $f$ in einem Entwicklungspunkt $a$ berechnen können,
+  \item die beiden Formen des Restglieds (Cauchy und Lagrange) kennen und im
+        Beweis des Satzes von Taylor einordnen können,
+  \item Restglieder mithilfe von Korollar~17.2.12 abschätzen können,
+  \item verstehen, wann die Taylorentwicklung gegen $f(x)$ konvergiert
+        (Proposition~17.2.14),
+  \item die Taylorpolynome der elementaren Funktionen $\exp$, $\sin$, $\cos$ und
+        $\ln(1+x)$ im Entwicklungspunkt 0 angeben können.
+\end{itemize}
+
+\subsection*{Selbstkontrollelement 17.2}
+
+Bestimmen Sie das 4.\ Taylorpolynom $P_{4,0}$ von $f(x) = \cos(x)$ im
+Entwicklungspunkt $a = 0$ und geben Sie eine Abschätzung für das Restglied
+$|R_{4,0}(x)|$ auf dem Intervall $[-1, 1]$.
+
+\newpage
+
+% -----------------------------------------------------------------------
+\section*{Zielelement 18.1 -- Reihen: Grundlagen}
+
+\subsection*{Lerninhalte}
+
+\begin{center}
+\begin{tikzpicture}[node distance=0.6cm and 1.0cm]
+  \node[box] (def) {Reihe $\sum_{n=1}^{\infty} a_n$:\\Folge der Partialsummen $(s_n)$};
+  \node[box, below=0.5cm of def] (kon) {Konvergenz: $\lim s_n = s$};
+  \node[box, below=0.5cm of kon] (bsp) {Beispiele: geom.\ Reihe,\\harmonische Reihe,\\alternierende harm.\ Reihe};
+  \node[box, below=0.5cm of bsp] (tay) {Taylorreihe $\sum_{k=0}^{\infty}\frac{f^{(k)}(a)}{k!}(x-a)^k$\\und ihre Konvergenz};
+  \node[box, below=0.5cm of tay] (rec) {Rechenregeln (18.1.20):\\Summe, skalare Multiplikation};
+  \draw[arrow] (def) -- (kon);
+  \draw[arrow] (kon) -- (bsp);
+  \draw[arrow] (bsp) -- (tay);
+  \draw[arrow] (tay) -- (rec);
+\end{tikzpicture}
+\end{center}
+
+\subsection*{Lernziele}
+
+Nach Durcharbeiten dieses Abschnitts sollten Sie:
+\begin{itemize}
+  \item den Begriff der Reihe als Folge von Partialsummen erklären können,
+  \item wissen, dass aus der Konvergenz einer Reihe folgt, dass $(a_n)$ eine
+        Nullfolge ist (Proposition~18.1.16), und das Umgekehrte widerlegen können,
+  \item die geometrische Reihe kennen und für $|q| < 1$ ihren Grenzwert angeben,
+  \item den Zusammenhang zwischen Taylorreihe und Restglied kennen
+        (Proposition~18.1.11),
+  \item Exponential-, Logarithmus- und alternierende harmonische Reihe als
+        Taylorreihen einordnen.
+\end{itemize}
+
+\subsection*{Selbstkontrollelement 18.1}
+
+Zeigen Sie, dass $\displaystyle\sum_{n=1}^{\infty} \frac{1}{n(n+1)} = 1$ gilt, indem Sie
+die Partialsummen explizit berechnen (Hinweis: Partialbruchzerlegung
+$\frac{1}{n(n+1)} = \frac{1}{n} - \frac{1}{n+1}$).
+
+\newpage
+
+% -----------------------------------------------------------------------
+\section*{Zielelement 18.2 -- Konvergenzkriterien für Reihen}
+
+\subsection*{Lerninhalte}
+
+\begin{center}
+\begin{tikzpicture}[node distance=0.6cm and 1.0cm]
+  \node[box] (maj) {Majorantenkriterium (18.2.1):\\$|a_n| \le b_n$, $\sum b_n$ konvergent};
+  \node[box, right=0.8cm of maj] (min) {Minorantenkriterium (18.2.6):\\$a_n \ge b_n$, $\sum b_n$ divergent};
+  \node[box, below=0.5cm of maj] (quo) {Quotientenkriterium (18.2.8):\\$\frac{|a_{n+1}|}{|a_n|} \le q < 1$};
+  \node[box, below=0.5cm of min] (wur) {Wurzelkriterium (18.2.11):\\$\sqrt[n]{|a_n|} \le q < 1$};
+  \node[box, below=0.5cm of quo] (gre) {Korollar 18.2.14:\\Grenzwert $< 1$ oder $> 1$};
+  \node[box, below=0.5cm of wur] (lei) {Leibniz-Kriterium (18.2.24):\\$(b_n)$ monoton fallende Nullfolge};
+  \draw[arrow] (maj) -- (quo);
+  \draw[arrow] (min) -- (wur);
+  \draw[arrow] (quo) -- (gre);
+  \draw[arrow] (wur) -- (lei);
+\end{tikzpicture}
+\end{center}
+
+\subsection*{Lernziele}
+
+Nach Durcharbeiten dieses Abschnitts sollten Sie:
+\begin{itemize}
+  \item die fünf Konvergenzkriterien (Majorante, Minorante, Quotient, Wurzel,
+        Leibniz) kennen, deren Voraussetzungen prüfen und anwenden können,
+  \item wissen, warum $\frac{|a_{n+1}|}{|a_n|} < 1$ für alle $n$ noch keine
+        Konvergenz garantiert (Gegenbeispiel: harmonische Reihe),
+  \item das handliche Korollar~18.2.14 (Grenzwert von Quotienten- oder
+        Wurzelfolge) kennen und einsetzen können,
+  \item Cosinusreihe, Sinusreihe und Binomialreihe mit dem Quotientenkriterium auf
+        Konvergenz untersuchen können.
+\end{itemize}
+
+\subsection*{Selbstkontrollelement 18.2}
+
+Untersuchen Sie die Reihe $\displaystyle\sum_{n=1}^{\infty} \frac{n}{2^n}$ mit dem
+Quotientenkriterium (Korollar~18.2.14) auf Konvergenz.
+
+\newpage
+
+% -----------------------------------------------------------------------
+\section*{Zielelement 18.3--18.4 -- Absolute Konvergenz und Potenzreihen}
+
+\subsection*{Lerninhalte}
+
+\begin{center}
+\begin{tikzpicture}[node distance=0.6cm and 1.0cm]
+  \node[box] (abs) {Absolute Konvergenz (18.3.1):\\$\sum |a_n|$ konvergiert};
+  \node[box, below=0.5cm of abs] (imp) {Absolut konvergent $\Rightarrow$ konvergent\\(Proposition 18.3.4)};
+  \node[box, below=0.5cm of imp] (umo) {Umordnung abs.\ konvergenter\\Reihen (18.3.6)};
+  \node[box, below=0.5cm of umo] (pot) {Potenzreihe $\sum a_n x^n$ (18.4.1)\\Konvergenzradius $R$};
+  \node[box, below=0.5cm of pot] (ch)  {Cauchy-Hadamard (18.4.13):\\$R = \dfrac{1}{\limsup \sqrt[n]{|a_n|}}$};
+  \draw[arrow] (abs) -- (imp);
+  \draw[arrow] (imp) -- (umo);
+  \draw[arrow] (umo) -- (pot);
+  \draw[arrow] (pot) -- (ch);
+\end{tikzpicture}
+\end{center}
+
+\subsection*{Lernziele}
+
+Nach Durcharbeiten dieses Abschnitts sollten Sie:
+\begin{itemize}
+  \item den Begriff der absoluten Konvergenz erklären und von der bloßen
+        Konvergenz abgrenzen können,
+  \item den Umordnungssatz (18.3.6) und den Satz von Riemann (18.3.7)
+        kennen und einordnen können,
+  \item den Begriff des Konvergenzradius verstehen: für $|x| < R$ absolute
+        Konvergenz, für $|x| > R$ Divergenz (Proposition~18.4.7),
+  \item den Satz von Cauchy-Hadamard anwenden können,
+  \item die Konvergenzradien der wichtigsten Potenzreihen (Tabelle~18.5.1) kennen.
+\end{itemize}
+
+\subsection*{Selbstkontrollelement 18.3--18.4}
+
+Bestimmen Sie den Konvergenzradius der Potenzreihe
+$\displaystyle\sum_{n=0}^{\infty} \frac{x^n}{n!}$ mit dem Satz von Cauchy-Hadamard.
+
+\newpage
+
+% -----------------------------------------------------------------------
+\section*{Zielelement 18.5 -- Summenfunktionen}
+
+\subsection*{Lerninhalte}
+
+\begin{center}
+\begin{tikzpicture}[node distance=0.6cm and 1.0cm]
+  \node[box] (def) {Summenfunktion $f(x) = \sum a_n x^n$\\auf Konvergenzintervall $K$};
+  \node[box, below=0.5cm of def] (ste) {Stetigkeit (18.5.4)};
+  \node[box, below=0.5cm of ste] (dif) {Differenzierbarkeit (18.5.5):\\$f'(x) = \sum n\,a_n x^{n-1}$};
+  \node[box, below=0.5cm of dif] (inf) {Unendlich oft diffbar.\ (18.5.6)};
+  \node[box, below=0.5cm of inf] (stm) {Stammfunktion (18.5.11):\\$F(x) = \sum \frac{a_n}{n+1} x^{n+1}$};
+  \draw[arrow] (def) -- (ste);
+  \draw[arrow] (ste) -- (dif);
+  \draw[arrow] (dif) -- (inf);
+  \draw[arrow] (inf) -- (stm);
+\end{tikzpicture}
+\end{center}
+
+\subsection*{Lernziele}
+
+Nach Durcharbeiten dieses Abschnitts sollten Sie:
+\begin{itemize}
+  \item wissen, dass Summenfunktionen stetig und unendlich oft differenzierbar sind,
+  \item die gliedweise Differentiation einer Potenzreihe anwenden können,
+  \item verstehen, dass jede Potenzreihe die Taylorreihe ihrer Summenfunktion ist
+        (Korollar~18.5.8),
+  \item eine Stammfunktion einer Summenfunktion durch gliedweise Integration
+        bestimmen können (18.5.11),
+  \item die Logarithmusreihe und die Binomialreihe mithilfe dieser Methoden auf
+        ganz $(-1, 1)$ ausdehnen (Propositions 18.5.12 und 18.5.14).
+\end{itemize}
+
+\subsection*{Selbstkontrollelement 18.5}
+
+Zeigen Sie durch gliedweise Differentiation der Exponentialreihe
+$\exp(x) = \sum_{n=0}^{\infty} \frac{x^n}{n!}$, dass $\exp' = \exp$ gilt.
+
+\newpage
+
+% -----------------------------------------------------------------------
+\section*{Zielelement 19.1--19.2 -- Trigonometrische und zyklometrische Funktionen}
+
+\subsection*{Lerninhalte}
+
+\begin{center}
+\begin{tikzpicture}[node distance=0.6cm and 1.0cm]
+  \node[box] (def) {sin und cos als Summenfunktionen\\(Sinusreihe, Cosinusreihe)};
+  \node[box, below=0.5cm of def] (eig) {Eigenschaften (SinCos-1) bis (SinCos-5):\\stetig, gerade/ungerade, Additionstheoreme};
+  \node[box, below=0.5cm of eig] (py)  {Trig.\ Pythagoras: $\sin^2+\cos^2=1$\\$|\sin|, |\cos| \le 1$};
+  \node[box, below=0.5cm of py]  (pi)  {Kreiszahl $\pi$ (Def.~19.1.6),\\spezielle Werte, Periodizität $2\pi$};
+  \node[box, below=0.5cm of pi]  (tan) {tan, cot:\\Definitionsbereiche, Ableitungen,\\Monotonie, Periode $\pi$};
+  \node[box, below=0.5cm of tan] (zyc) {Zyklometrische Funktionen:\\arcsin, arccos, arctan, arccot,\\ihre Ableitungen};
+  \draw[arrow] (def) -- (eig);
+  \draw[arrow] (eig) -- (py);
+  \draw[arrow] (py)  -- (pi);
+  \draw[arrow] (pi)  -- (tan);
+  \draw[arrow] (tan) -- (zyc);
+\end{tikzpicture}
+\end{center}
+
+\subsection*{Lernziele}
+
+Nach Durcharbeiten dieses Abschnitts sollten Sie:
+\begin{itemize}
+  \item Sinus und Cosinus über ihre Reihendarstellungen definieren und die
+        Eigenschaften aus Satz~19.1.11 vollständig kennen,
+  \item die Kreiszahl $\pi$ als Nullstelle des Cosinus definieren und die
+        speziellen Funktionswerte auswendig kennen,
+  \item die Additionstheoreme und den trigonometrischen Pythagoras anwenden,
+  \item Tangens und Cotangens als Quotienten erklären, ihre Ableitungen herleiten
+        und die Periodizität begründen können,
+  \item die zyklometrischen Funktionen als Umkehrfunktionen auf geeigneten
+        Intervallen erklären und ihre Ableitungen kennen (arcsin$'(x) = \frac{1}{\sqrt{1-x^2}}$,
+        arctan$'(x) = \frac{1}{1+x^2}$).
+\end{itemize}
+
+\subsection*{Selbstkontrollelement 19.1--19.2}
+
+Beweisen Sie $\sin(2x) = 2\sin(x)\cos(x)$ mithilfe der Additionstheoreme und
+bestimmen Sie anschließend $\arctan(1)$ und $\arctan(-1)$.
+
+\newpage
+
+% -----------------------------------------------------------------------
+\section*{Zielelement 19.3 -- Exponentialfunktion, Logarithmus und allgemeine Potenz}
+
+\subsection*{Lerninhalte}
+
+\begin{center}
+\begin{tikzpicture}[node distance=0.6cm and 1.0cm]
+  \node[box] (exp) {Exponentialfunktion $\exp$:\\Reihendarstellung, exp$' = $ exp,\\$\exp(x+y) = \exp(x)\cdot\exp(y)$};
+  \node[box, below=0.5cm of exp] (ln)  {Natürlicher Logarithmus $\ln$:\\Umkehrfunktion von exp,\\$\ln'(x) = 1/x$};
+  \node[box, below=0.5cm of ln]  (pot) {Allgemeine Potenz $x^\alpha$:\\$f'(x) = \alpha x^{\alpha-1}$};
+  \node[box, below=0.5cm of pot] (zus) {Zusammenhang:\\$x^a = \exp(a\ln x)$,\\$\exp_a(x) = \exp(x\ln a)$,\\$\log_a(x) = \frac{\ln x}{\ln a}$};
+  \draw[arrow] (exp) -- (ln);
+  \draw[arrow] (ln)  -- (pot);
+  \draw[arrow] (pot) -- (zus);
+\end{tikzpicture}
+\end{center}
+
+\subsection*{Lernziele}
+
+Nach Durcharbeiten dieses Abschnitts sollten Sie:
+\begin{itemize}
+  \item die Exponentialfunktion über ihre Reihendarstellung definieren und die
+        Eigenschaften aus Satz~19.3.1 kennen,
+  \item den natürlichen Logarithmus als Umkehrfunktion von $\exp$ erklären,
+        seine Reihendarstellung und Ableitungsregel $\ln'(x) = 1/x$ kennen,
+  \item die allgemeine Potenz $x^\alpha$ für $\alpha \in \mathbb{R}$ verstehen und
+        die Ableitungsregel anwenden können,
+  \item den Zusammenhang zwischen allgemeiner Potenz, Exponentialfunktion und
+        Logarithmus zur Basis $a$ aus Proposition~19.3.4 kennen.
+\end{itemize}
+
+\subsection*{Selbstkontrollelement 19.3}
+
+Berechnen Sie $\dfrac{d}{dx} x^{\pi}$ und $\dfrac{d}{dx} \pi^x$ für $x > 0$,
+wobei $\pi$ die Kreiszahl ist. Erklären Sie den Unterschied zwischen
+$x^\pi$ (allgemeine Potenz) und $\pi^x$ (Exponentialfunktion zur Basis $\pi$).
+
+\end{document}

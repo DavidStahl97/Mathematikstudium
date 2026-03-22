@@ -1,0 +1,490 @@
+\documentclass[a4paper,12pt]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[ngerman]{babel}
+\usepackage{amsmath, amssymb}
+\usepackage{geometry}
+\usepackage{tikz}
+\usetikzlibrary{shapes.geometric, arrows.meta, positioning, fit, backgrounds}
+\usepackage{parskip}
+\usepackage{titlesec}
+\usepackage{booktabs}
+\usepackage{enumitem}
+
+\geometry{left=3cm, right=3cm, top=2.5cm, bottom=2.5cm}
+
+\titleformat{\section}{\large\bfseries}{}{0em}{}[\titlerule]
+\titleformat{\subsection}{\normalsize\bfseries}{}{0em}{}
+
+\tikzset{
+  box/.style={rectangle, draw, rounded corners=3pt, text width=4.5cm,
+              align=center, minimum height=1.0cm, font=\small, inner sep=4pt},
+  boxw/.style={box, text width=5.5cm},
+  arrow/.style={-{Latex[length=2mm]}, thick},
+}
+
+\begin{document}
+
+\begin{center}
+  {\LARGE\bfseries Studierhinweise zu Lektion 5}\\[0.5em]
+  {\large Mathematische Grundlagen (Modul 61111)}
+\end{center}
+
+\vspace{1em}
+
+Diese Lektion widmet sich dem zentralen Anliegen der reellen Analysis: der
+Untersuchung von Funktionen $f: D \to \mathbb{R}$. In Kapitel~14 werden Grundbegriffe
+für Funktionen eingeführt (Monotonie, Umkehrfunktion, Beschränktheit) und
+wichtige Beispielklassen vorgestellt -- Polynomfunktionen, rationale Funktionen,
+allgemeine Potenzfunktionen, Exponential- und Logarithmusfunktion. Kapitel~15
+führt den Begriff der \emph{Stetigkeit} ein: Eine stetige Funktion reagiert auf
+kleine Änderungen des Arguments nur mit kleinen Änderungen des Funktionswerts.
+Sie lernen das $\varepsilon$-$\delta$-Kriterium sowie die Sätze von Bolzano
+(Nullstellensatz und Zwischenwertsatz) kennen. Kapitel~16 behandelt die
+\emph{Differenzierbarkeit}: Existiert der Grenzwert des Differenzenquotienten,
+so nennen wir ihn die Ableitung und interpretieren ihn als Steigung der Tangente.
+Die Differentiationsregeln (Produktregel, Quotientenregel, Kettenregel) ermöglichen
+das Ableiten aller in der Praxis auftretenden Funktionen.
+
+Lesen Sie den Text aktiv -- rechnen Sie Beweise nach, arbeiten Sie die
+Aufgaben selbst durch, und stellen Sie sich bei jeder Definition ein konkretes
+Beispiel vor.
+
+% -----------------------------------------------------------------------
+\section*{Struktur der Lektion 5}
+
+\begin{center}
+\begin{tikzpicture}[node distance=0.5cm and 0.7cm]
+
+  % Column headers
+  \node[font=\bfseries\small] (h1) at (0,0)      {Kap.\ 14: Funktionen};
+  \node[font=\bfseries\small] (h2) at (5.5,0)    {Kap.\ 15: Stetigkeit};
+  \node[font=\bfseries\small] (h3) at (11,0)     {Kap.\ 16: Differenzierbarkeit};
+
+  % Kapitel 14
+  \node[box, below=0.8cm of h1] (f1) {14.1 Grundbegriffe\\Graph, Umkehrfunktion,\\Monotonie, Beschränktheit};
+  \node[box, below=0.5cm of f1] (f2) {14.2 Beispiele:\\Polynom- und rationale\\Funktionen};
+  \node[box, below=0.5cm of f2] (f3) {14.2 Allg.\ Potenz $x^\rho$\\Exponentialfunktion $a^x$};
+  \node[box, below=0.5cm of f3] (f4) {14.2 Logarithmus $\log_a$\\natürl.\ Logarithmus $\ln$};
+
+  % Kapitel 15
+  \node[box, below=0.8cm of h2] (s1) {15.1 Stetigkeit in $a$\\$\varepsilon$-$\delta$-Kriterium\\Rechenregeln};
+  \node[box, below=0.5cm of s1] (s2) {15.2 Stetigkeit auf\\Intervallen: Bolzano,\\Zwischenwertsatz, Min/Max};
+  \node[box, below=0.5cm of s2] (s3) {15.3 Grenzwerte von\\Funktionen $\lim_{x\to a}f(x)$\\hebbare Unstetigkeit};
+
+  % Kapitel 16
+  \node[box, below=0.8cm of h3] (d1) {16.1 Ableitung $f'(a)$\\Differenzenquotient\\lokale Extrema};
+  \node[box, below=0.5cm of d1] (d2) {16.2 Differentiationsregeln\\Produkt-, Quotienten-,\\Kettenregel, Umkehrregel};
+  \node[box, below=0.5cm of d2] (d3) {16.3 Ableitungen:\\Polynom, exp, ln, $x^a$\\Sinus, Cosinus};
+
+  % Pfeile Kap 14
+  \draw[arrow] (f1) -- (f2);
+  \draw[arrow] (f2) -- (f3);
+  \draw[arrow] (f3) -- (f4);
+
+  % Pfeile Kap 15
+  \draw[arrow] (s1) -- (s2);
+  \draw[arrow] (s2) -- (s3);
+
+  % Pfeile Kap 16
+  \draw[arrow] (d1) -- (d2);
+  \draw[arrow] (d2) -- (d3);
+
+  % Kapitelübergreifende Pfeile
+  \draw[arrow] (f4.east) -- ++(0.3,0) |- (s1.west);
+  \draw[arrow] (s3.east) -- ++(0.3,0) |- (d1.west);
+
+\end{tikzpicture}
+\end{center}
+
+\newpage
+
+% -----------------------------------------------------------------------
+\section*{Zielelement 14.1 -- Grundbegriffe für Funktionen}
+
+\subsection*{Lerninhalte}
+
+\begin{center}
+\begin{tikzpicture}[node distance=0.5cm and 1.0cm]
+  \node[box] (def) {Funktion $f: D \to \mathbb{R}$, Graph, Bild};
+  \node[box, below=0.5cm of def] (umk) {Umkehrfunktion $f^{-1}$\\(existiert $\Leftrightarrow$ $f$ injektiv)};
+  \node[box, below=0.5cm of umk] (mon) {Monotonie (wachsend/fallend)\\streng monoton};
+  \node[box, below=0.5cm of mon] (bes) {Beschränktheit von Funktionen};
+  \node[box, below=0.5cm of bes] (res) {Restriktion $f|_{D'}$};
+  \draw[arrow] (def) -- (umk);
+  \draw[arrow] (umk) -- (mon);
+  \draw[arrow] (mon) -- (bes);
+  \draw[arrow] (bes) -- (res);
+\end{tikzpicture}
+\end{center}
+
+\subsection*{Lernziele}
+
+Nach Durcharbeiten dieses Abschnitts sollten Sie:
+\begin{itemize}
+  \item den Unterschied zwischen dem Analysis- und dem Lineare-Algebra-Begriff
+        der Komposition kennen (Bild von $f$ muss Teilmenge des Definitionsbereichs
+        von $g$ sein, nicht gleich),
+  \item erklären können, wann eine Umkehrfunktion existiert, und den Graphen von
+        $f^{-1}$ durch Spiegelung an der Diagonale $d = \{(z,z)\}$ konstruieren,
+  \item die Begriffe monoton wachsend, streng monoton fallend usw.\ an Beispielen
+        überprüfen und Proposition~14.1.11 (streng monotone Funktionen sind injektiv)
+        anwenden können,
+  \item beschränkte Funktionen erkennen und algebraische Verknüpfungen beschränkter
+        Funktionen auf Beschränktheit untersuchen.
+\end{itemize}
+
+\subsection*{Selbstkontrollelement 14.1}
+
+Sei $f: \mathbb{R} \to \mathbb{R}$, $f(x) = 2x + 1$. Bestimmen Sie die Umkehrfunktion
+$f^{-1}$ und beschreiben Sie, wie man den Graphen von $f^{-1}$ aus dem Graphen von
+$f$ erhält.
+
+\newpage
+
+% -----------------------------------------------------------------------
+\section*{Zielelement 14.2a -- Polynomfunktionen und rationale Funktionen}
+
+\subsection*{Lerninhalte}
+
+\begin{center}
+\begin{tikzpicture}[node distance=0.5cm and 1.0cm]
+  \node[box] (pol) {Polynom $p \in K[T]$:\\Produkt, Division mit Rest};
+  \node[box, below=0.5cm of pol] (nst) {Nullstellen und Faktor $(T-\lambda)$\\Anzahl der Nullstellen $\leq \deg(p)$};
+  \node[box, below=0.5cm of nst] (pf)  {Polynomfunktion $\tilde{p}: \mathbb{R} \to \mathbb{R}$\\Identitätssatz};
+  \node[box, below=0.5cm of pf]  (rat) {Rationale Funktion $\tilde{p}/\tilde{q}$\\Kürzen, Definitionsbereich};
+  \draw[arrow] (pol) -- (nst);
+  \draw[arrow] (nst) -- (pf);
+  \draw[arrow] (pf) -- (rat);
+\end{tikzpicture}
+\end{center}
+
+\subsection*{Lernziele}
+
+Nach Durcharbeiten dieses Abschnitts sollten Sie:
+\begin{itemize}
+  \item Polynome in $K[T]$ multiplizieren und mit Rest dividieren können,
+  \item Proposition~14.2.8 (Nullstellen $\Leftrightarrow$ Teiler $(T-\lambda)$) und
+        Korollar~14.2.9 (höchstens $n$ Nullstellen) kennen und anwenden,
+  \item den Identitätssatz (Satz~14.2.13) formulieren: Stimmen zwei Polynomfunktionen
+        in mehr als $\max(\deg p, \deg q)$ Punkten überein, so sind die Polynome gleich,
+  \item rationale Funktionen kürzen und ihren Definitionsbereich bestimmen.
+\end{itemize}
+
+\subsection*{Selbstkontrollelement 14.2a}
+
+Zeigen Sie, dass $\lambda = 2$ eine Nullstelle von $p = T^3 - 6T + 4$ ist, und
+geben Sie die Division $p = (T - 2) \cdot q + r$ explizit an.
+
+\newpage
+
+% -----------------------------------------------------------------------
+\section*{Zielelement 14.2b -- Allgemeine Potenz und Exponentialfunktion}
+
+\subsection*{Lerninhalte}
+
+\begin{center}
+\begin{tikzpicture}[node distance=0.5cm and 1.0cm]
+  \node[box] (rat) {Rationale Potenzen $a^r$, $r \in \mathbb{Q}$};
+  \node[box, below=0.5cm of rat] (rea) {Allgemeine Potenz $a^\rho$, $\rho \in \mathbb{R}$\\als Grenzwert $(a^{r_n})$ mit $r_n \to \rho$};
+  \node[box, below=0.5cm of rea] (prg) {Potenzregeln für $\rho, \sigma \in \mathbb{R}$\\$(a^\rho)^\sigma = a^{\rho\sigma}$};
+  \node[box, below=0.5cm of prg] (pot) {Potenzfunktion $x \mapsto x^\rho$: Monotonie, Bild, Umkehrung};
+  \node[box, below=0.5cm of pot] (exp) {Exponentialfunktion $\mathrm{exp}_a(x) = a^x$\\Eigenschaften, Graph};
+  \node[box, below=0.5cm of exp] (eu)  {Eulersche Zahl $e$, $\mathrm{exp} = \mathrm{exp}_e$\\$\lim (1+x_n)^{1/x_n} = e$};
+  \draw[arrow] (rat) -- (rea);
+  \draw[arrow] (rea) -- (prg);
+  \draw[arrow] (prg) -- (pot);
+  \draw[arrow] (pot) -- (exp);
+  \draw[arrow] (exp) -- (eu);
+\end{tikzpicture}
+\end{center}
+
+\subsection*{Lernziele}
+
+Nach Durcharbeiten dieses Abschnitts sollten Sie:
+\begin{itemize}
+  \item erklären können, wie $a^\rho$ für irrationales $\rho$ als Grenzwert
+        einer Folge mit rationalen Exponenten definiert wird,
+  \item die fünf Potenzregeln (Satz~14.2.32) auswendig kennen und anwenden,
+  \item die Monotonieeigenschaften der allgemeinen Potenzfunktion (Proposition~14.2.25)
+        und der Exponentialfunktion (Satz~14.2.35) kennen,
+  \item den Grenzwert $\lim_{n\to\infty}(1+x_n)^{1/x_n} = e$ (Satz~14.2.39) anwenden.
+\end{itemize}
+
+\subsection*{Selbstkontrollelement 14.2b}
+
+Berechnen Sie $2^\pi$ schrittweise: Geben Sie eine Folge rationaler Zahlen $(r_n)$
+mit $r_n \to \pi$ an und erläutern Sie, warum $(2^{r_n})$ konvergiert.
+
+\newpage
+
+% -----------------------------------------------------------------------
+\section*{Zielelement 14.2c -- Logarithmus}
+
+\subsection*{Lerninhalte}
+
+\begin{center}
+\begin{tikzpicture}[node distance=0.5cm and 1.0cm]
+  \node[box] (log) {Logarithmus $\log_a$:\\Umkehrfunktion von $\mathrm{exp}_a$};
+  \node[box, below=0.5cm of log] (eig) {Eigenschaften: Monotonie, Bild $= \mathbb{R}$\\$\log_a(1) = 0$, $\log_a(a) = 1$};
+  \node[box, below=0.5cm of eig] (rec) {Rechenregeln:\\$\log_a(xy) = \log_a x + \log_a y$\\$\log_a(x^\rho) = \rho\log_a x$};
+  \node[box, below=0.5cm of rec] (ln)  {Natürlicher Logarithmus $\ln = \log_e$\\$x^a = \exp(a\ln x)$,\; $\exp_a(x) = \exp(x\ln a)$};
+  \draw[arrow] (log) -- (eig);
+  \draw[arrow] (eig) -- (rec);
+  \draw[arrow] (rec) -- (ln);
+\end{tikzpicture}
+\end{center}
+
+\subsection*{Lernziele}
+
+Nach Durcharbeiten dieses Abschnitts sollten Sie:
+\begin{itemize}
+  \item den Logarithmus als Umkehrfunktion der Exponentialfunktion definieren können,
+  \item die Eigenschaften des Logarithmus (Satz~14.2.42) kennen und einsetzen können,
+  \item die Rechenregeln für den Logarithmus sicher anwenden (insbesondere die
+        Logarithmusgesetze für Produkte, Quotienten und Potenzen),
+  \item $\log_a(x)$, $\exp_a(x)$ und die allgemeine Potenzfunktion durch $\exp$ und
+        $\ln$ ausdrücken können (Proposition~14.2.44).
+\end{itemize}
+
+\subsection*{Selbstkontrollelement 14.2c}
+
+Berechnen Sie $\log_2(8)$ und vereinfachen Sie $\log_a(a^3 \cdot \sqrt{a})$ so
+weit wie möglich.
+
+\newpage
+
+% -----------------------------------------------------------------------
+\section*{Zielelement 15.1 -- Stetigkeit: Grundlagen}
+
+\subsection*{Lerninhalte}
+
+\begin{center}
+\begin{tikzpicture}[node distance=0.5cm and 1.0cm]
+  \node[box] (def) {Stetigkeit in $a$: $(a_n) \to a$ $\Rightarrow$ $(f(a_n)) \to f(a)$};
+  \node[box, below=0.5cm of def] (bsp) {Beispiele: Dirichletfunktion unstetig,\\$x^\rho$, $\exp_a$, $\log_a$ stetig};
+  \node[box, below=0.5cm of bsp] (eed) {$\varepsilon$-$\delta$-Kriterium für Stetigkeit\\(Satz 15.1.9)};
+  \node[box, below=0.5cm of eed] (rec) {Rechenregeln: $f \pm g$, $fg$, $\frac{f}{g}$, $h \circ f$ stetig};
+  \node[box, below=0.5cm of rec] (pol) {Polynomfunktionen und rationale\\Funktionen sind stetig};
+  \draw[arrow] (def) -- (bsp);
+  \draw[arrow] (bsp) -- (eed);
+  \draw[arrow] (eed) -- (rec);
+  \draw[arrow] (rec) -- (pol);
+\end{tikzpicture}
+\end{center}
+
+\subsection*{Lernziele}
+
+Nach Durcharbeiten dieses Abschnitts sollten Sie:
+\begin{itemize}
+  \item die Folgendefinition der Stetigkeit (Definition~15.1.1) und das
+        $\varepsilon$-$\delta$-Kriterium (Satz~15.1.9) formulieren und ineinander
+        überführen können,
+  \item die Äquivalenz beider Formulierungen beweisen können,
+  \item die Rechenregeln für stetige Funktionen (Proposition~15.1.11) anwenden,
+  \item konkrete Funktionen auf Stetigkeit oder Unstetigkeit prüfen (inkl.\
+        Dirichletfunktion und Größte-Ganze-Funktion).
+\end{itemize}
+
+\subsection*{Selbstkontrollelement 15.1}
+
+Beweisen Sie mit dem $\varepsilon$-$\delta$-Kriterium, dass
+$f: \mathbb{R} \to \mathbb{R}$, $f(x) = 3x - 1$, stetig ist.
+
+\newpage
+
+% -----------------------------------------------------------------------
+\section*{Zielelement 15.2 -- Stetige Funktionen auf Intervallen}
+
+\subsection*{Lerninhalte}
+
+\begin{center}
+\begin{tikzpicture}[node distance=0.5cm and 1.0cm]
+  \node[box] (bol) {Nullstellensatz von Bolzano\\$f(a) < 0 < f(b)$ $\Rightarrow$ Nullstelle};
+  \node[box, below=0.5cm of bol] (zwi) {Zwischenwertsatz:\\$f$ nimmt jeden Wert zw.\ $f(a)$ und $f(b)$ an};
+  \node[box, below=0.5cm of zwi] (mm)  {Satz vom Minimum und Maximum:\\$f: [a,b] \to \mathbb{R}$ stetig $\Rightarrow$ Extrema};
+  \node[box, below=0.5cm of mm]  (mon) {injektiv und stetig auf Intervall\\$\Leftrightarrow$ streng monoton};
+  \node[box, below=0.5cm of mon] (inv) {Umkehrfunktionen stetiger Funktionen\\sind stetig};
+  \draw[arrow] (bol) -- (zwi);
+  \draw[arrow] (zwi) -- (mm);
+  \draw[arrow] (mm) -- (mon);
+  \draw[arrow] (mon) -- (inv);
+\end{tikzpicture}
+\end{center}
+
+\subsection*{Lernziele}
+
+Nach Durcharbeiten dieses Abschnitts sollten Sie:
+\begin{itemize}
+  \item den Nullstellensatz und den Zwischenwertsatz von Bolzano formulieren und
+        beweisen können,
+  \item den Satz vom Minimum und Maximum (Korollar~15.2.9) kennen und anwenden,
+  \item das Lemma~15.2.10 (stetig und injektiv auf $[a,b]$ $\Rightarrow$ streng monoton)
+        kennen sowie dessen Beweis und Konsequenzen verstehen,
+  \item erklären, warum die Umkehrfunktion einer auf einem Intervall stetigen und
+        injektiven Funktion ebenfalls stetig ist (Proposition~15.2.14).
+\end{itemize}
+
+\subsection*{Selbstkontrollelement 15.2}
+
+Sei $f: [0,1] \to \mathbb{R}$ stetig mit $f(0) = -1$ und $f(1) = 3$. Welche Aussage
+liefert der Zwischenwertsatz? Welche Werte nimmt $f$ garantiert an?
+
+\newpage
+
+% -----------------------------------------------------------------------
+\section*{Zielelement 15.3 -- Grenzwerte von Funktionen}
+
+\subsection*{Lerninhalte}
+
+\begin{center}
+\begin{tikzpicture}[node distance=0.5cm and 1.0cm]
+  \node[box] (hp)  {Häufungspunkt von $D \subseteq \mathbb{R}$};
+  \node[box, below=0.5cm of hp] (kon) {Konvergenz von $f$ in $a$:\\$(f(a_n))$ konvergiert für alle $(a_n) \to a$};
+  \node[box, below=0.5cm of kon] (grw) {Grenzwert $\lim_{x \to a} f(x)$\\(unabhängig von der Folge)};
+  \node[box, below=0.5cm of grw] (ste) {$f$ stetig in $a$ $\Leftrightarrow$ $\lim_{x\to a}f(x) = f(a)$};
+  \node[box, below=0.5cm of ste] (heb) {Hebbare Unstetigkeit\\$\varepsilon$-$\delta$-Kriterium für Grenzwert};
+  \draw[arrow] (hp) -- (kon);
+  \draw[arrow] (kon) -- (grw);
+  \draw[arrow] (grw) -- (ste);
+  \draw[arrow] (ste) -- (heb);
+\end{tikzpicture}
+\end{center}
+
+\subsection*{Lernziele}
+
+Nach Durcharbeiten dieses Abschnitts sollten Sie:
+\begin{itemize}
+  \item den Begriff des Häufungspunkts und die Definition der Konvergenz einer
+        Funktion in einem Punkt (Definition~15.3.4) erklären können,
+  \item den Zusammenhang zwischen Stetigkeit und dem Grenzwert $\lim_{x\to a}f(x)$
+        (Proposition~15.3.9) kennen,
+  \item das $\varepsilon$-$\delta$-Kriterium für Funktionengrenzwerte (Satz~15.3.15)
+        anwenden und hebbare Unstetigkeiten erkennen und beheben können,
+  \item die Rechenregeln für Funktionenkonvergenz (Proposition~15.3.17) anwenden.
+\end{itemize}
+
+\subsection*{Selbstkontrollelement 15.3}
+
+Berechnen Sie $\displaystyle\lim_{x \to 2} \frac{x^2 - 4}{x - 2}$ und erklären
+Sie, ob die Funktion $f(x) = \frac{x^2-4}{x-2}$ eine hebbare Unstetigkeit in
+$x = 2$ besitzt.
+
+\newpage
+
+% -----------------------------------------------------------------------
+\section*{Zielelement 16.1 -- Die Ableitung einer Funktion}
+
+\subsection*{Lerninhalte}
+
+\begin{center}
+\begin{tikzpicture}[node distance=0.5cm and 1.0cm]
+  \node[box] (dif) {Differenzierbarkeit in $a$:\\$\lim_{x \to a} \frac{f(x)-f(a)}{x-a} = f'(a)$};
+  \node[box, below=0.5cm of dif] (geo) {Geometrische Interpretation:\\Steigung der Tangente, Sekante};
+  \node[box, below=0.5cm of geo] (dif2s) {differenzierbar $\Rightarrow$ stetig};
+  \node[box, below=0.5cm of dif2s] (ext) {Lokale und globale Extrema\\Definition innerer Punkt};
+  \node[box, below=0.5cm of ext] (kri) {Notwendige Bedingung: $f'(a) = 0$\\an inneren lokalen Extremstellen};
+  \draw[arrow] (dif) -- (geo);
+  \draw[arrow] (geo) -- (dif2s);
+  \draw[arrow] (dif2s) -- (ext);
+  \draw[arrow] (ext) -- (kri);
+\end{tikzpicture}
+\end{center}
+
+\subsection*{Lernziele}
+
+Nach Durcharbeiten dieses Abschnitts sollten Sie:
+\begin{itemize}
+  \item die Definition der Differenzierbarkeit (Definition~16.1.1) durch den
+        Grenzwert des Differenzenquotienten formulieren und den geometrischen
+        Zusammenhang mit der Tangente erklären können,
+  \item beweisen können, dass Differenzierbarkeit Stetigkeit impliziert
+        (Proposition~16.1.3),
+  \item lokale und globale Extrema definieren und die notwendige Bedingung
+        $f'(a) = 0$ an inneren Extremstellen (Proposition~16.1.12) kennen und
+        anwenden können.
+\end{itemize}
+
+\subsection*{Selbstkontrollelement 16.1}
+
+Beweisen Sie direkt aus der Definition, dass $f(x) = x^2$ in $a = 3$ differenzierbar
+ist und berechnen Sie $f'(3)$.
+
+\newpage
+
+% -----------------------------------------------------------------------
+\section*{Zielelement 16.2 -- Differentiationsregeln}
+
+\subsection*{Lerninhalte}
+
+\begin{center}
+\begin{tikzpicture}[node distance=0.5cm and 1.0cm]
+  \node[box] (lin) {Summen- und Faktorregel\\$(f \pm g)' = f' \pm g'$, $(\alpha f)' = \alpha f'$};
+  \node[box, below=0.5cm of lin] (pro) {Produktregel\\$(fg)' = f'g + fg'$};
+  \node[box, below=0.5cm of pro] (quo) {Quotientenregel und Reziprokregel\\$\left(\frac{f}{g}\right)' = \frac{f'g - fg'}{g^2}$};
+  \node[box, below=0.5cm of quo] (ket) {Kettenregel\\$(f \circ g)'(a) = f'(g(a)) \cdot g'(a)$};
+  \node[box, below=0.5cm of ket] (umk) {Ableitung der Umkehrfunktion\\$(f^{-1})'(b) = \frac{1}{f'(f^{-1}(b))}$};
+  \draw[arrow] (lin) -- (pro);
+  \draw[arrow] (pro) -- (quo);
+  \draw[arrow] (quo) -- (ket);
+  \draw[arrow] (ket) -- (umk);
+\end{tikzpicture}
+\end{center}
+
+\subsection*{Lernziele}
+
+Nach Durcharbeiten dieses Abschnitts sollten Sie:
+\begin{itemize}
+  \item alle Differentiationsregeln (Proposition~16.2.1) auswendig kennen und
+        beherrschen -- Summe, Produkt, Quotient, Faktor,
+  \item die Kettenregel (Satz~16.2.3) sicher anwenden können, auch bei mehrfach
+        verschachtelten Kompositionen,
+  \item die Formel für die Ableitung der Umkehrfunktion (Proposition~16.2.4) kennen
+        und geometrisch interpretieren können.
+\end{itemize}
+
+\subsection*{Selbstkontrollelement 16.2}
+
+Leiten Sie $f(x) = \dfrac{x^2 + 1}{x - 1}$ mit der Quotientenregel ab und
+$g(x) = (x^3 + 1)^5$ mit der Kettenregel.
+
+\newpage
+
+% -----------------------------------------------------------------------
+\section*{Zielelement 16.3 -- Ableitungen wichtiger Funktionen}
+
+\subsection*{Lerninhalte}
+
+\begin{center}
+\begin{tikzpicture}[node distance=0.5cm and 1.0cm]
+  \node[box] (pw) {Potenzregel $(x^k)' = kx^{k-1}$, $k \in \mathbb{Z}$};
+  \node[box, below=0.5cm of pw] (ex) {Exponentialfunktion:\\$(\exp_a(x))' = \exp_a(x) \cdot \ln(a)$,\; $(e^x)' = e^x$};
+  \node[box, below=0.5cm of ex] (ln) {Logarithmus:\\$\ln'(x) = \frac{1}{x}$,\; $\log_a'(x) = \frac{1}{x\ln(a)}$};
+  \node[box, below=0.5cm of ln] (al) {Allgemeine Potenzfunktion:\\$(x^a)' = ax^{a-1}$};
+  \node[box, below=0.5cm of al] (sc) {Winkelfunktionen:\\$\sin' = \cos$,\; $\cos' = -\sin$};
+  \draw[arrow] (pw) -- (ex);
+  \draw[arrow] (ex) -- (ln);
+  \draw[arrow] (ln) -- (al);
+  \draw[arrow] (al) -- (sc);
+\end{tikzpicture}
+\end{center}
+
+\subsection*{Lernziele}
+
+Nach Durcharbeiten dieses Abschnitts sollten Sie:
+\begin{itemize}
+  \item alle Standard-Ableitungsregeln auswendig wissen: Potenzregel für
+        $k \in \mathbb{Z}$ und $a \in \mathbb{R}$, Exponentialfunktion,
+        natürlicher Logarithmus, Sinus und Cosinus,
+  \item Ableitungen zusammengesetzter Funktionen durch Kombination der
+        Differentiationsregeln mit diesen Grundableitungen berechnen,
+  \item die Eigenschaften von Sinus und Cosinus (SinCos-1 bis SinCos-5)
+        kennen und aus ihnen die Differenzierbarkeit herleiten können.
+\end{itemize}
+
+\subsection*{Selbstkontrollelement 16.3}
+
+Berechnen Sie die Ableitungen von
+$f(x) = x^4 \exp(x)$,\quad $g(x) = \ln(\sin(x))$ und \quad $h(x) = x^{\sqrt{2}}$.
+
+\end{document}

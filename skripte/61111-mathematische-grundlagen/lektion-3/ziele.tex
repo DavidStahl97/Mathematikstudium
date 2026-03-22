@@ -1,0 +1,453 @@
+\documentclass[a4paper,12pt]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[ngerman]{babel}
+\usepackage{amsmath, amssymb}
+\usepackage{geometry}
+\usepackage{tikz}
+\usetikzlibrary{shapes.geometric, arrows.meta, positioning, fit, backgrounds}
+\usepackage{parskip}
+\usepackage{titlesec}
+\usepackage{enumitem}
+
+\geometry{left=3cm, right=3cm, top=2.5cm, bottom=2.5cm}
+
+\titleformat{\section}{\large\bfseries}{}{0em}{}[\titlerule]
+\titleformat{\subsection}{\normalsize\bfseries}{}{0em}{}
+
+\tikzset{
+  box/.style={rectangle, draw, rounded corners=3pt, text width=4.5cm,
+              align=center, minimum height=1.0cm, font=\small, inner sep=4pt},
+  boxw/.style={box, text width=5.5cm},
+  arrow/.style={-{Latex[length=2mm]}, thick},
+}
+
+\begin{document}
+
+\begin{center}
+  {\LARGE\bfseries Studierhinweise zu Lektion 3}\\[0.5em]
+  {\large Mathematische Grundlagen (Modul 61111)}
+\end{center}
+
+\vspace{1em}
+
+Diese Lektion bildet das Herzstück der Linearen Algebra im Modul. In
+Kapitel~7 werden die Begriffe der linearen Unabhängigkeit, der Basis und der
+Dimension endlich erzeugter Vektorräume eingeführt. Das zentrale Hilfsmittel
+ist der \emph{Austauschsatz von Steinitz}, aus dem alle wichtigen
+Dimensionsformeln folgen.
+
+Kapitel~8 wendet sich den \emph{linearen Abbildungen} zu – Abbildungen
+zwischen Vektorräumen, die Addition und Skalarmultiplikation respektieren.
+Hier lernen Sie die Begriffe Kern, Bild und Rang einer linearen Abbildung
+kennen sowie den wichtigen \emph{Rangsatz}.
+
+Kapitel~9 schlägt die Brücke zurück zu Matrizen: Jeder linearen Abbildung
+zwischen endlich erzeugten Vektorräumen kann (nach Wahl von Basen) eine
+Matrix zugeordnet werden. Matrizenmultiplikation entspricht dabei der
+Komposition linearer Abbildungen.
+
+Lernen Sie die Definitions- und Satzformulierungen so weit, dass Sie sie
+erkennen, anwenden und — zumindest skizzenhaft — beweisen können. Viele
+Sätze dieser Lektion sind Folgerungen aus dem Steinitz'schen Austauschsatz
+und bauen aufeinander auf.
+
+% -----------------------------------------------------------------------
+\section*{Struktur der Lektion 3}
+
+\begin{center}
+\begin{tikzpicture}[node distance=0.55cm and 1.0cm]
+
+  % Headers
+  \node[font=\bfseries\small] (h7) at (0,0)    {Kapitel 7: Basen \& Dimension};
+  \node[font=\bfseries\small] (h8) at (6.5,0)  {Kapitel 8: Lineare Abbildungen};
+  \node[font=\bfseries\small] (h9) at (12.5,0) {Kapitel 9: Abbildungen \& Matrizen};
+
+  % Kapitel 7
+  \node[box, below=0.8cm of h7] (lu)   {7.1 Lineare Unabhängigkeit\\trivial / nicht-trivial};
+  \node[box, below=0.5cm of lu]  (bas) {7.2 Basen\\Charakterisierung, Existenz};
+  \node[box, below=0.5cm of bas] (aus) {7.3 Austauschsatz (Steinitz)\\Basisergänzungssatz};
+  \node[box, below=0.5cm of aus] (dim) {7.4 Dimension\\Dimensionsformeln};
+
+  % Kapitel 8
+  \node[box, below=0.8cm of h8] (def)  {8.1 Definition \& Eigenschaften\\$f(v_1+v_2)=f(v_1)+f(v_2)$};
+  \node[box, below=0.5cm of def] (iso) {8.2 Isomorphe Vektorräume\\$\kappa_B : V \to K^n$};
+  \node[box, below=0.5cm of iso] (kb)  {8.3 Kern \& Bild\\Rangsatz};
+  \node[box, below=0.5cm of kb]  (ba)  {8.4 Abbildungen \& Basen\\Eindeutigkeit durch Bilder};
+
+  % Kapitel 9
+  \node[box, below=0.8cm of h9] (hom) {9.1 $\mathrm{Hom}_K(V,W)$\\Vektorraumstruktur};
+  \node[box, below=0.5cm of hom] (koo) {9.2 Koordinatenvektoren\\$_C M_B(f)\cdot\kappa_B(v)=\kappa_C(f(v))$};
+  \node[box, below=0.5cm of koo] (kom) {9.3 Matrizenprodukt \&\\Komposition};
+
+  % Arrows Kap 7
+  \draw[arrow] (lu)  -- (bas);
+  \draw[arrow] (bas) -- (aus);
+  \draw[arrow] (aus) -- (dim);
+
+  % Arrows Kap 8
+  \draw[arrow] (def) -- (iso);
+  \draw[arrow] (iso) -- (kb);
+  \draw[arrow] (kb)  -- (ba);
+
+  % Arrows Kap 9
+  \draw[arrow] (hom) -- (koo);
+  \draw[arrow] (koo) -- (kom);
+
+  % Cross-chapter
+  \draw[arrow] (dim.east) -- ++(0.3,0) |- (def.west);
+  \draw[arrow] (ba.east)  -- ++(0.3,0) |- (hom.west);
+
+\end{tikzpicture}
+\end{center}
+
+\newpage
+
+% -----------------------------------------------------------------------
+\section*{Zielelement 7.1 -- Lineare Unabhängigkeit}
+
+\subsection*{Lerninhalte}
+
+\begin{center}
+\begin{tikzpicture}[node distance=0.55cm and 1.0cm]
+  \node[box] (triv) {Triviale Darstellung des Nullvektors (alle $a_i = 0$)};
+  \node[box, below=0.5cm of triv] (def) {Definition: linear unabhängig\\$\sum a_i v_i = 0 \Rightarrow a_i = 0 \;\forall i$};
+  \node[box, below=0.5cm of def]  (lab) {Linear abhängig:\\nicht-triviale Darstellung von $0$};
+  \node[box, below=0.5cm of lab]  (cha) {Prop.~7.1.6: Charakterisierung\\$v_i \in \langle v_1,\ldots,\hat{v}_i,\ldots,v_n\rangle$};
+  \node[box, below=0.5cm of cha]  (gau) {Kriterium: Rang der Koeffizientenmatrix};
+  \draw[arrow] (triv) -- (def);
+  \draw[arrow] (def)  -- (lab);
+  \draw[arrow] (lab)  -- (cha);
+  \draw[arrow] (cha)  -- (gau);
+\end{tikzpicture}
+\end{center}
+
+\subsection*{Lernziele}
+
+Nach Durcharbeiten dieses Abschnitts sollten Sie:
+\begin{itemize}
+  \item den Begriff der linearen Unabhängigkeit präzise definieren können,
+  \item lineare Unabhängigkeit von Vektoren mithilfe des Gauß-Algorithmus
+        (Rangberechnung) überprüfen können,
+  \item die Charakterisierung linear abhängiger Vektoren (Prop.~7.1.6) kennen
+        und anwenden können,
+  \item wissen, dass ein einzelner Vektor $v \neq 0$ stets linear unabhängig ist, und
+        zwei Vektoren genau dann linear abhängig sind, wenn einer ein skalares
+        Vielfaches des anderen ist.
+\end{itemize}
+
+\subsection*{Selbstkontrollelement 7.1}
+
+Sind die Vektoren $\begin{pmatrix}1\\2\\0\end{pmatrix}$,
+$\begin{pmatrix}0\\1\\3\end{pmatrix}$,
+$\begin{pmatrix}2\\3\\-3\end{pmatrix} \in \mathbb{R}^3$ linear unabhängig?
+Bestimmen Sie dazu den Rang der zugehörigen Koeffizientenmatrix.
+
+\newpage
+
+% -----------------------------------------------------------------------
+\section*{Zielelement 7.2 -- Basen endlich erzeugter Vektorräume}
+
+\subsection*{Lerninhalte}
+
+\begin{center}
+\begin{tikzpicture}[node distance=0.55cm and 1.0cm]
+  \node[box] (def) {Def.~7.2.1: Basis\\linear unabhängiges Erzeugendensystem};
+  \node[box, below=0.5cm of def]  (std) {Standardbasen: $K^n$, $M_{mn}(K)$,\\Polynome vom Grad $\le n$};
+  \node[box, below=0.5cm of std]  (cha) {Prop.~7.2.7: Äquivalenz\\eindeutige Darstellung jedes $v \in V$};
+  \node[box, below=0.5cm of cha]  (exi) {Prop.~7.2.8: Existenz von Basen\\Herausstreichen aus Erzeugendensystem};
+  \node[box, below=0.5cm of exi]  (bem) {Bem.~7.2.11: linear unabh.\ Vektoren\\ergänzen / Erzeugendensystem};
+  \draw[arrow] (def) -- (std);
+  \draw[arrow] (std) -- (cha);
+  \draw[arrow] (cha) -- (exi);
+  \draw[arrow] (exi) -- (bem);
+\end{tikzpicture}
+\end{center}
+
+\subsection*{Lernziele}
+
+Nach Durcharbeiten dieses Abschnitts sollten Sie:
+\begin{itemize}
+  \item die Definition einer Basis auswendig kennen,
+  \item die Standardbasen der wichtigsten Vektorräume ($K^n$, $M_{mn}(K)$,
+        Polynome) angeben können,
+  \item Proposition~7.2.7 (Charakterisierung von Basen durch eindeutige
+        Linearkombinationsdarstellung) kennen und im Beweis nutzen können,
+  \item verstehen, wie man aus einem endlichen Erzeugendensystem eine Basis
+        gewinnt (Proposition~7.2.8).
+\end{itemize}
+
+\subsection*{Selbstkontrollelement 7.2}
+
+Zeigen Sie, dass $1+T$, $1-T$ eine Basis des Vektorraums der Polynome vom
+Grad $\le 1$ über $\mathbb{R}$ ist. Warum ist $1+T$, $1-T$, $2$ keine Basis?
+
+\newpage
+
+% -----------------------------------------------------------------------
+\section*{Zielelement 7.3 -- Der Austauschsatz von Steinitz}
+
+\subsection*{Lerninhalte}
+
+\begin{center}
+\begin{tikzpicture}[node distance=0.55cm and 1.0cm]
+  \node[box] (lem) {Lemma~7.3.1: Austauschlemma\\Ersatz eines Basisvektors durch $v \ne 0$};
+  \node[box, below=0.5cm of lem] (satz){Satz~7.3.3: Austauschsatz (Steinitz)\\$m$ lin.\ unabh.\ Vektoren $\Rightarrow m \le n$};
+  \node[box, below=0.5cm of satz] (kor1){Kor.~7.3.4: Endlich erzeugt $\Leftrightarrow$\\beschränkte Anzahl lin.\ unabh.\ Vektoren};
+  \node[box, below=0.5cm of kor1] (kor2){Kor.~7.3.5: Basisergänzungssatz\\lin.\ unabh.\ Menge zu Basis ergänzen};
+  \node[box, below=0.5cm of kor2] (kor3){Kor.~7.3.6: Alle Basen\\haben gleiche Elementezahl};
+  \draw[arrow] (lem)  -- (satz);
+  \draw[arrow] (satz) -- (kor1);
+  \draw[arrow] (kor1) -- (kor2);
+  \draw[arrow] (kor2) -- (kor3);
+\end{tikzpicture}
+\end{center}
+
+\subsection*{Lernziele}
+
+Nach Durcharbeiten dieses Abschnitts sollten Sie:
+\begin{itemize}
+  \item das Austauschlemma (7.3.1) und den Austauschsatz (7.3.3) in eigenen
+        Worten erklären können,
+  \item den Basisergänzungssatz (7.3.5) kennen und anwenden können,
+  \item begründen können, warum je zwei Basen eines endlich erzeugten
+        Vektorraums gleich viele Elemente haben (7.3.6).
+\end{itemize}
+
+\subsection*{Selbstkontrollelement 7.3}
+
+Sei $V = \mathbb{R}^3$. Ergänzen Sie $v_1 = \begin{pmatrix}1\\1\\0\end{pmatrix}$
+zu einer Basis von $V$. Wie viele Vektoren müssen Sie hinzufügen?
+
+\newpage
+
+% -----------------------------------------------------------------------
+\section*{Zielelement 7.4 -- Dimension und Dimensionsformeln}
+
+\subsection*{Lerninhalte}
+
+\begin{center}
+\begin{tikzpicture}[node distance=0.55cm and 1.0cm]
+  \node[box] (def) {Def.~7.4.1: Dimension $\dim(V)$\\Anzahl Vektoren einer Basis};
+  \node[box, below=0.5cm of def]  (bsp) {Beispiele: $\dim(K^n)=n$,\\$\dim(M_{mn})=mn$, $\dim(\text{Pol}_n)=n+1$};
+  \node[box, below=0.5cm of bsp]  (pro) {Prop.~7.4.4: $n$ lin.\ unabh.\ Vektoren\\in $V$ mit $\dim(V)=n$ $\Rightarrow$ Basis};
+  \node[box, below=0.5cm of pro]  (unt) {Kor.~7.4.5: $\dim(U) \le \dim(V)$\\$\dim(U)=\dim(V) \Leftrightarrow U=V$};
+  \node[box, below=0.5cm of unt]  (sum) {Prop.~7.4.6: Dimensionsformel\\$\dim(U+W)=\dim(U)+\dim(W)-\dim(U\cap W)$};
+  \draw[arrow] (def) -- (bsp);
+  \draw[arrow] (bsp) -- (pro);
+  \draw[arrow] (pro) -- (unt);
+  \draw[arrow] (unt) -- (sum);
+\end{tikzpicture}
+\end{center}
+
+\subsection*{Lernziele}
+
+Nach Durcharbeiten dieses Abschnitts sollten Sie:
+\begin{itemize}
+  \item die Dimension eines Vektorraums definieren und für die Standardbeispiele
+        angeben können,
+  \item Proposition~7.4.4 kennen und als Arbeitserleichterung einsetzen können
+        (nur eine der beiden Basiseigenschaften nachweisen),
+  \item die Dimensionsformel für Summe und Durchschnitt (Prop.~7.4.6) beherrschen
+        und den Beweisaufbau skizzieren können.
+\end{itemize}
+
+\subsection*{Selbstkontrollelement 7.4}
+
+Seien $U = \langle e_1, e_2 \rangle$ und $W = \langle e_2, e_3 \rangle$ Unterräume
+von $\mathbb{R}^3$. Bestimmen Sie $\dim(U+W)$ und $\dim(U \cap W)$
+mithilfe der Dimensionsformel.
+
+\newpage
+
+% -----------------------------------------------------------------------
+\section*{Zielelement 8.1 -- Lineare Abbildungen: Definition und Eigenschaften}
+
+\subsection*{Lerninhalte}
+
+\begin{center}
+\begin{tikzpicture}[node distance=0.55cm and 1.0cm]
+  \node[box] (def) {Def.~8.1.1: Lineare Abbildung\\$f(v_1+v_2)=f(v_1)+f(v_2)$,\\$f(av)=af(v)$};
+  \node[box, below=0.5cm of def]  (bem) {Bem.~8.1.4: $f(0)=0$,\\$f(-v)=-f(v)$};
+  \node[box, below=0.5cm of bem]  (iso) {Def.~8.1.5: Isomorphismus\\bijektive lineare Abbildung};
+  \node[box, below=0.5cm of iso]  (inv) {Prop.~8.1.8: Inverse von\\Isomorphismen sind Isomorphismen};
+  \node[box, below=0.5cm of inv]  (kom) {Prop.~8.1.9: Komposition\\linearer Abbildungen ist linear};
+  \draw[arrow] (def) -- (bem);
+  \draw[arrow] (bem) -- (iso);
+  \draw[arrow] (iso) -- (inv);
+  \draw[arrow] (inv) -- (kom);
+\end{tikzpicture}
+\end{center}
+
+\subsection*{Lernziele}
+
+Nach Durcharbeiten dieses Abschnitts sollten Sie:
+\begin{itemize}
+  \item lineare Abbildungen erkennen und die Linearitätsbedingungen nachweisen
+        können,
+  \item die elementaren Eigenschaften linearer Abbildungen (Nullvektor, negierter Vektor)
+        aus den Axiomen herleiten können,
+  \item den Begriff des Isomorphismus kennen und verstehen, warum inverse und
+        zusammengesetzte Isomorphismen wieder Isomorphismen sind.
+\end{itemize}
+
+\subsection*{Selbstkontrollelement 8.1}
+
+Ist $f: \mathbb{R}^2 \to \mathbb{R}^2$, $f\!\begin{pmatrix}x\\y\end{pmatrix} = \begin{pmatrix}x+1\\y\end{pmatrix}$
+eine lineare Abbildung? Begründen Sie.
+
+\newpage
+
+% -----------------------------------------------------------------------
+\section*{Zielelement 8.2 -- Isomorphe Vektorräume}
+
+\subsection*{Lerninhalte}
+
+\begin{center}
+\begin{tikzpicture}[node distance=0.55cm and 1.0cm]
+  \node[box] (kb)  {Satz~8.2.2: $\kappa_B: V \to K^n$\\ist Isomorphismus};
+  \node[box, below=0.5cm of kb]  (koo) {Def.~8.2.4: Koordinatenvektor\\$\kappa_B(v) \in K^n$ bzgl.\ Basis $B$};
+  \node[box, below=0.5cm of koo] (kor) {Kor.~8.2.6:\\gleiche Dim.\ $\Leftrightarrow$ isomorph};
+  \node[box, below=0.5cm of kor] (str) {Satz~8.3.19: Struktursatz\\$\dim(V)=n \Rightarrow V \cong K^n$};
+  \draw[arrow] (kb)  -- (koo);
+  \draw[arrow] (koo) -- (kor);
+  \draw[arrow] (kor) -- (str);
+\end{tikzpicture}
+\end{center}
+
+\subsection*{Lernziele}
+
+Nach Durcharbeiten dieses Abschnitts sollten Sie:
+\begin{itemize}
+  \item den Koordinatenvektor eines Vektors bezüglich einer Basis bestimmen können,
+  \item die Abbildung $\kappa_B$ als Isomorphismus verstehen und erklären können,
+  \item wissen, dass zwei endlich erzeugte Vektorräume genau dann isomorph sind,
+        wenn sie dieselbe Dimension haben.
+\end{itemize}
+
+\subsection*{Selbstkontrollelement 8.2}
+
+Sei $B = (1+T,\, T)$ eine Basis des Vektorraums der Polynome vom Grad $\le 1$
+über $\mathbb{R}$. Bestimmen Sie $\kappa_B(3 + 2T)$.
+
+\newpage
+
+% -----------------------------------------------------------------------
+\section*{Zielelement 8.3 -- Kern, Bild und Rangsatz}
+
+\subsection*{Lerninhalte}
+
+\begin{center}
+\begin{tikzpicture}[node distance=0.55cm and 1.0cm]
+  \node[box] (bil) {Def.~8.3.1: Bild$(f)$\\Unterraum von $W$ (Bem.~8.3.2)};
+  \node[box, right=1.0cm of bil] (ker) {Def.~8.3.7: Kern$(f)$\\Unterraum von $V$ (Bem.~8.3.8)};
+  \node[box, below=0.5cm of bil]  (sur) {Kor.~8.3.5: $f$ surjektiv\\$\Leftrightarrow f(v_1),\ldots,f(v_n)$ Erz.sys.\ von $W$};
+  \node[box, below=0.5cm of ker]  (inj) {Prop.~8.3.10: $f$ injektiv\\$\Leftrightarrow \mathrm{Kern}(f) = \{0\}$};
+  \node[box, below=0.5cm of sur, xshift=2.5cm] (rg)  {Def.~8.3.12: $\mathrm{Rg}(f) = \dim(\mathrm{Bild}(f))$};
+  \node[box, below=0.5cm of rg]  (rs)  {Kor.~8.3.14: Rangsatz\\$\dim(V) = \dim(\mathrm{Kern}(f)) + \mathrm{Rg}(f)$};
+  \node[box, below=0.5cm of rs]  (kor) {Kor.~8.3.17: surjektiv $\Leftrightarrow$ injektiv\\(bei $\dim(V)=\dim(W)$)};
+  \draw[arrow] (bil) -- (sur);
+  \draw[arrow] (ker) -- (inj);
+  \draw[arrow] (sur.south) -- ++(0,-0.2) -| (rg.north);
+  \draw[arrow] (inj.south) -- ++(0,-0.2) -| (rg.north);
+  \draw[arrow] (rg)  -- (rs);
+  \draw[arrow] (rs)  -- (kor);
+\end{tikzpicture}
+\end{center}
+
+\subsection*{Lernziele}
+
+Nach Durcharbeiten dieses Abschnitts sollten Sie:
+\begin{itemize}
+  \item Kern und Bild einer linearen Abbildung berechnen können,
+  \item Injektivität über den Kern und Surjektivität über das Bild charakterisieren können,
+  \item den Rangsatz kennen, beweisen und auf konkrete Beispiele anwenden können,
+  \item Korollar~8.3.17 (surjektiv $\Leftrightarrow$ injektiv) als Arbeitserleichterung nutzen.
+\end{itemize}
+
+\subsection*{Selbstkontrollelement 8.3}
+
+Sei $f: \mathbb{R}^3 \to \mathbb{R}^2$, $f\!\begin{pmatrix}x\\y\\z\end{pmatrix} = \begin{pmatrix}x+y\\y+z\end{pmatrix}$.
+Bestimmen Sie $\mathrm{Kern}(f)$ und $\mathrm{Rg}(f)$. Verifizieren Sie den Rangsatz.
+
+\newpage
+
+% -----------------------------------------------------------------------
+\section*{Zielelement 8.4 -- Lineare Abbildungen und Basen}
+
+\subsection*{Lerninhalte}
+
+\begin{center}
+\begin{tikzpicture}[node distance=0.55cm and 1.0cm]
+  \node[box] (satz) {Satz~8.4.1: Lineare Abbildung\\eindeutig durch Bilder einer Basis};
+  \node[box, below=0.5cm of satz] (kons){Konstruktion linearer Abbildungen\\mit vorgegebenen Eigenschaften};
+  \node[box, below=0.5cm of kons] (kor1){Kor.~8.4.6: Zu jeder Basis $B$, $C$\\gibt es genau einen Iso.\ $f(v_i)=w_i$};
+  \node[box, below=0.5cm of kor1] (kor2){Kor.~8.4.7 / Def.~8.4.8:\\Basiswechsel als Isomorphismus};
+  \draw[arrow] (satz) -- (kons);
+  \draw[arrow] (kons) -- (kor1);
+  \draw[arrow] (kor1) -- (kor2);
+\end{tikzpicture}
+\end{center}
+
+\subsection*{Lernziele}
+
+Nach Durcharbeiten dieses Abschnitts sollten Sie:
+\begin{itemize}
+  \item Satz~8.4.1 kennen und zur Konstruktion linearer Abbildungen mit
+        vorgegebenen Eigenschaften einsetzen können,
+  \item verstehen, warum eine lineare Abbildung vollständig durch ihre Werte
+        auf einer Basis festgelegt ist,
+  \item den Begriff des Basiswechsels (Def.~8.4.8) erklären können.
+\end{itemize}
+
+\subsection*{Selbstkontrollelement 8.4}
+
+Definieren Sie eine lineare Abbildung $f: \mathbb{R}^2 \to \mathbb{R}^2$ mit
+$\mathrm{Kern}(f) = \langle\begin{pmatrix}1\\1\end{pmatrix}\rangle$.
+Geben Sie eine explizite Formel für $f$ an.
+
+\newpage
+
+% -----------------------------------------------------------------------
+\section*{Zielelement 9 -- Lineare Abbildungen und Matrizen}
+
+\subsection*{Lerninhalte}
+
+\begin{center}
+\begin{tikzpicture}[node distance=0.55cm and 1.0cm]
+  \node[box] (hom) {Def.~9.1.1: $\mathrm{Hom}_K(V,W)$\\Vektorraumstruktur (Prop.~9.1.2)};
+  \node[box, below=0.5cm of hom] (mat) {Def.~9.1.4: Matrixdarstellung $_C M_B(f)$\\Koordinatenvektoren der Bilder};
+  \node[box, below=0.5cm of mat] (iso) {Satz~9.1.9: $_C M_B$ ist Isomorphismus\\$\mathrm{Hom}_K(V,W) \cong M_{mn}(K)$};
+  \node[box, below=0.5cm of iso] (dim) {Kor.~9.1.10:\\$\dim(\mathrm{Hom}_K(V,W)) = \dim(V)\cdot\dim(W)$};
+  \node[box, below=0.5cm of dim] (koo) {Prop.~9.2.1: $_C M_B(f)\cdot\kappa_B(v) = \kappa_C(f(v))$};
+  \node[box, below=0.5cm of koo] (rg)  {Kor.~9.2.4: $\mathrm{Rg}(f) = \mathrm{Rg}(_C M_B(f))$};
+  \node[box, below=0.5cm of rg]  (pro) {Prop.~9.3.1: $_D M_B(g\circ f) = {}_D M_C(g)\cdot{}_C M_B(f)$};
+  \draw[arrow] (hom) -- (mat);
+  \draw[arrow] (mat) -- (iso);
+  \draw[arrow] (iso) -- (dim);
+  \draw[arrow] (dim) -- (koo);
+  \draw[arrow] (koo) -- (rg);
+  \draw[arrow] (rg)  -- (pro);
+\end{tikzpicture}
+\end{center}
+
+\subsection*{Lernziele}
+
+Nach Durcharbeiten dieses Kapitels sollten Sie:
+\begin{itemize}
+  \item die Matrixdarstellung einer linearen Abbildung bezüglich gegebener Basen
+        berechnen können,
+  \item die zentrale Formel $_{C}M_B(f)\cdot\kappa_B(v) = \kappa_C(f(v))$ verstehen
+        und anwenden können,
+  \item wissen, dass Matrizenmultiplikation der Komposition linearer Abbildungen
+        entspricht (Prop.~9.3.1),
+  \item die Dimensionsformel $\dim(\mathrm{Hom}_K(V,W)) = mn$ kennen.
+\end{itemize}
+
+\subsection*{Selbstkontrollelement 9}
+
+Sei $f: \mathbb{R}^2 \to \mathbb{R}^2$ definiert durch $f\!\begin{pmatrix}x\\y\end{pmatrix} = \begin{pmatrix}2x-y\\x+3y\end{pmatrix}$.
+Berechnen Sie $_E M_E(f)$ bezüglich der Standardbasis $E$ von $\mathbb{R}^2$.
+Was ist $\mathrm{Rg}(f)$?
+
+\end{document}

@@ -1,0 +1,469 @@
+\documentclass[a4paper,12pt]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[ngerman]{babel}
+\usepackage{amsmath, amssymb}
+\usepackage{geometry}
+\usepackage{parskip}
+\usepackage{titlesec}
+\usepackage{enumitem}
+\usepackage{array}
+
+\geometry{left=3cm, right=3cm, top=2.5cm, bottom=2.5cm}
+
+\titleformat{\section}{\large\bfseries}{}{0em}{}[\titlerule]
+\titleformat{\subsection}{\normalsize\bfseries\scshape}{}{0em}{}
+
+% Glossar-Eintrag: Nummer, fetter Titel, Inhalt
+\newcommand{\gentry}[3]{%
+  \noindent\textbf{#1\quad #2}\nopagebreak\\[0.2em]
+  #3\par\smallskip
+}
+
+\begin{document}
+
+\begin{center}
+  {\LARGE\bfseries Glossar zu Lektion 3}\\[0.5em]
+  {\large Mathematische Grundlagen (Modul 61111)}
+\end{center}
+
+\vspace{1em}
+
+Dieses Glossar fasst die wesentlichen Definitionen, Merkregeln, Sätze und
+Propositionen der dritten Lektion kompakt zusammen. Nummerierungen
+entsprechen dem Lehrtext.
+
+% ======================================================================
+\section*{7.1 \quad Lineare Unabhängigkeit}
+
+\gentry{7.1.1}{Definition (Triviale / nicht-triviale Darstellung)}{%
+  Sei $V$ ein $K$-Vektorraum und $v_1,\ldots,v_n \in V$.
+  \begin{itemize}[topsep=2pt,itemsep=1pt]
+    \item Die Linearkombination $\sum_{i=1}^n a_i v_i = 0$ heißt
+          \textbf{triviale Darstellung} des Nullvektors, wenn $a_i = 0$ für alle $i$.
+    \item Sie heißt \textbf{nicht-triviale Darstellung}, wenn mindestens ein
+          $a_i \neq 0$ ist.
+  \end{itemize}
+}
+
+\gentry{7.1.2}{Definition (Linear unabhängig / linear abhängig)}{%
+  Vektoren $v_1,\ldots,v_n \in V$ heißen \textbf{linear unabhängig}, falls
+  \[
+    \sum_{i=1}^n a_i v_i = 0 \;\Longrightarrow\; a_i = 0 \text{ für alle } i.
+  \]
+  Sie heißen \textbf{linear abhängig}, falls eine nicht-triviale Darstellung
+  des Nullvektors durch $v_1,\ldots,v_n$ existiert.
+  \smallskip\\
+  \textbf{Spezialfälle:} Ein einzelner Vektor $v$ ist linear unabhängig genau
+  dann, wenn $v \neq 0$. Zwei Vektoren $v_1, v_2$ sind linear abhängig genau
+  dann, wenn einer ein skalares Vielfaches des anderen ist.
+}
+
+\gentry{7.1.6}{Proposition (Charakterisierung linear abhängiger Vektoren)}{%
+  $v_1,\ldots,v_n \in V$ sind linear abhängig genau dann, wenn es ein $i$
+  gibt, so dass
+  \[
+    v_i \in \langle v_1,\ldots,v_{i-1},v_{i+1},\ldots,v_n \rangle.
+  \]
+  \textbf{Kriterium:} $v_1,\ldots,v_n$ sind linear unabhängig genau dann,
+  wenn die Koeffizientenmatrix $\begin{pmatrix}v_1 & \cdots & v_n\end{pmatrix}$
+  (Spalten = Vektoren) den Rang $n$ hat.
+}
+
+% ======================================================================
+\section*{7.2 \quad Basen endlich erzeugter Vektorräume}
+
+\gentry{7.2.1}{Definition (Basis)}{%
+  Sei $V$ ein endlich erzeugter $K$-Vektorraum, $V \neq \{0\}$. Die Vektoren
+  $v_1,\ldots,v_n \in V$ heißen eine \textbf{Basis} von $V$, falls sie ein
+  Erzeugendensystem von $V$ sind und linear unabhängig sind.
+  \smallskip\\
+  Die \textbf{leere Menge} $\emptyset$ ist per Definition die Basis von $\{0\}$.
+}
+
+\gentry{7.2.4--7.2.6}{Standardbasen}{%
+  \begin{itemize}[topsep=2pt,itemsep=1pt]
+    \item $K^n$: Einheitsvektoren $e_1,\ldots,e_n$ (kanonische Basis).
+    \item $M_{mn}(K)$: Matrizen $E_{ij}$, $1 \le i \le m$, $1 \le j \le n$.
+    \item Polynome vom Grad $\le n$: $e_0 = 1,\, e_1 = T,\ldots,\, e_n = T^n$.
+  \end{itemize}
+}
+
+\gentry{7.2.7}{Proposition (Charakterisierung von Basen)}{%
+  $v_1,\ldots,v_n$ ist eine Basis von $V$ genau dann, wenn sich jedes
+  $v \in V$ \textbf{eindeutig} als Linearkombination $v = \sum_{i=1}^n a_i v_i$
+  schreiben lässt.
+}
+
+\gentry{7.2.8}{Proposition (Existenz von Basen)}{%
+  Sei $V \neq \{0\}$ endlich erzeugt.
+  \begin{enumerate}[label=(\alph*),topsep=2pt,itemsep=1pt]
+    \item Ist $v_1,\ldots,v_n$ ein Erzeugendensystem und gilt
+          $v_i \in \langle v_1,\ldots,\hat{v}_i,\ldots,v_n\rangle$, so ist
+          $v_1,\ldots,\hat{v}_i,\ldots,v_n$ ebenfalls ein Erzeugendensystem.
+    \item Jedes endliche Erzeugendensystem enthält eine Basis.
+  \end{enumerate}
+}
+
+\gentry{7.2.11}{Bemerkung}{%
+  Sei $V$ ein $K$-Vektorraum und $v_1,\ldots,v_n \in V$.
+  \begin{enumerate}[label=(\alph*),topsep=2pt,itemsep=1pt]
+    \item Sind $v_1,\ldots,v_n$ linear unabhängig und gilt
+          $v_{n+1} \notin \langle v_1,\ldots,v_n\rangle$, so sind
+          $v_1,\ldots,v_{n+1}$ linear unabhängig.
+    \item Ist $v_1,\ldots,v_n$ ein Erzeugendensystem von $V$, so sind
+          $v_1,\ldots,v_n,v_{n+1}$ für alle $v_{n+1} \in V$ linear abhängig.
+  \end{enumerate}
+}
+
+% ======================================================================
+\section*{7.3 \quad Der Austauschsatz von Steinitz}
+
+\gentry{7.3.1}{Lemma (Austauschlemma)}{%
+  Sei $u_1,\ldots,u_n$ eine Basis von $V$ und sei $v \in V$, $v \neq 0$. Dann
+  gibt es ein $i$ mit $1 \le i \le n$, so dass
+  \[
+    u_1,\ldots,u_{i-1},\; v,\; u_{i+1},\ldots,u_n
+  \]
+  eine Basis von $V$ ist. (Austausch: Der Basisvektor $u_i$ wird durch $v$
+  ersetzt, wenn der Koeffizient von $u_i$ in der Darstellung von $v$ bzgl.\ der
+  Basis ungleich Null ist.)
+}
+
+\gentry{7.3.3}{Satz (Austauschsatz von Steinitz)}{%
+  Sei $u_1,\ldots,u_n$ eine Basis von $V$ und seien $v_1,\ldots,v_m$ linear
+  unabhängige Vektoren in $V$. Dann gilt $n \ge m$, und es gibt Vektoren
+  $u_{i_{m+1}},\ldots,u_{i_n} \in \{u_1,\ldots,u_n\}$, so dass
+  \[
+    v_1,\ldots,v_m,\; u_{i_{m+1}},\ldots,u_{i_n}
+  \]
+  eine Basis von $V$ ist.
+}
+
+\gentry{7.3.4}{Korollar (Charakterisierung endlich erzeugter Vektorräume)}{%
+  $V$ ist endlich erzeugt genau dann, wenn es ein $n \in \mathbb{N}$ gibt, so
+  dass jede Menge von linear unabhängigen Vektoren in $V$ höchstens $n$
+  Elemente besitzt.
+}
+
+\gentry{7.3.5}{Korollar (Basisergänzungssatz)}{%
+  Sei $V$ endlich erzeugt und seien $w_1,\ldots,w_m$ linear unabhängig in $V$.
+  Dann lassen sich $w_1,\ldots,w_m$ zu einer Basis von $V$ ergänzen: Es gibt
+  $v_{m+1},\ldots,v_n$, so dass $w_1,\ldots,w_m,v_{m+1},\ldots,v_n$ eine Basis
+  von $V$ ist.
+}
+
+\gentry{7.3.6}{Korollar (Eindeutigkeit der Basismächtigkeit)}{%
+  Je zwei Basen eines endlich erzeugten Vektorraums $V$ haben die gleiche
+  Anzahl von Vektoren.
+}
+
+% ======================================================================
+\section*{7.4 \quad Dimension}
+
+\gentry{7.4.1}{Definition (Dimension)}{%
+  Sei $V$ ein $K$-Vektorraum.
+  \begin{enumerate}[label=(\alph*),topsep=2pt,itemsep=1pt]
+    \item $\dim_K(V) = \infty$, falls $V$ nicht endlich erzeugt ist.
+    \item $\dim_K(V) = n$, falls $V \neq \{0\}$ endlich erzeugt ist und jede
+          Basis aus $n$ Vektoren besteht.
+    \item $\dim_K(\{0\}) = 0$.
+  \end{enumerate}
+  \textbf{Beispiele:} $\dim(K^n) = n$,\; $\dim(M_{mn}(K)) = mn$,\;
+  $\dim(\text{Pol}_{\le n}) = n+1$.
+}
+
+\gentry{7.4.4}{Proposition}{%
+  Sei $\dim(V) = n < \infty$.
+  \begin{enumerate}[label=(\alph*),topsep=2pt,itemsep=1pt]
+    \item $n$ linear unabhängige Vektoren in $V$ bilden bereits eine Basis.
+    \item Ein Erzeugendensystem von $V$ mit genau $n$ Vektoren ist bereits eine
+          Basis.
+  \end{enumerate}
+  \textbf{Merke:} Bei bekannter Dimension genügt der Nachweis \emph{einer}
+  der beiden Basiseigenschaften.
+}
+
+\gentry{7.4.5}{Korollar (Dimensionsformel für Unterräume)}{%
+  Sei $U$ ein Unterraum des endlich erzeugten Vektorraums $V$. Dann gilt
+  \[
+    \dim(U) \le \dim(V),
+  \]
+  und Gleichheit gilt genau dann, wenn $U = V$.
+}
+
+\gentry{7.4.6}{Proposition (Dimensionsformel für Summe und Durchschnitt)}{%
+  Seien $U$ und $W$ endlichdimensionale Unterräume von $V$. Dann gilt
+  \[
+    \dim(U + W) = \dim(U) + \dim(W) - \dim(U \cap W).
+  \]
+  \textbf{Beweisskizze:} Basis $x_1,\ldots,x_r$ von $U \cap W$ durch
+  $u_1,\ldots,u_s$ zu Basis von $U$ und durch $w_1,\ldots,w_t$ zu Basis von
+  $W$ ergänzen; dann ist $x_1,\ldots,x_r,u_1,\ldots,u_s,w_1,\ldots,w_t$ eine
+  Basis von $U+W$.
+}
+
+% ======================================================================
+\section*{8.1 \quad Lineare Abbildungen: Definition und Eigenschaften}
+
+\gentry{8.1.1}{Definition (Lineare Abbildung / Vektorraumhomomorphismus)}{%
+  Seien $V, W$ $K$-Vektorräume. Eine Abbildung $f: V \to W$ heißt
+  \textbf{(K-)linear}, falls für alle $v_1,v_2 \in V$ und $a \in K$ gilt:
+  \[
+    f(v_1 + v_2) = f(v_1) + f(v_2), \qquad f(av) = af(v).
+  \]
+  Äquivalent: $f(\sum a_i v_i) = \sum a_i f(v_i)$ (Bild~8.1.11).
+}
+
+\gentry{8.1.4}{Bemerkung (Elementare Eigenschaften)}{%
+  Sei $f: V \to W$ linear. Dann gilt:
+  \begin{enumerate}[label=(\alph*),topsep=2pt,itemsep=1pt]
+    \item $f(0_V) = 0_W$.
+    \item $f(-v) = -f(v)$ für alle $v \in V$.
+  \end{enumerate}
+}
+
+\gentry{8.1.5}{Definition (Isomorphismus)}{%
+  Eine bijektive lineare Abbildung $f: V \to W$ heißt \textbf{Isomorphismus}.
+  Man schreibt $V \cong W$ und nennt $V$ und $W$ \textbf{isomorph}.
+}
+
+\gentry{8.1.8}{Proposition}{%
+  Ist $f: V \to W$ ein Isomorphismus, so ist auch $f^{-1}: W \to V$ ein
+  Isomorphismus.
+}
+
+\gentry{8.1.9}{Proposition (Komposition)}{%
+  Seien $f: U \to V$ und $g: V \to W$ lineare Abbildungen. Dann ist
+  $g \circ f: U \to W$ linear. Sind $f$ und $g$ Isomorphismen, so auch
+  $g \circ f$ (Kor.~8.1.10).
+}
+
+% ======================================================================
+\section*{8.2 \quad Isomorphe Vektorräume}
+
+\gentry{8.2.2}{Satz (Struktur endlich erzeugter Vektorräume)}{%
+  Sei $V$ endlich erzeugt und sei $B = (v_1,\ldots,v_n)$ eine Basis von $V$.
+  Die Abbildung
+  \[
+    \kappa_B: V \to K^n, \quad v = \textstyle\sum_{i=1}^n a_i v_i
+    \;\mapsto\; \begin{pmatrix}a_1\\\vdots\\a_n\end{pmatrix}
+  \]
+  ist ein Isomorphismus.
+}
+
+\gentry{8.2.4}{Definition (Koordinatenvektor)}{%
+  Sei $B$ eine Basis von $V$ und $v \in V$. Dann heißt $\kappa_B(v) \in K^n$
+  der \textbf{Koordinatenvektor} von $v$ bezüglich $B$.
+}
+
+\gentry{8.2.6}{Korollar}{%
+  Seien $V$ und $W$ endlich erzeugte $K$-Vektorräume.
+  \begin{enumerate}[label=(\alph*),topsep=2pt,itemsep=1pt]
+    \item $V \cong W \;\Leftrightarrow\; \dim(V) = \dim(W)$.
+    \item $\dim(V) = n \;\Rightarrow\; V \cong K^n$.
+  \end{enumerate}
+}
+
+% ======================================================================
+\section*{8.3 \quad Kern und Bild}
+
+\gentry{8.3.1}{Definition (Bild)}{%
+  Sei $f: V \to W$ linear. Das \textbf{Bild} von $f$ ist
+  \[
+    \mathrm{Bild}(f) = \{w \in W \mid \exists\, v \in V: f(v) = w\}.
+  \]
+  $\mathrm{Bild}(f)$ ist ein Unterraum von $W$ (Bem.~8.3.2).
+  Ist $v_1,\ldots,v_n$ eine Basis von $V$, so ist $f(v_1),\ldots,f(v_n)$
+  ein Erzeugendensystem von $\mathrm{Bild}(f)$ (Prop.~8.3.4).
+}
+
+\gentry{8.3.5}{Korollar}{%
+  Sei $v_1,\ldots,v_n$ eine Basis von $V$. Dann ist $f$ surjektiv genau dann,
+  wenn $f(v_1),\ldots,f(v_n)$ ein Erzeugendensystem von $W$ ist.
+}
+
+\gentry{8.3.7}{Definition (Kern)}{%
+  Sei $f: V \to W$ linear. Der \textbf{Kern} von $f$ ist
+  \[
+    \mathrm{Kern}(f) = \{v \in V \mid f(v) = 0\}.
+  \]
+  $\mathrm{Kern}(f)$ ist ein Unterraum von $V$ (Bem.~8.3.8).
+}
+
+\gentry{8.3.10}{Proposition}{%
+  $f: V \to W$ ist injektiv genau dann, wenn $\mathrm{Kern}(f) = \{0\}$.
+}
+
+\gentry{8.3.12}{Definition (Rang einer linearen Abbildung)}{%
+  $\mathrm{Rg}(f) := \dim(\mathrm{Bild}(f))$.
+}
+
+\gentry{8.3.13}{Satz}{%
+  Sei $\dim(V) = n$, sei $v_1,\ldots,v_r$ eine Basis von $\mathrm{Kern}(f)$ und
+  sei $v_1,\ldots,v_r,v_{r+1},\ldots,v_n$ eine Basis von $V$. Dann ist
+  $f(v_{r+1}),\ldots,f(v_n)$ eine Basis von $\mathrm{Bild}(f)$.
+}
+
+\gentry{8.3.14}{Korollar (Rangsatz)}{%
+  Sei $V$ endlich erzeugt und $f: V \to W$ linear. Dann gilt
+  \[
+    \dim(V) = \dim(\mathrm{Kern}(f)) + \mathrm{Rg}(f).
+  \]
+}
+
+\gentry{8.3.17}{Korollar}{%
+  Seien $V, W$ endlich erzeugt mit $\dim(V) = \dim(W)$, und sei $f: V \to W$
+  linear. Dann gilt:
+  \[
+    f \text{ surjektiv} \;\Longleftrightarrow\; f \text{ injektiv}
+    \;\Longleftrightarrow\; f \text{ bijektiv (Isomorphismus)}.
+  \]
+}
+
+\gentry{8.3.18}{Korollar}{%
+  Sei $v_1,\ldots,v_n$ eine Basis von $V$ und $f: V \to W$ linear.
+  \begin{enumerate}[label=(\alph*),topsep=2pt,itemsep=1pt]
+    \item $f$ injektiv $\Leftrightarrow$ $f(v_1),\ldots,f(v_n)$ Basis von $\mathrm{Bild}(f)$.
+    \item $f$ surjektiv $\Leftrightarrow$ $f(v_1),\ldots,f(v_n)$ Erzeugendensystem von $W$.
+    \item $f$ bijektiv $\Leftrightarrow$ $f(v_1),\ldots,f(v_n)$ Basis von $W$.
+  \end{enumerate}
+}
+
+\gentry{8.3.19}{Satz (Struktursatz endlich erzeugter Vektorräume)}{%
+  Seien $V, W$ endlich erzeugte $K$-Vektorräume.
+  \begin{enumerate}[label=(\alph*),topsep=2pt,itemsep=1pt]
+    \item $V \cong W \;\Leftrightarrow\; \dim(V) = \dim(W)$.
+    \item $\dim(V) = n \;\Rightarrow\; V \cong K^n$.
+  \end{enumerate}
+}
+
+% ======================================================================
+\section*{8.4 \quad Lineare Abbildungen und Basen}
+
+\gentry{8.4.1}{Satz (Beschreibung linearer Abbildungen durch Bilder einer Basis)}{%
+  Sei $v_1,\ldots,v_n$ eine Basis von $V$ und seien $w_1,\ldots,w_n \in W$
+  beliebig. Dann gibt es \textbf{genau eine} lineare Abbildung $f: V \to W$
+  mit $f(v_i) = w_i$ für alle $1 \le i \le n$.
+  \smallskip\\
+  \textbf{Merke:} Eine lineare Abbildung ist vollständig durch ihre Werte auf
+  einer Basis bestimmt.
+}
+
+\gentry{8.4.6}{Korollar}{%
+  Sei $\dim(V) = \dim(W) = n$, und seien $v_1,\ldots,v_n$ bzw.\ $w_1,\ldots,w_n$
+  Basen von $V$ bzw.\ $W$. Dann gibt es genau einen Isomorphismus $f: V \to W$
+  mit $f(v_i) = w_i$.
+}
+
+\gentry{8.4.8}{Definition (Basiswechsel)}{%
+  Sei $V$ endlich erzeugt und seien $B, B'$ zwei Basen von $V$. Der eindeutige
+  Isomorphismus, der $B$ in $B'$ überführt, heißt \textbf{Basiswechsel} (oder
+  Basistransformation) von $B$ nach $B'$.
+}
+
+% ======================================================================
+\section*{9.1 \quad Der Vektorraum $\mathrm{Hom}_K(V,W)$}
+
+\gentry{9.0.1}{Definition (System von Vektoren)}{%
+  Ein \textbf{System} von $n$ Vektoren $(v_1,\ldots,v_n)$ in $V$ ist ein
+  geordnetes $n$-Tupel. Im Gegensatz zur Menge ist die Reihenfolge wesentlich.
+  Basen werden als Systeme notiert.
+}
+
+\gentry{9.1.1}{Definition ($\mathrm{Hom}_K(V,W)$)}{%
+  $\mathrm{Hom}_K(V,W)$ ist die Menge aller linearen Abbildungen von $V$ nach
+  $W$, versehen mit punktweiser Addition $(f+g)(v) = f(v)+g(v)$ und
+  Skalarmultiplikation $(af)(v) = af(v)$.
+}
+
+\gentry{9.1.2}{Proposition}{%
+  $\mathrm{Hom}_K(V,W)$ ist ein $K$-Vektorraum.
+  Das neutrale Element ist die Nullabbildung $0: v \mapsto 0$.
+}
+
+\gentry{9.1.4}{Definition (Matrixdarstellung)}{%
+  Seien $B = (v_1,\ldots,v_n)$ eine Basis von $V$ und
+  $C = (w_1,\ldots,w_m)$ eine Basis von $W$, und sei $f: V \to W$ linear.
+  Schreibe $f(v_j) = \sum_{i=1}^m a_{ij} w_i$. Die \textbf{Matrixdarstellung}
+  von $f$ bezüglich $B$ und $C$ ist
+  \[
+    {}_C M_B(f) = (a_{ij}) \in M_{mn}(K),
+  \]
+  wobei die $j$-te Spalte der Koordinatenvektor von $f(v_j)$ bzgl.\ $C$ ist.
+}
+
+\gentry{9.1.9}{Satz (Darstellung linearer Abbildungen durch Matrizen)}{%
+  Die Abbildung ${}_C M_B: \mathrm{Hom}_K(V,W) \to M_{mn}(K)$ ist ein
+  Isomorphismus. Insbesondere ist jeder $m \times n$-Matrix $A$ genau eine
+  lineare Abbildung $f_A$ zugeordnet.
+}
+
+\gentry{9.1.10}{Korollar (Dimensionsformel für Homomorphismenräume)}{%
+  \[
+    \dim(\mathrm{Hom}_K(V,W)) = \dim(V) \cdot \dim(W).
+  \]
+}
+
+% ======================================================================
+\section*{9.2 \quad Koordinatenvektoren und Matrixdarstellungen}
+
+\gentry{9.2.1}{Proposition}{%
+  Seien $B$ Basis von $V$, $C$ Basis von $W$ und $f: V \to W$ linear.
+  Dann gilt für alle $v \in V$:
+  \[
+    {}_C M_B(f) \cdot \kappa_B(v) = \kappa_C(f(v)).
+  \]
+  \textbf{Merke:} Multiplikation der Matrixdarstellung mit dem Koordinatenvektor
+  liefert den Koordinatenvektor des Bildvektors.
+}
+
+\gentry{9.2.3}{Korollar}{%
+  $\mathrm{Kern}(f)$ ist isomorph zur Lösungsmenge $U$ des homogenen linearen
+  Gleichungssystems ${}_C M_B(f)\,x = 0$. Insbesondere:
+  $\dim(\mathrm{Kern}(f)) = \dim(U) = n - \mathrm{Rg}({}_C M_B(f))$.
+}
+
+\gentry{9.2.4}{Korollar}{%
+  $\mathrm{Rg}(f) = \mathrm{Rg}({}_C M_B(f))$.
+  Rang der linearen Abbildung = Rang ihrer Matrixdarstellung.
+}
+
+\gentry{9.2.5}{Korollar}{%
+  Sei $A \in M_{mn}(K)$ mit Spalten $v_1,\ldots,v_n$. Dann gilt
+  \[
+    \mathrm{Rg}(A) = \dim\langle v_1,\ldots,v_n \rangle.
+  \]
+  Zeilenrang und Spaltenrang einer Matrix stimmen überein.
+}
+
+% ======================================================================
+\section*{9.3 \quad Matrizenprodukt und Komposition}
+
+\gentry{9.3.1}{Proposition (Matrizenmultiplikation = Komposition)}{%
+  Seien $f: V \to W$ und $g: W \to X$ linear, und seien $B, C, D$ Basen von
+  $V, W$ bzw.\ $X$. Dann gilt
+  \[
+    {}_D M_B(g \circ f) = {}_D M_C(g) \cdot {}_C M_B(f).
+  \]
+  \textbf{Merke:} Matrizenmultiplikation entspricht der Komposition linearer
+  Abbildungen.
+}
+
+\gentry{9.3.2}{Aufgabe/Korollar (Inverse und Matrixdarstellung)}{%
+  Sei $f: V \to W$ ein Isomorphismus. Dann gilt
+  \[
+    {}_C M_B(f)^{-1} = {}_B M_C(f^{-1}).
+  \]
+  Invertierbarkeit der Matrixdarstellung entspricht dem Isomorphismus.
+}
+
+\gentry{9.3.3}{Korollar}{%
+  Seien $A' \in M_{ms}(K)$, $A'' \in M_{sn}(K)$ und $A = A'A''$. Dann gilt
+  \[
+    \mathrm{Rg}(A) \le \mathrm{Rg}(A') \quad\text{und}\quad
+    \mathrm{Rg}(A) \le \mathrm{Rg}(A'').
+  \]
+}
+
+\end{document}
