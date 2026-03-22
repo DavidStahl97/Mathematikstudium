@@ -1,0 +1,364 @@
+\documentclass[a4paper,12pt]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[ngerman]{babel}
+\usepackage{amsmath, amssymb}
+\usepackage{geometry}
+\usepackage{tikz}
+\usepackage{tikz-cd}
+\usetikzlibrary{shapes.geometric, arrows.meta, positioning, fit, backgrounds}
+\usepackage{parskip}
+\usepackage{titlesec}
+\usepackage{booktabs}
+\usepackage{enumitem}
+
+\geometry{left=3cm, right=3cm, top=2.5cm, bottom=2.5cm}
+
+\titleformat{\section}{\large\bfseries}{}{0em}{}[\titlerule]
+\titleformat{\subsection}{\normalsize\bfseries}{}{0em}{}
+
+\tikzset{
+  box/.style={rectangle, draw, rounded corners=3pt, text width=4.5cm,
+              align=center, minimum height=1.0cm, font=\small, inner sep=4pt},
+  boxw/.style={box, text width=5cm},
+  arrow/.style={-{Latex[length=2mm]}, thick},
+}
+
+\begin{document}
+
+\begin{center}
+  {\LARGE\bfseries Studierhinweise zu Lektion 2}\\[0.5em]
+  {\large Mathematische Grundlagen (Modul 61111)}
+\end{center}
+
+\vspace{1em}
+
+In dieser Lektion beginnt die eigentliche Lineare Algebra. Das zentrale Handwerkzeug
+ist der \textbf{Gaußalgorithmus} (Kapitel~4), mit dem Matrizen in Treppennormalform
+überführt werden. Er bildet die Grundlage für das Lösen linearer Gleichungssysteme
+(Kapitel~5) und für den abstrakten Begriff des Vektorraums (Kapitel~6), der das gesamte
+weitere Studium durchzieht.
+
+Besondere Aufmerksamkeit verdienen der Gaußalgorithmus und die Lösungsformel
+für lineare Gleichungssysteme – beide müssen Sie \emph{aktiv} beherrschen, nicht
+nur passiv verstehen. Rechnen Sie viele Beispiele, nutzen Sie die Maple-Apps in der
+Moodle-Lernumgebung, und arbeiten Sie die Aufgaben im Lehrtext durch.
+
+% -----------------------------------------------------------------------
+\section*{Struktur der Lektion 2}
+
+\begin{center}
+\begin{tikzpicture}[node distance=0.6cm and 0.8cm]
+
+  % Column headers
+  \node[font=\bfseries\small] (h1) at (0,0)    {Kapitel 4: Gaußalgorithmus};
+  \node[font=\bfseries\small] (h2) at (6.5,0)  {Kapitel 5: Lin. Gleichungssysteme};
+  \node[font=\bfseries\small] (h3) at (12,0) {Kapitel 6: Vektorräume};
+
+  % Chapter 4 boxes
+  \node[box, below=0.8cm of h1] (tnf)  {4.1 Treppennormalform\\Definition, Pivot-Positionen};
+  \node[box, below=0.5cm of tnf] (gau) {4.2 Gaußalgorithmus\\spaltenweise Umformung};
+  \node[box, below=0.5cm of gau] (tra) {4.3 Transformationsmatrix\\$\bigl(A\mid I_m\bigr)\to\bigl(T\mid S\bigr)$};
+  \node[box, below=0.5cm of tra] (ein) {4.4 Eindeutigkeit\\der Treppennormalform};
+  \node[box, below=0.5cm of ein] (rng) {4.5 Rang $\operatorname{Rg}(A)$\\Invertierbarkeit};
+
+  % Chapter 5 boxes
+  \node[box, below=0.8cm of h2] (lgs) {5.1 Definitionen\\$Ax=b$, Koeffizientenmatrix};
+  \node[box, below=0.5cm of lgs] (str) {5.2 Struktur der Lösungsmenge\\$L = \lambda_0 + U$};
+  \node[box, below=0.5cm of str] (los) {5.3 Zusammenfassung\\Merkregeln für $\lambda_0$ und $U$};
+
+  % Chapter 6 boxes
+  \node[box, below=0.8cm of h3] (vrd) {6.1 Vektorraum\\Axiome, Beispiele};
+  \node[box, below=0.5cm of vrd] (unt) {6.2 Unterräume\\Unterraumkriterium, $U+W$, $U\cap W$};
+  \node[box, below=0.5cm of unt] (erz) {6.3 Endlich erzeugte Vektorräume\\Linearkombination, Erzeugnis};
+
+  % Arrows within Kap 4
+  \draw[arrow] (tnf) -- (gau);
+  \draw[arrow] (gau) -- (tra);
+  \draw[arrow] (tra) -- (ein);
+  \draw[arrow] (ein) -- (rng);
+
+  % Arrows within Kap 5
+  \draw[arrow] (lgs) -- (str);
+  \draw[arrow] (str) -- (los);
+
+  % Arrows within Kap 6
+  \draw[arrow] (vrd) -- (unt);
+  \draw[arrow] (unt) -- (erz);
+
+  % Cross-chapter arrows
+  \draw[arrow] (rng.east) -- ++(0.3,0) |- (lgs.west);
+  \draw[arrow] (str.east) -- ++(0.3,0) |- (vrd.west);
+
+\end{tikzpicture}
+\end{center}
+
+\newpage
+
+% -----------------------------------------------------------------------
+\section*{Zielelement 4.1 -- Treppennormalformen}
+
+\subsection*{Lerninhalte}
+
+\begin{center}
+\begin{tikzpicture}[node distance=0.6cm and 1.0cm]
+  \node[box] (def) {Definition der Treppennormalform\\(vier Bedingungen)};
+  \node[box, below=0.5cm of def] (piv) {Pivot-Positionen $(i,j_i)$};
+  \node[box, below=0.5cm of piv] (bsp) {Beispiele und Gegenbeispiele\\in $M_{mn}(K)$};
+  \node[box, below=0.5cm of bsp] (inv) {Invertierbare Matrizen\\in Treppennormalform $\Leftrightarrow$ $I_m$};
+  \draw[arrow] (def) -- (piv);
+  \draw[arrow] (piv) -- (bsp);
+  \draw[arrow] (bsp) -- (inv);
+\end{tikzpicture}
+\end{center}
+
+\subsection*{Lernziele}
+
+Nach Durcharbeiten dieses Abschnitts sollten Sie:
+\begin{itemize}
+  \item die vier Bedingungen der Treppennormalform kennen und auf konkrete Matrizen
+        anwenden können,
+  \item entscheiden können, ob eine gegebene Matrix in Treppennormalform ist,
+        und gegebenenfalls die Pivot-Positionen angeben,
+  \item wissen, dass die einzige invertierbare Matrix in Treppennormalform die
+        Einheitsmatrix ist.
+\end{itemize}
+
+\subsection*{Selbstkontrollelement 4.1}
+
+Entscheiden Sie, welche der folgenden Matrizen in Treppennormalform sind, und
+geben Sie jeweils die Pivot-Positionen an:
+\[
+  A = \begin{pmatrix} 1 & 2 & 0 \\ 0 & 1 & 3 \\ 0 & 0 & 0 \end{pmatrix}, \quad
+  B = \begin{pmatrix} 0 & 1 & 0 \\ 0 & 0 & 1 \\ 0 & 0 & 1 \end{pmatrix}, \quad
+  C = \begin{pmatrix} 1 & 0 & 0 \\ 0 & 0 & 1 \\ 0 & 1 & 0 \end{pmatrix}.
+\]
+
+\newpage
+
+% -----------------------------------------------------------------------
+\section*{Zielelement 4.2 -- Der Gaußalgorithmus}
+
+\subsection*{Lerninhalte}
+
+\begin{center}
+\begin{tikzpicture}[node distance=0.6cm and 1.0cm]
+  \node[box] (idee) {Idee: spaltenweises Vorgehen};
+  \node[box, below=0.5cm of idee] (fal) {Drei Fälle pro Spalte:\\kein Pivot / Pivot direkt / Zeilentausch};
+  \node[box, below=0.5cm of fal] (alg) {Formaler Algorithmus\\(Satz 4.2.4)};
+  \node[box, below=0.5cm of alg] (tra) {Transformationsmatrix $S$\\via $\bigl(A\mid I_m\bigr)$};
+  \draw[arrow] (idee) -- (fal);
+  \draw[arrow] (fal) -- (alg);
+  \draw[arrow] (alg) -- (tra);
+\end{tikzpicture}
+\end{center}
+
+\subsection*{Lernziele}
+
+Nach Durcharbeiten dieses Abschnitts sollten Sie:
+\begin{itemize}
+  \item den Gaußalgorithmus sicher und fehlerfrei auf beliebige Matrizen anwenden können,
+  \item die Transformationsmatrix $S$ mit $SA = T$ (Treppennormalform) berechnen,
+  \item wissen, dass die Treppennormalform eindeutig ist (Satz~4.4.2), das Produkt
+        $S$ der Elementarmatrizen aber nicht.
+\end{itemize}
+
+\subsection*{Selbstkontrollelement 4.2}
+
+Überführen Sie die Matrix
+\[
+  A = \begin{pmatrix} 0 & 2 & -4 \\ 1 & 3 & -1 \\ 2 & 4 & 0 \end{pmatrix}
+\]
+durch elementare Zeilenumformungen in Treppennormalform und berechnen Sie dabei
+gleichzeitig die invertierbare Matrix $S$ mit $SA = T$.
+
+\newpage
+
+% -----------------------------------------------------------------------
+\section*{Zielelement 4.5 -- Rang und Invertierbarkeit}
+
+\subsection*{Lerninhalte}
+
+\begin{center}
+\begin{tikzpicture}[node distance=0.6cm and 1.0cm]
+  \node[box] (rng) {Definition $\operatorname{Rg}(A)$:\\Anzahl der Pivot-Positionen};
+  \node[box, below=0.5cm of rng] (inv) {Proposition 4.5.4:\\(a)--(d) äquivalent};
+  \node[box, below=0.5cm of inv] (kol) {Korollar 4.5.6:\\$CA = I_m \Rightarrow C = A^{-1}$};
+  \node[box, below=0.5cm of kol] (ber) {Berechnung von $A^{-1}$\\via Gaußalgorithmus};
+  \draw[arrow] (rng) -- (inv);
+  \draw[arrow] (inv) -- (kol);
+  \draw[arrow] (kol) -- (ber);
+\end{tikzpicture}
+\end{center}
+
+\subsection*{Lernziele}
+
+Nach Durcharbeiten dieses Abschnitts sollten Sie:
+\begin{itemize}
+  \item den Rang einer Matrix berechnen können,
+  \item die vier äquivalenten Charakterisierungen invertierbarer Matrizen
+        (Proposition~4.5.4) kennen und einsetzen können,
+  \item Korollar~4.5.6 verstehen: aus $CA = I_m$ folgt bereits die volle Invertierbarkeit,
+  \item die Inverse einer invertierbaren Matrix mit dem Gaußalgorithmus berechnen.
+\end{itemize}
+
+\subsection*{Selbstkontrollelement 4.5}
+
+Untersuchen Sie, ob $A = \begin{pmatrix} 2 & 1 \\ 4 & 3 \end{pmatrix}$ invertierbar ist,
+und berechnen Sie gegebenenfalls $A^{-1}$ mit dem Gaußalgorithmus.
+
+\newpage
+
+% -----------------------------------------------------------------------
+\section*{Zielelement 5 -- Lineare Gleichungssysteme}
+
+\subsection*{Lerninhalte}
+
+\begin{center}
+\begin{tikzpicture}[node distance=0.6cm and 1.0cm]
+  \node[box] (def) {$Ax = b$: Koeffizientenmatrix,\\erweiterte Matrix $A'$};
+  \node[box, below=0.5cm of def] (los) {Lösbarkeit: $\operatorname{Rg}(A) = \operatorname{Rg}(A')$};
+  \node[box, below=0.5cm of los] (par) {Partikuläre Lösung $\lambda_0$\\(Merkregel 5.2.9)};
+  \node[box, below=0.5cm of par] (hom) {Homogene Lösungsmenge $U$\\(Merkregel 5.2.16)};
+  \node[box, below=0.5cm of hom] (str) {$L = \lambda_0 + U$\\Eindeutigkeit $\Leftrightarrow \operatorname{Rg}(A) = n$};
+  \draw[arrow] (def) -- (los);
+  \draw[arrow] (los) -- (par);
+  \draw[arrow] (par) -- (hom);
+  \draw[arrow] (hom) -- (str);
+\end{tikzpicture}
+\end{center}
+
+\subsection*{Lernziele}
+
+Nach Durcharbeiten dieses Kapitels sollten Sie:
+\begin{itemize}
+  \item entscheiden können, ob ein lineares Gleichungssystem lösbar ist
+        (Vergleich der Ränge von $A$ und $A'$),
+  \item eine partikuläre Lösung mit der Merkregel~5.2.9 ablesen können,
+  \item die Lösungsmenge des zugehörigen homogenen Systems mit Merkregel~5.2.16
+        bestimmen können,
+  \item die vollständige Lösungsmenge als $\lambda_0 + U$ angeben und wissen,
+        wann das System genau eine Lösung hat.
+\end{itemize}
+
+\subsection*{Selbstkontrollelement 5}
+
+Lösen Sie das lineare Gleichungssystem über $\mathbb{R}$:
+\[
+  \begin{pmatrix} 1 & 2 & -1 & 3 \\ 2 & 4 & 0 & 2 \\ 1 & 2 & 1 & -1 \end{pmatrix}
+  \begin{pmatrix} x_1 \\ x_2 \\ x_3 \\ x_4 \end{pmatrix}
+  = \begin{pmatrix} 1 \\ 2 \\ 0 \end{pmatrix}.
+\]
+
+\newpage
+
+% -----------------------------------------------------------------------
+\section*{Zielelement 6.1 -- Vektorräume}
+
+\subsection*{Lerninhalte}
+
+\begin{center}
+\begin{tikzpicture}[node distance=0.6cm and 1.0cm]
+  \node[box] (mot) {Motivation: Vektoren im $\mathbb{R}^2$\\Parallelogramm-Gesetz};
+  \node[box, below=0.5cm of mot] (def) {Definition $K$-Vektorraum\\(3 Axiomengruppen)};
+  \node[box, below=0.5cm of def] (rec) {Rechenregeln (Prop.\ 6.1.4)\\$0v = 0$,\; $a \cdot 0 = 0$,\; $(-a)v = -av$};
+  \node[box, below=0.5cm of rec] (bsp) {Beispiele: $M_{mn}(K)$, $K^n$,\\$K[T]$, Lösungsmenge von $Ax=0$};
+  \draw[arrow] (mot) -- (def);
+  \draw[arrow] (def) -- (rec);
+  \draw[arrow] (rec) -- (bsp);
+\end{tikzpicture}
+\end{center}
+
+\subsection*{Lernziele}
+
+Nach Durcharbeiten dieses Abschnitts sollten Sie:
+\begin{itemize}
+  \item die Definition eines $K$-Vektorraums kennen und an neuen Beispielen
+        überprüfen können,
+  \item die Rechenregeln aus Proposition~6.1.4 aus den Axiomen herleiten können,
+  \item die wichtigsten Beispiele für Vektorräume (insbesondere $K^n$, $M_{mn}(K)$
+        und Lösungsmengen homogener Gleichungssysteme) kennen.
+\end{itemize}
+
+\subsection*{Selbstkontrollelement 6.1}
+
+Ist die Menge $V = \{f : \mathbb{R} \to \mathbb{R} \mid f(0) = 0\}$ mit der üblichen
+punktweisen Addition und Skalarmultiplikation ein $\mathbb{R}$-Vektorraum?
+Überprüfen Sie die Axiome.
+
+\newpage
+
+% -----------------------------------------------------------------------
+\section*{Zielelement 6.2 -- Unterräume}
+
+\subsection*{Lerninhalte}
+
+\begin{center}
+\begin{tikzpicture}[node distance=0.6cm and 1.0cm]
+  \node[box] (def) {Definition Unterraum\\$U \neq \emptyset$, Axiome vererbt};
+  \node[box, below=0.5cm of def] (kri) {Unterraumkriterium (Prop.\ 6.2.3):\\$0 \in U$, $+$-abgeschlossen, $\cdot$-abgeschlossen};
+  \node[box, below=0.5cm of kri] (dsc) {Durchschnitt $U \cap W$\\ist Unterraum};
+  \node[box, below=0.5cm of dsc] (sum) {Summe $U + W$\\ist Unterraum; $U \cup W$ i.\,A.\ nicht};
+  \draw[arrow] (def) -- (kri);
+  \draw[arrow] (kri) -- (dsc);
+  \draw[arrow] (dsc) -- (sum);
+\end{tikzpicture}
+\end{center}
+
+\subsection*{Lernziele}
+
+Nach Durcharbeiten dieses Abschnitts sollten Sie:
+\begin{itemize}
+  \item das Unterraumkriterium anwenden können, um Unterräume zu erkennen oder
+        zu widerlegen,
+  \item wissen, dass $U \cap W$ und $U + W$ Unterräume sind, $U \cup W$ aber
+        im Allgemeinen nicht,
+  \item Lösungsmengen homogener linearer Gleichungssysteme als Unterräume von $K^n$
+        einordnen können.
+\end{itemize}
+
+\subsection*{Selbstkontrollelement 6.2}
+
+Sei $V = \mathbb{R}^3$ und
+$U = \left\{ \begin{pmatrix} x \\ y \\ z \end{pmatrix} \in \mathbb{R}^3 \;\middle|\; x + y = 0 \right\}$.
+Zeigen Sie mit dem Unterraumkriterium, dass $U$ ein Unterraum von $\mathbb{R}^3$ ist.
+
+\newpage
+
+% -----------------------------------------------------------------------
+\section*{Zielelement 6.3 -- Endlich erzeugte Vektorräume}
+
+\subsection*{Lerninhalte}
+
+\begin{center}
+\begin{tikzpicture}[node distance=0.6cm and 1.0cm]
+  \node[box] (lkb) {Linearkombination\\$a_1 v_1 + \cdots + a_m v_m$};
+  \node[box, below=0.5cm of lkb] (erz) {Lineare Hülle $\langle S \rangle$\\ist Unterraum (Prop.\ 6.3.4)};
+  \node[box, below=0.5cm of erz] (es)  {Erzeugendensystem:\\$\langle S \rangle = V$};
+  \node[box, below=0.5cm of es]  (end) {Endlich erzeugter Vektorraum:\\$V = \langle v_1, \ldots, v_m \rangle$};
+  \node[box, below=0.5cm of end] (bsp) {Beispiele/Gegenbeispiel:\\$K^n$, $M_{mn}(K)$, Polynome $\le n$\\vs.\ $K[T]$ nicht endlich erzeugt};
+  \draw[arrow] (lkb) -- (erz);
+  \draw[arrow] (erz) -- (es);
+  \draw[arrow] (es) -- (end);
+  \draw[arrow] (end) -- (bsp);
+\end{tikzpicture}
+\end{center}
+
+\subsection*{Lernziele}
+
+Nach Durcharbeiten dieses Abschnitts sollten Sie:
+\begin{itemize}
+  \item Linearkombinationen bilden und die lineare Hülle einer Menge beschreiben können,
+  \item nachweisen oder widerlegen können, dass eine Menge $S$ ein Erzeugendensystem
+        von $V$ ist (durch Lösung eines linearen Gleichungssystems),
+  \item endlich erzeugte Vektorräume von nicht endlich erzeugten unterscheiden,
+  \item verstehen, warum $K[T]$ nicht endlich erzeugt ist.
+\end{itemize}
+
+\subsection*{Selbstkontrollelement 6.3}
+
+Liegt der Vektor $v = \begin{pmatrix} 1 \\ 2 \\ 3 \end{pmatrix}$ in der linearen Hülle von
+$v_1 = \begin{pmatrix} 1 \\ 0 \\ 1 \end{pmatrix}$ und $v_2 = \begin{pmatrix} 0 \\ 1 \\ 1 \end{pmatrix}$?
+Bestimmen Sie gegebenenfalls die Koeffizienten.
+
+\end{document}

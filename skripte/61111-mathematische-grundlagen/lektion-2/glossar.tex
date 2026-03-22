@@ -1,0 +1,315 @@
+\documentclass[a4paper,12pt]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[ngerman]{babel}
+\usepackage{amsmath, amssymb}
+\usepackage{geometry}
+\usepackage{parskip}
+\usepackage{titlesec}
+\usepackage{enumitem}
+\usepackage{array}
+\usepackage{booktabs}
+
+\geometry{left=3cm, right=3cm, top=2.5cm, bottom=2.5cm}
+
+\titleformat{\section}{\large\bfseries}{}{0em}{}[\titlerule]
+\titleformat{\subsection}{\normalsize\bfseries\scshape}{}{0em}{}
+
+% Glossar-Eintrag: Nummer, fetter Titel, Inhalt
+\newcommand{\gentry}[3]{%
+  \noindent\textbf{#1\quad #2}\nopagebreak\\[0.2em]
+  #3\par\smallskip
+}
+
+\begin{document}
+
+\begin{center}
+  {\LARGE\bfseries Glossar zu Lektion 2}\\[0.5em]
+  {\large Mathematische Grundlagen (Modul 61111)}
+\end{center}
+
+\vspace{1em}
+
+Dieses Glossar fasst die wesentlichen Definitionen, Merkregeln und Sätze der
+zweiten Lektion kompakt zusammen. Nummerierungen entsprechen dem Lehrtext.
+
+% ======================================================================
+\section*{4.1 \quad Treppennormalformen}
+
+\gentry{4.1.1}{Treppennormalform}{%
+  Eine Matrix $A \in M_{mn}(K)$ ist in \textbf{Treppennormalform}, wenn $A$ die
+  Nullmatrix ist oder wenn es $r$ Spaltenindizes $j_1 < j_2 < \cdots < j_r$ gibt,
+  sodass für alle $1 \le i \le r$ gilt:
+  \begin{enumerate}[label=(\roman*),topsep=2pt,itemsep=1pt]
+    \item $a_{ij_i} = 1$ (Pivot-Eintrag),
+    \item $a_{lj_i} = 0$ für alle $l \neq i$ (Nullen in der Pivot-Spalte),
+    \item $a_{il} = 0$ für alle $l < j_i$ (Nullen links des Pivots),
+    \item $a_{kl} = 0$ für alle $k > r$ und alle $1 \le l \le n$ (Nullzeilen am Ende).
+  \end{enumerate}
+}
+
+\gentry{4.1.2}{Pivot-Positionen}{%
+  Die Paare $(1,j_1),(2,j_2),\ldots,(r,j_r)$ der Treppennormalform heißen
+  \textbf{Pivot-Positionen} (gesprochen: Pivo-Positionen).
+}
+
+% ======================================================================
+\section*{4.2 \quad Der Gaußalgorithmus}
+
+\gentry{4.2}{Gaußalgorithmus}{%
+  Systematisches Verfahren, das jede Matrix $A \in M_{mn}(K)$ durch endlich
+  viele elementare Zeilenumformungen in Treppennormalform überführt.
+  Man arbeitet spaltenweise von links nach rechts:
+  \begin{enumerate}[label=\arabic*.,topsep=2pt,itemsep=1pt]
+    \item Falls alle Einträge $a_{it} = 0$ für $i \ge r$: Spalte überspringen.
+    \item Falls $a_{rt} \neq 0$: Zeile $r$ auf $1$ normieren, dann alle anderen
+          Einträge in Spalte $t$ auf $0$ bringen.
+    \item Falls $a_{rt} = 0$, aber $a_{it} \neq 0$ für ein $i > r$:
+          Zeile $r$ und Zeile $i$ tauschen, dann wie in Schritt~2 vorgehen.
+  \end{enumerate}
+}
+
+\gentry{4.2.4}{Satz (Existenz von Treppennormalformen)}{%
+  Sei $A \in M_{mn}(K)$. Dann gibt es Elementarmatrizen $E_1,\ldots,E_s \in M_{mm}(K)$,
+  so dass $E_s E_{s-1} \cdots E_1 A$ eine Matrix in Treppennormalform ist.
+}
+
+% ======================================================================
+\section*{4.3 \quad Transformationsmatrix}
+
+\gentry{4.3}{Transformationsmatrix $S$}{%
+  Zur Berechnung von $S$ mit $SA = T$ (Treppennormalform) schreibt man
+  $\bar{A} = \bigl(A \mid I_m\bigr)$ und führt auf $\bar{A}$ den Gaußalgorithmus durch.
+  Das Ergebnis ist $\bar{A}' = \bigl(T \mid S\bigr)$.
+  \smallskip\\
+  $S$ ist invertierbar (Produkt von Elementarmatrizen).
+}
+
+% ======================================================================
+\section*{4.4 \quad Eindeutigkeit der Treppennormalform}
+
+\gentry{4.4.1}{Lemma}{%
+  Seien $T, T' \in M_{mn}(K)$ in Treppennormalform, und sei $G \in M_{mm}(K)$
+  invertierbar mit $GT = T'$. Dann gilt $T = T'$.
+}
+
+\gentry{4.4.2}{Satz (Eindeutigkeit der Treppennormalform)}{%
+  Sei $A \in M_{mn}(K)$. Alle Matrizen in Treppennormalform, die durch elementare
+  Zeilenumformungen aus $A$ entstehen, sind gleich.
+  \smallskip\\
+  Man nennt diese eindeutige Matrix die \textbf{Treppennormalform zu $A$}.
+}
+
+\gentry{4.4.5}{Korollar}{%
+  Seien $A, B \in M_{mn}(K)$. Dann gilt:
+  $A$ und $B$ sind genau dann zeilenäquivalent, wenn sie dieselbe Treppennormalform haben.
+}
+
+% ======================================================================
+\section*{4.5 \quad Rang einer Matrix}
+
+\gentry{4.5.1}{Rang}{%
+  Sei $T$ die Treppennormalform zu $A \in M_{mn}(K)$. Die Anzahl der Pivot-Positionen
+  in $T$ heißt \textbf{Rang} von $A$: $\operatorname{Rg}(A)$.
+}
+
+\gentry{4.5.4}{Proposition (Invertierbare Matrizen)}{%
+  Sei $A \in M_{mm}(K)$. Folgende Aussagen sind äquivalent:
+  \begin{enumerate}[label=(\alph*),topsep=2pt,itemsep=1pt]
+    \item $A$ ist invertierbar.
+    \item Die Treppennormalform zu $A$ ist $I_m$.
+    \item $\operatorname{Rg}(A) = m$.
+    \item $A$ ist ein Produkt von Elementarmatrizen.
+  \end{enumerate}
+}
+
+\gentry{4.5.5}{Proposition (Ränge von Matrizen)}{%
+  Sei $A \in M_{mn}(K)$. Dann gilt:
+  \begin{itemize}[topsep=2pt,itemsep=1pt]
+    \item Ist $P \in M_{mm}(K)$ invertierbar, so gilt $\operatorname{Rg}(A) = \operatorname{Rg}(PA)$.
+    \item Ist $Q \in M_{nn}(K)$ invertierbar, so gilt $\operatorname{Rg}(A) = \operatorname{Rg}(AQ)$.
+    \item Ist $A = A'A''$, so gilt $\operatorname{Rg}(A) \le \operatorname{Rg}(A')$.
+  \end{itemize}
+}
+
+\gentry{4.5.6}{Korollar}{%
+  Seien $A, C \in M_{mm}(K)$ mit $CA = I_m$.
+  Dann sind $C$ und $A$ invertierbar, und es gilt $C = A^{-1}$.
+}
+
+% ======================================================================
+\section*{5.1 \quad Lineare Gleichungssysteme}
+
+\gentry{5.1.1}{Lineares Gleichungssystem}{%
+  Ein \textbf{lineares Gleichungssystem} über $K$ mit $m$ Zeilen und $n$
+  Unbestimmten $x_1,\ldots,x_n$ hat die Form $Ax = b$, wobei
+  $A = (a_{ij}) \in M_{mn}(K)$ die \textbf{Koeffizientenmatrix} ist.
+}
+
+\gentry{5.1.4}{Erweiterte Koeffizientenmatrix}{%
+  Die $m \times (n+1)$-Matrix $A' = \bigl(A \mid b\bigr)$ heißt
+  \textbf{erweiterte Koeffizientenmatrix} von $Ax = b$.
+  \smallskip\\
+  Das Gleichungssystem heißt \textbf{homogen}, falls $b = 0$, sonst \textbf{inhomogen}.
+}
+
+% ======================================================================
+\section*{5.2 \quad Struktur der Lösungsmenge}
+
+\gentry{5.2.1}{Proposition}{%
+  Sei $\lambda_0$ eine Lösung von $Ax = b$, und sei $U$ die Lösungsmenge des
+  zugehörigen homogenen Systems $Ax = 0$. Dann gilt:
+  \[
+    L = \lambda_0 + U := \{\lambda_0 + u \mid u \in U\}.
+  \]
+}
+
+\gentry{5.2.3}{Proposition}{%
+  Sei $P \in M_{mm}(K)$ invertierbar. Die Lösungsmengen von $Ax = b$ und $(PA)x = Pb$ stimmen überein.
+}
+
+\gentry{5.2.4}{Korollar}{%
+  Sind $A'$ und $B'$ zeilenäquivalente erweiterte Koeffizientenmatrizen, so
+  haben die zugehörigen Gleichungssysteme dieselbe Lösungsmenge.
+}
+
+\gentry{5.2.5}{Proposition (Lösbarkeit)}{%
+  Das System $Ax = b$ hat genau dann mindestens eine Lösung, wenn
+  \[
+    \operatorname{Rg}(A) = \operatorname{Rg}(A').
+  \]
+}
+
+\gentry{5.2.9}{Merkregel (partikuläre Lösung)}{%
+  Sei $T$ in Treppennormalform, $\operatorname{Rg}(T) = \operatorname{Rg}(T')$.
+  \begin{enumerate}[label=\arabic*.,topsep=2pt,itemsep=1pt]
+    \item Streiche alle Nullzeilen von $T'$.
+    \item Füge Nullzeilen so ein, dass die Matrix links des Striches quadratisch
+          wird und die Pivot-Elemente Diagonalelemente werden.
+  \end{enumerate}
+  Dann steht rechts des Striches eine partikuläre Lösung $\lambda_0$.
+}
+
+\gentry{5.2.11}{Satz (Struktur der Lösungsmenge)}{%
+  Sei $U$ die Lösungsmenge von $Ax = 0$, und sei $L$ die Lösungsmenge von $Ax = b$.
+  \begin{enumerate}[label=(\alph*),topsep=2pt,itemsep=1pt]
+    \item $Ax = b$ ist lösbar $\iff$ $\operatorname{Rg}(A) = \operatorname{Rg}(A')$.
+    \item Ist $\lambda_0$ eine Lösung, so gilt $L = \lambda_0 + U$.
+    \item $L$ und die Lösungsmenge von $Tx = d$ (Treppennormalform) stimmen überein.
+  \end{enumerate}
+}
+
+\gentry{5.2.14}{Korollar (Eindeutige Lösung)}{%
+  Besitzt $Ax = b$ eine Lösung, so ist sie genau dann eindeutig, wenn
+  $\operatorname{Rg}(A) = n$ (Anzahl der Unbestimmten).
+}
+
+\gentry{5.2.16}{Merkregel (homogene Lösungsmenge)}{%
+  Sei $T$ in Treppennormalform, $r = \operatorname{Rg}(T) < n$.
+  \begin{enumerate}[label=\arabic*.,topsep=2pt,itemsep=1pt]
+    \item Streiche alle Nullzeilen von $T$.
+    \item Füge Nullzeilen ein, sodass die Matrix quadratisch wird und Pivot-Elemente
+          auf der Diagonalen stehen.
+    \item Ersetze die Nullen auf der Diagonalen durch $-1$.
+    \item Die Spalten $S_1,\ldots,S_{n-r}$, in die $-1$ eingefügt wurde, spannen $U$ auf:
+          \[U = \{a_1 S_1 + \cdots + a_{n-r} S_{n-r} \mid a_i \in K\}.\]
+  \end{enumerate}
+  Ist $r = n$, so gilt $U = \{0\}$.
+}
+
+% ======================================================================
+\section*{6.1 \quad Vektorräume}
+
+\gentry{6.1.1}{Vektorraum}{%
+  Ein \textbf{$K$-Vektorraum} $V$ ist eine Menge mit einer Addition
+  $+: V \times V \to V$ und einer Skalarmultiplikation $\cdot: K \times V \to V$,
+  sodass folgende Axiome gelten:
+  \begin{enumerate}[label=(\roman*),topsep=2pt,itemsep=1pt]
+    \item Addition: kommutativ, assoziativ; neutrales Element $0 \in V$;
+          jedes $v \in V$ hat ein inverses Element $-v$.
+    \item Skalarmultiplikation: $(ab)v = a(bv)$;\quad $1 \cdot v = v$.
+    \item Distributivgesetze: $a(v_1+v_2) = av_1+av_2$;\quad $(a+b)v = av+bv$.
+  \end{enumerate}
+  Elemente von $V$ heißen \textbf{Vektoren}, Elemente von $K$ heißen
+  \textbf{Skalare}.
+}
+
+\gentry{6.1.4}{Proposition (Rechenregeln)}{%
+  Sei $V$ ein $K$-Vektorraum. Dann gilt:
+  \begin{enumerate}[label=(\alph*),topsep=2pt,itemsep=1pt]
+    \item $0 \cdot v = 0$ für alle $v \in V$.
+    \item $a \cdot 0 = 0$ für alle $a \in K$.
+    \item $(-a)v = -(av) = a(-v)$ für alle $a \in K$, $v \in V$.
+  \end{enumerate}
+}
+
+\gentry{}{Beispiele für Vektorräume}{%
+  \begin{itemize}[topsep=2pt,itemsep=1pt]
+    \item $M_{mn}(K)$ mit Matrix-Addition und Skalarmultiplikation.
+    \item $K^n = M_{n1}(K)$: Spalten der Länge $n$.
+    \item Lösungsmenge $U$ eines homogenen Systems $Ax = 0$ (Unterraum von $K^n$).
+    \item $K[T]$: Polynome über $K$ (nicht endlich erzeugt).
+    \item Polynome vom Grad $\le n$: endlich erzeugt.
+  \end{itemize}
+}
+
+% ======================================================================
+\section*{6.2 \quad Unterräume}
+
+\gentry{6.2.1}{Unterraum}{%
+  Eine nicht leere Teilmenge $U \neq \emptyset$ eines $K$-Vektorraums $V$ heißt
+  \textbf{Unterraum}, wenn $U$ mit den Verknüpfungen aus $V$ selbst ein Vektorraum ist.
+}
+
+\gentry{6.2.3}{Proposition (Unterraumkriterium)}{%
+  $U \subseteq V$ ist genau dann ein Unterraum, wenn:
+  \begin{enumerate}[label=(\alph*),topsep=2pt,itemsep=1pt]
+    \item $0 \in U$,
+    \item $u_1 + u_2 \in U$ für alle $u_1, u_2 \in U$,
+    \item $au \in U$ für alle $a \in K$, $u \in U$.
+  \end{enumerate}
+}
+
+\gentry{6.2.7}{Proposition (Durchschnitt)}{%
+  Sind $U$ und $W$ Unterräume von $V$, so ist $U \cap W$ ein Unterraum von $V$.
+}
+
+\gentry{6.2.9}{Summe von Unterräumen}{%
+  Sind $U$ und $W$ Unterräume von $V$, so ist
+  \[
+    U + W := \{u + w \mid u \in U,\, w \in W\}
+  \]
+  ein Unterraum von $V$. Es gilt $U \cup W \subseteq U + W$.
+}
+
+% ======================================================================
+\section*{6.3 \quad Endlich erzeugte Vektorräume}
+
+\gentry{6.3.1}{Linearkombination}{%
+  $a_1 v_1 + \cdots + a_m v_m$ heißt \textbf{Linearkombination} der Vektoren
+  $v_1,\ldots,v_m \in V$ mit Koeffizienten $a_i \in K$.
+}
+
+\gentry{6.3.2}{Lineare Hülle (Erzeugnis)}{%
+  Die Menge aller Linearkombinationen endlich vieler Vektoren aus $S \subseteq V$
+  heißt \textbf{lineare Hülle} oder \textbf{Erzeugnis} von $S$:
+  \[
+    \langle S \rangle. \qquad \text{Für } S = \emptyset \text{ setzt man } \langle \emptyset \rangle := \{0\}.
+  \]
+  $\langle S \rangle$ ist stets ein Unterraum von $V$ (Prop. 6.3.4).
+}
+
+\gentry{6.3.6}{Erzeugendensystem}{%
+  $S \subseteq V$ heißt \textbf{Erzeugendensystem} von $V$, wenn $\langle S \rangle = V$.
+}
+
+\gentry{6.3.8}{Endlich erzeugter Vektorraum}{%
+  $V$ heißt \textbf{endlich erzeugt}, wenn es eine endliche Menge
+  $\{v_1,\ldots,v_m\}$ mit $V = \langle v_1,\ldots,v_m \rangle$ gibt.
+  \smallskip\\
+  Beispiele: $K^n$, $M_{mn}(K)$, Polynome vom Grad $\le n$, Lösungsmenge von $Ax=0$.
+  \smallskip\\
+  Gegenbeispiel: $K[T]$ ist \emph{nicht} endlich erzeugt.
+}
+
+\end{document}
