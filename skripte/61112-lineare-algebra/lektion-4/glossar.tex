@@ -1,0 +1,136 @@
+\documentclass[a4paper,12pt]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[ngerman]{babel}
+\usepackage{amsmath, amssymb}
+\usepackage{geometry}
+\usepackage{parskip}
+\usepackage{titlesec}
+\usepackage{enumitem}
+
+\geometry{left=3cm, right=3cm, top=2.5cm, bottom=2.5cm}
+\titleformat{\section}{\large\bfseries}{}{0em}{}[\titlerule]
+
+\newcommand{\gentry}[3]{%
+  \noindent\textbf{#1\quad #2}\nopagebreak\\[0.2em]
+  #3\par\smallskip
+}
+
+\begin{document}
+
+\begin{center}
+  {\LARGE\bfseries Glossar zu Lektion 4}\\[0.5em]
+  {\large Lineare Algebra (Modul 61112)}
+\end{center}
+
+\vspace{0.8em}
+
+% ======================================================================
+\section*{4.1 \quad Symmetrische Gruppen}
+
+\gentry{4.1.1/2}{Symmetrische Gruppe $S_n$}{%
+  $S_n := \mathrm{Sym}(\{1,\ldots,n\})$ ist die Gruppe aller bijektiven Selbstabbildungen von $\{1,\ldots,n\}$ unter Komposition. Die Elemente heißen \textbf{Permutationen}.
+}
+
+\gentry{4.1.3}{Satz}{$|S_n| = n!$.}
+
+\gentry{4.1.14}{Transposition}{%
+  Eine Permutation, die genau zwei Elemente vertauscht und alle anderen festlässt, heißt \textbf{Transposition}.
+}
+
+\gentry{4.1.16}{Satz}{%
+  Jede Permutation $\sigma \in S_n$ lässt sich als Komposition von Transpositionen schreiben.
+}
+
+\gentry{4.1.18}{Fehlstand}{%
+  Ein Paar $(i,j)$ mit $i < j$ und $\sigma(i) > \sigma(j)$ heißt \textbf{Fehlstand} von $\sigma$.
+}
+
+\gentry{4.1.20}{Signatur (Vorzeichen)}{%
+  $\mathrm{sgn}(\sigma) := (-1)^{f(\sigma)}$, wobei $f(\sigma)$ die Anzahl der Fehlstände ist.
+  Permutationen mit $\mathrm{sgn} = +1$ heißen \textbf{gerade}, mit $\mathrm{sgn} = -1$ \textbf{ungerade}.
+}
+
+\gentry{4.1.24}{Satz von der Signatur}{%
+  $\mathrm{sgn}: S_n \to \{+1,-1\}$ ist ein Gruppenhomomorphismus: $\mathrm{sgn}(\sigma\tau) = \mathrm{sgn}(\sigma)\cdot\mathrm{sgn}(\tau)$.
+  Jede Transposition hat Signatur $-1$.
+}
+
+% ======================================================================
+\section*{4.2 \quad Determinante}
+
+\gentry{4.2.1}{Leibniz-Formel}{%
+  Für $A = (a_{ij}) \in M_{n,n}(R)$:
+  \[
+    \det(A) = \sum_{\sigma \in S_n} \mathrm{sgn}(\sigma) \cdot a_{1,\sigma(1)} \cdot a_{2,\sigma(2)} \cdots a_{n,\sigma(n)}.
+  \]
+  Speziell: $\det\begin{pmatrix}a&b\\c&d\end{pmatrix} = ad - bc$.
+}
+
+\gentry{4.2.13}{Korollar (Dreiecksmatrix)}{%
+  Für obere (oder untere) Dreiecksmatrizen: $\det(A) = a_{11} \cdot a_{22} \cdots a_{nn}$.
+}
+
+\gentry{4.2.17}{Charakterisierungssatz}{%
+  Die Determinante ist die eindeutige Abbildung $\det: M_{n,n}(K) \to K$ mit:
+  \begin{enumerate}[label=(\roman*), topsep=2pt, itemsep=1pt]
+    \item Multilinear in den Spalten (oder Zeilen).
+    \item Alternierend: Vertauschen zweier Spalten wechselt das Vorzeichen.
+    \item Normiert: $\det(I_n) = 1$.
+  \end{enumerate}
+  Folgerung: $\det(A) = 0 \iff A$ nicht invertierbar; $\det(A^\top) = \det(A)$.
+}
+
+\gentry{4.2.20}{Weitere Eigenschaften}{%
+  \begin{itemize}[topsep=2pt, itemsep=1pt]
+    \item Elementare Zeilenumformungen: $Z_{ij}$ wechselt Vorzeichen; $Z_i(r)$ multipliziert mit $r$; $Z_{ij}(s)$ ändert det nicht.
+    \item Hat $A$ zwei gleiche Zeilen: $\det(A) = 0$.
+  \end{itemize}
+}
+
+\gentry{4.2.21}{Multiplikationssatz}{%
+  $\det(AB) = \det(A) \cdot \det(B)$ für alle $A, B \in M_{n,n}(K)$.
+  Folgerung: $\det(A^{-1}) = \det(A)^{-1}$.
+}
+
+\gentry{4.2.26}{Korollar (Ähnliche Matrizen)}{%
+  Ähnliche Matrizen ($B = S^{-1}AS$) haben dieselbe Determinante.
+}
+
+% ======================================================================
+\section*{4.3 \quad Minoren und Adjunkte}
+
+\gentry{4.3.1}{Minor}{%
+  Für $A \in M_{n,n}(K)$ sei $A_{ij}$ die $(n{-}1){\times}(n{-}1)$-Matrix, die durch Streichen der $i$-ten Zeile und $j$-ten Spalte entsteht. Der \textbf{Minor} ist $\det(A_{ij})$.
+}
+
+\gentry{4.3.7}{Entwicklungssatz (Laplace)}{%
+  Entwicklung nach der $i$-ten Zeile:
+  \[
+    \det(A) = \sum_{j=1}^n (-1)^{i+j} a_{ij} \det(A_{ij}).
+  \]
+  Analog ist Entwicklung nach einer Spalte möglich.
+}
+
+\gentry{4.3.11}{Adjunkte}{%
+  Die \textbf{Adjunkte} von $A$ ist $\mathrm{adj}(A) := ((-1)^{i+j}\det(A_{ji}))_{i,j}$ (transponierte Kofaktorenmatrix).
+}
+
+\gentry{4.3.14}{Adjunktensatz}{%
+  $A \cdot \mathrm{adj}(A) = \mathrm{adj}(A) \cdot A = \det(A) \cdot I_n$.
+  Folgerung (Cramer'sche Regel): Ist $\det(A) \neq 0$, so gilt $A^{-1} = \dfrac{1}{\det(A)}\,\mathrm{adj}(A)$.
+}
+
+% ======================================================================
+\section*{4.4 \quad Determinante von Endomorphismen}
+
+\gentry{4.4.5}{Definition $\det(\varphi)$}{%
+  Für $\varphi \in \mathrm{End}(V)$ und eine Basis $B$ von $V$: $\det(\varphi) := \det(M_B(\varphi))$.
+  Dies ist wohldefiniert, da ähnliche Matrizen dieselbe Determinante haben.
+}
+
+\gentry{}{Invertierbarkeit}{%
+  $\varphi$ ist ein Isomorphismus $\iff$ $\det(\varphi) \neq 0$.
+}
+
+\end{document}

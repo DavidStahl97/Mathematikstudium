@@ -1,0 +1,110 @@
+\documentclass[a4paper,12pt]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[ngerman]{babel}
+\usepackage{amsmath, amssymb}
+\usepackage{geometry}
+\usepackage{parskip}
+\usepackage{titlesec}
+\usepackage{enumitem}
+
+\geometry{left=3cm, right=3cm, top=2.5cm, bottom=2.5cm}
+\titleformat{\section}{\large\bfseries}{}{0em}{}[\titlerule]
+
+\newcommand{\gentry}[3]{%
+  \noindent\textbf{#1\quad #2}\nopagebreak\\[0.2em]
+  #3\par\smallskip
+}
+
+\begin{document}
+
+\begin{center}
+  {\LARGE\bfseries Glossar zu Lektion 5}\\[0.5em]
+  {\large Lineare Algebra (Modul 61112)}
+\end{center}
+
+\vspace{0.8em}
+
+% ======================================================================
+\section*{5.1 \quad Normalformproblem}
+
+\gentry{5.1.2}{Normalformproblem}{%
+  Zu $\varphi \in \mathrm{End}(V)$: Finde eine geordnete Basis $B$, sodass $M_B(\varphi)$ möglichst einfach ist.
+  Äquivalent für Matrizen: Finde ein Vertretersystem der Ähnlichkeitsklassen in $M_{n,n}(K)$.
+  Zwei Endomorphismen sind \textbf{ähnlich} (bzgl.\ Basiswechsel), wenn ihre Matrixdarstellungen ähnlich sind: $B' = S^{-1}BS$.
+}
+
+\gentry{5.1.5}{Invarianter Unterraum}{%
+  $U \subseteq V$ heißt $\varphi$-\textbf{invariant}, wenn $\varphi(u) \in U$ für alle $u \in U$.
+  Dann ist $\varphi|_U : U \to U$ ein Endomorphismus von $U$.
+}
+
+\gentry{5.1.13}{Satz (Blockdiagonalform)}{%
+  Ist $V = U_1 \oplus \cdots \oplus U_k$ mit $\varphi$-invarianten Unterräumen, so hat $M_B(\varphi)$ bzgl.\ der vereinigten Basis Blockdiagonalgestalt.
+}
+
+% ======================================================================
+\section*{5.2 \quad Eigenwerte, Eigenvektoren, Diagonalisierbarkeit}
+
+\gentry{5.2.1}{Eigenvektor, Eigenwert}{%
+  $v \neq 0$ heißt \textbf{Eigenvektor} von $\varphi$ zum \textbf{Eigenwert} $\lambda \in K$, wenn $\varphi(v) = \lambda v$.
+  $\lambda$ ist Eigenwert $\iff$ $\varphi - \lambda \cdot \mathrm{id}_V$ ist \emph{nicht} bijektiv.
+}
+
+\gentry{5.2.8}{Eigenraum}{%
+  Zu $\lambda \in K$: $E_\lambda(\varphi) := \ker(\varphi - \lambda \cdot \mathrm{id}_V)$. Dies ist ein $\varphi$-invarianter Unterraum.
+}
+
+\gentry{5.2.10}{Geometrische Vielfachheit}{%
+  $\mathrm{gVfh}(\lambda) := \dim E_\lambda(\varphi) \geq 1$ (wenn $\lambda$ Eigenwert).
+}
+
+\gentry{5.2.13}{Lemma}{%
+  Die Summe der Eigenräume zu verschiedenen Eigenwerten ist direkt:
+  $E_{\lambda_1} + \cdots + E_{\lambda_r} = E_{\lambda_1} \oplus \cdots \oplus E_{\lambda_r}$.
+}
+
+\gentry{5.2}{Diagonalisierbarkeit}{%
+  $\varphi$ heißt \textbf{diagonalisierbar}, wenn $V$ eine Basis aus Eigenvektoren besitzt.
+  Äquivalent: $V = E_{\lambda_1} \oplus \cdots \oplus E_{\lambda_r}$ (direkte Summe aller Eigenräume).
+}
+
+% ======================================================================
+\section*{5.3 \quad Charakteristisches Polynom und Minimalpolynom}
+
+\gentry{5.3.1}{Charakteristisches Polynom}{%
+  $\chi_\varphi(X) := \det(X \cdot \mathrm{id}_V - \varphi) \in K[X]$. Dies ist ein normiertes Polynom vom Grad $n = \dim V$.
+  \textbf{Eigenwerte} von $\varphi$ sind genau die Nullstellen von $\chi_\varphi$.
+}
+
+\gentry{5.3}{Algebraische Vielfachheit}{%
+  Die \textbf{algebraische Vielfachheit} $\mathrm{aVfh}(\lambda)$ ist die Vielfachheit von $\lambda$ als Nullstelle von $\chi_\varphi$.
+  Es gilt stets: $\mathrm{gVfh}(\lambda) \leq \mathrm{aVfh}(\lambda)$.
+}
+
+\gentry{5.3.32}{Minimalpolynom}{%
+  Das \textbf{Verschwindungsideal} $I(\varphi) := \{f \in K[X] \mid f(\varphi) = 0\}$ ist ein Ideal in $K[X]$.
+  Der normierte Erzeuger $\mu_\varphi$ heißt \textbf{Minimalpolynom} von $\varphi$.
+  Es ist der eindeutige normierte Teiler kleinsten Grades mit $\mu_\varphi(\varphi) = 0$.
+}
+
+\gentry{5.3.39}{Satz}{%
+  Die Nullstellen von $\mu_\varphi$ sind genau die Eigenwerte von $\varphi$.
+}
+
+\gentry{5.3.42}{Satz von Cayley-Hamilton}{%
+  $\chi_\varphi(\varphi) = 0$, d.\,h.\ $\mu_\varphi \mid \chi_\varphi$.
+}
+
+% ======================================================================
+\section*{5.4 \quad Stochastische Matrizen}
+
+\gentry{5.4.1}{Stochastische Matrix}{%
+  $A \in M_{n,n}(\mathbb{R})$ heißt \textbf{(spalten)stochastisch}, wenn alle Einträge $\geq 0$ sind und jede Spalte die Summe~$1$ hat: $\sum_i a_{ij} = 1$.
+}
+
+\gentry{5.4.6}{Satz von Perron}{%
+  Jede \textbf{positive} stochastische Matrix ($a_{ij} > 0$) hat den Eigenwert~$1$ mit geometrischer Vielfachheit~$1$. Alle anderen Eigenwerte haben Betrag $< 1$.
+}
+
+\end{document}

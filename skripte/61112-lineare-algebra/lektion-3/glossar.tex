@@ -1,0 +1,153 @@
+\documentclass[a4paper,12pt]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[ngerman]{babel}
+\usepackage{amsmath, amssymb}
+\usepackage{geometry}
+\usepackage{parskip}
+\usepackage{titlesec}
+\usepackage{enumitem}
+
+\geometry{left=3cm, right=3cm, top=2.5cm, bottom=2.5cm}
+\titleformat{\section}{\large\bfseries}{}{0em}{}[\titlerule]
+
+\newcommand{\gentry}[3]{%
+  \noindent\textbf{#1\quad #2}\nopagebreak\\[0.2em]
+  #3\par\smallskip
+}
+
+\begin{document}
+
+\begin{center}
+  {\LARGE\bfseries Glossar zu Lektion 3}\\[0.5em]
+  {\large Lineare Algebra (Modul 61112)}
+\end{center}
+
+\vspace{0.8em}
+
+% ======================================================================
+\section*{3.1 \quad Bilinearformen}
+
+\gentry{3.1.1}{Bilinearform}{%
+  Sei $K$ ein Körper, $U$ ein $K$-Vektorraum. Eine Abbildung $\beta: U \times U \to K$ heißt \textbf{Bilinearform}, wenn sie linear in beiden Argumenten ist:
+  \begin{enumerate}[label=(\alph*), topsep=2pt, itemsep=1pt]
+    \item $\beta(au + u', v) = a\beta(u,v) + \beta(u',v)$,
+    \item $\beta(u, av + v') = a\beta(u,v) + \beta(u,v')$.
+  \end{enumerate}
+}
+
+\gentry{3.1.9}{Satz}{%
+  $\mathrm{Bil}_K(U)$, die Menge aller Bilinearformen auf $U$, ist ein $K$-Vektorraum.
+}
+
+\gentry{3.1.10}{Matrixdarstellung}{%
+  Sei $B = (b_1,\ldots,b_n)$ eine geordnete Basis von $U$. Die \textbf{Matrixdarstellung} von $\beta$ bzgl.\ $B$ ist $M_B(\beta) := (\beta(b_i, b_j))_{i,j} \in M_{n,n}(K)$.
+}
+
+\gentry{3.1.14}{Satz}{%
+  Eine Bilinearform $\beta$ ist durch ihre Matrixdarstellung $M_B(\beta)$ eindeutig bestimmt.
+  $\dim \mathrm{Bil}_K(U) = n^2$.
+}
+
+\gentry{3.1.17}{Transformationsformel}{%
+  Sei $S = M_{BB'}(\mathrm{id}_U)$ die Basiswechselmatrix. Dann gilt:
+  \[
+    M_{B'}(\beta) = S^\top \cdot M_B(\beta) \cdot S.
+  \]
+}
+
+\gentry{3.1.22}{Kongruenz}{%
+  Zwei Matrizen $A, B \in M_{n,n}(K)$ heißen \textbf{kongruent} ($A \sim_K B$), wenn es eine invertierbare Matrix $S$ gibt mit $B = S^\top A S$.
+  Zwei Bilinearformen $\beta_1, \beta_2$ heißen kongruent, wenn ihre Matrixdarstellungen kongruent sind.
+}
+
+\gentry{3.1.37}{Regulär / ausgeartet}{%
+  Eine Bilinearform $\beta$ auf $U$ heißt \textbf{regulär}, wenn die zugehörige lineare Abbildung $\beta^{(1)}: U \to U^*$, $u \mapsto \beta(u,-)$, ein Isomorphismus ist. Andernfalls heißt $\beta$ \textbf{ausgeartet}.
+  Äquivalent: $\det(M_B(\beta)) \neq 0$.
+}
+
+\gentry{3.1.43}{Zerlegungssatz}{%
+  Sei $\beta$ eine Bilinearform auf $U$ und $U_0 \subseteq U$ ein \textbf{regulärer Unterraum} (d.\,h.\ $\beta|_{U_0}$ regulär). Dann gilt $U = U_0 \oplus U_0^\perp$.
+}
+
+\gentry{3.1.44/45}{Rang und Nullraum}{%
+  Der \textbf{Rang} $\mathrm{Rg}(\beta) := \mathrm{Rg}(M_B(\beta))$.
+  Der \textbf{Nullraum} $\mathrm{Rad}(\beta) := \ker(\beta^{(1)}) = \{u \in U \mid \beta(u,v) = 0 \; \forall\, v\}$.
+}
+
+\gentry{3.1.47}{Dimensionsformel}{%
+  $\dim U = \mathrm{Rg}(\beta) + \dim \mathrm{Rad}(\beta)$.
+}
+
+% ======================================================================
+\section*{3.2 \quad Symmetrische Bilinearformen}
+
+\gentry{3.2.1}{Symmetrische Bilinearform}{%
+  $\beta$ heißt \textbf{symmetrisch}, wenn $\beta(u,v) = \beta(v,u)$ für alle $u, v \in U$.
+  Äquivalent: $M_B(\beta)$ ist symmetrisch für jede Basis $B$.
+}
+
+\gentry{3.2.10}{Polarisationsformel}{%
+  Für symmetrisches $\beta$ (mit $\mathrm{char}(K) \neq 2$):
+  $\beta(u,v) = \tfrac{1}{2}\bigl(\beta(u+v,u+v) - \beta(u,u) - \beta(v,v)\bigr)$.
+}
+
+\gentry{3.2.11}{Diagonalisierungssatz}{%
+  Sei $\beta$ eine symmetrische Bilinearform auf dem endlich-dimensionalen $K$-Vektorraum $U$ mit $\mathrm{char}(K) \neq 2$. Dann gibt es eine Basis $B'$, sodass $M_{B'}(\beta)$ eine Diagonalmatrix ist.
+}
+
+\gentry{3.2.17/19}{Klassifikation über $\mathbb{C}$}{%
+  Jede symmetrische Bilinearform über $\mathbb{C}$ mit Rang $r$ ist kongruent zur Form mit Matrix $\mathrm{diag}(1,\ldots,1,0,\ldots,0)$ ($r$ Einsen).
+}
+
+\gentry{3.2.25}{Trägheitssatz (Sylvester)}{%
+  Jede reelle symmetrische Bilinearform mit Rang $r$ ist kongruent zu einer Diagonalform mit $p$ Einsen und $q = r-p$ negativen Einsen. Die \textbf{Signatur} $(p,q)$ ist unabhängig von der Wahl der Diagonalisierung.
+}
+
+\gentry{3.2.26}{Typ}{%
+  Der \textbf{Typ} einer reellen symmetrischen Bilinearform ist die Signatur $(p,q)$. Zwei Formen sind kongruent genau dann, wenn sie denselben Typ haben.
+}
+
+\gentry{3.2.30}{Normalform über $\mathbb{R}$}{%
+  Die Normalform ist $\mathrm{diag}(\underbrace{1,\ldots,1}_{p},\underbrace{-1,\ldots,-1}_{q},\underbrace{0,\ldots,0}_{n-r})$.
+}
+
+\gentry{}{Positiv/negativ (semi)definit}{%
+  \begin{itemize}[topsep=2pt,itemsep=1pt]
+    \item \textbf{positiv definit}: $\beta(u,u) > 0$ für alle $u \neq 0$ ($q = 0$, $r = n$).
+    \item \textbf{negativ definit}: $\beta(u,u) < 0$ für alle $u \neq 0$ ($p = 0$, $r = n$).
+    \item \textbf{positiv semidefinit}: $\beta(u,u) \geq 0$ für alle $u$ ($q = 0$).
+    \item \textbf{indefinit}: $p > 0$ und $q > 0$.
+  \end{itemize}
+}
+
+% ======================================================================
+\section*{3.3 \quad Hermite'sche Formen}
+
+\gentry{3.3.1}{Hermite'sche Form}{%
+  Eine Abbildung $h: U \times U \to \mathbb{C}$ ($U$ ein $\mathbb{C}$-VR) heißt \textbf{Hermite'sche Form}, wenn:
+  \begin{enumerate}[label=(\alph*), topsep=2pt, itemsep=1pt]
+    \item $h(au + u', v) = \bar{a}\, h(u,v) + h(u',v)$ (konjugiert-linear in 1.\ Argument),
+    \item $h(u, av + v') = a\, h(u,v) + h(u,v')$ (linear in 2.\ Argument),
+    \item $h(v,u) = \overline{h(u,v)}$ (Hermite'sche Symmetrie).
+  \end{enumerate}
+  Insbesondere ist $h(u,u) \in \mathbb{R}$ für alle $u$.
+}
+
+\gentry{3.3.20}{Matrixdarstellung}{%
+  Zu einer Basis $B$ ist $M_B(h) = (h(b_j, b_i))_{i,j}$. Diese Matrix ist \textbf{Hermitesch}: $M_B(h)^* = M_B(h)$, wobei $A^* := \overline{A^\top}$.
+}
+
+\gentry{3.3.25}{Transformationsformel}{%
+  $M_{B'}(h) = S^* \cdot M_B(h) \cdot S$ mit $S^* = \overline{S^\top}$.
+}
+
+\gentry{3.3.43}{Trägheitssatz für Hermite'sche Formen}{%
+  Jede Hermite'sche Form mit Rang $r$ hat eine eindeutige Signatur $(p,q)$ mit $p+q=r$. Die Normalform ist $\mathrm{diag}(1,\ldots,1,-1,\ldots,-1,0,\ldots,0)$.
+}
+
+\gentry{3.3.50}{Klassifikation}{%
+  Zwei Hermite'sche Formen auf einem endlich-dimensionalen $\mathbb{C}$-Vektorraum sind genau dann kongruent, wenn sie dieselbe Signatur haben.
+}
+
+\end{document}

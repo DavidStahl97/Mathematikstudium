@@ -1,0 +1,150 @@
+\documentclass[a4paper,12pt]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[ngerman]{babel}
+\usepackage{amsmath, amssymb}
+\usepackage{geometry}
+\usepackage{parskip}
+\usepackage{titlesec}
+\usepackage{enumitem}
+
+\geometry{left=3cm, right=3cm, top=2.5cm, bottom=2.5cm}
+\titleformat{\section}{\large\bfseries}{}{0em}{}[\titlerule]
+
+\newcommand{\gentry}[3]{%
+  \noindent\textbf{#1\quad #2}\nopagebreak\\[0.2em]
+  #3\par\smallskip
+}
+
+\begin{document}
+
+\begin{center}
+  {\LARGE\bfseries Glossar zu Lektion 7}\\[0.5em]
+  {\large Lineare Algebra (Modul 61112)}
+\end{center}
+
+\vspace{0.8em}
+
+% ======================================================================
+\section*{7.1 \quad Skalarprodukt und Norm}
+
+\gentry{7.1.1}{Skalarprodukt}{%
+  Ein \textbf{Skalarprodukt} auf einem reellen Vektorraum $V$ ist eine positiv definite symmetrische Bilinearform $\langle \cdot, \cdot\rangle: V \times V \to \mathbb{R}$.
+  Auf einem komplexen Vektorraum ist es eine positiv definite Hermite'sche Form.
+  Ein Vektorraum mit Skalarprodukt heißt \textbf{Euklidisch} (reell) bzw.\ \textbf{unitär} (komplex).
+}
+
+\gentry{}{Standardskalarprodukt}{%
+  Auf $\mathbb{R}^n$: $\langle x,y\rangle = \sum_i x_i y_i$.
+  Auf $\mathbb{C}^n$: $\langle x,y\rangle = \sum_i \overline{x_i} y_i$.
+}
+
+\gentry{7.1.8}{Hauptminorenkriterium}{%
+  Eine symmetrische (bzw.\ Hermite'sche) Matrix $A$ ist positiv definit $\iff$ alle Hauptminoren $\det(A_k) > 0$ (mit $A_k$ = obere linke $k{\times}k$-Teilmatrix).
+}
+
+\gentry{7.1.11}{Norm}{%
+  $\|v\| := \sqrt{\langle v,v\rangle}$.
+  Eigenschaften: $\|v\| \geq 0$; $\|v\| = 0 \iff v = 0$; $\|\lambda v\| = |\lambda|\|v\|$; Dreiecksungleichung.
+}
+
+\gentry{7.1.15}{Ungleichung von Cauchy-Schwarz}{%
+  $|\langle u,v\rangle| \leq \|u\| \cdot \|v\|$.
+  Gleichheit gilt $\iff$ $u$ und $v$ sind linear abhängig.
+}
+
+% ======================================================================
+\section*{7.2 \quad Orthogonalität}
+
+\gentry{7.2.3}{Orthogonalität}{%
+  $u, v \in V$ heißen \textbf{orthogonal} ($u \perp v$), wenn $\langle u, v\rangle = 0$.
+}
+
+\gentry{7.2.7}{Orthogonales Komplement}{%
+  $U^\perp := \{v \in V \mid \langle v, u\rangle = 0 \;\forall\, u \in U\}$ ist ein Unterraum.
+}
+
+\gentry{7.2.8}{Satz}{%
+  $V = U \oplus U^\perp$ für jeden Unterraum $U$ eines endlich-dimensionalen Euklidischen/unitären VR.
+  Insbesondere: $\dim U + \dim U^\perp = \dim V$.
+}
+
+\gentry{7.2.16}{Orthonormalbasis (ONB)}{%
+  Eine Basis $(b_1,\ldots,b_n)$ heißt \textbf{Orthonormalbasis}, wenn $\langle b_i, b_j\rangle = \delta_{ij}$.
+}
+
+\gentry{7.2.20}{Koordinatenformel für ONB}{%
+  Bzgl.\ einer ONB $(b_1,\ldots,b_n)$ gilt: $v = \sum_i \langle v, b_i\rangle \, b_i$.
+}
+
+\gentry{7.2.24/25}{Gram-Schmidt-Verfahren}{%
+  Aus einer Basis $(v_1,\ldots,v_n)$ wird eine ONB konstruiert:
+  \[
+    b_1 := \frac{v_1}{\|v_1\|}, \qquad
+    b_k := \frac{v_k - \sum_{i=1}^{k-1}\langle v_k, b_i\rangle b_i}{\left\|v_k - \sum_{i=1}^{k-1}\langle v_k, b_i\rangle b_i\right\|}.
+  \]
+}
+
+% ======================================================================
+\section*{7.3 \quad Adjungierte Abbildungen}
+
+\gentry{7.3.1}{Adjungierte Abbildung}{%
+  Zu $f: V \to W$ (linear) ist die \textbf{adjungierte Abbildung} $f^*: W \to V$ die eindeutige lineare Abbildung mit
+  $\langle f(v), w\rangle_W = \langle v, f^*(w)\rangle_V$ für alle $v \in V$, $w \in W$.
+}
+
+\gentry{7.3.9}{Satz (Existenz und Eindeutigkeit)}{%
+  Zu jeder linearen Abbildung $f: V \to W$ zwischen endlich-dimensionalen Euklidischen/unitären VR existiert eine eindeutige adjungierte Abbildung $f^*$.
+}
+
+\gentry{7.3.11}{Matrixdarstellung}{%
+  Bzgl.\ ONBs $B, C$: $M_C(f^*) = M_B(f)^*$ (konjugiert transponiert).
+  Im reellen Fall: $M(f^*) = M(f)^\top$.
+}
+
+% ======================================================================
+\section*{7.4 \quad Isometrien}
+
+\gentry{7.4.1}{Isometrie}{%
+  $f: V \to W$ heißt \textbf{Isometrie}, wenn $\langle f(v), f(w)\rangle_W = \langle v, w\rangle_V$ für alle $v, w \in V$.
+}
+
+\gentry{7.4.2}{Satz}{Isometrien erhalten Normen und damit Abstände: $\|f(v) - f(w)\| = \|v - w\|$.}
+
+\gentry{7.4.6}{Satz (Charakterisierung)}{%
+  $f \in \mathrm{End}(V)$ ist Isometrie $\iff$ $f^* \circ f = \mathrm{id}_V$.
+}
+
+\gentry{7.4}{Orthogonale / Unitäre Matrix}{%
+  $A \in M_{n,n}(\mathbb{R})$ heißt \textbf{orthogonal}, wenn $A^\top A = I_n$ (äquivalent: Spalten bilden ONB).
+  $A \in M_{n,n}(\mathbb{C})$ heißt \textbf{unitär}, wenn $A^* A = I_n$.
+}
+
+\gentry{7.4.8}{Satz}{%
+  Die Isometrien von $V$ bilden eine Gruppe unter Komposition.
+  Im endlich-dimensionalen Fall ist diese isomorph zur orthogonalen Gruppe $O_n(\mathbb{R})$ bzw.\ zur unitären Gruppe $U_n(\mathbb{C})$.
+}
+
+% ======================================================================
+\section*{7.5 \quad Spektralsätze}
+
+\gentry{7.5}{Normaler Endomorphismus}{%
+  $\varphi \in \mathrm{End}(V)$ heißt \textbf{normal}, wenn $\varphi \circ \varphi^* = \varphi^* \circ \varphi$.
+}
+
+\gentry{7.5 (Spektralsatz, allg.)}{Spektralsatz für normale Endomorphismen}{%
+  Sei $V$ ein unitärer VR und $\varphi$ normal. Dann besitzt $V$ eine ONB aus Eigenvektoren von $\varphi$.
+  (Die Eigenräume stehen paarweise orthogonal aufeinander.)
+}
+
+\gentry{7.5 (unitär)}{Spektralsatz für unitäre Endomorphismen}{%
+  Unitäre Endomorphismen sind normal. Ihre Eigenwerte haben Betrag~$1$ ($|\lambda| = 1$).
+}
+
+\gentry{7.5 (selbstadj.)}{Selbstadjungiert und Spektralsatz}{%
+  $\varphi$ heißt \textbf{selbstadjungiert}, wenn $\varphi = \varphi^*$.
+  (Matrixdarstellung bzgl.\ ONB: $A = A^*$, d.\,h.\ $A$ ist Hermitesch; im reellen Fall $A = A^\top$.)
+  \textbf{Spektralsatz}: Selbstadjungierte Endomorphismen haben nur reelle Eigenwerte und sind normal, besitzen also eine ONB aus Eigenvektoren.
+}
+
+\end{document}
