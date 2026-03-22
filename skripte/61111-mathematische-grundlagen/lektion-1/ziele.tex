@@ -1,0 +1,407 @@
+\documentclass[a4paper,12pt]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[ngerman]{babel}
+\usepackage{amsmath, amssymb}
+\usepackage{geometry}
+\usepackage{tikz}
+\usepackage{tikz-cd}
+\usetikzlibrary{shapes.geometric, arrows.meta, positioning, fit, backgrounds}
+\usepackage{parskip}
+\usepackage{titlesec}
+\usepackage{booktabs}
+\usepackage{enumitem}
+
+\geometry{left=3cm, right=3cm, top=2.5cm, bottom=2.5cm}
+
+\titleformat{\section}{\large\bfseries}{}{0em}{}[\titlerule]
+\titleformat{\subsection}{\normalsize\bfseries}{}{0em}{}
+
+\tikzset{
+  box/.style={rectangle, draw, rounded corners=3pt, text width=4.5cm,
+              align=center, minimum height=1.0cm, font=\small, inner sep=4pt},
+  boxw/.style={box, text width=5cm},
+  arrow/.style={-{Latex[length=2mm]}, thick},
+}
+
+\begin{document}
+
+\begin{center}
+  {\LARGE\bfseries Studierhinweise zu Lektion 1}\\[0.5em]
+  {\large Mathematische Grundlagen (Modul 61111)}
+\end{center}
+
+\vspace{1em}
+
+Diese Lektion legt die sprachlichen und begrifflichen Grundlagen für den gesamten
+weiteren Verlauf des Moduls. Im ersten Kapitel werden Notation und Grundbegriffe
+eingeführt, die in der Mathematik allgegenwärtig sind: das Summensymbol~$\Sigma$,
+logische Junktoren und Quantoren, Mengen und Abbildungen, Verknüpfungen und
+Körper. In Kapitel~2 wird die Matrizenrechnung eingeführt, in Kapitel~3 werden
+Elementarmatrizen und elementare Zeilenumformungen behandelt.
+
+Einen mathematischen Text darf man nicht wie einen Roman lesen -- man muss ihn
+sich \emph{erarbeiten}. Schreiben Sie mit, stellen Sie sich Beispiele vor, und lösen
+Sie die Übungsaufgaben aktiv, bevor Sie in die Lösungen schauen.
+
+% -----------------------------------------------------------------------
+\section*{Struktur der Lektion 1}
+
+\begin{center}
+\begin{tikzpicture}[node distance=0.6cm and 0.8cm]
+
+  % Column headers
+  \node[font=\bfseries\small] (h1) at (0,0)    {Kapitel 1: Grundbegriffe};
+  \node[font=\bfseries\small] (h2) at (6.5,0)  {Kapitel 2: Matrizen};
+  \node[font=\bfseries\small] (h3) at (11.5,0) {Kapitel 3: Elementarmatrizen};
+
+  % Chapter 1 boxes
+  \node[box, below=0.8cm of h1] (sum)  {1.1 Summensymbol~$\Sigma$\\Doppelsummen};
+  \node[box, below=0.5cm of sum] (aus) {1.2 Aussagen\\Junktoren, Quantoren,\\Vollst. Induktion};
+  \node[box, below=0.5cm of aus] (men) {1.3 Mengen\\Vereinigung, Schnitt,\\Produkt, Mächtigkeit};
+  \node[box, below=0.5cm of men] (abb) {1.4 Abbildungen\\Bild, Urbild,\\injektiv, surjektiv, bijektiv};
+  \node[box, below=0.5cm of abb] (vkn) {1.5 Verknüpfungen\\kommutativ, assoziativ,\\neutrales Element};
+  \node[box, below=0.5cm of vkn] (koe) {1.6 Körper\\$K$ mit $+$, $\cdot$,~$0$,~$1$};
+
+  % Chapter 2 boxes
+  \node[box, below=0.8cm of h2] (mat) {2.1--2.2 Matrizen\\Addition, Skalarmultiplikation};
+  \node[box, below=0.5cm of mat] (mul) {2.3 Matrizenmultiplikation\\Einheitsmatrix $I_m$};
+  \node[box, below=0.5cm of mul] (gem) {2.4 Gemischte Rechenregeln\\Distributivgesetze};
+
+  % Chapter 3 boxes
+  \node[box, below=0.8cm of h3] (elz) {3.1 Elementare Zeilenumformungen\\$Z_{ij}$, $Z_i(r)$, $Z_{ij}(s)$};
+  \node[box, below=0.5cm of elz] (elm) {3.2 Elementarmatrizen\\$P_{ij}$, $D_i(r)$, $T_{ij}(s)$};
+  \node[box, below=0.5cm of elm] (zeq) {3.3 Zeilenäquivalenz\\$A \sim_Z B$};
+
+  % Arrows within Kap 1
+  \draw[arrow] (sum) -- (aus);
+  \draw[arrow] (aus) -- (men);
+  \draw[arrow] (men) -- (abb);
+  \draw[arrow] (abb) -- (vkn);
+  \draw[arrow] (vkn) -- (koe);
+
+  % Arrows within Kap 2
+  \draw[arrow] (mat) -- (mul);
+  \draw[arrow] (mul) -- (gem);
+
+  % Arrows within Kap 3
+  \draw[arrow] (elz) -- (elm);
+  \draw[arrow] (elm) -- (zeq);
+
+  % Cross-chapter arrows
+  \draw[arrow] (koe.east) -- ++(0.3,0) |- (mat.west);
+  \draw[arrow] (mul.east) -- ++(0.3,0) |- (elz.west);
+
+\end{tikzpicture}
+\end{center}
+
+\newpage
+
+% -----------------------------------------------------------------------
+\section*{Zielelement 1.1 -- Das Summensymbol $\Sigma$}
+
+\subsection*{Lerninhalte}
+
+\begin{center}
+\begin{tikzpicture}[node distance=0.6cm and 1.0cm]
+  \node[box] (def)  {Definition des Summensymbols $\displaystyle\sum_{i=a}^{b} f(i)$};
+  \node[box, below=0.5cm of def] (bsp) {Verschiedene Schreibweisen und Indexvariablen};
+  \node[box, below=0.5cm of bsp] (dop) {Doppelsummen $\displaystyle\sum_{i}\sum_{j} a_{ij}$};
+  \node[box, below=0.5cm of dop] (mrk) {Merkregel: Vertauschen von Summensymbolen};
+  \draw[arrow] (def) -- (bsp);
+  \draw[arrow] (bsp) -- (dop);
+  \draw[arrow] (dop) -- (mrk);
+\end{tikzpicture}
+\end{center}
+
+\subsection*{Lernziele}
+
+Nach Durcharbeiten dieses Abschnitts sollten Sie:
+\begin{itemize}
+  \item das Summensymbol $\Sigma$ lesen, schreiben und ausrechnen können,
+  \item Summen in Sigma-Schreibweise umwandeln und umgekehrt,
+  \item keine Angst vor Doppelsummen haben und die Merkregel 1.1.1 anwenden
+        können (Vertauschen von Summationsreihenfolgen).
+\end{itemize}
+
+\subsection*{Selbstkontrollelement 1.1}
+
+Berechnen Sie $\displaystyle\sum_{i=1}^{4}\sum_{j=1}^{3} (i+j)$, einmal indem Sie
+zuerst über $j$ und dann über $i$ summieren, und einmal in umgekehrter Reihenfolge.
+Erhalten Sie dasselbe Ergebnis?
+
+\newpage
+
+% -----------------------------------------------------------------------
+\section*{Zielelement 1.2 -- Aussagen, Junktoren und Quantoren}
+
+\subsection*{Lerninhalte}
+
+\begin{center}
+\begin{tikzpicture}[node distance=0.6cm and 1.0cm]
+  \node[box] (aus) {Aussage: wahr oder falsch};
+  \node[box, right=1.0cm of aus] (jun) {Junktoren:\\$\lnot,\,\land,\,\lor,\,\Rightarrow,\,\Leftrightarrow$};
+  \node[box, below=0.5cm of aus] (wt)  {Wahrheitstafeln};
+  \node[box, below=0.5cm of wt]  (leq) {Logische Äquivalenz};
+  \node[box, below=0.5cm of leq] (qua) {Quantoren: $\exists$, $\forall$};
+  \node[box, below=0.5cm of qua] (neg) {Negation von\\All- und Existenzaussagen};
+  \node[box, below=0.5cm of neg] (ind) {Vollständige Induktion\\(Induktionsanfang,\\Induktionsschritt)};
+  \node[box, below=0.5cm of ind] (bew) {Beweisprinzipien:\\direkt, Kontraposition,\\Widerspruch, Ringschluss};
+  \draw[arrow] (aus) -- (wt);
+  \draw[arrow] (jun.south) |- (wt.east);
+  \draw[arrow] (wt) -- (leq);
+  \draw[arrow] (leq) -- (qua);
+  \draw[arrow] (qua) -- (neg);
+  \draw[arrow] (neg) -- (ind);
+  \draw[arrow] (ind) -- (bew);
+\end{tikzpicture}
+\end{center}
+
+\subsection*{Lernziele}
+
+Nach Durcharbeiten dieses Abschnitts sollten Sie:
+\begin{itemize}
+  \item die Wahrheitstafeln der fünf Junktoren kennen und aufstellen können,
+  \item nicht übermäßig komplexe Aussagen mit Quantoren $\exists$, $\forall$ ausdrücken
+        und in Umgangssprache übersetzen können,
+  \item die Negation von All- und Existenzaussagen bilden können (inkl.\ verschachtelter Quantoren),
+  \item das Prinzip der vollständigen Induktion verstehen und in Beweisen anwenden können,
+  \item die verschiedenen Beweisprinzipien (direkt, Kontraposition, Widerspruch, Ringschluss) kennen und erkennen.
+\end{itemize}
+
+\subsection*{Selbstkontrollelement 1.2}
+
+Bestimmen Sie die Negation der Aussage:
+\[
+  \forall\,\varepsilon > 0 \; \exists\,n_\varepsilon \in \mathbb{N} \;
+  \forall\,n \geq n_\varepsilon : |a_n - a| < \varepsilon.
+\]
+
+\newpage
+
+% -----------------------------------------------------------------------
+\section*{Zielelement 1.3 -- Mengen}
+
+\subsection*{Lerninhalte}
+
+\begin{center}
+\begin{tikzpicture}[node distance=0.6cm and 1.0cm]
+  \node[box] (mng) {Menge, Element ($\in$, $\notin$)};
+  \node[box, below=0.5cm of mng] (tlm) {Teilmenge ($\subseteq$), Gleichheit von Mengen};
+  \node[box, below=0.5cm of tlm] (ops) {Mengenoperationen:\\$\cup$,\; $\cap$,\; $\setminus$,\; $\emptyset$,\; disjunkt};
+  \node[box, below=0.5cm of ops] (end) {Endliche / unendliche Mengen\\Mächtigkeit $|M|$};
+  \node[box, below=0.5cm of end] (pro) {Produktmenge $M \times N$\\geordnetes Paar $(m,n)$};
+  \draw[arrow] (mng) -- (tlm);
+  \draw[arrow] (tlm) -- (ops);
+  \draw[arrow] (ops) -- (end);
+  \draw[arrow] (end) -- (pro);
+\end{tikzpicture}
+\end{center}
+
+\subsection*{Lernziele}
+
+Nach Durcharbeiten dieses Abschnitts sollten Sie:
+\begin{itemize}
+  \item mit den Begriffen Vereinigung, Durchschnitt, Differenzmenge, Gleichheit
+        und Mächtigkeit von Mengen sicher umgehen können,
+  \item die Produktmenge $M \times N$ und geordnete Paare erklären können,
+  \item einfache Beweise über Mengen (z.\,B.\ zur Mächtigkeit von $M \cup N$)
+        selbstständig führen können.
+\end{itemize}
+
+\subsection*{Selbstkontrollelement 1.3}
+
+Seien $M = \{1,2,3,4\}$ und $N = \{3,4,5,6\}$.
+Bestimmen Sie $M \cup N$, $M \cap N$, $M \setminus N$ und $|M \times N|$.
+
+\newpage
+
+% -----------------------------------------------------------------------
+\section*{Zielelement 1.4 -- Abbildungen}
+
+\subsection*{Lerninhalte}
+
+\begin{center}
+\begin{tikzpicture}[node distance=0.6cm and 1.0cm]
+  \node[box] (def) {Abbildung $f: M \to N$\\als Teilmenge von $M \times N$};
+  \node[box, below=0.5cm of def] (bil) {Bild $f(m)$, Bildbereich $\mathrm{Bild}(f)$};
+  \node[box, below=0.5cm of bil] (urb) {Urbild};
+  \node[box, below=0.5cm of urb] (inj) {injektiv, surjektiv, bijektiv};
+  \node[box, below=0.5cm of inj] (idb) {Identische Abbildung $\mathrm{id}_M$};
+  \node[box, below=0.5cm of idb] (kom) {Komposition $g \circ f$\\(Assoziativgesetz)};
+  \node[box, below=0.5cm of kom] (inv) {Invertierbarkeit\\$\Leftrightarrow$ bijektiv (Kor. 1.4.22)};
+  \draw[arrow] (def) -- (bil);
+  \draw[arrow] (bil) -- (urb);
+  \draw[arrow] (urb) -- (inj);
+  \draw[arrow] (inj) -- (idb);
+  \draw[arrow] (idb) -- (kom);
+  \draw[arrow] (kom) -- (inv);
+\end{tikzpicture}
+\end{center}
+
+\subsection*{Lernziele}
+
+Nach Durcharbeiten dieses Abschnitts sollten Sie:
+\begin{itemize}
+  \item den Abbildungsbegriff präzise formulieren und von der schulischen
+        Beschreibung abgrenzen können,
+  \item Bild und Urbilder von Abbildungen bestimmen können,
+  \item die Begriffe injektiv, surjektiv und bijektiv erklären und überprüfen können,
+  \item die Komposition von Abbildungen ausführen und das Assoziativgesetz anwenden,
+  \item Korollar~1.4.22 (Charakterisierung invertierbarer Abbildungen) kennen und
+        einsetzen können.
+\end{itemize}
+
+\subsection*{Selbstkontrollelement 1.4}
+
+Sei $f: \mathbb{Z} \to \mathbb{Z}$ definiert durch $f(n) = 2n$.
+Ist $f$ injektiv? Ist $f$ surjektiv? Begründen Sie Ihre Antwort.
+
+\newpage
+
+% -----------------------------------------------------------------------
+\section*{Zielelement 1.5 -- Verknüpfungen}
+
+\subsection*{Lerninhalte}
+
+\begin{center}
+\begin{tikzpicture}[node distance=0.6cm and 1.0cm]
+  \node[box] (vkn) {Verknüpfung auf $M$:\\Abbildung $M \times M \to M$};
+  \node[box, below=0.5cm of vkn] (eig) {Eigenschaften:\\kommutativ, assoziativ,\\neutrales Element};
+  \node[box, below=0.5cm of eig] (inv) {Invertierbarkeit\\bezüglich der Verknüpfung};
+  \node[box, below=0.5cm of inv] (dis) {Distributivgesetze\\(zwei Verknüpfungen)};
+  \node[box, below=0.5cm of dis] (f2)  {Beispiel: $\mathbb{F}_2 = \{0,1\}$\\mit $+$ und $\cdot$};
+  \draw[arrow] (vkn) -- (eig);
+  \draw[arrow] (eig) -- (inv);
+  \draw[arrow] (inv) -- (dis);
+  \draw[arrow] (dis) -- (f2);
+\end{tikzpicture}
+\end{center}
+
+\subsection*{Lernziele}
+
+Nach Durcharbeiten dieses Abschnitts sollten Sie:
+\begin{itemize}
+  \item den Begriff der Verknüpfung auf einer Menge als Abbildung verstehen,
+  \item die Eigenschaften kommutativ, assoziativ, neutrales Element und
+        Invertierbarkeit an konkreten Beispielen überprüfen können,
+  \item den Körper $\mathbb{F}_2$ in- und auswendig kennen.
+\end{itemize}
+
+\subsection*{Selbstkontrollelement 1.5}
+
+Ist die Komposition $\circ$ auf $\mathrm{Abb}(M,M)$ kommutativ?
+Geben Sie ein Gegenbeispiel oder einen Beweis an.
+
+\newpage
+
+% -----------------------------------------------------------------------
+\section*{Zielelement 1.6 -- Körper}
+
+\subsection*{Lerninhalte}
+
+\begin{center}
+\begin{tikzpicture}[node distance=0.6cm and 1.0cm]
+  \node[box] (def) {Körper $K$: Menge mit $+$, $\cdot$, $0$, $1$};
+  \node[box, below=0.5cm of def] (axm) {Axiome: Kommutativität, Assoziativität,\\neutrales Element, Invertierbarkeit,\\Distributivgesetz};
+  \node[box, below=0.5cm of axm] (bsp) {Beispiele: $\mathbb{Q}$, $\mathbb{R}$, $\mathbb{C}$, $\mathbb{F}_2$};
+  \node[box, below=0.5cm of bsp] (rec) {Rechenregeln (Prop.\ 1.6.4):\\$a \cdot 0 = 0$, Nullteilerfreiheit,\\Eindeutigkeit inverser Elemente};
+  \node[box, below=0.5cm of rec] (not) {Notation: $-a$, $a^{-1}$, $\frac{b}{a}$};
+  \draw[arrow] (def) -- (axm);
+  \draw[arrow] (axm) -- (bsp);
+  \draw[arrow] (bsp) -- (rec);
+  \draw[arrow] (rec) -- (not);
+\end{tikzpicture}
+\end{center}
+
+\subsection*{Lernziele}
+
+Nach Durcharbeiten dieses Abschnitts sollten Sie:
+\begin{itemize}
+  \item die Definition eines Körpers auswendig kennen und an Beispielen überprüfen können,
+  \item verstehen, warum $\mathbb{Z}$ kein Körper ist,
+  \item die Rechenregeln in Proposition~1.6.4 aus den Körperaxiomen herleiten können,
+  \item mit $\mathbb{F}_2$ sicher rechnen können.
+\end{itemize}
+
+\subsection*{Selbstkontrollelement 1.6}
+
+Beweisen Sie: In einem Körper $K$ gilt $(-1) \cdot (-1) = 1$.
+\emph{Hinweis:} Verwenden Sie Bemerkung~1.6.6.
+
+\newpage
+
+% -----------------------------------------------------------------------
+\section*{Zielelement 2 -- Matrizen}
+
+\subsection*{Lerninhalte}
+
+\begin{center}
+\begin{tikzpicture}[node distance=0.6cm and 1.0cm]
+  \node[box] (def) {$m \times n$-Matrix über $K$\\Eintrag $a_{ij}$, Zeile, Spalte};
+  \node[box, below=0.5cm of def] (add) {Matrizenaddition,\\Nullmatrix, Skalarmultiplikation};
+  \node[box, below=0.5cm of add] (mul) {Matrizenmultiplikation $(AB)_{ik} = \sum_j a_{ij}b_{jk}$};
+  \node[box, below=0.5cm of mul] (ein) {Einheitsmatrix $I_m$,\\Assoziativgesetz};
+  \node[box, below=0.5cm of ein] (inv) {Invertierbare Matrix $A^{-1}$,\\$A^{-1} A = A A^{-1} = I_n$};
+  \draw[arrow] (def) -- (add);
+  \draw[arrow] (add) -- (mul);
+  \draw[arrow] (mul) -- (ein);
+  \draw[arrow] (ein) -- (inv);
+\end{tikzpicture}
+\end{center}
+
+\subsection*{Lernziele}
+
+Nach Durcharbeiten dieses Kapitels sollten Sie:
+\begin{itemize}
+  \item Matrizen addieren und (wenn die Dimensionen passen) multiplizieren können,
+  \item wissen, wann ein Produkt $AB$ definiert ist, und die Dimensionen des
+        Ergebnisses bestimmen können,
+  \item die Matrizenmultiplikation als nicht kommutative Verknüpfung auf $M_{nn}(K)$
+        einordnen können,
+  \item den Begriff der invertierbaren Matrix kennen.
+\end{itemize}
+
+\subsection*{Selbstkontrollelement 2}
+
+Seien $A = \begin{pmatrix}1 & 2 \\ 0 & 1\end{pmatrix}$ und
+$B = \begin{pmatrix}1 & 0 \\ 3 & 1\end{pmatrix}$.
+Berechnen Sie $AB$ und $BA$. Sind die Ergebnisse gleich?
+
+\newpage
+
+% -----------------------------------------------------------------------
+\section*{Zielelement 3 -- Elementarmatrizen}
+
+\subsection*{Lerninhalte}
+
+\begin{center}
+\begin{tikzpicture}[node distance=0.6cm and 1.0cm]
+  \node[box] (elz) {Elementare Zeilenumformungen:\\$Z_{ij}$: Zeilen tauschen\\$Z_i(r)$: Zeile skalieren\\$Z_{ij}(s)$: Zeile addieren};
+  \node[box, below=0.5cm of elz] (elm) {Elementarmatrizen $P_{ij}$, $D_i(r)$, $T_{ij}(s)$\\als Multiplikation von links};
+  \node[box, below=0.5cm of elm] (inv) {Elementarmatrizen sind invertierbar,\\Inverse sind wieder Elementarmatrizen};
+  \node[box, below=0.5cm of inv] (zeq) {Zeilenäquivalenz $A \sim_Z B$};
+  \draw[arrow] (elz) -- (elm);
+  \draw[arrow] (elm) -- (inv);
+  \draw[arrow] (inv) -- (zeq);
+\end{tikzpicture}
+\end{center}
+
+\subsection*{Lernziele}
+
+Nach Durcharbeiten dieses Kapitels sollten Sie:
+\begin{itemize}
+  \item die drei Typen elementarer Zeilenumformungen kennen und anwenden können,
+  \item wissen, welche Elementarmatrix welche elementare Zeilenumformung bewirkt
+        (Merkregel~3.2.8),
+  \item verstehen, dass Elementarmatrizen invertierbar sind und ihre Inversen
+        ebenfalls Elementarmatrizen sind,
+  \item den Begriff der Zeilenäquivalenz erklären können.
+\end{itemize}
+
+\subsection*{Selbstkontrollelement 3}
+
+Geben Sie die Elementarmatrizen $P_{12}$, $D_2(3)$ und $T_{21}(-2)$ in $M_{33}(\mathbb{R})$
+explizit an. Welches sind ihre Inversen?
+
+\end{document}

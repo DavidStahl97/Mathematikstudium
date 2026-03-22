@@ -103,3 +103,238 @@ skripte/
 2. Fehlerhafte Steps identifizieren
 3. Fix auf neuem Branch committen und pushen
 4. PR via GitHub API erstellen (Token beim Benutzer anfragen falls nötig)
+
+
+
+
+
+# Format-Referenz: Ziele & Glossar
+## Mathematikstudium – Modul 61111 (und weitere)
+
+Orientierung an der **FernUni Analysis-Leseprobe (Modul 61211)**.
+Beide Dokumente liegen in der Ordnerstruktur:
+```
+skripte/<modul>/lektion-<n>/Ziele/ziele.tex
+skripte/<modul>/lektion-<n>/Glossar/glossar.tex
+```
+
+---
+
+## 1. Ziele (`ziele.tex`)
+
+### Zweck
+Studierhinweise für eine Lektion. Gibt dem Studierenden vor dem Lesen des
+Lehrtexts einen Überblick: Was kommt? In welcher Reihenfolge? Was soll ich
+am Ende können? Wie kann ich mich selbst kontrollieren?
+
+### Dokumentklasse & Pakete
+```latex
+\documentclass[a4paper,12pt]{article}
+% Pflicht-Pakete:
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[ngerman]{babel}
+\usepackage{amsmath, amssymb}
+\usepackage{tikz}
+\usetikzlibrary{shapes.geometric, arrows.meta, positioning, fit, backgrounds}
+\usepackage{geometry}   % left=3cm, right=3cm, top=2.5cm, bottom=2.5cm
+\usepackage{enumitem}
+\usepackage{parskip}
+```
+
+### Aufbau (in dieser Reihenfolge)
+
+#### A) Titel
+```latex
+\begin{center}
+  {\LARGE\bfseries Studierhinweise zu Lektion N}\\[0.5em]
+  {\large <Modulname> (Modul <Nummer>)}
+\end{center}
+```
+
+#### B) Einleitungstext (1–3 Absätze)
+- Beschreibt kurz, worum es in der Lektion geht
+- Gibt einen Hinweis zur Arbeitsweise (z.B. "aktiv mit Papier und Bleistift")
+- Erklärt, wie die Kapitel aufeinander aufbauen
+- **Kein LaTeX-Boilerplate, echter inhaltlicher Text aus dem Lehrtext**
+
+#### C) Kursstruktur-Diagramm (TikZ)
+Titel: `\section*{Struktur der Lektion N}`
+
+Ein **TikZ-Flowchart** über alle Kapitel der Lektion:
+- Je Kapitel eine Spaltengruppe von Boxen (eine Box pro Abschnitt)
+- Pfeile zeigen die Lernreihenfolge innerhalb eines Kapitels (vertikal)
+- Pfeile zwischen Kapiteln zeigen Abhängigkeiten (horizontal)
+- Box-Inhalt: Abschnittsnummer + Stichworte der Kerninhalte
+
+```latex
+\tikzset{
+  box/.style={rectangle, draw, rounded corners=3pt, text width=4.5cm,
+              align=center, minimum height=1.0cm, font=\small, inner sep=4pt},
+  arrow/.style={-{Latex[length=2mm]}, thick},
+}
+```
+
+Beispielstruktur für Lektion mit 3 Kapiteln:
+```
+[Kap 1: Abschn 1.1] --> [Kap 1: Abschn 1.2] --> ... --> [Kap 2: ...] --> [Kap 3: ...]
+```
+
+#### D) Zielelemente (eines pro Abschnitt)
+
+Für **jeden Abschnitt** (1.1, 1.2, ..., Kap 2, Kap 3 usw.) eine eigene Seite
+(`\newpage`) mit folgendem festen Aufbau:
+
+```
+\section*{Zielelement X.Y -- <Titel des Abschnitts>}
+
+\subsection*{Lerninhalte}
+[TikZ-Flowchart]
+
+\subsection*{Lernziele}
+[itemize-Liste]
+
+\subsection*{Selbstkontrollelement X.Y}
+[Eine kurze Aufgabe]
+```
+
+**Lerninhalte-Flowchart:**
+- TikZ-Diagramm, das die Begriffsbildungen des Abschnitts zeigt
+- Boxen = Begriffe/Konzepte, Pfeile = logische Abhängigkeit
+- Zeigt, wie Begriffe aufeinander aufbauen (nicht die Beweise, nur die Struktur)
+- Orientierung: Welche Definitionen brauche ich für welchen Begriff?
+
+Beispiel Abschnitt "Abbildungen":
+```
+[Abbildung f: M→N] --> [Bild f(m)] --> [injektiv/surjektiv/bijektiv]
+                    --> [Komposition g∘f] --> [Invertierbarkeit ↔ bijektiv]
+```
+
+**Lernziele:**
+- 3–6 Punkte, beginnend mit "Nach Durcharbeiten dieses Abschnitts sollten Sie:"
+- Konkret und überprüfbar: "...können", "...kennen", "...verstehen und anwenden"
+- Direkt aus den Studierhinweisen im Lehrtext ableiten
+
+**Selbstkontrollelement:**
+- Eine einzige, kurze, selbst beantwortbare Aufgabe
+- Kein Beweis nötig, eher: Berechnen, Nachprüfen, Beispiel angeben
+- Testet ob der Kernbegriff des Abschnitts verstanden wurde
+
+---
+
+## 2. Glossar (`glossar.tex`)
+
+### Zweck
+Kompakte Nachschlageliste aller Definitionen, Merkregeln, Sätze und
+Propositionen der Lektion. Dient zur schnellen Wiederholung, **kein Ersatz**
+für den Lehrtext. Keine Beweise, keine Erklärungen – nur die Kernaussagen.
+
+### Dokumentklasse & Pakete
+```latex
+\documentclass[a4paper,12pt]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[ngerman]{babel}
+\usepackage{amsmath, amssymb}
+\usepackage{geometry}   % left=3cm, right=3cm, top=2.5cm, bottom=2.5cm
+\usepackage{array, booktabs}
+\usepackage{enumitem}
+\usepackage{parskip}
+```
+
+### Hilfsbefehl für Einträge
+```latex
+\newcommand{\gentry}[3]{%
+  \noindent\textbf{#1\quad #2}\nopagebreak\\[0.2em]
+  #3\par\smallskip
+}
+% Aufruf: \gentry{Nummer}{Fetter Titel}{Inhalt}
+% Beispiel: \gentry{1.2.4}{Konjunktion $A \land B$}{Genau dann wahr, wenn ...}
+% Für Einträge ohne eigene Nummer: \gentry{}{Vollständige Induktion}{...}
+```
+
+### Aufbau
+
+#### Titel
+```latex
+\begin{center}
+  {\LARGE\bfseries Glossar zu Lektion N}\\[0.5em]
+  {\large <Modulname> (Modul <Nummer>)}
+\end{center}
+```
+Kurzer Einleitungssatz: "Dieses Glossar fasst die wesentlichen Definitionen..."
+
+#### Abschnitte
+Gegliedert nach den **Abschnittsnummern aus dem Lehrtext**:
+```latex
+\section*{1.1 \quad <Titel des Abschnitts>}
+\section*{1.2 \quad <Titel des Abschnitts>}
+...
+```
+
+#### Einträge pro Abschnitt
+Alle Definitionen, Merkregeln, Sätze, Propositionen, Korollare – in der
+Reihenfolge, wie sie im Lehrtext erscheinen.
+
+**Was kommt rein:**
+- Jede `Definition` aus dem Lehrtext
+- Jede `Merkregel`
+- Wichtige `Proposition`, `Satz`, `Korollar` (Aussage, nicht Beweis)
+- `Notation`-Abschnitte wenn relevant
+
+**Was kommt NICHT rein:**
+- Beweise
+- Beispiele (außer wenn sie direkt Teil der Definition sind, wie F₂)
+- Aufgaben / Übungen
+
+**Format pro Eintrag:**
+```
+Nummer   Fetter Titel
+Inhalt (Definition/Formel/Wahrheitstafel) in 2–5 Zeilen
+```
+
+**Wahrheitstafeln** als `array`-Umgebung:
+```latex
+\[
+  \begin{array}{cc|c}
+    A & B & A \land B \\\hline
+    w & w & w \\ w & f & f \\ f & w & f \\ f & f & f
+  \end{array}
+\]
+```
+
+**Aufzählungen innerhalb eines Eintrags** (z.B. mehrere Eigenschaften):
+```latex
+\begin{itemize}[topsep=2pt,itemsep=1pt]
+  \item ...
+\end{itemize}
+```
+
+---
+
+## 3. Workflow beim Erstellen
+
+1. **Lehrtext-PDF lesen** (komplett, alle Kapitel der Lektion)
+2. **Gliederung erfassen**: Welche Kapitel/Abschnitte gibt es? Wie hängen sie zusammen?
+3. **Glossar zuerst**: Alle Definitionen/Sätze durchgehen und kompakt erfassen → gibt Überblick
+4. **Ziele danach**: Kursstruktur-Diagramm aus der Gliederung ableiten, dann pro Abschnitt Flowchart + Lernziele aus den Studierhinweisen im Lehrtext
+
+### Aus dem Lehrtext ableiten
+- **Lernziele** stehen oft direkt in den Studierhinweisen des Lehrtexts ("Nach Durcharbeiten von Abschnitt X.Y sollten Sie...")
+- **Flowchart-Struktur** ergibt sich aus der Reihenfolge der Definitionen: Was wird zuerst definiert, was baut darauf auf?
+- **Kursstruktur-Diagramm**: Welche Kapitel/Abschnitte bauen auf welchen auf? (Pfeile zwischen Kapiteln nur wenn explizit nötig)
+
+---
+
+## 4. Beispiel-Mapping (Lektion 1, Modul 61111)
+
+| Abschnitt | Zielelement-Titel | Kern-Begriffe im Flowchart |
+|---|---|---|
+| 1.1 | Das Summensymbol Σ | Σ-Notation → Doppelsummen → Merkregel Vertauschen |
+| 1.2 | Aussagen, Junktoren und Quantoren | Aussage → Junktoren (¬∧∨⇒⇔) → Wahrheitstafeln → Quantoren → Negation → Induktion → Beweisprinzipien |
+| 1.3 | Mengen | Menge/Element → Teilmenge/Gleichheit → ∪∩\ → Mächtigkeit → Produktmenge |
+| 1.4 | Abbildungen | Abbildung → Bild/Urbild → inj/surj/bij → id_M → Komposition → Invertierbarkeit |
+| 1.5 | Verknüpfungen | Verknüpfung → kommutativ/assoziativ/neutr.El. → Invertierbarkeit → Distributivgesetze → F₂ |
+| 1.6 | Körper | Körper K → Axiome → Beispiele (Q,R,C,F₂) → Rechenregeln → Notation |
+| Kap. 2 | Matrizen | Matrix → Addition/Skalarmultiplikation → Multiplikation → Einheitsmatrix → Invertierbarkeit |
+| Kap. 3 | Elementarmatrizen | Elementare Zeilenumformungen → Elementarmatrizen → Invertierbarkeit der EM → Zeilenäquivalenz |

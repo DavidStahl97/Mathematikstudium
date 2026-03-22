@@ -1,0 +1,498 @@
+\documentclass[a4paper,12pt]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[ngerman]{babel}
+\usepackage{amsmath, amssymb}
+\usepackage{geometry}
+\usepackage{parskip}
+\usepackage{titlesec}
+\usepackage{enumitem}
+\usepackage{array}
+\usepackage{booktabs}
+
+\geometry{left=3cm, right=3cm, top=2.5cm, bottom=2.5cm}
+
+\titleformat{\section}{\large\bfseries}{}{0em}{}[\titlerule]
+\titleformat{\subsection}{\normalsize\bfseries\scshape}{}{0em}{}
+
+% Glossar-Eintrag: Nummer, fetter Titel, Inhalt
+\newcommand{\gentry}[3]{%
+  \noindent\textbf{#1\quad #2}\nopagebreak\\[0.2em]
+  #3\par\smallskip
+}
+
+\begin{document}
+
+\begin{center}
+  {\LARGE\bfseries Glossar zu Lektion 1}\\[0.5em]
+  {\large Mathematische Grundlagen (Modul 61111)}
+\end{center}
+
+\vspace{1em}
+
+Dieses Glossar fasst die wesentlichen Definitionen, Merkregeln und Sätze der
+ersten Lektion kompakt zusammen. Nummerierungen entsprechen dem Lehrtext.
+
+% ======================================================================
+\section*{1.1 \quad Das Summensymbol $\Sigma$}
+
+\gentry{1.1.1}{Merkregel (Vertauschen von Doppelsummen)}{%
+  Wenn Summanden vertauscht werden dürfen (d.\,h.\ wenn Klammern um Summen
+  weggelassen werden dürfen), so gilt:
+  \[
+    \sum_{1 \le i \le m} \sum_{1 \le j \le n} a_{ij}
+    \;=\;
+    \sum_{1 \le j \le n} \sum_{1 \le i \le m} a_{ij}.
+  \]
+  Die Summationsreihenfolge in Doppelsummen ist vertauschbar.
+}
+
+% ======================================================================
+\section*{1.2 \quad Aussagen}
+
+\gentry{}{Aussage}{%
+  Ein Satz der Umgangssprache, dem eindeutig die Eigenschaft \emph{wahr} ($w$)
+  oder \emph{falsch} ($f$) zugeordnet werden kann.
+}
+
+\gentry{1.2.3}{Negation $\lnot A$}{%
+  Die Negation von $A$ ist die Aussage, die falsch ist, wenn $A$ wahr ist,
+  und wahr, wenn $A$ falsch ist. Wahrheitstafel:
+  \[
+    \begin{array}{c|c}
+      A & \lnot A \\\hline
+      w & f \\ f & w
+    \end{array}
+  \]
+}
+
+\gentry{1.2.4}{Konjunktion $A \land B$}{%
+  Genau dann wahr, wenn $A$ \emph{und} $B$ beide wahr sind.
+  \[
+    \begin{array}{cc|c}
+      A & B & A \land B \\\hline
+      w & w & w \\ w & f & f \\ f & w & f \\ f & f & f
+    \end{array}
+  \]
+}
+
+\gentry{1.2.5}{Disjunktion $A \lor B$}{%
+  Genau dann wahr, wenn \emph{mindestens eine} der Aussagen $A$ oder $B$
+  wahr ist.
+  \[
+    \begin{array}{cc|c}
+      A & B & A \lor B \\\hline
+      w & w & w \\ w & f & w \\ f & w & w \\ f & f & f
+    \end{array}
+  \]
+}
+
+\gentry{1.2.6}{Implikation $A \Rightarrow B$}{%
+  Genau dann falsch, wenn $A$ wahr und $B$ falsch ist. $A$ heißt
+  \emph{Prämisse}, $B$ heißt \emph{Konklusion}.
+  \[
+    \begin{array}{cc|c}
+      A & B & A \Rightarrow B \\\hline
+      w & w & w \\ w & f & f \\ f & w & w \\ f & f & w
+    \end{array}
+  \]
+  Aus einer wahren Prämisse kann niemals etwas Falsches gefolgert werden.
+}
+
+\gentry{1.2.8}{Äquivalenz $A \Leftrightarrow B$}{%
+  Genau dann wahr, wenn $A$ und $B$ denselben Wahrheitswert haben.
+  \[
+    \begin{array}{cc|c}
+      A & B & A \Leftrightarrow B \\\hline
+      w & w & w \\ w & f & f \\ f & w & f \\ f & f & w
+    \end{array}
+  \]
+}
+
+\gentry{1.2.9}{Wahrheitstafel}{%
+  Eine Tabelle, die den Wahrheitswert einer zusammengesetzten Aussage in
+  Abhängigkeit von den Wahrheitswerten der Teilaussagen auflistet.
+}
+
+\gentry{1.2.13}{Logische Äquivalenz}{%
+  Zwei Aussagen heißen \textbf{logisch äquivalent}, wenn sie dieselben
+  Wahrheitstafeln besitzen.
+  \smallskip\\
+  Wichtige logische Äquivalenzen:
+  \begin{itemize}[topsep=2pt,itemsep=1pt]
+    \item $A \Rightarrow B$ ist äquivalent zu $(\lnot B) \Rightarrow (\lnot A)$
+          \quad (Kontraposition)
+    \item $A \Leftrightarrow B$ ist äquivalent zu
+          $(A \Rightarrow B) \land (B \Rightarrow A)$
+    \item $\lnot(A \lor B)$ ist äquivalent zu $(\lnot A) \land (\lnot B)$
+          \quad (De~Morgan)
+    \item $\lnot(A \land B)$ ist äquivalent zu $(\lnot A) \lor (\lnot B)$
+          \quad (De~Morgan)
+  \end{itemize}
+}
+
+\gentry{1.2.15}{Existenzquantor $\exists$}{%
+  Das Symbol $\exists$ wird durch „Es gibt ein" (im Sinne von „Es gibt
+  mindestens ein") ausgedrückt. Schreibweise: $\exists\,x : A(x)$.
+}
+
+\gentry{1.2.17}{Allquantor $\forall$}{%
+  Das Symbol $\forall$ wird durch „Für alle" ausgedrückt.
+  Schreibweise: $\forall\,x : A(x)$.
+}
+
+\gentry{1.2.21}{Merkregel (Negation von Existenzaussagen)}{%
+  Bei der Negation von $\exists\,x : A$ wird der Existenzquantor in einen
+  Allquantor umgewandelt und die Aussage $A$ negiert:
+  \[
+    \lnot(\exists\,x : A) \;\equiv\; \forall\,x : \lnot A.
+  \]
+}
+
+\gentry{1.2.23}{Merkregel (Negation von Allaussagen)}{%
+  Bei der Negation von $\forall\,x : A$ wird der Allquantor in einen
+  Existenzquantor umgewandelt und die Aussage $A$ negiert:
+  \[
+    \lnot(\forall\,x : A) \;\equiv\; \exists\,x : \lnot A.
+  \]
+}
+
+\gentry{}{Vollständige Induktion}{%
+  Sei $n_0 \in \mathbb{N}_0$ und $A(n)$ eine Aussage für alle $n \ge n_0$.
+  Wenn gilt:
+  \begin{enumerate}[label=(\roman*),topsep=2pt,itemsep=1pt]
+    \item \textbf{Induktionsanfang:} $A(n_0)$ ist wahr.
+    \item \textbf{Induktionsschritt:} Für alle $n \ge n_0$ gilt:
+          $A(n)$ wahr $\Rightarrow$ $A(n+1)$ wahr.
+  \end{enumerate}
+  dann ist $A(n)$ für alle $n \ge n_0$ wahr.
+}
+
+\gentry{}{Beweisprinzipien}{%
+  \begin{itemize}[topsep=2pt,itemsep=1pt]
+    \item \textbf{Direkter Beweis:} Man nimmt $A$ an und schließt auf $B$.
+    \item \textbf{Kontraposition:} Man beweist $\lnot B \Rightarrow \lnot A$
+          statt $A \Rightarrow B$.
+    \item \textbf{Widerspruch (indirekter Beweis):} Man nimmt $A$ und
+          $\lnot B$ an und leitet einen Widerspruch her.
+    \item \textbf{Ringschluss:} Um die Äquivalenz von (i), (ii), (iii) zu
+          beweisen, genügt es, (i)$\Rightarrow$(ii), (ii)$\Rightarrow$(iii),
+          (iii)$\Rightarrow$(i) zu zeigen.
+  \end{itemize}
+}
+
+% ======================================================================
+\section*{1.3 \quad Mengen}
+
+\gentry{1.3.1}{Teilmenge, Gleichheit, leere Menge}{%
+  \begin{itemize}[topsep=2pt,itemsep=1pt]
+    \item $N \subseteq M$: jedes Element von $N$ liegt in $M$.
+    \item $M = N$: $M \subseteq N$ und $N \subseteq M$.
+    \item $\emptyset$: die Menge ohne Elemente.
+  \end{itemize}
+}
+
+\gentry{1.3.3}{Mengenoperationen}{%
+  Seien $M$, $N$ Mengen.
+  \begin{itemize}[topsep=2pt,itemsep=1pt]
+    \item \textbf{Vereinigung:} $M \cup N := \{x \mid x \in M \text{ oder } x \in N\}$
+    \item \textbf{Durchschnitt:} $M \cap N := \{x \mid x \in M \text{ und } x \in N\}$
+    \item \textbf{Differenz:} $M \setminus N := \{x \mid x \in M \text{ und } x \notin N\}$
+    \item \textbf{Disjunkt:} $M$ und $N$ heißen disjunkt, falls $M \cap N = \emptyset$.
+  \end{itemize}
+}
+
+\gentry{1.3.5}{Endliche und unendliche Mengen}{%
+  Eine Menge $M$ heißt \textbf{endlich}, wenn sie nur endlich viele Elemente
+  besitzt, andernfalls \textbf{unendlich}.
+}
+
+\gentry{1.3.7}{Mächtigkeit (Kardinalität)}{%
+  \[
+    |M| =
+    \begin{cases}
+      n, & \text{falls } M \text{ genau } n \text{ Elemente besitzt} \\
+      \infty, & \text{falls } M \text{ unendlich ist.}
+    \end{cases}
+  \]
+}
+
+\gentry{1.3.9}{Produktmenge}{%
+  Für nicht leere Mengen $M$, $N$:
+  \[
+    M \times N := \{(m,n) \mid m \in M,\, n \in N\}.
+  \]
+  $(m,n)$ heißt \textbf{geordnetes Paar}; $(m,n) = (m',n')$
+  $\Leftrightarrow$ $m = m'$ und $n = n'$.
+  Für endliche Mengen gilt $|M \times N| = |M| \cdot |N|$.
+}
+
+% ======================================================================
+\section*{1.4 \quad Abbildungen}
+
+\gentry{1.4.1}{Abbildung}{%
+  Eine \textbf{Abbildung} $f: M \to N$ ist eine Teilmenge
+  $f \subseteq M \times N$, sodass:
+  \begin{enumerate}[label=(\roman*),topsep=2pt,itemsep=1pt]
+    \item Für alle $m \in M$ gibt es ein $n \in N$ mit $(m,n) \in f$.
+    \item Aus $(m,n) \in f$ und $(m,n') \in f$ folgt $n = n'$.
+  \end{enumerate}
+  $M$ heißt \textbf{Definitionsbereich}, $N$ heißt \textbf{Wertebereich}.
+  Schreibweise: $n = f(m)$, \;$m \mapsto f(m)$.
+}
+
+\gentry{1.4.5}{Gleichheit von Abbildungen}{%
+  $f: M \to N$ und $g: M' \to N'$ sind \textbf{gleich}, falls
+  $M = M'$, $N = N'$ und $f(m) = g(m)$ für alle $m \in M$.
+}
+
+\gentry{1.4.6}{Bild und Urbild}{%
+  Sei $f: M \to N$.
+  \begin{itemize}[topsep=2pt,itemsep=1pt]
+    \item $f(m)$: das \textbf{Bild} von $m$ unter $f$.
+    \item $\mathrm{Bild}(f) = f(M) := \{n \in N \mid \exists\,m \in M: f(m) = n\}$:
+          der \textbf{Bildbereich}.
+    \item Ist $n \in \mathrm{Bild}(f)$, so heißt $m \in M$ mit $f(m) = n$
+          ein \textbf{Urbild} von $n$.
+  \end{itemize}
+}
+
+\gentry{1.4.9}{Injektiv, surjektiv, bijektiv}{%
+  Sei $f: M \to N$.
+  \begin{itemize}[topsep=2pt,itemsep=1pt]
+    \item $f$ \textbf{surjektiv}: jedes $n \in N$ liegt im Bild von $f$.
+    \item $f$ \textbf{injektiv}: jedes Element in $\mathrm{Bild}(f)$ besitzt
+          genau ein Urbild
+          (äquivalent: aus $f(m) = f(m')$ folgt $m = m'$).
+    \item $f$ \textbf{bijektiv}: $f$ ist surjektiv und injektiv.
+  \end{itemize}
+}
+
+\gentry{1.4.13}{Identische Abbildung}{%
+  $\mathrm{id}_M: M \to M$, $m \mapsto m$. Sie ist bijektiv.
+}
+
+\gentry{1.4.14}{Komposition}{%
+  Seien $f: L \to M$ und $g: M \to N$. Die \textbf{Komposition}
+  $g \circ f: L \to N$ ist definiert durch $(g \circ f)(l) = g(f(l))$.
+  \smallskip\\
+  Die Komposition ist \textbf{assoziativ} (Prop.\,1.4.23):
+  $(h \circ g) \circ f = h \circ (g \circ f)$.
+  \smallskip\\
+  Sind $f$ und $g$ bijektiv, so ist $g \circ f$ bijektiv.
+}
+
+\gentry{1.4.18}{Invertierbarkeit}{%
+  $f: M \to N$ heißt \textbf{invertierbar}, wenn es eine Abbildung
+  $f^{-1}: N \to M$ gibt mit $f^{-1} \circ f = \mathrm{id}_M$ und
+  $f \circ f^{-1} = \mathrm{id}_N$.
+}
+
+\gentry{1.4.22}{Korollar (Charakterisierung invertierbarer Abbildungen)}{%
+  Sei $f: M \to N$. Dann sind äquivalent:
+  \begin{enumerate}[label=(\alph*),topsep=2pt,itemsep=1pt]
+    \item $f$ ist bijektiv.
+    \item $f$ ist invertierbar.
+  \end{enumerate}
+}
+
+% ======================================================================
+\section*{1.5 \quad Verknüpfungen}
+
+\gentry{1.5.1}{Verknüpfung}{%
+  Sei $M$ eine Menge. Eine \textbf{Verknüpfung} auf $M$ ist eine Abbildung
+  $\circ: M \times M \to M$.
+}
+
+\gentry{1.5.5}{Eigenschaften von Verknüpfungen}{%
+  Sei $\circ$ eine Verknüpfung auf $M$.
+  \begin{itemize}[topsep=2pt,itemsep=1pt]
+    \item \textbf{kommutativ}: $a \circ b = b \circ a$ für alle $a,b \in M$.
+    \item \textbf{assoziativ}: $(a \circ b) \circ c = a \circ (b \circ c)$
+          für alle $a,b,c \in M$.
+    \item \textbf{neutrales Element} $e$: $a \circ e = e \circ a = a$
+          für alle $a \in M$.
+  \end{itemize}
+}
+
+\gentry{1.5.7}{Invertierbarkeit bzgl.\ einer Verknüpfung}{%
+  Besitzt $\circ$ ein neutrales Element $e$, so heißt $m \in M$
+  \textbf{invertierbar}, wenn es ein $m' \in M$ gibt mit
+  $m \circ m' = m' \circ m = e$.
+  Man nennt $m'$ \textbf{invers} zu $m$.
+}
+
+\gentry{1.5.10}{Distributivgesetze}{%
+  Seien $\circ$ und $\#$ zwei Verknüpfungen auf $M$. Die
+  \textbf{Distributivgesetze} lauten:
+  \[
+    m_1 \circ (m_2 \mathbin{\#} m_3) = (m_1 \circ m_2) \mathbin{\#} (m_1 \circ m_3),
+    \qquad
+    (m_1 \mathbin{\#} m_2) \circ m_3 = (m_1 \circ m_3) \mathbin{\#} (m_2 \circ m_3).
+  \]
+}
+
+% ======================================================================
+\section*{1.6 \quad Körper}
+
+\gentry{1.6.1}{Körper}{%
+  Ein \textbf{Körper} ist eine Menge $K$ mit zwei Verknüpfungen $+$ und $\cdot$
+  sowie zwei verschiedenen ausgezeichneten Elementen $0$ und $1$, sodass gilt:
+  \begin{enumerate}[label=(\roman*),topsep=2pt,itemsep=1pt]
+    \item $+$ ist kommutativ, assoziativ; $0$ ist neutrales Element;
+          jedes $a \in K$ besitzt ein additives Inverses $-a$.
+    \item $\cdot$ ist kommutativ, assoziativ; $1$ ist neutrales Element;
+          jedes $a \in K \setminus \{0\}$ besitzt ein multiplikatives
+          Inverses $a^{-1}$.
+    \item Distributivgesetz: $a \cdot (b+c) = a \cdot b + a \cdot c$.
+  \end{enumerate}
+  Beispiele: $\mathbb{Q}$, $\mathbb{R}$, $\mathbb{C}$, $\mathbb{F}_2 = \{0,1\}$.
+  \smallskip\\
+  $\mathbb{Z}$ ist \emph{kein} Körper (ganze Zahlen $\neq \pm 1$ nicht invertierbar bzgl.\ $\cdot$).
+}
+
+\gentry{1.6.4}{Proposition (Rechenregeln für Körper)}{%
+  Sei $K$ ein Körper. Dann gilt:
+  \begin{enumerate}[label=(\alph*),topsep=2pt,itemsep=1pt]
+    \item $a \cdot 0 = 0$ für alle $a \in K$.
+    \item Aus $a \cdot b = 0$ folgt $a = 0$ oder $b = 0$
+          (\emph{Nullteilerfreiheit}).
+    \item Das additive Inverse $-a$ ist eindeutig bestimmt.
+    \item Für $a \neq 0$ ist das multiplikative Inverse $a^{-1}$
+          eindeutig bestimmt.
+  \end{enumerate}
+}
+
+\gentry{1.6.5}{Notation in Körpern}{%
+  \begin{itemize}[topsep=2pt,itemsep=1pt]
+    \item $-a$: additives Inverses zu $a$; $b - a := b + (-a)$.
+    \item $a^{-1} = \frac{1}{a}$: multiplikatives Inverses zu $a \neq 0$;
+          $\frac{b}{a} := b \cdot \frac{1}{a}$.
+  \end{itemize}
+}
+
+\gentry{1.6.6}{Bemerkung}{%
+  In jedem Körper $K$ gilt: $(-1) \cdot a = -a$ für alle $a \in K$.
+}
+
+% ======================================================================
+\section*{2.1 -- 2.2 \quad Matrizen: Addition und Skalarmultiplikation}
+
+\gentry{2.1.1}{Matrix}{%
+  Eine \textbf{$m \times n$-Matrix} über einem Körper $K$ ist eine rechteckige
+  Anordnung
+  \[
+    A = (a_{ij})_{\substack{1 \le i \le m \\ 1 \le j \le n}}, \qquad a_{ij} \in K.
+  \]
+  $a_{ij}$: Eintrag an der Stelle $(i,j)$.
+  Für $m = n$: \textbf{quadratische Matrix}; $a_{ii}$: \textbf{Diagonalelement}.
+  Bezeichnung: $M_{mn}(K)$.
+}
+
+\gentry{2.1.5}{Matrizenaddition}{%
+  Für $A, B \in M_{mn}(K)$: $(A+B)_{ij} = a_{ij} + b_{ij}$.
+  \smallskip\\
+  $+$ ist kommutativ, assoziativ; neutrales Element ist die
+  \textbf{Nullmatrix} $0 \in M_{mn}(K)$ (alle Einträge $= 0$);
+  additives Inverses: $(-A) = (-a_{ij})$.
+}
+
+\gentry{2.2.1}{Skalarmultiplikation}{%
+  Für $r \in K$, $A = (a_{ij}) \in M_{mn}(K)$: $rA = (r \cdot a_{ij})$.
+  \smallskip\\
+  Regeln (Prop.\,2.2.3): $(rs)A = r(sA)$;\; $(r+s)A = rA+sA$;\;
+  $r(A+B) = rA+rB$;\; $1 \cdot A = A$.
+}
+
+% ======================================================================
+\section*{2.3 \quad Matrizenmultiplikation}
+
+\gentry{}{Matrizenmultiplikation}{%
+  Seien $A \in M_{mn}(K)$ und $B \in M_{ns}(K)$. Das Produkt
+  $AB \in M_{ms}(K)$ ist definiert durch:
+  \[
+    (AB)_{ik} = \sum_{j=1}^{n} a_{ij} \, b_{jk}.
+  \]
+  \textbf{Merkregel:} Zeile $i$ von $A$ auf Spalte $k$ von $B$ legen,
+  komponentenweise multiplizieren und aufaddieren.
+}
+
+\gentry{2.3.5}{Einheitsmatrix}{%
+  $I_m = (\delta_{ij}) \in M_{mm}(K)$ mit $\delta_{ij} = 1$ für $i = j$
+  und $\delta_{ij} = 0$ für $i \neq j$.
+}
+
+\gentry{}{Regeln der Matrizenmultiplikation (Prop.\,2.3.6, 2.3.8)}{%
+  \begin{itemize}[topsep=2pt,itemsep=1pt]
+    \item Assoziativgesetz: $(AB)C = A(BC)$.
+    \item $I_m A = A$, \; $A I_n = A$.
+    \item Im Allgemeinen \emph{nicht} kommutativ: $AB \neq BA$.
+    \item Distributivgesetze: $(A+A')B = AB+A'B$;\; $A(B+B') = AB+AB'$.
+    \item $(rA)B = r(AB) = A(rB)$.
+  \end{itemize}
+}
+
+\gentry{2.3.9}{Invertierbare Matrix}{%
+  $A \in M_{nn}(K)$ heißt \textbf{invertierbar}, wenn es
+  $A^{-1} \in M_{nn}(K)$ gibt mit $A^{-1}A = AA^{-1} = I_n$.
+  \smallskip\\
+  Das inverse Element ist eindeutig bestimmt (falls existent).
+  Produkte invertierbarer Matrizen sind invertierbar:
+  $(A_1 \cdots A_m)^{-1} = A_m^{-1} \cdots A_1^{-1}$.
+}
+
+% ======================================================================
+\section*{3.1 -- 3.2 \quad Elementarmatrizen}
+
+\gentry{3.1.1}{Elementare Zeilenumformungen}{%
+  Sei $A \in M_{mn}(K)$.
+  \begin{itemize}[topsep=2pt,itemsep=1pt]
+    \item $Z_{ij}$: Vertausche Zeile $i$ und Zeile $j$ ($i \neq j$).
+    \item $Z_i(r)$: Multipliziere Zeile $i$ mit $r \in K$, $r \neq 0$.
+    \item $Z_{ij}(s)$: Addiere das $s$-fache von Zeile $j$ zu Zeile $i$
+          ($s \in K$, $i \neq j$).
+  \end{itemize}
+}
+
+\gentry{3.2.6}{Elementarmatrizen}{%
+  Matrizen in $M_{mm}(K)$, die sich aus $I_m$ durch \emph{eine} elementare
+  Zeilenumformung ergeben:
+  \begin{itemize}[topsep=2pt,itemsep=1pt]
+    \item $P_{ij} = I_m - E_{ii} + E_{ij} - E_{jj} + E_{ji}$
+          \quad (entspricht $Z_{ij}$)
+    \item $D_i(r) = I_m + (r-1)E_{ii}$
+          \quad (entspricht $Z_i(r)$)
+    \item $T_{ij}(s) = I_m + s E_{ij}$
+          \quad (entspricht $Z_{ij}(s)$)
+  \end{itemize}
+  Dabei ist $E_{ij}$ die Matrix mit Eintrag $1$ an der Stelle $(i,j)$,
+  sonst $0$.
+  \smallskip\\
+  \textbf{Prop.\,3.2.9:} Linksmultiplikation mit einer Elementarmatrix
+  bewirkt die entsprechende Zeilenumformung an $A$.
+}
+
+\gentry{}{Prop.\,3.2.11 -- Invertierbarkeit von Elementarmatrizen}{%
+  Elementarmatrizen sind invertierbar; ihre Inversen sind wieder
+  Elementarmatrizen:
+  \[
+    P_{ij}^{-1} = P_{ij}, \qquad
+    D_i(r)^{-1} = D_i\!\left(\tfrac{1}{r}\right), \qquad
+    T_{ij}(s)^{-1} = T_{ij}(-s).
+  \]
+}
+
+% ======================================================================
+\section*{3.3 \quad Zeilenäquivalenz}
+
+\gentry{3.3.2}{Zeilenäquivalenz}{%
+  $A, B \in M_{mn}(K)$ heißen \textbf{zeilenäquivalent} ($A \sim_Z B$),
+  wenn es Elementarmatrizen $E_1, \ldots, E_r \in M_{mm}(K)$ gibt mit
+  \[
+    A = E_1 E_2 \cdots E_r B.
+  \]
+  Eigenschaften: $A \sim_Z B \Leftrightarrow B \sim_Z A$
+  (Symmetrie) und Transitivität.
+}
+
+\end{document}
