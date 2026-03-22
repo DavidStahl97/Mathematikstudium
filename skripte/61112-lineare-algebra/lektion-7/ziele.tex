@@ -1,0 +1,192 @@
+\documentclass[a4paper,12pt]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[ngerman]{babel}
+\usepackage{amsmath, amssymb}
+\usepackage{geometry}
+\usepackage{tikz}
+\usetikzlibrary{shapes.geometric, arrows.meta, positioning}
+\usepackage{parskip}
+\usepackage{titlesec}
+\usepackage{enumitem}
+
+\geometry{left=3cm, right=3cm, top=2.5cm, bottom=2.5cm}
+\titleformat{\section}{\large\bfseries}{}{0em}{}[\titlerule]
+\titleformat{\subsection}{\normalsize\bfseries}{}{0em}{}
+
+\tikzset{
+  box/.style={rectangle, draw, rounded corners=3pt, text width=4.8cm,
+              align=center, minimum height=1.0cm, font=\small, inner sep=4pt},
+  arrow/.style={-{Latex[length=2mm]}, thick},
+}
+
+\begin{document}
+
+\begin{center}
+  {\LARGE\bfseries Studierhinweise zu Lektion 7}\\[0.5em]
+  {\large Lineare Algebra (Modul 61112)}
+\end{center}
+
+\vspace{0.8em}
+
+Die letzte Lektion behandelt \textbf{Euklidische und unitäre Vektorräume} -- reelle bzw.\ komplexe
+Vektorräume mit einem \textbf{Skalarprodukt}. Damit wird Geometrie möglich: Abstände, Winkel,
+Orthogonalität. Höhepunkt sind die \textbf{Spektralsätze}, die Aussagen über Diagonalisierbarkeit
+bestimmter Endomorphismen mit Orthonormalbasis aus Eigenvektoren machen.
+
+Diese Lektion baut auf Lektion~3 (Bilinearformen, Hermite'sche Formen) auf. Sie ist etwas
+einfacher als Lektion~6, enthält aber viele schöne und nützliche Begriffe.
+
+% -----------------------------------------------------------------------
+\section*{Struktur der Lektion 7}
+
+\begin{center}
+\begin{tikzpicture}[node distance=0.55cm]
+  \node[box] (ska) {7.1 Skalarprodukt und Norm\\Hauptminorenkriterium, Cauchy-Schwarz};
+  \node[box, below=0.5cm of ska] (ort) {7.2 Orthogonalität\\Orthonormalbasen, orthog.\ Komplement,\\Gram-Schmidt};
+  \node[box, below=0.5cm of ort] (adj) {7.3 Adjungierte Abbildungen\\Definition, Matrixdarstellung};
+  \node[box, below=0.5cm of adj] (iso) {7.4 Isometrien\\orthogonale/unitäre Abbildungen u.\ Matrizen};
+  \node[box, below=0.5cm of iso] (spe) {7.5 Spektralsätze\\normal, unitär, selbstadjungiert};
+  \draw[arrow] (ska) -- (ort);
+  \draw[arrow] (ort) -- (adj);
+  \draw[arrow] (adj) -- (iso);
+  \draw[arrow] (iso) -- (spe);
+\end{tikzpicture}
+\end{center}
+
+\newpage
+
+% -----------------------------------------------------------------------
+\section*{Zielelement 7.1 -- Skalarprodukt und Norm}
+
+\subsection*{Lerninhalte}
+\begin{center}
+\begin{tikzpicture}[node distance=0.55cm]
+  \node[box] (def) {Skalarprodukt: positiv definite\\(Hermite'sche) Bilinearform};
+  \node[box, below=0.5cm of def] (hmk) {Hauptminorenkriterium (7.1.8):\\positiv definit $\iff$ alle Hauptminoren $> 0$};
+  \node[box, below=0.5cm of hmk] (nor) {Norm $\|v\| = \sqrt{\langle v,v\rangle}$\\Ungleichung von Cauchy-Schwarz};
+  \draw[arrow] (def) -- (hmk);
+  \draw[arrow] (hmk) -- (nor);
+\end{tikzpicture}
+\end{center}
+
+\subsection*{Lernziele}
+\begin{itemize}
+  \item Ein Skalarprodukt als positiv definite (Hermite'sche) Bilinearform erkennen.
+  \item Das Hauptminorenkriterium zur Prüfung positiver Definitheit anwenden.
+  \item Die Norm $\|v\| = \sqrt{\langle v,v\rangle}$ berechnen und die Ungleichung von Cauchy-Schwarz (7.1.15) anwenden.
+\end{itemize}
+
+\subsection*{Selbstkontrollelement 7.1}
+Ist $\langle (x_1,x_2),(y_1,y_2)\rangle = 2x_1y_1 + x_1y_2 + x_2y_1 + x_2y_2$ ein Skalarprodukt auf $\mathbb{R}^2$? Prüfen Sie mit dem Hauptminorenkriterium.
+
+\newpage
+
+% -----------------------------------------------------------------------
+\section*{Zielelement 7.2 -- Orthogonalität und Gram-Schmidt}
+
+\subsection*{Lerninhalte}
+\begin{center}
+\begin{tikzpicture}[node distance=0.55cm]
+  \node[box] (orth) {Orthogonale Vektoren $\langle u,v\rangle = 0$\\Orthogonales Komplement $U^\perp$};
+  \node[box, below=0.5cm of orth] (zer)  {Satz: $V = U \oplus U^\perp$ (7.2.8)};
+  \node[box, below=0.5cm of zer)  (onb)  {Orthonormalbasis (ONB):\\$\langle b_i, b_j\rangle = \delta_{ij}$};
+  \node[box, below=0.5cm of onb)  (gram) {Gram-Schmidt-Verfahren (7.2.24):\\Basis $\to$ ONB};
+  \draw[arrow] (orth) -- (zer);
+  \draw[arrow] (zer) -- (onb);
+  \draw[arrow] (onb) -- (gram);
+\end{tikzpicture}
+\end{center}
+
+\subsection*{Lernziele}
+\begin{itemize}
+  \item Das orthogonale Komplement $U^\perp$ berechnen; den Zerlegungssatz $V = U \oplus U^\perp$ anwenden.
+  \item Orthonormalbasen definieren und Koordinaten über das Skalarprodukt berechnen (7.2.20).
+  \item Das Gram-Schmidt-Verfahren (7.2.24) anwenden, um eine Basis in eine ONB umzuwandeln.
+\end{itemize}
+
+\subsection*{Selbstkontrollelement 7.2}
+Führen Sie das Gram-Schmidt-Verfahren für die Basis $\{(1,1,0),(1,0,1),(0,1,1)\}$ in $\mathbb{R}^3$ mit Standardskalarprodukt durch.
+
+\newpage
+
+% -----------------------------------------------------------------------
+\section*{Zielelement 7.3 -- Adjungierte Abbildungen}
+
+\subsection*{Lerninhalte}
+\begin{center}
+\begin{tikzpicture}[node distance=0.55cm]
+  \node[box] (def) {Adjungierte Abbildung $f^*: W \to V$\\$\langle f(v),w\rangle_W = \langle v, f^*(w)\rangle_V$};
+  \node[box, below=0.5cm of def] (ex)  {Existenz und Eindeutigkeit (7.3.9)};
+  \node[box, below=0.5cm of ex]  (mat) {Matrixdarstellung bzgl.\ ONB: $(M_B(f^*))_{ij} = \overline{(M_B(f))_{ji}}$\\d.\,h.\ $M_B(f^*) = M_B(f)^*$};
+  \draw[arrow] (def) -- (ex);
+  \draw[arrow] (ex) -- (mat);
+\end{tikzpicture}
+\end{center}
+
+\subsection*{Lernziele}
+\begin{itemize}
+  \item Die adjungierte Abbildung $f^*$ definieren und ihren Existenz- und Eindeutigkeitssatz kennen.
+  \item Die Matrixdarstellung von $f^*$ bzgl.\ einer ONB als $M_B(f)^* = \overline{M_B(f)^\top}$ berechnen.
+  \item Den Zusammenhang zwischen dualer und adjungierter Abbildung verstehen (7.3.14).
+\end{itemize}
+
+\subsection*{Selbstkontrollelement 7.3}
+Sei $f: \mathbb{R}^2 \to \mathbb{R}^2$ mit $M_B(f) = \begin{pmatrix}1&2\\3&4\end{pmatrix}$ (bzgl.\ ONB). Bestimmen Sie $M_B(f^*)$.
+
+\newpage
+
+% -----------------------------------------------------------------------
+\section*{Zielelement 7.4 -- Isometrien}
+
+\subsection*{Lerninhalte}
+\begin{center}
+\begin{tikzpicture}[node distance=0.55cm]
+  \node[box] (iso) {Isometrie: $\langle f(v),f(w)\rangle = \langle v,w\rangle$\\(Skalarprodukt erhaltend)};
+  \node[box, below=0.5cm of iso] (kri) {Charakterisierung: $f^* \circ f = \mathrm{id}$ (7.4.6)};
+  \node[box, below=0.5cm of kri] (mat) {Orthogonale Matrizen $O_n(\mathbb{R})$: $A^\top A = I$\\Unitäre Matrizen $U_n(\mathbb{C})$: $A^* A = I$};
+  \node[box, below=0.5cm of mat] (grp) {Isometrien bilden Gruppe (7.4.8)};
+  \draw[arrow] (iso) -- (kri);
+  \draw[arrow] (kri) -- (mat);
+  \draw[arrow] (mat) -- (grp);
+\end{tikzpicture}
+\end{center}
+
+\subsection*{Lernziele}
+\begin{itemize}
+  \item Isometrien als abstands- (bzw.\ skalarprodukt-)erhaltende Abbildungen definieren.
+  \item Das Kriterium $f^* \circ f = \mathrm{id}$ für Isometrien (7.4.6) anwenden.
+  \item Orthogonale und unitäre Matrizen definieren; konkrete Matrizen überprüfen.
+\end{itemize}
+
+\subsection*{Selbstkontrollelement 7.4}
+Zeigen Sie, dass die Drehmatrix $R_\theta = \begin{pmatrix}\cos\theta & -\sin\theta\\\sin\theta&\cos\theta\end{pmatrix}$ orthogonal ist.
+
+\newpage
+
+% -----------------------------------------------------------------------
+\section*{Zielelement 7.5 -- Spektralsätze}
+
+\subsection*{Lerninhalte}
+\begin{center}
+\begin{tikzpicture}[node distance=0.55cm]
+  \node[box] (nor) {Normaler Endomorphismus:\\$\varphi \circ \varphi^* = \varphi^* \circ \varphi$\\Spektralsatz (7.5): ONB aus EV};
+  \node[box, below=0.5cm of nor] (uni) {Unitärer Endomorphismus: Isometrie\\EW liegen auf dem Einheitskreis};
+  \node[box, below=0.5cm of uni] (sad) {Selbstadjungierter Endomorphismus:\\$\varphi = \varphi^*$, nur reelle EW,\\diagonalisierbar mit ONB aus EV};
+  \draw[arrow] (nor) -- (uni);
+  \draw[arrow] (uni) -- (sad);
+\end{tikzpicture}
+\end{center}
+
+\subsection*{Lernziele}
+\begin{itemize}
+  \item Normale, unitäre und selbstadjungierte Endomorphismen definieren.
+  \item Den allgemeinen Spektralsatz für normale Endomorphismen kennen.
+  \item Den Spektralsatz für selbstadjungierte Endomorphismen anwenden: nur reelle Eigenwerte, ONB aus Eigenvektoren.
+  \item Eine Orthonormalbasis aus Eigenvektoren für selbstadjungierte Endomorphismen berechnen.
+\end{itemize}
+
+\subsection*{Selbstkontrollelement 7.5}
+Sei $A = \begin{pmatrix}2&1\\1&2\end{pmatrix}$. Ist $A$ selbstadjungiert? Bestimmen Sie eine ONB aus Eigenvektoren.
+
+\end{document}

@@ -1,0 +1,207 @@
+\documentclass[a4paper,12pt]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[ngerman]{babel}
+\usepackage{amsmath, amssymb}
+\usepackage{geometry}
+\usepackage{tikz}
+\usetikzlibrary{shapes.geometric, arrows.meta, positioning}
+\usepackage{parskip}
+\usepackage{titlesec}
+\usepackage{enumitem}
+
+\geometry{left=3cm, right=3cm, top=2.5cm, bottom=2.5cm}
+\titleformat{\section}{\large\bfseries}{}{0em}{}[\titlerule]
+\titleformat{\subsection}{\normalsize\bfseries}{}{0em}{}
+
+\tikzset{
+  box/.style={rectangle, draw, rounded corners=3pt, text width=4.8cm,
+              align=center, minimum height=1.0cm, font=\small, inner sep=4pt},
+  arrow/.style={-{Latex[length=2mm]}, thick},
+}
+
+\begin{document}
+
+\begin{center}
+  {\LARGE\bfseries Studierhinweise zu Lektion 1}\\[0.5em]
+  {\large Lineare Algebra (Modul 61112)}
+\end{center}
+
+\vspace{0.8em}
+
+Diese Lektion legt algebraische Grundlagen für den gesamten weiteren Verlauf des Moduls. Drei
+algebraische Strukturen stehen im Mittelpunkt: \textbf{Gruppen}, \textbf{Ringe} und \textbf{Körper}. Darüber
+hinaus werden \textbf{Restklassenringe} und \textbf{endliche Körper~$\mathbb{F}_p$}, der zentrale \textbf{Polynomring~$K[X]$} sowie
+der \textbf{Körper~$\mathbb{C}$ der komplexen Zahlen} behandelt. Polynome sind ein unentbehrliches
+Werkzeug -- hinter der Jordan'schen Normalform (Lektion~6) verbirgt sich im Kern die
+Theorie der Moduln über Polynomringen.
+
+Lesen Sie Abschnitt~1.4 (Polynomringe) besonders gründlich; er ist der anspruchsvollste der
+Lektion. Üben Sie außerdem das Rechnen in~$\mathbb{F}_p$ und~$\mathbb{C}$ an konkreten Beispielen.
+
+% -----------------------------------------------------------------------
+\section*{Struktur der Lektion 1}
+
+\begin{center}
+\begin{tikzpicture}[node distance=0.55cm and 1.0cm]
+  \node[box] (grp)  {1.1 Gruppen\\$(G,*)$, Axiome, Untergruppen};
+  \node[box, below=0.5cm of grp] (rng)  {1.2 Ringe und Körper\\$(R,+,\cdot)$, Einheiten, Matrizen über Ringen};
+  \node[box, below=0.5cm of rng] (res)  {1.3 Restklassenringe\\$\mathbb{Z}/n\mathbb{Z}$, endliche Körper~$\mathbb{F}_p$};
+  \node[box, below=0.5cm of res] (pol)  {1.4 Polynomringe\\$K[X]$, Nullstellen, Ideale};
+  \node[box, below=0.5cm of pol] (cpx)  {1.5 Komplexe Zahlen\\$\mathbb{C}$, Fundamentalsatz der Algebra};
+  \draw[arrow] (grp) -- (rng);
+  \draw[arrow] (rng) -- (res);
+  \draw[arrow] (res) -- (pol);
+  \draw[arrow] (pol) -- (cpx);
+\end{tikzpicture}
+\end{center}
+
+\newpage
+
+% -----------------------------------------------------------------------
+\section*{Zielelement 1.1 -- Gruppen}
+
+\subsection*{Lerninhalte}
+\begin{center}
+\begin{tikzpicture}[node distance=0.55cm]
+  \node[box] (def) {Definition Gruppe $(G,*)$\\3 Axiome: Assoziativität,\\neutrales Element, Inverses};
+  \node[box, below=0.5cm of def] (bsp) {Beispiele: $(\mathbb{Z},+)$, $(\mathbb{R}^\times,\cdot)$,\\symmetrische Gruppen $S_n$};
+  \node[box, below=0.5cm of bsp] (unt) {Untergruppen: Definition\\und Kriterium (Satz 1.1.17)};
+  \draw[arrow] (def) -- (bsp);
+  \draw[arrow] (bsp) -- (unt);
+\end{tikzpicture}
+\end{center}
+
+\subsection*{Lernziele}
+\begin{itemize}
+  \item Die drei Gruppenaxiome kennen und in Beispielen nachweisen können.
+  \item Das kürzere äquivalente Kriterium (Satz~1.1.17) zur Prüfung von Gruppen anwenden.
+  \item Den Begriff der Untergruppe kennen und Beispiele angeben können.
+  \item Rechenregeln für Inverse (Anmerkung~1.1.3) sicher anwenden.
+\end{itemize}
+
+\subsection*{Selbstkontrollelement 1.1}
+Zeigen Sie, dass $(\mathbb{Z}, +)$ eine Gruppe ist. Ist $(\mathbb{N}, +)$ eine Gruppe? Begründen Sie.
+
+\newpage
+
+% -----------------------------------------------------------------------
+\section*{Zielelement 1.2 -- Ringe, Körper und Matrizen über Ringen}
+
+\subsection*{Lerninhalte}
+\begin{center}
+\begin{tikzpicture}[node distance=0.55cm]
+  \node[box] (def) {Definition Ring $(R,+,\cdot)$\\Axiome, kommutative Ringe};
+  \node[box, below=0.5cm of def] (ein) {Einheiten, Einheitengruppe $R^\times$\\nullteilerfreie Ringe};
+  \node[box, below=0.5cm of ein] (koe) {Definition Körper\\$K$: komm. Ring mit $R^\times = K\setminus\{0\}$};
+  \node[box, below=0.5cm of koe] (mat) {Matrizen $M_{n,n}(R)$ über Ringen\\Spur, Transposition, Blockdiagonal};
+  \draw[arrow] (def) -- (ein);
+  \draw[arrow] (ein) -- (koe);
+  \draw[arrow] (koe) -- (mat);
+\end{tikzpicture}
+\end{center}
+
+\subsection*{Lernziele}
+\begin{itemize}
+  \item Die Ringaxiome kennen; kommutativen Ring, Körper und nullteilerfreien Ring unterscheiden.
+  \item Einheiten in Ringen bestimmen; verstehen, dass Körper nullteilerfrei sind (Lemma~1.2.23).
+  \item Satz~1.2.28 kennen: $M_{n,n}(R)$ ist selbst ein Ring.
+  \item Spur, Transposition und Blockdiagonalmatrizen als Begriffe kennen.
+\end{itemize}
+
+\subsection*{Selbstkontrollelement 1.2}
+Bestimmen Sie die Einheitengruppe von $\mathbb{Z}$ und von $M_{2,2}(\mathbb{R})$.
+Warum ist $\mathbb{Z}$ kein Körper?
+
+\newpage
+
+% -----------------------------------------------------------------------
+\section*{Zielelement 1.3 -- Restklassenringe und endliche Körper}
+
+\subsection*{Lerninhalte}
+\begin{center}
+\begin{tikzpicture}[node distance=0.55cm]
+  \node[box] (div) {Division mit Rest\\$a = q \cdot n + r$, $0 \le r < n$};
+  \node[box, below=0.5cm of div] (res) {Restklassen $[a]_n \in \mathbb{Z}/n\mathbb{Z}$\\Ring der Restklassen (Satz 1.3.11)};
+  \node[box, below=0.5cm of res] (koe) {$\mathbb{Z}/n\mathbb{Z}$ Körper $\iff$ $n$ prim\\(Satz 1.3.14) $\Rightarrow$ endliche Körper $\mathbb{F}_p$};
+  \node[box, below=0.5cm of koe] (euk) {Euklidischer Algorithmus\\zur Berechnung mult. Inverser};
+  \draw[arrow] (div) -- (res);
+  \draw[arrow] (res) -- (koe);
+  \draw[arrow] (koe) -- (euk);
+\end{tikzpicture}
+\end{center}
+
+\subsection*{Lernziele}
+\begin{itemize}
+  \item Restklassen definieren und in $\mathbb{Z}/n\mathbb{Z}$ addieren und multiplizieren.
+  \item Erkennen, wann $\mathbb{Z}/n\mathbb{Z}$ ein Körper ist; in $\mathbb{F}_p$ sicher rechnen.
+  \item Den euklidischen Algorithmus zur Bestimmung multiplikativer Inverser anwenden.
+\end{itemize}
+
+\subsection*{Selbstkontrollelement 1.3}
+Bestimmen Sie das multiplikative Inverse von $[5]$ in $\mathbb{F}_7$.
+
+\newpage
+
+% -----------------------------------------------------------------------
+\section*{Zielelement 1.4 -- Polynomringe}
+
+\subsection*{Lerninhalte}
+\begin{center}
+\begin{tikzpicture}[node distance=0.55cm]
+  \node[box] (def) {Polynome, Grad, Polynomring $K[X]$\\(Ring nach Satz 1.4.9)};
+  \node[box, below=0.5cm of def] (div) {Division mit Rest in $K[X]$\\(Satz 1.4.11)};
+  \node[box, below=0.5cm of div] (nst) {Nullstellen, Abspaltungssatz\\Vielfachheit, Satz 1.4.30};
+  \node[box, below=0.5cm of nst] (lin) {Zerfallen in Linearfaktoren\\algebraisch abgeschlossene Körper};
+  \node[box, below=0.5cm of lin] (ide) {Ideale in $K[X]$: alle Hauptideale\\ggT, teilerfremde Polynome};
+  \draw[arrow] (def) -- (div);
+  \draw[arrow] (div) -- (nst);
+  \draw[arrow] (nst) -- (lin);
+  \draw[arrow] (lin) -- (ide);
+\end{tikzpicture}
+\end{center}
+
+\subsection*{Lernziele}
+\begin{itemize}
+  \item Polynome definieren, Grad berechnen und in $K[X]$ addieren/multiplizieren.
+  \item Division mit Rest im Polynomring anwenden (Polynomdivision).
+  \item Nullstellen bestimmen; Abspaltungssatz (1.4.21) und Vielfachheit kennen.
+  \item Den Satz~1.4.49 kennen: Jedes Ideal in $K[X]$ ist ein Hauptideal.
+  \item Den Begriff des algebraisch abgeschlossenen Körpers erklären.
+\end{itemize}
+
+\subsection*{Selbstkontrollelement 1.4}
+Führen Sie in $\mathbb{R}[X]$ die Division $X^3 - 2X + 1$ durch $X - 1$ mit Rest durch.
+Welche Schlussfolgerung können Sie über Nullstellen ziehen?
+
+\newpage
+
+% -----------------------------------------------------------------------
+\section*{Zielelement 1.5 -- Komplexe Zahlen und Fundamentalsatz}
+
+\subsection*{Lerninhalte}
+\begin{center}
+\begin{tikzpicture}[node distance=0.55cm]
+  \node[box] (kon) {Konstruktion von $\mathbb{C} = \mathbb{R}[X]/(X^2+1)$\\Körpereigenschaft (Satz 1.5.2)};
+  \node[box, below=0.5cm of kon] (rec) {Rechnen: Real-/Imaginärteil,\\Betrag, Konjugation, Polarform};
+  \node[box, below=0.5cm of rec] (fun) {Fundamentalsatz der Algebra\\$\mathbb{C}$ algebraisch abgeschlossen};
+  \node[box, below=0.5cm of fun] (qua) {Quadratwurzeln komplexer Zahlen\\Lösung quad. Gleichungen in $\mathbb{C}$};
+  \draw[arrow] (kon) -- (rec);
+  \draw[arrow] (rec) -- (fun);
+  \draw[arrow] (fun) -- (qua);
+\end{tikzpicture}
+\end{center}
+
+\subsection*{Lernziele}
+\begin{itemize}
+  \item $\mathbb{C}$ als Erweiterung von $\mathbb{R}$ konstruieren; Real-/Imaginärteil, Betrag, Konjugation verwenden.
+  \item Sicher mit komplexen Zahlen rechnen (Polarform, Rechenregeln 1.5.15--1.5.24).
+  \item Den Fundamentalsatz der Algebra (1.5.25) kennen: $\mathbb{C}$ ist algebraisch abgeschlossen.
+  \item Quadratwurzeln komplexer Zahlen berechnen; quadratische Gleichungen in $\mathbb{C}$ lösen.
+\end{itemize}
+
+\subsection*{Selbstkontrollelement 1.5}
+Berechnen Sie $(3 + 2i)(1 - i)$ und $\dfrac{1+i}{2-i}$. Bestimmen Sie außerdem
+alle Lösungen von $z^2 + 2z + 5 = 0$ in $\mathbb{C}$.
+
+\end{document}

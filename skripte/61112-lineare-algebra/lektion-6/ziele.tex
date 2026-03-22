@@ -1,0 +1,144 @@
+\documentclass[a4paper,12pt]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[ngerman]{babel}
+\usepackage{amsmath, amssymb}
+\usepackage{geometry}
+\usepackage{tikz}
+\usetikzlibrary{shapes.geometric, arrows.meta, positioning}
+\usepackage{parskip}
+\usepackage{titlesec}
+\usepackage{enumitem}
+
+\geometry{left=3cm, right=3cm, top=2.5cm, bottom=2.5cm}
+\titleformat{\section}{\large\bfseries}{}{0em}{}[\titlerule]
+\titleformat{\subsection}{\normalsize\bfseries}{}{0em}{}
+
+\tikzset{
+  box/.style={rectangle, draw, rounded corners=3pt, text width=4.8cm,
+              align=center, minimum height=1.0cm, font=\small, inner sep=4pt},
+  arrow/.style={-{Latex[length=2mm]}, thick},
+}
+
+\begin{document}
+
+\begin{center}
+  {\LARGE\bfseries Studierhinweise zu Lektion 6}\\[0.5em]
+  {\large Lineare Algebra (Modul 61112)}
+\end{center}
+
+\vspace{0.8em}
+
+Diese Lektion löst das \textbf{Normalformproblem}: Jede komplexe quadratische Matrix ist ähnlich zu
+einer Matrix in \textbf{Jordan'scher Normalform}. Der Weg führt über \textbf{nilpotente Endomorphismen}
+(deren Normalformtheorie der schwierigste Schritt ist) und \textbf{Haupträume}.
+
+Dies ist die anspruchsvollste Lektion des Moduls -- bleiben Sie am Ball. Bevor Sie sich mit
+der allgemeinen Jordan-Form beschäftigen, sollten Sie zunächst die nilpotente Normalform
+gründlich verstehen.
+
+% -----------------------------------------------------------------------
+\section*{Struktur der Lektion 6}
+
+\begin{center}
+\begin{tikzpicture}[node distance=0.55cm]
+  \node[box] (inv) {6.1 Invariante Unterräume\\$U_\varphi(g) = \ker(g(\varphi))$,\\Zerlegung durch Minimalpolynom};
+  \node[box, below=0.5cm of inv] (nil) {6.2 Nilpotente Endomorphismen\\Stufen, Filtrierung, zyklische UR,\\Rangpartition, Normalform};
+  \node[box, below=0.5cm of nil] (jor) {6.3 Jordan'sche Normalform\\Jordanblöcke, Haupträume,\\Hauptsatz, Berechnung};
+  \draw[arrow] (inv) -- (nil);
+  \draw[arrow] (nil) -- (jor);
+\end{tikzpicture}
+\end{center}
+
+\newpage
+
+% -----------------------------------------------------------------------
+\section*{Zielelement 6.1 -- Invariante Unterräume und Minimalpolynom}
+
+\subsection*{Lerninhalte}
+\begin{center}
+\begin{tikzpicture}[node distance=0.55cm]
+  \node[box] (ug)  {$U_\varphi(g) = \ker(g(\varphi))$\\$\varphi$-invarianter Unterraum (6.1.1)};
+  \node[box, below=0.5cm of ug]  (zer) {Satz 6.1.8: Für teilerfremde $g_1, g_2$:\\$U_\varphi(g_1 g_2) = U_\varphi(g_1) \oplus U_\varphi(g_2)$};
+  \node[box, below=0.5cm of zer] (dia) {Kriterium: $\varphi$ diagonal $\iff$\\$\mu_\varphi$ zerfällt in versch.\ Linearfaktoren\\(Satz 6.1.11)};
+  \draw[arrow] (ug) -- (zer);
+  \draw[arrow] (zer) -- (dia);
+\end{tikzpicture}
+\end{center}
+
+\subsection*{Lernziele}
+\begin{itemize}
+  \item Den Unterraum $U_\varphi(g) = \ker(g(\varphi))$ berechnen; Invarianz nachweisen.
+  \item Satz~6.1.8 anwenden: Faktorisierung des Minimalpolynoms liefert Zerlegung in invariante Unterräume.
+  \item Das Kriterium~6.1.11 für Diagonalisierbarkeit über das Minimalpolynom anwenden.
+\end{itemize}
+
+\subsection*{Selbstkontrollelement 6.1}
+Sei $A = \begin{pmatrix}2&0\\0&3\end{pmatrix}$. Bestimmen Sie $\mu_A$ und zerlegen Sie $\mathbb{R}^2 = U_A(X-2) \oplus U_A(X-3)$.
+
+\newpage
+
+% -----------------------------------------------------------------------
+\section*{Zielelement 6.2 -- Nilpotente Endomorphismen}
+
+\subsection*{Lerninhalte}
+\begin{center}
+\begin{tikzpicture}[node distance=0.55cm]
+  \node[box] (def) {Nilpotent: $\varphi^k = 0$\\Charakterisierung (6.2.17/18)};
+  \node[box, below=0.5cm of def] (fil) {Stufe eines Vektors (6.2.7)\\Filtrierung $\ker(\varphi^k)$};
+  \node[box, below=0.5cm of fil] (zyk) {Zyklischer Unterraum $Z(v,\varphi)$\\Basis: $v, \varphi(v), \ldots, \varphi^{k-1}(v)$};
+  \node[box, below=0.5cm of zyk] (par) {Partition, duale Partition (6.2.27--6.2.40)\\Rangpartition $p(\varphi)$};
+  \node[box, below=0.5cm of par] (nf)  {Nilpotente Normalform (6.2.49/51)\\Satz: eindeutig durch Rangpartition};
+  \draw[arrow] (def) -- (fil);
+  \draw[arrow] (fil) -- (zyk);
+  \draw[arrow] (zyk) -- (par);
+  \draw[arrow] (par) -- (nf);
+\end{tikzpicture}
+\end{center}
+
+\subsection*{Lernziele}
+\begin{itemize}
+  \item Nilpotente Endomorphismen definieren; Kriterien~6.2.17/18 kennen.
+  \item Die Filtrierung $\{0\} \subsetneq \ker(\varphi) \subsetneq \ker(\varphi^2) \subsetneq \cdots$ verstehen.
+  \item Zyklische Unterräume definieren und eine Basis angeben.
+  \item Den Begriff der Partition und der dualen Partition erklären.
+  \item Die Rangpartition $p(\varphi)$ berechnen; die nilpotente Normalform bestimmen.
+  \item Zwei nilpotente Matrizen sind ähnlich $\iff$ gleiche Rangpartition (6.2.54).
+\end{itemize}
+
+\subsection*{Selbstkontrollelement 6.2}
+Sei $N = \begin{pmatrix}0&1&0\\0&0&1\\0&0&0\end{pmatrix}$. Bestimmen Sie die Rangpartition und die nilpotente Normalform.
+
+\newpage
+
+% -----------------------------------------------------------------------
+\section*{Zielelement 6.3 -- Jordan'sche Normalform}
+
+\subsection*{Lerninhalte}
+\begin{center}
+\begin{tikzpicture}[node distance=0.55cm]
+  \node[box] (jb)  {Jordanblock $J_k(\lambda)$ der Größe $k$\\Jordankästchen};
+  \node[box, below=0.5cm of jb]  (jnf) {Jordan'sche Normalform (6.3.5):\\blockdiagonal aus Jordanblöcken};
+  \node[box, below=0.5cm of jnf] (hr)  {Hauptraum $H_\varphi(\lambda) = U_\varphi((X-\lambda)^n)$\\Zerlegung $V = \bigoplus_\lambda H_\varphi(\lambda)$};
+  \node[box, below=0.5cm of hr)  (hs)  {Hauptsatz (6.3.7/8):\\JNF existiert $\iff$ $\chi_\varphi$ zerfällt in LF};
+  \node[box, below=0.5cm of hs]  (ber) {Berechnung der JNF\\(6.3.19): Rangpartition pro Eigenwert};
+  \draw[arrow] (jb) -- (jnf);
+  \draw[arrow] (jnf) -- (hr);
+  \draw[arrow] (hr) -- (hs);
+  \draw[arrow] (hs) -- (ber);
+\end{tikzpicture}
+\end{center}
+
+\subsection*{Lernziele}
+\begin{itemize}
+  \item Jordanblöcke und Jordankästchen definieren; eine Matrix in JNF erkennen.
+  \item Haupträume $H_\varphi(\lambda)$ berechnen; Zerlegung $V = \bigoplus H_\varphi(\lambda)$ verstehen.
+  \item Den Hauptsatz~6.3.7 kennen: JNF existiert $\iff$ $\chi_\varphi$ zerfällt in Linearfaktoren (stets über $\mathbb{C}$).
+  \item Eigenschaften aus der JNF ablesen: Eigenwerte, algebraische und geometrische Vielfachheiten.
+  \item Die Jordan-Normalform einer gegebenen Matrix berechnen.
+\end{itemize}
+
+\subsection*{Selbstkontrollelement 6.3}
+Bestimmen Sie die Jordan'sche Normalform von $A = \begin{pmatrix}3&1&0\\0&3&1\\0&0&3\end{pmatrix}$.
+
+\end{document}

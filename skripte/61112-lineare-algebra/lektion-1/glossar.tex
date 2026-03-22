@@ -1,0 +1,189 @@
+\documentclass[a4paper,12pt]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[ngerman]{babel}
+\usepackage{amsmath, amssymb}
+\usepackage{geometry}
+\usepackage{parskip}
+\usepackage{titlesec}
+\usepackage{enumitem}
+\usepackage{array}
+
+\geometry{left=3cm, right=3cm, top=2.5cm, bottom=2.5cm}
+\titleformat{\section}{\large\bfseries}{}{0em}{}[\titlerule]
+
+\newcommand{\gentry}[3]{%
+  \noindent\textbf{#1\quad #2}\nopagebreak\\[0.2em]
+  #3\par\smallskip
+}
+
+\begin{document}
+
+\begin{center}
+  {\LARGE\bfseries Glossar zu Lektion 1}\\[0.5em]
+  {\large Lineare Algebra (Modul 61112)}
+\end{center}
+
+\vspace{0.8em}
+Kompakte Zusammenfassung aller wesentlichen Definitionen, Merkregeln und Sätze. Nummerierungen entsprechen dem Lehrtext.
+
+% ======================================================================
+\section*{1.1 \quad Gruppen}
+
+\gentry{1.1.1}{Gruppe}{%
+  Ein Paar $(G, *)$ aus einer Menge $G$ und einer Verknüpfung $* : G \times G \to G$ heißt \textbf{Gruppe}, wenn gilt:
+  \begin{enumerate}[label=(G\arabic*), topsep=2pt, itemsep=1pt]
+    \item Assoziativgesetz: $(a * b) * c = a * (b * c)$ für alle $a,b,c \in G$.
+    \item Neutrales Element: $\exists\, e \in G$ mit $a * e = e * a = a$ für alle $a \in G$.
+    \item Inverse: $\forall\, a \in G\; \exists\, a^{-1} \in G$ mit $a * a^{-1} = a^{-1} * a = e$.
+  \end{enumerate}
+  Eine Gruppe heißt \textbf{abelsch} (oder kommutativ), wenn zusätzlich $a*b = b*a$ gilt.
+}
+
+\gentry{1.1.3}{Merkregel (Rechnen mit Inversen)}{%
+  Sei $(G,*)$ eine Gruppe. Für alle $a, b \in G$ gilt:
+  $(a*b)^{-1} = b^{-1} * a^{-1}$; \quad $(a^{-1})^{-1} = a$.
+}
+
+\gentry{1.1.17}{Satz (äquivalentes Gruppenkriterium)}{%
+  $(G,*)$ mit Assoziativgesetz ist genau dann eine Gruppe, wenn es ein \emph{linksneutrales} Element und zu jedem Element ein \emph{Linksinverses} gibt.
+}
+
+\gentry{1.1.18}{Untergruppe}{%
+  Eine Teilmenge $H \subseteq G$ heißt \textbf{Untergruppe}, wenn $e \in H$, $H$ unter $*$ abgeschlossen ist und mit jedem $h \in H$ auch $h^{-1} \in H$ gilt.
+}
+
+% ======================================================================
+\section*{1.2 \quad Ringe und Körper}
+
+\gentry{1.2.1}{Ring}{%
+  Ein Tripel $(R, +, \cdot)$ heißt \textbf{Ring}, wenn $(R,+)$ eine abelsche Gruppe (mit neutralem Element~$0$) ist, $\cdot$ assoziativ ist und die Distributivgesetze gelten:
+  $a(b+c) = ab + ac$, $(a+b)c = ac + bc$.
+  Ist $\cdot$ kommutativ, heißt $R$ \textbf{kommutativer Ring}. Gibt es ein Einselement $1$, heißt $R$ \textbf{Ring mit Eins}.
+}
+
+\gentry{1.2.5}{Lemma (Rechenregeln in Ringen)}{%
+  In jedem Ring $R$: $a \cdot 0 = 0 \cdot a = 0$; \quad $(-a) \cdot b = -(ab)$; \quad $(-a)(-b) = ab$.
+}
+
+\gentry{1.2.14}{Einheit}{%
+  $a \in R$ heißt \textbf{invertierbar} (oder \textbf{Einheit}), falls $\exists\, b \in R$ mit $ab = ba = 1$.
+}
+
+\gentry{1.2.19}{Einheitengruppe}{%
+  Die Menge $R^\times$ aller Einheiten von $R$ bildet mit der Multiplikation eine Gruppe, die \textbf{Einheitengruppe} von $R$.
+}
+
+\gentry{1.2.20}{Körper}{%
+  Ein kommutativer Ring $(K, +, \cdot)$ mit $1 \neq 0$ heißt \textbf{Körper}, wenn $K^\times = K \setminus \{0\}$, d.\,h.\ jedes Element $\neq 0$ ist invertierbar.
+}
+
+\gentry{1.2.22}{Nullteilerfreiheit}{%
+  $R$ heißt \textbf{nullteilerfrei}, wenn aus $a \cdot b = 0$ folgt $a = 0$ oder $b = 0$.
+}
+
+\gentry{1.2.23}{Lemma}{Jeder Körper ist nullteilerfrei.}
+
+\gentry{1.2.28}{Satz (Matrizenring)}{%
+  Sei $R$ ein Ring, $n \in \mathbb{N}$. Dann ist $M_{n,n}(R)$ mit komponentenweiser Addition und Matrizenmultiplikation ein Ring.
+}
+
+\gentry{1.2.30}{Spur}{%
+  Für $A = (a_{ij}) \in M_{n,n}(R)$: $\operatorname{Spur}(A) := \sum_{i=1}^n a_{ii}$.
+}
+
+\gentry{1.2.31}{Transponierte}{%
+  Für $A = (a_{ij}) \in M_{m,n}(R)$: $A^\top = (a_{ji}) \in M_{n,m}(R)$. Es gilt $(AB)^\top = B^\top A^\top$.
+}
+
+% ======================================================================
+\section*{1.3 \quad Restklassenringe und endliche Körper}
+
+\gentry{1.3.4}{Restklasse}{%
+  Für $a \in \mathbb{Z}$, $n \in \mathbb{N}$: $[a]_n := \{b \in \mathbb{Z} \mid n \mid (b-a)\}$. Die Menge aller Restklassen ist $\mathbb{Z}/n\mathbb{Z} = \{[0]_n, [1]_n, \ldots, [n-1]_n\}$.
+}
+
+\gentry{1.3.11}{Satz}{%
+  $(\mathbb{Z}/n\mathbb{Z}, +, \cdot)$ mit $[a]+[b]:=[a+b]$ und $[a]\cdot[b]:=[ab]$ ist ein kommutativer Ring mit Eins.
+}
+
+\gentry{1.3.14}{Satz (Körperkriterium)}{%
+  $\mathbb{Z}/n\mathbb{Z}$ ist genau dann ein Körper, wenn $n$ eine \textbf{Primzahl} ist. Man schreibt dann $\mathbb{F}_p := \mathbb{Z}/p\mathbb{Z}$.
+}
+
+\gentry{1.3.17}{Euklidischer Algorithmus}{%
+  Berechnet $\operatorname{ggT}(a,n)$ durch wiederholte Division mit Rest. Falls $\operatorname{ggT}(a,p)=1$, liefert er das multiplikative Inverse $[a]^{-1}$ in $\mathbb{F}_p$.
+}
+
+% ======================================================================
+\section*{1.4 \quad Polynomringe}
+
+\gentry{1.4.1}{Polynom}{%
+  Ein \textbf{Polynom} über $K$ ist ein formaler Ausdruck $f = a_0 + a_1 X + \cdots + a_n X^n$ mit $a_i \in K$. Der \textbf{Grad} ist $\deg(f) = \max\{i \mid a_i \neq 0\}$ (Konvention: $\deg(0) = -\infty$).
+}
+
+\gentry{1.4.7}{Lemma (Gradformel)}{%
+  Für $f, g \in K[X]$ gilt $\deg(fg) = \deg(f) + \deg(g)$.
+}
+
+\gentry{1.4.9}{Satz}{$K[X]$ ist mit Addition und Multiplikation von Polynomen ein kommutativer Ring.}
+
+\gentry{1.4.11}{Satz (Division mit Rest)}{%
+  Zu $f, g \in K[X]$ mit $g \neq 0$ gibt es eindeutige $q, r \in K[X]$ mit $f = q \cdot g + r$ und $\deg(r) < \deg(g)$.
+}
+
+\gentry{1.4.20}{Nullstelle}{%
+  $\lambda \in K$ heißt \textbf{Nullstelle} von $f \in K[X]$, wenn $f(\lambda) = 0$.
+}
+
+\gentry{1.4.21}{Abspaltungssatz}{%
+  $\lambda \in K$ ist Nullstelle von $f$ $\iff$ $(X - \lambda) \mid f$.
+}
+
+\gentry{1.4.24}{Vielfachheit}{%
+  Die \textbf{Vielfachheit} einer Nullstelle $\lambda$ ist das maximale $k$ mit $(X-\lambda)^k \mid f$.
+}
+
+\gentry{1.4.30}{Satz (Nullstellen)}{%
+  Ein Polynom $f \in K[X]$ vom Grad $n$ hat höchstens $n$ Nullstellen (mit Vielfachheit gezählt).
+}
+
+\gentry{1.4.40}{Algebraisch abgeschlossen}{%
+  Ein Körper $K$ heißt \textbf{algebraisch abgeschlossen}, wenn jedes nicht-konstante Polynom $f \in K[X]$ mindestens eine Nullstelle in $K$ hat. Äquivalent: Jedes $f$ zerfällt in Linearfaktoren.
+}
+
+\gentry{1.4.45}{Ideal}{%
+  Eine Teilmenge $I \subseteq K[X]$ heißt \textbf{Ideal}, wenn $I$ eine additive Untergruppe ist und $fg \in I$ für alle $f \in K[X]$, $g \in I$.
+}
+
+\gentry{1.4.49}{Satz (Hauptideal)}{%
+  Jedes Ideal $I \subseteq K[X]$ ist ein \textbf{Hauptideal}: $I = (g) = \{fg \mid f \in K[X]\}$ für ein $g \in K[X]$.
+}
+
+\gentry{1.4.53}{Größter gemeinsamer Teiler}{%
+  Der \textbf{ggT} zweier Polynome $f, g$ ist der normierte Erzeuger des Ideals $(f) + (g)$.
+}
+
+% ======================================================================
+\section*{1.5 \quad Der Körper der komplexen Zahlen}
+
+\gentry{1.5.1}{Komplexe Zahlen}{%
+  $\mathbb{C} := \mathbb{R}[X]/(X^2+1)$. Man schreibt $z = a + bi$ mit $a = \operatorname{Re}(z)$, $b = \operatorname{Im}(z)$, $i^2 = -1$.
+}
+
+\gentry{1.5.2}{Satz}{$\mathbb{C}$ ist ein Körper.}
+
+\gentry{1.5.15--1.5.24}{Rechnen in $\mathbb{C}$}{%
+  \begin{itemize}[topsep=2pt,itemsep=1pt]
+    \item \textbf{Konjugation}: $\bar{z} = a - bi$; \quad $z \bar{z} = |z|^2 = a^2 + b^2$.
+    \item \textbf{Betrag}: $|z| = \sqrt{a^2+b^2}$.
+    \item \textbf{Inverses}: $z^{-1} = \bar{z}/|z|^2$ für $z \neq 0$.
+    \item \textbf{Polarform}: $z = |z|(\cos\varphi + i\sin\varphi)$; Multiplikation: $|z_1 z_2| = |z_1||z_2|$.
+  \end{itemize}
+}
+
+\gentry{1.5.25}{Fundamentalsatz der Algebra}{%
+  $\mathbb{C}$ ist algebraisch abgeschlossen: Jedes nicht-konstante Polynom $f \in \mathbb{C}[X]$ besitzt eine Nullstelle in $\mathbb{C}$.
+}
+
+\end{document}

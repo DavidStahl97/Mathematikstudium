@@ -1,0 +1,150 @@
+\documentclass[a4paper,12pt]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[ngerman]{babel}
+\usepackage{amsmath, amssymb}
+\usepackage{geometry}
+\usepackage{parskip}
+\usepackage{titlesec}
+\usepackage{enumitem}
+
+\geometry{left=3cm, right=3cm, top=2.5cm, bottom=2.5cm}
+\titleformat{\section}{\large\bfseries}{}{0em}{}[\titlerule]
+
+\newcommand{\gentry}[3]{%
+  \noindent\textbf{#1\quad #2}\nopagebreak\\[0.2em]
+  #3\par\smallskip
+}
+
+\begin{document}
+
+\begin{center}
+  {\LARGE\bfseries Glossar zu Lektion 2}\\[0.5em]
+  {\large Lineare Algebra (Modul 61112)}
+\end{center}
+
+\vspace{0.8em}
+
+% ======================================================================
+\section*{2.1 \quad Auswahlaxiom}
+
+\gentry{2.1.2}{Auswahlaxiom}{%
+  Für jede Familie nichtleerer Mengen $(M_i)_{i \in I}$ gibt es eine Auswahlfunktion $f$ mit $f(i) \in M_i$ für alle $i$.
+}
+
+\gentry{2.1.13}{Lemma von Zorn}{%
+  Sei $(M, \le)$ eine nichtleere partiell geordnete Menge, in der jede Kette eine obere Schranke besitzt. Dann hat $M$ ein \textbf{maximales Element}.
+}
+
+% ======================================================================
+\section*{2.2 \quad Rückblick: Vektorräume, Basen, lineare Abbildungen}
+
+\gentry{2.2.1}{Vektorraum}{%
+  Ein $K$-Vektorraum ist eine abelsche Gruppe $(V,+)$ zusammen mit einer Skalarmultiplikation $K \times V \to V$, die die vier Vektorraumaxiome erfüllt.
+}
+
+\gentry{2.2.4}{Unterraum}{%
+  $U \subseteq V$ heißt \textbf{Unterraum}, wenn $0 \in U$, $U$ unter Addition und Skalarmultiplikation abgeschlossen ist.
+}
+
+\gentry{2.2.7}{Lineare Unabhängigkeit}{%
+  $v_1, \ldots, v_n \in V$ heißen \textbf{linear unabhängig}, wenn aus $\sum a_i v_i = 0$ folgt $a_1 = \cdots = a_n = 0$.
+}
+
+\gentry{2.2.10}{Basis}{%
+  Eine \textbf{Basis} von $V$ ist ein linear unabhängiges Erzeugendensystem. Alle Basen eines endlich-dimensionalen VR haben dieselbe Kardinalität, die \textbf{Dimension} $\dim V$.
+}
+
+\gentry{2.2.11/12}{Satz (Basisergänzungssatz)}{%
+  Jedes linear unabhängige System lässt sich zu einer Basis ergänzen. Jede Basis lässt sich aus einem Erzeugendensystem herausgreifen. (Beweis über Lemma von Zorn für unendliche Dimension.)
+}
+
+\gentry{2.2.17}{Lineare Abbildung}{%
+  $f: V \to W$ heißt \textbf{linear}, wenn $f(u+v) = f(u)+f(v)$ und $f(\lambda v) = \lambda f(v)$.
+  \textbf{Rang-Nullitätssatz}: $\dim V = \dim \operatorname{Kern}(f) + \dim \operatorname{Bild}(f)$.
+}
+
+\gentry{2.2.23}{Matrixdarstellung}{%
+  Zu Basen $B = (b_1,\ldots,b_n)$ von $V$ und $C = (c_1,\ldots,c_m)$ von $W$ ist die Matrixdarstellung von $f: V \to W$ die Matrix ${}_C M_B(f) \in M_{m,n}(K)$ mit Spalten $\kappa_C(f(b_j))$.
+}
+
+\gentry{2.2.28}{Transformationsformel (Basiswechsel)}{%
+  Sei $T = {}_B M_{B'}(\mathrm{id}_V)$ die Transformationsmatrix. Dann gilt:
+  \[{}_C M_{B'}(f) = {}_C M_B(f) \cdot T.\]
+}
+
+% ======================================================================
+\section*{2.3 \quad Direkte Summe}
+
+\gentry{2.3.1}{Summe von Unterräumen}{%
+  Für Unterräume $U_1, \ldots, U_k \subseteq V$:
+  $U_1 + \cdots + U_k := \{u_1 + \cdots + u_k \mid u_i \in U_i\}$.
+}
+
+\gentry{2.3.5}{Direkte Summe}{%
+  Die Summe heißt \textbf{direkt} ($V = U_1 \oplus \cdots \oplus U_k$), wenn jedes $v \in V$ sich eindeutig als $v = u_1 + \cdots + u_k$ schreiben lässt.
+}
+
+\gentry{2.3.6}{Satz (Charakterisierungen)}{%
+  $V = U_1 \oplus \cdots \oplus U_k$ ist äquivalent zu:
+  \begin{itemize}[topsep=2pt,itemsep=1pt]
+    \item $U_i \cap (U_1 + \cdots + \hat{U}_i + \cdots + U_k) = \{0\}$ für alle $i$.
+    \item Die Vereinigung von Basen der $U_i$ ist eine Basis von $V$.
+  \end{itemize}
+}
+
+\gentry{2.3.12}{Satz (Dimensionsformel)}{%
+  $\dim(U_1 \oplus \cdots \oplus U_k) = \dim U_1 + \cdots + \dim U_k$.
+}
+
+\gentry{2.3.14}{Komplement}{%
+  $W$ heißt \textbf{Komplement} von $U$ in $V$, wenn $V = U \oplus W$.
+}
+
+\gentry{2.3.17}{Satz (Existenz des Komplements)}{%
+  Zu jedem Unterraum $U \subseteq V$ existiert ein Komplement $W$ mit $V = U \oplus W$.
+}
+
+% ======================================================================
+\section*{2.4 \quad Dualraum}
+
+\gentry{2.4.3}{Dualraum}{%
+  Der \textbf{Dualraum} von $V$ ist $V^* := \mathrm{Hom}_K(V,K)$, der $K$-Vektorraum aller Linearformen $\varphi: V \to K$.
+  Es gilt $\dim V^* = \dim V$ (für endlich-dimensionales $V$).
+}
+
+\gentry{2.4.10}{Duale Basis}{%
+  Zur Basis $(v_1,\ldots,v_n)$ von $V$ ist die \textbf{duale Basis} $(v_1^*,\ldots,v_n^*)$ definiert durch $v_i^*(v_j) = \delta_{ij}$.
+}
+
+\gentry{2.4.16}{Duale Abbildung}{%
+  Zu $f: V \to W$ ist die \textbf{duale Abbildung} $f^*: W^* \to V^*$ definiert durch $f^*(\varphi) = \varphi \circ f$.
+}
+
+% ======================================================================
+\section*{2.5 \quad Faktorräume*}
+
+\gentry{2.5.1}{Faktorraum (Quotientenvektorraum)}{%
+  Sei $U \subseteq V$ Unterraum. Die \textbf{Nebenklassen} $v + U := \{v + u \mid u \in U\}$ bilden den \textbf{Faktorraum} $V/U$ mit $(v+U)+(w+U):=(v+w)+U$ und $\lambda(v+U):=(\lambda v)+U$.
+}
+
+\gentry{2.5 Dim.}{Satz (Dimension)}{%
+  $\dim(V/U) = \dim V - \dim U$.
+}
+
+% ======================================================================
+\section*{2.6 \quad Äquivalenzrelationen}
+
+\gentry{2.6.1}{Äquivalenzrelation}{%
+  Eine Relation ${\sim}$ auf $M$ heißt \textbf{Äquivalenzrelation}, wenn sie reflexiv ($a \sim a$), symmetrisch ($a \sim b \Rightarrow b \sim a$) und transitiv ($a \sim b, b \sim c \Rightarrow a \sim c$) ist.
+}
+
+\gentry{}{Äquivalenzklasse}{%
+  $[a] := \{b \in M \mid a \sim b\}$. Die Menge $M/{\sim}$ aller Äquivalenzklassen heißt \textbf{Quotientenmenge}.
+}
+
+\gentry{2.6}{Äquivalente Matrizen}{%
+  $A, B \in M_{m,n}(K)$ heißen \textbf{äquivalent}, wenn es invertierbare $S \in M_{m,m}(K)$ und $T \in M_{n,n}(K)$ gibt mit $B = SAT$.
+}
+
+\end{document}
