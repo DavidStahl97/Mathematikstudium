@@ -1,0 +1,148 @@
+\documentclass[a4paper,12pt]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[ngerman]{babel}
+\usepackage{amsmath, amssymb}
+\usepackage{geometry}
+\usepackage{tikz}
+\usetikzlibrary{shapes.geometric, arrows.meta, positioning}
+\usepackage{parskip}
+\usepackage{titlesec}
+\usepackage{enumitem}
+
+\geometry{left=3cm, right=3cm, top=2.5cm, bottom=2.5cm}
+\titleformat{\section}{\large\bfseries}{}{0em}{}[\titlerule]
+\titleformat{\subsection}{\normalsize\bfseries}{}{0em}{}
+
+\tikzset{
+  box/.style={rectangle, draw, rounded corners=3pt, text width=4.8cm,
+              align=center, minimum height=1.0cm, font=\small, inner sep=4pt},
+  arrow/.style={-{Latex[length=2mm]}, thick},
+}
+
+\begin{document}
+
+\begin{center}
+  {\LARGE\bfseries Studierhinweise zu Lektion 3}\\[0.5em]
+  {\large Lineare Algebra (Modul 61112)}
+\end{center}
+
+\vspace{0.8em}
+
+Diese Lektion behandelt \textbf{Bilinearformen} und \textbf{Hermite'sche Formen} -- Abbildungen
+$\beta: U \times U \to K$, die in beiden Argumenten linear sind. Das Ziel ist die vollständige
+\textbf{Klassifikation} dieser Formen (bis auf Kongruenz). Für reelle symmetrische Bilinearformen
+liefert der \textbf{Trägheitssatz} die Klassifikation, für Hermite'sche Formen ein analoges Ergebnis.
+
+Diese Lektion ist anspruchsvoll -- investieren Sie ausreichend Zeit. Ergebnisse hieraus werden
+in Lektion~7 (Skalarprodukte) wieder aufgegriffen. Lesen Sie Abschnitt~3.1 besonders genau.
+
+% -----------------------------------------------------------------------
+\section*{Struktur der Lektion 3}
+
+\begin{center}
+\begin{tikzpicture}[node distance=0.55cm]
+  \node[box] (bil)  {3.1 Bilinearformen\\Definition, Matrixdarstellung,\\Kongruenz, Regularität};
+  \node[box, below=0.5cm of bil] (sym) {3.2 Symmetrische Bilinearformen\\Diagonalisierungssatz,\\Trägheitssatz, Klassifikation über $\mathbb{R}$};
+  \node[box, below=0.5cm of sym] (her) {3.3 Hermite'sche Formen\\Matrixdarstellung, Kongruenz,\\Trägheitssatz, Klassifikation};
+  \draw[arrow] (bil) -- (sym);
+  \draw[arrow] (sym) -- (her);
+\end{tikzpicture}
+\end{center}
+
+\newpage
+
+% -----------------------------------------------------------------------
+\section*{Zielelement 3.1 -- Bilinearformen}
+
+\subsection*{Lerninhalte}
+\begin{center}
+\begin{tikzpicture}[node distance=0.55cm]
+  \node[box] (def) {Definition Bilinearform $\beta: U \times U \to K$\\linear in beiden Argumenten};
+  \node[box, below=0.5cm of def] (mat) {Matrixdarstellung $M_B(\beta)$\\Transformationsformel (3.1.17)};
+  \node[box, below=0.5cm of mat] (kon) {Kongruenz von Bilinearformen\\$\beta_1 \sim \beta_2$ (Definition 3.1.22)};
+  \node[box, below=0.5cm of kon] (reg) {Reguläre/ausgeartete Formen\\Zerlegungssatz (3.1.43)};
+  \node[box, below=0.5cm of reg] (rng) {Rang, Nullraum\\Dimensionsformel (3.1.47)};
+  \draw[arrow] (def) -- (mat);
+  \draw[arrow] (mat) -- (kon);
+  \draw[arrow] (kon) -- (reg);
+  \draw[arrow] (reg) -- (rng);
+\end{tikzpicture}
+\end{center}
+
+\subsection*{Lernziele}
+\begin{itemize}
+  \item Eine Bilinearform definieren; an konkreten Beispielen die Matrixdarstellung berechnen.
+  \item Die Transformationsformel (3.1.17) anwenden: $M_{B'}(\beta) = S^\top M_B(\beta) S$.
+  \item Kongruenz von Bilinearformen und Matrixkongruenz ($A \sim S^\top A S$) verstehen.
+  \item Reguläre und ausgeartete Formen unterscheiden; den Zerlegungssatz (3.1.43) kennen.
+  \item Rang und Nullraum einer Bilinearform definieren und die Dimensionsformel anwenden.
+\end{itemize}
+
+\subsection*{Selbstkontrollelement 3.1}
+Sei $\beta: \mathbb{R}^2 \times \mathbb{R}^2 \to \mathbb{R}$, $\beta(u,v) = u_1 v_1 + 2 u_1 v_2 + u_2 v_2$.
+Bestimmen Sie die Matrixdarstellung bzgl.\ der Standardbasis und entscheiden Sie, ob $\beta$ regulär ist.
+
+\newpage
+
+% -----------------------------------------------------------------------
+\section*{Zielelement 3.2 -- Symmetrische Bilinearformen}
+
+\subsection*{Lerninhalte}
+\begin{center}
+\begin{tikzpicture}[node distance=0.55cm]
+  \node[box] (def) {Symmetrische Bilinearform\\$\beta(u,v) = \beta(v,u)$, symm. Matrix};
+  \node[box, below=0.5cm of def] (dia) {Diagonalisierungssatz (3.2.11)\\diagonale Matrixdarstellung existiert};
+  \node[box, below=0.5cm of dia] (cpl) {Klassifikation über $\mathbb{C}$\\(3.2.17, 3.2.19)};
+  \node[box, below=0.5cm of cpl] (träg){Trägheitssatz (3.2.25)\\Signatur $(p,q)$ ist Invariante};
+  \node[box, below=0.5cm of träg](klas){Klassifikation über $\mathbb{R}$\\Typ und Normalform (3.2.30, 3.2.34)};
+  \draw[arrow] (def) -- (dia);
+  \draw[arrow] (dia) -- (cpl);
+  \draw[arrow] (cpl) -- (träg);
+  \draw[arrow] (träg) -- (klas);
+\end{tikzpicture}
+\end{center}
+
+\subsection*{Lernziele}
+\begin{itemize}
+  \item Symmetrische Bilinearformen erkennen und die Polarisationsformel (3.2.10) anwenden.
+  \item Den Diagonalisierungssatz (3.2.11) kennen und eine diagonale Matrixdarstellung berechnen.
+  \item Den Trägheitssatz (3.2.25) verstehen: Die Signatur $(p,q)$ hängt nicht von der Diagonalisierung ab.
+  \item Reelle symmetrische Bilinearformen nach Typ klassifizieren; Normalform angeben.
+\end{itemize}
+
+\subsection*{Selbstkontrollelement 3.2}
+Bestimmen Sie die Signatur der reellen symmetrischen Bilinearform mit Matrix
+$A = \begin{pmatrix}2 & 1 \\ 1 & -1\end{pmatrix}$. Ist $\beta$ positiv definit?
+
+\newpage
+
+% -----------------------------------------------------------------------
+\section*{Zielelement 3.3 -- Hermite'sche Formen}
+
+\subsection*{Lerninhalte}
+\begin{center}
+\begin{tikzpicture}[node distance=0.55cm]
+  \node[box] (def) {Hermite'sche Form $h: U \times U \to \mathbb{C}$\\konjugiert-linear in 1. Argument};
+  \node[box, below=0.5cm of def] (mat) {Matrixdarstellung, konjugiert transp.\ Matrix\\$A^* = \overline{A^\top}$, Hermite'sche Kongruenz};
+  \node[box, below=0.5cm of mat] (red) {Reduktion auf reelle symm.\ Bilinearformen\\(3.3.39--3.3.42)};
+  \node[box, below=0.5cm of red] (klas){Trägheitssatz (3.3.43), Typ,\\Klassifikation (3.3.50)};
+  \draw[arrow] (def) -- (mat);
+  \draw[arrow] (mat) -- (red);
+  \draw[arrow] (red) -- (klas);
+\end{tikzpicture}
+\end{center}
+
+\subsection*{Lernziele}
+\begin{itemize}
+  \item Eine Hermite'sche Form definieren; Matrixdarstellung und Hermite'sche Kongruenz kennen.
+  \item Hermite'sche Matrizen ($A = A^*$) erkennen und die Transformationsformel anwenden.
+  \item Den Zusammenhang zu reellen symmetrischen Bilinearformen verstehen (3.3.39).
+  \item Hermite'sche Formen nach Signatur klassifizieren; positiv/negativ definit erkennen.
+\end{itemize}
+
+\subsection*{Selbstkontrollelement 3.3}
+Ist die Hermite'sche Form mit Matrix $A = \begin{pmatrix}3 & i \\ -i & 2\end{pmatrix}$ positiv definit?
+Begründen Sie Ihre Antwort mithilfe des Hauptminorenkriteriums.
+
+\end{document}

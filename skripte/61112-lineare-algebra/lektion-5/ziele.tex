@@ -1,0 +1,168 @@
+\documentclass[a4paper,12pt]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[ngerman]{babel}
+\usepackage{amsmath, amssymb}
+\usepackage{geometry}
+\usepackage{tikz}
+\usetikzlibrary{shapes.geometric, arrows.meta, positioning}
+\usepackage{parskip}
+\usepackage{titlesec}
+\usepackage{enumitem}
+
+\geometry{left=3cm, right=3cm, top=2.5cm, bottom=2.5cm}
+\titleformat{\section}{\large\bfseries}{}{0em}{}[\titlerule]
+\titleformat{\subsection}{\normalsize\bfseries}{}{0em}{}
+
+\tikzset{
+  box/.style={rectangle, draw, rounded corners=3pt, text width=4.8cm,
+              align=center, minimum height=1.0cm, font=\small, inner sep=4pt},
+  arrow/.style={-{Latex[length=2mm]}, thick},
+}
+
+\begin{document}
+
+\begin{center}
+  {\LARGE\bfseries Studierhinweise zu Lektion 5}\\[0.5em]
+  {\large Lineare Algebra (Modul 61112)}
+\end{center}
+
+\vspace{0.8em}
+
+Diese Lektion stellt die Werkzeuge für das \textbf{Normalformproblem} bereit: Zu einem Endomorphismus
+$\varphi \in \mathrm{End}(V)$ sucht man eine Basis, in der die Matrixdarstellung möglichst einfach
+(„normal") ist. Der zentrale Begriff ist der des \textbf{Eigenvektors} bzw.\ \textbf{Eigenwertes}.
+Eigenwerte lassen sich als Nullstellen des \textbf{charakteristischen Polynoms} berechnen.
+Das \textbf{Minimalpolynom} und der \textbf{Satz von Cayley-Hamilton} runden die Theorie ab.
+
+Die Begriffe in Abschnitt~5.2 sind fundamental -- nehmen Sie sich dafür ausreichend Zeit,
+da sie in Lektion~6 ständig benötigt werden.
+
+% -----------------------------------------------------------------------
+\section*{Struktur der Lektion 5}
+
+\begin{center}
+\begin{tikzpicture}[node distance=0.55cm]
+  \node[box] (nfp)  {5.1 Normalformproblem\\Ähnlichkeit, invariante Unterräume};
+  \node[box, below=0.5cm of nfp] (ev)  {5.2 Eigenwerte, Eigenvektoren\\Eigenräume, Diagonalisierbarkeit};
+  \node[box, below=0.5cm of ev]  (pol) {5.3 Char.\ Polynom, Minimalpolynom\\Satz von Cayley-Hamilton};
+  \node[box, below=0.5cm of pol] (sto) {5.4 Stochastische Matrizen\\Satz von Perron, PageRank};
+  \draw[arrow] (nfp) -- (ev);
+  \draw[arrow] (ev) -- (pol);
+  \draw[arrow] (pol) -- (sto);
+\end{tikzpicture}
+\end{center}
+
+\newpage
+
+% -----------------------------------------------------------------------
+\section*{Zielelement 5.1 -- Normalformproblem und invariante Unterräume}
+
+\subsection*{Lerninhalte}
+\begin{center}
+\begin{tikzpicture}[node distance=0.55cm]
+  \node[box] (äh)  {Normalformproblem:\\Ähnlichkeit von Matrizen};
+  \node[box, below=0.5cm of äh]  (inv) {Invarianter Unterraum $U$:\\$\varphi(U) \subseteq U$, Einschränkung $\varphi|_U$};
+  \node[box, below=0.5cm of inv] (zer) {Zerlegung in invariante Unterräume\\$\Rightarrow$ blockdiagonale Matrix (5.1.13)};
+  \draw[arrow] (äh) -- (inv);
+  \draw[arrow] (inv) -- (zer);
+\end{tikzpicture}
+\end{center}
+
+\subsection*{Lernziele}
+\begin{itemize}
+  \item Das Normalformproblem für Endomorphismen und Matrizen formulieren.
+  \item Den Begriff des $\varphi$-invarianten Unterraums kennen und Beispiele angeben.
+  \item Verstehen, warum eine Zerlegung in invariante Unterräume zu einer blockdiagonalen Matrixdarstellung führt (Satz~5.1.13).
+\end{itemize}
+
+\subsection*{Selbstkontrollelement 5.1}
+Sei $A = \begin{pmatrix}2&1\\0&3\end{pmatrix}$. Zeigen Sie, dass $\langle e_1 \rangle$ ein $A$-invarianter Unterraum ist.
+
+\newpage
+
+% -----------------------------------------------------------------------
+\section*{Zielelement 5.2 -- Eigenwerte, Eigenvektoren, Diagonalisierbarkeit}
+
+\subsection*{Lerninhalte}
+\begin{center}
+\begin{tikzpicture}[node distance=0.55cm]
+  \node[box] (def) {Eigenvektor $v \neq 0$, Eigenwert $\lambda$:\\$\varphi(v) = \lambda v$};
+  \node[box, below=0.5cm of def] (era) {Eigenraum $E_\lambda(\varphi) = \ker(\varphi - \lambda \mathrm{id})$\\Geometrische Vielfachheit};
+  \node[box, below=0.5cm of era] (lem) {Lemma 5.2.13: Summe der Eigenräume\\ist direkt};
+  \node[box, below=0.5cm of lem] (dia) {Diagonalisierbar $\iff$ Basis aus Eigenvektoren};
+  \draw[arrow] (def) -- (era);
+  \draw[arrow] (era) -- (lem);
+  \draw[arrow] (lem) -- (dia);
+\end{tikzpicture}
+\end{center}
+
+\subsection*{Lernziele}
+\begin{itemize}
+  \item Eigenwerte und Eigenvektoren definieren; Eigenräume berechnen.
+  \item Die geometrische Vielfachheit eines Eigenwertes bestimmen.
+  \item Das Lemma~5.2.13 kennen: Eigenräume zu verschiedenen Eigenwerten stehen in direkter Summe.
+  \item Kriterium für Diagonalisierbarkeit kennen und anwenden.
+\end{itemize}
+
+\subsection*{Selbstkontrollelement 5.2}
+Bestimmen Sie alle Eigenwerte und Eigenräume von $A = \begin{pmatrix}3&1\\0&2\end{pmatrix}$.
+Ist $A$ diagonalisierbar?
+
+\newpage
+
+% -----------------------------------------------------------------------
+\section*{Zielelement 5.3 -- Charakteristisches Polynom und Minimalpolynom}
+
+\subsection*{Lerninhalte}
+\begin{center}
+\begin{tikzpicture}[node distance=0.55cm]
+  \node[box] (cp)  {Char.\ Polynom $\chi_\varphi(X) = \det(X \cdot \mathrm{id} - \varphi)$\\Nullstellen = Eigenwerte};
+  \node[box, below=0.5cm of cp]  (av)  {Algebraische Vielfachheit\\eines Eigenwertes};
+  \node[box, below=0.5cm of av]  (mp)  {Minimalpolynom $\mu_\varphi$:\\kleinster normierter Teiler von $\chi_\varphi$\\mit $\mu_\varphi(\varphi) = 0$};
+  \node[box, below=0.5cm of mp]  (ch)  {Satz von Cayley-Hamilton (5.3.42):\\$\chi_\varphi(\varphi) = 0$, d.\,h.\ $\mu_\varphi \mid \chi_\varphi$};
+  \draw[arrow] (cp) -- (av);
+  \draw[arrow] (av) -- (mp);
+  \draw[arrow] (mp) -- (ch);
+\end{tikzpicture}
+\end{center}
+
+\subsection*{Lernziele}
+\begin{itemize}
+  \item Das charakteristische Polynom $\chi_\varphi$ berechnen; Grad ist $\dim V$.
+  \item Algebraische und geometrische Vielfachheit unterscheiden; $1 \le \text{geom.} \le \text{alg.}$
+  \item Das Minimalpolynom als normierten Erzeuger des Verschwindungsideals (5.3.32) kennen.
+  \item Den Satz von Cayley-Hamilton (5.3.42) anwenden: $\chi_\varphi(\varphi) = 0$.
+\end{itemize}
+
+\subsection*{Selbstkontrollelement 5.3}
+Berechnen Sie $\chi_A$ und $\mu_A$ für $A = \begin{pmatrix}2&1\\0&2\end{pmatrix}$.
+Verifizieren Sie den Satz von Cayley-Hamilton.
+
+\newpage
+
+% -----------------------------------------------------------------------
+\section*{Zielelement 5.4 -- Stochastische Matrizen und PageRank}
+
+\subsection*{Lerninhalte}
+\begin{center}
+\begin{tikzpicture}[node distance=0.55cm]
+  \node[box] (sto) {Stochastische Matrix:\\Spalten summieren sich zu 1,\\alle Einträge $\geq 0$};
+  \node[box, below=0.5cm of sto] (per) {Satz von Perron (5.4.6):\\Eigenwert $1$ mit geo.\ Vfh. $1$};
+  \node[box, below=0.5cm of per] (pag) {Google PageRank:\\Stationäre Verteilung als Eigenvektor};
+  \draw[arrow] (sto) -- (per);
+  \draw[arrow] (per) -- (pag);
+\end{tikzpicture}
+\end{center}
+
+\subsection*{Lernziele}
+\begin{itemize}
+  \item Stochastische Matrizen definieren und erkennen.
+  \item Den Satz von Perron (5.4.6) kennen: positive stochastische Matrizen haben Eigenwert~$1$ mit geometrischer Vielfachheit~$1$.
+  \item Das Prinzip des Google PageRank-Algorithmus erklären.
+\end{itemize}
+
+\subsection*{Selbstkontrollelement 5.4}
+Bestimmen Sie den Eigenvektor zum Eigenwert~$1$ von $A = \begin{pmatrix}0{,}7 & 0{,}4 \\ 0{,}3 & 0{,}6\end{pmatrix}$.
+
+\end{document}

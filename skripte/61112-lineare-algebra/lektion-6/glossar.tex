@@ -1,0 +1,137 @@
+\documentclass[a4paper,12pt]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[ngerman]{babel}
+\usepackage{amsmath, amssymb}
+\usepackage{geometry}
+\usepackage{parskip}
+\usepackage{titlesec}
+\usepackage{enumitem}
+
+\geometry{left=3cm, right=3cm, top=2.5cm, bottom=2.5cm}
+\titleformat{\section}{\large\bfseries}{}{0em}{}[\titlerule]
+
+\newcommand{\gentry}[3]{%
+  \noindent\textbf{#1\quad #2}\nopagebreak\\[0.2em]
+  #3\par\smallskip
+}
+
+\begin{document}
+
+\begin{center}
+  {\LARGE\bfseries Glossar zu Lektion 6}\\[0.5em]
+  {\large Lineare Algebra (Modul 61112)}
+\end{center}
+
+\vspace{0.8em}
+
+% ======================================================================
+\section*{6.1 \quad Invariante Unterräume}
+
+\gentry{6.1.1}{Lemma}{%
+  Für $\varphi \in \mathrm{End}(V)$ und $g \in K[X]$ ist $U_\varphi(g) := \ker(g(\varphi))$ ein $\varphi$-invarianter Unterraum.
+  Speziell: $U_\varphi(X-\lambda) = E_\lambda(\varphi)$ (Eigenraum).
+}
+
+\gentry{6.1.8}{Satz}{%
+  Seien $g_1, g_2 \in K[X]$ teilerfremd und $g = g_1 g_2$. Dann gilt:
+  $U_\varphi(g) = U_\varphi(g_1) \oplus U_\varphi(g_2)$.
+}
+
+\gentry{6.1.10}{Korollar}{%
+  Ist $\mu_\varphi = g_1 \cdots g_r$ eine Faktorisierung in paarweise teilerfremde Polynome, so gilt $V = U_\varphi(g_1) \oplus \cdots \oplus U_\varphi(g_r)$.
+}
+
+\gentry{6.1.11}{Satz (Diagonalisierbarkeit)}{%
+  $\varphi$ ist diagonalisierbar $\iff$ $\mu_\varphi$ zerfällt in paarweise verschiedene Linearfaktoren.
+}
+
+% ======================================================================
+\section*{6.2 \quad Nilpotente Endomorphismen}
+
+\gentry{6.2.1}{Nilpotent}{%
+  $\varphi \in \mathrm{End}(V)$ heißt \textbf{nilpotent}, wenn $\varphi^k = 0$ für ein $k \in \mathbb{N}$.
+  Die kleinste solche Zahl heißt \textbf{Nilpotenzgrad}.
+}
+
+\gentry{6.2.17/18}{Satz (Charakterisierung)}{%
+  $\varphi$ nilpotent $\iff$ $\chi_\varphi = X^n$ $\iff$ $\mu_\varphi = X^m$ für ein $m \leq n$ $\iff$ $0$ ist einziger Eigenwert.
+}
+
+\gentry{6.2.7}{Stufe}{%
+  Die \textbf{Stufe} von $v \in V$ bzgl.\ $\varphi$ ist das kleinste $k \geq 0$ mit $\varphi^k(v) = 0$.
+}
+
+\gentry{6.2.13}{Filtrierung}{%
+  $\{0\} = F_0 \subseteq F_1 \subseteq \cdots \subseteq F_m = V$ mit $F_k := \ker(\varphi^k)$ heißt \textbf{Filtrierung} zu $\varphi$.
+}
+
+\gentry{6.2.20}{Zyklischer Unterraum}{%
+  Für $v \in V$ ist $Z(v, \varphi) := \langle v, \varphi(v), \varphi^2(v), \ldots \rangle$ der \textbf{zyklische Unterraum}.
+  Ist die Stufe von $v$ gleich $k$, so ist $(v, \varphi(v), \ldots, \varphi^{k-1}(v))$ eine Basis von $Z(v,\varphi)$.
+}
+
+\gentry{6.2.25}{Satz}{%
+  Jeder Vektorraum mit nilpotentem Endomorphismus $\varphi$ lässt sich als direkte Summe zyklischer Unterräume schreiben:
+  $V = Z(v_1,\varphi) \oplus \cdots \oplus Z(v_s, \varphi)$.
+}
+
+\gentry{6.2.27}{Partition}{%
+  Eine \textbf{Partition} von $n \in \mathbb{N}$ ist ein Tupel $(p_1, \ldots, p_s)$ mit $p_1 \geq \cdots \geq p_s > 0$ und $\sum p_i = n$.
+}
+
+\gentry{6.2.41}{Rangpartition}{%
+  Die \textbf{Rangpartition} $p(\varphi) = (p_1, \ldots, p_s)$ eines nilpotenten $\varphi$ ist definiert durch die Stufen der Basisvektoren in einer zyklischen Zerlegung.
+  Alternativ: $p_j^* = \mathrm{Rg}(\varphi^{j-1}) - \mathrm{Rg}(\varphi^j)$ (über die duale Partition).
+}
+
+\gentry{6.2.49}{Nilpotente Normalform}{%
+  Eine nilpotente Matrix $N$ ist in \textbf{Normalform}, wenn sie eine Blockdiagonalmatrix mit Blöcken
+  $J_k(0) = \begin{pmatrix}0&1&&\\&\ddots&\ddots&\\&&0&1\\&&&0\end{pmatrix}$ (Jordanblöcke zum EW~0) ist.
+}
+
+\gentry{6.2.51}{Satz}{%
+  Jeder nilpotente Endomorphismus hat eine Matrixdarstellung in Normalform, die eindeutig durch die Rangpartition bestimmt ist.
+}
+
+\gentry{6.2.54}{Korollar}{%
+  Zwei nilpotente Matrizen sind ähnlich $\iff$ sie haben dieselbe Rangpartition.
+}
+
+% ======================================================================
+\section*{6.3 \quad Jordan'sche Normalform}
+
+\gentry{6.3.1}{Jordanblock}{%
+  Der \textbf{Jordanblock} $J_k(\lambda) \in M_{k,k}(K)$ zum Eigenwert $\lambda$ und der Größe $k$ ist:
+  \[
+    J_k(\lambda) = \begin{pmatrix}\lambda&1&&&\\&\lambda&1&&\\&&\ddots&\ddots&\\&&&\lambda&1\\&&&&\lambda\end{pmatrix}.
+  \]
+  Ein $1 \times 1$-Jordanblock ist $J_1(\lambda) = (\lambda)$.
+}
+
+\gentry{6.3.5}{Jordan'sche Normalform}{%
+  Eine Matrix $A$ ist in \textbf{Jordan'scher Normalform} (JNF), wenn sie eine Blockdiagonalmatrix aus Jordanblöcken ist: $A = \mathrm{diag}(J_{k_1}(\lambda_1), \ldots, J_{k_r}(\lambda_r))$.
+}
+
+\gentry{6.3.15}{Hauptraum}{%
+  Zum Eigenwert $\lambda$ ist der \textbf{Hauptraum} $H_\varphi(\lambda) := U_\varphi((X-\lambda)^n) = \ker((\varphi - \lambda \cdot \mathrm{id})^n)$.
+  Es gilt $\dim H_\varphi(\lambda) = \mathrm{aVfh}(\lambda)$.
+}
+
+\gentry{6.3.7/8}{Hauptsatz über die JNF}{%
+  Sei $\varphi \in \mathrm{End}(V)$, $\dim V = n$. Genau dann hat $\varphi$ eine Matrixdarstellung in JNF, wenn $\chi_\varphi$ in Linearfaktoren zerfällt. In diesem Fall gilt:
+  \[
+    V = H_\varphi(\lambda_1) \oplus \cdots \oplus H_\varphi(\lambda_r),
+  \]
+  wobei $\lambda_1, \ldots, \lambda_r$ die verschiedenen Eigenwerte sind. Die JNF ist bis auf Permutation der Blöcke eindeutig bestimmt.
+}
+
+\gentry{6.3.9}{Eigenschaften aus der JNF}{%
+  Aus der JNF lassen sich ablesen: Eigenwerte $\lambda_i$ (Diagonaleinträge), algebraische Vielfachheiten (Größe aller Blöcke zu $\lambda_i$), geometrische Vielfachheiten (Anzahl der Blöcke zu $\lambda_i$).
+}
+
+\gentry{6.3.22}{Klassifikation komplexer Matrizen}{%
+  Zwei Matrizen in $M_{n,n}(\mathbb{C})$ sind ähnlich $\iff$ sie dieselbe JNF haben (bis auf Permutation der Blöcke).
+}
+
+\end{document}

@@ -1,0 +1,196 @@
+\documentclass[a4paper,12pt]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[ngerman]{babel}
+\usepackage{amsmath, amssymb}
+\usepackage{geometry}
+\usepackage{tikz}
+\usetikzlibrary{shapes.geometric, arrows.meta, positioning}
+\usepackage{parskip}
+\usepackage{titlesec}
+\usepackage{enumitem}
+
+\geometry{left=3cm, right=3cm, top=2.5cm, bottom=2.5cm}
+\titleformat{\section}{\large\bfseries}{}{0em}{}[\titlerule]
+\titleformat{\subsection}{\normalsize\bfseries}{}{0em}{}
+
+\tikzset{
+  box/.style={rectangle, draw, rounded corners=3pt, text width=4.8cm,
+              align=center, minimum height=1.0cm, font=\small, inner sep=4pt},
+  arrow/.style={-{Latex[length=2mm]}, thick},
+}
+
+\begin{document}
+
+\begin{center}
+  {\LARGE\bfseries Studierhinweise zu Lektion 2}\\[0.5em]
+  {\large Lineare Algebra (Modul 61112)}
+\end{center}
+
+\vspace{0.8em}
+
+Diese Lektion liefert die konzeptuellen Grundlagen für den gesamten weiteren Verlauf des Moduls.
+Nach einem Exkurs über das \textbf{Auswahlaxiom} und das \textbf{Lemma von Zorn} werden
+bekannte Begriffe (Vektorräume, Basen, lineare Abbildungen) aus den Mathematischen Grundlagen
+wiederholt und vertieft. Der Schwerpunkt liegt auf drei fundamentalen Konstruktionen:
+\textbf{direkte Summe}, \textbf{Dualraum} und \textbf{Faktorraum}. Schließen Sie etwaige
+Lücken bei Basiswechsel und Matrixdarstellungen frühzeitig, da diese Begriffe ständig benötigt werden.
+
+% -----------------------------------------------------------------------
+\section*{Struktur der Lektion 2}
+
+\begin{center}
+\begin{tikzpicture}[node distance=0.55cm]
+  \node[box] (aus) {2.1 Auswahlaxiom\\Lemma von Zorn};
+  \node[box, below=0.5cm of aus] (vr)  {2.2 Rückblick: VR, Basen,\\lineare Abbildungen,\\Matrixdarstellungen};
+  \node[box, below=0.5cm of vr]  (ds)  {2.3 Direkte Summe\\Komplemente};
+  \node[box, below=0.5cm of ds]  (du)  {2.4 Dualraum\\Dualbasen, duale Abbildungen};
+  \node[box, below=0.5cm of du]  (fak) {2.5 Faktorräume*\\Konstruktion, Dimension};
+  \node[box, below=0.5cm of fak] (äq)  {2.6 Äquivalenzrelationen\\Beispiel: äquivalente Matrizen};
+  \draw[arrow] (aus) -- (vr);
+  \draw[arrow] (vr) -- (ds);
+  \draw[arrow] (ds) -- (du);
+  \draw[arrow] (du) -- (fak);
+  \draw[arrow] (fak) -- (äq);
+\end{tikzpicture}
+\end{center}
+
+\newpage
+
+% -----------------------------------------------------------------------
+\section*{Zielelement 2.1 -- Auswahlaxiom und Lemma von Zorn}
+
+\subsection*{Lerninhalte}
+\begin{center}
+\begin{tikzpicture}[node distance=0.55cm]
+  \node[box] (ax)  {Auswahlaxiom (2.1.2)};
+  \node[box, below=0.5cm of ax]  (po)  {Partielle Ordnungen,\\Ketten, obere Schranken};
+  \node[box, below=0.5cm of po]  (zo)  {Lemma von Zorn (2.1.13)};
+  \draw[arrow] (ax) -- (po);
+  \draw[arrow] (po) -- (zo);
+\end{tikzpicture}
+\end{center}
+
+\subsection*{Lernziele}
+\begin{itemize}
+  \item Das Auswahlaxiom und seine Bedeutung kennen (nicht klausurrelevant).
+  \item Das Lemma von Zorn als Folgerung aus dem Auswahlaxiom einordnen.
+  \item Verstehen, warum das Lemma von Zorn für den Basisergänzungssatz benötigt wird.
+\end{itemize}
+
+\subsection*{Selbstkontrollelement 2.1}
+Was besagt das Lemma von Zorn informal? Welche Anwendung hat es im Basisergänzungssatz?
+
+\newpage
+
+% -----------------------------------------------------------------------
+\section*{Zielelement 2.2 -- Rückblick: Vektorräume, Basen, lineare Abbildungen}
+
+\subsection*{Lerninhalte}
+\begin{center}
+\begin{tikzpicture}[node distance=0.55cm]
+  \node[box] (vr)  {Vektorraum $V$ über $K$,\\Unterraum, Basis};
+  \node[box, below=0.5cm of vr]  (be)  {Basisergänzungssatz (2.2.11/12)\\auch für unendlich-dim. VR};
+  \node[box, below=0.5cm of be]  (la)  {Lineare Abbildungen,\\Kern, Bild, Rang-Nullitätssatz};
+  \node[box, below=0.5cm of la]  (md)  {Matrixdarstellungen (2.2.23)\\Basiswechsel / Transformationsformel};
+  \draw[arrow] (vr) -- (be);
+  \draw[arrow] (be) -- (la);
+  \draw[arrow] (la) -- (md);
+\end{tikzpicture}
+\end{center}
+
+\subsection*{Lernziele}
+\begin{itemize}
+  \item Vektorraum-Axiome, Unterraum-Kriterium und Dimensionsbegriff sicher beherrschen.
+  \item Den Basisergänzungssatz kennen und anwenden.
+  \item Matrixdarstellungen linearer Abbildungen berechnen; Transformationsformel (2.2.28) anwenden.
+  \item Zusammenhang zwischen Matrixdarstellung und Basiswechsel verstehen.
+\end{itemize}
+
+\subsection*{Selbstkontrollelement 2.2}
+Sei $f : \mathbb{R}^2 \to \mathbb{R}^2$, $f(x,y) = (x+y, 2x)$. Berechnen Sie die Matrixdarstellung von $f$ bzgl.\ der Standardbasis und der Basis $\{(1,1),(1,0)\}$.
+
+\newpage
+
+% -----------------------------------------------------------------------
+\section*{Zielelement 2.3 -- Direkte Summe}
+
+\subsection*{Lerninhalte}
+\begin{center}
+\begin{tikzpicture}[node distance=0.55cm]
+  \node[box] (sum)  {Summe von Unterräumen $U_1 + \cdots + U_k$};
+  \node[box, below=0.5cm of sum] (dir) {Direkte Summe $V = U_1 \oplus \cdots \oplus U_k$\\Charakterisierungen (Satz 2.3.6)};
+  \node[box, below=0.5cm of dir] (dim) {Dimensionsformel (Satz 2.3.12)};
+  \node[box, below=0.5cm of dim] (kom) {Komplement $W$: $V = U \oplus W$\\Existenz (Satz 2.3.17)};
+  \draw[arrow] (sum) -- (dir);
+  \draw[arrow] (dir) -- (dim);
+  \draw[arrow] (dim) -- (kom);
+\end{tikzpicture}
+\end{center}
+
+\subsection*{Lernziele}
+\begin{itemize}
+  \item Definition der direkten Summe kennen; Charakterisierungen aus Satz~2.3.6 anwenden.
+  \item Dimensionsformel für direkte Summen benutzen.
+  \item Den Begriff des Komplementes kennen; verstehen, dass zu jedem Unterraum ein Komplement existiert.
+\end{itemize}
+
+\subsection*{Selbstkontrollelement 2.3}
+Sei $V = \mathbb{R}^3$ und $U = \langle e_1, e_2 \rangle$. Geben Sie ein Komplement von $U$ an und verifizieren Sie $V = U \oplus W$.
+
+\newpage
+
+% -----------------------------------------------------------------------
+\section*{Zielelement 2.4 -- Dualraum}
+
+\subsection*{Lerninhalte}
+\begin{center}
+\begin{tikzpicture}[node distance=0.55cm]
+  \node[box] (lf)  {Linearformen $\varphi: V \to K$\\Dualraum $V^* = \mathrm{Hom}_K(V,K)$};
+  \node[box, below=0.5cm of lf]  (db)  {Duale Basis $(v_1^*, \ldots, v_n^*)$\\zu einer Basis von $V$};
+  \node[box, below=0.5cm of db]  (da)  {Duale Abbildung $f^* : W^* \to V^*$\\zu $f: V \to W$};
+  \draw[arrow] (lf) -- (db);
+  \draw[arrow] (db) -- (da);
+\end{tikzpicture}
+\end{center}
+
+\subsection*{Lernziele}
+\begin{itemize}
+  \item Den Dualraum $V^*$ als Vektorraum aller Linearformen definieren und mit der Dualbasis rechnen.
+  \item Koordinaten eines Vektors bzgl.\ der Dualbasis berechnen.
+  \item Die duale Abbildung $f^*$ definieren und als lineare Abbildung erkennen.
+\end{itemize}
+
+\subsection*{Selbstkontrollelement 2.4}
+Sei $V = \mathbb{R}^2$ mit Standardbasis $\{e_1, e_2\}$. Bestimmen Sie die duale Basis $\{e_1^*, e_2^*\}$ und berechnen Sie $e_1^*((3,7))$.
+
+\newpage
+
+% -----------------------------------------------------------------------
+\section*{Zielelement 2.5/2.6 -- Faktorräume und Äquivalenzrelationen}
+
+\subsection*{Lerninhalte}
+\begin{center}
+\begin{tikzpicture}[node distance=0.55cm]
+  \node[box] (äq)  {Äquivalenzrelation auf $M$\\Reflexivität, Symmetrie, Transitivität};
+  \node[box, below=0.5cm of äq]  (äkl) {Äquivalenzklassen $[m]$\\Quotientenmenge $M/{\sim}$};
+  \node[box, below=0.5cm of äkl] (fak) {Faktorraum $V/U$\\Nebenklassen $v + U$};
+  \node[box, below=0.5cm of fak] (dim) {$\dim(V/U) = \dim V - \dim U$};
+  \draw[arrow] (äq) -- (äkl);
+  \draw[arrow] (äkl) -- (fak);
+  \draw[arrow] (fak) -- (dim);
+\end{tikzpicture}
+\end{center}
+
+\subsection*{Lernziele}
+\begin{itemize}
+  \item Eine Äquivalenzrelation definieren und Äquivalenzklassen bestimmen.
+  \item Den Faktorraum $V/U$ als Quotient eines Vektorraums nach einem Unterraum konstruieren.
+  \item Die Dimension von $V/U$ berechnen.
+  \item Das Beispiel der äquivalenten Matrizen (2.6) kennen.
+\end{itemize}
+
+\subsection*{Selbstkontrollelement 2.5/2.6}
+Sei $V = \mathbb{R}^3$, $U = \langle e_3 \rangle$. Beschreiben Sie die Nebenklassen im Faktorraum $V/U$ geometrisch. Was ist $\dim(V/U)$?
+
+\end{document}
