@@ -90,8 +90,8 @@ Ist $\langle (x_1,x_2),(y_1,y_2)\rangle = 2x_1y_1 + x_1y_2 + x_2y_1 + x_2y_2$ ei
 \begin{tikzpicture}[node distance=0.55cm]
   \node[box] (orth) {Orthogonale Vektoren $\langle u,v\rangle = 0$\\Orthogonales Komplement $U^\perp$};
   \node[box, below=0.5cm of orth] (zer)  {Satz: $V = U \oplus U^\perp$ (7.2.8)};
-  \node[box, below=0.5cm of zer)  (onb)  {Orthonormalbasis (ONB):\\$\langle b_i, b_j\rangle = \delta_{ij}$};
-  \node[box, below=0.5cm of onb)  (gram) {Gram-Schmidt-Verfahren (7.2.24):\\Basis $\to$ ONB};
+  \node[box, below=0.5cm of zer]  (onb)  {Orthonormalbasis (ONB):\\$\langle b_i, b_j\rangle = \delta_{ij}$};
+  \node[box, below=0.5cm of onb]  (gram) {Gram-Schmidt-Verfahren (7.2.24):\\Basis $\to$ ONB};
   \draw[arrow] (orth) -- (zer);
   \draw[arrow] (zer) -- (onb);
   \draw[arrow] (onb) -- (gram);
