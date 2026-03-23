@@ -40,37 +40,37 @@ Gleiche Argumentation wie Fall 1.
 \underline{Fall 3: $x = -1$}
 
 Wir verwenden das $\varepsilon$-$\delta$-Kriterium.
-Sei $\varepsilon > 0$ beliebig und $(x_n)$ eine Folge mit Grenzwert $-1$.
+Sei $\varepsilon > 0$ beliebig.
 
 Da jede Polynomfunktion stetig ist, existiert ein $\delta_1 > 0$, sodass
-für alle $x_n$ mit $|x_n + 1| < \delta_1$ gilt:
+für alle $y$ mit $|y + 1| < \delta_1$ gilt:
 \[
-    |(x_n + 2) - (x + 2)| < \varepsilon.
+    |(y + 2) - (x + 2)| < \varepsilon.
 \]
 
 Genauso existiert ein $\delta_2 > 0$, sodass
-für alle $x_n$ mit $|x_n + 1| < \delta_2$ gilt:
+für alle $y$ mit $|y + 1| < \delta_2$ gilt:
 \[
-    |x_n^2 - x^2| < \varepsilon.
+    |y^2 - x^2| < \varepsilon.
 \]
 
 Wir definieren ein $\delta := \min(\delta_1, \delta_2)$.
 
-Zu zeigen ist nun: für alle $x_n$ mit $|x_n + 1| < \delta$ gilt:
+Zu zeigen ist nun: für alle $y$ mit $|y + 1| < \delta$ gilt:
 \[
-    |f(x_n) - f(x)| < \varepsilon.
+    |f(y) - f(x)| < \varepsilon.
 \]
 
-\underline{Fall 3.1: $x_n \leq -1$}
+\underline{Fall 3.1: $y \leq -1$}
 
-Da $\delta \leq \delta_1$ gilt, folgt $|x_n + 1| < \delta \leq \delta_1$.
-Wegen $x_n \leq -1$ gilt $f(x_n) = x_n + 2$.
-Aus $|x_n + 1| < \delta_1$ und $f(x_n) = x_n + 2$ folgt:
+Da $\delta \leq \delta_1$ gilt, folgt $|y + 1| < \delta \leq \delta_1$.
+Wegen $y \leq -1$ gilt $f(y) = y + 2$.
+Aus $|y + 1| < \delta_1$ und $f(y) = y + 2$ folgt:
 \[
-    |f(x_n) - f(x)| = |(x_n + 2) - (x + 2)| < \varepsilon.
+    |f(y) - f(x)| = |(y + 2) - (x + 2)| < \varepsilon.
 \]
 
-\underline{Fall 3.2: $x_n > -1$}
+\underline{Fall 3.2: $y > -1$}
 
 Gleiche Argumentation.
 
