@@ -1,0 +1,77 @@
+\documentclass[a4paper,12pt]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[ngerman]{babel}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{enumitem}
+\usepackage{geometry}
+\geometry{a4paper, margin=2.5cm}
+
+\title{Einsendeaufgaben -- Lektion 5\\[0.5em]
+\large Modul 61111: Mathematische Grundlagen}
+\author{}
+\date{}
+
+\begin{document}
+\maketitle
+
+\section*{Aufgabe 5.1}
+
+Sei $x \in \mathbb{R}$ beliebig.
+
+\underline{Fall 1: $x < -1$}
+
+Sei $(x_n)$ eine beliebige Folge mit Grenzwert $x$.
+Wir definieren ein $\varepsilon := \frac{|x - (-1)|}{2}$.
+
+Es gilt dann $x < x + \varepsilon < -1$ und für fast alle $x_n$ gilt $x_n < x + \varepsilon < -1$.
+Und daher für fast alle $x_n$ gilt:
+\[
+    f(x_n) = x_n + 2.
+\]
+
+Da $x + 2$ stetig auf ganz $\mathbb{R}$ ist, konvergiert $(f(x_n))$ gegen $f(x)$.
+
+\underline{Fall 2: $x > -1$}
+
+Gleiche Argumentation wie Fall 1.
+
+\underline{Fall 3: $x = -1$}
+
+Wir verwenden das $\varepsilon$-$\delta$-Kriterium.
+Sei $\varepsilon > 0$ beliebig.
+
+Da jede Polynomfunktion stetig ist, existiert ein $\delta_1 > 0$, sodass
+für alle $y$ mit $|y + 1| < \delta_1$ gilt:
+\[
+    |(y + 2) - (x + 2)| < \varepsilon.
+\]
+
+Genauso existiert ein $\delta_2 > 0$, sodass
+für alle $y$ mit $|y + 1| < \delta_2$ gilt:
+\[
+    |y^2 - x^2| < \varepsilon.
+\]
+
+Wir definieren ein $\delta := \min(\delta_1, \delta_2)$.
+
+Zu zeigen ist nun: für alle $y$ mit $|y + 1| < \delta$ gilt:
+\[
+    |f(y) - f(x)| < \varepsilon.
+\]
+
+\underline{Fall 3.1: $y \leq -1$}
+
+Da $\delta \leq \delta_1$ gilt, folgt $|y + 1| < \delta \leq \delta_1$.
+Wegen $y \leq -1$ gilt $f(y) = y + 2$.
+Aus $|y + 1| < \delta_1$ und $f(y) = y + 2$ folgt:
+\[
+    |f(y) - f(x)| = |(y + 2) - (x + 2)| < \varepsilon.
+\]
+
+\underline{Fall 3.2: $y > -1$}
+
+Gleiche Argumentation.
+
+\end{document}
