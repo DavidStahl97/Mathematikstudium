@@ -1,0 +1,68 @@
+name: PR – Geänderte PDFs erzeugen
+
+on:
+  pull_request:
+
+jobs:
+  build-changed-pdfs:
+    name: Geänderte .tex-Dateien kompilieren
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Repository auschecken
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Geänderte .tex-Dateien ermitteln
+        run: |
+          git fetch origin ${{ github.base_ref }}
+          CHANGED=$(git diff --name-only origin/${{ github.base_ref }}...HEAD -- 'skripte/**/*.tex')
+          echo "Geänderte .tex-Dateien:"
+          echo "$CHANGED"
+          echo "CHANGED_TEX<<EOF" >> $GITHUB_ENV
+          echo "$CHANGED" >> $GITHUB_ENV
+          echo "EOF" >> $GITHUB_ENV
+
+      - name: TeX Live installieren
+        if: env.CHANGED_TEX != ''
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y \
+            texlive-latex-base \
+            texlive-latex-extra \
+            texlive-lang-german \
+            texlive-fonts-recommended
+
+      - name: Geänderte .tex-Dateien kompilieren
+        if: env.CHANGED_TEX != ''
+        run: |
+          echo "$CHANGED_TEX" | while read texfile; do
+            [ -z "$texfile" ] && continue
+            basename=$(basename "$texfile" .tex)
+            texdir=$(dirname "$texfile")
+            echo "Kompiliere $texfile ..."
+            (cd "$texdir" && \
+              pdflatex -interaction=nonstopmode -file-line-error "$basename.tex" && \
+              pdflatex -interaction=nonstopmode -file-line-error "$basename.tex")
+          done
+
+      - name: Geänderte PDFs sammeln
+        if: env.CHANGED_TEX != ''
+        run: |
+          mkdir -p changed-pdfs
+          echo "$CHANGED_TEX" | while read texfile; do
+            [ -z "$texfile" ] && continue
+            pdffile="${texfile%.tex}.pdf"
+            [ -f "$pdffile" ] || continue
+            dest="changed-pdfs/$(dirname "$pdffile")"
+            mkdir -p "$dest"
+            cp "$pdffile" "$dest/"
+          done
+
+      - name: Geänderte PDFs als Artefakt hochladen
+        if: env.CHANGED_TEX != ''
+        uses: actions/upload-artifact@v4
+        with:
+          name: geaenderte-pdfs
+          path: changed-pdfs/
