@@ -1,0 +1,40 @@
+\documentclass[a4paper,12pt]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[ngerman]{babel}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{enumitem}
+\usepackage{geometry}
+\geometry{a4paper, margin=2.5cm}
+
+\title{Einsendeaufgaben -- Lektion 6\\[0.5em]
+\large Modul 61111: Mathematische Grundlagen}
+\author{}
+\date{}
+
+\begin{document}
+\maketitle
+
+\section*{Aufgabe 6.2}
+
+\begin{enumerate}[label=\alph*)]
+
+\item
+\[
+  \lim_{x \to 0} \frac{\cos(x) + 3x - 1}{2x}
+  = \lim_{x \to 0} \frac{-\sin(x) + 3}{2}
+  = \frac{3}{2}
+\]
+
+\item
+\begin{align*}
+  \lim_{x \to \frac{\pi}{2}} \left(x - \frac{\pi}{2}\right) \tan(x)
+  &= \lim_{x \to \frac{\pi}{2}} \frac{\left(x - \frac{\pi}{2}\right) \sin(x)}{\cos(x)} \\
+  &= \lim_{x \to \frac{\pi}{2}} \frac{\sin(x) - \left(x - \frac{\pi}{2}\right) \cos(x)}{-\sin(x)}
+  = -1
+\end{align*}
+
+\end{enumerate}
+
+\end{document}
