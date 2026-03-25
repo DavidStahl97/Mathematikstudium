@@ -26,11 +26,11 @@ Sei $x \geq 0$ beliebig. Wir definieren
 
 Die Ableitung von $f$ ist:
 \[
-  f'(t) = \frac{1}{1+t} - \frac{\sqrt{1+t} + t \cdot \dfrac{1}{2\sqrt{1+t}}}{1+t}
+  f'(t) = \frac{1}{1+t} - \frac{\sqrt{1+t} + t \cdot \dfrac{1}{\sqrt{1+t}}}{1+t}
   = \frac{1 - \sqrt{1+t} - t \cdot \dfrac{1}{\sqrt{1+t}}}{1+t}.
 \]
 
-Für alle $t \geq 0$ gilt $f'(t) \leq 0$, da der Nenner von $f'(t)$ immer positiv ist
+Für alle $t > 0$ gilt $f'(t) < 0$, da der Nenner von $f'(t)$ immer positiv ist
 und der Zähler wegen $\sqrt{1+t} \geq 1$ immer negativ ist.
 
 Da $x > 0$, existiert nach dem Mittelwertsatz ein $t \in (0, x)$ mit
@@ -38,9 +38,9 @@ Da $x > 0$, existiert nach dem Mittelwertsatz ein $t \in (0, x)$ mit
   f'(t) = \frac{f(x) - f(0)}{x - 0} = \frac{f(x)}{x}.
 \]
 
-Mit $f'(t) \leq 0$ folgt:
+Mit $f'(t) < 0$ folgt:
 \[
-  0 \geq f'(t) = \frac{f(x)}{x}.
+  0 > f'(t) = \frac{f(x)}{x}.
 \]
 
 Da $x > 0$ gilt, folgt:
