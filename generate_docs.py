@@ -91,6 +91,9 @@ def build_tree(skripte_path: Path, docs_path: Path, site_url: str) -> list:
 <a href="{rel_pdf_for_page}" download class="md-button md-button--primary">
   PDF herunterladen
 </a>
+<a href="{pdf_absolute_url}" target="_blank" class="md-button">
+  Anzeigen
+</a>
 
 <br><br>
 
