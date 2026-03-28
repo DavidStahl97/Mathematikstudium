@@ -98,6 +98,21 @@ skripte/
 - **Kein eigener Text** – kein „Aus den Gleichungen folgt:", kein „Damit ist die Lösungsmenge:", keine selbst formulierten Sätze – nur was im PDF steht
 - Der Benutzer muss die Lösungen selbst erarbeiten; Claude dient nur zur Transkription
 
+## Attachments-Workflow
+
+Der Ordner `Attachments/` dient als Ablageort für Dateien, die der Benutzer hochlädt und von Claude verarbeitet werden sollen.
+
+### Ablauf
+1. Benutzer legt eine Datei in `Attachments/` ab (z.B. `Attachments/icon.png`, `Attachments/loesung.pdf`)
+2. Claude liest/verarbeitet die Datei (z.B. Bild als Icon einbinden, PDF transkribieren)
+3. Claude löscht die Datei danach mit `rm Attachments/<dateiname>`
+
+### Hinweise
+- Der Ordner selbst ist im Repo (via `.gitkeep`), die Inhalte stehen in `.gitignore`
+- Hochgeladene Dateien werden also **nicht** in Git getrackt und nicht gepusht
+- Nach der Verarbeitung immer löschen, damit der Ordner sauber bleibt
+- Unterstützte Dateitypen: PNG, JPG, PDF – alles was Claude lesen kann
+
 ## Typischer Fix-Workflow
 1. Action-Runs via API prüfen (`actions/runs` → `jobs`)
 2. Fehlerhafte Steps identifizieren

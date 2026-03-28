@@ -15,3 +15,7 @@ skripte/**/*.pdf
 site/
 
 .claude/
+
+# Attachments – Dateien zum temporären Verarbeiten (werden nach Verarbeitung gelöscht)
+Attachments/*
+!Attachments/.gitkeep
