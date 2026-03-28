@@ -1,0 +1,26 @@
+{% extends "base.html" %}
+
+{% block extrahead %}
+  {{ super() }}
+  <link rel="manifest" href="{{ config.site_url }}manifest.webmanifest">
+  <meta name="theme-color" content="#3f51b5">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="default">
+  <meta name="apple-mobile-web-app-title" content="Mathematikstudium">
+  <link rel="apple-touch-icon" href="{{ config.site_url }}assets/images/icons/icon-192.png">
+{% endblock %}
+
+{% block scripts %}
+  {{ super() }}
+  <script>
+    if ('serviceWorker' in navigator) {
+      window.addEventListener('load', function () {
+        navigator.serviceWorker.register('{{ config.site_url }}sw.js', {
+          scope: '{{ config.site_url }}'
+        }).catch(function (err) {
+          console.warn('ServiceWorker registration failed:', err);
+        });
+      });
+    }
+  </script>
+{% endblock %}

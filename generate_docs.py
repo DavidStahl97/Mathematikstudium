@@ -9,10 +9,13 @@ Generiert MkDocs-Dokumentation aus der skripte/-Ordnerstruktur.
 - Aktualisiert den nav-Abschnitt in mkdocs.yml
 """
 
+import json
 import os
 import shutil
+import struct
 import urllib.parse
 import yaml
+import zlib
 from pathlib import Path
 
 SKRIPTE_DIR = Path("skripte")
@@ -139,6 +142,102 @@ def build_module_table(skripte_path: Path) -> str:
     return "\n".join(lines) + "\n"
 
 
+def create_solid_png(width: int, height: int, r: int, g: int, b: int) -> bytes:
+    """Erzeugt ein einfarbiges PNG ohne externe Abhängigkeiten."""
+
+    def png_chunk(name: bytes, data: bytes) -> bytes:
+        chunk = name + data
+        crc = struct.pack(">I", zlib.crc32(chunk) & 0xFFFFFFFF)
+        return struct.pack(">I", len(data)) + chunk + crc
+
+    header = b"\x89PNG\r\n\x1a\n"
+    ihdr = png_chunk(b"IHDR", struct.pack(">IIBBBBB", width, height, 8, 2, 0, 0, 0))
+    raw_row = bytes([r, g, b] * width)
+    raw_data = b"".join(b"\x00" + raw_row for _ in range(height))
+    idat = png_chunk(b"IDAT", zlib.compress(raw_data, 9))
+    iend = png_chunk(b"IEND", b"")
+    return header + ihdr + idat + iend
+
+
+def generate_pwa_assets(site_url: str) -> None:
+    """Erstellt manifest.webmanifest, sw.js und PWA-Icons in docs/."""
+
+    # Icons (Indigo #3f51b5 = 63, 81, 181)
+    icons_dir = DOCS_DIR / "assets" / "images" / "icons"
+    icons_dir.mkdir(parents=True, exist_ok=True)
+    for size in (192, 512):
+        png_data = create_solid_png(size, size, 63, 81, 181)
+        (icons_dir / f"icon-{size}.png").write_bytes(png_data)
+
+    # manifest.webmanifest
+    manifest = {
+        "name": "Mathematikstudium",
+        "short_name": "MathStudium",
+        "description": "Zusammenfassungen und Einsendeaufgaben zum Mathematikstudium",
+        "start_url": site_url,
+        "scope": site_url,
+        "display": "standalone",
+        "background_color": "#ffffff",
+        "theme_color": "#3f51b5",
+        "icons": [
+            {
+                "src": site_url + "assets/images/icons/icon-192.png",
+                "sizes": "192x192",
+                "type": "image/png",
+                "purpose": "any maskable",
+            },
+            {
+                "src": site_url + "assets/images/icons/icon-512.png",
+                "sizes": "512x512",
+                "type": "image/png",
+                "purpose": "any maskable",
+            },
+        ],
+    }
+    (DOCS_DIR / "manifest.webmanifest").write_text(
+        json.dumps(manifest, indent=2, ensure_ascii=False), encoding="utf-8"
+    )
+
+    # Service Worker – Cache-First-Strategie
+    base = site_url.rstrip("/")
+    sw_content = f"""const CACHE = 'mathematikstudium-v1';
+const BASE = '{base}/';
+
+self.addEventListener('install', event => {{
+  self.skipWaiting();
+  event.waitUntil(
+    caches.open(CACHE).then(cache => cache.addAll([BASE, BASE + 'index.html']))
+  );
+}});
+
+self.addEventListener('activate', event => {{
+  event.waitUntil(
+    caches.keys().then(keys =>
+      Promise.all(keys.filter(k => k !== CACHE).map(k => caches.delete(k)))
+    )
+  );
+  self.clients.claim();
+}});
+
+self.addEventListener('fetch', event => {{
+  if (event.request.method !== 'GET') return;
+  event.respondWith(
+    caches.match(event.request).then(cached => {{
+      const network = fetch(event.request).then(response => {{
+        if (response.ok) {{
+          caches.open(CACHE).then(cache => cache.put(event.request, response.clone()));
+        }}
+        return response;
+      }});
+      return cached || network;
+    }})
+  );
+}});
+"""
+    (DOCS_DIR / "sw.js").write_text(sw_content, encoding="utf-8")
+    print("PWA-Assets generiert (manifest, sw.js, icons).")
+
+
 def main():
     # docs/ komplett neu aufbauen
     if DOCS_DIR.exists():
@@ -174,6 +273,9 @@ def main():
 
     with open(MKDOCS_FILE, "w", encoding="utf-8") as f:
         yaml.dump(config, f, allow_unicode=True, default_flow_style=False, sort_keys=False)
+
+    # PWA-Assets generieren
+    generate_pwa_assets(site_url)
 
     page_count = sum(1 for _ in DOCS_DIR.rglob("*.md"))
     print(f"Fertig: {page_count} Seiten generiert.")
