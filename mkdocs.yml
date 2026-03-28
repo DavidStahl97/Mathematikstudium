@@ -4,6 +4,7 @@ site_url: https://davidstahl97.github.io/Mathematikstudium/
 
 theme:
   name: material
+  custom_dir: overrides
   language: de
   palette:
     scheme: default
