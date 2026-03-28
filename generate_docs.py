@@ -12,10 +12,8 @@ Generiert MkDocs-Dokumentation aus der skripte/-Ordnerstruktur.
 import json
 import os
 import shutil
-import struct
 import urllib.parse
 import yaml
-import zlib
 from pathlib import Path
 
 SKRIPTE_DIR = Path("skripte")
@@ -142,32 +140,21 @@ def build_module_table(skripte_path: Path) -> str:
     return "\n".join(lines) + "\n"
 
 
-def create_solid_png(width: int, height: int, r: int, g: int, b: int) -> bytes:
-    """Erzeugt ein einfarbiges PNG ohne externe Abhängigkeiten."""
-
-    def png_chunk(name: bytes, data: bytes) -> bytes:
-        chunk = name + data
-        crc = struct.pack(">I", zlib.crc32(chunk) & 0xFFFFFFFF)
-        return struct.pack(">I", len(data)) + chunk + crc
-
-    header = b"\x89PNG\r\n\x1a\n"
-    ihdr = png_chunk(b"IHDR", struct.pack(">IIBBBBB", width, height, 8, 2, 0, 0, 0))
-    raw_row = bytes([r, g, b] * width)
-    raw_data = b"".join(b"\x00" + raw_row for _ in range(height))
-    idat = png_chunk(b"IDAT", zlib.compress(raw_data, 9))
-    iend = png_chunk(b"IEND", b"")
-    return header + ihdr + idat + iend
+SOURCE_ICONS_DIR = Path("assets/icons")
 
 
 def generate_pwa_assets(site_url: str) -> None:
     """Erstellt manifest.webmanifest, sw.js und PWA-Icons in docs/."""
 
-    # Icons (Indigo #3f51b5 = 63, 81, 181)
     icons_dir = DOCS_DIR / "assets" / "images" / "icons"
     icons_dir.mkdir(parents=True, exist_ok=True)
     for size in (192, 512):
-        png_data = create_solid_png(size, size, 63, 81, 181)
-        (icons_dir / f"icon-{size}.png").write_bytes(png_data)
+        src = SOURCE_ICONS_DIR / f"icon-{size}.png"
+        dst = icons_dir / f"icon-{size}.png"
+        if src.exists():
+            shutil.copy2(src, dst)
+        else:
+            print(f"  [WARN] Icon nicht gefunden: {src}")
 
     # manifest.webmanifest
     manifest = {
