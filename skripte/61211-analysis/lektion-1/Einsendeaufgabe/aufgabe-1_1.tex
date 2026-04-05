@@ -1,0 +1,148 @@
+\documentclass[a4paper,12pt]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[ngerman]{babel}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{enumitem}
+\usepackage{geometry}
+\geometry{a4paper, margin=2.5cm}
+
+\title{Einsendeaufgaben -- Aufgabe 1.1\\[0.5em]
+\large 61211 Analysis}
+\author{}
+\date{}
+
+\begin{document}
+\maketitle
+
+\section*{Aufgabe 1}
+
+\begin{enumerate}[label=\alph*)]
+
+    \item
+    \begin{enumerate}[label=(\roman*)]
+
+        \item
+        \underline{1. $\forall x \in \mathbb{R}^3 : \|x\| \geq 0$}
+
+        Da $\|\cdot\|_2$ und $|\cdot|$ Normen sind, gilt
+        \[
+            \|(x_1, x_3)\|_2 \geq 0 \quad \text{und} \quad |x_2| \geq 0.
+        \]
+        Also
+        \[
+            \|x\| = \|(x_1, x_3)\|_2 + |x_2| \geq 0.
+        \]
+
+        \underline{2. $\forall x \in \mathbb{R}^3 : \|x\| = 0 \Longleftrightarrow x = 0$}
+
+        \glqq$\Rightarrow$\grqq-Richtung:
+
+        Sei $\|x\| = 0$. Dann gilt
+        \[
+            \|x\| = \|(x_1, x_3)\|_2 + |x_2| = 0.
+        \]
+        Da $\|(x_1, x_3)\|_2 \geq 0$ und $|x_2| \geq 0$, folgt
+        \[
+            \|(x_1, x_3)\|_2 = 0 \quad \text{und} \quad |x_2| = 0.
+        \]
+        Da $\|\cdot\|_2$ und $|\cdot|$ Normen sind, folgt
+        $(x_1, x_3) = 0$ und $x_2 = 0$,
+        also $x = \begin{pmatrix}x_1\\x_2\\x_3\end{pmatrix} = 0$.
+
+        \glqq$\Leftarrow$\grqq-Richtung:
+
+        Sei $x = 0$. Da $\|\cdot\|_2$ und $|\cdot|$ Normen sind, folgt
+        $\|(x_1, x_3)\|_2 = 0$ und $|x_2| = 0$. Demnach gilt
+        \[
+            0 = \|(x_1, x_3)\|_2 + |x_2| = \|(x_1, x_2, x_3)\|.
+        \]
+
+        \item
+        $\forall x \in \mathbb{R}^3\; \forall a \in \mathbb{R} : \|ax\| = |a|\,\|x\|$
+        \begin{align*}
+            \|ax\| &= \|(ax_1, ax_3)\|_2 + |ax_2| \\
+                   &= \|a(x_1, x_3)\|_2 + |ax_2| \\
+                   &= |a|\,\|(x_1, x_3)\|_2 + |a|\,|x_2| \\
+                   &= |a|\bigl(\|(x_1, x_3)\|_2 + |x_2|\bigr) \\
+                   &= |a|\,\|x\|
+        \end{align*}
+
+        \item
+        $\forall x, y \in \mathbb{R}^3 : \|x + y\| \leq \|x\| + \|y\|$
+        \begin{align*}
+            \|x + y\| &= \|(x_1 + y_1, x_3 + y_3)\|_2 + |x_2 + y_2| \\
+                      &\leq \bigl(\|(x_1, x_3)\|_2 + \|(y_1, y_3)\|_2\bigr)
+                            + \bigl(|x_2| + |y_2|\bigr) \\
+                      &= \bigl(\|(x_1, x_3)\|_2 + |x_2|\bigr)
+                         + \bigl(\|(y_1, y_3)\|_2 + |y_2|\bigr) \\
+                      &= \|x\| + \|y\|
+        \end{align*}
+
+    \end{enumerate}
+
+    \item
+    \begin{enumerate}[label=(\roman*)]
+
+        \item
+        Es gilt $\sqrt{x_1^2 + x_3^2} \leq \sqrt{x_1^2 + x_2^2 + x_3^2}$
+        und $|x_2| \leq \sqrt{x_1^2 + x_2^2 + x_3^2}$, da:
+
+        \begin{enumerate}[label=\arabic*.]
+            \item
+            $\sqrt{x_1^2 + x_3^2} \leq \sqrt{x_1^2 + x_2^2 + x_3^2}$
+            \[
+                \Longleftrightarrow x_1^2 + x_3^2 \leq x_1^2 + x_2^2 + x_3^2
+                \Longleftrightarrow 0 \leq x_2^2
+            \]
+
+            \item
+            $|x_2| \leq \sqrt{x_1^2 + x_2^2 + x_3^2}$
+            \[
+                \Longleftrightarrow x_2^2 \leq x_1^2 + x_2^2 + x_3^2
+                \Longleftrightarrow 0 \leq x_1^2 + x_3^2
+            \]
+        \end{enumerate}
+
+        Wir wählen $c_1 = 2$ und daraus folgt:
+        \begin{align*}
+            \|(x_1, x_2, x_3)\| &= \|(x_1, x_3)\|_2 + |x_2| \\
+                                 &\leq \|(x_1, x_2, x_3)\|_2 + \|(x_1, x_2, x_3)\|_2 \\
+                                 &= 2\,\|(x_1, x_2, x_3)\|_2
+        \end{align*}
+
+        \item
+        Wir setzen $c_2 = 3$.
+
+        Es gilt $\sqrt{x_1^2 + x_3^2} \leq 2\,\|(x_1, x_2, x_3)\|_\infty$
+        und $|x_2| \leq \|(x_1, x_2, x_3)\|_\infty$, da:
+
+        \begin{enumerate}[label=\arabic*.]
+            \item
+            \[
+                x_1^2 + x_3^2 \leq 2\max\{x_1^2, x_3^2\}
+                \leq 2\max\{x_1^2, x_2^2, x_3^2\}
+                = 2\,\|(x_1, x_2, x_3)\|_\infty^2
+            \]
+            Demnach gilt $\sqrt{x_1^2 + x_3^2} \leq 2\,\|(x_1, x_2, x_3)\|_\infty$.
+
+            \item
+            \[
+                |x_2| \leq \max\{|x_1|, |x_2|, |x_3|\} = \|(x_1, x_2, x_3)\|_\infty
+            \]
+        \end{enumerate}
+
+        Daraus folgt:
+        \begin{align*}
+            \|(x_1, x_2, x_3)\| &= \sqrt{x_1^2 + x_3^2} + |x_2| \\
+                                 &\leq 2\,\|(x_1, x_2, x_3)\|_\infty
+                                       + \|(x_1, x_2, x_3)\|_\infty \\
+                                 &= 3\,\|(x_1, x_2, x_3)\|_\infty
+        \end{align*}
+
+    \end{enumerate}
+
+\end{enumerate}
+
+\end{document}
