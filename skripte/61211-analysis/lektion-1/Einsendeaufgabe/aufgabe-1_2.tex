@@ -1,0 +1,122 @@
+\documentclass[a4paper,12pt]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[ngerman]{babel}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{enumitem}
+\usepackage{geometry}
+\geometry{a4paper, margin=2.5cm}
+
+\title{Einsendeaufgaben -- Aufgabe 1.2\\[0.5em]
+\large 61211 Analysis}
+\author{}
+\date{}
+
+\begin{document}
+\maketitle
+
+\section*{Aufgabe 1.2}
+
+\begin{enumerate}[label=\alph*)]
+
+    \item
+    \begin{enumerate}[label=(\roman*)]
+
+        \item
+        \underline{1. $\forall x \in \mathbb{R}^n : \|x\| \geq 0$}
+
+        \begin{align*}
+            \|x\| &= |x_1| + \sum_{j=2}^{n} |x_j - x_{j-1}| \\
+                  &\geq \left|x_1 + \sum_{j=2}^{n} x_j - x_{j-1}\right| \\
+                  &\geq 0
+        \end{align*}
+
+        \underline{2. $\forall x \in \mathbb{R}^n : \|x\| = 0 \Longleftrightarrow x = 0$}
+
+        \glqq$\Rightarrow$\grqq-Richtung:
+
+        Sei $\|x\| = 0$.
+
+        Beweis durch vollständige Induktion:
+
+        \underline{Induktionsanfang: $n = 2$}
+
+        Da $|x_1| + |x_2 - x_1| = 0$ gilt, muss $x_1 = 0$
+        und damit $|x_2 - x_1| = |x_2| = 0$ sein.
+        Also $x = \begin{pmatrix}x_1\\x_2\end{pmatrix} = 0$.
+
+        \underline{Induktionsschritt: $n \to n+1$}
+
+        Nach der Induktionsvoraussetzung $x_k = 0$ für alle $1 \leq k \leq n$ gilt:
+        \begin{align*}
+            \|x\| &= |x_1| + \sum_{j=2}^{n+1} |x_j - x_{j-1}| \\
+                  &= |x_{n+1}|
+        \end{align*}
+        Da $\|x\| = 0$ gilt, muss $x_{n+1} = 0$ sein.
+        Also $x = \begin{pmatrix}x_1\\\vdots\\x_{n+1}\end{pmatrix} = 0$.
+
+        \glqq$\Leftarrow$\grqq-Richtung:
+
+        Sei $x = 0$. Daraus folgt direkt
+        \[
+            \|x\| = |x_1| + \sum_{j=2}^{n} |x_j - x_{j-1}| = 0.
+        \]
+
+        \item
+        $\forall x \in \mathbb{R}^n\; \forall a \in \mathbb{R} : \|ax\| = |a|\,\|x\|$
+        \begin{align*}
+            \|ax\| &= |ax_1| + \sum_{j=2}^{n} |ax_j - ax_{j-1}| \\
+                   &= |a|\,|x_1| + \sum_{j=2}^{n} |a|\,|x_j - x_{j-1}| \\
+                   &= |a|\left(|x_1| + \sum_{j=2}^{n} |x_j - x_{j-1}|\right) \\
+                   &= |a|\,\|x\|
+        \end{align*}
+
+        \item
+        $\forall x, y \in \mathbb{R}^n : \|x + y\| \leq \|x\| + \|y\|$
+        \begin{align*}
+            \|x + y\| &= |x_1 + y_1| + \sum_{j=2}^{n} \bigl|(x_j + y_j) - (x_{j-1} + y_{j-1})\bigr| \\
+                      &= |x_1 + y_1| + \sum_{j=2}^{n} \bigl|(x_j - x_{j-1}) + (y_j - y_{j-1})\bigr| \\
+                      &\leq |x_1| + \sum_{j=2}^{n} |x_j - x_{j-1}| + |y_1| + \sum_{j=2}^{n} |y_j - y_{j-1}| \\
+                      &= \|x\| + \|y\|
+        \end{align*}
+
+    \end{enumerate}
+
+    \item
+    Wir setzen $\gamma = \frac{1}{n}$.
+    Wir definieren $x_m = \max\{|x_1|, \ldots, |x_n|\}$.
+
+    \underline{Fall 1: $m = 1$, $x_m = x_1$}
+    \begin{align*}
+        \|x\| &= |x_1| + \sum_{j=2}^{n} |x_j - x_{j-1}| \\
+              &\geq |x_1| \\
+              &= \frac{1}{n} |n \cdot x_1| \\
+              &\geq \frac{1}{n} \sqrt{n \, x_1^2} \\
+              &\geq \frac{1}{n} \sqrt{\sum_{j=1}^{n} x_j^2} \\
+              &= \gamma \|x\|_2
+    \end{align*}
+
+    \underline{Fall 2: $2 \leq m \leq n$, $x_m = \max\{|x_1|, \ldots, |x_n|\}$}
+
+    Es gilt
+    \begin{align*}
+        |x_1| + \sum_{j=2}^{m} |x_j - x_{j-1}|
+        &= |x_m - x_{m-1}| + \cdots + |x_2 - x_1| + |x_1| \\
+        &\geq |x_m - x_{m-1} + x_{m-1} - x_{m-2} + \cdots - x_2 + x_2 - x_1| + |x_1| \\
+        &= |x_m - x_1| + |x_1| \\
+        &\geq |x_m|
+    \end{align*}
+
+    Mit $|x_1| + \sum_{j=2}^{m} |x_j - x_{j-1}| \geq |x_m|$ können wir nun zeigen:
+    \begin{align*}
+        \|x\| &= |x_1| + \sum_{j=2}^{n} |x_j - x_{j-1}| \\
+              &\geq |x_1| + \sum_{j=2}^{m} |x_j - x_{j-1}| \\
+              &\geq |x_m| \\
+              &\geq \frac{1}{n} \sqrt{n \, x_m^2} \\
+              &\geq \gamma \|x\|_2
+    \end{align*}
+
+\end{enumerate}
+
+\end{document}
