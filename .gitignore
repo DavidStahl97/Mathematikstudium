@@ -19,3 +19,6 @@ site/
 # Attachments – Dateien zum temporären Verarbeiten (werden nach Verarbeitung gelöscht)
 Attachments/*
 !Attachments/.gitkeep
+
+# Visual Studio
+.vs/
