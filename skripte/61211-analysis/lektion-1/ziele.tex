@@ -1,0 +1,341 @@
+\documentclass[a4paper,12pt]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[ngerman]{babel}
+\usepackage{amsmath, amssymb}
+\usepackage{geometry}
+\usepackage{tikz}
+\usetikzlibrary{shapes.geometric, arrows.meta, positioning, fit, backgrounds}
+\usepackage{parskip}
+\usepackage{titlesec}
+\usepackage{booktabs}
+\usepackage{enumitem}
+
+\geometry{left=3cm, right=3cm, top=2.5cm, bottom=2.5cm}
+
+\titleformat{\section}{\large\bfseries}{}{0em}{}[\titlerule]
+\titleformat{\subsection}{\normalsize\bfseries}{}{0em}{}
+
+\tikzset{
+  box/.style={rectangle, draw, rounded corners=3pt, text width=4.2cm,
+              align=center, minimum height=0.9cm, font=\small, inner sep=4pt},
+  boxw/.style={box, text width=5.2cm},
+  boxn/.style={box, text width=3.8cm},
+  arrow/.style={-{Latex[length=2mm]}, thick},
+}
+
+\begin{document}
+
+\begin{center}
+  {\LARGE\bfseries Studierhinweise zu Lektion 1}\\[0.5em]
+  {\large Analysis (Modul 61211)}
+\end{center}
+
+\vspace{1em}
+
+Diese Kurseinheit dient der Einführung des Raumes $\mathbb{R}^n$ und einiger seiner
+Strukturen. Die ersten beiden Abschnitte bieten einen Rückblick auf den Kurs
+Mathematische Grundlagen (MG) -- wer den Stoff noch gut im Gedächtnis hat,
+kann sie zunächst überfliegen, sollte aber die eingefügten Ergänzungen nicht
+verpassen.
+
+Vom dritten Abschnitt an werden neue Begriffsbildungen vorgestellt, denen sich
+$\mathbb{R}^n$ als wichtiges Beispiel unterordnet: reeller Vektorraum, normierter Raum,
+Umgebung eines Punktes. Besonders wichtig sind der Konvergenzbegriff und der
+Vollständigkeitsbegriff (Abschnitt~1.5). Abgesehen davon, dass es sich bei den
+neuen Begriffen um genaue Analogien zu schon Bekanntem aus MG handelt,
+besitzen die meisten eine anschaulich-geometrische Deutung, sodass man mit
+ihnen bald sicher umgehen kann.
+
+% -----------------------------------------------------------------------
+\section*{Struktur der Kurseinheit 1}
+
+\begin{center}
+\begin{tikzpicture}[node distance=0.5cm and 0.6cm]
+
+  % Column headers
+  \node[font=\bfseries\small] (hA) at (0,0)    {Rückblick auf MG};
+  \node[font=\bfseries\small] (hB) at (9.5,0)  {Ergänzungen und neue Inhalte};
+
+  % ---- Left column: MG-Rückblick ----
+  \node[box, below=0.8cm of hA] (k1) {1.1 Körper $(\mathbb{R},+,\cdot)$\\Rechenregeln};
+  \node[box, below=0.4cm of k1] (k2) {1.1 $(\mathbb{R},\leq)$\\linear geordneter Körper};
+  \node[box, below=0.4cm of k2] (k3) {1.1 Ungleichungen,\\Betrag $|\cdot|$};
+  \node[box, below=0.4cm of k3] (k4) {1.1 beschränkte Mengen,\\Funktionen, Folgen};
+  \node[box, below=0.4cm of k4] (k5) {1.1 Supremum, Infimum\\Intervalle};
+  \node[box, below=0.8cm of k5] (k6) {1.2 Abstand, $\varepsilon$-Umgebung\\Umgebung in $\mathbb{R}$};
+  \node[box, below=0.4cm of k6] (k7) {1.2 konvergente Folge,\\Grenzwert, Regeln};
+  \node[box, below=0.4cm of k7] (k8) {1.2 $\varepsilon$-$n_0$-Kriterium,\\Monotoniekriterium,\\Cauchykriterium};
+  \node[box, below=0.4cm of k8] (k9) {1.2 Cauchyfolge in $\mathbb{R}$,\\Satz von Bolzano-Weierstraß};
+
+  % ---- Right column: new content ----
+  \node[box, below=0.8cm of hB] (n1) {1.1 geordnete Menge,\\geordneter Körper};
+  \node[box, below=0.4cm of n1] (n2) {1.1 Cauchy-Schwarzsche,\\Minkowskische Ungleichung};
+  \node[box, below=0.4cm of n2] (n3) {1.1 Räume $B(M)$,\\Supremumnorm $\|\cdot\|_\infty$};
+  \node[box, below=0.4cm of n3] (n4) {1.3 $\mathbb{R}^n$ als Menge\\der $n$-Tupel; Addition,\\skalare Multiplikation};
+  \node[box, below=0.4cm of n4] (n5) {1.3 reeller Vektorraum,\\Beispiele};
+  \node[box, below=0.4cm of n5] (n6) {1.4 Norm $\|\cdot\|$, normierter\\Raum $(X,\|\cdot\|)$,\\induzierter Abstand};
+  \node[box, below=0.4cm of n6] (n7) {1.4 Skalarprodukt,\\euklidische Norm,\\Satz des Pythagoras};
+  \node[box, below=0.4cm of n7] (n8) {1.5 $\varepsilon$-Umgebung, konv.\\Folge in $(X,\|\cdot\|)$};
+  \node[box, below=0.4cm of n8] (n9) {1.5 Cauchyfolge,\\Banachraum, $\mathbb{R}^n$ vollst.};
+  \node[box, below=0.4cm of n9] (n10){1.5 Äquivalenz der\\Normen auf $\mathbb{R}^n$};
+
+  % Arrows left column
+  \draw[arrow] (k1) -- (k2);
+  \draw[arrow] (k2) -- (k3);
+  \draw[arrow] (k3) -- (k4);
+  \draw[arrow] (k4) -- (k5);
+  \draw[arrow] (k5) -- ++(0,-0.6) -- (k6.north);
+  \draw[arrow] (k6) -- (k7);
+  \draw[arrow] (k7) -- (k8);
+  \draw[arrow] (k8) -- (k9);
+
+  % Arrows right column
+  \draw[arrow] (n1) -- (n2);
+  \draw[arrow] (n2) -- (n3);
+  \draw[arrow] (n3) -- (n4);
+  \draw[arrow] (n4) -- (n5);
+  \draw[arrow] (n5) -- (n6);
+  \draw[arrow] (n6) -- (n7);
+  \draw[arrow] (n7) -- (n8);
+  \draw[arrow] (n8) -- (n9);
+  \draw[arrow] (n9) -- (n10);
+
+  % Cross arrows (left -> right)
+  \draw[arrow, dashed] (k5.east) -- ++(0.3,0) |- (n3.west);
+  \draw[arrow, dashed] (k5.east) -- ++(0.6,0) |- (n4.west);
+  \draw[arrow, dashed] (k8.east) -- ++(0.3,0) |- (n8.west);
+  \draw[arrow, dashed] (k9.east) -- ++(0.3,0) |- (n9.west);
+
+\end{tikzpicture}
+\end{center}
+
+\newpage
+
+% -----------------------------------------------------------------------
+\section*{Zielelement 1.1 -- Rückblick und Ergänzungen: Reelle Zahlen}
+
+\subsection*{Lerninhalte}
+
+\begin{center}
+\begin{tikzpicture}[node distance=0.5cm and 1.0cm]
+  \node[box] (koer) {$(\mathbb{R},+,\cdot)$ ist ein Körper\\Körpereigenschaften};
+  \node[box, right=1.0cm of koer] (ord) {geordnete Menge,\\linear geordneter Körper};
+  \node[box, below=0.5cm of koer] (ungl) {Ungleichungen, Betrag $|\cdot|$\\Dreiecksungleichung};
+  \node[box, below=0.5cm of ungl] (csm)  {Cauchy-Schwarzsche und\\Minkowskische Ungleichung};
+  \node[box, below=0.5cm of csm]  (bschr){beschränkte Mengen, Funktionen, Folgen};
+  \node[box, below=0.5cm of bschr](sup)  {Supremum, Infimum\\Existenz, Eindeutigkeit};
+  \node[box, below=0.5cm of sup]  (int)  {Intervalle\\offene, halboffene, abgeschlossene};
+  \node[box, below=0.5cm of int]  (ext)  {erweiterte Zahlengerade $\widehat{\mathbb{R}}$\\$\sup M, \inf M \in \widehat{\mathbb{R}}$};
+  \node[box, below=0.5cm of ext]  (bm)   {Räume $\mathrm{Abb}(M,\mathbb{R})$ und $B(M)$\\Supremumnorm $\|\cdot\|_\infty$};
+  \draw[arrow] (koer) -- (ungl);
+  \draw[arrow] (ord.south) |- (ungl.east);
+  \draw[arrow] (ungl) -- (csm);
+  \draw[arrow] (csm) -- (bschr);
+  \draw[arrow] (bschr) -- (sup);
+  \draw[arrow] (sup) -- (int);
+  \draw[arrow] (int) -- (ext);
+  \draw[arrow] (ext) -- (bm);
+\end{tikzpicture}
+\end{center}
+
+\subsection*{Lernziele}
+
+Nach Durcharbeiten dieses Abschnitts sollten Sie:
+\begin{itemize}
+  \item die Körpereigenschaften von $(\mathbb{R},+,\cdot)$ und die Ordnungseigenschaften von
+        $(\mathbb{R},\leq)$ benennen und erläutern können,
+  \item Ungleichungen mit dem Betrag sicher handhaben und die Cauchy-Schwarzsche
+        sowie Minkowskische Ungleichung kennen,
+  \item die Begriffe beschränkte Menge, Supremum und Infimum definieren und die
+        Existenz des Supremums in $\mathbb{R}$ kennen,
+  \item die Intervalltypen unterscheiden und die erweiterte Zahlengerade $\widehat{\mathbb{R}}$
+        beschreiben können,
+  \item den Raum $B(M)$ der beschränkten Funktionen und die Supremumnorm
+        $\|\cdot\|_\infty$ kennen.
+\end{itemize}
+
+\subsection*{Selbstkontrollelement 1.1}
+
+Sehen Sie, dass die Menge $\{2^n \mid n \in \mathbb{N}\}$ nicht nach oben beschränkt
+ist? -- Können Sie einen Beweis angeben?
+
+\newpage
+
+% -----------------------------------------------------------------------
+\section*{Zielelement 1.2 -- Rückblick und Ergänzungen: Konvergenz}
+
+\subsection*{Lerninhalte}
+
+\begin{center}
+\begin{tikzpicture}[node distance=0.5cm and 1.0cm]
+  \node[box] (bet)  {Betrag, Abstand $d(x,y) = |x-y|$};
+  \node[box, below=0.5cm of bet]  (umg) {$\varepsilon$-Umgebung $U_\varepsilon(a)$,\\Umgebung, Hausdorffeigenschaft};
+  \node[box, below=0.5cm of umg]  (flg) {konvergente Folge,\\Grenzwert $\lim_{k\to\infty} a_k$};
+  \node[box, below=0.5cm of flg]  (reg) {Rechenregeln für konvergente\\Folgen, Sandwich-Theorem};
+  \node[box, right=0.8cm of flg]  (kri) {Konvergenzkriterien:\\notwendig: beschränkt\\hinreichend: Monotonie\\notw.$+$hinr.: Cauchy};
+  \node[box, below=0.5cm of reg]  (tf)  {Teilfolgen, Divergenzkriterium};
+  \node[box, below=0.5cm of tf]   (cau) {Cauchyfolge, Cauchykriterium};
+  \node[box, below=0.5cm of cau]  (bw)  {Satz von Bolzano-Weierstraß};
+  \node[box, below=0.5cm of bw]   (bdi) {bestimmt divergente Folgen,\\uneigentlicher Grenzwert};
+  \draw[arrow] (bet) -- (umg);
+  \draw[arrow] (umg) -- (flg);
+  \draw[arrow] (flg) -- (reg);
+  \draw[arrow] (kri.south) |- (reg.east);
+  \draw[arrow] (reg) -- (tf);
+  \draw[arrow] (tf) -- (cau);
+  \draw[arrow] (cau) -- (bw);
+  \draw[arrow] (bw) -- (bdi);
+\end{tikzpicture}
+\end{center}
+
+\subsection*{Lernziele}
+
+Nach Durcharbeiten dieses Abschnitts sollten Sie:
+\begin{itemize}
+  \item den Begriff der Umgebung mit der $\varepsilon$-Umgebung in Verbindung bringen
+        und die wichtigsten Eigenschaften von Umgebungen angeben können,
+  \item das $\varepsilon$-$n_0$-Kriterium, das Monotonie\-kriterium und das Cauchykriterium
+        für konvergente Folgen kennen und anwenden können,
+  \item mit Teilfolgen und dem Divergenzkriterium arbeiten können,
+  \item den Satz von Bolzano-Weierstraß formulieren und anwenden können,
+  \item bestimmt divergente Folgen und uneigentliche Grenzwerte erklären können.
+\end{itemize}
+
+\subsection*{Selbstkontrollelement 1.2}
+
+Können Sie einige Bedingungen (notwendig und/oder hinreichend) dafür nennen,
+dass eine Folge keine Cauchyfolge ist?
+
+\newpage
+
+% -----------------------------------------------------------------------
+\section*{Zielelement 1.3 -- $\mathbb{R}^n$ als reeller Vektorraum}
+
+\subsection*{Lerninhalte}
+
+\begin{center}
+\begin{tikzpicture}[node distance=0.5cm and 1.0cm]
+  \node[box] (rn)  {Die Menge $\mathbb{R}^n$:\\senkrecht angeordnete $n$-Tupel};
+  \node[box, below=0.5cm of rn]  (ops) {Addition und\\skalare Multiplikation in $\mathbb{R}^n$};
+  \node[box, right=0.8cm of ops] (geo) {Veranschaulichung:\\Punkte, Ortsvektoren,\\freie Vektoren};
+  \node[box, below=0.5cm of ops] (vr)  {reeller Vektorraum $(X, +, \cdot)$:\\Axiome Add$_{1-4}$, Mult$_{1-3}$};
+  \node[box, below=0.5cm of vr]  (bsp) {$\mathbb{R}^n$ als reeller Vektorraum;\\weitere Beispiele:\\$\mathrm{Abb}(M,\mathbb{R})$, $B(M)$, $c$, $P_n$};
+  \draw[arrow] (rn) -- (ops);
+  \draw[arrow] (geo.south) |- (vr.east);
+  \draw[arrow] (ops) -- (vr);
+  \draw[arrow] (vr) -- (bsp);
+\end{tikzpicture}
+\end{center}
+
+\subsection*{Lernziele}
+
+Nach Durcharbeiten dieses Abschnitts sollten Sie:
+\begin{itemize}
+  \item den Raum $\mathbb{R}^n$ (Elemente, Addition, skalare Multiplikation) beschreiben
+        und für $n = 2, 3$ geometrisch veranschaulichen können,
+  \item die Axiome eines reellen Vektorraums aufzählen und überprüfen können,
+  \item $\mathbb{R}^n$ als Beispiel eines reellen Vektorraums einordnen und weitere
+        Beispiele (Funktionenräume, Folgenräume) kennen.
+\end{itemize}
+
+\subsection*{Selbstkontrollelement 1.3}
+
+Sei $X$ ein reeller Vektorraum und $\emptyset \neq U \subseteq X$. Ist Ihnen klar,
+dass $U$ genau dann ein Unterraum von $X$ ist, wenn für alle $\alpha, \beta \in \mathbb{R}$
+und für alle $x, y \in U$ der Vektor $\alpha x + \beta y$ in $U$ liegt?
+
+\newpage
+
+% -----------------------------------------------------------------------
+\section*{Zielelement 1.4 -- $\mathbb{R}^n$ als normierter Raum}
+
+\subsection*{Lerninhalte}
+
+\begin{center}
+\begin{tikzpicture}[node distance=0.5cm and 1.0cm]
+  \node[box] (nor)  {Norm $\|\cdot\|$ auf einem\\reellen Vektorraum $X$:\\Definitheit, Homogenität,\\Dreiecksungleichung};
+  \node[box, below=0.5cm of nor]  (nrm) {normierter Raum $(X, \|\cdot\|)$,\\induzierter Abstand\\$d(x,y) := \|x-y\|$};
+  \node[box, below=0.5cm of nrm]  (bsp) {Beispiele: $\|\cdot\|_\infty$ auf $B(M)$,\\$\|\cdot\|_1$ und $\|\cdot\|_\infty$ auf $C([a,b])$};
+  \node[box, below=0.5cm of bsp]  (rnn) {Normen auf $\mathbb{R}^n$:\\$\|\cdot\|_1$, $\|\cdot\|_2$ (euklidisch),\\$\|\cdot\|_\infty$ (Maximum)};
+  \node[box, right=0.8cm of rnn]  (ska) {Skalarprodukt $x \cdot y$,\\orthogonale Vektoren};
+  \node[box, below=0.5cm of rnn]  (euk) {euklidische Norm:\\$|x| = \sqrt{x \cdot x}$};
+  \node[box, below=0.5cm of euk]  (pyt) {Satz des Pythagoras};
+  \draw[arrow] (nor) -- (nrm);
+  \draw[arrow] (nrm) -- (bsp);
+  \draw[arrow] (bsp) -- (rnn);
+  \draw[arrow] (ska.south) |- (euk.east);
+  \draw[arrow] (rnn) -- (euk);
+  \draw[arrow] (euk) -- (pyt);
+\end{tikzpicture}
+\end{center}
+
+\subsection*{Lernziele}
+
+Nach Durcharbeiten dieses Abschnitts sollten Sie:
+\begin{itemize}
+  \item den Begriff des normierten (reellen Vektor-)Raums definieren und an
+        Beispielen, insbesondere am Beispiel $\mathbb{R}^n$, erläutern können,
+  \item den von einer Norm induzierten Abstand definieren können,
+  \item das Skalarprodukt auf $\mathbb{R}^n$ mit der euklidischen Norm in Zusammenhang
+        bringen und den Satz des Pythagoras formulieren können.
+\end{itemize}
+
+\subsection*{Selbstkontrollelement 1.4}
+
+Sei $(X, \|\cdot\|)$ ein normierter Raum, $d$ der von $\|\cdot\|$ induzierte Abstand.
+Sehen Sie, dass $d$ translationsinvariant ist, d.\,h.\ $d(x+a, y+a) = d(x,y)$ für alle
+$x, y, a \in X$ gilt?
+
+\newpage
+
+% -----------------------------------------------------------------------
+\section*{Zielelement 1.5 -- Konvergenz in $\mathbb{R}^n$}
+
+\subsection*{Lerninhalte}
+
+\begin{center}
+\begin{tikzpicture}[node distance=0.5cm and 1.0cm]
+  \node[box] (umg)  {$\varepsilon$-Umgebung, Umgebung\\in $(X, \|\cdot\|)$,\\Hausdorffeigenschaft};
+  \node[box, below=0.5cm of umg]  (kfl) {konvergente Folge $(x_k)$,\\Grenzwert in $(X,\|\cdot\|)$,\\$\varepsilon$-$n_0$-Kriterium};
+  \node[box, below=0.5cm of kfl]  (krd) {Konvergenz in $(\mathbb{R}^n, \|\cdot\|_\infty)$\\$\Leftrightarrow$ Konvergenz jeder\\Koordinatenfolge};
+  \node[box, right=0.8cm of krd]  (reg) {Rechenregeln für\\konvergente Folgen\\in $(X, \|\cdot\|)$};
+  \node[box, below=0.5cm of krd]  (bw)  {Satz von Bolzano-Weierstraß\\in $(\mathbb{R}^n, \|\cdot\|_\infty)$};
+  \node[box, below=0.5cm of bw]   (cau) {Cauchyfolge in $(X, \|\cdot\|)$,\\Eigenschaften};
+  \node[box, below=0.5cm of cau]  (ban) {vollständiger normierter Raum\\(Banachraum)};
+  \node[box, below=0.5cm of ban]  (rnb) {$\mathbb{R}^n$ ist Banachraum;\\$B(M)$, $C([a,b])$ vollständig};
+  \node[box, below=0.5cm of rnb]  (aeq) {Äquivalenz der Normen\\auf $\mathbb{R}^n$};
+  \draw[arrow] (umg) -- (kfl);
+  \draw[arrow] (kfl) -- (krd);
+  \draw[arrow] (reg.south) |- (bw.east);
+  \draw[arrow] (krd) -- (bw);
+  \draw[arrow] (bw) -- (cau);
+  \draw[arrow] (cau) -- (ban);
+  \draw[arrow] (ban) -- (rnb);
+  \draw[arrow] (rnb) -- (aeq);
+\end{tikzpicture}
+\end{center}
+
+\subsection*{Lernziele}
+
+Nach Durcharbeiten dieses Abschnitts sollten Sie:
+\begin{itemize}
+  \item die Begriffe $\varepsilon$-Umgebung und Umgebung in einem normierten Raum
+        definieren und ihre wichtigsten Eigenschaften nennen können,
+  \item den Begriff der konvergenten Folge und ihres Grenzwertes in einem normierten
+        Raum definieren und an Beispielen erläutern können,
+  \item die Konvergenz von Folgen in $(\mathbb{R}^n, \|\cdot\|)$ durch die Konvergenz der
+        Koordinatenfolgen charakterisieren können,
+  \item den Begriff der Cauchyfolge und den des vollständigen normierten Raumes
+        (Banachraums) definieren und an Beispielen erläutern können,
+  \item $\mathbb{R}^n$ als Beispiel eines Banachraums kennen und wissen, dass alle Normen
+        auf $\mathbb{R}^n$ äquivalent sind.
+\end{itemize}
+
+\subsection*{Selbstkontrollelement 1.5}
+
+Sehen Sie, dass eine Folge in $(\mathbb{R}^n, \|\cdot\|)$ mit beliebiger Norm genau
+dann Cauchyfolge ist, wenn jede der $n$ Koordinatenfolgen Cauchyfolge in
+$(\mathbb{R}, |\cdot|)$ ist?
+
+\end{document}

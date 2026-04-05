@@ -1,0 +1,450 @@
+\documentclass[a4paper,12pt]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[ngerman]{babel}
+\usepackage{amsmath, amssymb}
+\usepackage{geometry}
+\usepackage{parskip}
+\usepackage{titlesec}
+\usepackage{enumitem}
+\usepackage{array}
+\usepackage{booktabs}
+
+\geometry{left=3cm, right=3cm, top=2.5cm, bottom=2.5cm}
+
+\titleformat{\section}{\large\bfseries}{}{0em}{}[\titlerule]
+\titleformat{\subsection}{\normalsize\bfseries\scshape}{}{0em}{}
+
+% Glossar-Eintrag: Nummer, fetter Titel, Inhalt
+\newcommand{\gentry}[3]{%
+  \noindent\textbf{#1\quad #2}\nopagebreak\\[0.2em]
+  #3\par\smallskip
+}
+
+\begin{document}
+
+\begin{center}
+  {\LARGE\bfseries Glossar zu Lektion 1}\\[0.5em]
+  {\large Analysis (Modul 61211)}
+\end{center}
+
+\vspace{1em}
+
+Dieses Glossar fasst die wesentlichen Definitionen, Merkregeln und Sätze der
+ersten Lektion kompakt zusammen. Nummerierungen entsprechen dem Lehrtext.
+
+% ======================================================================
+\section*{1.1 \quad Reelle Zahlen (Rückblick und Ergänzungen)}
+
+\gentry{1.1.1}{Körpereigenschaften}{%
+  $(\mathbb{R}, +, \cdot)$ ist ein \textbf{Körper}: Für alle $x, y, z \in \mathbb{R}$ gilt
+  \begin{enumerate}[label=(\roman*),topsep=2pt,itemsep=1pt]
+    \item Kommutativität: $x+y = y+x$, $x \cdot y = y \cdot x$,
+    \item Assoziativität: $x+(y+z) = (x+y)+z$, $x\cdot(y\cdot z) = (x\cdot y)\cdot z$,
+    \item Distributivität: $x\cdot(y+z) = x\cdot y + x\cdot z$ \quad (Punkt vor Strich),
+    \item Existenz neutraler Elemente $0$ und $1$ ($0 \neq 1$): $x+0 = x$, $x\cdot 1 = x$,
+    \item Existenz inverser Elemente: $\forall\, a \;\exists\, x: a+x = 0$; $\forall\, a \neq 0 \;\exists\, y: a\cdot y = 1$.
+  \end{enumerate}
+  Die neutralen und inversen Elemente sind eindeutig bestimmt; inverse Elemente heißen $-a$
+  bzw.\ $a^{-1} = \frac{1}{a}$. Subtraktion: $a - b := a + (-b)$; Division: $\frac{a}{b} := a \cdot \frac{1}{b}$.
+}
+
+\gentry{1.1.3}{Geordnete Menge}{%
+  Sei $M$ eine nichtleere Menge mit Relation $\upsilon \subseteq M \times M$.
+  $(M, \upsilon)$ heißt \textbf{geordnete Menge}, wenn für alle $x, y, z \in M$ gilt:
+  (i) $x\,\upsilon\,x$ (Reflexivität),
+  (ii) $x\,\upsilon\,y \land y\,\upsilon\,x \Rightarrow x = y$ (Antisymmetrie),
+  (iii) $x\,\upsilon\,y \land y\,\upsilon\,z \Rightarrow x\,\upsilon\,z$ (Transitivität).\\
+  Gilt zusätzlich (iv) $x\,\upsilon\,y \lor y\,\upsilon\,x$, so heißt $(M, \upsilon)$
+  \textbf{linear geordnete Menge}.
+}
+
+\gentry{1.1.5}{Linear geordneter Körper $\mathbb{R}$}{%
+  Es gibt eine lineare Ordnung $\leq$ auf $\mathbb{R}$, sodass $(\mathbb{R}, \leq)$ mit den
+  Körperoperationen verträglich ist:
+  \begin{enumerate}[label=(\roman*),topsep=2pt,itemsep=1pt]
+    \item $x \leq y \Rightarrow x+z \leq y+z$ \quad (Verträglichkeit mit der Addition),
+    \item $x \leq y,\; 0 \leq z \Rightarrow xz \leq yz$ \quad (Verträglichkeit mit der Multiplikation).
+  \end{enumerate}
+  Trichotomie: Für $x, y \in \mathbb{R}$ gilt genau eine der Beziehungen $x < y$, $x = y$, $x > y$.
+}
+
+\gentry{1.1.7}{Rechenregeln für Ungleichungen}{%
+  Für alle $a, b, c, d \in \mathbb{R}$:
+  \begin{itemize}[topsep=2pt,itemsep=1pt]
+    \item $a < b \Rightarrow a+c < b+c$; gleichgerichtete Ungleichungen darf man addieren.
+    \item $a < b,\; 0 < c \Rightarrow ac < bc$; Multiplikation mit $c < 0$ kehrt das Zeichen um.
+    \item $0 \leq a \leq b,\; 0 \leq c \leq d \Rightarrow ac \leq bd$.
+    \item $0 < a < b \Rightarrow \frac{1}{b} < \frac{1}{a}$; ferner $0 < 1$.
+  \end{itemize}
+}
+
+\gentry{1.1.8}{Cauchy-Schwarzsche und Minkowskische Ungleichung}{%
+  Seien $n \in \mathbb{N}$ und $x_1, \ldots, x_n, y_1, \ldots, y_n \in \mathbb{R}$. Dann gilt:
+  \[
+    \sum_{k=1}^n x_k y_k \;\leq\; \sqrt{\sum_{k=1}^n x_k^2}\,\sqrt{\sum_{k=1}^n y_k^2}
+    \quad \text{(Cauchy-Schwarzsche Ungleichung)}
+  \]
+  \[
+    \sqrt{\sum_{k=1}^n (x_k + y_k)^2} \;\leq\; \sqrt{\sum_{k=1}^n x_k^2} + \sqrt{\sum_{k=1}^n y_k^2}
+    \quad \text{(Minkowskische Ungleichung)}
+  \]
+}
+
+\gentry{1.1.9}{Beschränkte Menge}{%
+  Sei $\emptyset \neq M \subseteq \mathbb{R}$, $s \in \mathbb{R}$.
+  $s$ heißt \textbf{obere Schranke} von $M$, wenn $\forall\, x \in M: x \leq s$.
+  $M$ heißt \textbf{nach oben beschränkt}, wenn eine obere Schranke existiert;
+  analog \textbf{nach unten beschränkt}. $M$ heißt \textbf{beschränkt}, wenn beides gilt.
+}
+
+\gentry{1.1.10}{Supremum, Infimum}{%
+  $S \in \mathbb{R}$ heißt \textbf{Supremum} (kleinste obere Schranke) von $\emptyset \neq M \subseteq \mathbb{R}$,
+  wenn $S$ obere Schranke von $M$ ist und $S \leq s$ für jede obere Schranke $s$ gilt.
+  Analog: \textbf{Infimum} (größte untere Schranke).
+  Notation: $\sup M$, $\inf M$. Falls $\sup M \in M$: $\max M$; falls $\inf M \in M$: $\min M$.
+}
+
+\gentry{1.1.12}{Existenz des Supremums/Infimums}{%
+  Zu jeder nichtleeren, nach oben beschränkten Menge reeller Zahlen existiert das Supremum in $\mathbb{R}$.
+  Analog für das Infimum bei nach unten beschränkten Mengen.
+}
+
+\gentry{1.1.13}{Erweiterte reelle Zahlengerade}{%
+  $\widehat{\mathbb{R}} := \mathbb{R} \cup \{-\infty, \infty\}$ mit $-\infty < x < \infty$ für alle $x \in \mathbb{R}$.
+  Für $\emptyset \neq M \subseteq \mathbb{R}$: $\sup M := \infty$, falls $M$ nicht nach oben beschränkt;
+  $\inf M := -\infty$, falls $M$ nicht nach unten beschränkt.
+}
+
+\gentry{1.1.14}{Intervalle}{%
+  Für $a, b \in \mathbb{R}$:
+  $]a,b[ := \{x \in \mathbb{R} \mid a < x < b\}$ (offen),
+  $[a,b] := \{x \in \mathbb{R} \mid a \leq x \leq b\}$ (abgeschlossen),
+  $]a,b] := \{x \mid a < x \leq b\}$, $[a,b[ := \{x \mid a \leq x < b\}$ (halboffen).
+  Analog für unbeschränkte Intervalle wie $]a, \infty[$, $]-\infty, b]$ usw.
+}
+
+\gentry{1.1.17}{Beschränkte Funktion, Supremumnorm}{%
+  Sei $\emptyset \neq M$. $f \in \mathrm{Abb}(M, \mathbb{R})$ heißt \textbf{beschränkt}, wenn
+  $\|f\|_\infty := \sup_{x \in M} |f(x)| < \infty$. Die Zahl $\|f\|_\infty$ heißt
+  \textbf{Supremumnorm} von $f$. Die Menge aller beschränkten Funktionen: $B(M)$.
+}
+
+\gentry{1.1.18--19}{Raum $B(M)$ und Eigenschaften von $\|\cdot\|_\infty$}{%
+  $B(M)$ ist abgeschlossen unter Addition, Subtraktion, skalarer Multiplikation und
+  Multiplikation. Die Supremumnorm erfüllt:
+  (i) $\|f\|_\infty \geq 0$, $\|f\|_\infty = 0 \Leftrightarrow f = 0$ (Definitheit),
+  (ii) $\|\alpha f\|_\infty = |\alpha|\,\|f\|_\infty$ (Homogenität),
+  (iii) $\|f+g\|_\infty \leq \|f\|_\infty + \|g\|_\infty$ (Dreiecksungleichung),
+  (iv) $\|fg\|_\infty \leq \|f\|_\infty\,\|g\|_\infty$.
+}
+
+\gentry{1.1.20}{Klassische Schlussweise}{%
+  Sei $x \in \mathbb{R}$. Gilt $0 \leq x \leq \varepsilon$ für jedes $\varepsilon > 0$, so ist $x = 0$.
+}
+
+% ======================================================================
+\section*{1.2 \quad Konvergenz (Rückblick und Ergänzungen)}
+
+\gentry{1.2.2}{Betrag}{%
+  $|x| := x$ falls $x \geq 0$, $|x| := -x$ falls $x < 0$.
+  Für alle $x, y \in \mathbb{R}$:
+  (i) $|x| \geq 0$, $|x| = 0 \Leftrightarrow x = 0$,
+  (ii) $|xy| = |x||y|$,
+  (iii) $|x+y| \leq |x| + |y|$ (Dreiecksungleichung),
+  (iv) $|x| - |y| \leq |x+y|$ (zweite Dreiecksungleichung),
+  (v) $|x| \leq y \Leftrightarrow -y \leq x \leq y$.
+}
+
+\gentry{1.2.3}{Abstand}{%
+  $d(x,y) := |x - y|$ für $x, y \in \mathbb{R}$.
+  Eigenschaften: Definitheit, Symmetrie, Dreiecksungleichung
+  $d(x,y) \leq d(x,z) + d(z,y)$.
+}
+
+\gentry{1.2.4}{$\varepsilon$-Umgebung, Umgebung}{%
+  Für $a \in \mathbb{R}$, $\varepsilon > 0$:
+  $U_\varepsilon(a) := \{x \in \mathbb{R} \mid d(x,a) < \varepsilon\}$ heißt \textbf{$\varepsilon$-Umgebung} von $a$.
+  $U \subseteq \mathbb{R}$ heißt \textbf{Umgebung} von $a$, wenn es $\varepsilon > 0$ gibt mit
+  $U_\varepsilon(a) \subseteq U$.
+}
+
+\gentry{1.2.5}{Eigenschaften von Umgebungen}{%
+  Sei $U$ eine Umgebung von $a \in \mathbb{R}$. Dann:
+  (i) $a \in U$,
+  (ii) jede Obermenge von $U$ ist Umgebung von $a$,
+  (iii) der Durchschnitt endlich vieler Umgebungen von $a$ ist Umgebung von $a$.
+}
+
+\gentry{1.2.6}{Hausdorffeigenschaft}{%
+  Zu $a, b \in \mathbb{R}$ mit $a \neq b$ gibt es eine Umgebung $U$ von $a$ und eine
+  Umgebung $V$ von $b$ mit $U \cap V = \emptyset$.
+}
+
+\gentry{1.2.1}{Folge}{%
+  Eine \textbf{Folge} in $M \neq \emptyset$ ist eine Abbildung $f: \mathbb{N} \to M$.
+  Schreibweise: $(a_k)_{k \in \mathbb{N}}$ oder $(a_k)$ mit Gliedern $a_k := f(k)$.
+  Im Fall $M = \mathbb{R}$: \textbf{reelle Folge}.
+}
+
+\gentry{1.2.7--8}{Konvergente Folge, Grenzwert}{%
+  $(a_k)$ heißt \textbf{konvergent gegen} $a \in \mathbb{R}$, wenn in jeder Umgebung von $a$
+  fast alle Glieder liegen (,,fast alle'' = alle bis auf endlich viele).
+  Der Grenzwert ist eindeutig und wird mit $\lim_{k \to \infty} a_k$ oder $\lim f$ bezeichnet.
+  Nicht konvergente Folgen heißen \textbf{divergent}.
+}
+
+\gentry{1.2.10}{Raum $c$ konvergenter Folgen}{%
+  Konvergente Folgen sind beschränkt: $c \subseteq \ell^\infty := B(\mathbb{N})$.
+  Rechenregeln: Für $(a_k), (b_k) \in c$ und $\alpha \in \mathbb{R}$ gilt
+  $(a_k) \pm (b_k), \alpha(a_k), (a_k)(b_k) \in c$ mit den erwarteten Grenzwertregeln.
+  Ferner: Ist $\lim a_k = 0$ und $(c_k)$ beschränkt, so $\lim a_k c_k = 0$.
+  Sandwich-Theorem: Gilt $a_k \leq c_k \leq b_k$ (f.a.) und $\lim a_k = \lim b_k$,
+  so $\lim c_k = \lim a_k$.
+}
+
+\gentry{1.2.12}{Teilfolge}{%
+  $(a_{k_j})_{j \in \mathbb{N}}$ heißt \textbf{Teilfolge} von $(a_k)$, wenn $(k_j)$ streng monoton
+  wachsend in $\mathbb{N}$ ist. Jede Teilfolge einer konvergenten Folge konvergiert
+  gegen denselben Grenzwert.
+}
+
+\gentry{1.2.13}{Divergenzkriterium}{%
+  Besitzt $(a_k)$ eine divergente Teilfolge oder zwei konvergente Teilfolgen mit
+  verschiedenen Grenzwerten, so ist $(a_k)$ divergent.
+}
+
+\gentry{1.2.14}{$\varepsilon$-$n_0$-Kriterium}{%
+  $\lim_{k \to \infty} a_k = a \;\Longleftrightarrow\;
+  \forall\,\varepsilon > 0\;\exists\,n_0 \in \mathbb{N}\;\forall\,k \geq n_0: |a_k - a| < \varepsilon$.
+}
+
+\gentry{1.2.15--16}{Monotone Folge, Monotoniekriterium}{%
+  $(a_k)$ heißt \textbf{monoton wachsend}, wenn $a_k \leq a_{k+1}$ für alle $k$;
+  \textbf{monoton fallend}, wenn $a_k \geq a_{k+1}$ für alle $k$.
+  \textbf{Monotoniekriterium:} Eine monotone beschränkte Folge ist konvergent.
+}
+
+\gentry{1.2.17}{Monotone Teilfolgen, Bolzano-Weierstraß}{%
+  (i) Jede reelle Folge enthält eine monotone Teilfolge.\\
+  (ii) \textbf{Satz von Bolzano-Weierstraß:} Jede beschränkte reelle Folge
+  enthält eine konvergente Teilfolge.
+}
+
+\gentry{1.2.18--19}{Cauchyfolge}{%
+  $(a_k)$ heißt \textbf{Cauchyfolge}, wenn
+  $\forall\,\varepsilon > 0\;\exists\,n_0 \in \mathbb{N}\;\forall\,k,\ell \geq n_0: |a_k - a_\ell| < \varepsilon$.
+}
+
+\gentry{1.2.20}{Eigenschaften von Cauchyfolgen}{%
+  (i) Jede konvergente Folge ist eine Cauchyfolge.
+  (ii) Jede Cauchyfolge ist beschränkt.
+  (iii) Besitzt eine Cauchyfolge eine konvergente Teilfolge, so ist sie selbst konvergent.
+}
+
+\gentry{1.2.21}{Cauchykriterium}{%
+  Jede reelle Cauchyfolge ist konvergent. Damit gilt: Eine reelle Folge ist genau
+  dann konvergent, wenn sie eine Cauchyfolge ist.
+}
+
+\gentry{1.2.23--24}{Bestimmt divergente Folgen}{%
+  $U \subseteq \widehat{\mathbb{R}}$ heißt \textbf{Umgebung von $\infty$}, wenn $\infty \in U$ und
+  $]{\alpha, \infty[} \subseteq U$ für ein $\alpha \in \mathbb{R}$; analog für $-\infty$.
+  $(a_k)$ heißt \textbf{bestimmt divergent gegen} $a = \infty$ (bzw.\ $-\infty$),
+  wenn in jeder Umgebung von $a$ fast alle Glieder liegen.
+  $\varepsilon$-$n_0$-Kriterium: $\lim a_k = \infty \Leftrightarrow \forall\,\varepsilon > 0\;\exists\,n_0:
+  k \geq n_0 \Rightarrow a_k > \frac{1}{\varepsilon}$.
+}
+
+% ======================================================================
+\section*{1.3 \quad $\mathbb{R}^n$ als reeller Vektorraum}
+
+\gentry{1.3.1}{Die Menge $\mathbb{R}^n$}{%
+  $\mathbb{R}^n := \left\{ \begin{pmatrix}x_1\\\vdots\\x_n\end{pmatrix} \;\middle|\; x_k \in \mathbb{R},\; k=1,\ldots,n \right\}$
+  heißt \textbf{$n$-dimensionaler reeller Raum}. $x_k$ heißt \textbf{$k$-te Koordinate}.
+  Standardbasisvektoren: $e_k$ mit $(e_k)_k = 1$, sonst $0$. Jedes $x \in \mathbb{R}^n$ lässt
+  sich eindeutig als $x = \sum_{k=1}^n x_k e_k$ schreiben.
+}
+
+\gentry{1.3.2}{Addition und skalare Multiplikation in $\mathbb{R}^n$}{%
+  \[
+    \begin{pmatrix}x_1\\\vdots\\x_n\end{pmatrix} + \begin{pmatrix}y_1\\\vdots\\y_n\end{pmatrix}
+    := \begin{pmatrix}x_1+y_1\\\vdots\\x_n+y_n\end{pmatrix}, \qquad
+    \alpha \begin{pmatrix}x_1\\\vdots\\x_n\end{pmatrix} := \begin{pmatrix}\alpha x_1\\\vdots\\\alpha x_n\end{pmatrix}.
+  \]
+  Nullvektor: $0 = (0,\ldots,0)^T$; entgegengesetzter Vektor: $-a = (-a_1,\ldots,-a_n)^T$.
+}
+
+\gentry{1.3.3}{Reeller Vektorraum}{%
+  Sei $X$ eine nichtleere Menge mit Addition und skalarer Multiplikation (über $\mathbb{R}$).
+  $X$ heißt \textbf{reeller Vektorraum}, wenn die Axiome (Add$_{1}$)--(Add$_{4}$) und
+  (Mult$_{1}$)--(Mult$_{3}$) erfüllt sind:
+  \begin{itemize}[topsep=2pt,itemsep=1pt]
+    \item (Add$_1$) Assoziativität der Addition,
+    \item (Add$_2$) Existenz eines Nullvektors $0 \in X$,
+    \item (Add$_3$) Existenz inverser Elemente $-x$ für jedes $x \in X$,
+    \item (Add$_4$) Kommutativität der Addition,
+    \item (Mult$_1$) $\alpha(\beta x) = (\alpha\beta)x$,
+    \item (Mult$_2$) Distributivgesetze: $\alpha(x+y) = \alpha x + \alpha y$, $(\alpha+\beta)x = \alpha x + \beta x$,
+    \item (Mult$_3$) $1 \cdot x = x$.
+  \end{itemize}
+  $\mathbb{R}^n$ ist mit obiger Addition und skalarer Multiplikation ein reeller Vektorraum.
+}
+
+\gentry{1.3.4}{Weitere Beispiele reeller Vektorräume}{%
+  \begin{itemize}[topsep=2pt,itemsep=1pt]
+    \item $\mathrm{Abb}(M, \mathbb{R})$, $B(M)$ (beschränkte Funktionen), $\ell^\infty = B(\mathbb{N})$,
+    \item $C(M)$ (stetige Funktionen), $C^1(M)$ (stetig differenzierbar),
+    \item $\mathcal{R}(I)$ (Riemann-integrierbare Funktionen auf abgeschlossenem Intervall $I$),
+    \item $P_n$ (Polynome vom Grad $\leq n$), $P$ (alle Polynome),
+    \item $c$ (konvergente Folgen), $c_0$ (Nullfolgen), $\omega = \mathrm{Abb}(\mathbb{N}, \mathbb{R})$.
+  \end{itemize}
+}
+
+% ======================================================================
+\section*{1.4 \quad $\mathbb{R}^n$ als normierter Raum}
+
+\gentry{1.4.1}{Norm, normierter Raum}{%
+  Eine Funktion $\|\cdot\|: X \to \mathbb{R}$ auf einem reellen Vektorraum $X$ heißt
+  \textbf{Norm} auf $X$, und $(X, \|\cdot\|)$ heißt \textbf{normierter Raum}, falls:
+  \begin{enumerate}[label=(\roman*),topsep=2pt,itemsep=1pt]
+    \item $\|x\| \geq 0$ und $(\|x\| = 0 \Leftrightarrow x = 0)$ \quad (Definitheit),
+    \item $\|\alpha x\| = |\alpha|\,\|x\|$ \quad (positive Homogenität),
+    \item $\|x + y\| \leq \|x\| + \|y\|$ \quad (Dreiecksungleichung).
+  \end{enumerate}
+  Ferner gilt die zweite Dreiecksungleichung: $\bigl|\|x\| - \|y\|\bigr| \leq \|x+y\|$.
+}
+
+\gentry{1.4.2}{Induzierter Abstand}{%
+  Sei $(X, \|\cdot\|)$ ein normierter Raum. Durch $d(x, y) := \|x - y\|$ wird der
+  \textbf{von der Norm induzierte Abstand} definiert. Er ist Definitheit, Symmetrie
+  und Dreiecksungleichung (vgl.\ 1.2.3).
+}
+
+\gentry{1.4.3}{Beispiele normierter Räume}{%
+  \begin{itemize}[topsep=2pt,itemsep=1pt]
+    \item $(\mathbb{R}, |\cdot|)$: Betragsfunktion als Norm.
+    \item $(B(M), \|\cdot\|_\infty)$: Supremumnorm.
+    \item $(\ell^\infty, \|\cdot\|_\infty)$: $\|(a_k)\|_\infty := \sup_{k \in \mathbb{N}} |a_k|$.
+    \item $(C([a,b]), \|\cdot\|_\infty)$ und $(C([a,b]), \|\cdot\|_1)$ mit $\|f\|_1 := \int_a^b |f(t)|\,dt$.
+  \end{itemize}
+}
+
+\gentry{1.4.4}{Normen auf $\mathbb{R}^n$}{%
+  Für $x = (x_1, \ldots, x_n)^T \in \mathbb{R}^n$ und $p = 1$ oder $p = 2$:
+  \[
+    \|x\|_p := \Bigl(\sum_{k=1}^n |x_k|^p\Bigr)^{1/p}, \qquad
+    \|x\|_\infty := \max_{1 \leq k \leq n} |x_k|.
+  \]
+  $\|\cdot\|_2$ heißt \textbf{euklidische Norm} (Schreibweise auch $|x|$);
+  $\|\cdot\|_\infty$ heißt \textbf{Maximumnorm}.
+  Die induzierten Abstände: $d_1$, $d_2$ (euklidisch), $d_\infty$.
+}
+
+\gentry{1.4.5}{Skalarprodukt auf $\mathbb{R}^n$}{%
+  $x \cdot y := \sum_{k=1}^n x_k y_k$ heißt \textbf{Skalarprodukt} (inneres Produkt).
+  $x$ und $y$ heißen \textbf{orthogonal}, wenn $x \cdot y = 0$.
+  Eigenschaften: Bilinearität, Kommutativität $x \cdot y = y \cdot x$,
+  positive Definitheit $x \cdot x \geq 0$ und $(x \cdot x = 0 \Leftrightarrow x = 0)$.
+  Es gilt $|x| = \|x\|_2 = \sqrt{x \cdot x}$.
+}
+
+\gentry{1.4.7}{Satz des Pythagoras}{%
+  Sind $x, y \in \mathbb{R}^n$ orthogonal ($x \cdot y = 0$), so gilt:
+  \[
+    |x - y|^2 = |x|^2 + |y|^2.
+  \]
+}
+
+% ======================================================================
+\section*{1.5 \quad Konvergenz in $\mathbb{R}^n$}
+
+\gentry{1.5.1}{$\varepsilon$-Umgebung, Umgebung in $(X, \|\cdot\|)$}{%
+  Sei $(X, \|\cdot\|)$ ein normierter Raum, $a \in X$, $\varepsilon > 0$:
+  \[
+    U_\varepsilon(a) := \{x \in X \mid \|x - a\| < \varepsilon\}
+  \]
+  heißt \textbf{$\varepsilon$-Umgebung} von $a$. $U \subseteq X$ heißt \textbf{Umgebung} von $a$,
+  wenn es $\varepsilon > 0$ gibt mit $U_\varepsilon(a) \subseteq U$.
+}
+
+\gentry{1.5.2--3}{Eigenschaften von Umgebungen, Hausdorffeigenschaft}{%
+  In einem normierten Raum gelten die analogen Eigenschaften wie in 1.2.5 und 1.2.6:
+  (i) $a \in U$,
+  (ii) jede Obermenge einer Umgebung von $a$ ist Umgebung von $a$,
+  (iii) endliche Durchschnitte von Umgebungen von $a$ sind Umgebungen von $a$.
+  \textbf{Hausdorffeigenschaft:} Für $a \neq b$ gibt es disjunkte Umgebungen $U$ von $a$
+  und $V$ von $b$.
+}
+
+\gentry{1.5.4--5}{Konvergente Folge, Grenzwert in $(X, \|\cdot\|)$}{%
+  $(x_k)$ heißt \textbf{konvergent gegen} $a$ in $(X, \|\cdot\|)$ (Schreibweise $x_k \to a$),
+  wenn in jeder Umgebung von $a$ fast alle Glieder liegen.
+  Der Grenzwert ist eindeutig: $\lim_{k \to \infty} x_k$.
+  Nicht konvergente Folgen heißen \textbf{divergent}.
+}
+
+\gentry{1.5.6}{$\varepsilon$-$n_0$-Kriterium in $(X, \|\cdot\|)$}{%
+  $(x_k)$ konvergiert gegen $a$ in $(X, \|\cdot\|)$ genau dann, wenn
+  $\forall\,\varepsilon > 0\;\exists\,n_0 \in \mathbb{N}\;\forall\,k \geq n_0: \|x_k - a\| < \varepsilon$,
+  d.\,h.\ $\lim_{k \to \infty} \|x_k - a\| = 0$ (im gewöhnlichen Sinne in $\mathbb{R}$).
+}
+
+\gentry{1.5.8}{Konvergenz in $(\mathbb{R}^n, \|\cdot\|_\infty)$}{%
+  Für $x_k = (x_{k1}, \ldots, x_{kn})^T \in \mathbb{R}^n$ und $a = (a_1, \ldots, a_n)^T$ gilt:
+  \[
+    x_k \to a \text{ in } (\mathbb{R}^n, \|\cdot\|_\infty) \;\Longleftrightarrow\;
+    \lim_{k \to \infty} x_{k\nu} = a_\nu \;\text{ für alle } \nu = 1, \ldots, n.
+  \]
+  Konvergenz in $(\mathbb{R}^n, \|\cdot\|_\infty)$ bedeutet also komponentenweise Konvergenz.
+}
+
+\gentry{1.5.9}{Satz von Bolzano-Weierstraß in $(\mathbb{R}^n, \|\cdot\|_\infty)$}{%
+  Jede $\|\cdot\|_\infty$-beschränkte Folge in $\mathbb{R}^n$ besitzt eine in
+  $(\mathbb{R}^n, \|\cdot\|_\infty)$ konvergente Teilfolge.
+}
+
+\gentry{1.5.10}{Normen auf $\mathbb{R}^n$ sind vergleichbar}{%
+  Sei $\|\cdot\|$ eine Norm auf $\mathbb{R}^n$, $\|\cdot\|_\infty$ die Maximumnorm. Dann
+  existieren $\alpha, \beta > 0$ mit
+  $\|x\| \leq \alpha \|x\|_\infty$ und $\|x\|_\infty \leq \beta \|x\|$ für alle $x \in \mathbb{R}^n$.
+}
+
+\gentry{1.5.11}{Äquivalenz der Normen auf $\mathbb{R}^n$}{%
+  Seien $\|\cdot\|$ und $\|\cdot\|_*$ zwei Normen auf $\mathbb{R}^n$. Dann sind äquivalent:
+  (i) $U$ ist Umgebung von $a$ in $({\mathbb{R}^n}, \|\cdot\|)$ $\Leftrightarrow$
+  $U$ ist Umgebung von $a$ in $(\mathbb{R}^n, \|\cdot\|_*)$.
+  (ii) $(x_k)$ konvergiert (gegen $a$) in $(\mathbb{R}^n, \|\cdot\|)$ $\Leftrightarrow$
+  $(x_k)$ konvergiert (gegen $a$) in $(\mathbb{R}^n, \|\cdot\|_*)$ $\Leftrightarrow$
+  jede Koordinatenfolge konvergiert im gewöhnlichen Sinne.
+}
+
+\gentry{1.5.13}{Rechenregeln für konvergente Folgen in $(X, \|\cdot\|)$}{%
+  Seien $(x_k) \to a$ und $(y_k) \to b$ in $(X, \|\cdot\|)$, $\alpha \in \mathbb{R}$. Dann:
+  (i) $(x_k) + (y_k) \to a + b$,
+  (ii) $\alpha (x_k) \to \alpha a$.
+}
+
+\gentry{1.5.14}{Cauchyfolge in $(X, \|\cdot\|)$}{%
+  $(x_k)$ heißt \textbf{Cauchyfolge} in $(X, \|\cdot\|)$, wenn
+  $\forall\,\varepsilon > 0\;\exists\,n_0 \in \mathbb{N}\;\forall\,k > n_0: \|x_k - x_{n_0}\| < \varepsilon$.
+}
+
+\gentry{1.5.15}{Eigenschaften von Cauchyfolgen in $(X, \|\cdot\|)$}{%
+  (i) Jede konvergente Folge ist eine Cauchyfolge.
+  (ii) Jede Cauchyfolge ist beschränkt.
+  (iii) Besitzt eine Cauchyfolge eine konvergente Teilfolge, so ist sie selbst konvergent.
+}
+
+\gentry{1.5.17}{Vollständiger normierter Raum, Banachraum}{%
+  Ein normierter Raum $(X, \|\cdot\|)$, in welchem jede Cauchyfolge konvergiert,
+  heißt \textbf{vollständig} oder \textbf{Banachraum}.
+}
+
+\gentry{1.5.18--19}{$\mathbb{R}^n$ als Banachraum; weitere Beispiele}{%
+  $({\mathbb{R}^n}, \|\cdot\|)$ ist für jede Norm $\|\cdot\|$ ein Banachraum.\\
+  Weitere Banachräume: $(B(M), \|\cdot\|_\infty)$ und $(C([a,b]), \|\cdot\|_\infty)$.\\
+  Nicht vollständig: $(C([0,1]), \|\cdot\|_1)$.
+}
+
+\end{document}
