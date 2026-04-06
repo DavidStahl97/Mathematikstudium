@@ -1,0 +1,166 @@
+\documentclass[a4paper,12pt]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[ngerman]{babel}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{enumitem}
+\usepackage{geometry}
+\geometry{a4paper, margin=2.5cm}
+
+\title{Einsendeaufgaben -- Aufgabe 1.3\\[0.5em]
+\large 61211 Analysis}
+\author{}
+\date{}
+
+\begin{document}
+\maketitle
+
+\section*{Aufgabe 1.3}
+
+\begin{enumerate}[label=\alph*)]
+
+    \item
+    \begin{enumerate}[label=(\roman*)]
+
+        \item
+        \underline{1. $\forall x \in X : \|(x_n)\|_\infty \geq 0$}
+
+        \[
+            \|(x_n)\|_\infty = \sup\{|x_n| : n \in \mathbb{N}\} \geq 0,
+        \]
+        da $|x_n| \geq 0$ für alle $n \in \mathbb{N}$.
+
+        \underline{2. $\forall x \in X : \|(x_n)\|_\infty = 0 \Longleftrightarrow x_n = 0$}
+
+        \glqq$\Rightarrow$\grqq-Richtung:
+
+        Sei $\|(x_n)\|_\infty = 0$. Wegen $\|(x_n)\|_\infty \geq 0$
+        und $\sup\{|x_n| : n \in \mathbb{N}\} = 0$ folgt $x_n = 0$.
+
+        \glqq$\Leftarrow$\grqq-Richtung:
+
+        Sei $x_n = 0$. Daraus folgt direkt $\|(x_n)\| = 0$.
+
+        \item
+        $\forall x \in X\; \forall a \in \mathbb{R} : \|ax\|_\infty = |a|\,\|x\|$
+        \begin{align*}
+            \|(ax_n)\|_\infty &= \sup\{|ax_n| : n \in \mathbb{N}\} \\
+                              &= |a|\sup\{|x_n| : n \in \mathbb{N}\} \\
+                              &= |a|\,\|(x_n)\|_\infty
+        \end{align*}
+
+        \item
+        $\forall x, y \in X : \|x + y\|_\infty \leq \|x\|_\infty + \|y\|_\infty$
+        \begin{align*}
+            \|x + y\|_\infty &= \|(x_n) + (y_n)\|_\infty \\
+                             &= \sup\{|x_n + y_n| : n \in \mathbb{N}\} \\
+                             &\leq \sup\{|x_n| + |y_n| : n \in \mathbb{N}\} \\
+                             &\leq \sup\{|x_n| : n \in \mathbb{N}\} + \sup\{|y_n| : n \in \mathbb{N}\} \\
+                             &= \|(x_n)\|_\infty + \|(y_n)\|_\infty
+        \end{align*}
+
+    \end{enumerate}
+
+    \item
+    Sei $(f_k)$ eine Cauchyfolge in $(X, \|\cdot\|_\infty)$.
+    Wir definieren $f_k(j)$ als $j$-tes Folgenglied von $f_k$.
+    Wir zeigen nun, dass $(f_k(j))$ eine Cauchyfolge in $\mathbb{R}$ ist.
+
+    Sei $j \in \mathbb{N}$ und $\varepsilon > 0$ beliebig.
+    Da $(f_k)$ eine Cauchyfolge ist, existiert ein $n_0 \in \mathbb{N}$ mit:
+    \begin{align*}
+        |f_k(j) - f_{n_0}(j)| &\leq \sup\{|f_k(n) - f_{n_0}(n)| : n \in \mathbb{N}\} \\
+                               &= \|f_k - f_{n_0}\|_\infty < \varepsilon
+    \end{align*}
+    für alle $k > n_0$.
+
+    Also ist $(f_k(j))$ eine Cauchyfolge in $(\mathbb{R}, |\cdot|)$.
+    Da jede Cauchyfolge in $\mathbb{R}$ konvergiert, konvergiert $(f_k(j))$.
+    Wir definieren die Folge $f$ mit
+    \[
+        f_n := \lim_{k \to \infty} f_k(n), \quad \text{für } n \in \mathbb{N}.
+    \]
+
+    Noch zu zeigen, dass $f \in X$ und $f_k \to f$ in $(X, \|\cdot\|_\infty)$.
+
+    \underline{(i) $f \in X$}
+
+    Wir zeigen, dass $f$ eine Nullfolge ist.
+    Sei $\varepsilon > 0$ beliebig.
+
+    Da $(f_k)$ eine Cauchyfolge in $(X, \|\cdot\|_\infty)$ ist, existiert ein $n_0 \in \mathbb{N}$ mit:
+    \[
+        \forall k \in \mathbb{N} : (k > n_0) \Rightarrow \|f_k - f_{n_0}\|_\infty < \frac{\varepsilon}{3}.
+    \]
+    Da $f_{n_0} \in X$, ist $f_{n_0}$ eine Nullfolge. Demnach existiert ein $j_0 \in \mathbb{N}$ mit:
+    \[
+        \forall j \in \mathbb{N} : (j \geq j_0) \Rightarrow |f_{n_0}(j)| < \frac{\varepsilon}{3}.
+    \]
+    Wir wählen dieses $j_0$ aus und zeigen
+    \[
+        \forall j \in \mathbb{N} : (j \geq j_0) \Rightarrow |f(j)| < \varepsilon.
+    \]
+    Sei $j \geq j_0$. Da $f_k(j) \to f(j)$, existiert ein $k_0 \in \mathbb{N}$ mit
+    \[
+        \forall k \in \mathbb{N} : (k \geq k_0) \Rightarrow |f_k(j) - f(j)| < \frac{\varepsilon}{3}.
+    \]
+    Wir definieren $k_1 := \max\{n_0 + 1, k_0\}$.
+    Damit können wir nun schlussfolgern:
+    \begin{align*}
+        |f(j)| &= |f(j) - f_{k_1}(j) + f_{k_1}(j)| \\
+               &\leq |f(j) - f_{k_1}(j)| + |f_{k_1}(j)| \\
+               &< \frac{\varepsilon}{3} + |f_{k_1}(j)| \\
+               &= \frac{\varepsilon}{3} + |f_{k_1}(j) - f_{n_0}(j) + f_{n_0}(j)| \\
+               &\leq \frac{\varepsilon}{3} + |f_{k_1}(j) - f_{n_0}(j)| + |f_{n_0}(j)| \\
+               &< \frac{\varepsilon}{3} + |f_{k_1}(j) - f_{n_0}(j)| + \frac{\varepsilon}{3}
+    \end{align*}
+    Da $|f_{k_1}(j) - f_{n_0}(j)| \leq \|f_{k_1} - f_{n_0}\|_\infty < \dfrac{\varepsilon}{3}$
+    wegen $k_1 > n_0$, folgt
+    \begin{align*}
+        |f(j)| &\leq \frac{\varepsilon}{3} + |f_{k_1}(j) - f_{n_0}(j)| + \frac{\varepsilon}{3} \\
+               &< \frac{\varepsilon}{3} + \frac{\varepsilon}{3} + \frac{\varepsilon}{3} = \varepsilon
+    \end{align*}
+    $f$ ist also eine Nullfolge und demnach ist $f \in X$.
+
+    \underline{(ii) $\|f_k - f\|_\infty \to 0$ mit $k \to \infty$}
+
+    Nach Beispiel 1.5.19(i) ist $(\mathcal{B}(\mathbb{N}), \|\cdot\|_\infty)$ ein Banachraum.
+    Da jede Nullfolge beschränkt ist, gilt $X \subset \mathcal{B}(\mathbb{N})$.
+    In (i) haben wir schon gezeigt, dass $f \in X$, also auch $f \in \mathcal{B}(\mathbb{N})$.
+    Jedes Folgenglied $f_k$ ist nach Definition von $X$ ebenfalls eine Nullfolge, also beschränkt.
+    Nach 1.5.19(i) gilt dann
+    \[
+        \|f_k - f\|_\infty \to 0.
+    \]
+
+    \item
+    $\|(x_n)\|_\infty \leq \displaystyle\sum_{n=1}^{\infty} |x_n|$ gilt, da:
+
+    \underline{Fall 1: $\|(x_n)\|_\infty = 0$}
+
+    Dann muss $(x_n)$ eine konstante Folge $x_n = 0$ sein.
+    Demnach gilt
+    \[
+        \|(x_n)\|_\infty = 0 = \sum_{n=1}^{\infty} |x_n|.
+    \]
+
+    \underline{Fall 2: $\|(x_n)\|_\infty > 0$}
+
+    Es muss ein $k \in \mathbb{N}$ existieren mit:
+    \[
+        |x_k| = \sup\{|x_n| : \forall n \in \mathbb{N}\} = \|(x_n)\|_\infty.
+    \]
+    Denn sonst müsste es eine Teilfolge $(x_{n_j})$ geben mit
+    $|x_{n_j}| \to \sup\{|x_n| : \forall n \in \mathbb{N}\}$.
+    Dies kann aber nicht sein, da $(x_n)$ eine Nullfolge ist.
+    Demnach gilt
+    \[
+        \|(x_n)\|_\infty = \sup\{|x_n| : \forall n \in \mathbb{N}\} = |x_k| \leq \sum_{n=1}^{\infty} |x_n|.
+    \]
+    Gilt auch für den Fall $\displaystyle\sum_{n=1}^{\infty} |x_n| = \infty$,
+    da für alle $x \in \mathbb{R}$ $x < \infty$ definiert ist.
+
+\end{enumerate}
+
+\end{document}
