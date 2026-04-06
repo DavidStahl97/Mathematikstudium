@@ -1,0 +1,75 @@
+\documentclass[a4paper,12pt]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[ngerman]{babel}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{enumitem}
+\usepackage{geometry}
+\geometry{a4paper, margin=2.5cm}
+
+\title{Einsendeaufgaben -- Aufgabe 1.4\\[0.5em]
+\large 61211 Analysis}
+\author{}
+\date{}
+
+\begin{document}
+\maketitle
+
+\section*{Aufgabe 1.4}
+
+\begin{enumerate}[label=(\roman*)]
+
+    \item
+    \underline{1. $\forall f \in X : \|f\|_X \geq 0$}
+
+    Für alle $x \in [0, 1]$ gilt
+    \[
+        (1 + x e^x)|f(x)| \geq 0.
+    \]
+    Demnach gilt
+    \[
+        \|f\|_X = \int_0^1 (1 + x e^x)|f(x)|\, dx \geq 0.
+    \]
+
+    \underline{2. $\forall f \in X : \|f\|_X = 0 \Longleftrightarrow f = \hat{0}$}
+
+    \glqq$\Rightarrow$\grqq-Richtung:
+
+    Sei $\|f\|_X = 0$. Da $g(x) = (1 + x e^x)|f(x)|$ stetig ist und das Riemann-Integral
+    \[
+        \int_0^1 g(x)\, dx = 0
+    \]
+    ist, muss $f = \hat{0}$ sein.
+    Für nicht stetige Funktionen gilt dies nicht allgemein.
+
+    \glqq$\Leftarrow$\grqq-Richtung:
+
+    Sei $f = \hat{0}$. Dann gilt direkt
+    \begin{align*}
+        0 &= \int_0^1 (1 + x e^x) \cdot 0\, dx \\
+          &= \int_0^1 (1 + x e^x)|f(x)|\, dx \\
+          &= \|f\|_X
+    \end{align*}
+
+    \item
+    $\forall f \in X\; \forall a \in \mathbb{R} : \|af\|_X = |a|\,\|f\|_X$
+    \begin{align*}
+        \|af\|_X &= \int_0^1 (1 + x e^x)|af(x)|\, dx \\
+                 &= |a| \int_0^1 (1 + x e^x)|f(x)|\, dx \\
+                 &= |a|\,\|f\|_X
+    \end{align*}
+
+    \item
+    $\forall f, g \in X : \|f + g\|_X \leq \|f\|_X + \|g\|_X$
+    \begin{align*}
+        \|f + g\|_X &= \int_0^1 (1 + x e^x)|f(x) + g(x)|\, dx \\
+                    &\leq \int_0^1 (1 + x e^x)(|f(x)| + |g(x)|)\, dx
+                    \quad (\text{da } (1 + x e^x) \geq 0) \\
+                    &= \int_0^1 (1 + x e^x)|f(x)|\, dx + \int_0^1 (1 + x e^x)|g(x)|\, dx \\
+                    &= \|f\|_X + \|g\|_X
+    \end{align*}
+
+\end{enumerate}
+
+\end{document}
