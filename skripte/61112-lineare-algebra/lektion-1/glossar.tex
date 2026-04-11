@@ -132,6 +132,17 @@ Kompakte Zusammenfassung aller wesentlichen Definitionen, Merkregeln und Sätze.
   Zu $f, g \in K[X]$ mit $g \neq 0$ gibt es eindeutige $q, r \in K[X]$ mit $f = q \cdot g + r$ und $\deg(r) < \deg(g)$.
 }
 
+\gentry{1.4.17}{Polynome vs.\ Polynomfunktionen}{%
+  Ein Polynom $f \in K[X]$ wird im Allgemeinen \textbf{nicht} eindeutig durch die Polynomfunktion $x \mapsto f(x)$ auf $K$ bestimmt.
+  Beispiel: $f = X^2 + X \in \mathbb{F}_2[X]$ definiert die Nullfunktion ($f(\overline{0})=\overline{0}$, $f(\overline{1})=\overline{0}$),
+  obwohl $f \neq 0$ als Polynom.
+}
+
+\gentry{1.4.19}{Lemma (Einsetzen ist verträglich)}{%
+  Sei $K$ ein Körper. Für alle $x \in K$ und $f, g \in K[X]$ gilt:
+  $(f+g)(x) = f(x)+g(x)$ \quad und \quad $(f \cdot g)(x) = f(x)\,g(x)$.
+}
+
 \gentry{1.4.20}{Nullstelle}{%
   $\lambda \in K$ heißt \textbf{Nullstelle} von $f \in K[X]$, wenn $f(\lambda) = 0$.
 }
