@@ -41,7 +41,7 @@ die Bedingungen einer Untergruppe:
     && \text{(wegen } (a \circ b) \circ (b^{-1} \circ a^{-1}) = e\text{)}
 \end{align*}
 
-\textbf{(UG3)} Für alle $g \in G_x$ gilt: $g^{-1} \in G_x$, denn
+\textbf{(UG3)} Für alle $g \in G_x$ gilt $g^{-1} \in G_x$, denn
 \begin{align*}
   x &= (g \circ g^{-1}) \circ x \circ (g \circ g^{-1})
     && \text{(wegen } g \circ g^{-1} = e\text{)} \\
@@ -52,14 +52,14 @@ die Bedingungen einer Untergruppe:
 \end{align*}
 
 \item Sei $x, y \in G$ beliebig. Wir zeigen, dass für alle $g \in G_x \cap G_y$ gilt
-$g \in G_{x \circ y}$. Dann sei $g \in G_x \cap G_y$ beliebig.
+$g \in G_{x \circ y}$. Also sei $g \in G_x \cap G_y$ beliebig.
 
 Es gilt
 \begin{align*}
   &g^{-1} \circ (x \circ y) \circ g \\
   &= g^{-1} \circ \bigl((g \circ x \circ g^{-1}) \circ (g \circ y \circ g^{-1})\bigr) \circ g
     && \text{(wegen } g \in G_x,\; g \in G_y \\
-  & && \text{und } G_x \text{ sowie } G_y \text{ Gruppen sind)} \\
+  & && \text{und UG3} \\
   &= (g^{-1} \circ g) \circ x \circ (g^{-1} \circ g) \circ y \circ (g^{-1} \circ g)
     && \text{(wegen Assoziativität in } G\text{)} \\
   &= x \circ y
