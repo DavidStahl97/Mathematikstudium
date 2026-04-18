@@ -1,0 +1,439 @@
+\documentclass[a4paper,12pt]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[ngerman]{babel}
+\usepackage{amsmath, amssymb}
+\usepackage{geometry}
+\usepackage{tikz}
+\usetikzlibrary{shapes.geometric, arrows.meta, positioning, fit, backgrounds}
+\usepackage{parskip}
+\usepackage{titlesec}
+\usepackage{booktabs}
+\usepackage{enumitem}
+
+\geometry{left=3cm, right=3cm, top=2.5cm, bottom=2.5cm}
+
+\titleformat{\section}{\large\bfseries}{}{0em}{}[\titlerule]
+\titleformat{\subsection}{\normalsize\bfseries}{}{0em}{}
+
+\tikzset{
+  box/.style={rectangle, draw, rounded corners=3pt, text width=4.2cm,
+              align=center, minimum height=0.9cm, font=\small, inner sep=4pt},
+  boxw/.style={box, text width=5.2cm},
+  boxn/.style={box, text width=3.8cm},
+  arrow/.style={-{Latex[length=2mm]}, thick},
+}
+
+\begin{document}
+
+\begin{center}
+  {\LARGE\bfseries Studierhinweise zu Lektion 2}\\[0.5em]
+  {\large Analysis (Modul 61211)}
+\end{center}
+
+\vspace{1em}
+
+Diese Kurseinheit dient der Übertragung von Eigenschaften stetiger reeller Funktionen
+einer Veränderlichen auf Funktionen, die eine Teilmenge $M$ eines normierten Raumes
+$(X, \|\cdot\|_X)$ in einen normierten Raum $(Y, \|\cdot\|_Y)$ abbilden. Dabei ist
+$X = \mathbb{R}^n$ und $Y = \mathbb{R}^m$ der wichtigste Fall. Aus MG lässt sich
+vieles fast wörtlich übernehmen und wird Ihnen vertraut vorkommen und rasch einleuchten.
+
+Der zweite Abschnitt, in dem vor allem versucht wird, Möglichkeiten einer Veranschaulichung
+von Funktionen zweier Veränderlicher zu skizzieren, bringt außer der Definition einiger
+einfacher Funktionenklassen nicht viel Neues. Die Stetigkeit einer Funktion in einem
+Punkt (Abschnitt~2.3) beruht auf dem Umgebungsbegriff, kann aber auch mithilfe von
+Folgenkonvergenz ausgedrückt werden.
+
+Die Abschnitte~2.4 und~2.5 behandeln Funktionen, die auf ihrem ganzen Definitionsbereich
+$M$ stetig sind. Wichtiges Hilfsmittel ist die Charakterisierung dieser (globalen)
+Stetigkeit mithilfe von offenen Mengen. Zentral in Abschnitt~2.4 ist der
+"`Vererbungssatz"', wonach zusammenhängende Mengen von stetigen Funktionen in
+zusammenhängende Mengen abgebildet werden. Im letzten Abschnitt geht es um die Frage,
+wann sich Stetigkeit der Glieder einer Funktionenfolge auf die Grenzfunktion vererbt;
+der wichtigste Satz ist der Satz von Weierstraß~2.6.5 über die Stetigkeit der
+Grenzfunktion.
+
+% -----------------------------------------------------------------------
+\section*{Struktur der Kurseinheit 2}
+
+\begin{center}
+\begin{tikzpicture}[node distance=0.5cm and 0.6cm]
+
+  % Column headers
+  \node[font=\bfseries\small] (hA) at (0,0)    {Rückblick auf MG};
+  \node[font=\bfseries\small] (hB) at (9.5,0)  {Ergänzungen und neue Inhalte};
+
+  % ---- Left column: MG-Rückblick (Abschnitt 2.1) ----
+  \node[box, below=0.8cm of hA] (k1) {2.1 Stetigkeit\\in einem Punkt};
+  \node[box, below=0.4cm of k1] (k2) {2.1 Stetigkeitskriterien,\\Operationen};
+  \node[box, below=0.4cm of k2] (k3) {2.1 stetiges Bild eines\\Intervalls, Zwischenwertsatz};
+  \node[box, below=0.4cm of k3] (k4) {2.1 stetiges Bild von $[a,b]$};
+  \node[box, below=0.4cm of k4] (k5) {2.1 Satz vom Maximum};
+  \node[box, below=0.4cm of k5] (k6) {2.1 kompakte Menge in $\mathbb{R}$};
+  \node[box, below=0.4cm of k6] (k7) {2.1 Überdeckungssatz\\von Heine--Borel};
+  \node[box, below=0.4cm of k7] (k8) {2.1 gleichmäßige\\Stetigkeit};
+
+  % ---- Right column: new content (2.2 - 2.6) ----
+  \node[box, below=0.8cm of hB] (n1) {2.2 $f \in \mathrm{Abb}(M,Y)$,\\$M \subseteq X$; normierte Räume};
+  \node[box, below=0.4cm of n1] (n2) {2.2 Veranschaulichung\\im Fall $X=\mathbb{R}^n$, $Y=\mathbb{R}^m$};
+  \node[box, below=0.4cm of n2] (n3) {2.3 Stetigkeit\\in einem Punkt};
+  \node[box, below=0.4cm of n3] (n4) {2.3 Stetigkeitskriterien,\\Operationen};
+  \node[box, below=0.4cm of n4] (n5) {2.4 zusammenhängende\\Menge, stetiges Bild};
+  \node[box, below=0.4cm of n5] (n6) {2.5 offene Überdeckung,\\kompakte Mengen};
+  \node[box, below=0.4cm of n6] (n7) {2.5 stetiges Bild kompakter\\Mengen, Satz vom Maximum};
+  \node[box, below=0.4cm of n7] (n8) {2.5 Heine--Borel in $\mathbb{R}^n$,\\glm.\ Stetigkeit};
+  \node[box, below=0.4cm of n8] (n9) {2.6 punktweise und glm.\\Konvergenz, Funktionenreihen};
+  \node[box, below=0.4cm of n9] (n10){2.6 Stetigkeit\\der Grenzfunktion};
+
+  % Arrows left column
+  \draw[arrow] (k1) -- (k2);
+  \draw[arrow] (k2) -- (k3);
+  \draw[arrow] (k3) -- (k4);
+  \draw[arrow] (k4) -- (k5);
+  \draw[arrow] (k5) -- (k6);
+  \draw[arrow] (k6) -- (k7);
+  \draw[arrow] (k7) -- (k8);
+
+  % Arrows right column
+  \draw[arrow] (n1) -- (n2);
+  \draw[arrow] (n2) -- (n3);
+  \draw[arrow] (n3) -- (n4);
+  \draw[arrow] (n4) -- (n5);
+  \draw[arrow] (n5) -- (n6);
+  \draw[arrow] (n6) -- (n7);
+  \draw[arrow] (n7) -- (n8);
+  \draw[arrow] (n8) -- (n9);
+  \draw[arrow] (n9) -- (n10);
+
+  % Cross arrows (left -> right): Verallgemeinerung
+  \draw[arrow, dashed] (k1.east) -- ++(0.3,0) |- (n3.west);
+  \draw[arrow, dashed] (k3.east) -- ++(0.3,0) |- (n5.west);
+  \draw[arrow, dashed] (k6.east) -- ++(0.3,0) |- (n6.west);
+  \draw[arrow, dashed] (k7.east) -- ++(0.3,0) |- (n8.west);
+  \draw[arrow, dashed] (k8.east) -- ++(0.3,0) |- (n8.west);
+
+\end{tikzpicture}
+\end{center}
+
+\newpage
+
+% -----------------------------------------------------------------------
+\section*{Zielelement 2.1, Teil 1 -- Rückblick und Ergänzungen: Stetigkeit, lokale Eigenschaften}
+
+\subsection*{Lerninhalte}
+
+\begin{center}
+\begin{tikzpicture}[node distance=0.5cm and 1.0cm]
+  \node[box] (fkt) {Funktion: Definitions-\\bereich, Zielbereich,\\Argument, Funktionswert,\\Bild, Urbild};
+  \node[box, right=1.0cm of fkt] (inj) {injektive Funktion,\\Umkehrfunktion};
+  \node[box, below=0.5cm of fkt] (mon) {monotone Funktion};
+  \node[box, right=1.0cm of mon] (umk) {Umkehrfunktion streng\\monotoner Funktionen};
+  \node[box, below=0.5cm of mon] (ste) {in einem Punkt\\stetige Funktion};
+  \node[box, right=1.0cm of ste] (lok) {lokale Beschränktheit,\\lokale Trennung};
+  \node[box, below=0.5cm of ste] (kri) {$\varepsilon$-$\delta$-Kriterium,\\Folgenkriterium};
+  \node[box, right=1.0cm of kri] (ops) {Operationen mit\\stetigen Funktionen};
+  \node[box, below=0.5cm of ops] (pol) {Polynomfunktionen,\\rationale Funktionen};
+  \draw[arrow] (fkt) -- (mon);
+  \draw[arrow] (inj.south) |- (umk.north);
+  \draw[arrow] (mon) -- (ste);
+  \draw[arrow] (ste) -- (kri);
+  \draw[arrow] (kri) -- (ops);
+  \draw[arrow] (ste.east) -- (lok.west);
+  \draw[arrow] (ops) -- (pol);
+\end{tikzpicture}
+\end{center}
+
+\subsection*{Lernziele}
+
+Nach Durcharbeiten des ersten Teils dieses Abschnitts sollten Sie sich wichtige
+Begriffe und Zusammenhänge, die Sie in MG kennen gelernt haben, wieder
+vergegenwärtigt haben und darüber hinaus in der Lage sein,
+\begin{itemize}
+  \item die Stetigkeit einer Funktion $f : M \to \mathbb{R}$ mit $M \subseteq \mathbb{R}$
+        mithilfe des Umgebungsbegriffs auszudrücken,
+  \item darzulegen, dass Stetigkeit eine lokale Eigenschaft ist.
+\end{itemize}
+
+\subsection*{Selbstkontrollelement 2.1, Teil 1}
+
+Ist $f : \mathbb{R} \to \mathbb{R}$ eine Funktion mit
+\[
+  |f(x)| \leq |x| \quad \text{für jedes } x \in \mathbb{R},
+\]
+so ist $f$ in $0$ stetig. Können Sie dies mithilfe der Definition 2.1.6, mithilfe
+des $\varepsilon$-$\delta$-Kriteriums 2.1.8, mithilfe des Folgenkriteriums 2.1.9
+begründen?
+
+\newpage
+
+% -----------------------------------------------------------------------
+\section*{Zielelement 2.1, Teil 2 -- Rückblick und Ergänzungen: Stetigkeit, globale Eigenschaften}
+
+\subsection*{Lerninhalte}
+
+\begin{center}
+\begin{tikzpicture}[node distance=0.5cm and 1.0cm]
+  \node[box] (intv) {auf einem Intervall\\stetige Funktion};
+  \node[box, right=1.0cm of intv] (zws) {Zwischenwertsatz,\\stetiges Bild eines\\Intervalls};
+  \node[box, below=0.5cm of intv] (hfp) {Häufungspunkt,\\abgeschlossene Menge};
+  \node[box, right=1.0cm of hfp] (umk) {Stetigkeit der\\Umkehrfunktion};
+  \node[box, below=0.5cm of hfp] (bw)  {Satz von\\Bolzano--Weierstraß};
+  \node[box, below=0.5cm of bw] (kmp) {kompakte Teilmenge\\in $\mathbb{R}$};
+  \node[box, right=1.0cm of kmp] (bild) {stetiges Bild einer\\kompakten Menge};
+  \node[box, below=0.5cm of kmp] (hb) {Überdeckungssatz\\von Heine--Borel};
+  \node[box, right=1.0cm of hb] (max) {Existenz von\\Minimum und Maximum};
+  \node[box, below=0.5cm of hb] (gst) {gleichmäßige Stetigkeit\\auf einer kompakten Menge};
+  \draw[arrow] (intv) -- (hfp);
+  \draw[arrow] (intv.east) -- (zws.west);
+  \draw[arrow] (zws.south) |- (umk.north);
+  \draw[arrow] (hfp) -- (bw);
+  \draw[arrow] (bw) -- (kmp);
+  \draw[arrow] (kmp) -- (hb);
+  \draw[arrow] (kmp.east) -- (bild.west);
+  \draw[arrow] (bild.south) |- (max.north);
+  \draw[arrow] (hb) -- (gst);
+\end{tikzpicture}
+\end{center}
+
+\subsection*{Lernziele}
+
+Nach Durcharbeiten des zweiten Teils dieses Abschnitts sollten Sie sich weitere
+wichtige Begriffe und Zusammenhänge, die Sie in MG kennen gelernt haben, wieder
+vergegenwärtigt haben und darüber hinaus in der Lage sein,
+\begin{itemize}
+  \item den Begriff des Häufungspunktes mittels Umgebungen auszudrücken und den
+        Satz über die Existenz von Häufungspunkten zu formulieren,
+  \item zu erklären, was eine kompakte Teilmenge von $\mathbb{R}$ ist,
+  \item zu beschreiben, welche Eigenschaften das Bild einer kompakten Menge unter
+        einer stetigen Funktion hat,
+  \item den Begriff der gleichmäßigen Stetigkeit mit dem der (einfachen) Stetigkeit
+        zu vergleichen und in diesem Zusammenhang die Bedeutung eines kompakten
+        Definitionsbereiches aufzuzeigen.
+\end{itemize}
+
+\subsection*{Selbstkontrollelement 2.1, Teil 2}
+
+Die Funktion $f : \,]0,1] \to \mathbb{R}$, $x \mapsto f(x) := \tfrac{1}{x}$ nimmt zwar
+ihr Infimum an, aber nicht ihr Supremum. Ist also der Satz von Weierstraß~2.1.23
+falsch?
+
+\newpage
+
+% -----------------------------------------------------------------------
+\section*{Zielelement 2.2 -- Allgemeines über Funktionen von $\mathbb{R}^n$ nach $\mathbb{R}^m$}
+
+\subsection*{Lerninhalte}
+
+\begin{center}
+\begin{tikzpicture}[node distance=0.5cm and 1.0cm]
+  \node[box] (abb) {Funktionen $f : M \to \mathbb{R}^m$\\mit $M \subseteq \mathbb{R}^n$};
+  \node[box, below=0.5cm of abb] (graph) {Graph einer Funktion,\\Veranschaulichungen\\(Höhenlinien, Graph in $\mathbb{R}^3$)};
+  \node[box, below=0.5cm of graph] (opr) {Operationen in $\mathrm{Abb}(M, \mathbb{R}^m)$:\\Addition, skalare Multiplikation,\\(bei $m=1$) Multiplikation};
+  \node[box, below=0.5cm of opr] (lin) {lineare Funktionen\\$f : \mathbb{R}^n \to \mathbb{R}^m$};
+  \node[box, right=1.0cm of lin] (poly) {Polynomfunktionen,\\rationale Funktionen\\mehrerer Veränderlicher};
+  \draw[arrow] (abb) -- (graph);
+  \draw[arrow] (graph) -- (opr);
+  \draw[arrow] (opr) -- (lin);
+  \draw[arrow] (lin.east) -- (poly.west);
+\end{tikzpicture}
+\end{center}
+
+\subsection*{Lernziele}
+
+Nach Durcharbeiten dieses Abschnitts sollten Sie in der Lage sein,
+\begin{itemize}
+  \item allgemein etwas über Funktionen von $\mathbb{R}^n$ nach $\mathbb{R}^m$ zu
+        sagen (Darstellungsmöglichkeiten in einfachen Fällen, Operieren mit solchen
+        Funktionen),
+  \item lineare Funktionen (Homomorphismen) von $\mathbb{R}^n$ nach $\mathbb{R}^m$
+        sowie Polynomfunktionen und rationale Funktionen mehrerer Veränderlicher zu
+        charakterisieren.
+\end{itemize}
+
+\subsection*{Selbstkontrollelement 2.2}
+
+Sei $f : \mathbb{R}^2 \to \mathbb{R}^2$ die "`Drehung um den Nullpunkt im
+Gegenuhrzeigersinn um den Winkel $\tfrac{\pi}{2}$"', d.\,h.\ um $90^\circ$. Dann ist
+$f$ linear. Welches sind die Vektoren $a_1$ und $a_2$ aus $\mathbb{R}^2$, von denen
+in 2.2.4(ii) die Rede ist?
+
+\newpage
+
+% -----------------------------------------------------------------------
+\section*{Zielelement 2.3 -- Stetigkeit. Lokale Eigenschaften}
+
+\subsection*{Lerninhalte}
+
+\begin{center}
+\begin{tikzpicture}[node distance=0.5cm and 1.0cm]
+  \node[box] (ste) {in einem Punkt stetige\\Funktionen\\$f : M \to Y$, $M \subseteq X$};
+  \node[box, right=1.0cm of ste] (lok) {lokale Trennung,\\lokale Beschränktheit};
+  \node[box, below=0.5cm of ste] (kri) {$\varepsilon$-$\delta$-Kriterium,\\Folgenkriterium};
+  \node[box, right=1.0cm of kri] (res) {Stetigkeit der\\Restriktion, Verkettung};
+  \node[box, below=0.5cm of kri] (opr) {Operationen mit\\stetigen Funktionen};
+  \node[box, right=1.0cm of opr] (bsp) {Beispiele: konstante,\\lineare, Polynom-,\\rationale Funktionen};
+  \node[box, below=0.5cm of opr] (proj) {Projektionen,\\komponentenweise\\Stetigkeit};
+  \draw[arrow] (ste) -- (kri);
+  \draw[arrow] (ste.east) -- (lok.west);
+  \draw[arrow] (kri) -- (opr);
+  \draw[arrow] (kri.east) -- (res.west);
+  \draw[arrow] (opr) -- (proj);
+  \draw[arrow] (opr.east) -- (bsp.west);
+\end{tikzpicture}
+\end{center}
+
+\subsection*{Lernziele}
+
+Nach Durcharbeiten dieses Abschnitts sollten Sie in der Lage sein,
+\begin{itemize}
+  \item die Stetigkeit einer Funktion in einem Punkt zu definieren,
+  \item das $\varepsilon$-$\delta$-Kriterium und das Folgenkriterium für Stetigkeit
+        zu formulieren,
+  \item Operationen mit stetigen Funktionen anzugeben, die wieder zu stetigen
+        Funktionen führen,
+  \item Beispiele stetiger Funktionen anzugeben, insbesondere die linearen Funktionen
+        von $\mathbb{R}^n$ nach $\mathbb{R}^m$, sowie Polynomfunktionen und rationale
+        Funktionen auf $\mathbb{R}^n$ zu beschreiben,
+  \item den lokalen Charakter des Stetigkeitsbegriffs zu erläutern.
+\end{itemize}
+
+\subsection*{Selbstkontrollelement 2.3}
+
+Können Sie zwei Funktionen $f$ und $g$ mit gleichem Definitionsbereich angeben, die
+beide in einem Punkt $a$ ihres gemeinsamen Definitionsbereichs unstetig sind, deren
+Summe $f+g$ aber in diesem Punkt $a$ stetig ist?
+
+\newpage
+
+% -----------------------------------------------------------------------
+\section*{Zielelement 2.4 -- Stetige Funktionen auf zusammenhängenden Mengen}
+
+\subsection*{Lerninhalte}
+
+\begin{center}
+\begin{tikzpicture}[node distance=0.5cm and 1.0cm]
+  \node[box] (off) {offene, abgeschlossene\\Mengen in $(X, \|\cdot\|)$};
+  \node[box, right=1.0cm of off] (glst) {Charakterisierung der\\globalen Stetigkeit mittels\\offener Mengen};
+  \node[box, below=0.5cm of off] (zus) {zusammenhängende\\Mengen in $(X, \|\cdot\|)$};
+  \node[box, right=1.0cm of zus] (bild) {stetiges Bild\\zusammenhängender Mengen};
+  \node[box, below=0.5cm of zus] (zusr) {zusammenhängende\\Mengen in $\mathbb{R}$\\(= Intervalle)};
+  \node[box, right=1.0cm of zusr] (zwv) {(verallgemeinerter)\\Zwischenwertsatz};
+  \draw[arrow] (off) -- (zus);
+  \draw[arrow] (off.east) -- (glst.west);
+  \draw[arrow] (zus) -- (zusr);
+  \draw[arrow] (zus.east) -- (bild.west);
+  \draw[arrow] (bild) -- (zwv);
+  \draw[arrow] (zusr.east) -- (zwv.west);
+\end{tikzpicture}
+\end{center}
+
+\subsection*{Lernziele}
+
+Nach Durcharbeiten dieses Abschnitts sollten Sie in der Lage sein,
+\begin{itemize}
+  \item offene Mengen in einem normierten Vektorraum zu definieren,
+  \item die (globale) Stetigkeit einer Funktion mithilfe offener Mengen zu
+        charakterisieren,
+  \item den Begriff der zusammenhängenden Menge zu beschreiben und den Satz über
+        das stetige Bild zusammenhängender Mengen zu formulieren,
+  \item die zusammenhängenden Mengen im Raum $\mathbb{R}$ zu charakterisieren und den
+        bekannten Zwischenwertsatz als Spezialfall des vorgenannten Satzes über das
+        stetige Bild zusammenhängender Mengen herauszuarbeiten.
+\end{itemize}
+
+\subsection*{Selbstkontrollelement 2.4}
+
+"`Geraden"' in $\mathbb{R}^n$, also Mengen
+$G_{a,b} := \{a + t(b-a) \in \mathbb{R}^n \mid t \in \mathbb{R}\}$ mit
+$a, b \in \mathbb{R}^n$ und $a \neq b$, sind zusammenhängende Teilmengen von
+$\mathbb{R}^n$. Warum?
+
+\newpage
+
+% -----------------------------------------------------------------------
+\section*{Zielelement 2.5 -- Stetige Funktionen auf kompakten Mengen}
+
+\subsection*{Lerninhalte}
+
+\begin{center}
+\begin{tikzpicture}[node distance=0.5cm and 1.0cm]
+  \node[box] (ueb) {offene Überdeckung von $M$,\\endliche Teilüberdeckung};
+  \node[box, below=0.5cm of ueb] (kmp) {kompakte Menge $M$};
+  \node[box, right=1.0cm of kmp] (fkmp) {folgenkompakte Menge $M$\\(äquivalent zu kompakt)};
+  \node[box, below=0.5cm of kmp] (abg) {Kompaktheit und\\Abgeschlossenheit};
+  \node[box, below=0.5cm of abg] (bsr) {Kompaktheit und\\Beschränktheit};
+  \node[box, below=0.5cm of bsr] (hb)  {kompakte Teilmengen\\in $\mathbb{R}^n$ (Heine--Borel)};
+  \node[box, below=0.5cm of hb] (bild) {stetiges Bild\\kompakter Mengen};
+  \node[box, right=1.0cm of bild] (max) {Satz vom Maximum};
+  \node[box, below=0.5cm of bild] (gst) {gleichmäßige Stetigkeit\\auf kompakten Mengen};
+  \draw[arrow] (ueb) -- (kmp);
+  \draw[arrow] (kmp.east) -- (fkmp.west);
+  \draw[arrow] (kmp) -- (abg);
+  \draw[arrow] (abg) -- (bsr);
+  \draw[arrow] (bsr) -- (hb);
+  \draw[arrow] (hb) -- (bild);
+  \draw[arrow] (bild.east) -- (max.west);
+  \draw[arrow] (bild) -- (gst);
+\end{tikzpicture}
+\end{center}
+
+\subsection*{Lernziele}
+
+Nach Durcharbeiten dieses Abschnitts sollten Sie in der Lage sein,
+\begin{itemize}
+  \item die Begriffe "`kompakte Menge"' und "`folgenkompakte Menge"' zu definieren
+        und miteinander in Beziehung zu setzen,
+  \item die Kompaktheit mit der Abgeschlossenheit und der Beschränktheit in
+        Beziehung zu setzen,
+  \item die kompakten Teilmengen in $\mathbb{R}^n$ zu charakterisieren,
+  \item zwei wichtige Sätze über Funktionen, die auf einer kompakten Menge stetig
+        sind, zu formulieren und im Einzelnen zu erläutern,
+  \item den Weierstraßschen Satz vom Maximum aus dem Satz über das stetige Bild
+        kompakter Mengen zu folgern.
+\end{itemize}
+
+\subsection*{Selbstkontrollelement 2.5}
+
+Seien $(X, \|\cdot\|)$ ein normierter Raum und $\emptyset \neq M \subseteq X$.
+Machen Sie sich die Beziehungen zwischen den Aussagen "`$M$ ist kompakt"',
+"`$M$ ist folgenkompakt"', "`$M$ ist abgeschlossen"', "`$M$ ist beschränkt"' klar.
+
+\newpage
+
+% -----------------------------------------------------------------------
+\section*{Zielelement 2.6 -- Punktweise und gleichmäßige Konvergenz von Funktionenfolgen}
+
+\subsection*{Lerninhalte}
+
+\begin{center}
+\begin{tikzpicture}[node distance=0.5cm and 1.0cm]
+  \node[box] (pkt) {punktweise Konvergenz\\von Funktionenfolgen\\bzw.\ Funktionenreihen};
+  \node[box, right=1.0cm of pkt] (glm) {gleichmäßige Konvergenz\\von Funktionenfolgen\\bzw.\ Funktionenreihen};
+  \node[box, below=0.5cm of pkt] (maj) {Majorantenkriterium für\\gleichmäßige Konvergenz};
+  \node[box, right=1.0cm of maj] (ste) {Stetigkeit der Grenzfunktion\\bzw.\ der Summenfunktion\\(Satz von Weierstraß)};
+  \draw[arrow] (pkt) -- (glm);
+  \draw[arrow] (pkt) -- (maj);
+  \draw[arrow] (glm) -- (ste);
+  \draw[arrow] (maj) -- (ste);
+\end{tikzpicture}
+\end{center}
+
+\subsection*{Lernziele}
+
+Nach Durcharbeiten dieses Abschnitts sollten Sie in der Lage sein,
+\begin{itemize}
+  \item die Begriffe "`punktweise Konvergenz"' und "`gleichmäßige Konvergenz"' zu
+        definieren und miteinander in Beziehung zu setzen,
+  \item das Majorantenkriterium für gleichmäßige Konvergenz zu formulieren und an
+        Beispielen zu erläutern,
+  \item den Weierstraßschen Satz von der Stetigkeit der Grenzfunktion einer
+        gleichmäßig konvergenten Funktionenfolge zu formulieren und anzuwenden.
+\end{itemize}
+
+\subsection*{Selbstkontrollelement 2.6}
+
+"`Sehen"' Sie, dass die Folge $(p_k)$ mit $p_k : [0,1] \to \mathbb{R}$,
+$x \mapsto p_k(x) := x^k$ zwar punktweise, aber nicht gleichmäßig konvergiert?
+
+\end{document}

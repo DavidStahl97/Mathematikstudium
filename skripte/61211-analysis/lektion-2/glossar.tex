@@ -1,0 +1,571 @@
+\documentclass[a4paper,12pt]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[ngerman]{babel}
+\usepackage{amsmath, amssymb}
+\usepackage{geometry}
+\usepackage{parskip}
+\usepackage{titlesec}
+\usepackage{enumitem}
+\usepackage{array}
+\usepackage{booktabs}
+
+\geometry{left=3cm, right=3cm, top=2.5cm, bottom=2.5cm}
+
+\titleformat{\section}{\large\bfseries}{}{0em}{}[\titlerule]
+\titleformat{\subsection}{\normalsize\bfseries\scshape}{}{0em}{}
+
+% Glossar-Eintrag: Nummer, fetter Titel, Inhalt
+\newcommand{\gentry}[3]{%
+  \noindent\textbf{#1\quad #2}\nopagebreak\\[0.2em]
+  #3\par\smallskip
+}
+
+\begin{document}
+
+\begin{center}
+  {\LARGE\bfseries Glossar zu Lektion 2}\\[0.5em]
+  {\large Analysis (Modul 61211)}
+\end{center}
+
+\vspace{1em}
+
+Dieses Glossar fasst die wesentlichen Definitionen, Merkregeln und Sätze der
+zweiten Lektion kompakt zusammen. Nummerierungen entsprechen dem Lehrtext.
+
+% ======================================================================
+\section*{2.1 \quad Rückblick und Ergänzungen: Stetigkeit}
+
+\gentry{2.1.1}{Bezeichnungen (Funktion)}{%
+  Sei $f: A \to B$ eine Funktion. $A$ heißt \textbf{Definitionsbereich}, $B$
+  heißt \textbf{Zielbereich} (oder Bild-/Wertebereich). Für $x \in A$ heißt
+  $f(x)$ \textbf{Funktionswert}, $x$ selbst \textbf{Argument}.
+  Für $U \subseteq A$: \textbf{Bild} $f(U) := \{f(x) \mid x \in U\}$.
+  Für $S$: \textbf{Urbild} $f^{-1}(S) := \{x \in A \mid f(x) \in S\}$;
+  im Fall $S = \{b\}$: \textbf{$b$-Stellenmenge}. Für $f$ reell ist $f^{-1}(\{0\})$
+  die Menge der \textbf{Nullstellen}.
+}
+
+\gentry{2.1.2}{Umkehrfunktion}{%
+  Sei $f: A \to B$ injektiv. Die Funktion $g: f(A) \to A$, $y \mapsto g(y) :=$
+  (das eindeutige $x \in A$ mit $f(x) = y$) heißt \textbf{Umkehrfunktion} (oder
+  \textbf{inverse Funktion}) von $f$, geschrieben $f^{-1}$.
+  Es gilt $g(f(x)) = x$ für alle $x \in A$ und $f(g(y)) = y$ für alle $y \in f(A)$.
+}
+
+\gentry{2.1.3}{Satz (Charakterisierung der Umkehrfunktion)}{%
+  Seien $f: A \to B$ und $g: f(A) \to A$ gegeben. Genau dann ist $f$ injektiv
+  und $g$ die Umkehrfunktion von $f$, wenn $g(f(x)) = x$ für jedes $x \in A$ gilt.
+}
+
+\gentry{2.1.4}{Monotone Funktion}{%
+  Sei $\emptyset \neq M \subseteq \mathbb{R}$, $f \in \mathrm{Abb}(M, \mathbb{R})$.
+  $f$ heißt \textbf{monoton wachsend} (bzw.\ \textbf{fallend}), wenn
+  $x < y \Rightarrow f(x) \leq f(y)$ (bzw.\ $\geq$) für alle $x, y \in M$.
+  \textbf{Streng monoton wachsend} (bzw.\ \textbf{fallend}): $x < y \Rightarrow f(x) < f(y)$
+  (bzw.\ $>$). $f$ heißt \textbf{(streng) monoton}, wenn $f$ (streng) monoton
+  wachsend oder fallend ist.
+}
+
+\gentry{2.1.5}{Monotonie und Umkehrfunktion}{%
+  Sei $\emptyset \neq M \subseteq \mathbb{R}$, $f \in \mathrm{Abb}(M, \mathbb{R})$
+  streng monoton. Dann ist $f$ injektiv, und $f^{-1}: f(M) \to M$ ist ebenfalls
+  streng monoton (im gleichen Sinn).
+}
+
+\gentry{2.1.6}{Stetigkeit}{%
+  Seien $a \in M \subseteq \mathbb{R}$, $f \in \mathrm{Abb}(M, \mathbb{R})$.
+  \begin{enumerate}[label=(\roman*),topsep=2pt,itemsep=1pt]
+    \item $f$ heißt \textbf{stetig im Punkt $a$}, wenn es zu jeder Umgebung $V$
+          von $b := f(a)$ eine Umgebung $U$ von $a$ gibt mit $f(U \cap M) \subseteq V$.
+    \item Für $\emptyset \neq E \subseteq M$: $f$ heißt \textbf{stetig auf $E$},
+          wenn $f$ in jedem $a \in E$ stetig ist.
+    \item $f$ heißt \textbf{stetig}, wenn $f$ auf $M$ stetig ist.
+  \end{enumerate}
+}
+
+\gentry{2.1.7}{Stetigkeit als lokale Eigenschaft}{%
+  Seien $a \in M \subseteq \mathbb{R}$, $f \in \mathrm{Abb}(M, \mathbb{R})$, $a \in W \subseteq \mathbb{R}$.
+  (i) Ist $f$ in $a$ stetig, so auch $f|_{W \cap M}$.
+  (ii) Ist $f|_{W \cap M}$ in $a$ stetig und $W$ eine Umgebung von $a$, so ist
+  auch $f$ in $a$ stetig.
+}
+
+\gentry{2.1.8}{$\varepsilon$-$\delta$-Kriterium}{%
+  Sei $a \in M \subseteq \mathbb{R}$, $f: M \to \mathbb{R}$. Dann gilt:
+  \[
+    f \text{ stetig in } a \;\Longleftrightarrow\;
+    \forall \varepsilon > 0\;\exists \delta > 0\;\forall x \in M:
+    |x - a| < \delta \Rightarrow |f(x) - f(a)| < \varepsilon.
+  \]
+}
+
+\gentry{2.1.9}{Folgenkriterium}{%
+  Sei $a \in M \subseteq \mathbb{R}$, $f: M \to \mathbb{R}$. Dann gilt:
+  \[
+    f \text{ stetig in } a \;\Longleftrightarrow\;
+    \forall (x_k) \text{ in } M \text{ mit } \lim x_k = a:\; \lim f(x_k) = f(a).
+  \]
+  Stetige Funktionen sind also ,,konvergenzerhaltend``.
+}
+
+\gentry{2.1.10}{Operationen mit stetigen Funktionen}{%
+  Seien $a \in M \subseteq \mathbb{R}$, $\alpha \in \mathbb{R}$, $f, g: M \to \mathbb{R}$ stetig in $a$.
+  Dann sind auch stetig in $a$:
+  (i) $f + g$, $f - g$, $\alpha f$, \quad
+  (ii) $fg$, \quad
+  (iii) $f/g$ (falls $g(x) \neq 0$ für alle $x \in M$), \quad
+  (iv) $f|_{M'}$ für $M' \subseteq M$, \quad
+  (v) \textbf{Kettenregel:} Ist $h: E \to \mathbb{R}$ mit $f(M) \subseteq E$ stetig in $f(a)$,
+  so ist $h \circ f$ stetig in $a$.
+}
+
+\gentry{2.1.11}{Lokale Beschränktheit}{%
+  Sei $a \in M \subseteq \mathbb{R}$, $f \in \mathrm{Abb}(M, \mathbb{R})$ stetig in $a$.
+  Dann gibt es eine Umgebung $U$ von $a$ derart, dass $f|_{U \cap M}$ beschränkt ist.
+}
+
+\gentry{2.1.12}{Lokale Trennung}{%
+  Seien $f, g \in \mathrm{Abb}(M, \mathbb{R})$ stetig in $a \in M \subseteq \mathbb{R}$
+  mit $f(a) > g(a)$. Dann gibt es eine Umgebung $U$ von $a$ mit
+  $f(x) > g(x)$ für jedes $x \in U \cap M$.
+}
+
+\gentry{2.1.13}{Zwischenwertsatz}{%
+  Sei $I$ ein nichtleeres Intervall, $f: I \to \mathbb{R}$ stetig. Sind
+  $y_1, y_2 \in f(I)$ mit $y_1 < y_2$, so gilt $[y_1, y_2] \subseteq f(I)$.
+  Genauer: Ist $y_i = f(x_i)$, so existiert zu jedem $c \in \,]y_1, y_2[\,$ ein
+  $\xi$ zwischen $x_1$ und $x_2$ mit $c = f(\xi)$.
+}
+
+\gentry{2.1.14}{Existenz einer Nullstelle}{%
+  Sei $I = [a, b]$ mit $a < b$, $f: I \to \mathbb{R}$ stetig. Ist
+  $f(a)f(b) < 0$, so gibt es ein $\xi \in \,]a, b[\,$ mit $f(\xi) = 0$.
+}
+
+\gentry{2.1.15}{Stetiges Bild eines Intervalls}{%
+  Ist $I$ ein nichtleeres Intervall und $f: I \to \mathbb{R}$ stetig, so ist
+  das Bild $f(I)$ ein Intervall.
+}
+
+\gentry{2.1.16}{Stetigkeit der Umkehrfunktion}{%
+  Sei $I$ ein nichtleeres Intervall, $f: I \to \mathbb{R}$ stetig.
+  (i) $f$ ist genau dann injektiv, wenn $f$ streng monoton ist.
+  (ii) Ist $f$ streng monoton, so ist $f^{-1}: f(I) \to I$ stetig und
+  streng monoton (im gleichen Sinne).
+}
+
+\gentry{2.1.17}{Stetiges Bild eines kompakten Intervalls}{%
+  Sei $I = [a, b]$ mit $a \leq b$, $f: I \to \mathbb{R}$ stetig. Dann ist
+  $f(I) = [c, d]$ ein kompaktes Intervall. Es existieren $x_1, x_2 \in I$ mit
+  $c = f(x_1) \leq f(x) \leq f(x_2) = d$ für alle $x \in I$.
+  $x_1$ heißt \textbf{Minimalstelle}, $x_2$ \textbf{Maximalstelle}.
+}
+
+\gentry{2.1.18}{Häufungspunkt, abgeschlossene Menge (in $\mathbb{R}$)}{%
+  Sei $M \subseteq \mathbb{R}$.
+  (i) $a \in \mathbb{R}$ heißt \textbf{Häufungspunkt} von $M$, wenn es in jeder
+  Umgebung von $a$ mindestens einen von $a$ verschiedenen Punkt aus $M$ gibt.
+  (ii) $M$ heißt \textbf{abgeschlossen}, wenn jeder Häufungspunkt von $M$ in $M$ liegt.
+  Äquivalent: $a$ ist Häufungspunkt $\Leftrightarrow$ es gibt eine Folge $(a_k)$
+  in $M \setminus \{a\}$ mit $\lim a_k = a$.
+}
+
+\gentry{2.1.20}{Satz von Bolzano-Weierstraß (für Mengen)}{%
+  Jede beschränkte, unendliche Teilmenge $M \subseteq \mathbb{R}$ besitzt
+  mindestens einen Häufungspunkt (der nicht notwendig in $M$ liegen muss).
+}
+
+\gentry{2.1.21}{Kompakte Teilmenge von $\mathbb{R}$}{%
+  Eine nichtleere Teilmenge von $\mathbb{R}$ heißt \textbf{kompakt}, wenn sie
+  abgeschlossen und beschränkt ist.
+}
+
+\gentry{2.1.22}{Stetiges Bild einer kompakten Menge}{%
+  Sei $\emptyset \neq M \subseteq \mathbb{R}$, $f: M \to \mathbb{R}$ stetig.
+  Ist $M$ kompakt, so ist auch $f(M)$ kompakt.
+}
+
+\gentry{2.1.23}{Satz von Weierstraß (Maximum/Minimum)}{%
+  Sei $\emptyset \neq M \subseteq \mathbb{R}$ kompakt, $f: M \to \mathbb{R}$ stetig.
+  Dann existieren $\min f(M)$ und $\max f(M)$: es gibt $x_1, x_2 \in M$ mit
+  $\inf f(M) = f(x_1)$ und $\sup f(M) = f(x_2)$. Kurz: $f$ \textbf{nimmt
+  Minimum und Maximum an}.
+}
+
+\gentry{2.1.24}{Gleichmäßige Stetigkeit}{%
+  Sei $\emptyset \neq M \subseteq \mathbb{R}$, $f \in \mathrm{Abb}(M, \mathbb{R})$.
+  $f$ heißt \textbf{gleichmäßig stetig (auf $M$)}, wenn
+  \[
+    \forall \varepsilon > 0\;\exists \delta > 0\;\forall x, y \in M:
+    |x - y| < \delta \Rightarrow |f(x) - f(y)| < \varepsilon.
+  \]
+  Unterschied zur einfachen Stetigkeit: $\delta$ darf nur von $\varepsilon$ abhängen,
+  nicht von der Stelle $a$.
+}
+
+\gentry{2.1.25}{Folgerung}{%
+  Ist $f$ gleichmäßig stetig auf $M$, so ist $f$ auch stetig auf $M$. Die
+  Umkehrung gilt im Allgemeinen nicht (z.\,B.\ $x \mapsto x^2$ auf $\mathbb{R}$).
+}
+
+\gentry{2.1.27}{Gleichmäßige Stetigkeit auf kompakten Mengen}{%
+  Sei $\emptyset \neq M \subseteq \mathbb{R}$ kompakt, $f: M \to \mathbb{R}$ stetig
+  auf $M$. Dann ist $f$ sogar gleichmäßig stetig auf $M$.
+}
+
+\gentry{2.1.28}{Satz von Heine-Borel (in $\mathbb{R}$)}{%
+  Sei $\emptyset \neq M \subseteq \mathbb{R}$ abgeschlossen und beschränkt,
+  und sei $\delta: M \to \,]0, \infty[\,$ gegeben. Dann gibt es endlich viele
+  $x_1, \ldots, x_m \in M$ mit
+  $M \subseteq \bigcup_{k=1}^m U_{\delta(x_k)}(x_k)$.
+}
+
+% ======================================================================
+\section*{2.2 \quad Funktionen von $\mathbb{R}^n$ nach $\mathbb{R}^m$}
+
+\gentry{}{Graph einer Funktion}{%
+  Für $f: M \to \mathbb{R}^m$ mit $M \subseteq \mathbb{R}^n$:
+  $G_f := \{{}^t(x, f(x)) \in \mathbb{R}^{n+m} \mid x \in M\}$.
+  Veranschaulichung im Fall $n = 2, m = 1$: Fläche im Raum; alternativ durch
+  \textbf{Höhenlinien} $H_c := \{x \in M \mid f(x) = c\}$.
+}
+
+\gentry{2.2.1}{Operationen in $\mathrm{Abb}(M, \mathbb{R}^m)$}{%
+  Seien $f, g \in \mathrm{Abb}(M, \mathbb{R}^m)$, $h \in \mathrm{Abb}(M, \mathbb{R})$,
+  $\alpha \in \mathbb{R}$. Dann sind punktweise erklärt:
+  (i) $f \pm g$, \quad (ii) $\alpha f$, \quad (iii) $hf$,
+  \quad (iv) $\frac{1}{h} f$ (falls $h(x) \neq 0$ für alle $x \in M$).
+  Alle Ergebnisse liegen in $\mathrm{Abb}(M, \mathbb{R}^m)$.
+  $f \in \mathrm{Abb}(M, \mathbb{R}^m)$ lässt sich über \textbf{Koordinatenfunktionen}
+  $f = {}^t(f_1, \ldots, f_m)$ mit $f_\mu \in \mathrm{Abb}(M, \mathbb{R})$ darstellen.
+}
+
+\gentry{2.2.2}{Projektion}{%
+  Für $k \in \{1, \ldots, n\}$ heißt
+  $\pi_k: \mathbb{R}^n \to \mathbb{R}$, ${}^t(x_1, \ldots, x_n) \mapsto x_k$
+  die \textbf{Projektion auf die $k$-te Koordinate}.
+}
+
+\gentry{2.2.3}{Lineare Funktionen in $\mathrm{Abb}(\mathbb{R}^n, \mathbb{R})$}{%
+  Eine Abbildung $f: X \to Y$ (reelle Vektorräume) heißt \textbf{linear} (oder
+  \textbf{Homomorphismus}), wenn
+  $f(x + y) = f(x) + f(y)$ und $f(\alpha x) = \alpha f(x)$ für alle $x, y, \alpha$.\\
+  $f \in \mathrm{Abb}(\mathbb{R}^n, \mathbb{R})$ ist genau dann linear, wenn es
+  ein $a \in \mathbb{R}^n$ gibt mit $f(x) = a \cdot x$ für alle $x \in \mathbb{R}^n$.
+  Dabei ist $a = {}^t(f(e_1), \ldots, f(e_n))$ eindeutig bestimmt.
+}
+
+\gentry{2.2.4}{Lineare Abbildungen in $\mathrm{Abb}(\mathbb{R}^n, \mathbb{R}^m)$}{%
+  $f = {}^t(f_1, \ldots, f_m) \in \mathrm{Abb}(\mathbb{R}^n, \mathbb{R}^m)$ ist
+  genau dann linear, wenn es Vektoren $a_1, \ldots, a_m \in \mathbb{R}^n$ gibt mit
+  \[
+    f(x) = {}^t(a_1 \cdot x, \ldots, a_m \cdot x) \quad \text{für alle } x \in \mathbb{R}^n.
+  \]
+  Die $a_\mu = {}^t(f_\mu(e_1), \ldots, f_\mu(e_n))$ sind eindeutig bestimmt.
+}
+
+\gentry{2.2.5}{Polynomfunktion}{%
+  $f \in \mathrm{Abb}(\mathbb{R}^n, \mathbb{R})$ heißt \textbf{Polynomfunktion}
+  (oder \textbf{Polynom}), wenn sie endliche Summe von Funktionen des Typs
+  $g(x_1, \ldots, x_n) := c\, x_1^{i_1} \cdots x_n^{i_n}$
+  mit $c \in \mathbb{R}$, $i_1, \ldots, i_n \in \mathbb{N}_0$ ist.
+}
+
+\gentry{2.2.6}{Rationale Funktion}{%
+  $f \in \mathrm{Abb}(M, \mathbb{R})$ heißt \textbf{rational}, wenn es
+  Polynomfunktionen $P, Q$ mit $Q \neq 0$ gibt, sodass
+  $M = \{x \in \mathbb{R}^n \mid Q(x) \neq 0\}$ und $f = P|_M / Q|_M$.
+}
+
+% ======================================================================
+\section*{2.3 \quad Stetigkeit. Lokale Eigenschaften}
+
+\gentry{2.3.1}{Stetigkeit (in normierten Räumen)}{%
+  Seien $(X, \|\cdot\|_X)$, $(Y, \|\cdot\|_Y)$ normierte Räume, $a \in M \subseteq X$,
+  $f \in \mathrm{Abb}(M, Y)$.
+  \begin{enumerate}[label=(\roman*),topsep=2pt,itemsep=1pt]
+    \item $f$ \textbf{stetig in $a$}: Zu jeder Umgebung $V$ von $b := f(a)$ gibt
+          es eine Umgebung $U$ von $a$ mit $f(U \cap M) \subseteq V$.
+    \item $f$ \textbf{stetig auf $E$} ($\emptyset \neq E \subseteq M$):
+          $f$ ist in jedem $a \in E$ stetig.
+    \item $f$ \textbf{stetig}: $f$ ist stetig auf $M$.
+  \end{enumerate}
+}
+
+\gentry{2.3.2}{$\varepsilon$-$\delta$-Kriterium}{%
+  Unter den Voraussetzungen von 2.3.1 gilt:
+  \[
+    f \text{ stetig in } a \;\Longleftrightarrow\;
+    \forall \varepsilon > 0\;\exists \delta > 0\;\forall x \in M:
+    \|x - a\|_X < \delta \Rightarrow \|f(x) - f(a)\|_Y < \varepsilon.
+  \]
+}
+
+\gentry{2.3.3}{Folgenkriterium}{%
+  Unter den Voraussetzungen von 2.3.1 gilt:
+  $f$ stetig in $a$ $\Longleftrightarrow$ für jede Folge $(x_k)$ in $M$ mit
+  $x_k \to a$ in $(X, \|\cdot\|_X)$ gilt $f(x_k) \to f(a)$ in $(Y, \|\cdot\|_Y)$.
+}
+
+\gentry{2.3.4}{Restriktion / lokale Eigenschaft}{%
+  Seien $a \in M \subseteq X$, $f \in \mathrm{Abb}(M, Y)$, $a \in W \subseteq X$.
+  (i) Ist $f$ in $a$ stetig, so auch $f|_{W \cap M}$.
+  (ii) Ist $f|_{W \cap M}$ in $a$ stetig und $W$ eine Umgebung von $a$, so ist
+  $f$ in $a$ stetig. Stetigkeit ist damit eine \textbf{lokale Eigenschaft}.
+}
+
+\gentry{2.3.5}{Lokale Beschränktheit}{%
+  Sei $a \in M \subseteq X$, $f \in \mathrm{Abb}(M, Y)$ stetig in $a$. Dann gibt
+  es eine Umgebung $U$ von $a$ mit $\sup\{\|f(x)\|_Y \mid x \in U \cap M\} < \infty$.
+}
+
+\gentry{2.3.6}{Lokale Trennung}{%
+  Seien $f, g \in \mathrm{Abb}(M, Y)$ stetig in $a \in M \subseteq X$ mit
+  $f(a) \neq g(a)$. Dann gibt es eine Umgebung $U$ von $a$ mit
+  $f(x) \neq g(x)$ für alle $x \in U \cap M$.
+}
+
+\gentry{2.3.7}{Kettenregel für stetige Funktionen}{%
+  Seien $(X, \|\cdot\|_X)$, $(Y, \|\cdot\|_Y)$, $(Z, \|\cdot\|_Z)$ normierte Räume,
+  $a \in M \subseteq X$, $f \in \mathrm{Abb}(M, Y)$ mit $f(M) \subseteq N \subseteq Y$,
+  $g \in \mathrm{Abb}(N, Z)$. Ist $f$ stetig in $a$ und $g$ stetig in $f(a)$, so
+  ist $g \circ f: M \to Z$ stetig in $a$.
+}
+
+\gentry{2.3.8}{Operationen}{%
+  Sei $a \in M \subseteq X$, $f, g \in \mathrm{Abb}(M, \mathbb{R}^m)$,
+  $h \in \mathrm{Abb}(M, \mathbb{R})$, $\alpha \in \mathbb{R}$; $f, g, h$ stetig in $a$.
+  Dann sind auch stetig in $a$:
+  (i) $f \pm g$, \quad (ii) $\alpha f$, \quad (iii) $hf$,
+  \quad (iv) $\frac{1}{h} f$ (falls $h(x) \neq 0$).
+}
+
+\gentry{2.3.9}{Dehnungsbeschränkte Funktionen (Lipschitz)}{%
+  $f \in \mathrm{Abb}(M, Y)$ heißt \textbf{dehnungsbeschränkt}
+  (Lipschitz-stetig), wenn es eine \textbf{Lipschitzkonstante} $L > 0$ gibt mit
+  \[
+    \|f(x) - f(x')\|_Y \leq L \|x - x'\|_X \quad \text{für alle } x, x' \in M.
+  \]
+  Jede dehnungsbeschränkte Funktion ist stetig. Konstante Funktionen sind stetig.
+}
+
+\gentry{2.3.11}{Komponentenweise Stetigkeit}{%
+  Sei $a \in M \subseteq X$. Eine Funktion $f = {}^t(f_1, \ldots, f_m): M \to \mathbb{R}^m$
+  ist genau dann in $a$ stetig, wenn alle Koordinatenfunktionen
+  $f_\mu: M \to \mathbb{R}$ in $a$ stetig sind.
+  Insbesondere: Jede Polynomfunktion $P: \mathbb{R}^n \to \mathbb{R}$ ist stetig,
+  jede rationale Funktion ist auf ihrem Definitionsbereich stetig, jede lineare
+  Abbildung $f: \mathbb{R}^n \to \mathbb{R}^m$ ist stetig.
+}
+
+% ======================================================================
+\section*{2.4 \quad Stetige Funktionen auf zusammenhängenden Mengen}
+
+\gentry{2.4.1}{Offene Menge}{%
+  Sei $(X, \|\cdot\|)$ ein normierter Raum, $M \subseteq X$. $M$ heißt
+  \textbf{offen}, wenn $M$ Umgebung von jedem $a \in M$ ist.
+  Offenheit in $\mathbb{R}^n$ ist normunabhängig.
+}
+
+\gentry{2.4.4}{Eigenschaften offener Mengen}{%
+  Sei $(X, \|\cdot\|)$ ein normierter Raum. Dann gilt:
+  (i) $\emptyset$ und $X$ sind offen.
+  (ii) Die Vereinigung beliebig vieler offener Teilmengen ist offen.
+  (iii) Der Durchschnitt endlich vieler offener Teilmengen ist offen.
+  Insbesondere ist jede $\varepsilon$-Umgebung $U_\varepsilon(b)$ offen.
+}
+
+\gentry{2.4.5}{Häufungspunkt, abgeschlossene Menge}{%
+  Sei $(X, \|\cdot\|)$ ein normierter Raum, $M \subseteq X$.
+  (i) $a \in X$ heißt \textbf{Häufungspunkt} von $M$, wenn in jeder Umgebung
+  von $a$ mindestens ein von $a$ verschiedener Punkt aus $M$ liegt.
+  (ii) $M$ heißt \textbf{abgeschlossen}, wenn jeder Häufungspunkt von $M$ in $M$ liegt.
+}
+
+\gentry{2.4.6}{Offen und abgeschlossen}{%
+  Sei $(X, \|\cdot\|)$ ein normierter Raum, $M \subseteq X$. Dann:
+  $M$ offen $\Leftrightarrow$ $X \setminus M$ abgeschlossen;
+  $M$ abgeschlossen $\Leftrightarrow$ $X \setminus M$ offen.
+  $X$ und $\emptyset$ sind sowohl offen als auch abgeschlossen.
+}
+
+\gentry{2.4.7}{Charakterisierung der Stetigkeit durch offene Mengen}{%
+  Seien $(X, \|\cdot\|_X), (Y, \|\cdot\|_Y)$ normierte Räume, $\emptyset \neq M \subseteq X$,
+  $f \in \mathrm{Abb}(M, Y)$. Äquivalent sind:
+  \begin{enumerate}[label=(\roman*),topsep=2pt,itemsep=1pt]
+    \item $f$ ist stetig (auf $M$).
+    \item Zu jeder in $(Y, \|\cdot\|_Y)$ offenen Teilmenge $S$ von $Y$ gibt es
+          eine in $(X, \|\cdot\|_X)$ offene Teilmenge $Q$ von $X$ mit
+          $f^{-1}(S) = Q \cap M$.
+  \end{enumerate}
+  Kurz: ,,Die Urbilder offener Mengen sind offen``.
+}
+
+\gentry{2.4.9}{Zusammenhängende Menge}{%
+  Sei $(X, \|\cdot\|)$ ein normierter Raum, $\emptyset \neq M \subseteq X$.
+  $M$ heißt \textbf{zusammenhängend}, wenn es keine zwei in $X$ offenen Mengen
+  $Q_1, Q_2$ gibt mit
+  \[
+    M \subseteq Q_1 \cup Q_2,\quad Q_1 \cap Q_2 = \emptyset,\quad
+    Q_1 \cap M \neq \emptyset,\quad Q_2 \cap M \neq \emptyset.
+  \]
+  Anschaulich: $M$ lässt sich nicht in zwei nichtleere, durch offene Mengen
+  getrennte Teilmengen zerlegen.
+}
+
+\gentry{2.4.11}{Zusammenhängende Mengen in $\mathbb{R}$}{%
+  Sei $\emptyset \neq M \subseteq \mathbb{R}$. Dann gilt:
+  \[
+    M \text{ zusammenhängend} \;\Longleftrightarrow\; M \text{ ist ein Intervall}.
+  \]
+}
+
+\gentry{2.4.12}{Stetiges Bild zusammenhängender Mengen}{%
+  Seien $(X, \|\cdot\|_X), (Y, \|\cdot\|_Y)$ normierte Räume, $\emptyset \neq M \subseteq X$,
+  $f: M \to Y$ stetig. Ist $M$ zusammenhängend, so ist $f(M)$ zusammenhängend.
+}
+
+\gentry{2.4.13}{Verallgemeinerter Zwischenwertsatz}{%
+  (i) Für ein nichtleeres Intervall $I \subseteq \mathbb{R}$ und stetiges
+  $f: I \to \mathbb{R}^m$ ist $f(I)$ zusammenhängend; ein solches $f$ heißt
+  \textbf{parametrisierte Kurve}.\\
+  (ii) Für stetiges $f: I \to \mathbb{R}$ ist $f(I)$ ein Intervall (= 2.1.15).\\
+  (iii) Ist $(X, \|\cdot\|_X)$ normierter Raum, $M \subseteq X$ zusammenhängend,
+  $f: M \to \mathbb{R}$ stetig, $x, y \in M$ mit $f(x) < c < f(y)$, so gibt es
+  ein $z \in M$ mit $f(z) = c$.
+}
+
+% ======================================================================
+\section*{2.5 \quad Stetige Funktionen auf kompakten Mengen}
+
+\gentry{2.5.1}{Offene Überdeckung, kompakte Menge}{%
+  Sei $(X, \|\cdot\|)$ ein normierter Raum, $M \subseteq X$.
+  (i) Eine \textbf{offene Überdeckung} $\mathcal{F}$ von $M$ ist eine nichtleere
+  Menge offener Mengen in $X$ mit $M \subseteq \bigcup_{Q \in \mathcal{F}} Q$.
+  (ii) $M$ heißt \textbf{kompakt}, wenn \textbf{jede} offene Überdeckung $\mathcal{F}$
+  von $M$ eine endliche \textbf{Teilüberdeckung} $\mathcal{F}_0 \subseteq \mathcal{F}$
+  enthält (die $M$ ebenfalls überdeckt).
+}
+
+\gentry{2.5.3}{Folgenkompaktheit}{%
+  Sei $(X, \|\cdot\|)$ ein normierter Raum, $\emptyset \neq M \subseteq X$.
+  $M$ ist genau dann kompakt, wenn $M$ \textbf{folgenkompakt} ist, d.\,h.\ wenn
+  jede Folge in $M$ eine konvergente Teilfolge mit Grenzwert in $M$ besitzt.
+}
+
+\gentry{2.5.4}{Beschränkte Menge}{%
+  Sei $(X, \|\cdot\|)$ ein normierter Raum, $\emptyset \neq M \subseteq X$.
+  $M$ heißt \textbf{beschränkt}, wenn $\sup\{\|x\| \mid x \in M\} < \infty$,
+  d.\,h.\ wenn es ein $r > 0$ mit $M \subseteq U_r(0)$ gibt.
+}
+
+\gentry{2.5.5}{Kompaktheit $\Rightarrow$ abgeschlossen + beschränkt}{%
+  Sei $(X, \|\cdot\|)$ ein normierter Raum, $\emptyset \neq M \subseteq X$
+  kompakt. Dann ist $M$ abgeschlossen und beschränkt. Die Umkehrung gilt
+  \textbf{im Allgemeinen nicht} in beliebigen normierten Räumen.
+}
+
+\gentry{2.5.6}{Satz von Heine-Borel (in $\mathbb{R}^n$)}{%
+  Sei $\emptyset \neq M \subseteq \mathbb{R}^n$. Dann gilt:
+  \[
+    M \text{ kompakt} \;\Longleftrightarrow\; M \text{ abgeschlossen und beschränkt}.
+  \]
+  Normunabhängig.
+}
+
+\gentry{2.5.7}{Stetiges Bild kompakter Mengen}{%
+  Seien $(X, \|\cdot\|_X), (Y, \|\cdot\|_Y)$ normierte Räume,
+  $\emptyset \neq M \subseteq X$, $f: M \to Y$ stetig. Ist $M$ kompakt, so ist
+  auch $f(M)$ kompakt.
+}
+
+\gentry{2.5.8}{Satz vom Maximum}{%
+  Sei $(X, \|\cdot\|)$ ein normierter Raum, $\emptyset \neq M \subseteq X$
+  kompakt, $f: M \to \mathbb{R}$ stetig. Dann nimmt $f$ auf $M$ Maximum und
+  Minimum an: Es gibt $\overline{x}, \underline{x} \in M$ mit
+  $f(\overline{x}) = \sup f(M)$ und $f(\underline{x}) = \inf f(M)$.
+  Insbesondere ist $f(M)$ beschränkt.
+}
+
+\gentry{2.5.9}{Gleichmäßige Stetigkeit (allgemein)}{%
+  Seien $(X, \|\cdot\|_X), (Y, \|\cdot\|_Y)$ normierte Räume,
+  $\emptyset \neq M \subseteq X$, $f \in \mathrm{Abb}(M, Y)$.
+  \begin{enumerate}[label=(\roman*),topsep=2pt,itemsep=1pt]
+    \item $f$ heißt \textbf{gleichmäßig stetig (auf $M$)}, wenn
+    \[
+      \forall \varepsilon > 0\;\exists \delta > 0\;\forall a, x \in M:
+      \|x - a\|_X < \delta \Rightarrow \|f(x) - f(a)\|_Y < \varepsilon.
+    \]
+    \item Ist $M$ kompakt und $f$ stetig auf $M$, so ist $f$ sogar gleichmäßig
+    stetig auf $M$.
+  \end{enumerate}
+}
+
+% ======================================================================
+\section*{2.6 \quad Punktweise und gleichmäßige Konvergenz}
+
+\gentry{2.6.1}{Punktweise Konvergenz}{%
+  Sei $M$ eine nichtleere Menge, $(Y, \|\cdot\|_Y)$ ein normierter Raum, $(f_k)$
+  eine Folge in $\mathrm{Abb}(M, Y)$. $(f_k)$ heißt \textbf{punktweise konvergent},
+  wenn die Folge $(f_k(x))_{k \in \mathbb{N}}$ für jedes $x \in M$ in
+  $(Y, \|\cdot\|_Y)$ konvergiert. Die Funktion
+  $f: M \to Y$, $x \mapsto f(x) := \lim_{k \to \infty} f_k(x)$ heißt
+  \textbf{Grenzfunktion}.
+}
+
+\gentry{2.6.2}{Gleichmäßige Konvergenz}{%
+  $(f_k)$ heißt \textbf{gleichmäßig konvergent} (gegen $f \in \mathrm{Abb}(M, Y)$), wenn
+  \[
+    \sup\{\|f_k(x) - f(x)\|_Y \mid x \in M\} \to 0 \quad \text{für } k \to \infty.
+  \]
+  $\varepsilon$-$n_0$-Kriterien:
+  \begin{itemize}[topsep=2pt,itemsep=1pt]
+    \item \textbf{punktweise:} $\forall \varepsilon > 0\;\forall x \in M\;\exists n_0\;\forall k \geq n_0: \|f_k(x) - f(x)\|_Y < \varepsilon$.
+    \item \textbf{gleichmäßig:} $\forall \varepsilon > 0\;\exists n_0\;\forall x \in M\;\forall k \geq n_0: \|f_k(x) - f(x)\|_Y < \varepsilon$.
+  \end{itemize}
+  ($n_0$ und $x$ haben die Quantoren getauscht.)
+}
+
+\gentry{2.6.3}{Bemerkung}{%
+  Ist $(f_k)$ gleichmäßig konvergent, so ist $(f_k)$ auch punktweise konvergent
+  (gegen dieselbe Grenzfunktion). Die Umkehrung gilt im Allgemeinen nicht.
+}
+
+\gentry{2.6.5}{Satz von Weierstraß (Stetigkeit der Grenzfunktion)}{%
+  Seien $(X, \|\cdot\|_X), (Y, \|\cdot\|_Y)$ normierte Räume, $a \in M \subseteq X$,
+  $(f_k)$ Folge in $\mathrm{Abb}(M, Y)$, $f \in \mathrm{Abb}(M, Y)$.
+  Konvergiert $(f_k)$ gleichmäßig gegen $f$ und sind fast alle $f_k$ stetig in
+  $a$ (bzw.\ auf $M$), so ist auch $f$ stetig in $a$ (bzw.\ auf $M$).
+}
+
+\gentry{2.6.6}{Funktionenreihe}{%
+  Sei $(f_k)$ Folge in $\mathrm{Abb}(M, Y)$. Unter der \textbf{Funktionenreihe}
+  $\sum_{k=1}^\infty f_k$ versteht man die Folge $(s_k)$ der Partialsummen
+  $s_k := \sum_{j=1}^k f_j$. Die Reihe heißt \textbf{punktweise} bzw.\
+  \textbf{gleichmäßig konvergent}, wenn $(s_k)$ punktweise bzw.\ gleichmäßig
+  konvergiert. Ihre Grenzfunktion heißt \textbf{Summenfunktion}.
+}
+
+\gentry{2.6.7}{Stetigkeit der Summenfunktion}{%
+  Konvergiert $\sum_{k=1}^\infty f_k$ gleichmäßig gegen $s \in \mathrm{Abb}(M, Y)$
+  und sind alle $f_k$ stetig in $a$ (bzw.\ auf $M$), so ist auch $s$ stetig in $a$
+  (bzw.\ auf $M$).
+}
+
+\gentry{2.6.8}{Majorantenkriterium}{%
+  Sei $M$ nichtleer, $(Y, \|\cdot\|_Y)$ ein \textbf{Banachraum}, $(f_k)$ Folge in
+  $\mathrm{Abb}(M, Y)$. Gibt es für jedes $k$ ein $a_k \in \mathbb{R}$ mit
+  $\sup\{\|f_k(x)\|_Y \mid x \in M\} \leq a_k$, und ist $\sum_{k=1}^\infty a_k$
+  konvergent, so konvergiert $\sum_{k=1}^\infty f_k$ gleichmäßig.
+}
+
+\gentry{2.6.9}{Potenzreihenfunktion}{%
+  Hat die Potenzreihe $\sum_{k=0}^\infty a_k(x - a)^k$ Konvergenzradius $R > 0$,
+  so konvergiert die Reihe auf jedem kompakten Teilintervall
+  $[\alpha, \beta] \subseteq \,]a - R, a + R[\,$ gleichmäßig, und die
+  Summenfunktion (\textbf{Potenzreihenfunktion}) ist stetig auf
+  $\,]a - R, a + R[\,$.
+}
+
+\end{document}
