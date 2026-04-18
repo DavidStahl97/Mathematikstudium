@@ -1,0 +1,80 @@
+\documentclass[a4paper,12pt]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[ngerman]{babel}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{enumitem}
+\usepackage{geometry}
+\geometry{a4paper, margin=2.5cm}
+
+\title{Einsendeaufgaben -- Aufgabe 2.1\\[0.5em]
+\large 61211 Analysis}
+\author{}
+\date{}
+
+\begin{document}
+\maketitle
+
+\section*{Aufgabe 1}
+
+\begin{enumerate}[label=\alph*)]
+
+    \item
+    Da für alle $x_0 \in \mathbb{R}$ $1 + x_0^2 \neq 0$ gilt, können wir Satz 2.3.8(iv) anwenden.
+    $f$ ist also stetig.
+
+    \item
+    $f$ ist nicht stetig. Wir zeigen dies, indem wir zeigen, dass $f$ nicht das Folgenkriterium erfüllt.
+
+    Es gilt $f(0,0) = 0$.
+
+    Wir definieren eine Folge $(x_k)$ mit $x_k := \left(\frac{1}{k}, \frac{1}{k}\right)$.
+
+    Es gilt $x_k \to (0,0)$ in $(\mathbb{R}^2, \|\cdot\|_2)$.
+
+    Es gilt allerdings nicht, dass $f(x_k) \to f(0,0) = 0$ in $(\mathbb{R}, |\cdot|)$, denn
+    \[
+        \lim_{k \to \infty} f\!\left(\tfrac{1}{k}, \tfrac{1}{k}\right)
+        = \lim_{k \to \infty} \frac{\left(\tfrac{1}{k}\right)^2 + \left(\tfrac{1}{k}\right)^2}{\left(\tfrac{1}{k}\right)^2}
+        = \lim_{k \to \infty} 2 = 2 \neq 0.
+    \]
+
+    Demnach ist $f$ nicht stetig.
+
+    \item
+    Nach der lokalen Eigenschaft der Stetigkeit (Satz 2.3.4(ii)) und Satz 2.3.8(iv) ist $f$ in jedem
+    Punkt $a \in \mathbb{R}^2$ mit $a \neq (0,0)$ stetig.
+
+    Wir untersuchen noch den Fall $a = 0$. Wir werden das $\varepsilon$-$\delta$-Kriterium anwenden.
+
+    Sei $\varepsilon > 0$ beliebig. Wir wählen $\delta := \dfrac{\varepsilon}{2}$.
+
+    Sei $x \in \mathbb{R}^2$ mit $\|x\|_2 \leq \delta$ beliebig. Dann gilt:
+    \begin{align*}
+        \|f(x) - f(0)\| &= \|f(x)\| \\
+        &= \left|\frac{x_1^2 + x_1 x_2 + x_2^2}{\sqrt{x_1^2 + x_2^2}}\right| \\
+        &\leq \left|\frac{x_1^2 + x_2^2}{\|x\|_2}\right| + \left|\frac{x_1 x_2}{\|x\|_2}\right| \\
+        &\leq \left|\frac{x_1^2 + x_2^2}{\|x\|_2}\right| + \left|\frac{x_1^2 + x_2^2}{\|x\|_2}\right|
+    \end{align*}
+
+    (da $|x_1 x_2| \leq x_1^2 + x_2^2$ wegen
+
+    \textit{Fall 1:} $x_1 x_2 < 0$:
+    \[
+        x_1^2 + x_1 x_2 + x_2^2 \geq x_1^2 + 2x_1 x_2 + x_2^2 = (x_1 + x_2)^2 \geq 0
+    \]
+
+    \textit{Fall 2:} $x_1 x_2 \geq 0$:
+    \[
+        x_1^2 - x_1 x_2 + x_2^2 \geq x_1^2 - 2x_1 x_2 + x_2^2 = (x_1 - x_2)^2 \geq 0
+    \]
+    )
+
+    \begin{align*}
+        &= 2\left|\frac{\|x\|_2^2}{\|x\|_2}\right| < 2 \cdot \frac{\varepsilon}{2} = \varepsilon
+    \end{align*}
+
+\end{enumerate}
+
+\end{document}
