@@ -1,0 +1,390 @@
+\documentclass[a4paper,12pt]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[ngerman]{babel}
+\usepackage{amsmath, amssymb}
+\usepackage{geometry}
+\usepackage{parskip}
+\usepackage{titlesec}
+\usepackage{enumitem}
+\usepackage{array}
+\usepackage{booktabs}
+
+\geometry{left=3cm, right=3cm, top=2.5cm, bottom=2.5cm}
+
+\titleformat{\section}{\large\bfseries}{}{0em}{}[\titlerule]
+\titleformat{\subsection}{\normalsize\bfseries\scshape}{}{0em}{}
+
+% Glossar-Eintrag: Nummer, fetter Titel, Inhalt
+\newcommand{\gentry}[3]{%
+  \noindent\textbf{#1\quad #2}\nopagebreak\\[0.2em]
+  #3\par\smallskip
+}
+
+\begin{document}
+
+\begin{center}
+  {\LARGE\bfseries Glossar zu Kurseinheit 6}\\[0.5em]
+  {\large Analysis (Modul 61211) -- Kurven}
+\end{center}
+
+\vspace{1em}
+
+Dieses Glossar fasst die wesentlichen Definitionen, Sätze und Rechenregeln der
+sechsten Kurseinheit kompakt zusammen. Nummerierungen entsprechen dem Lehrtext.
+
+% ======================================================================
+\section*{6.1 \quad Der Kurvenbegriff}
+
+\gentry{6.1.1}{Parametrisierte Kurve}{%
+  Eine \textbf{parametrisierte Kurve} (auch parametrisierter Weg oder parametrisierter
+  Bogen) in $\mathbb{R}^n$ ist eine stetige Abbildung $\varphi : I \longrightarrow \mathbb{R}^n$,
+  wobei $I$ ein nichtleeres Intervall in $\mathbb{R}$ ist. Das Bild $\varphi(I)$ heißt die
+  \textbf{Spur} von $\varphi$ und wird mit $\mathrm{Spur}(\varphi)$ bezeichnet.
+}
+
+\gentry{6.1.2}{Äquivalenz parametrisierter Kurven}{%
+  Eine parametrisierte Kurve $\varphi : I \longrightarrow \mathbb{R}^n$ heißt \textbf{äquivalent}
+  zu $\psi : J \longrightarrow \mathbb{R}^n$, in Zeichen $\varphi \sim \psi$, wenn es eine
+  streng monoton wachsende, stetige Funktion $f : I \longrightarrow \mathbb{R}$ mit
+  $f(I) = J$ und $\varphi = \psi \circ f$ gibt.\\
+  $\sim$ ist eine Äquivalenzrelation:
+  \begin{enumerate}[label=(\roman*),topsep=2pt,itemsep=1pt]
+    \item $\varphi \sim \varphi$ \quad (Reflexivität),
+    \item $\varphi \sim \psi \Rightarrow \psi \sim \varphi$ \quad (Symmetrie),
+    \item $\varphi \sim \psi,\; \psi \sim \chi \Rightarrow \varphi \sim \chi$ \quad (Transitivität).
+  \end{enumerate}
+  Die Menge $[\varphi] := \{\psi \mid \psi \text{ parametrisierte Kurve mit } \varphi \sim \psi\}$
+  heißt die von $\varphi$ erzeugte \textbf{Äquivalenzklasse}.
+}
+
+\gentry{6.1.3}{Eigenschaften äquivalenter parametrisierter Kurven}{%
+  Seien $\varphi : I \longrightarrow \mathbb{R}^n$ und $\psi : J \longrightarrow \mathbb{R}^n$
+  äquivalente parametrisierte Kurven. Dann gilt:
+  \begin{enumerate}[label=(\roman*),topsep=2pt,itemsep=1pt,start=0]
+    \item $[\varphi] = [\psi]$.
+    \item $\mathrm{Spur}(\varphi) = \mathrm{Spur}(\psi)$.
+    \item Zu $t_1, t_2 \in I$ mit $t_1 < t_2$ gibt es $\tau_1, \tau_2 \in J$ mit $\tau_1 < \tau_2$,
+          sodass $\varphi(t_1) = \psi(\tau_1)$ und $\varphi(t_2) = \psi(\tau_2)$.
+    \item Enthält $I$ seinen linken (bzw.\ rechten) Endpunkt $t^*$, so enthält auch $J$
+          seinen linken (bzw.\ rechten) Endpunkt $\tau^*$, und es gilt $\varphi(t^*) = \psi(\tau^*)$.
+  \end{enumerate}
+}
+
+\gentry{6.1.4}{Kurve}{%
+  \begin{enumerate}[label=(\roman*),topsep=2pt,itemsep=1pt]
+    \item Eine \textbf{Kurve} (auch Weg oder Bogen) $W$ in $\mathbb{R}^n$ ist eine
+          Äquivalenzklasse $[\varphi]$ von parametrisierten Kurven in $\mathbb{R}^n$.
+          Jede parametrisierte Kurve in $W$ heißt auch eine \textbf{Parameterdarstellung} von $W$.
+    \item Die Spur einer Parameterdarstellung von $W$ heißt die \textbf{Spur} von $W$,
+          in Zeichen $|W|$.
+    \item Enthält das Definitionsintervall einer Parameterdarstellung seinen linken
+          (bzw.\ rechten) Endpunkt, so heißt der entsprechende Punkt der Spur von $W$
+          der \textbf{Anfangspunkt} (bzw.\ der \textbf{Endpunkt}) von $W$.
+  \end{enumerate}
+}
+
+\gentry{6.1.6}{Entgegengesetzte Kurve}{%
+  Seien $W$ eine Kurve in $\mathbb{R}^n$ und $\varphi : I \longrightarrow \mathbb{R}^n$ eine
+  Parameterdarstellung von $W$. Dann ist $-I := \{t \in \mathbb{R} \mid -t \in I\}$ ein
+  Intervall und $\varphi^- : -I \longrightarrow \mathbb{R}^n$, $t \mapsto \varphi^-(t) := \varphi(-t)$
+  eine parametrisierte Kurve. Damit wird
+  \[
+    -W := [\varphi^-], \quad \text{die zu } W \text{ \textbf{entgegengesetzte Kurve}},
+  \]
+  definiert. Diese hat die gleiche Spur wie $W$, aber den entgegengesetzten
+  Durchlaufungssinn. (Hat $W$ einen Anfangspunkt [bzw.\ Endpunkt], so hat $-W$ diesen
+  als Endpunkt [bzw.\ Anfangspunkt].)
+}
+
+\gentry{6.1.7}{Aneinanderfügen von Kurven}{%
+  Seien $W_1, W_2$ Kurven in $\mathbb{R}^n$. $W_1$ besitze einen Endpunkt $b$,
+  $W_2$ einen Anfangspunkt $a$. Ist $b = a$, so wird die zusammengesetzte Kurve
+  $W_1 + W_2$ definiert: Sind $\varphi_1 : I_1 \longrightarrow \mathbb{R}^n$ und
+  $\varphi_2 : I_2 \longrightarrow \mathbb{R}^n$ Parameterdarstellungen mit rechtem
+  Endpunkt $\beta_1$ von $I_1$ und linkem Endpunkt $\alpha_2$ von $I_2$
+  ($\varphi_1(\beta_1) = b = a = \varphi_2(\alpha_2)$), so setze
+  \[
+    I := I_1 \cup \{\tau + \beta_1 - \alpha_2 \mid \tau \in I_2\},
+  \]
+  \[
+    \psi(t) := \begin{cases} \varphi_1(t) & \text{für } t \leq \beta_1,\; t \in I,\\
+                             \varphi_2(\alpha_2 + t - \beta_1) & \text{für } t > \beta_1,\; t \in I\end{cases}
+  \]
+  und $W_1 + W_2 := [\psi]$.
+}
+
+\gentry{Ü 6.1.4}{Addition von Kurven (Assoziativität)}{%
+  Seien $W_1, W_2, W_3$ Kurven in $\mathbb{R}^n$ derart, dass $W_1 + W_2$ und $W_2 + W_3$
+  gebildet werden können. Dann können auch $(W_1 + W_2) + W_3$ und $W_1 + (W_2 + W_3)$
+  gebildet werden, und es gilt
+  \[
+    (W_1 + W_2) + W_3 = W_1 + (W_2 + W_3).
+  \]
+  (Man kann daher auf die Klammern verzichten.)
+}
+
+% ======================================================================
+\section*{6.2 \quad Länge einer Kurve}
+
+\gentry{}{Gerichtete Strecke $S(a,b)$}{%
+  Die gerichtete Strecke, die $a \in \mathbb{R}^n$ mit $b \in \mathbb{R}^n$ verbindet,
+  ist die Kurve
+  \[
+    S(a,b) = [\varphi] \text{ mit } \varphi(t) := a + t(b-a),\; 0 \leq t \leq 1;
+  \]
+  ihre Länge wird als $L(S(a,b)) := \|b - a\|_2$ definiert.
+}
+
+\gentry{6.2.1}{Einbeschriebener Polygonzug}{%
+  Seien $W$ eine Kurve in $\mathbb{R}^n$ und $\varphi : I \longrightarrow \mathbb{R}^n$ eine
+  Parameterdarstellung. Sind $a_0, a_1, \ldots, a_r$ mit $a_\rho = \varphi(t_\rho)$,
+  $t_\rho \in I$, $t_0 < t_1 < \ldots < t_r$ aufeinanderfolgende Kurvenpunkte, so heißt
+  \[
+    P := P(a_0, a_1, \ldots, a_r) := S(a_0, a_1) + \ldots + S(a_{r-1}, a_r)
+  \]
+  ein der Kurve $W$ \textbf{einbeschriebener (gerichteter) Polygonzug}. Seine Länge ist
+  \[
+    L(P) := \sum_{\rho=1}^{r} \|a_\rho - a_{\rho-1}\|_2.
+  \]
+}
+
+\gentry{6.2.2}{Länge einer Kurve, Rektifizierbarkeit}{%
+  Seien $W$ eine Kurve in $\mathbb{R}^n$ und $\varphi : I \longrightarrow \mathbb{R}^n$ eine
+  Parameterdarstellung. Enthält $I$ mehr als einen Punkt, dann sei
+  \[
+    L(W) := \sup \{L(P) \mid P \text{ ist einbeschriebener Polygonzug von } W\};
+  \]
+  ist $I$ einpunktig, so sei $L(W) := 0$. $L(W)$ heißt die \textbf{Länge} von $W$.
+  $W$ heißt \textbf{rektifizierbar}, wenn $L(W) < \infty$ ist.
+}
+
+\gentry{6.2.4}{Eigenschaften der Kurvenlänge}{%
+  Seien $W, W_0, W_1, W_2$ Kurven in $\mathbb{R}^n$. $W_0$ sei eine Teilkurve von $W$,
+  und $W_1 + W_2$ sei definiert. Dann gilt:
+  \begin{enumerate}[label=(\roman*),topsep=2pt,itemsep=1pt]
+    \item $L(-W) = L(W)$,
+    \item $L(W_0) \leq L(W)$,
+    \item $L(W_1 + W_2) = L(W_1) + L(W_2)$.
+  \end{enumerate}
+  Insbesondere ist $W_0$ rektifizierbar, wenn $W$ es ist, und $W_1 + W_2$ ist genau dann
+  rektifizierbar, wenn $W_1$ und $W_2$ es sind.
+}
+
+\gentry{6.2.5}{Länge stetig differenzierbarer Kurven}{%
+  Sei $W$ eine Kurve in $\mathbb{R}^n$ mit Anfangs- und Endpunkt. Es gebe eine
+  Parameterdarstellung $\varphi : [\alpha, \beta] \longrightarrow \mathbb{R}^n$
+  ($\alpha < \beta$), die auf $]\alpha, \beta[$ eine stetige Ableitung besitzt.
+  $W$ ist genau dann rektifizierbar, wenn $\int_\alpha^\beta \|\dot{\varphi}(t)\|_2\,dt$
+  (evtl.\ als uneigentliches Integral) existiert, und gegebenenfalls ist
+  \[
+    L(W) = \int_\alpha^\beta \|\dot{\varphi}(t)\|_2\, dt.
+  \]
+}
+
+\gentry{6.2.8}{Bogenlänge und ausgezeichnete Parameterdarstellung}{%
+  Sei $W$ eine rektifizierbare Kurve in $\mathbb{R}^n$ mit Anfangs- und Endpunkt und
+  $\varphi : [\alpha, \beta] \longrightarrow \mathbb{R}^n$ eine Parameterdarstellung
+  mit stetiger Ableitung auf $]\alpha, \beta[$. Mit $W_{\varphi(t)} := [\varphi|_{[\alpha,t]}]$
+  heißt
+  \[
+    s_\varphi : [\alpha, \beta] \longrightarrow [0, L(W)], \quad
+    t \mapsto s_\varphi(t) := L(W_{\varphi(t)})
+  \]
+  die \textbf{Bogenlänge} von $W$ bezüglich $\varphi$.
+  \begin{enumerate}[label=(\roman*),topsep=2pt,itemsep=1pt]
+    \item $s_\varphi$ ist stetig und auf $]\alpha, \beta[$ differenzierbar mit
+          $\dot{s}_\varphi(t) = \|\dot{\varphi}(t)\|_2$.
+    \item Ist $\dot{\varphi}(t) \neq 0$ für alle $t \in\, ]\alpha, \beta[$, so existiert
+          $s_\varphi^{-1} : [0, L(W)] \longrightarrow [\alpha, \beta]$, und
+          $\Phi := \varphi \circ s_\varphi^{-1}$ ist eine Parameterdarstellung von $W$.
+    \item $\Phi$ hängt nicht von $\varphi$ ab.
+    \item $\Phi$ heißt die \textbf{ausgezeichnete Parameterdarstellung} von $W$. Sie ist
+          auf $]0, L(W)[$ differenzierbar mit $\|\dot{\Phi}(t)\|_2 = 1$.
+  \end{enumerate}
+}
+
+\gentry{6.2.10}{Glatte und stückweise glatte Kurven}{%
+  Eine Kurve $W$ in $\mathbb{R}^n$ mit Anfangs- und Endpunkt heißt \textbf{glatt}, wenn sie
+  eine Parameterdarstellung $\varphi : [\alpha, \beta] \longrightarrow \mathbb{R}^n$
+  ($\alpha < \beta$) mit auf $]\alpha, \beta[$ stetiger Ableitung besitzt, sodass
+  $\dot{\varphi}(t) \neq 0$ für alle $t \in\, ]\alpha, \beta[$ und
+  $\int_\alpha^\beta \|\dot{\varphi}(t)\|_2\,dt$ existiert. Eine solche Parameterdarstellung
+  heißt \textbf{glatt}.\\
+  Eine Kurve $W$ heißt \textbf{stückweise glatt}, wenn es endlich viele glatte Kurven
+  $W_1, \ldots, W_k$ mit $W = W_1 + \ldots + W_k$ gibt.
+}
+
+% ======================================================================
+\section*{6.3 \quad Kurvenintegrale}
+
+\gentry{6.3.1}{Kurvenintegral für skalare Funktionen}{%
+  \begin{enumerate}[label=(\roman*),topsep=2pt,itemsep=2pt]
+    \item Seien $W$ eine glatte Kurve in $\mathbb{R}^n$ und
+          $\varphi : [\alpha, \beta] \longrightarrow \mathbb{R}^n$ eine glatte
+          Parameterdarstellung. Ist $f : M \longrightarrow \mathbb{R}$ mit
+          $|W| \subseteq M \subseteq \mathbb{R}^n$ stetig, so heißt
+          \[
+            \int_W f\, ds := \int_\alpha^\beta f(\varphi(t))\, \|\dot{\varphi}(t)\|_2\, dt
+          \]
+          das \textbf{Kurvenintegral} von $f$ längs $W$.
+    \item Ist $W = W_1 + \ldots + W_k$ stückweise glatt mit glatten $W_\mu$, so heißt
+          \[
+            \int_W f\, ds := \sum_{\mu=1}^{k} \int_{W_\mu} f\, ds
+          \]
+          das Kurvenintegral von $f$ längs $W$.
+  \end{enumerate}
+}
+
+\gentry{6.3.4}{Kurvenintegral für Vektorfunktionen}{%
+  \begin{enumerate}[label=(\roman*),topsep=2pt,itemsep=2pt]
+    \item Seien $W$ eine glatte Kurve in $\mathbb{R}^n$ und
+          $\varphi : [\alpha, \beta] \longrightarrow \mathbb{R}^n$ eine glatte
+          Parameterdarstellung. Ist $f : M \longrightarrow \mathbb{R}^n$ mit
+          $|W| \subseteq M \subseteq \mathbb{R}^n$ stetig, so heißt
+          \[
+            \int_W f \cdot dx := \int_\alpha^\beta f(\varphi(t)) \cdot \dot{\varphi}(t)\, dt
+          \]
+          das \textbf{Kurvenintegral} von $f$ längs $W$. Alternative Schreibweisen:
+          \[
+            \int_W (f_1\, dx_1 + \ldots + f_n\, dx_n).
+          \]
+    \item Ist $W = W_1 + \ldots + W_k$ stückweise glatt mit glatten $W_\mu$, so heißt
+          \[
+            \int_W f \cdot dx := \sum_{\mu=1}^{k} \int_{W_\mu} f \cdot dx
+          \]
+          das Kurvenintegral von $f$ längs $W$.
+  \end{enumerate}
+}
+
+\gentry{6.3.6}{Rechenregeln für Kurvenintegrale}{%
+  Seien $W, \widetilde{W}$ stückweise glatte Kurven in $\mathbb{R}^n$,
+  $f, g : M \longrightarrow \mathbb{R}^n$ stetig mit $|W|, |\widetilde{W}| \subseteq M$,
+  und sei $\alpha \in \mathbb{R}$. Dann gilt:
+  \begin{enumerate}[label=(\roman*),topsep=2pt,itemsep=1pt]
+    \item $\displaystyle \int_W (f+g) \cdot dx = \int_W f \cdot dx + \int_W g \cdot dx$,
+          \quad $\displaystyle \int_W (\alpha f) \cdot dx = \alpha \int_W f \cdot dx$
+          \hfill (Linearität).
+    \item $\displaystyle \int_{W+\widetilde{W}} f \cdot dx = \int_W f \cdot dx + \int_{\widetilde{W}} f \cdot dx$,
+          falls $W + \widetilde{W}$ definiert \hfill (Additivität).
+    \item $\displaystyle \int_{-W} f \cdot dx = -\int_W f \cdot dx$.
+    \item $\displaystyle \left|\int_W f \cdot dx\right| \leq \max\{\|f(x)\|_2 \mid x \in |W|\} \cdot L(W)$
+          \hfill (Abschätzung).
+  \end{enumerate}
+}
+
+% ======================================================================
+\section*{6.4 \quad Stammfunktionen}
+
+\gentry{6.4.1}{Stammfunktion}{%
+  Sei $G$ ein \textbf{Gebiet} in $\mathbb{R}^n$, d.\,h.\ eine nichtleere, zusammenhängende,
+  offene Teilmenge von $\mathbb{R}^n$, und seien $f : G \longrightarrow \mathbb{R}^n$ und
+  $F : G \longrightarrow \mathbb{R}$ gegeben. Ist $F$ differenzierbar mit
+  \[
+    {}^t F'(x) = f(x) \quad \text{für jedes } x \in G,
+  \]
+  so heißt $F$ eine \textbf{Stammfunktion} von $f$.\\
+  Ist $F$ Stammfunktion von $f$, so ist $\widetilde{F}$ genau dann eine Stammfunktion von $f$,
+  wenn $\widetilde{F} = F + \alpha \cdot \widehat{1}|_G$ mit einem $\alpha \in \mathbb{R}$ gilt.\\
+  (In der Physik wird $U := -F$ oft ein \textbf{Potenzial} zum Vektorfeld $f$ genannt und
+  $f$ das vom Potenzial $U$ erzeugte \textbf{Gradientenfeld}.)
+}
+
+\gentry{6.4.2}{Integrabilitätsbedingungen}{%
+  Sei $G$ ein Gebiet in $\mathbb{R}^n$, und sei $f \in \mathrm{Abb}(G, \mathbb{R}^n)$ stetig
+  differenzierbar. Besitzt $f = {}^t(f_1, \ldots, f_n)$ eine Stammfunktion, so gelten die
+  \textbf{Integrabilitätsbedingungen}
+  \[
+    D_i f_j = D_j f_i \quad \text{für alle } i, j \in \{1, \ldots, n\}.
+  \]
+}
+
+\gentry{6.4.4}{Wegunabhängigkeit}{%
+  Seien $G$ ein Gebiet in $\mathbb{R}^n$ und $f : G \longrightarrow \mathbb{R}^n$ stetig.
+  Ferner sei $W$ eine stückweise glatte Kurve in $\mathbb{R}^n$ mit Anfangspunkt $a$ und
+  Endpunkt $b$, die ganz in $G$ verläuft ($|W| \subseteq G$). Besitzt $f$ eine Stammfunktion
+  $F : G \longrightarrow \mathbb{R}$, so gilt
+  \[
+    \int_W f \cdot dx = F(b) - F(a).
+  \]
+  Ist $b = a$ (\textbf{geschlossene Kurve}), so ergibt sich
+  \[
+    \int_W f \cdot dx = 0.
+  \]
+}
+
+\gentry{6.4.6}{Existenz einer Stammfunktion}{%
+  Sei $f = {}^t(f_1, \ldots, f_n) : G \longrightarrow \mathbb{R}^n$ stetig differenzierbar
+  auf einem Gebiet $G \subseteq \mathbb{R}^n$ und erfülle dort die Integrabilitätsbedingungen
+  $D_i f_j = D_j f_i$ für $i, j \in \{1, \ldots, n\}$.\\
+  Ist $G$ \textbf{sternförmig}, d.\,h.\ gibt es einen Punkt $a \in G$ derart, dass für jedes
+  $u \in G$ die Spur der Strecke $S(a, u)$ in $G$ enthalten ist, so besitzt $f$ eine
+  Stammfunktion $F$, z.\,B.
+  \[
+    F(u) := \int_{S(a,u)} f \cdot dx \quad \text{für } u \in G.
+  \]
+}
+
+% ======================================================================
+\section*{6.5 \quad Flächen- und Volumenberechnungen}
+
+\gentry{6.5.1}{Fläche unter dem Graphen}{%
+  Sei $I = [\alpha, \beta]$ mit $\alpha < \beta$ und $f \in R(I)$ mit $f(x) \geq 0$ für
+  jedes $x \in I$. Dann heißt
+  \[
+    F := \left\{ \tbinom{x}{y} \in \mathbb{R}^2 \;\middle|\; x \in I \text{ und } 0 \leq y \leq f(x) \right\}
+  \]
+  die \textbf{Fläche unter dem Graphen} von $f$ und
+  \[
+    \lambda_2(F) := \int_I f
+  \]
+  der \textbf{Flächeninhalt} von $F$.
+}
+
+\gentry{6.5.2}{Fläche zwischen zwei Graphen}{%
+  Sei $I$ ein nichtleeres Intervall, und seien $f, g \in \mathrm{Abb}(I, \mathbb{R})$ mit
+  $g(x) \leq f(x)$ für alle $x \in I$. Dann heißt
+  \[
+    F := \left\{ \tbinom{x}{y} \in \mathbb{R}^2 \;\middle|\; x \in I \text{ und } g(x) \leq y \leq f(x) \right\}
+  \]
+  die \textbf{Fläche zwischen den Graphen} von $f$ und $g$. Als deren Flächeninhalt
+  wird
+  \[
+    \lambda_2(F) := \int_I (f - g)
+  \]
+  definiert, falls das Integral (evtl.\ im uneigentlichen Sinn) existiert. (Existiert das
+  Integral nicht, wird $F$ kein Inhalt zugeordnet.)
+}
+
+\gentry{6.5.4}{Körper zwischen zwei Graphen}{%
+  Sei $K \subseteq \mathbb{R}^3$ mit folgenden Eigenschaften:
+  \begin{enumerate}[label=(\roman*),topsep=2pt,itemsep=1pt]
+    \item Die Menge der $x \in \mathbb{R}$, für welche der \glqq{}Schnitt\grqq{}
+          \[
+            K_x := \left\{ {}^t(y,z) \;\middle|\; {}^t(x,y,z) \in K \right\} \neq \emptyset
+          \]
+          ist, ist ein Intervall $I = [a, b]$ mit $a < b$.
+    \item Für jedes $x \in I$ ist $K_x = \{x\} \times F(x)$, wobei $F(x)$ die Fläche zwischen
+          den Graphen zweier Funktionen
+          $f(x, \cdot), g(x, \cdot) : [\alpha(x), \beta(x)] \longrightarrow \mathbb{R}$
+          mit $g(x,t) \leq f(x,t)$ und existierendem Flächeninhalt
+          $\lambda_2(F(x)) = \int_{\alpha(x)}^{\beta(x)} (f(x,t) - g(x,t))\, dt$ ist.
+  \end{enumerate}
+  Dann gilt für das Volumen von $K$
+  \[
+    \lambda_3(K) = \int_a^b \lambda_2(F(x))\, dx = \int_a^b \left( \int_{\alpha(x)}^{\beta(x)} (f(x,t) - g(x,t))\, dt \right) dx,
+  \]
+  falls das Integral (evtl.\ im uneigentlichen Sinn) existiert.
+}
+
+\gentry{6.5.5}{Rotationskörper}{%
+  Sei $K$ durch Rotation der Fläche unter dem Graphen einer Funktion
+  $f \in \mathrm{Abb}(I, \mathbb{R})$, $f \geq \widehat{0}|_I$, entstanden. Dann ist das
+  Volumen des \textbf{Rotationskörpers}
+  \[
+    \lambda_3(K) = \pi \int_a^b (f(x))^2\, dx,
+  \]
+  falls dieses Integral existiert.
+}
+
+\end{document}
