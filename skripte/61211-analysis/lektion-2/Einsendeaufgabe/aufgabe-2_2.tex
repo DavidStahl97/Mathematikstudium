@@ -16,46 +16,55 @@
 \begin{document}
 \maketitle
 
-Sei $a \in \mathbb{Q}$ beliebig.
-
-\underline{Fall 1: $a^2 > 2$}
-
-\underline{Fall 1.1: $a < 0$}
-
-Dann gilt $a < -\sqrt{2}$. Es existiert ein $\varepsilon > 0$ mit $a < a + \varepsilon < -\sqrt{2}$. Es existiert also eine $U_\varepsilon(a)$ mit $x^2 > 2$ für alle $x \in U_\varepsilon(a)$.
-Nach Definition von $f$ folgt:
-\[
-    f(x) = 1 \quad \forall x \in U_\varepsilon(a) \cap \mathbb{Q}
-\]
-
-Die Restriktion $f|_{U_\varepsilon(a) \cap \mathbb{Q}}$ ist demnach stetig.
-Da also $f|_{U_\varepsilon(a) \cap \mathbb{Q}}$ stetig ist, folgt aus dem Satz 2.3.4(i), dass $f$ in $a$ stetig ist.
-
-\underline{Fall 1.2: $a \geq 0$ und Fall 2: $a^2 < 2$}
-
-Nach dem gleichen Prinzip ist $f$ in $a$ stetig.
-
-\bigskip
-
 \begin{enumerate}[label=\alph*)]
-    \setcounter{enumi}{3}
+    \setcounter{enumi}{0}
     \item
-    Wir beweisen die Stetigkeit von $g$ und $h$ mithilfe des Folgenkriteriums.
 
-    Wir untersuchen $g$ mit einem beliebigen $a \in \mathbb{R}$. Sei $y \in \mathbb{R}$ und $(y_n) \to y$ beliebig.
+          Sei $a \in \mathbb{Q}$ beliebig.
 
-    Zu zeigen ist $g(y_n) \to g(y)$, was äquivalent zu $f(a, y_n) \to f(a, y)$.
+          \bigskip
 
-    Wir definieren die Folge $(z_n)$ mit
-    \[
-        z_n := (a, y_n)
-    \]
+          \underline{Fall 1: $a^2 > 2$}
 
-    Da $z_{n1} \to a$ und $z_{n2} \to y$, folgt $z_n \to (a, y)$. Da $f$ stetig ist, konvergiert $(f(z_n))$ gegen $f(a, y)$, was äquivalent zu $g(y_n) \to g(y)$ ist.
+          \underline{Fall 1.1: $a < 0$}
 
-    Also ist $g$ in $y$ stetig. Da $y$ beliebig war, ist $g$ auf ganz $\mathbb{R}$ stetig.
+          Dann gilt $a < -\sqrt{2}$. Es existiert ein $\varepsilon > 0$ mit $a < a + \varepsilon < -\sqrt{2}$. Es existiert also eine $U_\varepsilon(a)$ mit $x^2 > 2$ für alle $x \in U_\varepsilon(a)$.
+          Nach Definition von $f$ folgt:
+          \[
+              f(x) = 1 \quad \forall x \in U_\varepsilon(a) \cap \mathbb{Q}
+          \]
 
-    Die Argumentation für $h$ ist ähnlich.
+          Die Restriktion $f|_{U_\varepsilon(a) \cap \mathbb{Q}}$ ist demnach stetig.
+          Da also $f|_{U_\varepsilon(a) \cap \mathbb{Q}}$ stetig ist, folgt aus dem Satz 2.3.4(i), dass $f$ in $a$ stetig ist.
+
+          \bigskip
+
+          \underline{Fall 1.2: $a \geq 0$ und Fall 2: $a^2 < 2$}
+
+          Nach dem gleichen Prinzip ist $f$ in $a$ stetig.
+
+          \bigskip
+
+    \item
+
+          Wir beweisen die Stetigkeit von $g$ und $h$ mithilfe des Folgenkriteriums.
+
+          Wir untersuchen $g$ mit einem beliebigen $a \in \mathbb{R}$. Sei $y \in \mathbb{R}$ und $(y_n) \to y$ beliebig.
+
+          Zu zeigen ist $g(y_n) \to g(y)$, was äquivalent zu $f(a, y_n) \to f(a, y)$.
+
+          Wir definieren die Folge $(z_n)$ mit
+          \[
+              z_n := (a, y_n)
+          \]
+
+          Da $z_{n1} \to a$ und $z_{n2} \to y$, folgt $z_n \to (a, y)$. Da $f$ stetig ist, konvergiert $(f(z_n))$ gegen $f(a, y)$, was äquivalent zu $g(y_n) \to g(y)$ ist.
+
+          Also ist $g$ in $y$ stetig. Da $y$ beliebig war, ist $g$ auf ganz $\mathbb{R}$ stetig.
+
+          \bigskip
+
+          Die Argumentation für $h$ ist ähnlich.
 
 \end{enumerate}
 
