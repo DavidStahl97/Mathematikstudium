@@ -52,6 +52,25 @@ Falls kein Token vorhanden: `https://github.com/DavidStahl97/Mathematikstudium/c
 - `permissions: contents: write` ist nötig für den gh-deploy-Schritt
 - **Nicht** `xu-cheng/latex-action@v3` verwenden – Docker-basiert, fehleranfällig
 
+## Lokale Kompilierung mit pdflatex
+
+TeX Live ist lokal installiert. pdflatex ist erreichbar unter:
+```
+/c/texlive/2026/bin/windows/pdflatex.exe
+```
+
+Nach dem Schreiben oder Ändern einer `.tex`-Datei **immer kompilieren und das erzeugte PDF prüfen**:
+
+```bash
+PDFLATEX=/c/texlive/2026/bin/windows/pdflatex.exe
+
+"$PDFLATEX" -interaction=nonstopmode -output-directory=<verzeichnis> <datei>.tex
+```
+
+Dabei prüfen:
+- Kompilierung fehlerfrei (Exit-Code 0, keine Fehler im Log)
+- PDF mit dem Read-Tool öffnen und auf korrekte Formatierung prüfen (Abstände, Formeln, Einrückungen, Seitenumbrüche)
+
 ## Docs-Generierung (GitHub Pages)
 
 ### Konzept
