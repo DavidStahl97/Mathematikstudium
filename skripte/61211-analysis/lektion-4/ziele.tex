@@ -1,0 +1,321 @@
+\documentclass[a4paper,12pt]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[ngerman]{babel}
+\usepackage{amsmath, amssymb}
+\usepackage{geometry}
+\usepackage{tikz}
+\usetikzlibrary{shapes.geometric, arrows.meta, positioning, fit, backgrounds}
+\usepackage{parskip}
+\usepackage{titlesec}
+\usepackage{booktabs}
+\usepackage{enumitem}
+
+\geometry{left=3cm, right=3cm, top=2.5cm, bottom=2.5cm}
+
+\titleformat{\section}{\large\bfseries}{}{0em}{}[\titlerule]
+\titleformat{\subsection}{\normalsize\bfseries}{}{0em}{}
+
+\tikzset{
+  box/.style={rectangle, draw, rounded corners=3pt, text width=4.2cm,
+              align=center, minimum height=0.9cm, font=\small, inner sep=4pt},
+  boxw/.style={box, text width=5.2cm},
+  boxn/.style={box, text width=3.8cm},
+  arrow/.style={-{Latex[length=2mm]}, thick},
+}
+
+\begin{document}
+
+\begin{center}
+  {\LARGE\bfseries Studierhinweise zu Lektion 4}\\[0.5em]
+  {\large Analysis (Modul 61211)}
+\end{center}
+
+\vspace{1em}
+
+Diese Kurseinheit ist vornehmlich drei zentralen Sätzen der Analysis gewidmet:
+dem lokalen Umkehrsatz, dem Satz über implizite Funktionen und dem Satz von
+Taylor für Funktionen mehrerer Veränderlicher. Die beiden ersten Sätze gelten
+als ,,schwierig'' -- konzentrieren Sie sich auf das Verständnis ihrer Aussagen
+und deren Bedeutung für die Auflösung nichtlinearer Gleichungssysteme. Die
+Beweise können Sie zunächst übergehen; wichtig ist das darin verwendete
+Kontraktionsprinzip (Banachscher Fixpunktsatz), das in weiten Teilen der
+Mathematik eine Rolle spielt.
+
+Im dritten Abschnitt werden Kenntnisse aus MG wiederholt: Ableitungen höherer
+Ordnung, Polynom- und Potenzreihenfunktionen, Taylorpolynom und Satz von
+Taylor. Neu ist vielleicht die Leibnizsche Formel für $(fg)^{(k)}$, die eine
+genaue Analogie zur binomischen Formel darstellt. Der vierte Abschnitt führt
+partielle und totale Differenzierbarkeit höherer Ordnung für Funktionen
+mehrerer Veränderlicher ein und erweitert den Satz von Taylor auf diesen Fall.
+
+Der letzte Abschnitt ist der Extremwertbestimmung gewidmet. Die erste
+Ableitung liefert wie im eindimensionalen Fall eine notwendige Bedingung;
+hinreichende Bedingungen erhält man nun über die Definitheit der Hesseschen
+Matrix der partiellen Ableitungen zweiter Ordnung. Lokale Extrema unter
+Nebenbedingungen werden mit der Methode der Lagrangemultiplikatoren bestimmt.
+
+% -----------------------------------------------------------------------
+\section*{Struktur der Kurseinheit 4}
+
+\begin{center}
+\begin{tikzpicture}[node distance=0.5cm and 0.6cm]
+
+  % Column headers
+  \node[font=\bfseries\small] (hA) at (0,0)    {Rückblick auf MG};
+  \node[font=\bfseries\small] (hB) at (9.5,0)  {Ergänzungen und neue Inhalte};
+
+  % ---- Left column: MG-Rückblick ----
+  \node[box, below=0.8cm of hA] (k1) {4.1 $\mathrm{Hom}(\mathbb{R}^n, \mathbb{R}^n)$\\und Matrizen};
+  \node[box, below=0.5cm of k1] (k2) {4.2 $Az = 0$,\\lin.\ Gl.-System mit\\$(n, m+n)$-Matrix $A$};
+  \node[box, below=0.5cm of k2] (k3) {4.3 $k$-te Ableitung für\\$f: M \to \mathbb{R}$ ($M \subseteq \mathbb{R}$)};
+  \node[box, below=0.5cm of k3] (k4) {4.3 Taylorpolynom,\\Satz von Taylor};
+  \node[box, below=0.5cm of k4] (k5) {4.5 lok.\ Extremum,\\notw.\ Bedingung};
+  \node[box, below=0.5cm of k5] (k6) {4.5 hinreichende\\Bedingung};
+
+  % ---- Right column: new content ----
+  \node[box, below=0.8cm of hB] (n1) {4.1 Umkehrsatz für\\$f \in \mathrm{Hom}(\mathbb{R}^n, \mathbb{R}^n)$};
+  \node[box, below=0.5cm of n1] (n2) {4.1 Banachscher\\Fixpunktsatz};
+  \node[box, below=0.5cm of n2] (n3) {4.1 Invertierbarkeit\\benachbarter Matrizen};
+  \node[box, below=0.5cm of n3] (n4) {4.1 lokaler Umkehrsatz};
+  \node[box, below=0.5cm of n4] (n5) {4.2 Satz über\\implizite Funktionen};
+  \node[box, below=0.5cm of n5] (n6) {4.4 $k$-malige partielle,\\$k$-malige (stetige)\\Differenzierbarkeit};
+  \node[box, below=0.5cm of n6] (n7) {4.4 Schwarzscher\\Vertauschbarkeitssatz};
+  \node[box, below=0.5cm of n7] (n8) {4.4 Taylorpolynom,\\Satz von Taylor};
+  \node[box, below=0.5cm of n8] (n9) {4.5 lokales Extremum,\\notwendige Bedingung};
+  \node[box, below=0.5cm of n9] (n10){4.5 hinreichende Bedingung:\\Hessesche Matrix};
+  \node[box, below=0.5cm of n10] (n11){4.5 Extremum unter\\Nebenbedingungen,\\Lagrangemultiplikatoren};
+
+  % Arrows left column
+  \draw[arrow] (k1) -- (k2);
+  \draw[arrow] (k2) -- (k3);
+  \draw[arrow] (k3) -- (k4);
+  \draw[arrow] (k4) -- (k5);
+  \draw[arrow] (k5) -- (k6);
+
+  % Arrows right column
+  \draw[arrow] (n1) -- (n2);
+  \draw[arrow] (n2) -- (n3);
+  \draw[arrow] (n3) -- (n4);
+  \draw[arrow] (n4) -- (n5);
+  \draw[arrow] (n5) -- (n6);
+  \draw[arrow] (n6) -- (n7);
+  \draw[arrow] (n7) -- (n8);
+  \draw[arrow] (n8) -- (n9);
+  \draw[arrow] (n9) -- (n10);
+  \draw[arrow] (n10) -- (n11);
+
+  % Cross arrows (left -> right)
+  \draw[arrow, dashed] (k1.east) -- ++(0.3,0) |- (n1.west);
+  \draw[arrow, dashed] (k2.east) -- ++(0.3,0) |- (n5.west);
+  \draw[arrow, dashed] (k4.east) -- ++(0.3,0) |- (n8.west);
+  \draw[arrow, dashed] (k6.east) -- ++(0.3,0) |- (n10.west);
+
+\end{tikzpicture}
+\end{center}
+
+\newpage
+
+% -----------------------------------------------------------------------
+\section*{Zielelement 4.1 -- Der Umkehrsatz}
+
+\subsection*{Lerninhalte}
+
+\begin{center}
+\begin{tikzpicture}[node distance=0.5cm and 1.0cm]
+  \node[boxw] (umk)  {Umkehrsatz für $f \in \mathrm{Hom}(\mathbb{R}^n, \mathbb{R}^n)$:\\eindeutige Lösbarkeit von $Ax = y$\\mit quadratischer Matrix $A$};
+  \node[boxw, below=0.5cm of umk] (lok) {lokaler Umkehrsatz:\\lokale eindeutige Lösbarkeit von\\$f(x) = y$ mit $f \in \mathrm{Abb}(M, \mathbb{R}^n)$, $M \subseteq \mathbb{R}^n$};
+  \node[boxw, below=0.5cm of lok] (inv) {Lösbarkeit benachbarter\\linearer Gleichungssysteme\\($A_{nn}$, Stetigkeit von $\mathrm{inv}$)};
+  \node[boxw, below=0.5cm of inv] (ban) {Banachscher Fixpunktsatz\\(Kontraktionsprinzip)};
+  \node[boxw, below=0.5cm of ban] (off) {offene Abbildung};
+  \draw[arrow] (umk) -- (lok);
+  \draw[arrow] (lok) -- (inv);
+  \draw[arrow] (inv) -- (ban);
+  \draw[arrow] (ban) -- (off);
+\end{tikzpicture}
+\end{center}
+
+\subsection*{Lernziele}
+
+Nach Durcharbeiten dieses Abschnitts sollten Sie sich aus MG wieder vergegenwärtigt haben,
+\begin{itemize}
+  \item welche Bedeutung der Rang einer Matrix für die Lösbarkeit eines linearen
+        Gleichungssystems hat,
+  \item wie man mithilfe der Treppennormalform den Rang (und ggf.\ die Inverse)
+        einer Matrix bestimmen kann,
+\end{itemize}
+und Sie sollten in der Lage sein,
+\begin{itemize}
+  \item den lokalen Umkehrsatz zu formulieren und auf konkrete Beispiele anzuwenden,
+  \item den Banachschen Fixpunktsatz zu formulieren und anzuwenden.
+\end{itemize}
+
+\subsection*{Selbstkontrollelement 4.1}
+
+Bleibt der Banachsche Fixpunktsatz richtig, wenn auf die Abgeschlossenheit der
+Menge $M$ verzichtet wird?
+
+\newpage
+
+% -----------------------------------------------------------------------
+\section*{Zielelement 4.2 -- Implizit definierte Funktionen}
+
+\subsection*{Lerninhalte}
+
+\begin{center}
+\begin{tikzpicture}[node distance=0.5cm and 1.0cm]
+  \node[boxw] (lin)  {Satz über implizite lineare Funktionen:\\Lösbarkeit und Lösung von\\$Az = 0$ mit $(n, m+n)$-Matrix $A$};
+  \node[boxw, below=0.5cm of lin] (imp) {Satz über implizite Funktionen:\\lokale Auflösbarkeit von\\$F(z) = 0$ mit $F \in \mathrm{Abb}(M, \mathbb{R}^n)$, $M \subseteq \mathbb{R}^{m+n}$};
+  \node[boxw, below=0.5cm of imp] (abl) {Ableitung der impliziten Funktion:\\$g'(x) = -[F_y(x, g(x))]^{-1} F_x(x, g(x))$};
+  \draw[arrow] (lin) -- (imp);
+  \draw[arrow] (imp) -- (abl);
+\end{tikzpicture}
+\end{center}
+
+\subsection*{Lernziele}
+
+Nach Durcharbeiten dieses Abschnitts sollten Sie in der Lage sein,
+\begin{itemize}
+  \item den Satz über implizite Funktionen zu formulieren und auf konkrete Beispiele anzuwenden.
+\end{itemize}
+
+\subsection*{Selbstkontrollelement 4.2}
+
+Sei $F: \mathbb{R}^2 \to \mathbb{R}$, $(x, y) \mapsto F(x, y) := x^3 - xy + y^3$ gegeben.
+Die Abbildung stellt die Menge $B := \{(x, y) \in \mathbb{R}^2 \mid F(x, y) = 0\}$
+(,,Kartesisches Blatt'') dar. Können Sie
+\begin{itemize}
+  \item zum Punkt $(\tfrac{1}{2}, 1)$ eine Umgebung einzeichnen, in der $F(x, y) = 0$ sowohl
+        eindeutig nach $y$ als auch eindeutig nach $x$ aufgelöst werden kann,
+  \item alle Punkte einzeichnen, in deren Umgebung es keine Auflösung von $F(x, y) = 0$
+        (i)~nach $y$, (ii)~nach $x$ gibt?
+\end{itemize}
+
+\newpage
+
+% -----------------------------------------------------------------------
+\section*{Zielelement 4.3 -- Rückblick und Ergänzungen: Ableitungen höherer Ordnung}
+
+\subsection*{Lerninhalte}
+
+\begin{center}
+\begin{tikzpicture}[node distance=0.5cm and 1.0cm]
+  \node[boxw] (abl)  {Ableitung $k$-ter Ordnung\\für $f: M \to \mathbb{R}$, $M \subseteq \mathbb{R}$:\\$f^{(0)} := f$, $f^{(k+1)} := (f^{(k)})'$};
+  \node[boxw, below=0.5cm of abl] (op) {Operationen: Summe, Produkt,\\Quotient, Verkettung;\\\textbf{Leibnizsche Formel}};
+  \node[boxw, below=0.5cm of op] (pot) {Anwendungen:\\Polynomfunktionen,\\Potenzreihenfunktionen,\\Identitätssatz};
+  \node[boxw, below=0.5cm of pot] (kp) {$k$-te Ableitung in einem Punkt $a$};
+  \node[boxw, below=0.5cm of kp] (tp) {Taylorpolynom $T_k$ mit\\Entwicklungspunkt $a$};
+  \node[boxw, below=0.5cm of tp] (tay) {Satz von Taylor:\\Restfunktion $R_k$,\\Restdarstellung von Lagrange};
+  \draw[arrow] (abl) -- (op);
+  \draw[arrow] (op) -- (pot);
+  \draw[arrow] (pot) -- (kp);
+  \draw[arrow] (kp) -- (tp);
+  \draw[arrow] (tp) -- (tay);
+\end{tikzpicture}
+\end{center}
+
+\subsection*{Lernziele}
+
+Nach Durcharbeiten dieses Abschnitts sollten Sie sich Gelerntes aus MG wieder
+vergegenwärtigt haben, im Einzelnen sollten Sie (wieder) in der Lage sein,
+\begin{itemize}
+  \item zu erklären, wann eine Funktion $f$ in einem Punkt $a$ ihres Definitionsbereichs
+        $k$-mal differenzierbar ist,
+  \item das Taylorpolynom $T_k$ von $f$ mit Entwicklungspunkt $a$ hinzuschreiben,
+  \item den Satz von Taylor (mit der Restdarstellung von Lagrange) zu formulieren
+        und im Hinblick auf die Approximierbarkeit von $f$ durch $T_k$ zu interpretieren.
+\end{itemize}
+
+\subsection*{Selbstkontrollelement 4.3}
+
+Sie sollten nachweisen können (gegebenenfalls nach Konsultation der Lösung von
+Ü~3.3.4), dass $f: \mathbb{R} \to \mathbb{R}$ mit
+\[
+  f(x) := \begin{cases} x^3 \sin\bigl(\tfrac{1}{x}\bigr), & \text{falls } x \neq 0, \\ 0, & \text{falls } x = 0, \end{cases}
+\]
+differenzierbar ist und eine stetige Ableitung besitzt, aber nicht zweimal
+differenzierbar ist.
+
+\newpage
+
+% -----------------------------------------------------------------------
+\section*{Zielelement 4.4 -- Ableitungen höherer Ordnung (mehrere Veränderliche)}
+
+\subsection*{Lerninhalte}
+
+\begin{center}
+\begin{tikzpicture}[node distance=0.5cm and 1.0cm]
+  \node[boxw] (par)  {$k$-malige partielle\\Differenzierbarkeit,\\partielle Ableitungen\\der Ordnung $k$};
+  \node[boxw, below=0.5cm of par] (sch) {Schwarzscher\\Vertauschbarkeitssatz};
+  \node[boxw, below=0.5cm of sch] (dif) {$k$-malige (totale) Differenzierbarkeit,\\$k$-malige stetige Differenzierbarkeit\\$f \in C^k(M)$};
+  \node[boxw, below=0.5cm of dif] (tp) {Taylorpolynom $T_k$ für\\$f: M \to \mathbb{R}$, $M \subseteq \mathbb{R}^n$};
+  \node[boxw, below=0.5cm of tp] (tay) {Satz von Taylor,\\Approximationsgeschwindigkeit};
+  \draw[arrow] (par) -- (sch);
+  \draw[arrow] (sch) -- (dif);
+  \draw[arrow] (dif) -- (tp);
+  \draw[arrow] (tp) -- (tay);
+\end{tikzpicture}
+\end{center}
+
+\subsection*{Lernziele}
+
+Nach Durcharbeiten dieses Abschnitts sollten Sie in der Lage sein,
+\begin{itemize}
+  \item die verschiedenen Begriffe der Differenzierbarkeit höherer Ordnung zu formulieren
+        und zueinander in Beziehung zu setzen,
+  \item den Satz von Taylor zu formulieren und auf konkret gegebene Funktionen anzuwenden,
+        insbesondere die Taylorpolynome einer Funktion zu gegebenem Entwicklungspunkt
+        aufzustellen.
+\end{itemize}
+
+\subsection*{Selbstkontrollelement 4.4}
+
+Ist Ihnen klar geworden, dass der Mittelwertsatz~3.5.9 (unter der schärferen
+Voraussetzung, dass $f$ auf $[a, b]$ differenzierbar ist und $[a, b] \subseteq M$
+gilt) als Spezialfall im Satz von Taylor~4.4.8 enthalten ist?
+
+\newpage
+
+% -----------------------------------------------------------------------
+\section*{Zielelement 4.5 -- Extrema}
+
+\subsection*{Lerninhalte}
+
+\begin{center}
+\begin{tikzpicture}[node distance=0.5cm and 1.0cm]
+  \node[boxw] (ext)  {lokales Extremum in einem Punkt $a$\\(Maximum, Minimum)};
+  \node[boxw, below=0.5cm of ext] (not) {notwendige Bedingung:\\$f'(a) = 0$};
+  \node[boxw, below=0.5cm of not] (qf) {quadratische Form,\\symmetrische Matrix,\\(semi-)definit, indefinit};
+  \node[boxw, below=0.5cm of qf] (hin) {hinreichende Bedingung:\\Hessesche Matrix $H(a)$ in $a$ definit};
+  \node[boxw, below=0.5cm of hin] (n2) {explizite Bedingungen im Fall $n = 2$:\\$\Delta(a) = D_{11}D_{22} - D_{12}^2$,\\Sattelpunkt};
+  \node[boxw, below=0.5cm of n2] (neb) {lokales Extremum unter\\Nebenbedingungen:\\Lagrangemultiplikatoren};
+  \draw[arrow] (ext) -- (not);
+  \draw[arrow] (not) -- (qf);
+  \draw[arrow] (qf) -- (hin);
+  \draw[arrow] (hin) -- (n2);
+  \draw[arrow] (n2) -- (neb);
+\end{tikzpicture}
+\end{center}
+
+\subsection*{Lernziele}
+
+Nach Durcharbeiten dieses Abschnitts sollten Sie in der Lage sein,
+\begin{itemize}
+  \item den Begriff des lokalen Extremums zu definieren und mit dem des globalen
+        Extremums in Zusammenhang zu bringen,
+  \item Bedingungen dafür aufzustellen, dass eine zweimal stetig differenzierbare
+        Funktion $f: M \to \mathbb{R}$ mit $M \subseteq \mathbb{R}^n$ in einem Punkt ein
+        lokales Extremum besitzt,
+  \item die Methode der Lagrangemultiplikatoren zur Bestimmung von lokalen
+        Extrema unter Nebenbedingungen zu beschreiben.
+\end{itemize}
+
+\subsection*{Selbstkontrollelement 4.5}
+
+Können Sie die lokalen Extrema der Funktion $f: \mathbb{R} \to \mathbb{R}$, definiert durch
+\[
+  f(x) := \begin{cases} |x|, & \text{falls } x \in \mathbb{Q}, \\ 0, & \text{falls } x \in \mathbb{R} \setminus \mathbb{Q}, \end{cases}
+\]
+bestimmen?
+
+\end{document}
