@@ -1,0 +1,670 @@
+\documentclass[a4paper,12pt]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[ngerman]{babel}
+\usepackage{amsmath, amssymb}
+\usepackage{geometry}
+\usepackage{parskip}
+\usepackage{titlesec}
+\usepackage{enumitem}
+\usepackage{array}
+\usepackage{booktabs}
+
+\geometry{left=3cm, right=3cm, top=2.5cm, bottom=2.5cm}
+
+\titleformat{\section}{\large\bfseries}{}{0em}{}[\titlerule]
+\titleformat{\subsection}{\normalsize\bfseries\scshape}{}{0em}{}
+
+% Glossar-Eintrag: Nummer, fetter Titel, Inhalt
+\newcommand{\gentry}[3]{%
+  \noindent\textbf{#1\quad #2}\nopagebreak\\[0.2em]
+  #3\par\smallskip
+}
+
+\begin{document}
+
+\begin{center}
+  {\LARGE\bfseries Glossar zu Lektion 3}\\[0.5em]
+  {\large Analysis (Modul 61211)}
+\end{center}
+
+\vspace{1em}
+
+Dieses Glossar fasst die wesentlichen Definitionen, Merkregeln und S\"atze
+der dritten Lektion kompakt zusammen. Nummerierungen entsprechen dem Lehrtext.
+
+% ======================================================================
+\section*{3.1 \quad Grenzwerte reeller Funktionen (R\"uckblick und Erg\"anzungen)}
+
+\gentry{3.1.1}{Stetige Fortsetzung}{%
+  Seien $\emptyset \neq M \subseteq \mathbb{R}$, $f \in \mathrm{Abb}(M, \mathbb{R})$ und
+  $a \in \mathbb{R}$ ein H\"aufungspunkt von $M$. Dann gibt es \emph{h\"ochstens eine}
+  in $a$ stetige Funktion $F : M \cup \{a\} \to \mathbb{R}$ mit
+  $F(x) = f(x)$ f\"ur jedes $x \in M \setminus \{a\}$. Falls existent, hei{\ss}t $F$
+  die \textbf{stetige Fortsetzung} von $f$ in $a$, und $f$ hei{\ss}t nach $a$
+  stetig fortsetzbar.
+}
+
+\gentry{3.1.2}{Grenzwert einer Funktion}{%
+  Seien $\emptyset \neq M \subseteq \mathbb{R}$, $f \in \mathrm{Abb}(M, \mathbb{R})$ und
+  $a \in \mathbb{R}$ ein H\"aufungspunkt von $M$. $f$ besitzt in $a$ einen
+  \textbf{Grenzwert}, wenn eine Funktion $F : M \cup \{a\} \to \mathbb{R}$ existiert mit
+  \begin{enumerate}[label=(\roman*),topsep=2pt,itemsep=1pt]
+    \item $F(x) = f(x)$ f\"ur jedes $x \in M \setminus \{a\}$,
+    \item $F$ ist stetig in $a$.
+  \end{enumerate}
+  Dann hei{\ss}t $b := F(a)$ \textbf{Grenzwert} von $f$ in $a$, Schreibweise
+  $\lim_{x \to a} f(x) = b$ oder $f(x) \to b$ f\"ur $x \to a$.
+}
+
+\gentry{3.1.4}{Stetigkeit und Grenzwert}{%
+  Ist $a$ ein H\"aufungspunkt von $M$, der in $M$ liegt, so gilt:
+  \[
+    f \text{ ist stetig in } a \;\Longleftrightarrow\; \lim_{x \to a} f(x) = f(a).
+  \]
+}
+
+\gentry{3.1.5}{Umgebungskriterium, $\varepsilon$-$\delta$-Kriterium, Folgenkriterium}{%
+  Sei $a$ ein H\"aufungspunkt von $M$ und $b \in \mathbb{R}$. Die folgenden
+  Aussagen sind \"aquivalent:
+  \begin{enumerate}[label=(\roman*),topsep=2pt,itemsep=1pt]
+    \item $\lim_{x \to a} f(x) = b$,
+    \item zu jeder Umgebung $V$ von $b$ gibt es eine Umgebung $U$ von $a$ mit
+          $f(U \cap M \setminus \{a\}) \subseteq V$,
+    \item $\forall\, \varepsilon > 0 \; \exists\, \delta > 0 \; \forall\, x \in M \setminus \{a\}:
+          (|x - a| < \delta \Rightarrow |f(x) - b| < \varepsilon)$,
+    \item f\"ur jede Folge $(x_k)$ in $M \setminus \{a\}$ mit $x_k \to a$ gilt $f(x_k) \to b$.
+  \end{enumerate}
+}
+
+\gentry{3.1.6}{Operationen mit Grenzwerten}{%
+  Seien $f, g \in \mathrm{Abb}(M, \mathbb{R})$ mit $\lim_{x \to a} f(x) = u$ und
+  $\lim_{x \to a} g(x) = v$ sowie $\alpha \in \mathbb{R}$. Dann:
+  \begin{enumerate}[label=(\roman*),topsep=2pt,itemsep=1pt]
+    \item $\lim_{x \to a}(f \pm g)(x) = u \pm v$,
+    \item $\lim_{x \to a}(\alpha f)(x) = \alpha u$,
+    \item $\lim_{x \to a}(f g)(x) = u v$,
+    \item $\lim_{x \to a}\bigl(\tfrac{1}{f}\bigr)(x) = \tfrac{1}{u}$, falls $f(x) \neq 0$ auf $M$ und $u \neq 0$.
+  \end{enumerate}
+  \textbf{Kettenregel f\"ur Grenzwerte:} Sei $E \subseteq \mathbb{R}$ mit H\"aufungspunkt $u$ und
+  $f(M) \subseteq E$, $\tilde f \in \mathrm{Abb}(E, \mathbb{R})$ mit $\lim_{y \to u} \tilde f(y) = w$.
+  Ist $\tilde F$ die stetige Fortsetzung von $\tilde f$ in $u$, so gilt
+  $\lim_{x \to a}(\tilde F \circ f)(x) = w$.
+}
+
+\gentry{3.1.7}{Cauchykriterium}{%
+  $f$ besitzt genau dann einen Grenzwert in $a$, wenn gilt:
+  \[
+    \forall\, \varepsilon > 0 \; \exists\, \delta > 0 \; \forall\, x, x' \in M \setminus \{a\}:
+    (|x - a| < \delta,\; |x' - a| < \delta \Rightarrow |f(x) - f(x')| < \varepsilon).
+  \]
+}
+
+\gentry{3.1.8}{Grenzwert in $\infty$ oder $-\infty$}{%
+  Sei $M$ eine nichtleere, nach oben (bzw.\ unten) nicht beschr\"ankte Teilmenge von
+  $\mathbb{R}$, $b \in \mathbb{R}$. $f \in \mathrm{Abb}(M, \mathbb{R})$ besitzt in
+  $\infty$ (bzw.\ $-\infty$) den Grenzwert $b$, in Zeichen
+  $\lim_{x \to \infty} f(x) = b$ (bzw.\ $\lim_{x \to -\infty} f(x) = b$), wenn es
+  zu jeder Umgebung $V$ von $b$ eine Umgebung $U$ von $\infty$ (bzw.\ $-\infty$) gibt mit
+  $f(U \cap M) \subseteq V$.
+}
+
+\gentry{3.1.9}{Kriterien f\"ur Grenzwerte in $\pm\infty$}{%
+  \"Aquivalent sind:
+  (a1) $\lim_{x \to \infty} f(x) = b$,
+  (a2) $\forall\, \varepsilon > 0 \; \exists\, \delta > 0 \; \forall\, x \in M:
+       (x > \tfrac{1}{\delta} \Rightarrow |f(x) - b| < \varepsilon)$,
+  (a3) f\"ur jede Folge $(x_k)$ in $M$ mit $\lim x_k = \infty$ gilt $\lim f(x_k) = b$.
+  Analog f\"ur $x \to -\infty$.
+}
+
+\gentry{3.1.10}{Uneigentlicher Grenzwert}{%
+  Seien $\emptyset \neq M \subseteq \mathbb{R}$, $f \in \mathrm{Abb}(M, \mathbb{R})$.
+  \begin{enumerate}[label=(\arabic*),topsep=2pt,itemsep=1pt]
+    \item Ist $a \in \mathbb{R}$ ein H\"aufungspunkt von $M$, so besitzt $f$ in $a$
+          den uneigentlichen Grenzwert $\infty$ ($\lim_{x \to a} f(x) = \infty$),
+          wenn es zu jeder Umgebung $V$ von $\infty$ eine Umgebung $U$ von $a$ gibt mit
+          $f(U \cap M \setminus \{a\}) \subseteq V$.
+          \"Aquivalent: $\forall\, \varepsilon > 0 \; \exists\, \delta > 0: |x - a| < \delta \Rightarrow f(x) > \tfrac{1}{\varepsilon}$.
+    \item Ist $M$ nach oben nicht beschr\"ankt, so besitzt $f$ in $\infty$ den uneigentlichen
+          Grenzwert $\infty$ ($\lim_{x \to \infty} f(x) = \infty$), wenn es zu jeder
+          Umgebung $V$ von $\infty$ eine Umgebung $U$ von $\infty$ gibt mit $f(U \cap M) \subseteq V$.
+    \item Analog f\"ur $\lim_{x \to -\infty} f(x) = \infty$.
+  \end{enumerate}
+  Entsprechend sind uneigentliche Grenzwerte $-\infty$ definiert.
+}
+
+\gentry{}{Rechts- und linksseitiger Grenzwert}{%
+  Besitzt $f$ in $a$ den rechtsseitigen und den linksseitigen Grenzwert $b$, so
+  besitzt $f$ in $a$ den Grenzwert $b$. Eine entsprechende Aussage gilt auch im
+  Fall $b \in \{-\infty, \infty\}$.
+}
+
+\gentry{}{Monotoniekriterium}{%
+  Sei $M$ eine nach oben beschr\"ankte, nichtleere Teilmenge von $\mathbb{R}$, und
+  $a := \sup M$ sei ein H\"aufungspunkt von $M$. Ist $f \in \mathrm{Abb}(M, \mathbb{R})$
+  monoton wachsend und $f(M)$ nach oben beschr\"ankt, so besitzt $f$ in $a$ einen
+  Grenzwert.
+}
+
+% ======================================================================
+\section*{3.2 \quad Grenzwerte von Funktionen auf normierten R\"aumen}
+
+\gentry{3.2.1}{Stetige Fortsetzung, Grenzwert}{%
+  Seien $(X, \|\cdot\|_X)$ und $(Y, \|\cdot\|_Y)$ normierte R\"aume,
+  $\emptyset \neq M \subseteq X$, $f \in \mathrm{Abb}(M, Y)$ und $a \in X$ ein
+  H\"aufungspunkt von $M$. Dann gibt es h\"ochstens eine in $a$ stetige Funktion
+  $F : M \cup \{a\} \to Y$ mit $F(x) = f(x)$ f\"ur $x \in M \setminus \{a\}$.
+  Falls existent, hei{\ss}t $f$ nach $a$ stetig fortsetzbar, $F$ die stetige
+  Fortsetzung von $f$ in $a$ und $F(a)$ der \textbf{Grenzwert} von $f$ in $a$.
+}
+
+\gentry{3.2.2}{Stetigkeit und Grenzwert}{%
+  Ist $a$ ein H\"aufungspunkt von $M$ mit $a \in M$, so gilt:
+  $f$ stetig in $a \;\Leftrightarrow\; \lim_{x \to a} f(x) = f(a)$.
+}
+
+\gentry{3.2.4}{Umgebungskriterium, $\varepsilon$-$\delta$-Kriterium, Folgenkriterium}{%
+  Sei $a$ ein H\"aufungspunkt von $M$, $b \in Y$. \"Aquivalent sind:
+  \begin{enumerate}[label=(\roman*),topsep=2pt,itemsep=1pt]
+    \item $\lim_{x \to a} f(x) = b$,
+    \item zu jeder Umgebung $V$ von $b$ existiert eine Umgebung $U$ von $a$ mit
+          $f(U \cap M \setminus \{a\}) \subseteq V$,
+    \item $\forall\, \varepsilon > 0 \; \exists\, \delta > 0 \; \forall\, x \in M \setminus \{a\}:
+          (\|x - a\|_X < \delta \Rightarrow \|f(x) - b\|_Y < \varepsilon)$,
+    \item f\"ur jede Folge $(x_k)$ in $M \setminus \{a\}$ mit $x_k \to a$ in $(X, \|\cdot\|_X)$
+          gilt $f(x_k) \to b$ in $(Y, \|\cdot\|_Y)$.
+  \end{enumerate}
+}
+
+\gentry{3.2.5}{Einschr\"ankung und Verkettung}{%
+  Seien $(X, \|\cdot\|_X)$, $(Y, \|\cdot\|_Y)$, $(Z, \|\cdot\|_Z)$ normierte R\"aume,
+  $M \subseteq X$, $a \in X$ H\"aufungspunkt von $M$, $f \in \mathrm{Abb}(M, Y)$ mit
+  $\lim_{x \to a} f(x) = u$.
+  \begin{enumerate}[label=(\roman*),topsep=2pt,itemsep=1pt]
+    \item Ist $M_1 \subseteq M$ und $a$ H\"aufungspunkt von $M_1$, so gilt
+          $\lim_{x \to a} f|_{M_1}(x) = u$.
+    \item Sei $E \subseteq Y$ mit H\"aufungspunkt $u$, $f(M) \subseteq E$, und
+          $\tilde f \in \mathrm{Abb}(E, Z)$ mit $\lim_{y \to u} \tilde f(y) = w$.
+          Ist $\tilde F$ die stetige Fortsetzung von $\tilde f$ in $u$, so
+          $\lim_{x \to a}(\tilde F \circ f)(x) = w$.
+  \end{enumerate}
+}
+
+\gentry{3.2.6}{Operationen}{%
+  Seien $(X, \|\cdot\|)$ ein normierter Raum, $M \subseteq X$, $a \in X$
+  H\"aufungspunkt von $M$, $f, g \in \mathrm{Abb}(M, \mathbb{R}^m)$ mit
+  $\lim f = u$, $\lim g = v$, $h \in \mathrm{Abb}(M, \mathbb{R})$ mit
+  $\lim h = \gamma$. Dann:
+  \begin{enumerate}[label=(\roman*),topsep=2pt,itemsep=1pt]
+    \item $\lim(f \pm g)(x) = u \pm v$,
+    \item $\lim(\alpha f)(x) = \alpha u$ f\"ur $\alpha \in \mathbb{R}$,
+    \item $\lim(h f)(x) = \gamma u$,
+    \item $\lim\bigl(\tfrac{1}{h} f\bigr)(x) = \tfrac{1}{\gamma} u$, falls $h(x) \neq 0$ auf $M$ und $\gamma \neq 0$.
+  \end{enumerate}
+}
+
+% ======================================================================
+\section*{3.3 \quad Differenzierbarkeit in $\mathbb{R}$ (R\"uckblick und Erg\"anzungen)}
+
+\gentry{3.3.1}{Differenzierbarkeit}{%
+  Seien $a \in M \subseteq \mathbb{R}$ und $f : M \to \mathbb{R}$.
+  \begin{enumerate}[label=(\roman*),topsep=2pt,itemsep=1pt]
+    \item $f$ hei{\ss}t \textbf{differenzierbar in $a$}, wenn $a$ H\"aufungspunkt von $M$ ist
+          und es ein $\alpha \in \mathbb{R}$ gibt mit
+          \[
+            \lim_{x \to a} \frac{f(x) - [f(a) + \alpha(x - a)]}{x - a} = 0.
+          \]
+          Falls existent, ist $\alpha$ eindeutig bestimmt als
+          $\alpha = \lim_{x \to a} \tfrac{f(x) - f(a)}{x - a}$.
+    \item Gilt $\emptyset \neq E \subseteq M$, so hei{\ss}t $f$ differenzierbar auf $E$, wenn $f$
+          in jedem Punkt von $E$ differenzierbar ist.
+  \end{enumerate}
+}
+
+\gentry{3.3.2}{Ableitung}{%
+  Sei $f : M \to \mathbb{R}$ differenzierbar in $a$.
+  Die eindeutig bestimmte Zahl $\alpha$ aus 3.3.1 hei{\ss}t die \textbf{Ableitung} (oder
+  der Differenzialquotient) von $f$ an der Stelle $a$; Schreibweise $f'(a)$.
+  Ist $f$ auf $M$ differenzierbar, so hei{\ss}t $f' : M \to \mathbb{R}$, $x \mapsto f'(x)$
+  die Ableitung von $f$.
+}
+
+\gentry{3.3.3}{Differenzierbarkeit und Stetigkeit}{%
+  Ist $f : M \to \mathbb{R}$ in $a \in M$ differenzierbar, so ist $f$ in $a$ stetig.
+  Die Umkehrung ist im Allgemeinen falsch.
+}
+
+\gentry{3.3.5}{Differenziationsregeln}{%
+  Seien $f, g : M \to \mathbb{R}$ differenzierbar in $a$ und $\alpha \in \mathbb{R}$.
+  \begin{enumerate}[label=(\roman*),topsep=2pt,itemsep=1pt]
+    \item $(f \pm g)'(a) = f'(a) \pm g'(a)$, $(\alpha f)'(a) = \alpha f'(a)$,
+    \item Produktregel: $(f g)'(a) = f'(a) g(a) + f(a) g'(a)$,
+    \item Quotientenregel: Ist $g(x) \neq 0$ auf $M$, so
+          $\bigl(\tfrac{f}{g}\bigr)'(a) = \tfrac{f'(a) g(a) - f(a) g'(a)}{(g(a))^2}$,
+    \item Kettenregel: Ist $h : E \to \mathbb{R}$ mit $f(M) \subseteq E$ differenzierbar
+          in $f(a)$, so ist $h \circ f$ differenzierbar in $a$ mit
+          $(h \circ f)'(a) = h'(f(a)) f'(a)$.
+  \end{enumerate}
+}
+
+\gentry{}{Restriktion}{%
+  Seien $a \in E \subseteq M \subseteq \mathbb{R}$, $f \in \mathrm{Abb}(M, \mathbb{R})$.
+  \begin{enumerate}[label=(\roman*),topsep=2pt,itemsep=1pt]
+    \item Ist $a$ H\"aufungspunkt von $E$ und $f$ in $a$ differenzierbar, so ist auch
+          $f|_E$ in $a$ differenzierbar mit $(f|_E)'(a) = f'(a)$.
+    \item Ist $U$ eine Umgebung von $a$ und $f|_{U \cap M}$ in $a$ differenzierbar,
+          so ist $f$ in $a$ differenzierbar.
+    \item Sind $f_1 := f|_{]-\infty, a] \cap M}$ und $f_2 := f|_{[a, \infty[ \cap M}$
+          in $a$ differenzierbar mit $f_1'(a) = f_2'(a)$, so ist $f$ in $a$
+          differenzierbar mit $f'(a) = f_1'(a) = f_2'(a)$.
+  \end{enumerate}
+}
+
+\gentry{3.3.6}{Polynomfunktion}{%
+  Seien $n \in \mathbb{N}_0$, $a_0, \ldots, a_n \in \mathbb{R}$. Die Polynomfunktion
+  $P : \mathbb{R} \to \mathbb{R}$, $P(x) := \sum_{k=0}^n a_k x^k$, ist auf $\mathbb{R}$
+  differenzierbar mit
+  $P'(x) = \sum_{k=1}^n a_k k x^{k-1}$ (bzw.\ $0$, falls $n = 0$).
+}
+
+\gentry{3.3.7}{Rationale Funktion}{%
+  Jede rationale Funktion ist auf ihrem Definitionsbereich differenzierbar; ihre
+  Ableitung ist eine rationale Funktion.
+}
+
+\gentry{3.3.8}{Umkehrfunktion}{%
+  Sei $I$ ein Intervall mit mehr als einem Punkt, $f : I \to \mathbb{R}$ injektiv,
+  stetig auf $I$ und differenzierbar in $a \in I$. Dann ist die Umkehrfunktion
+  $f^{-1} : f(I) \to I$ genau dann in $b := f(a)$ differenzierbar, wenn $f'(a) \neq 0$.
+  In diesem Fall:
+  \[
+    (f^{-1})'(b) = \frac{1}{f'(a)} = \frac{1}{f'(f^{-1}(b))}.
+  \]
+}
+
+\gentry{3.3.10}{Mittelwertsatz der Differenzialrechnung}{%
+  Sei $I := [a, b]$ mit $a < b$, $f : I \to \mathbb{R}$ stetig auf $I$ und differenzierbar
+  auf $\mathring I = ]a, b[$. Dann gibt es (mindestens) ein $\xi \in \mathring I$ mit
+  \[
+    \frac{f(b) - f(a)}{b - a} = f'(\xi).
+  \]
+}
+
+\gentry{3.3.11}{2.~Mittelwertsatz der Differenzialrechnung}{%
+  Sei $I := [a, b]$ mit $a < b$, $f, g : I \to \mathbb{R}$ stetig auf $I$ und
+  differenzierbar auf $\mathring I = ]a, b[$, und $g'(x) \neq 0$ f\"ur jedes
+  $x \in \mathring I$. Dann ist $g(a) \neq g(b)$, und es gibt (mindestens)
+  $\xi \in \mathring I$ mit
+  \[
+    \frac{f(b) - f(a)}{g(b) - g(a)} = \frac{f'(\xi)}{g'(\xi)}.
+  \]
+}
+
+\gentry{3.3.12}{Charakterisierung der konstanten Funktionen}{%
+  Sei $I$ ein Intervall mit mehr als einem Punkt, $\mathring I$ das Innere von $I$,
+  $f : I \to \mathbb{R}$ stetig auf $I$ und differenzierbar auf $\mathring I$.
+  $f$ ist genau dann konstant, wenn $f'(x) = 0$ f\"ur jedes $x \in \mathring I$.
+}
+
+\gentry{3.3.13}{Charakterisierung monotoner Funktionen}{%
+  Unter den Voraussetzungen von 3.3.12:
+  \begin{enumerate}[label=(\roman*),topsep=2pt,itemsep=1pt]
+    \item $f$ monoton wachsend $\Leftrightarrow$ $f'(x) \geq 0$ f\"ur jedes $x \in \mathring I$,
+    \item $f$ monoton fallend $\Leftrightarrow$ $f'(x) \leq 0$ f\"ur jedes $x \in \mathring I$,
+    \item Gilt $f'(x) > 0$ (bzw.\ $<0$) f\"ur jedes $x \in \mathring I$, so ist $f$
+          streng monoton wachsend (bzw.\ fallend), insbesondere injektiv.
+  \end{enumerate}
+}
+
+\gentry{3.3.14}{Regel von de l'Hospital, Typ $\tfrac{0}{0}$}{%
+  Seien $I$ ein Intervall und $a$ ein H\"aufungspunkt von $I$. Seien $f, g : I \to \mathbb{R}$
+  differenzierbar auf $I \setminus \{a\}$ mit $g'(x) \neq 0$ f\"ur $x \in I \setminus \{a\}$.
+  Gilt $\lim_{x \to a} f(x) = 0$ und $\lim_{x \to a} g(x) = 0$ und existiert
+  $\lim_{x \to a} \tfrac{f'(x)}{g'(x)}$ (evtl.\ uneigentlich), so existiert auch
+  $\lim_{x \to a} \tfrac{f(x)}{g(x)}$, und
+  $\lim_{x \to a} \tfrac{f(x)}{g(x)} = \lim_{x \to a} \tfrac{f'(x)}{g'(x)}$.
+}
+
+\gentry{3.3.15}{Regel von de l'Hospital, Typ $\tfrac{0}{0}$ (in $\infty$)}{%
+  Sei $I = ]\alpha, \infty[$, $f, g : I \to \mathbb{R}$ differenzierbar auf $I$ mit
+  $g'(x) \neq 0$. Gilt $\lim_{x \to \infty} f(x) = 0$, $\lim_{x \to \infty} g(x) = 0$ und
+  existiert $\lim_{x \to \infty} \tfrac{f'(x)}{g'(x)}$ (evtl.\ uneigentlich),
+  so $\lim_{x \to \infty} \tfrac{f(x)}{g(x)} = \lim_{x \to \infty} \tfrac{f'(x)}{g'(x)}$.
+}
+
+\gentry{3.3.16}{Regel von de l'Hospital, Typ $\tfrac{\infty}{\infty}$}{%
+  Sei $I$ ein Intervall und $a$ H\"aufungspunkt von $I$ (oder $a = \infty$,
+  $I = ]\alpha, \infty[$). Seien $f, g : I \to \mathbb{R}$ differenzierbar auf
+  $I \setminus \{a\}$ mit $g'(x) \neq 0$. Gilt $\lim_{x \to a} f(x) = \infty$ und
+  $\lim_{x \to a} g(x) = \infty$ und existiert $\lim_{x \to a} \tfrac{f'(x)}{g'(x)}$
+  (evtl.\ uneigentlich), so $\lim_{x \to a} \tfrac{f(x)}{g(x)} = \lim_{x \to a} \tfrac{f'(x)}{g'(x)}$.
+}
+
+\gentry{3.3.17}{Differenzierbarkeit der Grenzfunktion}{%
+  Sei $I = [a, b]$, $a < b$, und $(f_k)$ eine Folge differenzierbarer Funktionen in
+  $\mathrm{Abb}(I, \mathbb{R})$. $(f_k')$ sei gleichm\"a{\ss}ig konvergent und $(f_k(c))$
+  konvergiere f\"ur wenigstens ein $c \in I$. Dann:
+  \begin{enumerate}[label=(\roman*),topsep=2pt,itemsep=1pt]
+    \item $(f_k)$ konvergiert gleichm\"a{\ss}ig gegen eine Funktion $f \in \mathrm{Abb}(I, \mathbb{R})$,
+    \item $f$ ist differenzierbar mit $f'(x) = \lim_{k \to \infty} f_k'(x)$ f\"ur jedes $x \in I$.
+  \end{enumerate}
+}
+
+\gentry{3.3.18}{Gliedweise Differenziation}{%
+  Sei $I = [a, b]$, $a < b$, $(f_k)$ Folge differenzierbarer Funktionen in
+  $\mathrm{Abb}(I, \mathbb{R})$. $\sum_{k=1}^\infty f_k'$ sei gleichm\"a{\ss}ig konvergent
+  und $\sum_{k=1}^\infty f_k(c)$ konvergiere f\"ur wenigstens ein $c \in I$. Dann
+  konvergiert $\sum_{k=1}^\infty f_k$ gleichm\"a{\ss}ig gegen ein differenzierbares
+  $s \in \mathrm{Abb}(I, \mathbb{R})$, und
+  $s'(x) = \sum_{k=1}^\infty f_k'(x)$ f\"ur jedes $x \in I$.
+}
+
+\gentry{3.3.19}{Potenzreihenfunktion}{%
+  Hat die Potenzreihe $\sum_{\nu=0}^\infty a_\nu (x - a)^\nu$ einen Konvergenzradius
+  $R > 0$, so hat die gliedweise differenzierte Potenzreihe
+  $\sum_{\nu=1}^\infty a_\nu \nu (x - a)^{\nu-1}$ ebenfalls den Konvergenzradius $R$,
+  und $f(x) = \sum_{\nu=0}^\infty a_\nu (x - a)^\nu$ ist auf $]a - R, a + R[$
+  differenzierbar mit $f'(x) = \sum_{\nu=1}^\infty a_\nu \nu (x - a)^{\nu-1}$.
+  $f$ ist sogar beliebig oft differenzierbar.
+}
+
+% ======================================================================
+\section*{3.4 \quad Der Raum $\mathrm{Hom}(\mathbb{R}^n, \mathbb{R}^m)$}
+
+\gentry{3.4.1}{Darstellung linearer Abbildungen durch Matrizen}{%
+  Ist $L : \mathbb{R}^n \to \mathbb{R}^m$ linear, so gibt es genau eine $(m, n)$-Matrix
+  $A$ mit $L(x) = Ax$ f\"ur jedes $x \in \mathbb{R}^n$. Umgekehrt gilt f\"ur jede
+  $(m, n)$-Matrix $A$, dass durch $L(x) := Ax$ eine lineare Abbildung
+  $L : \mathbb{R}^n \to \mathbb{R}^m$ definiert wird.
+  Die $k$-te Spalte der Matrix ist $L(e_k)$ (Bild des $k$-ten kanonischen Basisvektors).
+}
+
+\gentry{3.4.2}{Beispiele}{%
+  \begin{itemize}[topsep=2pt,itemsep=1pt]
+    \item Identit\"at $\mathrm{id}_n : \mathbb{R}^n \to \mathbb{R}^n$: Einheitsmatrix
+          $E_n = (\delta_{ij})$.
+    \item Nullabbildung $0 : \mathbb{R}^n \to \mathbb{R}^m$: $(m, n)$-Nullmatrix $0_{mn}$.
+    \item Drehung $D_\varphi : \mathbb{R}^2 \to \mathbb{R}^2$ um den Nullpunkt um den
+          Winkel $\varphi$: Matrix $\bigl(\begin{smallmatrix} \cos \varphi & -\sin \varphi \\ \sin \varphi & \cos \varphi \end{smallmatrix}\bigr)$.
+  \end{itemize}
+}
+
+\gentry{3.4.3}{Operationen mit linearen Abbildungen}{%
+  \begin{enumerate}[label=(\roman*),topsep=2pt,itemsep=1pt]
+    \item Sind $f, g : \mathbb{R}^n \to \mathbb{R}^m$ linear und $\alpha \in \mathbb{R}$,
+          so sind auch $f + g$, $f - g$, $\alpha f$ linear.
+    \item Ist $h : \mathbb{R}^m \to \mathbb{R}^\ell$ linear, so ist auch
+          $h \circ f : \mathbb{R}^n \to \mathbb{R}^\ell$ linear.
+  \end{enumerate}
+}
+
+\gentry{3.4.4}{Matrizenoperationen}{%
+  Seien $A = (a_{\mu\nu})$ und $B = (b_{\mu\nu})$ $(m, n)$-Matrizen, $\alpha \in \mathbb{R}$.
+  \[
+    A + B := (a_{\mu\nu} + b_{\mu\nu}), \qquad
+    \alpha A := (\alpha a_{\mu\nu}).
+  \]
+  F\"ur eine $(\ell, m)$-Matrix $C = (c_{\lambda\mu})$ ist das \textbf{Matrizenprodukt}
+  $CA = (p_{\lambda\nu})$ mit
+  \[
+    p_{\lambda\nu} := \sum_{\mu=1}^m c_{\lambda\mu} a_{\mu\nu}.
+  \]
+}
+
+\gentry{3.4.5}{Rechenregeln}{%
+  F\"ur Matrizen $A, B, C$ gilt, soweit die Operationen ausf\"uhrbar sind:
+  $(AB)C = A(BC)$ (Assoziativit\"at), $(A + B)C = AC + BC$, $A(B + C) = AB + AC$
+  (Distributivit\"at). Die Matrizenmultiplikation ist nicht kommutativ.
+}
+
+\gentry{3.4.6}{Norm auf $\mathbb{R}^{mn}$ (Zeilensummennorm)}{%
+  Sei $\mathbb{R}^{mn} := \{A \mid A$ ist $(m, n)$-Matrix$\}$. F\"ur
+  $A = (a_{\mu\nu}) \in \mathbb{R}^{mn}$ setze
+  \[
+    \|A\| := \max\Bigl\{\sum_{\nu=1}^n |a_{1\nu}|, \ldots, \sum_{\nu=1}^n |a_{m\nu}|\Bigr\}.
+  \]
+  Dann gilt:
+  \begin{enumerate}[label=(\roman*),topsep=2pt,itemsep=1pt]
+    \item $\|\cdot\| : \mathbb{R}^{mn} \to \mathbb{R}$ ist eine Norm auf $\mathbb{R}^{mn}$
+          (\textbf{Zeilensummennorm}),
+    \item $\|Ax\|_\infty \leq \|A\| \cdot \|x\|_\infty$ f\"ur alle $A \in \mathbb{R}^{mn}$
+          und $x \in \mathbb{R}^n$ (Maximumnorm auf $\mathbb{R}^n$ bzw.\ $\mathbb{R}^m$),
+    \item Ist $A$ die zu $L \in \mathrm{Hom}(\mathbb{R}^n, \mathbb{R}^m)$ geh\"orige Matrix,
+          und setzt man $\|L\|_{\mathrm{Hom}} := \|A\|$, so ist $\|\cdot\|_{\mathrm{Hom}}$
+          eine Norm auf $\mathrm{Hom}(\mathbb{R}^n, \mathbb{R}^m)$.
+  \end{enumerate}
+}
+
+\gentry{3.4.7}{Stetigkeit einer Abbildung nach $\mathbb{R}^{mn}$}{%
+  Seien $(X, \|\cdot\|)$ ein normierter Raum, $a \in M \subseteq X$ und
+  $H \in \mathrm{Abb}(M, \mathbb{R}^{mn})$, $H(t) = (h_{\mu\nu}(t))$ f\"ur $t \in M$. Dann:
+  \[
+    H \text{ ist stetig in } a \;\Longleftrightarrow\;
+    \forall\, \mu \in \{1,\ldots,m\}\, \forall\, \nu \in \{1,\ldots,n\}:
+    h_{\mu\nu} : M \to \mathbb{R} \text{ ist stetig in } a.
+  \]
+}
+
+% ======================================================================
+\section*{3.5 \quad Differenzierbare Funktionen}
+
+\gentry{3.5.1}{Differenzierbarkeit}{%
+  Seien $a \in M \subseteq \mathbb{R}^n$ und $f \in \mathrm{Abb}(M, \mathbb{R}^m)$.
+  \begin{enumerate}[label=(\roman*),topsep=2pt,itemsep=1pt]
+    \item $f$ hei{\ss}t \textbf{differenzierbar in $a$}, wenn $a$ ein innerer Punkt von $M$
+          ist (d.\,h.\ $M$ ist Umgebung von $a$) und es eine $(m, n)$-Matrix $A$ gibt mit
+          \[
+            \lim_{x \to a} \frac{f(x) - [f(a) + A(x - a)]}{\|x - a\|} = 0.
+          \]
+    \item Gilt $\emptyset \neq E \subseteq M$, so hei{\ss}t $f$ differenzierbar auf $E$,
+          wenn $f$ in jedem Punkt von $E$ differenzierbar ist.
+  \end{enumerate}
+  Die Norm $\|\cdot\|$ kann beliebig auf $\mathbb{R}^n$ gew\"ahlt werden (\"Aquivalenz der Normen).
+}
+
+\gentry{3.5.2}{Ableitung}{%
+  Die $(m, n)$-Matrix $A$ in 3.5.1 ist eindeutig bestimmt. Sie hei{\ss}t die
+  \textbf{Ableitung} (auch totale Ableitung) von $f$ an der Stelle $a$, Schreibweise
+  $f'(a)$. Ist $f$ auf $M$ differenzierbar, so hei{\ss}t
+  $f' : M \to \mathbb{R}^{mn}$, $a \mapsto f'(a)$, die Ableitung von $f$.
+  Die durch $A = f'(a)$ definierte lineare Abbildung hei{\ss}t das \textbf{Differenzial}
+  von $f$ in $a$.
+}
+
+\gentry{3.5.3}{Spezialfall $n = m = 1$}{%
+  Seien $M \subseteq \mathbb{R}$, $a$ innerer Punkt von $M$, $f \in \mathrm{Abb}(M, \mathbb{R})$.
+  Dann ist $f$ in $a$ differenzierbar gem\"a{\ss} 3.5.1 genau dann, wenn
+  $\lim_{x \to a} \tfrac{f(x) - f(a)}{x - a}$ existiert. Die ,,neue'' Ableitung ist
+  die $(1, 1)$-Matrix mit der ,,alten'' Ableitung als einzigem Element.
+}
+
+\gentry{3.5.4}{Beispiel (lineare Abbildung)}{%
+  Ist $f : \mathbb{R}^n \to \mathbb{R}^m$ linear, $f(x) = Ax$ mit $A \in \mathbb{R}^{mn}$,
+  so ist $f$ auf $\mathbb{R}^n$ differenzierbar mit $f'(a) = A$ f\"ur jedes
+  $a \in \mathbb{R}^n$. Die Ableitung $f' : \mathbb{R}^n \to \mathbb{R}^{mn}$ ist konstant.
+}
+
+\gentry{3.5.5}{Differenzierbarkeit und Stetigkeit}{%
+  Ist $f$ differenzierbar in $a$, so ist $f$ in $a$ auch stetig.
+}
+
+\gentry{}{Restriktion}{%
+  Seien $E \subseteq M \subseteq \mathbb{R}^n$ und $a$ innerer Punkt von $E$.
+  $f : M \to \mathbb{R}^m$ ist genau dann in $a$ differenzierbar, wenn $f|_E$ in $a$
+  differenzierbar ist; in diesem Fall $f'(a) = (f|_E)'(a)$.
+}
+
+\gentry{3.5.6}{Differenziationsregeln}{%
+  Sei $a \in M \subseteq \mathbb{R}^n$.
+  \begin{enumerate}[label=(\roman*),topsep=2pt,itemsep=1pt]
+    \item \textbf{Linearit\"at:} Sind $f, g \in \mathrm{Abb}(M, \mathbb{R}^m)$ differenzierbar
+          in $a$ und $\alpha \in \mathbb{R}$, so sind auch $f + g$ und $\alpha f$
+          differenzierbar in $a$ mit $(f + g)'(a) = f'(a) + g'(a)$,
+          $(\alpha f)'(a) = \alpha f'(a)$.
+    \item \textbf{Produktregel:} Sind $f, g \in \mathrm{Abb}(M, \mathbb{R})$ differenzierbar
+          in $a$, so ist $fg$ differenzierbar in $a$ mit
+          $(f g)'(a) = g(a) f'(a) + f(a) g'(a)$.
+    \item \textbf{Kettenregel:} Ist $f \in \mathrm{Abb}(M, \mathbb{R}^m)$ differenzierbar
+          in $a$, $N \subseteq \mathbb{R}^m$ mit $f(M) \subseteq N$ und
+          $g \in \mathrm{Abb}(N, \mathbb{R}^\ell)$ differenzierbar in $b := f(a)$,
+          so ist $g \circ f$ differenzierbar in $a$ mit
+          $(g \circ f)'(a) = g'(f(a)) f'(a)$.
+  \end{enumerate}
+}
+
+\gentry{3.5.7}{Koordinatenfunktionen}{%
+  Seien $a \in M \subseteq \mathbb{R}^n$, $f = {}^t(f_1, \ldots, f_m) \in \mathrm{Abb}(M, \mathbb{R}^m)$.
+  \[
+    f \text{ ist differenzierbar in } a \;\Longleftrightarrow\;
+    \forall\, \mu \in \{1,\ldots,m\}: f_\mu \text{ ist differenzierbar in } a.
+  \]
+  Gegebenenfalls ist $f'(a) = {}^t(f_1'(a), \ldots, f_m'(a))$.
+}
+
+\gentry{3.5.8}{Inneres einer Menge}{%
+  Seien $(X, \|\cdot\|)$ ein normierter Vektorraum und $M \subseteq X$.
+  Die Menge der inneren Punkte
+  \[
+    \mathring M := \{a \in M \mid M \text{ ist Umgebung von } a\}
+  \]
+  hei{\ss}t das \textbf{Innere} von $M$. $M$ ist genau dann offen, wenn $M = \mathring M$.
+}
+
+\gentry{3.5.9}{Mittelwertsatz}{%
+  Seien $a, b$ zwei verschiedene Punkte in $M \subseteq \mathbb{R}^n$ derart, dass die
+  ,,offene Verbindungsstrecke''
+  $]a, b[ := \{x = a + t(b - a) \mid 0 < t < 1\}$ im Innern von $M$ enthalten ist.
+  Ist $f : M \to \mathbb{R}$ in $a$ und in $b$ stetig und auf $]a, b[$ differenzierbar,
+  so gibt es ein $z \in {]a, b[}$ mit
+  \[
+    f(b) - f(a) = f'(z)(b - a).
+  \]
+}
+
+\gentry{3.5.10}{Konstante Funktionen}{%
+  Sei $f : M \to \mathbb{R}$ differenzierbar auf $M \subseteq \mathbb{R}^n$. Ist $M$
+  zusammenh\"angend, so gilt:
+  \[
+    f \text{ ist konstant} \;\Longleftrightarrow\; f'(x) = 0_{1n} \text{ f\"ur jedes } x \in M.
+  \]
+}
+
+\gentry{3.5.11}{Satz vom endlichen Zuwachs}{%
+  Seien $a, b \in M \subseteq \mathbb{R}^n$ derart, dass die offene Verbindungsstrecke
+  $]a, b[$ im Innern von $M$ enthalten ist. Ist $f : M \to \mathbb{R}^m$ auf $]a, b[$
+  differenzierbar und in $a$ und in $b$ stetig, und gibt es ein $C > 0$ mit
+  $\|f'(x)\| \leq C$ f\"ur jedes $x \in {]a, b[}$ (Matrixnorm aus 3.4.6), so gilt
+  \[
+    \|f(b) - f(a)\| \leq C \|b - a\|.
+  \]
+}
+
+% ======================================================================
+\section*{3.6 \quad Partielle Ableitungen, Richtungsableitungen}
+
+\gentry{3.6.1}{Partielle Ableitungen}{%
+  Seien $M \subseteq \mathbb{R}^n$, $f \in \mathrm{Abb}(M, \mathbb{R})$,
+  $a = {}^t(a_1, \ldots, a_n)$ innerer Punkt von $M$. F\"ur $k \in \{1, \ldots, n\}$ sei
+  \[
+    J_k := \{x_k \in \mathbb{R} \mid {}^t(a_1, \ldots, a_{k-1}, x_k, a_{k+1}, \ldots, a_n) \in M\}
+  \]
+  und $\iota_k : J_k \to \mathbb{R}^n$,
+  $x_k \mapsto {}^t(a_1, \ldots, a_{k-1}, x_k, a_{k+1}, \ldots, a_n)$.
+  \begin{enumerate}[label=(\roman*),topsep=2pt,itemsep=1pt]
+    \item $f$ hei{\ss}t in $a$ \textbf{nach der $k$-ten Koordinate partiell differenzierbar},
+          wenn $f \circ \iota_k$ in $a_k$ differenzierbar ist.
+    \item $f$ hei{\ss}t in $a$ \textbf{partiell differenzierbar}, wenn $f$ in $a$ nach
+          jeder Koordinate partiell differenzierbar ist.
+  \end{enumerate}
+  Die Ableitung $(f \circ \iota_k)'(a_k)$ wird mit
+  $D_k f(a) = \tfrac{\partial f}{\partial x_k}(a) = f_{x_k}(a)$ bezeichnet und hei{\ss}t
+  die \textbf{partielle Ableitung} von $f$ nach $x_k$ an der Stelle $a$.
+}
+
+\gentry{3.6.3}{Totale und partielle Differenzierbarkeit}{%
+  Ist $f$ differenzierbar in $a$, so ist $f$ nach jeder Koordinate partiell
+  differenzierbar in $a$, und es gilt
+  \[
+    f'(a) = (D_1 f(a)\; D_2 f(a)\; \ldots\; D_n f(a)).
+  \]
+  Die $(1, n)$-Matrix (Zeilenvektor) bezeichnet man meist mit
+  $\mathrm{grad}\, f(a)$ oder $\nabla f(a)$ (,,Gradient an der Stelle $a$'',
+  ,,Nabla $f$ an der Stelle $a$'').
+}
+
+\gentry{3.6.4}{Partielle und totale Differenzierbarkeit}{%
+  Die partiellen Ableitungen $D_1 f(x), \ldots, D_n f(x)$ seien f\"ur alle $x$ einer
+  Umgebung $U$ von $a$ mit $U \subseteq M$ vorhanden. Sind die Abbildungen
+  $D_k f : U \to \mathbb{R}$, $x \mapsto D_k f(x)$, f\"ur $k = 1, \ldots, n$ s\"amtlich
+  stetig in $a$, so ist $f$ differenzierbar in $a$ mit
+  $f'(a) = \mathrm{grad}\, f(a)$.
+}
+
+\gentry{3.6.5}{Polynomfunktionen, rationale Funktionen}{%
+  Jede Polynomfunktion ist differenzierbar (auf $\mathbb{R}^n$). Jede rationale
+  Funktion ist auf ihrem gesamten Definitionsbereich differenzierbar.
+}
+
+\gentry{3.6.6}{Richtungsableitung}{%
+  F\"ur $v \in \mathbb{R}^n$ mit $\|v\|_2 = 1$ seien
+  \[
+    J := \{t \in \mathbb{R} \mid a + tv \in M\}, \quad
+    \iota : J \to \mathbb{R}^n,\; t \mapsto \iota(t) := a + tv
+  \]
+  gesetzt. $f$ hei{\ss}t \textbf{in $a$ in Richtung $v$ differenzierbar}, wenn $f \circ \iota$
+  in $t = 0$ differenzierbar ist. Die Ableitung $(f \circ \iota)'(0)$ wird mit
+  $D_v f(a) = \tfrac{\partial f}{\partial v}(a)$ bezeichnet und hei{\ss}t die
+  \textbf{Richtungsableitung} von $f$ in $a$ in Richtung $v$.
+}
+
+\gentry{3.6.7}{Ableitung und Richtungsableitung}{%
+  Sei $v = {}^t(v_1, \ldots, v_n)$ mit $\|v\|_2 = 1$. Ist $f$ in $a$ differenzierbar,
+  so ist $f$ in $a$ auch in Richtung $v$ differenzierbar, und
+  \[
+    D_v f(a) = f'(a) v = \sum_{k=1}^n D_k f(a) v_k.
+  \]
+  Ist $\mathrm{grad}\, f(a) \neq 0$, so wird $D_v f(a)$ maximal, wenn $v$ die Richtung
+  von ${}^t\mathrm{grad}\, f(a)$ hat, und minimal, wenn $v$ die Richtung von
+  $-{}^t\mathrm{grad}\, f(a)$ hat.
+}
+
+\gentry{3.6.8}{Funktionalmatrix}{%
+  Ist $f = {}^t(f_1, \ldots, f_m)$ in $a$ differenzierbar, so gilt
+  \[
+    f'(a) = \begin{pmatrix}
+      D_1 f_1(a) & \ldots & D_n f_1(a) \\
+      \vdots & & \vdots \\
+      D_1 f_m(a) & \ldots & D_n f_m(a)
+    \end{pmatrix}.
+  \]
+  Diese $(m, n)$-Matrix der partiellen Ableitungen hei{\ss}t die
+  \textbf{Funktionalmatrix} oder \textbf{Jacobische Matrix} von $f$ an der Stelle $a$.
+}
+
+\gentry{3.6.9}{Differenzierbarkeit der Grenzfunktion}{%
+  Seien $a \in M \subseteq \mathbb{R}^n$, $a$ innerer Punkt von $M$ und $(f_k)$ eine
+  Folge in $\mathrm{Abb}(M, \mathbb{R})$, die punktweise gegen $f \in \mathrm{Abb}(M, \mathbb{R})$
+  konvergiert. Es gebe eine Umgebung $U$ von $a$ mit $U \subseteq M$ derart, dass
+  die partiellen Ableitungen $D_1 f_k(x), \ldots, D_n f_k(x)$ f\"ur alle $k$ auf $U$
+  existieren und stetig in $a$ sind. Konvergieren die Folgen $(D_\nu f_k(x))_{k \in \mathbb{N}}$
+  f\"ur $\nu = 1, \ldots, n$ gleichm\"a{\ss}ig f\"ur $x \in U$, so ist $f$ in $a$
+  differenzierbar mit
+  $D_\nu f(a) = \lim_{k \to \infty} D_\nu f_k(a)$ f\"ur $\nu = 1, \ldots, n$.
+}
+
+\gentry{3.6.10}{Differenzierbarkeit der Summenfunktion}{%
+  Seien $a \in M \subseteq \mathbb{R}^n$, $a$ innerer Punkt von $M$ und $(f_k)$ eine
+  Folge in $\mathrm{Abb}(M, \mathbb{R})$, f\"ur welche $\sum_{k=1}^\infty f_k$
+  punktweise konvergiert. Es gebe eine Umgebung $U$ von $a$ mit $U \subseteq M$
+  derart, dass die partiellen Ableitungen $D_1 f_k, \ldots, D_n f_k$ auf $U$
+  existieren und in $a$ stetig sind, und die Reihen
+  $\sum_{k=1}^\infty D_\nu f_k(x)$ ($\nu = 1, \ldots, n$) gleichm\"a{\ss}ig f\"ur
+  $x \in U$ konvergieren. Dann ist $\sum_{k=1}^\infty f_k$ in $a$ differenzierbar, und
+  \[
+    \Bigl(\sum_{k=1}^\infty f_k\Bigr)'(a)
+    = \Bigl(\sum_{k=1}^\infty D_1 f_k(a)\; \ldots\; \sum_{k=1}^\infty D_n f_k(a)\Bigr).
+  \]
+}
+
+\end{document}

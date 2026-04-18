@@ -1,0 +1,391 @@
+\documentclass[a4paper,12pt]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[ngerman]{babel}
+\usepackage{amsmath, amssymb}
+\usepackage{geometry}
+\usepackage{tikz}
+\usetikzlibrary{shapes.geometric, arrows.meta, positioning, fit, backgrounds}
+\usepackage{parskip}
+\usepackage{titlesec}
+\usepackage{booktabs}
+\usepackage{enumitem}
+
+\geometry{left=3cm, right=3cm, top=2.5cm, bottom=2.5cm}
+
+\titleformat{\section}{\large\bfseries}{}{0em}{}[\titlerule]
+\titleformat{\subsection}{\normalsize\bfseries}{}{0em}{}
+
+\tikzset{
+  box/.style={rectangle, draw, rounded corners=3pt, text width=4.2cm,
+              align=center, minimum height=0.9cm, font=\small, inner sep=4pt},
+  boxw/.style={box, text width=5.2cm},
+  boxn/.style={box, text width=3.8cm},
+  arrow/.style={-{Latex[length=2mm]}, thick},
+}
+
+\begin{document}
+
+\begin{center}
+  {\LARGE\bfseries Studierhinweise zu Lektion 3}\\[0.5em]
+  {\large Analysis (Modul 61211)}
+\end{center}
+
+\vspace{1em}
+
+In dieser Kurseinheit steht der Begriff der Differenzierbarkeit im Mittelpunkt.
+Zur Vorbereitung seiner Definition (in Abschnitt~3.5) werden zwei Themen
+behandelt: der Begriff des Grenzwerts einer Funktion (er beruht auf dem
+Stetigkeitsbegriff) und der Begriff der Matrix (Matrizen dienen der Darstellung
+linearer Funktionen in $\mathrm{Abb}(\mathbb{R}^n, \mathbb{R}^m)$).
+
+Abschnitt~3.1 geht zuru\"uck auf das, was bereits in MG \"uber Grenzwerte von
+Funktionen erfahren wurde; hinzugekommen sind Grenzwerte in den uneigentlichen
+Punkten $-\infty$ und $\infty$ sowie uneigentliche Grenzwerte von Funktionen.
+Im zweiten Abschnitt wird der Grenzwert f\"ur allgemeinere Funktionen definiert.
+Die Abschnitte~3.3 und~3.4 sind erneut R\"uckblicke auf schon Bekanntes aus MG:
+Differenzierbarkeit von Funktionen (unter dem Aspekt der guten Approximierbarkeit
+durch affine Funktionen) und Fakten \"uber lineare Funktionen und Matrizen.
+Den zentralen Abschnitt~3.5 \"uber den Differenzierbarkeitsbegriff und seine
+elementaren Eigenschaften sollten Sie besonders sorgf\"altig durcharbeiten.
+Abschnitt~3.6 stellt die Hilfsmittel bereit, Ableitungen bequem auszurechnen.
+
+% -----------------------------------------------------------------------
+\section*{Struktur der Kurseinheit 3}
+
+\begin{center}
+\begin{tikzpicture}[node distance=0.5cm and 0.6cm]
+
+  % Column headers
+  \node[font=\bfseries\small] (hA) at (0,0)    {R\"uckblick auf MG};
+  \node[font=\bfseries\small] (hB) at (6.0,0)  {Erg\"anzungen zu MG};
+  \node[font=\bfseries\small] (hC) at (12.0,0) {$f \in \mathrm{Abb}(M,Y)$, $M \subseteq X$};
+
+  % ---- Left column: MG-Rückblick ----
+  \node[box, below=0.8cm of hA] (l1) {3.1 stetige Fortsetzung};
+  \node[box, below=0.4cm of l1] (l2) {3.1 Grenzwerte\\von Funktionen};
+  \node[box, below=0.4cm of l2] (l3) {3.1 Operieren\\mit Grenzwerten};
+  \node[box, below=0.8cm of l3] (l4) {3.3 Differenzierbarkeit,\\Ableitung};
+  \node[box, below=0.4cm of l4] (l5) {3.3 Differenzierbarkeit\\und Stetigkeit};
+  \node[box, below=0.4cm of l5] (l6) {3.3 Differenziations-\\regeln};
+  \node[box, below=0.4cm of l6] (l7) {3.3 1. und 2.\\Mittelwertsatz};
+
+  % ---- Middle column: Ergänzungen ----
+  \node[box, below=0.8cm of hB] (m1) {3.1 Grenzwerte in\\$\infty$ oder in $-\infty$,\\uneigentliche Grenzwerte};
+  \node[box, below=0.4cm of m1] (m2) {3.4 lin.\ Abbildungen\\in $\mathrm{Abb}(\mathbb{R}^n, \mathbb{R}^m)$\\und ihre Matrix};
+  \node[box, below=0.4cm of m2] (m3) {3.4 $\mathrm{Hom}(\mathbb{R}^n,\mathbb{R}^m)$\\als normierter Raum};
+  \node[box, below=0.4cm of m3] (m4) {3.3 Regeln von\\de l'Hospital};
+
+  % ---- Right column: new content ----
+  \node[box, below=0.8cm of hC] (r1) {3.2 stetige Fortsetzung};
+  \node[box, below=0.4cm of r1] (r2) {3.2 Grenzwerte\\von Funktionen};
+  \node[box, below=0.4cm of r2] (r3) {3.2 Operieren\\mit Grenzwerten};
+  \node[box, below=0.4cm of r3] (r4) {3.5 (totale)\\Differenzierbarkeit,\\Ableitung};
+  \node[box, below=0.4cm of r4] (r5) {3.5 Differenzierbarkeit\\und Stetigkeit};
+  \node[box, below=0.4cm of r5] (r6) {3.5 Differenziations-\\regeln};
+  \node[box, below=0.4cm of r6] (r7) {3.5 Mittelwertsatz};
+  \node[box, below=0.4cm of r7] (r8) {3.6 partielle\\Differenzierbarkeit,\\partielle Ableitungen};
+  \node[box, below=0.4cm of r8] (r9) {3.6 Richtungs-\\ableitung};
+  \node[box, below=0.4cm of r9] (r10){3.6 partielle und totale\\Differenzierbarkeit,\\Funktionalmatrix};
+
+  % Arrows left column
+  \draw[arrow] (l1) -- (l2);
+  \draw[arrow] (l2) -- (l3);
+  \draw[arrow] (l3) -- (l4);
+  \draw[arrow] (l4) -- (l5);
+  \draw[arrow] (l5) -- (l6);
+  \draw[arrow] (l6) -- (l7);
+
+  % Arrows right column
+  \draw[arrow] (r1) -- (r2);
+  \draw[arrow] (r2) -- (r3);
+  \draw[arrow] (r3) -- (r4);
+  \draw[arrow] (r4) -- (r5);
+  \draw[arrow] (r5) -- (r6);
+  \draw[arrow] (r6) -- (r7);
+  \draw[arrow] (r7) -- (r8);
+  \draw[arrow] (r8) -- (r9);
+  \draw[arrow] (r9) -- (r10);
+
+  % Cross arrows
+  \draw[arrow, dashed] (l3.east) -- ++(0.2,0) |- (r1.west);
+  \draw[arrow, dashed] (m2.east) -- ++(0.2,0) |- (r4.west);
+  \draw[arrow, dashed] (m3.east) -- ++(0.2,0) |- (r4.west);
+
+\end{tikzpicture}
+\end{center}
+
+\newpage
+
+% -----------------------------------------------------------------------
+\section*{Zielelement 3.1 -- R\"uckblick und Erg\"anzungen: Grenzwerte reeller Funktionen}
+
+\subsection*{Lerninhalte}
+
+\begin{center}
+\begin{tikzpicture}[node distance=0.5cm and 1.0cm]
+  \node[box] (sf)   {stetige Fortsetzung};
+  \node[box, below=0.5cm of sf]   (gw)  {Grenzwert\\einer Funktion};
+  \node[box, below=0.5cm of gw]   (kri) {Umgebungskriterium,\\$\varepsilon$-$\delta$-Kriterium,\\Folgenkriterium};
+  \node[box, right=1.0cm of kri]  (op)  {Regeln f\"ur das\\Operieren mit Grenzwerten};
+  \node[box, below=0.5cm of kri]  (cau) {Cauchykriterium};
+  \node[box, below=0.5cm of cau]  (inf) {Grenzwert in $-\infty$\\und in $\infty$};
+  \node[box, below=0.5cm of inf]  (uei) {uneigentlicher\\Grenzwert};
+  \draw[arrow] (sf) -- (gw);
+  \draw[arrow] (gw) -- (kri);
+  \draw[arrow] (op.south) |- (cau.east);
+  \draw[arrow] (kri) -- (cau);
+  \draw[arrow] (cau) -- (inf);
+  \draw[arrow] (inf) -- (uei);
+\end{tikzpicture}
+\end{center}
+
+\subsection*{Lernziele}
+
+Nach Durcharbeiten dieses Abschnitts sollten Sie:
+\begin{itemize}
+  \item sich die Begriffe ,,stetige Fortsetzung'' und ,,Grenzwert einer Funktion''
+        wieder vergegenw\"artigt haben und miteinander in Verbindung bringen
+        k\"onnen,
+  \item die Regeln f\"ur das Operieren mit Grenzwerten angeben und anwenden
+        k\"onnen,
+  \item die Zeichen $\lim_{x \to \infty} f(x) = a$ und $\lim_{x \to a} f(x) = \infty$
+        erl\"autern k\"onnen.
+\end{itemize}
+
+\subsection*{Selbstkontrollelement 3.1}
+
+Sei $(a_k)$ eine konvergente Folge mit Grenzwert $a$, also
+$\lim_{k\to\infty} a_k = a$. ,,Sehen'' Sie, dass die Funktion
+$f : \bigl\{\tfrac{1}{k} \mid k \in \mathbb{N}\bigr\} \to \mathbb{R}$,
+$\tfrac{1}{k} \mapsto f(\tfrac{1}{k}) := a_k$ einen Grenzwert in $0$ hat?
+Welchen? Geben Sie eine pr\"azise Begr\"undung.
+
+\newpage
+
+% -----------------------------------------------------------------------
+\section*{Zielelement 3.2 -- Grenzwerte von Funktionen auf normierten R\"aumen}
+
+\subsection*{Lerninhalte}
+
+\begin{center}
+\begin{tikzpicture}[node distance=0.5cm and 1.0cm]
+  \node[box] (sf)  {stetige Fortsetzung,\\Grenzwert einer Funktion};
+  \node[box, right=1.0cm of sf] (kri) {Umgebungskriterium,\\$\varepsilon$-$\delta$-Kriterium,\\Folgenkriterium};
+  \node[box, below=0.5cm of sf]  (res) {Restriktion und\\Verkettung};
+  \node[box, below=0.5cm of res] (op)  {Regeln f\"ur das\\Operieren mit Grenzwerten};
+  \draw[arrow] (sf) -- (res);
+  \draw[arrow] (kri.south) |- (res.east);
+  \draw[arrow] (res) -- (op);
+\end{tikzpicture}
+\end{center}
+
+\subsection*{Lernziele}
+
+Nach Durcharbeiten dieses Abschnitts sollten Sie in der Lage sein,
+\begin{itemize}
+  \item die Begriffe ,,stetige Fortsetzung'' und ,,Grenzwert einer Funktion''
+        auf normierten R\"aumen zu definieren und mit dem Begriff der
+        Stetigkeit in Verbindung zu bringen,
+  \item Regeln f\"ur das Operieren mit Grenzwerten anzugeben und anzuwenden.
+\end{itemize}
+
+\subsection*{Selbstkontrollelement 3.2}
+
+Sei $a \in M \subseteq \mathbb{R}^n$, $a$ ein H\"aufungspunkt von $M$, und
+f\"ur $f : M \to \mathbb{R}^m$ existiere $b := \lim_{x \to a} f(x)$.
+\begin{itemize}
+  \item Kann $b \neq f(a)$ sein?
+  \item Existiert f\"ur $\tilde{f} := f|_{M \setminus \{a\}}$ der Grenzwert
+        $\lim_{x \to a} \tilde{f}(x)$?
+  \item \"Andern sich die Antworten, wenn $f$ als stetig in $a$ vorausgesetzt wird?
+\end{itemize}
+
+\newpage
+
+% -----------------------------------------------------------------------
+\section*{Zielelement 3.3 -- R\"uckblick und Erg\"anzungen: Differenzierbarkeit in $\mathbb{R}$}
+
+\subsection*{Lerninhalte}
+
+\begin{center}
+\begin{tikzpicture}[node distance=0.5cm and 1.0cm]
+  \node[box] (diff)  {Differenzierbarkeit,\\Begriff der Ableitung};
+  \node[box, right=1.0cm of diff] (geo) {geometrische und\\physikalische Interpretation};
+  \node[box, below=0.5cm of diff] (ds)   {Differenzierbarkeit\\und Stetigkeit};
+  \node[box, below=0.5cm of ds]   (regeln) {Differenziationsregeln};
+  \node[box, right=1.0cm of regeln] (umk) {Differenziation der\\Umkehrfunktion};
+  \node[box, below=0.5cm of regeln] (mws) {Mittelwerts\"atze};
+  \node[box, below=0.5cm of mws]  (hos)  {Regeln von\\de l'Hospital};
+  \node[box, below=0.5cm of hos]  (bsp)  {Beispiele: Polynomfunktion,\\rationale Funktion, $p$-te Wurzel};
+  \draw[arrow] (diff) -- (ds);
+  \draw[arrow] (geo.south) |- (ds.east);
+  \draw[arrow] (ds) -- (regeln);
+  \draw[arrow] (umk.south) |- (mws.east);
+  \draw[arrow] (regeln) -- (mws);
+  \draw[arrow] (mws) -- (hos);
+  \draw[arrow] (hos) -- (bsp);
+\end{tikzpicture}
+\end{center}
+
+\subsection*{Lernziele}
+
+Nach Durcharbeiten dieses Abschnitts sollten Sie:
+\begin{itemize}
+  \item sich die Begriffe ,,Differenzierbarkeit'' und ,,Ableitung'' wieder
+        vergegenw\"artigt haben,
+  \item die Beziehung zwischen Stetigkeit und Differenzierbarkeit kennen,
+  \item die wichtigsten Differenziationsregeln angeben und anwenden k\"onnen,
+  \item wenigstens eine der Regeln von de l'Hospital (auch f\"ur Grenzwerte in
+        $\infty$ oder $-\infty$ sowie f\"ur uneigentliche Grenzwerte)
+        erl\"autern k\"onnen.
+\end{itemize}
+
+\subsection*{Selbstkontrollelement 3.3}
+
+Sei $f : \mathbb{R} \to \mathbb{R}$ eine Funktion mit $|f(x)| \leq x^2$ f\"ur
+alle $x \in \mathbb{R}$. ,,Sehen'' Sie, dass ein solches $f$ in $a := 0$
+differenzierbar ist? Mit welcher Ableitung? (Betrachten Sie
+$\tfrac{f(x) - f(0)}{x - 0}$.)
+
+\newpage
+
+% -----------------------------------------------------------------------
+\section*{Zielelement 3.4 -- R\"uckblick und Erg\"anzungen: Der Raum $\mathrm{Hom}(\mathbb{R}^n, \mathbb{R}^m)$}
+
+\subsection*{Lerninhalte}
+
+\begin{center}
+\begin{tikzpicture}[node distance=0.5cm and 1.0cm]
+  \node[box] (lin)  {lineare Abbildungen\\in $\mathrm{Abb}(\mathbb{R}^n, \mathbb{R}^m)$\\und ihre Matrix};
+  \node[box, right=1.0cm of lin] (op) {Operationen mit\\linearen Abbildungen,\\Matrizen};
+  \node[box, below=0.5cm of lin] (hom) {$\mathrm{Hom}(\mathbb{R}^n, \mathbb{R}^m)$\\als normierter Raum};
+  \draw[arrow] (lin) -- (hom);
+  \draw[arrow] (op.south) |- (hom.east);
+\end{tikzpicture}
+\end{center}
+
+\subsection*{Lernziele}
+
+Nach Durcharbeiten dieses Abschnitts sollten Sie in der Lage sein,
+\begin{itemize}
+  \item lineare Abbildungen von $\mathbb{R}^n$ nach $\mathbb{R}^m$ mithilfe
+        ihrer Matrix auszudr\"ucken (die kanonischen Basen von $\mathbb{R}^n$
+        und $\mathbb{R}^m$ vorausgesetzt),
+  \item das Operieren mit linearen Abbildungen dem mit ihren Matrizen
+        gegen\"uberzustellen, insbesondere die Verkettung linearer Abbildungen
+        und das Matrizenprodukt zu bilden und miteinander in Beziehung zu
+        setzen,
+  \item den Raum $\mathbb{R}^{mn}$ als reellen Vektorraum zu beschreiben und
+        eine Norm auf ihm anzugeben.
+\end{itemize}
+
+\subsection*{Selbstkontrollelement 3.4}
+
+Sei $f \in \mathrm{Hom}(\mathbb{R}^n, \mathbb{R}^m)$, $\mathrm{id}_n : \mathbb{R}^n \to \mathbb{R}^n$
+die identische Abbildung auf $\mathbb{R}^n$ und $\mathrm{id}_m : \mathbb{R}^m \to \mathbb{R}^m$
+die identische Abbildung auf $\mathbb{R}^m$. ,,Sehen'' Sie, wie sich die
+Beziehungen $f \circ \mathrm{id}_n = f$ und $\mathrm{id}_m \circ f = f$ als
+Matrixgleichungen ausdr\"ucken?
+
+\newpage
+
+% -----------------------------------------------------------------------
+\section*{Zielelement 3.5 -- Differenzierbare Funktionen}
+
+\subsection*{Lerninhalte}
+
+\begin{center}
+\begin{tikzpicture}[node distance=0.5cm and 1.0cm]
+  \node[box] (diff)  {Differenzierbarkeit,\\Begriff der Ableitung};
+  \node[box, right=1.0cm of diff] (geo) {geometrische Inter-\\pretation, Beispiele};
+  \node[box, below=0.5cm of diff] (ds)  {Differenzierbarkeit\\und Stetigkeit};
+  \node[box, below=0.5cm of ds]   (regeln) {Differenziationsregeln};
+  \node[box, below=0.5cm of regeln] (mws) {Mittelwertsatz};
+  \node[box, right=1.0cm of mws]  (szw) {Satz vom endlichen\\Zuwachs};
+  \node[box, below=0.5cm of mws]  (konst) {Charakterisierung\\der konstanten Funktionen};
+  \draw[arrow] (diff) -- (ds);
+  \draw[arrow] (geo.south) |- (ds.east);
+  \draw[arrow] (ds) -- (regeln);
+  \draw[arrow] (regeln) -- (mws);
+  \draw[arrow] (szw.south) |- (konst.east);
+  \draw[arrow] (mws) -- (konst);
+\end{tikzpicture}
+\end{center}
+
+\subsection*{Lernziele}
+
+Nach Durcharbeiten dieses Abschnitts sollten Sie in der Lage sein,
+\begin{itemize}
+  \item die Begriffe ,,Differenzierbarkeit'' und ,,Ableitung'' (f\"ur
+        $f \in \mathrm{Abb}(M, \mathbb{R}^m)$ mit $M \subseteq \mathbb{R}^n$)
+        zu entwickeln und an Beispielen zu erl\"autern,
+  \item sich die Beziehung zwischen Differenzierbarkeit und Stetigkeit klar
+        zu machen,
+  \item die wichtigsten Differenziationsregeln anzugeben und anzuwenden,
+  \item den Mittelwertsatz zu formulieren,
+  \item die konstanten Funktionen auf offenen, zusammenh\"angenden Mengen zu
+        charakterisieren.
+\end{itemize}
+
+\subsection*{Selbstkontrollelement 3.5}
+
+Sei $f : \mathbb{R}^2 \to \mathbb{R}^2$,
+$x = \bigl(\begin{smallmatrix} x_1 \\ x_2 \end{smallmatrix}\bigr) \mapsto
+ f(x) = f(x_1, x_2) := \bigl(\begin{smallmatrix} 3x_1 - x_2 + 2 \\ 2x_2 - 1 \end{smallmatrix}\bigr)$,
+und sei $a \in \mathbb{R}^2$. Was ist $f'(a)$ und was $f'(a)x$, insbesondere
+f\"ur $a := \bigl(\begin{smallmatrix} 1 \\ 0 \end{smallmatrix}\bigr)$ und
+$x := \bigl(\begin{smallmatrix} 1 \\ 2 \end{smallmatrix}\bigr)$?
+
+\newpage
+
+% -----------------------------------------------------------------------
+\section*{Zielelement 3.6 -- Partielle Ableitungen, Richtungsableitungen}
+
+\subsection*{Lerninhalte}
+
+\begin{center}
+\begin{tikzpicture}[node distance=0.5cm and 1.0cm]
+  \node[box] (pd)   {partielle Differenzierbarkeit,\\partielle Ableitung};
+  \node[box, right=1.0cm of pd] (rd) {Differenzierbarkeit in\\einer Richtung,\\Richtungsableitung};
+  \node[box, below=0.5cm of pd]   (tp) {Zusammenhang zwischen\\totaler und partieller\\Differenzierbarkeit};
+  \node[box, right=1.0cm of tp]   (ar) {Zusammenhang zwischen\\(totaler) Ableitung und\\den Richtungsableitungen};
+  \node[box, below=0.5cm of tp]   (gr) {Gradient};
+  \node[box, below=0.5cm of gr]   (fm) {Funktionalmatrix};
+  \draw[arrow] (pd) -- (tp);
+  \draw[arrow] (rd.south) |- (ar.west);
+  \draw[arrow] (rd) -- (ar);
+  \draw[arrow] (tp) -- (gr);
+  \draw[arrow] (ar.south) |- (gr.east);
+  \draw[arrow] (gr) -- (fm);
+\end{tikzpicture}
+\end{center}
+
+\subsection*{Lernziele}
+
+Nach Durcharbeiten dieses Abschnitts sollten Sie in der Lage sein,
+\begin{itemize}
+  \item partielle Ableitungen und -- allgemeiner -- Richtungsableitungen zu
+        definieren und in konkreten F\"allen zu berechnen,
+  \item den Zusammenhang zwischen (totaler) Differenzierbarkeit und Existenz
+        von partiellen Ableitungen und Richtungsableitungen herzustellen und
+        die Bedeutung des Gradienten zu erl\"autern,
+\end{itemize}
+und Sie sollten wissen,
+\begin{itemize}
+  \item dass $f'(a)$ die Funktionalmatrix (aller partiellen Ableitungen) ist.
+\end{itemize}
+
+\subsection*{Selbstkontrollelement 3.6}
+
+Welche Implikationen bestehen zwischen den folgenden Aussagen \"uber eine
+Funktion $f : M \to \mathbb{R}$ mit $M \subseteq \mathbb{R}^n$ und einem
+inneren Punkt $a \in M$?
+\begin{enumerate}
+  \item $D_k f(a)$ existiert f\"ur jedes $k \in \{1, \ldots, n\}$.
+  \item $f$ ist in $a$ differenzierbar ($f'(a)$ existiert).
+  \item $D_v f(a)$ existiert f\"ur jedes $v \in \mathbb{R}^n$ mit $\|v\|_2 = 1$.
+  \item $f$ ist stetig in $a$.
+\end{enumerate}
+
+\end{document}
