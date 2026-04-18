@@ -1,0 +1,525 @@
+\documentclass[a4paper,12pt]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[ngerman]{babel}
+\usepackage{amsmath, amssymb}
+\usepackage{geometry}
+\usepackage{parskip}
+\usepackage{titlesec}
+\usepackage{enumitem}
+\usepackage{array}
+\usepackage{booktabs}
+
+\geometry{left=3cm, right=3cm, top=2.5cm, bottom=2.5cm}
+
+\titleformat{\section}{\large\bfseries}{}{0em}{}[\titlerule]
+\titleformat{\subsection}{\normalsize\bfseries\scshape}{}{0em}{}
+
+% Glossar-Eintrag: Nummer, fetter Titel, Inhalt
+\newcommand{\gentry}[3]{%
+  \noindent\textbf{#1\quad #2}\nopagebreak\\[0.2em]
+  #3\par\smallskip
+}
+
+\begin{document}
+
+\begin{center}
+  {\LARGE\bfseries Glossar zu Lektion 5}\\[0.5em]
+  {\large Analysis (Modul 61211)}
+\end{center}
+
+\vspace{1em}
+
+Dieses Glossar fasst die wesentlichen Definitionen, Merkregeln und Sätze der
+fünften Lektion (Integration) kompakt zusammen. Nummerierungen entsprechen
+dem Lehrtext.
+
+% ======================================================================
+\section*{5.1 \quad Rückblick und Ergänzungen: Das Riemannintegral}
+
+\gentry{5.1.1}{Partition}{%
+  Seien $I = [a,b]$ mit $a<b$, $r \in \mathbb{N}$ und $t_0, t_1, \ldots, t_r \in \mathbb{R}$.
+  $P = (t_0, t_1, \ldots, t_r)$ heißt \textbf{Partition} von $I$, wenn
+  \[
+    a = t_0 < t_1 < \ldots < t_r = b.
+  \]
+  Die Zahlen $t_\nu$ heißen \textbf{Teilpunkte}. Eine zweite Partition $P'$ heißt
+  \textbf{Verfeinerung} von $P$, wenn alle Teilpunkte von $P$ auch Teilpunkte
+  von $P'$ sind.
+}
+
+\gentry{5.1.2}{Gemeinsame Verfeinerung}{%
+  Zu je zwei Partitionen $P$ und $P'$ von $I$ gibt es eine gemeinsame
+  Verfeinerung $P''$.
+}
+
+\gentry{5.1.3}{Unter-/Obersumme}{%
+  Seien $I=[a,b]$, $f: I \to \mathbb{R}$ beschränkt, $P = (t_0,\ldots,t_r)$ Partition.
+  Mit
+  \[
+    m_\nu := \inf\{f(t)\mid t_{\nu-1} \leq t \leq t_\nu\}, \quad
+    M_\nu := \sup\{f(t)\mid t_{\nu-1} \leq t \leq t_\nu\}
+  \]
+  heißen
+  \[
+    U(f,P) := \sum_{\nu=1}^{r} m_\nu (t_\nu - t_{\nu-1}), \qquad
+    O(f,P) := \sum_{\nu=1}^{r} M_\nu (t_\nu - t_{\nu-1})
+  \]
+  die \textbf{Riemannsche Untersumme} bzw.\ \textbf{Obersumme} von $f$ für $P$.
+}
+
+\gentry{5.1.4}{Monotonie bei Verfeinerung}{%
+  Ist $P'$ eine Verfeinerung von $P$, so gilt
+  \[
+    U(f,P) \leq U(f,P') \leq O(f,P') \leq O(f,P).
+  \]
+}
+
+\gentry{5.1.5}{Riemannintegral}{%
+  Sei $I=[a,b]$, $f: I \to \mathbb{R}$ beschränkt. $f$ heißt
+  \textbf{Riemann-integrierbar} (über $I$), wenn
+  \[
+    \sup\{U(f,P)\mid P \text{ Partition von } I\}
+    = \inf\{O(f,P)\mid P \text{ Partition von } I\}.
+  \]
+  Dieser gemeinsame Wert heißt das \textbf{Riemannintegral} von $f$ und wird mit
+  \[
+    \int_I f \quad\text{oder}\quad \int_a^b f(x)\,dx
+  \]
+  bezeichnet. $f$ heißt \textbf{Integrand}, $a$ untere, $b$ obere
+  \textbf{Integrationsgrenze}, $x$ \textbf{Integrationsvariable}. Die Menge der
+  über $I$ Riemann-integrierbaren Funktionen wird mit $\mathcal{R}(I)$ bezeichnet.
+  Es gilt $C(I) \subseteq \mathcal{R}(I) \subseteq B(I)$.
+}
+
+\gentry{5.1.6}{Monotone Funktion}{%
+  Sei $I=[a,b]$, $a<b$. Jede monotone Funktion $f: I \to \mathbb{R}$ ist
+  integrierbar.
+}
+
+\gentry{5.1.7}{Eigenschaften des Integrals}{%
+  Sei $I=[a,b]$. Für $f, g \in \mathcal{R}(I)$ und $\alpha \in \mathbb{R}$ gilt:
+  \begin{itemize}[topsep=2pt,itemsep=1pt]
+    \item $f+g, f-g \in \mathcal{R}(I)$ mit $\int_I (f\pm g) = \int_I f \pm \int_I g$ \hfill (Additivität),
+    \item $\alpha f \in \mathcal{R}(I)$ mit $\int_I (\alpha f) = \alpha \int_I f$ \hfill (Homogenität),
+    \item $0 \leq f \Rightarrow 0 \leq \int_I f$; \ $f \leq g \Rightarrow \int_I f \leq \int_I g$ \hfill (Positivität, Monotonie),
+    \item $|f| \in \mathcal{R}(I)$ und $\left|\int_I f\right| \leq \int_I |f| \leq (b-a)\|f\|_\infty$ \hfill (Abschätzungen),
+    \item Für jede Partition $(t_0,\ldots,t_r)$ von $I$: $f \in \mathcal{R}(I) \Leftrightarrow f|_{I_\nu} \in \mathcal{R}(I_\nu)$ für alle $\nu$, und
+          $\int_a^b f = \int_{t_0}^{t_1} f + \ldots + \int_{t_{r-1}}^{t_r} f$ \hfill (Additivität bzgl.\ Intervall),
+    \item $\max\{f,g\}, \min\{f,g\} \in \mathcal{R}(I)$,
+    \item Ändert man $f$ an endlich vielen Stellen ab, so ändern sich weder
+          Integrierbarkeit noch Integralwert.
+  \end{itemize}
+}
+
+\gentry{5.1.8}{Unbestimmtes Integral, Stammfunktion}{%
+  (i) Sei $I=[a,b]$, $f \in \mathcal{R}(I)$, $c \in I$. Die Funktion
+  \[
+    F: I \to \mathbb{R}, \quad x \mapsto F(x) := \int_c^x f(t)\,dt
+  \]
+  heißt \textbf{unbestimmtes Integral} von $f$ (mit $\int_c^c f := 0$ und
+  $\int_c^x f := -\int_x^c f$ für $x<c$).\\
+  (ii) Sei $M \subseteq \mathbb{R}$, $f, F: M \to \mathbb{R}$. $F$ heißt
+  \textbf{Stammfunktion} von $f$, wenn $F$ differenzierbar ist und $F' = f$
+  erfüllt.
+}
+
+\gentry{5.1.9}{Vertauschung der Integrationsgrenzen}{%
+  Sei $I=[a,b]$, $f, g \in \mathcal{R}(I)$, $\alpha \in \mathbb{R}$. Mit
+  $\int_c^c f := 0$ und $\int_a^b f := -\int_b^a f$ gilt:
+  \begin{itemize}[topsep=2pt,itemsep=1pt]
+    \item $\int_b^a (f \pm g) = \int_b^a f \pm \int_b^a g$,
+    \item $\int_b^a \alpha f = \alpha \int_b^a f$,
+    \item $\left|\int_b^a f\right| \leq (b-a)\|f\|_\infty$,
+    \item $\int_{x_1}^{x_2} f + \int_{x_2}^{x_3} f = \int_{x_1}^{x_3} f$ für alle $x_1, x_2, x_3 \in I$.
+  \end{itemize}
+}
+
+\gentry{5.1.10}{Hauptsatz der Differenzial- und Integralrechnung}{%
+  Sei $I=[a,b]$, $f \in \mathcal{R}(I)$.
+  \begin{itemize}[topsep=2pt,itemsep=1pt]
+    \item[(i)] Ist $F$ ein unbestimmtes Integral von $f$ und $f$ in $x_0 \in I$ stetig,
+      so ist $F$ in $x_0$ differenzierbar mit $F'(x_0) = f(x_0)$. Ist $f$ stetig,
+      so besitzt $f$ eine Stammfunktion; jedes unbestimmte Integral ist eine solche.
+    \item[(ii)] Besitzt $f$ eine Stammfunktion $F$, so gilt
+      \[
+        \int_a^b f(t)\,dt = F(b) - F(a) =: F(t)\bigr|_a^b.
+      \]
+  \end{itemize}
+}
+
+\gentry{5.1.11}{Partielle Integration}{%
+  Seien $f, g$ stetig differenzierbar auf einem Intervall $I$. Dann gilt
+  \[
+    \int_a^b f'(x) g(x)\,dx = f(x)g(x)\bigr|_a^b - \int_a^b f(x)g'(x)\,dx
+    \quad \text{für alle } a, b \in I.
+  \]
+}
+
+\gentry{5.1.12}{Substitutionsregel}{%
+  Seien $I, J$ Intervalle, $f: I \to \mathbb{R}$ stetig und $\varphi: J \to \mathbb{R}$
+  stetig differenzierbar mit $\varphi(J) \subseteq I$. Dann gilt
+  \[
+    \int_{\varphi(\alpha)}^{\varphi(\beta)} f(x)\,dx = \int_\alpha^\beta f(\varphi(t))\varphi'(t)\,dt
+    \quad \text{für alle } \alpha, \beta \in J.
+  \]
+  Merkregel: $x = \varphi(t)$, $dx = \varphi'(t)\,dt$.
+}
+
+\gentry{5.1.13}{2.\ Form der Substitutionsregel}{%
+  Seien $I, J$ Intervalle, $f: I \to \mathbb{R}$ stetig und $\varphi: J \to I$
+  stetig differenzierbar, injektiv mit $\varphi(J) = I$. Dann gilt
+  \[
+    \int_a^b f(x)\,dx = \int_{\varphi^{-1}(a)}^{\varphi^{-1}(b)} f(\varphi(t))\varphi'(t)\,dt.
+  \]
+}
+
+\gentry{5.1.14}{Mittelwertsatz der Integralrechnung}{%
+  Sei $f \in C([a,b])$ mit $a<b$. Dann gibt es (mindestens) ein
+  $\xi \in\,]a,b[$ mit
+  \[
+    \frac{1}{b-a} \int_a^b f(x)\,dx = f(\xi),
+    \quad \text{d.\,h.} \int_a^b f(x)\,dx = f(\xi)(b-a).
+  \]
+  Geometrisch: Die Fläche unter dem Graphen ist gleich der Fläche des Rechtecks
+  mit Seiten $f(\xi)$ und $b-a$.
+}
+
+\gentry{5.1.15}{Folgen integrierbarer Funktionen}{%
+  Sei $I=[a,b]$, $(f_k)_{k\in\mathbb{N}}$ eine Folge in $\mathcal{R}(I)$, die
+  gleichmäßig gegen $f \in \mathrm{Abb}(I,\mathbb{R})$ konvergiert. Dann gilt
+  \[
+    f \in \mathcal{R}(I) \quad \text{und} \quad \int_I f = \lim_{k\to\infty} \int_I f_k.
+  \]
+}
+
+\gentry{5.1.16}{Gliedweise Integration}{%
+  Sei $I=[a,b]$, $(f_k)$ Folge in $\mathcal{R}(I)$, sodass $\sum_{k=1}^\infty f_k$
+  gleichmäßig gegen $s \in \mathrm{Abb}(I, \mathbb{R})$ konvergiert. Dann gilt
+  \[
+    s \in \mathcal{R}(I) \quad \text{und} \quad \int_I s = \sum_{k=1}^\infty \int_I f_k.
+  \]
+  Kurz: $\int_I \sum_{k=1}^\infty f_k = \sum_{k=1}^\infty \int_I f_k$ (Vertauschung von
+  $\int$ und $\sum$).
+}
+
+% ======================================================================
+\section*{5.2 \quad Uneigentliche Integrale}
+
+\gentry{5.2.1}{Uneigentliches Integral}{%
+  Sei $I$ ein Intervall mit Endpunkten $a, b$, $a<b$ und $a,b \in \widehat{\mathbb{R}}$.
+  $f: I \to \mathbb{R}$ sei so beschaffen, dass $f|_{[\alpha,\beta]} \in \mathcal{R}([\alpha,\beta])$
+  für alle $\alpha, \beta \in \mathbb{R}$ mit $a<\alpha<\beta<b$.
+  $f$ heißt \textbf{uneigentlich integrierbar} (über $I$), falls für ein
+  $\gamma \in\,]a,b[$ beide Grenzwerte existieren:
+  \[
+    \int_a^b f(x)\,dx := \lim_{\substack{\alpha \to a\\ a<\alpha<b}}\int_\alpha^\gamma f(x)\,dx
+    + \lim_{\substack{\beta \to b\\ a<\beta<b}}\int_\gamma^\beta f(x)\,dx.
+  \]
+  Man sagt dann: $\int_a^b f(x)\,dx$ \textbf{existiert} oder \textbf{konvergiert}.
+  Die Summe ist unabhängig von $\gamma$.
+}
+
+\gentry{5.2.2}{Verträglichkeit}{%
+  Sei $I=[a,b]$ mit $a,b\in\mathbb{R}$, $\gamma \in\,]a,b[$, $f \in \mathcal{R}(I)$.
+  Dann gilt für das (eigentliche) Integral
+  \[
+    \lim_{\alpha \to a} \int_\alpha^\gamma f(x)\,dx = \int_a^\gamma f(x)\,dx,
+    \quad \lim_{\beta \to b} \int_\gamma^\beta f(x)\,dx = \int_\gamma^b f(x)\,dx,
+  \]
+  sodass eigentliches und uneigentliches Integral übereinstimmen.
+}
+
+\gentry{5.2.3}{Nur ein Intervallende kritisch}{%
+  Sei $I$ Intervall mit Endpunkten $a, b$.
+  \begin{itemize}[topsep=2pt,itemsep=1pt]
+    \item[(i)] Ist $b \in \mathbb{R}$ und $f|_{[\alpha, b]} \in \mathcal{R}([\alpha,b])$
+      für alle $\alpha \in\,]a,b[$, so ist $f$ genau dann uneigentlich
+      integrierbar, wenn $\lim_{\alpha \to a} \int_\alpha^b f(x)\,dx$ existiert.
+    \item[(ii)] Analog für $a \in \mathbb{R}$ und $f|_{[a,\beta]} \in \mathcal{R}([a,\beta])$:
+      $\lim_{\beta \to b} \int_a^\beta f(x)\,dx$.
+  \end{itemize}
+}
+
+\gentry{5.2.5}{Gammafunktion}{%
+  Die Funktion
+  \[
+    \Gamma: \,]0,\infty[\, \to \mathbb{R}, \quad
+    x \mapsto \Gamma(x) := \int_0^\infty t^{x-1} e^{-t}\,dt
+  \]
+  heißt \textbf{Gammafunktion}. Sie hat folgende Eigenschaften:
+  \begin{itemize}[topsep=2pt,itemsep=1pt]
+    \item Funktionalgleichung: $\Gamma(x+1) = x\,\Gamma(x)$ für $x>0$.
+    \item Spezielle Werte: $\Gamma(n+1) = n!$ für $n \in \mathbb{N}_0$, insbesondere $\Gamma(1) = \Gamma(2) = 1$.
+  \end{itemize}
+}
+
+\gentry{5.2.6}{Cauchykriterium}{%
+  Seien $\beta \in \mathbb{R}$, $a \in \widehat{\mathbb{R}}$ mit $a < \beta$,
+  $f: \,]a, \beta]\, \to \mathbb{R}$ mit $f|_{[\alpha, \beta]} \in \mathcal{R}([\alpha, \beta])$
+  für alle $\alpha \in\,]a, \beta[$. Dann konvergiert $\int_a^\beta f(x)\,dx$
+  genau dann, wenn
+  \[
+    \forall\, \varepsilon > 0\; \exists\, \alpha_0 \in\,]a,\beta[\;
+    \forall\, \alpha, \alpha' \in\,]a, \alpha_0[:\;
+    \left|\int_\alpha^{\alpha'} f(x)\,dx\right| < \varepsilon.
+  \]
+  Ein analoges Kriterium gilt am rechten Intervallende.
+}
+
+\gentry{}{Majorantenkriterium (Ü 5.2.4)}{%
+  Seien $a, b \in \widehat{\mathbb{R}}$, $a<b$, und $f, g: \,]a,b[\, \to \mathbb{R}$
+  mit $f|_{[\alpha,\beta]}, g|_{[\alpha,\beta]} \in \mathcal{R}([\alpha,\beta])$.
+  Gilt $|f(x)| \leq g(x)$ für alle $x \in\,]a,b[$ und konvergiert $\int_a^b g(x)\,dx$,
+  so konvergieren auch $\int_a^b |f(x)|\,dx$ und $\int_a^b f(x)\,dx$, und
+  \[
+    \left|\int_a^b f(x)\,dx\right| \leq \int_a^b |f(x)|\,dx \leq \int_a^b g(x)\,dx.
+  \]
+}
+
+% ======================================================================
+\section*{5.3 \quad Parameterintegrale}
+
+\gentry{}{Parameterintegral}{%
+  Sei $M \neq \emptyset$ und $I = [\alpha, \beta]$ mit $\alpha < \beta$. Ist
+  $K: M \times I \to \mathbb{R}$ eine Funktion, sodass $K(x, \cdot): I \to \mathbb{R}$,
+  $t \mapsto K(x,t)$ für jedes $x \in M$ über $I$ integrierbar ist (ggf.\ im
+  uneigentlichen Sinn), so heißt
+  \[
+    F(x) := \int_\alpha^\beta K(x,t)\,dt \quad (x \in M)
+  \]
+  ein \textbf{Parameterintegral}.
+}
+
+\gentry{5.3.1}{Stetigkeit des Parameterintegrals}{%
+  Seien $\emptyset \neq M \subseteq \mathbb{R}^n$, $G := M \times [\alpha, \beta]$,
+  $\alpha < \beta$. Ist
+  \[
+    K: G \to \mathbb{R}, \quad \tbinom{x}{t} \mapsto K(x,t)
+  \]
+  stetig auf $G$, so ist durch $F(x) := \int_\alpha^\beta K(x,t)\,dt$ eine auf
+  $M$ stetige Funktion $F: M \to \mathbb{R}$ gegeben.
+}
+
+\gentry{5.3.2}{Uneigentliches Parameterintegral}{%
+  Seien $a \in M \subseteq \mathbb{R}^n$, $\alpha \in \mathbb{R}$, $G := M \times [\alpha, \infty[$,
+  $K: G \to \mathbb{R}$ stetig, und $F(x) := \int_\alpha^\infty K(x,t)\,dt$
+  konvergiere für jedes $x \in M$. Gibt es eine Folge $(T_k)$ in $\,]\alpha, \infty[$
+  mit $T_k \to \infty$ und eine Umgebung $U$ von $a$, sodass
+  $F_k(x) := \int_\alpha^{T_k} K(x,t)\,dt$ auf $U \cap M$ gleichmäßig konvergiert,
+  so ist $F$ in $a$ stetig.
+}
+
+\gentry{5.3.4}{Leibnizsche Regel (eigentlich)}{%
+  Sei $M \subseteq \mathbb{R}^n$ offen, $G := M \times [\alpha, \beta]$ mit $\alpha < \beta$,
+  $K: G \to \mathbb{R}$ stetig. Existieren und sind die partiellen Ableitungen
+  $D_\mu K: G \to \mathbb{R}$ ($\mu = 1, \ldots, n$) stetig, so ist
+  $F(x) := \int_\alpha^\beta K(x,t)\,dt$ stetig differenzierbar auf $M$ mit
+  \[
+    D_\mu F(x) = \int_\alpha^\beta D_\mu K(x,t)\,dt \quad (x \in M).
+  \]
+}
+
+\gentry{5.3.5}{Leibnizsche Regel (uneigentlich)}{%
+  Sei $M \subseteq \mathbb{R}^n$ offen, $G := M \times [\alpha, \infty[$,
+  $K: G \to \mathbb{R}$ stetig, sodass $F(x) := \int_\alpha^\infty K(x,t)\,dt$ für
+  jedes $x \in M$ konvergiert. Existieren und sind die partiellen Ableitungen
+  $D_\mu K$ stetig und konvergieren $\int_\alpha^\infty D_\mu K(x,t)\,dt$, und gibt
+  es eine Folge $(T_k)$ in $]\alpha, \infty[$ mit $T_k \to \infty$, sodass
+  $H_{k\mu}(x) := \int_\alpha^{T_k} D_\mu K(x,t)\,dt$ gleichmäßig auf $M$ konvergieren,
+  so besitzt $F$ stetige partielle Ableitungen und
+  \[
+    D_\mu F(x) = \int_\alpha^\infty D_\mu K(x,t)\,dt \quad (x \in M).
+  \]
+}
+
+% ======================================================================
+\section*{5.4 \quad Fourierreihen}
+
+\gentry{}{$2\pi$-periodische Funktion}{%
+  Sei $p \in \mathbb{R}\setminus\{0\}$. $f: \mathbb{R} \to \mathbb{R}$ heißt
+  \textbf{periodisch mit Periode $p$} oder \textbf{$p$-periodisch}, wenn
+  \[
+    f(x+p) = f(x) \quad \text{für jedes } x \in \mathbb{R}.
+  \]
+  Durch lineare Maßstabsänderung der Variablen lässt sich jede Periode auf
+  $p = 2\pi$ bringen; im Folgenden werden stets $2\pi$-periodische Funktionen
+  betrachtet.
+}
+
+\gentry{5.4.1}{Bezeichnung $C_k, S_k$}{%
+  Für $k \in \mathbb{N}_0$ seien $C_k, S_k: \mathbb{R} \to \mathbb{R}$ definiert durch
+  \[
+    C_k(x) := \cos(kx), \quad S_k(x) := \sin(kx) \quad (x \in \mathbb{R}).
+  \]
+  Alle $C_k, S_k$ sind $2\pi$-periodisch.
+}
+
+\gentry{}{Trigonometrische Reihe}{%
+  Eine Reihe der Form
+  \[
+    \frac{1}{2} a_0 + \sum_{k=1}^\infty \bigl(a_k \cos(kx) + b_k \sin(kx)\bigr)
+    = \frac{1}{2} a_0 C_0 + \sum_{k=1}^\infty (a_k C_k + b_k S_k)
+  \]
+  mit $a_k, b_k, x \in \mathbb{R}$ heißt \textbf{trigonometrische Reihe}.
+}
+
+\gentry{5.4.2}{Skalarprodukt}{%
+  $f \in \mathrm{Abb}(]-\pi,\pi], \mathbb{R})$ heißt \textbf{integrierbar},
+  $f \in \mathcal{R}(]-\pi,\pi])$, wenn $f$ nach willkürlicher Festsetzung von
+  $f(-\pi)$ über $[-\pi,\pi]$ integrierbar ist. Für $f, g \in \mathcal{R}(]-\pi,\pi])$
+  sei
+  \[
+    \langle f, g \rangle := \frac{1}{\pi} \int_{-\pi}^\pi f(x) g(x)\,dx
+  \]
+  das \textbf{Skalarprodukt}. $f$ und $g$ heißen \textbf{orthogonal}
+  (senkrecht zueinander), wenn $\langle f, g \rangle = 0$.\\
+  Eigenschaften: Bilinearität, Kommutativität $\langle f,g \rangle = \langle g,f\rangle$,
+  positive Semidefinitheit $0 \leq \langle f, f \rangle$, Cauchy-Schwarzsche
+  Ungleichung $|\langle f,g\rangle| \leq \sqrt{\langle f,f\rangle\langle g,g\rangle}$.
+  (Definitheit gilt nur für stetiges $f$.)
+}
+
+\gentry{5.4.3}{Orthogonalitätsrelationen}{%
+  Für $k, \ell \in \mathbb{N}_0$ gilt:
+  \[
+    \langle C_k, C_\ell \rangle =
+    \begin{cases} 2, & k=\ell=0,\\ 1, & k=\ell \geq 1,\\ 0, & k\neq\ell,\end{cases}
+    \quad
+    \langle S_k, S_\ell \rangle =
+    \begin{cases} 1, & k=\ell \geq 1,\\ 0, & k\neq\ell \text{ oder } k=\ell=0,\end{cases}
+  \]
+  \[
+    \langle C_k, S_\ell \rangle = 0.
+  \]
+}
+
+\gentry{5.4.4}{Euler-Fouriersche Formeln}{%
+  Konvergiert die trigonometrische Reihe $\frac{1}{2}a_0 + \sum_{k=1}^\infty (a_k \cos(kx) + b_k \sin(kx))$
+  gleichmäßig für $x \in\,]-\pi,\pi]$ gegen $f: ]-\pi,\pi] \to \mathbb{R}$, so gilt
+  \begin{align*}
+    a_k &= \langle f, C_k \rangle = \frac{1}{\pi} \int_{-\pi}^\pi f(x) \cos(kx)\,dx \quad (k \in \mathbb{N}_0),\\
+    b_k &= \langle f, S_k \rangle = \frac{1}{\pi} \int_{-\pi}^\pi f(x) \sin(kx)\,dx \quad (k \in \mathbb{N}).
+  \end{align*}
+  Insbesondere ist $\frac{1}{2} a_0 = \frac{1}{2\pi}\int_{-\pi}^\pi f(x)\,dx$ der
+  Integralmittelwert von $f$.
+}
+
+\gentry{5.4.5}{Fourierreihe}{%
+  Sei $f \in \mathcal{R}(]-\pi,\pi])$. Mit
+  \[
+    a_k := \langle f, C_k \rangle \; (k \in \mathbb{N}_0), \quad
+    b_k := \langle f, S_k \rangle \; (k \in \mathbb{N})
+  \]
+  heißt die trigonometrische Reihe
+  \[
+    \frac{1}{2} a_0 + \sum_{k=1}^\infty \bigl(a_k \cos(kx) + b_k \sin(kx)\bigr)
+  \]
+  die \textbf{Fourierreihe} von $f$; $a_k, b_k$ heißen die
+  \textbf{Fourierkoeffizienten} von $f$.
+}
+
+\gentry{5.4.7}{Besselsche Ungleichung}{%
+  Sei $f \in \mathcal{R}(]-\pi,\pi])$ mit Fourierkoeffizienten $(a_k), (b_k)$.
+  Für jedes $n \in \mathbb{N}$ gilt
+  \[
+    \frac{1}{2} a_0^2 + \sum_{k=1}^n (a_k^2 + b_k^2)
+    \leq \frac{1}{\pi} \int_{-\pi}^\pi f^2(x)\,dx.
+  \]
+  Folglich konvergiert $\frac{1}{2} a_0^2 + \sum_{k=1}^\infty (a_k^2 + b_k^2)$
+  (gegen $\frac{1}{\pi}\int_{-\pi}^\pi f^2(x)\,dx$), und
+  \[
+    \lim_{k\to\infty} a_k = \lim_{k\to\infty} b_k = 0.
+  \]
+}
+
+\gentry{5.4.8}{Teilsummen und Dirichletkern}{%
+  Sei $f: \mathbb{R} \to \mathbb{R}$ $2\pi$-periodisch mit
+  $f|_{]-\pi,\pi]} \in \mathcal{R}(]-\pi,\pi])$,
+  $s_n(x) := \frac{1}{2} a_0 + \sum_{k=1}^n (a_k \cos(kx) + b_k \sin(kx))$ die
+  $n$-te Teilsumme der Fourierreihe. Dann gilt
+  \[
+    s_n(x) = \frac{1}{\pi} \int_{-\pi}^\pi f(t) D_n(x - t)\,dt
+  \]
+  mit dem \textbf{$n$-ten Dirichletkern}
+  \[
+    D_n(u) := \frac{1}{2} + \sum_{k=1}^n \cos(ku) =
+    \begin{cases}
+      \dfrac{\sin\bigl((2n+1)\frac{u}{2}\bigr)}{2 \sin\frac{u}{2}}, & u \neq 0, \pm 2\pi, \pm 4\pi, \ldots,\\[0.5em]
+      \dfrac{2n+1}{2}, & u = 0, \pm 2\pi, \ldots
+    \end{cases}
+  \]
+  Ferner:
+  \[
+    s_n(x) - f(x) = \frac{1}{\pi} \int_{-\pi}^\pi \left[\frac{f(x+u) + f(x-u)}{2} - f(x)\right] D_n(u)\,du.
+  \]
+}
+
+\gentry{5.4.9}{Darstellungssatz}{%
+  Sei $f: \mathbb{R} \to \mathbb{R}$ $2\pi$-periodisch mit
+  $f|_{]-\pi,\pi]} \in \mathcal{R}(]-\pi,\pi])$, und sei $x_0 \in \mathbb{R}$ ein
+  Punkt, in dem $f$ \textbf{rechts- und linksseitig differenzierbar} ist, d.\,h.\
+  $f|_{[x_0, \infty[}$ und $f|_{]-\infty, x_0]}$ seien in $x_0$ differenzierbar.
+  (Insbesondere ist $f$ in $x_0$ stetig.) Dann konvergiert die Fourierreihe von
+  $f$ für $x = x_0$ gegen $f(x_0)$.
+}
+
+% ======================================================================
+\section*{5.5 \quad Der Weierstraßsche Approximationssatz}
+
+\gentry{5.5.1}{Fejérsche Summen}{%
+  Sei $f: \mathbb{R} \to \mathbb{R}$ $2\pi$-periodisch mit $f|_{]-\pi,\pi]} \in \mathcal{R}(]-\pi,\pi])$,
+  $s_n(x)$ die $n$-te Teilsumme der Fourierreihe. Die Funktionen
+  \[
+    \sigma_n(x) := \frac{1}{n+1} \sum_{k=0}^n s_k(x) \quad (n \in \mathbb{N}_0, x \in \mathbb{R})
+  \]
+  heißen \textbf{Fejérsche Summen} von $f$. Es gilt
+  \[
+    \sigma_n(x) = \frac{1}{\pi} \int_{-\pi}^\pi f(t) F_n(x-t)\,dt
+  \]
+  mit dem \textbf{$n$-ten Fejérkern}
+  \[
+    F_n(u) := \frac{1}{n+1} \sum_{k=0}^n D_k(u) =
+    \begin{cases}
+      \dfrac{\sin^2\bigl(\frac{n+1}{2} u\bigr)}{2(n+1) \sin^2\frac{u}{2}}, & u \neq 2\pi m,\\[0.5em]
+      \dfrac{1}{2}(n+1), & u = 2\pi m, \; m \in \mathbb{Z}.
+    \end{cases}
+  \]
+}
+
+\gentry{5.5.2}{Eigenschaften der Fejérkerne}{%
+  Die Fejérkerne $F_n$ ($n \in \mathbb{N}_0$) haben folgende Eigenschaften:
+  \begin{itemize}[topsep=2pt,itemsep=1pt]
+    \item[(i)] $F_n$ ist $2\pi$-periodisch und stetig.
+    \item[(ii)] $F_n$ ist gerade: $F_n(-u) = F_n(u)$ für alle $u \in \mathbb{R}$.
+    \item[(iii)] $0 \leq F_n(u) \leq \frac{1}{2}(n+1)$ für alle $u \in \mathbb{R}$.
+    \item[(iv)] $0 \leq F_n(u) \leq \dfrac{1}{2(n+1)} \left(\dfrac{\pi}{u}\right)^2$ für $0 < |u| \leq \pi$.
+    \item[(v)] $\dfrac{1}{\pi} \int_{-\pi}^\pi F_n(u)\,du = 1$.
+  \end{itemize}
+}
+
+\gentry{5.5.3}{Satz von Fejér}{%
+  Ist $f: \mathbb{R} \to \mathbb{R}$ $2\pi$-periodisch und stetig, so konvergiert
+  die Folge $(\sigma_n)$ der Fejérschen Summen von $f$ gleichmäßig gegen $f$.
+}
+
+\gentry{5.5.4}{Weierstraßscher Approximationssatz}{%
+  Sei $I = [a,b]$ mit $a<b$ ein kompaktes Intervall und $f: I \to \mathbb{R}$
+  stetig. Dann gibt es eine Folge $(P_n)$ von Polynomfunktionen, die auf $I$
+  gleichmäßig gegen $f$ konvergiert:
+  \[
+    \|P_n|_I - f\|_\infty \to 0 \quad \text{für } n \to \infty.
+  \]
+}
+
+\gentry{}{Tschebyscheffpolynom (Ü 5.5.2)}{%
+  Für $n \in \mathbb{N}_0$ ist $T_n: [-1,1] \to \mathbb{R}$ durch
+  $T_n(x) := \cos(n \arccos x)$ definiert und ist eine Polynomfunktion vom
+  Grade $n$ (eingeschränkt auf $[-1,1]$). Es gilt
+  \[
+    T_0(x) = 1, \quad T_1(x) = x, \quad T_{n+2}(x) = 2 x T_{n+1}(x) - T_n(x).
+  \]
+  $T_n$ heißt \textbf{Tschebyscheffpolynom} vom Grad $n$.
+}
+
+\end{document}
