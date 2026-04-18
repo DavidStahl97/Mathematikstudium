@@ -1,0 +1,462 @@
+\documentclass[a4paper,12pt]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[ngerman]{babel}
+\usepackage{amsmath, amssymb}
+\usepackage{geometry}
+\usepackage{parskip}
+\usepackage{titlesec}
+\usepackage{enumitem}
+\usepackage{array}
+\usepackage{booktabs}
+
+\geometry{left=3cm, right=3cm, top=2.5cm, bottom=2.5cm}
+
+\titleformat{\section}{\large\bfseries}{}{0em}{}[\titlerule]
+\titleformat{\subsection}{\normalsize\bfseries\scshape}{}{0em}{}
+
+% Glossar-Eintrag: Nummer, fetter Titel, Inhalt
+\newcommand{\gentry}[3]{%
+  \noindent\textbf{#1\quad #2}\nopagebreak\\[0.2em]
+  #3\par\smallskip
+}
+
+\begin{document}
+
+\begin{center}
+  {\LARGE\bfseries Glossar zu Lektion 4}\\[0.5em]
+  {\large Analysis (Modul 61211)}
+\end{center}
+
+\vspace{1em}
+
+Dieses Glossar fasst die wesentlichen Definitionen, Merkregeln und Sätze der
+vierten Lektion (Differenzierbare Funktionen, 2.\,Teil) kompakt zusammen.
+Nummerierungen entsprechen dem Lehrtext.
+
+% ======================================================================
+\section*{4.1 \quad Der Umkehrsatz}
+
+\gentry{4.1.1}{Umkehrsatz für $f \in \mathrm{Hom}(\mathbb{R}^n, \mathbb{R}^n)$}{%
+  Sei $f: \mathbb{R}^n \to \mathbb{R}^n$ linear, und sei $A$ die Matrix von $f$, bezogen auf
+  die kanonische Basis von $\mathbb{R}^n$ (also $f(x) = Ax$ für $x \in \mathbb{R}^n$). Dann gilt:
+  \[
+    f \text{ injektiv} \;\Leftrightarrow\; f \text{ surjektiv} \;\Leftrightarrow\;
+    \mathrm{Rang}\,A = n \;\Leftrightarrow\; A^{-1} \text{ existiert.}
+  \]
+  Im Fall der Injektivität ist $f^{-1}: \mathbb{R}^n \to \mathbb{R}^n$ linear und ihre
+  Matrix bezüglich der kanonischen Basis ist $A^{-1}$, d.\,h.\ $f^{-1}(y) = A^{-1}y$.
+}
+
+\gentry{4.1.2}{Lokaler Umkehrsatz}{%
+  Seien $a \in M$, $M \subseteq \mathbb{R}^n$ und $f: M \to \mathbb{R}^n$ stetig differenzierbar,
+  d.\,h.\ differenzierbar mit stetigen partiellen Ableitungen $D_\mu f_\nu$
+  ($\mu, \nu \in \{1, \ldots, n\}$), wobei die $f_\nu$ die Koordinatenfunktionen von $f$ sind.
+  Ist $\mathrm{Rang}\,f'(a) = n$, so gibt es eine offene Umgebung $U$ von $a$ mit $U \subseteq M$
+  und eine offene Umgebung $V$ von $b := f(a)$ mit:
+  \begin{enumerate}[label=(\roman*),topsep=2pt,itemsep=1pt]
+    \item $f|_U$ ist injektiv, und es gilt $f(U) = V$.
+    \item Ist $g: V \to U$ die Umkehrfunktion von $f|_U$, so ist $g$ stetig differenzierbar auf $V$,
+          und für jedes $y \in V$ gilt $g'(y) = f'(x)^{-1}$, wobei $x := g(y)$.
+  \end{enumerate}
+}
+
+\gentry{4.1.3}{Ebene Polarkoordinaten}{%
+  Für $M := \{(r, \varphi) \in \mathbb{R}^2 \mid r > 0\}$:
+  \[
+    f: M \to \mathbb{R}^2, \quad (r, \varphi) \mapsto f(r, \varphi) := \begin{pmatrix} r\cos\varphi \\ r\sin\varphi \end{pmatrix}.
+  \]
+  Die Voraussetzungen des lokalen Umkehrsatzes sind für jedes $a = (r, \varphi) \in M$ erfüllt.
+}
+
+\gentry{4.1.4}{Räumliche Polarkoordinaten}{%
+  Für $M := \{(r, \varphi, \psi) \in \mathbb{R}^3 \mid r > 0\}$:
+  \[
+    f: M \to \mathbb{R}^3, \quad (r, \varphi, \psi) \mapsto
+    \begin{pmatrix} r\cos\varphi\cos\psi \\ r\sin\varphi\cos\psi \\ r\sin\psi \end{pmatrix}.
+  \]
+  Die Voraussetzungen des lokalen Umkehrsatzes sind für jedes $a = (r, \varphi, \psi)$ mit
+  $\cos\psi \neq 0$ erfüllt.
+}
+
+\gentry{4.1.5}{Offene Abbildung}{%
+  Ist $M$ eine nichtleere Teilmenge von $\mathbb{R}^n$ und ist $f: M \to \mathbb{R}^n$ stetig
+  differenzierbar mit $\mathrm{Rang}\,f'(x) = n$ für jedes $x \in M$, so ist $f(Q)$ offen für jede
+  offene Menge $Q$ mit $Q \subseteq M$. Man sagt: $f$ ist eine \textbf{offene Abbildung}.
+}
+
+\gentry{4.1.6}{Banachscher Fixpunktsatz}{%
+  Seien $(X, \|\cdot\|)$ ein vollständiger normierter Raum (Banachraum),
+  $M \neq \emptyset$ eine abgeschlossene Teilmenge von $X$ und $F: M \to X$ eine
+  \textbf{kontrahierende Selbstabbildung}, d.\,h.\ $F(M) \subseteq M$ und es gebe
+  eine reelle Konstante $q$ mit $0 \leq q < 1$ derart, dass
+  \[
+    \|F(x) - F(y)\| \leq q\,\|x - y\| \quad \text{für alle } x, y \in M.
+  \]
+  Dann existiert genau ein Punkt $x^* \in M$ mit $F(x^*) = x^*$ (\textbf{Fixpunkt}).\\
+  \emph{Zusatz:} $x^*$ ist der Grenzwert jeder Iterationsfolge $(x_k)$, definiert durch
+  $x_k := F(x_{k-1})$ für $k \in \mathbb{N}$, wobei $x_0 \in M$ ein beliebiger Startpunkt ist.
+}
+
+\gentry{4.1.7}{Invertierbare Matrizen}{%
+  Sei $\mathbf{A}_{nn} := \{A \in \mathbb{R}^{n \times n} \mid A \text{ ist invertierbar}\}$,
+  und $\mathbb{R}^{n \times n}$ sei mit der Zeilensummennorm aus 3.4.6 versehen.
+  \begin{enumerate}[label=(\roman*),topsep=2pt,itemsep=1pt]
+    \item Ist $A \in \mathbf{A}_{nn}$ und $B \in \mathbb{R}^{n \times n}$ mit
+          $\|A - B\| < \frac{1}{\|A^{-1}\|}$, so gilt
+          \[
+            B \in \mathbf{A}_{nn} \quad \text{und} \quad
+            \|B^{-1}\| \leq \frac{\|A^{-1}\|}{1 - \|A^{-1}\|\,\|A - B\|}.
+          \]
+    \item Die Abbildung $\mathrm{inv}: \mathbf{A}_{nn} \to \mathbb{R}^{n \times n},\; A \mapsto A^{-1}$ ist stetig.
+  \end{enumerate}
+}
+
+% ======================================================================
+\section*{4.2 \quad Implizit definierte Funktionen}
+
+\gentry{4.2.1}{Implizite lineare Funktionen}{%
+  Sei $L: \mathbb{R}^{m+n} \to \mathbb{R}^n$ linear, und sei $A$ die $(n, m+n)$-Matrix von $L$.
+  Ist $A_2$ die Untermatrix aus den letzten $n$ Spalten von $A$ und gilt $\mathrm{Rang}\,A_2 = n$,
+  so lässt sich die Gleichung
+  \[
+    L(z_1, \ldots, z_m, z_{m+1}, \ldots, z_{m+n}) = 0
+  \]
+  \textbf{eindeutig nach $z_{m+1}, \ldots, z_{m+n}$ auflösen}, d.\,h.\ es gibt genau eine
+  Funktion $g = (g_1, \ldots, g_n): \mathbb{R}^m \to \mathbb{R}^n$ mit
+  $L(z_1, \ldots, z_m, g_1(z_1, \ldots, z_m), \ldots, g_n(z_1, \ldots, z_m)) = 0$
+  für alle $(z_1, \ldots, z_m) \in \mathbb{R}^m$. $g$ heißt \textbf{implizit definiert}.
+  Explizit: $g$ ist linear mit $g(x) = -(A_2^{-1} A_1) x$, wobei $A_1$ die Untermatrix aus
+  den ersten $m$ Spalten von $A$ ist.
+}
+
+\gentry{4.2.3}{Satz über implizite Funktionen}{%
+  Sei $M$ eine nichtleere Teilmenge von $\mathbb{R}^{m+n}$; für $z = (z_1, \ldots, z_{m+n})$
+  schreibe $z = (x_1, \ldots, x_m, y_1, \ldots, y_n) = \binom{x}{y}$. Sei
+  \[
+    F = (F_1, \ldots, F_n): M \to \mathbb{R}^n, \quad z \mapsto F(z) = F(x, y)
+  \]
+  stetig differenzierbar. Es gebe einen Punkt $c = \binom{a}{b} \in M$ mit $a \in \mathbb{R}^m$,
+  $b \in \mathbb{R}^n$, sodass
+  \[
+    F(c) = 0 \quad \text{und} \quad \mathrm{Rang}\,F_y(c) = n,
+  \]
+  wobei $F_y(z)$ die Untermatrix von $F'(z)$ mit den partiellen Ableitungen nach
+  $y_1, \ldots, y_n$ ist:
+  \[
+    F_y(z) = \begin{pmatrix}
+      D_{m+1} F_1(z) & \cdots & D_{m+n} F_1(z) \\
+      \vdots & & \vdots \\
+      D_{m+1} F_n(z) & \cdots & D_{m+n} F_n(z)
+    \end{pmatrix}.
+  \]
+  Dann lässt sich $F(x, y) = 0$ in einer geeigneten Umgebung von $c$
+  \textbf{eindeutig nach $y$ auflösen}: Es gibt eine offene Umgebung $U$ von $a$ in $\mathbb{R}^m$,
+  eine offene Umgebung $V$ von $b$ in $\mathbb{R}^n$ und eine stetig differenzierbare
+  Funktion $g: U \to V$ mit:
+  \begin{enumerate}[label=(\roman*),topsep=2pt,itemsep=1pt]
+    \item $U \times V \subseteq M$ und $F(x, g(x)) = 0$ für jedes $x \in U$.
+          Ist $\binom{x}{y} \in U \times V$ mit $F(x, y) = 0$, so gilt $y = g(x)$.
+    \item $g'(x) = -[F_y(x, g(x))]^{-1}\,F_x(x, g(x))$ für jedes $x \in U$,
+          wobei $F_x(z)$ die Untermatrix von $F'(z)$ mit den partiellen Ableitungen nach
+          $x_1, \ldots, x_m$ ist. Insbesondere: $g'(a) = -[F_y(c)]^{-1}\,F_x(c)$.
+  \end{enumerate}
+}
+
+% ======================================================================
+\section*{4.3 \quad Ableitungen höherer Ordnung (Rückblick und Ergänzungen)}
+
+\gentry{4.3.1}{Ableitung höherer Ordnung}{%
+  Sei $f: M \to \mathbb{R}$ mit $\emptyset \neq M \subseteq \mathbb{R}$. Die
+  \textbf{$k$-te Ableitung} (Ableitung $k$-ter Ordnung) $f^{(k)}$ wird für $k \in \mathbb{N}_0$
+  rekursiv definiert:
+  \begin{enumerate}[label=(\roman*),topsep=2pt,itemsep=1pt]
+    \item $f^{(0)} := f$.
+    \item Existiert $f^{(k)}: M \to \mathbb{R}$ und ist $f^{(k)}$ differenzierbar, so wird
+          $f^{(k+1)} := (f^{(k)})'$ gesetzt.
+  \end{enumerate}
+  $f$ heißt \textbf{$k$-mal differenzierbar}, wenn $f^{(k)}$ existiert;
+  \textbf{beliebig oft differenzierbar}, wenn $f^{(k)}$ für jedes $k \in \mathbb{N}$ existiert.
+}
+
+\gentry{4.3.2}{Operationen, Leibnizsche Formel}{%
+  Seien $k \in \mathbb{N}$, $\alpha \in \mathbb{R}$, $\emptyset \neq M \subseteq \mathbb{R}$,
+  und seien $f, g: M \to \mathbb{R}$ $k$-mal differenzierbar.
+  \begin{enumerate}[label=(\roman*),topsep=2pt,itemsep=1pt]
+    \item Dann sind $f+g$, $f-g$, $\alpha f$, $fg$ und (falls $g(x) \neq 0$) $f/g$ $k$-mal
+          differenzierbar, und es gilt:
+          \begin{align*}
+            (f+g)^{(k)} &= f^{(k)} + g^{(k)}, \quad (f-g)^{(k)} = f^{(k)} - g^{(k)}, \quad (\alpha f)^{(k)} = \alpha f^{(k)},\\
+            (fg)^{(k)} &= \sum_{\nu=0}^{k} \binom{k}{\nu} f^{(\nu)} g^{(k-\nu)} \quad \text{(\textbf{Leibnizsche Formel})}.
+          \end{align*}
+    \item Ist $\emptyset \neq M' \subseteq M$ und jeder Punkt von $M'$ Häufungspunkt von $M'$,
+          so ist $f|_{M'}$ $k$-mal differenzierbar mit $(f|_{M'})^{(k)} = f^{(k)}|_{M'}$.
+    \item Ist $f(M) \subseteq E \subseteq \mathbb{R}$ und $h: E \to \mathbb{R}$ $k$-mal
+          differenzierbar, so ist auch $h \circ f$ $k$-mal differenzierbar.
+  \end{enumerate}
+}
+
+\gentry{4.3.3}{Polynomfunktionen}{%
+  Polynomfunktionen sind beliebig oft differenzierbar. Für jedes $k \in \mathbb{N}$ ist die
+  $k$-te Ableitung eine Polynomfunktion.
+}
+
+\gentry{4.3.4}{Identitätssatz für Potenzreihenfunktionen}{%
+  Sei $\sum_{n=0}^{\infty} a_n (x-a)^n$ eine Potenzreihe mit Konvergenzradius $R > 0$. Dann
+  ist die Potenzreihenfunktion
+  \[
+    f: \,]a-R, a+R[\, \to \mathbb{R}, \quad x \mapsto f(x) := \sum_{\nu=0}^{\infty} a_\nu (x-a)^\nu
+  \]
+  beliebig oft differenzierbar, und für $k \in \mathbb{N}$ gilt
+  \[
+    f^{(k)}(x) = \sum_{\nu = k}^{\infty} \nu(\nu-1)\cdots(\nu-k+1)\, a_\nu (x-a)^{\nu-k}.
+  \]
+  Insbesondere $f^{(k)}(a) = k!\,a_k$. Aus $f(x) = \sum a_\nu (x-a)^\nu = \sum b_\nu (x-a)^\nu$
+  (beide Darstellungen mit positivem Konvergenzradius) folgt $a_\nu = b_\nu$ für alle
+  $\nu \in \mathbb{N}_0$ (\textbf{Identitätssatz für Potenzreihen}).
+}
+
+\gentry{4.3.5}{Rationale Funktionen}{%
+  Rationale Funktionen sind beliebig oft differenzierbar. Für jedes $k \in \mathbb{N}$ ist
+  die $k$-te Ableitung eine rationale Funktion.
+}
+
+\gentry{4.3.6}{$k$-te Ableitung in einem Punkt}{%
+  Seien $k \in \mathbb{N}$, $a \in M \subseteq \mathbb{R}$ und $f: M \to \mathbb{R}$.
+  $f$ heißt \textbf{$k$-mal differenzierbar in $a$}, wenn es eine Umgebung $U$ von $a$ gibt mit:
+  \begin{enumerate}[label=(\roman*),topsep=2pt,itemsep=1pt]
+    \item $f|_{U \cap M}$ ist (gemäß 4.3.1) $(k-1)$-mal differenzierbar.
+    \item $(f|_{U \cap M})^{(k-1)}$ ist (gemäß 3.3.1) in $a$ differenzierbar.
+  \end{enumerate}
+  Die Ableitung von $(f|_{U \cap M})^{(k-1)}$ an der Stelle $a$ heißt \textbf{$k$-te Ableitung
+  von $f$ an der Stelle $a$} und wird mit $f^{(k)}(a)$ bezeichnet.
+  $f$ heißt \textbf{beliebig oft differenzierbar in $a$}, wenn $f$ für jedes $k \in \mathbb{N}$
+  $k$-mal differenzierbar in $a$ ist. Gilt $\emptyset \neq E \subseteq M$, so heißt $f$
+  $k$-mal (bzw.\ beliebig oft) differenzierbar auf $E$, wenn $f$ in jedem Punkt von $E$ $k$-mal
+  (bzw.\ beliebig oft) differenzierbar ist.
+}
+
+\gentry{4.3.8}{Taylorpolynom}{%
+  Seien $k \in \mathbb{N}_0$, $a \in M \subseteq \mathbb{R}$ und $f: M \to \mathbb{R}$ $k$-mal
+  differenzierbar in $a$. Dann ist
+  \[
+    T_k: \mathbb{R} \to \mathbb{R}, \quad x \mapsto T_k(x) := \sum_{\nu=0}^{k} \frac{f^{(\nu)}(a)}{\nu!}\,(x-a)^\nu
+  \]
+  eine Polynomfunktion vom Grad $\leq k$, für welche
+  \[
+    T_k^{(\nu)}(a) = \begin{cases} f^{(\nu)}(a) & \text{für } 0 \leq \nu \leq k, \\ 0 & \text{für } \nu > k \end{cases}
+  \]
+  gilt. $T_k$ heißt \textbf{$k$-tes Taylorpolynom von $f$ mit Entwicklungspunkt $a$}.
+}
+
+\gentry{4.3.9}{Satz von Taylor}{%
+  Seien $k \in \mathbb{N}_0$, $I$ ein nichtleeres Intervall, $a \in I$, und sei
+  $f: I \to \mathbb{R}$ $k$-mal differenzierbar. Ist $T_k$ das $k$-te Taylorpolynom von $f$
+  mit Entwicklungspunkt $a$ und ist die \textbf{$k$-te Restfunktion} $R_k: I \to \mathbb{R}$
+  durch $f(x) = T_k(x) + R_k(x)$ ($x \in I$) definiert, so gilt:
+  \begin{enumerate}[label=(\roman*),topsep=2pt,itemsep=1pt]
+    \item $\displaystyle \lim_{x \to a} \frac{R_k(x)}{(x-a)^k} = 0$, falls $k \geq 1$.
+    \item $\displaystyle \lim_{x \to a} \frac{R_k(x)}{(x-a)^{k+1}} = \frac{f^{(k+1)}(a)}{(k+1)!}$,
+          falls $f^{(k+1)}(a)$ existiert.
+    \item Ist $f$ sogar $(k+1)$-mal differenzierbar, so gibt es zu jedem $x \in I \setminus \{a\}$
+          (mindestens) ein $\xi \in \,]\min\{x, a\}, \max\{x, a\}[\,$ mit
+          \[
+            R_k(x) = \frac{f^{(k+1)}(\xi)}{(k+1)!}\,(x-a)^{k+1} \quad \text{(\textbf{Restdarstellung von Lagrange}).}
+          \]
+          Die Gleichung ist auch im Fall $x = a$ richtig, wenn man $\xi = a$ wählt.
+  \end{enumerate}
+}
+
+% ======================================================================
+\section*{4.4 \quad Ableitungen höherer Ordnung}
+
+\gentry{4.4.1}{Partielle Ableitungen der Ordnung $k$}{%
+  Seien $a \in M \subseteq \mathbb{R}^n$ mit $a$ innerer Punkt von $M$,
+  $f \in \mathrm{Abb}(M, \mathbb{R})$ und $k \in \mathbb{N}$.
+  \begin{enumerate}[label=(\roman*),topsep=2pt,itemsep=1pt]
+    \item Für $k = 1$ seien die \textbf{partiellen Ableitungen der Ordnung 1} von $f$ in $a$
+          die in 3.6.1 definierten Zahlen $D_1 f(a), \ldots, D_n f(a)$.
+    \item Sei $D_{\nu_1 \ldots \nu_k} f(a)$ ($1 \leq \nu_j \leq n$, $1 \leq j \leq k$) der
+          Ordnung $k$ bereits definiert. Existiert $D_{\nu_1 \ldots \nu_k} f(x)$ für alle
+          $x \in M \cap U$ einer Umgebung $U$ von $a$ und ist die Funktion
+          $D_{\nu_1 \ldots \nu_k} f: M \cap U \to \mathbb{R}$ in $a$ nach der $\nu_{k+1}$-ten
+          Koordinate ($1 \leq \nu_{k+1} \leq n$) partiell differenzierbar, so wird
+          \[
+            D_{\nu_1 \ldots \nu_k \nu_{k+1}} f(a) := D_{\nu_{k+1}} (D_{\nu_1 \ldots \nu_k} f)(a).
+          \]
+          Andere Schreibweisen: $\displaystyle \frac{\partial^k f}{\partial x_{\nu_k} \cdots \partial x_{\nu_1}}(a)$
+          oder $f_{x_{\nu_1} \ldots x_{\nu_k}}(a)$.
+    \item $f$ heißt \textbf{$k$-mal partiell differenzierbar in $a$}, wenn alle partiellen
+          Ableitungen $D_{\nu_1 \ldots \nu_k} f(a)$ der Ordnung $k$ in $a$ existieren.
+    \item $f$ heißt $k$-mal partiell differenzierbar auf $E$ (bzw.\ $k$-mal partiell
+          differenzierbar), wenn $f$ in jedem $x \in E$ (bzw.\ jedem $x \in M$) $k$-mal partiell
+          differenzierbar ist.
+  \end{enumerate}
+}
+
+\gentry{4.4.3}{Satz von Schwarz}{%
+  Seien $M \subseteq \mathbb{R}^n$, $a$ innerer Punkt von $M$, $f \in \mathrm{Abb}(M, \mathbb{R})$,
+  $k \in \mathbb{N}$ mit $k \geq 2$ und $U$ eine Umgebung von $a$ mit $U \subseteq M$,
+  auf der $f$ $(k-1)$-mal partiell differenzierbar ist.
+  \begin{enumerate}[label=(\roman*),topsep=2pt,itemsep=1pt]
+    \item Ist $k = 2$, existiert für gegebene $\nu_1, \nu_2 \in \{1, \ldots, n\}$ die partielle
+          Ableitung $D_{\nu_1 \nu_2} f(x)$ für jedes $x \in U$ und ist $D_{\nu_1 \nu_2} f: U \to \mathbb{R}$
+          stetig in $a$, so existiert $D_{\nu_2 \nu_1} f(a)$, und es gilt
+          $D_{\nu_2 \nu_1} f(a) = D_{\nu_1 \nu_2} f(a)$.
+    \item Ist $k \geq 2$, sind alle partiellen Ableitungen der Ordnung $k-1$ auf $U$ differenzierbar
+          und alle partiellen Ableitungen der Ordnung $k$ in $a$ stetig, so kommt es bei allen
+          partiellen Ableitungen von $f$ im Punkt $a$ bis zur Ordnung $k$ auf die Reihenfolge
+          der partiellen Differenziationen nicht an.
+  \end{enumerate}
+}
+
+\gentry{4.4.4}{Differenzierbarkeit höherer Ordnung}{%
+  Seien $M \subseteq \mathbb{R}^n$, $a \in M$, $f = (f_1, \ldots, f_m) \in \mathrm{Abb}(M, \mathbb{R}^m)$,
+  $k \in \mathbb{N}$.
+  \begin{enumerate}[label=(\roman*),topsep=2pt,itemsep=1pt]
+    \item $f$ heißt \textbf{einmal differenzierbar in $a$}, wenn $f$ total differenzierbar in $a$
+          ist (3.5.1(i)).
+    \item Für $k \geq 2$: $f$ heißt \textbf{$k$-mal differenzierbar in $a$}, wenn es eine
+          Umgebung $U$ von $a$ mit $U \subseteq M$ gibt, sodass $f_1, \ldots, f_m$ alle
+          $(k-1)$-mal partiell differenzierbar auf $U$ sind und sämtliche partielle Ableitungen
+          $D_{\nu_1 \ldots \nu_{k-1}} f_\mu: U \to \mathbb{R}$ in $a$ differenzierbar sind.
+    \item Ist $\emptyset \neq E \subseteq M$, so heißt $f$ \textbf{$k$-mal differenzierbar auf $E$},
+          wenn $f$ in jedem Punkt von $E$ $k$-mal differenzierbar ist.
+    \item $f$ heißt \textbf{$k$-mal stetig differenzierbar} -- in Zeichen $f \in C^k(M)$ --,
+          wenn $f$ $k$-mal differenzierbar auf $M$ ist und die sämtlichen partiellen Ableitungen
+          $D_{\nu_1 \ldots \nu_k} f_\mu: M \to \mathbb{R}$ stetig sind.
+  \end{enumerate}
+}
+
+\gentry{4.4.6}{Taylorpolynom (mehrere Veränderliche)}{%
+  Seien $k \in \mathbb{N}_0$, $a = (a_1, \ldots, a_n) \in M \subseteq \mathbb{R}^n$ innerer Punkt
+  von $M$, und sei $f: M \to \mathbb{R}$ $k$-mal partiell differenzierbar in $a$. Dann ist das
+  \textbf{$k$-te Taylorpolynom von $f$ mit Entwicklungspunkt $a$} die Funktion
+  \[
+    T_k: \mathbb{R}^n \to \mathbb{R}, \quad x \mapsto T_k(x) := \sum_{j=0}^{k} \frac{1}{j!}\,t_j(x-a),
+  \]
+  mit $t_j: \mathbb{R}^n \to \mathbb{R}$ gegeben durch
+  \[
+    t_0(u) := f(a), \quad
+    t_j(u) := \sum_{\nu_1=1}^{n} \cdots \sum_{\nu_j=1}^{n} D_{\nu_1 \ldots \nu_j} f(a)\,u_{\nu_1} \cdots u_{\nu_j}
+  \]
+  für $1 \leq j \leq k$ und $u = (u_1, \ldots, u_n) \in \mathbb{R}^n$.
+}
+
+\gentry{4.4.8}{Satz von Taylor (mehrere Veränderliche)}{%
+  Seien $k \in \mathbb{N}$, $\emptyset \neq M \subseteq \mathbb{R}^n$ und $f \in \mathrm{Abb}(M, \mathbb{R})$.
+  Ferner seien $a = (a_1, \ldots, a_n)$ und $x = (x_1, \ldots, x_n)$ Punkte von $M$ derart, dass
+  die Verbindungsstrecke $[a, x] := \{a + t(x-a) \mid 0 \leq t \leq 1\}$ im Innern von $M$
+  enthalten ist. Ist $f$ $k$-mal differenzierbar auf $[a, x]$, so gibt es ein $\theta \in \,]0, 1[\,$
+  derart, dass mit $z := a + \theta(x-a)$ die \textbf{Taylorsche Formel} gilt:
+  \[
+    f(x) - T_{k-1}(x) = \frac{1}{k!} \sum_{\nu_1=1}^{n} \cdots \sum_{\nu_k=1}^{n}
+    D_{\nu_1 \ldots \nu_k} f(z)\,(x_{\nu_1} - a_{\nu_1}) \cdots (x_{\nu_k} - a_{\nu_k}).
+  \]
+  Hier ist $T_{k-1}$ das $(k-1)$-te Taylorpolynom von $f$ mit Entwicklungspunkt $a$.
+}
+
+\gentry{4.4.9}{Approximationsgeschwindigkeit}{%
+  Seien $k \in \mathbb{N}$ und $a \in M \subseteq \mathbb{R}^n$. Gibt es eine Umgebung $U$
+  von $a$ mit $U \subseteq M$, sodass $f \in \mathrm{Abb}(M, \mathbb{R})$ $k$-mal stetig
+  differenzierbar auf $U$ ist, so gilt
+  \[
+    \frac{f(x) - T_k(x)}{\|x - a\|^k} \longrightarrow 0 \quad \text{für } x \to a.
+  \]
+  Dabei ist $T_k$ das $k$-te Taylorpolynom von $f$ mit Entwicklungspunkt $a$.
+}
+
+% ======================================================================
+\section*{4.5 \quad Extrema}
+
+\gentry{4.5.1}{Lokales Extremum}{%
+  Seien $a \in M \subseteq \mathbb{R}^n$ und $f \in \mathrm{Abb}(M, \mathbb{R})$.
+  $a$ heißt \textbf{Stelle eines lokalen Maximums} (bzw.\ \textbf{lokalen Minimums}) von $f$,
+  und man sagt, $f$ habe in $a$ ein lokales Maximum (bzw.\ Minimum), wenn es eine Umgebung $U$
+  von $a$ gibt mit
+  \[
+    f(a) \geq f(x) \text{ für jedes } x \in U \cap M \quad
+    (\text{bzw.\ } f(a) \leq f(x) \text{ für jedes } x \in U \cap M).
+  \]
+}
+
+\gentry{4.5.2}{Lokales Extremum, $n = 1$}{%
+  Seien $U \subseteq M \subseteq \mathbb{R}$, $U$ Umgebung von $a$ und $f: M \to \mathbb{R}$
+  auf $U$ differenzierbar.
+  \begin{enumerate}[label=(\roman*),topsep=2pt,itemsep=1pt]
+    \item Hat $f$ in $a$ ein lokales Extremum, so gilt $f'(a) = 0$.
+    \item Ist $f'(a) = 0$, $f$ in $a$ zweimal differenzierbar und $f''(a) < 0$, so hat $f$ in $a$
+          ein lokales Maximum.
+    \item Ist $f'(a) = 0$, $f$ in $a$ zweimal differenzierbar und $f''(a) > 0$, so hat $f$ in $a$
+          ein lokales Minimum.
+  \end{enumerate}
+}
+
+\gentry{4.5.3}{Notwendige Bedingung, $n \geq 1$}{%
+  Sei $a \in M \subseteq \mathbb{R}^n$, und $f \in \mathrm{Abb}(M, \mathbb{R})$ habe in $a$ ein
+  lokales Extremum. Ist $f$ in $a$ differenzierbar (insbesondere ist $a$ innerer Punkt von $M$),
+  so gilt
+  \[
+    f'(a) = 0, \quad \text{d.\,h.\ } \mathrm{grad}\,f(a) = 0,
+  \]
+  also $D_1 f(a) = 0, \ldots, D_n f(a) = 0$.
+}
+
+\gentry{4.5.5}{Quadratische Form}{%
+  Sei $A = (a_{ij})$ eine $(n, n)$-Matrix mit $a_{ij} = a_{ji}$ für alle $i, j \in \{1, \ldots, n\}$
+  (\textbf{symmetrisch}). Dann heißt
+  \[
+    Q: \mathbb{R}^n \to \mathbb{R}, \quad x = (x_1, \ldots, x_n) \mapsto x \cdot Ax = \sum_{i=1}^{n} \sum_{j=1}^{n} a_{ij}\,x_i\,x_j
+  \]
+  die \textbf{von $A$ erzeugte quadratische Form}. Sowohl $A$ als auch $Q$ heißt
+  \begin{itemize}[topsep=2pt,itemsep=1pt]
+    \item \textbf{positiv (bzw.\ negativ) definit}, wenn $Q(x) > 0$ (bzw.\ $Q(x) < 0$) für alle $x \in \mathbb{R}^n \setminus \{0\}$,
+    \item \textbf{positiv (bzw.\ negativ) semidefinit}, wenn $Q(x) \geq 0$ (bzw.\ $Q(x) \leq 0$) für alle $x \in \mathbb{R}^n$,
+    \item \textbf{indefinit}, wenn es $x, y \in \mathbb{R}^n$ mit $Q(x) > 0$ und $Q(y) < 0$ gibt.
+  \end{itemize}
+}
+
+\gentry{4.5.6}{Lokales Extremum (Hessesche Matrix)}{%
+  Seien $M$ eine nichtleere Teilmenge von $\mathbb{R}^n$ und $f: M \to \mathbb{R}$ zweimal stetig
+  differenzierbar. Ist $a$ ein Punkt von $M$ mit $f'(a) = 0$ und ist
+  $H(a) := (D_{ij} f(a))$ die \textbf{Hessesche Matrix} von $f$ an der Stelle $a$, so gilt:
+  \begin{enumerate}[label=(\roman*),topsep=2pt,itemsep=1pt]
+    \item $f$ hat in $a$ ein lokales Maximum, wenn $H(a)$ negativ definit ist.
+    \item $f$ hat in $a$ ein lokales Minimum, wenn $H(a)$ positiv definit ist.
+    \item $f$ hat in $a$ kein lokales Extremum, wenn $H(a)$ indefinit ist.
+    \item Ist $H(a)$ nur positiv semidefinit oder negativ semidefinit, so kann keine Aussage gemacht werden.
+  \end{enumerate}
+}
+
+\gentry{4.5.8}{Spezialfall $n = 2$}{%
+  Seien $M$ eine nichtleere Teilmenge von $\mathbb{R}^2$ und $f: M \to \mathbb{R}$ zweimal stetig
+  differenzierbar. Ist $a \in M$ mit $f'(a) = 0$ und
+  $\Delta(a) := D_{11} f(a)\,D_{22} f(a) - (D_{12} f(a))^2$, so gilt:
+  \begin{enumerate}[label=(\roman*),topsep=2pt,itemsep=1pt]
+    \item Ist $\Delta(a) > 0$, so hat $f$ in $a$ ein strenges
+          \begin{itemize}[topsep=1pt,itemsep=0pt]
+            \item lokales Maximum, falls $D_{11} f(a) < 0$,
+            \item lokales Minimum, falls $D_{11} f(a) > 0$.
+          \end{itemize}
+    \item Ist $\Delta(a) < 0$, so hat $f$ in $a$ kein lokales Extremum ($a$ heißt \textbf{Sattelpunkt}).
+    \item Ist $\Delta(a) = 0$, so ist keine Aussage möglich.
+  \end{enumerate}
+}
+
+\gentry{4.5.9}{Extremum unter Nebenbedingungen (Lagrangemultiplikatoren)}{%
+  Sei $M$ eine nichtleere Teilmenge von $\mathbb{R}^n$, und seien $f: M \to \mathbb{R}$ und
+  $g = (g_1, \ldots, g_m): M \to \mathbb{R}^m$ stetig differenzierbar mit $m < n$. Sei
+  \[
+    M(g) := \{ z \in M \mid g(z) = 0 \} \neq \emptyset,
+  \]
+  und die Funktionalmatrix $g'(z)$ habe Höchstrang, d.\,h.\ $\mathrm{Rang}\,g'(z) = m$ für jedes
+  $z \in M(g)$. Hat $f|_{M(g)}$ in einem $c \in M(g)$ ein lokales Extremum (d.\,h.\ $f$ hat unter
+  den Nebenbedingungen $g_1(x) = 0, \ldots, g_m(x) = 0$ in $c$ ein lokales Extremum), so gibt
+  es reelle Zahlen $\lambda_1, \ldots, \lambda_m$ (\textbf{Lagrangemultiplikatoren}) mit
+  \[
+    f'(c) = (\lambda_1 \; \cdots \; \lambda_m)\,g'(c),
+    \quad \text{d.\,h.\ } D_\nu f(c) = \sum_{\mu=1}^{m} \lambda_\mu D_\nu g_\mu(c) \text{ für } \nu = 1, \ldots, n.
+  \]
+}
+
+\end{document}
