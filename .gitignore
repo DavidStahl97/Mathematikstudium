@@ -7,6 +7,28 @@ docs/
 *.toc
 *.out
 *.synctex.gz
+*.fls
+*.fdb_latexmk
+*.bbl
+*.blg
+*.bcf
+*.run.xml
+*.nav
+*.snm
+*.vrb
+*.lof
+*.lot
+*.lol
+*.idx
+*.ind
+*.ilg
+*.glo
+*.gls
+*.glg
+*.acn
+*.acr
+*.alg
+*.xdy
 
 # Kompilierte PDFs (werden in der Action erzeugt)
 skripte/**/*.pdf
