@@ -1,0 +1,324 @@
+\documentclass[a4paper,12pt]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[ngerman]{babel}
+\usepackage{amsmath, amssymb}
+\usepackage{geometry}
+\usepackage{tikz}
+\usetikzlibrary{shapes.geometric, arrows.meta, positioning, fit, backgrounds}
+\usepackage{parskip}
+\usepackage{titlesec}
+\usepackage{booktabs}
+\usepackage{enumitem}
+
+\geometry{left=3cm, right=3cm, top=2.5cm, bottom=2.5cm}
+
+\titleformat{\section}{\large\bfseries}{}{0em}{}[\titlerule]
+\titleformat{\subsection}{\normalsize\bfseries}{}{0em}{}
+
+\tikzset{
+  box/.style={rectangle, draw, rounded corners=3pt, text width=4.2cm,
+              align=center, minimum height=0.9cm, font=\small, inner sep=4pt},
+  boxw/.style={box, text width=5.2cm},
+  boxn/.style={box, text width=3.8cm},
+  arrow/.style={-{Latex[length=2mm]}, thick},
+}
+
+\begin{document}
+
+\begin{center}
+  {\LARGE\bfseries Studierhinweise zu Lektion 5}\\[0.5em]
+  {\large Analysis (Modul 61211)}
+\end{center}
+
+\vspace{1em}
+
+Diese Kurseinheit behandelt die Integralrechnung für reellwertige Funktionen auf
+Intervallen. Der erste Abschnitt frischt die Kenntnisse aus dem Kurs MG über
+Riemann-Unter- und Obersummen, Integrierbarkeit, Hauptsatz, partielle Integration
+und Substitutionsregel auf; sorgfältiger sollten der Mittelwertsatz der
+Integralrechnung und die Integrierbarkeit der Grenzfunktion einer gleichmäßig
+konvergenten Funktionenfolge durchgearbeitet werden.
+
+Der zweite Abschnitt erweitert den Integralbegriff auf \emph{uneigentliche
+Integrale}, sodass auch unbeschränkten Funktionen oder Funktionen auf
+unbeschränkten Intervallen ein Integral zugeordnet werden kann. Im dritten
+Abschnitt werden \emph{Parameterintegrale} studiert und Bedingungen für
+Stetigkeit und Differenzierbarkeit angegeben (Leibnizsche Regel). Der vierte
+Abschnitt führt zu den \emph{Fourierreihen} $2\pi$-periodischer Funktionen, zur
+Besselschen Ungleichung und zum Darstellungssatz. Der fünfte Abschnitt
+kulminiert im \emph{Weierstraßschen Approximationssatz}, der zeigt, dass jede
+auf einem kompakten Intervall stetige Funktion gleichmäßig durch
+Polynomfunktionen approximierbar ist.
+
+% -----------------------------------------------------------------------
+\section*{Struktur der Kurseinheit 5}
+
+\begin{center}
+\begin{tikzpicture}[node distance=0.5cm and 0.6cm]
+
+  % Column headers
+  \node[font=\bfseries\small] (hA) at (0,0)    {Vorkenntnisse};
+  \node[font=\bfseries\small] (hB) at (9.5,0)  {Neue Inhalte};
+
+  % ---- Left column: Vorkenntnisse ----
+  \node[box, below=0.8cm of hA] (v1) {Rückblick auf MG\\und Ergänzungen};
+  \node[box, below=0.4cm of v1] (v2) {5.1 Riemannintegral,\\Rechenregeln};
+  \node[box, below=0.4cm of v2] (v3) {5.1 Hauptsatz der\\Differenzial- und\\Integralrechnung};
+  \node[box, below=0.4cm of v3] (v4) {5.1 Mittelwertsatz der\\Integralrechnung};
+  \node[box, below=0.8cm of v4] (v5) {3.1 Grenzwerte von\\Funktionen,\\Rechenregeln};
+  \node[box, below=0.4cm of v5] (v6) {2.3 Stetigkeits-,\\3.3/3.5 Differenzier-\\barkeitsbegriff};
+  \node[box, below=0.4cm of v6] (v7) {2.6 Konvergenz von\\Funktionenreihen};
+
+  % ---- Right column: new content ----
+  \node[box, below=0.8cm of hB] (n1) {5.2 uneigentliches\\Integral};
+  \node[box, below=0.4cm of n1] (n2) {5.2 Rechenregeln für\\uneigentliche Integrale};
+  \node[box, below=0.4cm of n2] (n3) {5.2 Konvergenzkriterien\\(Cauchy, Majoranten)};
+  \node[box, below=0.4cm of n3] (n4) {5.2 Beispiel:\\Gammafunktion};
+  \node[box, below=0.4cm of n4] (n5) {5.3 Parameterintegral,\\Stetigkeit};
+  \node[box, below=0.4cm of n5] (n6) {5.3 Leibnizsche Regel,\\Differenzierbarkeit};
+  \node[box, below=0.4cm of n6] (n7) {5.4 $2\pi$-periodische\\Funktion, Fourierreihe};
+  \node[box, below=0.4cm of n7] (n8) {5.4 Darstellbarkeit\\durch Fourierreihen};
+  \node[box, below=0.4cm of n8] (n9) {5.5 Satz von Fejér};
+  \node[box, below=0.4cm of n9] (n10){5.5 Approximationssatz\\von Weierstraß};
+
+  % Arrows left column
+  \draw[arrow] (v1) -- (v2);
+  \draw[arrow] (v2) -- (v3);
+  \draw[arrow] (v3) -- (v4);
+  \draw[arrow] (v4) -- ++(0,-0.6) -- (v5.north);
+  \draw[arrow] (v5) -- (v6);
+  \draw[arrow] (v6) -- (v7);
+
+  % Arrows right column
+  \draw[arrow] (n1) -- (n2);
+  \draw[arrow] (n2) -- (n3);
+  \draw[arrow] (n3) -- (n4);
+  \draw[arrow] (n4) -- (n5);
+  \draw[arrow] (n5) -- (n6);
+  \draw[arrow] (n6) -- (n7);
+  \draw[arrow] (n7) -- (n8);
+  \draw[arrow] (n8) -- (n9);
+  \draw[arrow] (n9) -- (n10);
+
+  % Cross arrows (left -> right)
+  \draw[arrow, dashed] (v4.east) -- ++(0.3,0) |- (n1.west);
+  \draw[arrow, dashed] (v5.east) -- ++(0.3,0) |- (n3.west);
+  \draw[arrow, dashed] (v6.east) -- ++(0.3,0) |- (n6.west);
+  \draw[arrow, dashed] (v7.east) -- ++(0.3,0) |- (n7.west);
+
+\end{tikzpicture}
+\end{center}
+
+\newpage
+
+% -----------------------------------------------------------------------
+\section*{Zielelement 5.1 -- Rückblick und Ergänzungen: Das Riemannintegral}
+
+\subsection*{Lerninhalte}
+
+\begin{center}
+\begin{tikzpicture}[node distance=0.5cm and 1.0cm]
+  \node[box] (par)  {Partition von $I$,\\Unter-/Obersumme};
+  \node[box, below=0.5cm of par]   (rie) {Riemann-integrierbare\\Funktion ($\mathcal{R}(I)$),\\Riemannintegral};
+  \node[box, below=0.5cm of rie]   (eig) {Eigenschaften des\\Riemannintegrals\\(Additivität, Monotonie, \ldots)};
+  \node[box, right=0.8cm of eig]   (mon) {monotone Funktion\\ist integrierbar};
+  \node[box, below=0.5cm of eig]   (ubi) {unbestimmtes Integral,\\Stammfunktion};
+  \node[box, below=0.5cm of ubi]   (hsz) {Hauptsatz der Differenzial-\\und Integralrechnung};
+  \node[box, below=0.5cm of hsz]   (psi) {partielle Integration,\\Substitutionsregel};
+  \node[box, below=0.5cm of psi]   (mws) {Mittelwertsatz der\\Integralrechnung};
+  \node[box, below=0.5cm of mws]   (grf) {Integrierbarkeit der\\Grenzfunktion,\\gliedweise Integration};
+  \draw[arrow] (par) -- (rie);
+  \draw[arrow] (rie) -- (eig);
+  \draw[arrow] (mon.south) |- (ubi.east);
+  \draw[arrow] (eig) -- (ubi);
+  \draw[arrow] (ubi) -- (hsz);
+  \draw[arrow] (hsz) -- (psi);
+  \draw[arrow] (psi) -- (mws);
+  \draw[arrow] (mws) -- (grf);
+\end{tikzpicture}
+\end{center}
+
+\subsection*{Lernziele}
+
+Nach Durcharbeiten dieses Abschnitts sollten Sie sich aus MG wieder
+vergegenwärtigt haben,
+\begin{itemize}
+  \item wie das Riemannsche Integral einer Funktion $f: [a,b] \to \mathbb{R}$ definiert
+        ist und welche Regeln für das Rechnen mit ihm gelten,
+  \item wie Differenzial- und Integralrechnung durch den ,,Hauptsatz``
+        miteinander verknüpft sind,
+  \item wie der Hauptsatz und die daraus abgeleiteten Regeln der partiellen
+        Integration und der Integration durch Substitution anzuwenden sind.
+\end{itemize}
+Außerdem sollten Sie in der Lage sein,
+\begin{itemize}
+  \item den Mittelwertsatz der Integralrechnung zu formulieren und mit dem
+        Mittelwertsatz der Differenzialrechnung in Verbindung zu bringen,
+  \item den Satz über die Integrierbarkeit der Grenzfunktion einer gleichmäßig
+        konvergenten Folge integrierbarer Funktionen zu formulieren.
+\end{itemize}
+
+\subsection*{Selbstkontrollelement 5.1}
+
+Können Sie mittels $\dfrac{2}{1-x^2} = \dfrac{1}{1+x} + \dfrac{1}{1-x}$ das
+Integral $\displaystyle\int_a^b \dfrac{1}{1-x^2}\,dx$ für $-1 < a < b < 1$ berechnen?
+
+\newpage
+
+% -----------------------------------------------------------------------
+\section*{Zielelement 5.2 -- Uneigentliche Integrale}
+
+\subsection*{Lerninhalte}
+
+\begin{center}
+\begin{tikzpicture}[node distance=0.5cm and 1.0cm]
+  \node[box] (uni)  {uneigentliches Integral\\$\int_a^b f(x)\,dx$,\\Konvergenz};
+  \node[box, below=0.5cm of uni]   (ver) {Verträglichkeit mit\\eigentlichem Integral};
+  \node[box, below=0.5cm of ver]   (kri) {Cauchykriterium,\\Majorantenkriterium};
+  \node[box, right=0.8cm of kri]   (rec) {Rechenregeln für\\uneigentliche Integrale};
+  \node[box, below=0.5cm of kri]   (gam) {Beispiel: Gammafunktion\\$\Gamma(x) = \int_0^\infty t^{x-1}e^{-t}\,dt$};
+  \node[box, below=0.5cm of gam]   (fun) {Funktionalgleichung\\$\Gamma(x+1) = x\,\Gamma(x)$,\\$\Gamma(n+1) = n!$};
+  \draw[arrow] (uni) -- (ver);
+  \draw[arrow] (ver) -- (kri);
+  \draw[arrow] (rec.south) |- (gam.east);
+  \draw[arrow] (kri) -- (gam);
+  \draw[arrow] (gam) -- (fun);
+\end{tikzpicture}
+\end{center}
+
+\subsection*{Lernziele}
+
+Nach Durcharbeiten dieses Abschnitts sollten Sie in der Lage sein,
+\begin{itemize}
+  \item den Begriff des uneigentlichen Integrals zu definieren und an Beispielen
+        zu erläutern,
+  \item die Gammafunktion zu definieren und ihre Funktionalgleichung anzugeben.
+\end{itemize}
+
+\subsection*{Selbstkontrollelement 5.2}
+
+,,Sehen`` Sie, warum das Integral $\displaystyle\int_1^\infty t^\alpha\,dt$ für
+$\alpha < -1$ konvergiert, für $\alpha \geq -1$ dagegen nicht?
+
+\newpage
+
+% -----------------------------------------------------------------------
+\section*{Zielelement 5.3 -- Parameterintegrale}
+
+\subsection*{Lerninhalte}
+
+\begin{center}
+\begin{tikzpicture}[node distance=0.5cm and 1.0cm]
+  \node[box] (par)  {Parameterintegral\\$F(x) = \int_\alpha^\beta K(x,t)\,dt$};
+  \node[box, right=0.8cm of par]   (upi) {uneigentliches\\Parameterintegral};
+  \node[box, below=0.5cm of par]   (stp) {Stetigkeit des\\Parameterintegrals};
+  \node[box, right=0.8cm of stp]   (stu) {Stetigkeit des\\uneigentlichen\\Parameterintegrals};
+  \node[box, below=0.5cm of stp]   (dif) {Differenzierbarkeit\\des Parameterintegrals\\(Leibnizsche Regel)};
+  \node[box, right=0.8cm of dif]   (dui) {Differenzierbarkeit\\des uneigentlichen\\Parameterintegrals};
+  \draw[arrow] (par) -- (upi);
+  \draw[arrow] (par) -- (stp);
+  \draw[arrow] (upi) -- (stu);
+  \draw[arrow] (stp) -- (stu);
+  \draw[arrow] (stp) -- (dif);
+  \draw[arrow] (stu) -- (dui);
+  \draw[arrow] (dif) -- (dui);
+\end{tikzpicture}
+\end{center}
+
+\subsection*{Lernziele}
+
+Nach Durcharbeiten dieses Abschnitts sollten Sie in der Lage sein, für
+Funktionen, die als Parameterintegrale gegeben sind,
+\begin{itemize}
+  \item Bedingungen für ihre Stetigkeit und für ihre Differenzierbarkeit
+        anzugeben,
+  \item die Gammafunktion zu definieren und ihre Funktionalgleichung anzugeben.
+\end{itemize}
+
+\subsection*{Selbstkontrollelement 5.3}
+
+Sei $F: \mathbb{R} \to \mathbb{R}$ durch $F(x) := \displaystyle\int_0^1 e^{-xt}\,dt$
+gegeben. Berechnen Sie $F'(0)$
+\begin{itemize}
+  \item durch Auswerten des Integrals für $F(x)$,
+  \item mithilfe der Leibnizschen Regel.
+\end{itemize}
+
+\newpage
+
+% -----------------------------------------------------------------------
+\section*{Zielelement 5.4 -- Fourierreihen}
+
+\subsection*{Lerninhalte}
+
+\begin{center}
+\begin{tikzpicture}[node distance=0.5cm and 1.0cm]
+  \node[box] (per)  {$2\pi$-periodische Funktionen,\\$C_k, S_k$,\\trigonometrische Reihe};
+  \node[box, below=0.5cm of per]   (ska) {Skalarprodukt $\langle f,g\rangle$,\\Orthogonalitätsrelationen};
+  \node[box, below=0.5cm of ska]   (fou) {Fourierreihe von $f$,\\Fourierkoeffizienten\\(Euler-Fouriersche Formeln)};
+  \node[box, below=0.5cm of fou]   (bes) {Besselsche Ungleichung,\\$a_k, b_k \to 0$};
+  \node[box, below=0.5cm of bes]   (dir) {Teilsummen $s_n$ und\\Dirichletkern $D_n$};
+  \node[box, below=0.5cm of dir]   (dar) {Darstellungssatz:\\einseitige Differenzierbarkeit\\$\Rightarrow s_n(x_0) \to f(x_0)$};
+  \draw[arrow] (per) -- (ska);
+  \draw[arrow] (ska) -- (fou);
+  \draw[arrow] (fou) -- (bes);
+  \draw[arrow] (bes) -- (dir);
+  \draw[arrow] (dir) -- (dar);
+\end{tikzpicture}
+\end{center}
+
+\subsection*{Lernziele}
+
+Nach Durcharbeiten dieses Abschnitts sollten Sie in der Lage sein,
+\begin{itemize}
+  \item die Fourierreihe einer $2\pi$-periodischen Funktion $f$, die über
+        $]-\pi, \pi]$ integrierbar ist, aufzustellen,
+  \item ein hinreichendes Kriterium dafür anzugeben (und in Beispielen
+        anzuwenden), dass die Funktion in einem Punkt durch ihre Fourierreihe
+        dargestellt wird.
+\end{itemize}
+
+\subsection*{Selbstkontrollelement 5.4}
+
+Es sollte für Sie kein Problem sein zu begründen, dass die Fourierreihe jeder
+$2\pi$-periodischen, differenzierbaren Funktion $f: \mathbb{R} \to \mathbb{R}$
+gebildet werden kann und dass die Fourierreihe für jedes $x \in \mathbb{R}$
+gegen $f(x)$ konvergiert.
+
+\newpage
+
+% -----------------------------------------------------------------------
+\section*{Zielelement 5.5 -- Der Weierstraßsche Approximationssatz}
+
+\subsection*{Lerninhalte}
+
+\begin{center}
+\begin{tikzpicture}[node distance=0.5cm and 1.0cm]
+  \node[box] (fej)  {Fejérsche Summen $\sigma_n$,\\Fejérkerne $F_n$};
+  \node[box, below=0.5cm of fej]   (eig) {Eigenschaften der $F_n$:\\nichtnegativ, gerade,\\$\frac{1}{\pi}\int_{-\pi}^\pi F_n\,du = 1$};
+  \node[box, below=0.5cm of eig]   (sfe) {Satz von Fejér:\\gleichmäßige Approximation\\$2\pi$-period.\ stetiger Fkt.\\durch $\sigma_n$};
+  \node[box, below=0.5cm of sfe]   (apw) {Approximationssatz\\von Weierstraß:\\stetige $f: [a,b] \to \mathbb{R}$\\durch Polynomfunktionen};
+  \draw[arrow] (fej) -- (eig);
+  \draw[arrow] (eig) -- (sfe);
+  \draw[arrow] (sfe) -- (apw);
+\end{tikzpicture}
+\end{center}
+
+\subsection*{Lernziele}
+
+Nach Durcharbeiten dieses Abschnitts sollten Sie in der Lage sein,
+\begin{itemize}
+  \item den Weierstraßschen Approximationssatz zu formulieren.
+\end{itemize}
+
+\subsection*{Selbstkontrollelement 5.5}
+
+Seien $a, b \in \mathbb{R}$, $a < b$. Der Beweis der folgenden Aussage sollte
+Ihnen keine Mühe machen:
+\[
+  f \in C([a,b]) \; \Rightarrow \; \forall\, \varepsilon > 0\; \exists\, P \in \mathcal{P}\;
+  \forall\, x \in [a,b]: |f(x) - P(x)| < \varepsilon.
+\]
+
+\end{document}
