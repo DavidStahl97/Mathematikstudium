@@ -1,0 +1,314 @@
+\documentclass[a4paper,12pt]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[ngerman]{babel}
+\usepackage{amsmath, amssymb}
+\usepackage{geometry}
+\usepackage{tikz}
+\usetikzlibrary{shapes.geometric, arrows.meta, positioning, fit, backgrounds}
+\usepackage{parskip}
+\usepackage{titlesec}
+\usepackage{booktabs}
+\usepackage{enumitem}
+
+\geometry{left=3cm, right=3cm, top=2.5cm, bottom=2.5cm}
+
+\titleformat{\section}{\large\bfseries}{}{0em}{}[\titlerule]
+\titleformat{\subsection}{\normalsize\bfseries}{}{0em}{}
+
+\tikzset{
+  box/.style={rectangle, draw, rounded corners=3pt, text width=4.2cm,
+              align=center, minimum height=0.9cm, font=\small, inner sep=4pt},
+  boxw/.style={box, text width=5.2cm},
+  boxn/.style={box, text width=3.8cm},
+  arrow/.style={-{Latex[length=2mm]}, thick},
+}
+
+\begin{document}
+
+\begin{center}
+  {\LARGE\bfseries Studierhinweise zu Kurseinheit 6}\\[0.5em]
+  {\large Analysis (Modul 61211) -- Kurven}
+\end{center}
+
+\vspace{1em}
+
+In dieser Kurseinheit stehen zunächst der Kurvenbegriff und die Berechnung
+der Länge von Kurven im Mittelpunkt. Dieser Kurvenbegriff ist nicht einfach,
+und Sie sollten sich das Vorgehen sehr gut verdeutlichen, da es in mancher
+Hinsicht typisch ist: Äquivalente Objekte werden zu einem neuen Objekt
+zusammengefasst. Zum Glück steht der hohen Abstraktionsstufe des Kurvenbegriffs
+die angenehme Möglichkeit gegenüber, sich Kurven im Raum sehr schön
+veranschaulichen zu können.
+
+In Abschnitt~6.3 werden, aufbauend auf dem Kurvenbegriff, Integrale längs
+Kurven definiert, einmal für skalare Funktionen, zum anderen (und das ist
+der wichtigere Fall) für Funktionen mit Werten in $\mathbb{R}^n$.
+Kurvenintegrale spielen in den Anwendungsgebieten (z.\,B.\ in der Physik)
+eine große Rolle. Auch innermathematisch sind sie bedeutungsvoll, da sie
+direkt mit der Konstruktion von Stammfunktionen (physikalisch: Potenzialen)
+zusammenhängen. Die beiden wichtigsten Sätze sind 6.4.4 und 6.4.6; sie
+verallgemeinern den Hauptsatz der Differenzial- und Integralrechnung 5.1.10.
+
+Der letzte Abschnitt~6.5 ist geometrischen Anwendungen der Integralrechnung
+gewidmet, nämlich der Inhaltsberechnung von einfachen Flächen (im
+$\mathbb{R}^2$) und Körpern (im $\mathbb{R}^3$). Hauptsächlich dient der
+Abschnitt dazu, noch einmal Integrationstechniken zu üben.
+
+% -----------------------------------------------------------------------
+\section*{Struktur der Kurseinheit 6}
+
+\begin{center}
+\begin{tikzpicture}[node distance=0.5cm and 0.6cm]
+
+  % Column headers
+  \node[font=\bfseries\small] (hA) at (0,0)    {Vorkenntnisse};
+  \node[font=\bfseries\small] (hB) at (8.5,0)  {Neue Inhalte};
+
+  % ---- Left column: Vorkenntnisse ----
+  \node[box, below=0.8cm of hA] (v1) {2.3--2.5\\Stetigkeit};
+  \node[box, below=1.0cm of v1] (v2) {3.3, 3.5--3.6\\Differenzierbarkeit};
+  \node[box, below=1.0cm of v2] (v3) {5.1--5.3\\Integration};
+
+  % ---- Right column: Neue Inhalte ----
+  \node[box, below=0.8cm of hB] (n1) {6.1 parametrisierte Kurve,\\Äquivalenz};
+  \node[box, below=0.3cm of n1] (n2) {6.1 Kurve,\\Parameterdarstellung};
+  \node[box, below=0.3cm of n2] (n3) {6.1 entgegengesetzte Kurve,\\Aneinanderfügen};
+  \node[box, below=0.5cm of n3] (n4) {6.2 Länge einer Kurve,\\rektifizierbare Kurve};
+  \node[box, below=0.3cm of n4] (n5) {6.2 Länge einer stetig\\differenzierbaren Kurve};
+  \node[box, below=0.3cm of n5] (n6) {6.2 Bogenlänge,\\ausgez.\ Parameterdarstellung};
+  \node[box, below=0.3cm of n6] (n7) {6.2 glatte und\\stückweise glatte Kurven};
+  \node[box, below=0.5cm of n7] (n8) {6.3 Kurvenintegral für\\skalare Funktionen und\\Vektorfunktionen};
+  \node[box, below=0.5cm of n8] (n9) {6.4 Stammfunktion,\\Integrabilitätsbedingungen};
+  \node[box, below=0.3cm of n9] (n10){6.4 Wegunabhängigkeit,\\Existenz von Stammfunktionen};
+  \node[box, below=0.5cm of n10](n11){6.5 Flächeninhalte,\\Volumina};
+
+  % Arrows right column (lesson flow)
+  \draw[arrow] (n1) -- (n2);
+  \draw[arrow] (n2) -- (n3);
+  \draw[arrow] (n3) -- (n4);
+  \draw[arrow] (n4) -- (n5);
+  \draw[arrow] (n5) -- (n6);
+  \draw[arrow] (n6) -- (n7);
+  \draw[arrow] (n7) -- (n8);
+  \draw[arrow] (n8) -- (n9);
+  \draw[arrow] (n9) -- (n10);
+  \draw[arrow] (n10) -- (n11);
+
+  % Cross arrows (Vorkenntnisse -> neue Inhalte)
+  \draw[arrow, dashed] (v1.east) -- ++(0.3,0) |- (n1.west);
+  \draw[arrow, dashed] (v2.east) -- ++(0.3,0) |- (n5.west);
+  \draw[arrow, dashed] (v3.east) -- ++(0.3,0) |- (n8.west);
+  \draw[arrow, dashed] (v3.east) -- ++(0.6,0) |- (n11.west);
+
+\end{tikzpicture}
+\end{center}
+
+\newpage
+
+% -----------------------------------------------------------------------
+\section*{Zielelement 6.1 -- Der Kurvenbegriff}
+
+\subsection*{Lerninhalte}
+
+\begin{center}
+\begin{tikzpicture}[node distance=0.5cm and 1.0cm]
+  \node[box] (para) {parametrisierte Kurve\\$\varphi: I \to \mathbb{R}^n$, Spur $\varphi(I)$};
+  \node[box, right=1.2cm of para] (aeq) {Äquivalenz parametrisierter Kurven\\$\varphi \sim \psi$, Äquivalenzklasse $[\varphi]$};
+  \node[box, below=0.7cm of $(para)!0.5!(aeq)$] (kurve) {Kurve $W$, Parameterdarstellung,\\Spur $|W|$, Anfangs-/Endpunkt};
+  \node[box, below=0.5cm of kurve] (ent) {entgegengesetzte Kurve $-W$};
+  \node[box, below=0.5cm of ent] (ane) {Aneinanderfügen von Kurven\\$W_1 + W_2$};
+  \draw[arrow] (para) -- (aeq);
+  \draw[arrow] (para.south) -- (kurve.north west);
+  \draw[arrow] (aeq.south) -- (kurve.north east);
+  \draw[arrow] (kurve) -- (ent);
+  \draw[arrow] (ent) -- (ane);
+\end{tikzpicture}
+\end{center}
+
+\subsection*{Lernziele}
+
+Nach Durcharbeiten dieses Abschnitts sollten Sie in der Lage sein:
+\begin{itemize}
+  \item den Kurvenbegriff aus dem Begriff der parametrisierten Kurve und dem
+        Äquivalenzbegriff für parametrisierte Kurven zu entwickeln,
+  \item für Kurven $W$ und $\widetilde W$ die entgegengesetzte Kurve $-W$
+        sowie die zusammengesetzte Kurve $W + \widetilde W$ zu erklären.
+\end{itemize}
+
+\subsection*{Selbstkontrollelement 6.1}
+
+Die beiden Kurven $W := [\varphi]$ und $\widetilde W := [\widetilde \varphi]$ mit
+\[
+  \varphi: [0, 2\pi] \to \mathbb{R}^2,\quad t \mapsto \varphi(t) := \begin{pmatrix}\cos t \\ \sin t\end{pmatrix}
+\]
+bzw.
+\[
+  \widetilde\varphi: [0, 2\pi] \to \mathbb{R}^2,\quad t \mapsto \widetilde\varphi(t) := \begin{pmatrix}\cos(2t) \\ \sin(2t)\end{pmatrix}
+\]
+haben die gleiche Spur, gleichen Anfangs- und Endpunkt sowie gleichen
+Durchlaufungssinn. Gilt also $W = \widetilde W$?
+
+\newpage
+
+% -----------------------------------------------------------------------
+\section*{Zielelement 6.2 -- Länge einer Kurve}
+
+\subsection*{Lerninhalte}
+
+\begin{center}
+\begin{tikzpicture}[node distance=0.5cm and 1.0cm]
+  \node[box] (str) {gerichtete Strecke $S(a,b)$,\\einbeschriebener Polygonzug};
+  \node[box, below=0.5cm of str] (laenge) {Länge einer Kurve $L(W)$,\\rektifizierbare Kurve};
+  \node[box, below=0.5cm of laenge] (difb) {Länge einer stetig\\differenzierbaren Kurve\\(Satz 6.2.5)};
+  \node[box, below=0.5cm of difb] (bogen) {Bogenlänge $s_\varphi$,\\ausgezeichnete\\Parameterdarstellung $\Phi$};
+  \node[box, below=0.5cm of bogen] (glatt) {glatte und\\stückweise glatte Kurven};
+  \draw[arrow] (str) -- (laenge);
+  \draw[arrow] (laenge) -- (difb);
+  \draw[arrow] (difb) -- (bogen);
+  \draw[arrow] (bogen) -- (glatt);
+\end{tikzpicture}
+\end{center}
+
+\subsection*{Lernziele}
+
+Nach Durcharbeiten dieses Abschnitts sollten Sie in der Lage sein:
+\begin{itemize}
+  \item die Länge einer Kurve mithilfe des Begriffs des einbeschriebenen
+        Polygonzuges zu definieren,
+  \item die Länge einer stetig differenzierbaren Kurve mithilfe eines
+        Integrals zu berechnen,
+  \item die Bogenlänge (bezüglich einer Parameterdarstellung) einer glatten
+        Kurve sowie die ausgezeichnete Parameterdarstellung zu definieren und
+        an Beispielen zu erläutern.
+\end{itemize}
+
+\subsection*{Selbstkontrollelement 6.2}
+
+Der Graph einer stetigen Funktion $f: [\alpha, \beta] \to \mathbb{R}$ mit
+$\alpha < \beta$ kann als Spur der durch
+\[
+  \varphi: [\alpha, \beta] \to \mathbb{R}^2,\quad t \mapsto \varphi(t) := \begin{pmatrix}t \\ f(t)\end{pmatrix}
+\]
+erzeugten Kurve aufgefasst werden. Können Sie die Länge dieser Kurve durch
+ein Integral darstellen, wenn $f$ stetig differenzierbar ist?
+
+\newpage
+
+% -----------------------------------------------------------------------
+\section*{Zielelement 6.3 -- Kurvenintegrale}
+
+\subsection*{Lerninhalte}
+
+\begin{center}
+\begin{tikzpicture}[node distance=0.5cm and 1.2cm]
+  \node[box] (skal) {Kurvenintegral\\für skalare Funktionen\\$\int_W f\,ds$};
+  \node[box, right=1.5cm of skal] (vekt) {Kurvenintegral\\für Vektorfunktionen\\$\int_W f \cdot dx$};
+  \node[box, below=0.5cm of skal] (bspS) {Beispiele};
+  \node[box, below=0.5cm of vekt] (bspV) {Beispiele, Rechenregeln\\(Linearität, Additivität,\\Abschätzung)};
+  \draw[arrow] (skal) -- (bspS);
+  \draw[arrow] (vekt) -- (bspV);
+\end{tikzpicture}
+\end{center}
+
+\subsection*{Lernziele}
+
+Nach Durcharbeiten dieses Abschnitts sollten Sie in der Lage sein:
+\begin{itemize}
+  \item Kurvenintegrale für skalare und für vektorwertige Funktionen zu
+        definieren und an Beispielen zu erläutern.
+\end{itemize}
+
+\subsection*{Selbstkontrollelement 6.3}
+
+Können Sie
+\[
+  \int_R (x\,dx + y\,dy)
+\]
+für die ,,Rechteckskurve'' $R$ (das ist der Rand des Rechtecks
+\[
+  \left\{\begin{pmatrix}x\\y\end{pmatrix} \in \mathbb{R}^2 \;\middle|\; |x| = 2,\; |y| \leq 1\right\}
+  \cup
+  \left\{\begin{pmatrix}x\\y\end{pmatrix} \in \mathbb{R}^2 \;\middle|\; |y| = 1,\; |x| \leq 2\right\},
+\]
+einmal im Gegenuhrzeigersinn durchlaufen, beginnend und endend in
+$a := \begin{pmatrix}2 \\ 1\end{pmatrix}$, berechnen?
+
+\newpage
+
+% -----------------------------------------------------------------------
+\section*{Zielelement 6.4 -- Stammfunktionen}
+
+\subsection*{Lerninhalte}
+
+\begin{center}
+\begin{tikzpicture}[node distance=0.5cm and 1.0cm]
+  \node[box] (stamm) {Stammfunktion einer\\vektorwertigen Funktion\\${}^t F'(x) = f(x)$};
+  \node[box, right=1.5cm of stamm] (integ) {Integrabilitäts-\\bedingungen\\$D_i f_j = D_j f_i$};
+  \node[box, below=0.7cm of stamm] (wegun) {Kurvenintegral von\\Funktionen mit\\Stammfunktion\\$\int_W f \cdot dx = F(b) - F(a)$};
+  \node[box, below=0.7cm of integ] (exist) {Existenz und Berechnung\\von Stammfunktionen\\(sternförmiges Gebiet)};
+  \draw[arrow] (stamm) -- (integ);
+  \draw[arrow] (stamm) -- (wegun);
+  \draw[arrow] (integ) -- (exist);
+  \draw[arrow] (wegun) -- (exist);
+\end{tikzpicture}
+\end{center}
+
+\subsection*{Lernziele}
+
+Nach Durcharbeiten dieses Abschnitts sollten Sie in der Lage sein:
+\begin{itemize}
+  \item den Begriff der Stammfunktion einer vektorwertigen Funktion zu
+        formulieren und an Beispielen zu erläutern,
+  \item die Bedeutung einer Stammfunktion für die Berechnung von
+        Kurvenintegralen zu erläutern,
+  \item hinreichende Bedingungen für die Existenz von Stammfunktionen sowie
+        ein Berechnungsverfahren anzugeben.
+\end{itemize}
+
+\subsection*{Selbstkontrollelement 6.4}
+
+Können Sie mit den Ergebnissen dieses Abschnitts erläutern, warum das
+Integral im Selbstkontrollelement~6.3 den Wert $0$ haben muss?
+
+\newpage
+
+% -----------------------------------------------------------------------
+\section*{Zielelement 6.5 -- Flächen- und Volumenberechnungen}
+
+\subsection*{Lerninhalte}
+
+\begin{center}
+\begin{tikzpicture}[node distance=0.5cm and 1.0cm]
+  \node[boxw] (flae) {Berechnung des Inhalts einer Fläche\\zwischen zwei Funktionsgraphen};
+  \node[boxw, below=0.5cm of flae] (koerp) {Berechnung des Volumens eines Körpers\\zwischen zwei Funktionsgraphen};
+  \node[boxw, below=0.5cm of koerp] (rot) {Berechnung des Volumens\\eines Rotationskörpers};
+  \draw[arrow] (flae) -- (koerp);
+  \draw[arrow] (koerp) -- (rot);
+\end{tikzpicture}
+\end{center}
+
+\subsection*{Lernziele}
+
+Nach Durcharbeiten dieses Abschnitts sollten Sie erklären können:
+\begin{itemize}
+  \item wie der Flächeninhalt zwischen den Graphen zweier stetiger Funktionen
+        zu berechnen ist,
+  \item wie das Volumen eines dreidimensionalen Körpers zwischen den Graphen
+        zweier stetiger Funktionen zu berechnen ist, insbesondere das eines
+        Rotationskörpers.
+\end{itemize}
+
+\subsection*{Selbstkontrollelement 6.5}
+
+Sei $Q$ ein Rechteck
+$\left\{\begin{pmatrix}x\\y\end{pmatrix} \in \mathbb{R}^2 \;\middle|\; a \leq x \leq b,\; c \leq y \leq d\right\}$
+mit $a < b$, $c \leq d$, und sei $f: Q \to \mathbb{R}$ eine stetige Funktion
+mit $f(x,y) \geq 0$ für $\begin{pmatrix}x\\y\end{pmatrix} \in Q$. Können Sie
+das ,,iterierte Integral''
+\[
+  \int_a^b \left( \int_c^d f(x,y)\,dy \right) dx
+\]
+als Volumen eines dreidimensionalen Körpers interpretieren?
+
+\end{document}
