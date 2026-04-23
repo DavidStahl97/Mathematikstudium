@@ -1,0 +1,210 @@
+\documentclass[a4paper,12pt]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[ngerman]{babel}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{enumitem}
+\usepackage{geometry}
+\geometry{a4paper, margin=2.5cm}
+
+\title{Einsendeaufgaben -- Aufgabe 2.3\\[0.5em]
+\large 61211 Analysis}
+\author{}
+\date{}
+
+\begin{document}
+\maketitle
+
+\begin{enumerate}[label=\alph*)]
+    \item
+
+          Wir wählen eine Folge $(x_n)$ und $(y_n)$ mit
+          \[
+              x_n := -\frac{1}{n}
+          \]
+          \[
+              y_n := \frac{1}{n}
+          \]
+
+          Beide Folgen konvergieren gegen $0$. Wir werden zeigen, dass $\lim_{n\to\infty} f \circ g(x_n) \neq \lim_{n\to\infty} f \circ g(y_n)$ gilt. Demnach ist das Folgenkriterium bei $f \circ g$ nicht erfüllt. Daraus folgt dann, dass $f \circ g$ nicht stetig in $0$ ist.
+
+          Nach MG 19.1.7 gilt $\sin(0) = 0$. Außerdem folgt aus MG Aufgabe 19.1.10, dass $\sin$ im Intervall $\left[-\frac{\pi}{2}, \frac{\pi}{2}\right]$ streng monoton wächst.
+
+          Aus diesen beiden Eigenschaften von $\sin$ kann man schlussfolgern:
+          \[
+              \sin(x_n) < 0 \quad \text{und} \quad \sin(y_n) > 0 \quad \forall n \in \mathbb{N}
+          \]
+
+          Daraus können wir aufgrund der Definition von $f$ schließen:
+          \[
+              f(\sin(x_n)) = -1 \quad \text{und}
+          \]
+          \[
+              f(\sin(y_n)) = 1
+          \]
+
+          $f$ ist also nicht stetig.
+
+          \bigskip
+
+    \item
+
+          Für alle $n \in \mathbb{N}$ ist $x^n$ streng monoton steigend in $[0, +\infty[$, da
+          \[
+              \forall n \in \mathbb{N} \, \forall a, b \in \mathbb{R} : (0 \leq a < b \Rightarrow a^{n+1} < b^{n+1}).
+          \]
+
+          Daraus folgt, dass für alle $n \in \mathbb{N}$ $f_n$ streng monoton ist, da die Summe der streng monotonen Funktionen wieder streng monoton ist.
+
+          Wir zeigen durch Induktion, dass eine eindeutige Lösung für $f_n(x_n) = 1$ existiert und die Folge $(x_n)$ monoton fallend ist.
+
+          \underline{Induktionsanfang: $n = 1$}
+
+          Für $x_1$ setzen wir $1$ und es gilt $f_1(x_1) = 1$. Da $f_1(x)$ streng monoton steigend ist, ist die Lösung eindeutig.
+
+          \underline{Induktionsschritt: $n \to n+1$}
+
+          Nach Induktionsvoraussetzung existiert ein eindeutiges $x_n > 0$ mit $f_n(x_n) = 1$. Es gilt $f_{n+1}(x_n) > 1$. Nach dem Zwischenwertsatz existiert ein $x_{n+1}$ mit $f_{n+1}(x_{n+1}) = 1$, da $0 = f(0) < 1 < f_{n+1}(x_n)$.
+
+          Wegen der strengen Monotonie ist $x_{n+1}$ eindeutig und aus $f(x_{n+1}) < f(x_n)$ folgt $x_{n+1} < x_n$.
+
+          Da $(x_n)$ streng monoton fallend und beschränkt ist, konvergiert $(x_n)$.
+
+          Nun ist noch der Grenzwert von $(x_n)$ zu bestimmen.
+
+          Wir betrachten die Folge $(f_n(x_n))_{n \in \mathbb{N}_0}$. Wir setzen $f_0(x_0) = 1$. Da jedes $f_n$ eine geometrische Summe ist, gilt:
+          \[
+              f_n(x_n) = \frac{1 - x_n^n}{1 - x_n}.
+          \]
+
+          Wir untersuchen den Grenzwert von $(f_n(x_n))$. Die Folge $(x_n^n)$ konvergiert gegen $0$, da $x_2 < 1$, $x_2^n \to 0$ und für fast alle $x_n$ $x_n < x_2$ gilt.
+
+          Damit können wir den Grenzwert ermitteln:
+          \[
+              \lim_{n \to \infty} \sum_{k=0}^{n} (x_n)^k = \lim_{n \to \infty} \frac{1 - x_n^n}{1 - x_n}
+          \]
+          \[
+              = \frac{1 - \lim_{n \to \infty} x_n^n}{1 - \lim_{n \to \infty} x_n} = \frac{1}{1 - \lim_{n \to \infty} x_n}
+          \]
+
+          Wir haben jedes $x_n$ eben so gewählt, dass $f_n(x_n) = 1$ gilt. Also gilt ebenfalls:
+          \[
+              \lim_{n \to \infty} f_n(x_n) = 1.
+          \]
+
+          Da ein Grenzwert eindeutig ist, muss gelten:
+          \[
+              1 = \lim_{n \to \infty} f_n(x_n) = \frac{1}{1 - \lim_{n \to \infty} x_n}
+          \]
+
+          Folglich muss $\lim_{n \to \infty} x_n = 0$ sein, was zu zeigen war.
+
+          \bigskip
+
+    \item
+
+          Sei $a > 0$ beliebig.
+
+          Zunächst zeigen wir, dass $f$ in $(0, a)$ nicht gleichmäßig stetig ist.
+
+          Wir definieren zwei Folgen $(x_n)$ und $(y_n)$ mit:
+          \[
+              x_n := \frac{1}{\frac{\pi}{2} + 2\pi n}
+          \]
+          \[
+              y_n := \frac{1}{\frac{3}{2}\pi + 2\pi n}
+          \]
+
+          Beide Folgen konvergieren gegen $0$. Mithilfe dieser beiden Folgen können wir nun zeigen, dass $f$ nicht gleichmäßig stetig in $(0, a)$ ist.
+
+          Nicht gleichmäßig stetig bedeutet ist äquivalent zu:
+          \[
+              \exists \varepsilon > 0 \, \forall \delta > 0 \, \exists x, y \in (0, a) : (|x - y| < \delta \Rightarrow |f(x) - f(y)| \geq \varepsilon)
+          \]
+
+          Wir wählen $\varepsilon := 1$. Sei $\delta > 0$ beliebig.
+          Da die Funktion $g(x) = \frac{x + 2}{x + 1}$ stetig ist, folgt
+          \[
+              \lim_{n \to \infty} g(x_n) = 2
+          \]
+          \[
+              \text{und} \quad \lim_{n \to \infty} g(y_n) = 2.
+          \]
+
+          Es existiert also ein $k \in \mathbb{N}$ mit
+          \[
+              g(x_k) > 1 \quad \text{und} \quad g(y_k) > 1,
+          \]
+          sowie $x_k < \frac{\delta}{2}$ und $y_k < \frac{\delta}{2}$, da $(x_k)$ und $(y_k)$ Nullfolgen sind.
+
+          $x_k$ und $y_k$ erfüllen die Bedingung
+          \[
+              |x_k - y_k| \leq |x_k| + |y_k| < \frac{\delta}{2} + \frac{\delta}{2} = \delta.
+          \]
+
+          Da $\sin(x_k) = 1$ und $\sin(y_k) = -1$ können wir nun abschließend schlussfolgern:
+          \[
+              |f(x_k) - f(y_k)| = |g(x_k) \sin(x_k) - g(y_k) \sin(y_k)|
+          \]
+          \[
+              = |g(x_k) + g(y_k)| \geq 2 > 1 = \varepsilon
+          \]
+
+          $f$ ist also nicht gleichmäßig stetig in $(0, a)$.
+
+          Nun ist noch zu zeigen, dass $f$ in $[a, \infty)$ gleichmäßig stetig ist.
+
+          Da $\lim_{x \to \infty} \sin\left(\frac{1}{x}\right) = 0$ und $\lim_{x \to \infty} \frac{x+2}{x+1} = 2$, konvergiert $f$ mit $x \to \infty$ gegen $0$ uneigentlich.
+
+          Damit werden wir gleichmäßige Stetigkeit von $f$ in $[a, \infty)$ beweisen.
+
+          Sei $\varepsilon > 0$ beliebig. Wir nutzen $f(x) \to 0$ mit $x \to \infty$ und wählen ein $n_0 \in \mathbb{N}$, sodass
+          \[
+              \forall x \in \mathbb{R} : (x \geq n_0 \Rightarrow |f(x)| < \frac{\varepsilon}{4})
+          \]
+
+          Wir betrachten das Intervall $[a, n_0]$. $[a, n_0]$ ist natürlich kompakt und demnach ist $f$ in $[a, n_0]$ gleichmäßig stetig.
+
+          Es existiert also ein $\delta$, sodass
+          \[
+              \forall x, y \in [a, n_0] : (|x - y| < \delta \Rightarrow |f(x) - f(y)| < \frac{\varepsilon}{2} < \varepsilon).
+          \]
+
+          Da wir $n_0$ so gewählt haben, dass
+          \[
+              \forall x \in (n_0, \infty) : |f(x)| < \frac{\varepsilon}{4},
+          \]
+          folgt für alle $x, y \in (n_0, \infty)$
+          \[
+              |f(x) - f(y)| \leq |f(x)| + |f(y)| < \frac{\varepsilon}{4} + \frac{\varepsilon}{4} < \varepsilon
+          \]
+          und demnach erst recht:
+          \[
+              |x - y| < \delta \Rightarrow |f(x) - f(y)| < \varepsilon.
+          \]
+
+          Noch zu untersuchen ist, dass
+          \[
+              |x - y| < \delta \Rightarrow |f(x) - f(y)| < \varepsilon \quad \forall x \in [a, n_0], \, \forall y \in (n_0, \infty).
+          \]
+
+          Sei also $x \in [a, n_0]$, $y \in (n_0, \infty)$ und $|x - y| < \delta$. Wir schließen:
+          \begin{align*}
+              |f(x) - f(y)| &= |f(x) - f(n_0) + f(n_0) - f(y)| \\
+              &\leq |f(x) - f(n_0)| + |f(n_0)| + |f(y)| \\
+              &< \frac{\varepsilon}{2} + |f(n_0)| + |f(y)| \quad (\text{da } x, n_0 \in [a, n_0]) \\
+              &< \frac{\varepsilon}{2} + \frac{\varepsilon}{4} + \frac{\varepsilon}{4} \\
+              &= \varepsilon.
+          \end{align*}
+
+          Zusammengefasst haben wir also gezeigt, dass
+          \[
+              \forall x, y \in [a, \infty) : |x - y| < \delta \Rightarrow |f(x) - f(y)| < \varepsilon.
+          \]
+
+          $f$ ist demnach in $[a, \infty)$ gleichmäßig stetig.
+
+\end{enumerate}
+
+\end{document}
