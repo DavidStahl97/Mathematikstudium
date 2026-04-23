@@ -27,7 +27,7 @@
               y_n := \frac{1}{n}
           \]
 
-          Beide Folgen konvergieren gegen $0$. Wir werden zeigen, dass $\lim_{n\to\infty} f \circ g(x_n) \neq \lim_{n\to\infty} f \circ g(y_n)$ gilt. Demnach ist das Folgenkriterium bei $f \circ g$ nicht erfüllt. Daraus folgt dann, dass $f \circ g$ nicht stetig in $0$ ist.
+          Beide Folgen konvergieren gegen $0$. Wir werden zeigen, dass $\lim_{n\to\infty} (f \circ g)(x_n) \neq \lim_{n\to\infty} (f \circ g)(y_n)$ gilt. Demnach ist das Folgenkriterium bei $f \circ g$ nicht erfüllt. Daraus folgt dann, dass $f \circ g$ nicht stetig in $0$ ist.
 
           Nach MG 19.1.7 gilt $\sin(0) = 0$. Außerdem folgt aus MG Aufgabe 19.1.10, dass $\sin$ im Intervall $\left[-\frac{\pi}{2}, \frac{\pi}{2}\right]$ streng monoton wächst.
 
@@ -61,11 +61,11 @@
 
           \underline{Induktionsanfang: $n = 1$}
 
-          Für $x_1$ setzen wir $1$ und es gilt $f_1(x_1) = 1$. Da $f_1(x)$ streng monoton steigend ist, ist die Lösung eindeutig.
+          Für $x_1$ setzen wir $1$ und es gilt $f_1(x_1) = 1$. Da $f_1$ streng monoton steigend ist, ist die Lösung eindeutig.
 
           \underline{Induktionsschritt: $n \to n+1$}
 
-          Nach Induktionsvoraussetzung existiert ein eindeutiges $x_n > 0$ mit $f_n(x_n) = 1$. Es gilt $f_{n+1}(x_n) > 1$. Nach dem Zwischenwertsatz existiert ein $x_{n+1}$ mit $f_{n+1}(x_{n+1}) = 1$, da $0 = f(0) < 1 < f_{n+1}(x_n)$.
+          Nach Induktionsvoraussetzung existiert ein eindeutiges $x_n > 0$ mit $f_n(x_n) = 1$. Es gilt $f_{n+1}(x_n) = 1 + x^{n+1} > 1$. Nach dem Zwischenwertsatz existiert ein $x_{n+1}$ mit $f_{n+1}(x_{n+1}) = 1$, da $0 = f(0) < 1 < f_{n+1}(x_n)$.
 
           Wegen der strengen Monotonie ist $x_{n+1}$ eindeutig und aus $f(x_{n+1}) < f(x_n)$ folgt $x_{n+1} < x_n$.
 
@@ -118,9 +118,9 @@
 
           Beide Folgen konvergieren gegen $0$. Mithilfe dieser beiden Folgen können wir nun zeigen, dass $f$ nicht gleichmäßig stetig in $(0, a)$ ist.
 
-          Nicht gleichmäßig stetig bedeutet ist äquivalent zu:
+          Nicht gleichmäßig stetig ist äquivalent zu:
           \[
-              \exists \varepsilon > 0 \, \forall \delta > 0 \, \exists x, y \in (0, a) : (|x - y| < \delta \Rightarrow |f(x) - f(y)| \geq \varepsilon)
+              \exists \varepsilon > 0 \, \forall \delta > 0 \, \exists x, y \in (0, a) : (|x - y| < \delta \land |f(x) - f(y)| \geq \varepsilon)
           \]
 
           Wir wählen $\varepsilon := 1$. Sei $\delta > 0$ beliebig.
@@ -152,6 +152,8 @@
           \]
 
           $f$ ist also nicht gleichmäßig stetig in $(0, a)$.
+
+          \bigskip
 
           Nun ist noch zu zeigen, dass $f$ in $[a, \infty)$ gleichmäßig stetig ist.
 
