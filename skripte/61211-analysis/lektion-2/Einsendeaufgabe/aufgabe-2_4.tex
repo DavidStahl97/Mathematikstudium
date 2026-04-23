@@ -1,0 +1,137 @@
+\documentclass[a4paper,12pt]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[ngerman]{babel}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{enumitem}
+\usepackage{geometry}
+\geometry{a4paper, margin=2.5cm}
+
+\title{Einsendeaufgaben -- Aufgabe 2.4\\[0.5em]
+\large 61211 Analysis}
+\author{}
+\date{}
+
+\begin{document}
+\maketitle
+
+\begin{enumerate}[label=\alph*)]
+    \item
+
+          Wir nehmen an, dass $f$ nicht gleichmäßig stetig ist und zeigen einen Widerspruch.
+
+          Es existiert also ein $\varepsilon > 0$ mit:
+          \[
+              (2.4{:}1) \quad \forall \delta > 0 \; \exists x, y \in E : \bigl( |x - y| < \delta \text{ und } |f(x) - f(y)| \geq \varepsilon \bigr).
+          \]
+
+          Wir definieren die Folge $(\delta_n)$ mit $\delta_n := \tfrac{1}{n}$.
+
+          Nach $(2.4{:}1)$ gibt es eine Folge $(x_n)$ und $(y_n)$ mit:
+          \[
+              (2.4{:}2) \quad \forall n \in \mathbb{N} : \bigl( |x_n - y_n| < \delta_n \text{ und } |f(x_n) - f(y_n)| \geq \varepsilon \bigr).
+          \]
+
+          Da $E$ beschränkt ist, existiert eine Schranke $b \in \mathbb{R}$ mit $E \subseteq [-b, b]$. $[-b, b]$ ist natürlich kompakt und demnach gibt es eine Teilfolge $(x_{n_k})$, die gegen ein $a \in \mathbb{R}$ konvergiert.
+
+          Wegen $(2.4{:}2)$ folgt:
+          \[
+              (2.4{:}3) \quad \forall k \in \mathbb{N} : \bigl( |x_{n_k} - y_{n_k}| < \delta_{n_k} \text{ und } |f(x_{n_k}) - f(y_{n_k})| \geq \varepsilon \bigr).
+          \]
+
+          Wir untersuchen fünf mögliche Fälle von $a$ und zeigen, dass es in allen fünf Fällen zu einem Widerspruch mit $(2.4{:}3)$ kommt.
+
+          \bigskip
+
+          \underline{Fall 1: $a \in E$}
+
+          Da $f$ stetig ist, existiert ein $\delta > 0$ mit:
+          \[
+              (2.4{:}4) \quad \forall x \in E : \bigl( |x - a| < \delta \Rightarrow |f(x) - f(a)| < \tfrac{\varepsilon}{2} \bigr)
+          \]
+
+          Wegen $(2.4{:}3)$ konvergiert $(y_{n_k})$ ebenfalls gegen $a$. Es existiert also ein $k$ mit
+          \[
+              (2.4{:}5) \quad |x_{n_k} - a| < \delta \text{ und } |y_{n_k} - a| < \delta.
+          \]
+
+          Damit können wir nun einen Widerspruch erzeugen:
+          \begin{align*}
+              |f(x_{n_k}) - f(y_{n_k})|
+               & = |f(x_{n_k}) - f(a) + f(a) - f(y_{n_k})|                                                               \\
+               & \leq |f(x_{n_k}) - f(a)| + |f(y_{n_k}) - f(a)|                                                           \\
+               & < \tfrac{\varepsilon}{2} + \tfrac{\varepsilon}{2} \quad (\text{wegen } (2.4{:}4) \text{ und } (2.4{:}5)) \\
+               & = \varepsilon
+          \end{align*}
+
+          Dies ist ein Widerspruch zu $(2.4{:}3)$.
+
+          \bigskip
+
+          \underline{Fall 2: $a$ ist ein Häufungspunkt von $E_1$, aber nicht von $E_2$}
+
+          Dann muss ein $k_0$ existieren, sodass $x_{n_k}, y_{n_k} \in E_1$ für alle $k \geq k_0$. Denn sonst würde $a$ ein Häufungspunkt von $E_2$ sein, was der Voraussetzung von Fall 2 widerspricht.
+
+          Da $E_1$ gleichmäßig stetig ist, existiert ein $\delta > 0$ mit
+          \[
+              (2.4{:}6) \quad \forall x, y \in E_1 : \bigl( |x - y| < \delta \Rightarrow |f(x) - f(y)| < \varepsilon \bigr).
+          \]
+
+          Da $(\delta_{n_k})$ eine Nullfolge ist, existiert ein $k_1 \in \mathbb{N}$ mit:
+          \[
+              (2.4{:}7) \quad \delta_{n_{k_1}} \leq \delta \text{ und } k_1 \geq k_0.
+          \]
+
+          Nach $(2.4{:}6)$ und $(2.4{:}7)$ gilt demnach ebenfalls:
+          \[
+              (2.4{:}8) \quad \forall x, y \in E_1 : \bigl( |x - y| < \delta_{n_{k_1}} \Rightarrow |f(x) - f(y)| < \varepsilon \bigr).
+          \]
+
+          Wegen $k_1 \geq k_0$ gilt $x_{n_{k_1}}, y_{n_{k_1}} \in E_1$ und wir können demnach $(2.4{:}8)$ anwenden, sodass
+          \[
+              |f(x_{n_{k_1}}) - f(y_{n_{k_1}})| < \varepsilon
+          \]
+          folgt. Dies ist ein Widerspruch zu $(2.4{:}3)$.
+
+          \bigskip
+
+          \underline{Fall 3: $a$ ist ein Häufungspunkt von $E_2$, aber nicht von $E_1$}
+
+          Gleiche Argumentation wie in Fall 2, nur für $E_2$.
+
+          \bigskip
+
+          \underline{Fall 4: $a$ ist Häufungspunkt von $E_1$ und $E_2$}
+
+          Nach (i) liegt $a$ in $E$ und wir können Fall 1 anwenden.
+
+          \bigskip
+
+          \underline{Fall 5: $a$ ist Häufungspunkt von $E_1 \cup E_2 = E$}
+
+          Dann muss ein Fall von 2--4 gelten und es führt zu einem Widerspruch. Denn $(x_{n_k})$ und $(y_{n_k})$ muss entweder
+          \begin{itemize}
+              \item für fast alle in $E_1$ liegen (Fall 2)
+              \item oder für fast alle in $E_2$ liegen (Fall 3)
+              \item oder $a$ ist ein Häufungspunkt von $E_1$ und $E_2$ (Fall 4).
+          \end{itemize}
+
+    \item
+
+          Gegenbeispiel:
+          \[
+              f : [-1, 1] \setminus \{0\} \to \mathbb{R}, \quad x \mapsto \begin{cases} -1, & \text{für } x < 0 \\ 1, & \text{für } x > 0 \end{cases}
+          \]
+          \[
+              E_1 = [-1, 0) \text{ und } E_2 = (0, 1]
+          \]
+
+          $f$ ist beschränkt und stetig. $f$ ist in $E_1$ und $E_2$ gleichmäßig stetig. Aber um den Punkt $0$ gibt es kein $\delta > 0$ mit
+          \[
+              \forall x \in E_1 \; \forall y \in E_2 : |x - y| < \delta \Rightarrow |f(x) - f(y)| < 1
+          \]
+
+\end{enumerate}
+
+\end{document}
