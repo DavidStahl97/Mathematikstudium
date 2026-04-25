@@ -52,11 +52,10 @@
     \begin{align*}
         \|f(x) - f(0)\| &= \|f(x)\| \\
         &= \left|\frac{x_1^2 + x_1 x_2 + x_2^2}{\sqrt{x_1^2 + x_2^2}}\right| \\
-        &\leq \left|\frac{x_1^2 + x_2^2}{\|x\|_2}\right| + \left|\frac{x_1 x_2}{\|x\|_2}\right| \\
-        &\leq \left|\frac{x_1^2 + x_2^2}{\|x\|_2}\right| + \left|\frac{x_1^2 + x_2^2}{\|x\|_2}\right|
+        &\leq \left|\frac{x_1^2 + x_2^2}{\|x\|_2}\right| + \left|\frac{x_1 x_2}{\|x\|_2}\right|
     \end{align*}
 
-    (da $|x_1 x_2| \leq x_1^2 + x_2^2$ wegen
+    Es gilt $|x_1 x_2| \leq x_1^2 + x_2^2$, da:
 
     \textit{Fall 1:} $x_1 x_2 < 0$:
     \[
@@ -67,9 +66,13 @@
     \[
         x_1^2 - x_1 x_2 + x_2^2 \geq x_1^2 - 2x_1 x_2 + x_2^2 = (x_1 - x_2)^2 \geq 0
     \]
-    )
+
+    Daraus können wir schließen:
 
     \begin{align*}
+        \|f(x) - f(0)\| \\
+        &\leq \left|\frac{x_1^2 + x_2^2}{\|x\|_2}\right| + \left|\frac{x_1 x_2}{\|x\|_2}\right| \\
+        &\leq \left|\frac{x_1^2 + x_2^2}{\|x\|_2}\right| + \left|\frac{x_1^2 + x_2^2}{\|x\|_2}\right| \\
         &= 2\left|\frac{\|x\|_2^2}{\|x\|_2}\right| < 2 \cdot \frac{\varepsilon}{2} = \varepsilon
     \end{align*}
 
