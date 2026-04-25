@@ -1,0 +1,104 @@
+\documentclass[a4paper,12pt]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[ngerman]{babel}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{enumitem}
+\usepackage{geometry}
+\geometry{a4paper, margin=2.5cm}
+
+\title{Einsendeaufgaben -- Lektion 2\\[0.5em]
+\large Modul 61112: Lineare Algebra}
+\author{}
+\date{}
+
+\begin{document}
+\maketitle
+
+\section*{Aufgabe 2.2}
+
+\begin{enumerate}[label=\alph*)]
+
+\item
+\[
+  f(x,y) = \begin{pmatrix} x+y \\ (1+i)x - y \end{pmatrix}
+  = x \begin{pmatrix} 1 \\ 1+i \end{pmatrix} + y \begin{pmatrix} 1 \\ -1 \end{pmatrix}
+  = \begin{pmatrix} 1 & 1 \\ 1+i & -1 \end{pmatrix} \begin{pmatrix} x \\ y \end{pmatrix}
+\]
+
+\[
+  \Rightarrow \; {}_{\mathcal{E}}M_{\mathcal{E}}(f) = \begin{pmatrix} 1 & 1 \\ 1+i & -1 \end{pmatrix}
+\]
+
+\item Ermittlung des Ranges von ${}_{\mathcal{E}}M_{\mathcal{E}}(f)$:
+
+\[
+  \begin{pmatrix} 1 & 1 \\ 1+i & -1 \end{pmatrix}
+  \xrightarrow{Z_{21}(-1-i)}
+  \begin{pmatrix} 1 & 1 \\ 0 & -2-i \end{pmatrix}
+  \xrightarrow{Z_2\!\left(\frac{1}{5}(-2+i)\right)}
+  \begin{pmatrix} 1 & 1 \\ 0 & 1 \end{pmatrix}
+  \xrightarrow{Z_{12}(-1)}
+  \begin{pmatrix} 1 & 0 \\ 0 & 1 \end{pmatrix}
+\]
+
+Die Treppennormalform von ${}_{\mathcal{E}}M_{\mathcal{E}}(f)$ ist $I$.
+Folglich ist ${}_{\mathcal{E}}M_{\mathcal{E}}(f)$ invertierbar und demnach ist $f$ bijektiv.
+Da $f$ auch linear ist, ist $f$ ein Isomorphismus.
+
+\item Nach der Transformationsformel gilt:
+\[
+  {}_{\mathcal{B}}M_{\mathcal{B}}(f)
+  = {}_{\mathcal{B}}M_{\mathcal{E}}(\mathrm{id}_{\mathbb{C}^2})
+    \cdot {}_{\mathcal{E}}M_{\mathcal{E}}(f)
+    \cdot {}_{\mathcal{E}}M(\mathrm{id}_{\mathbb{C}^2})_{\mathcal{B}}
+\]
+
+Nach a) gilt:
+\[
+  {}_{\mathcal{E}}M_{\mathcal{E}}(f) = \begin{pmatrix} 1 & 1 \\ 1+i & -1 \end{pmatrix}
+\]
+
+Nach Definition von $\mathcal{B}$ gilt:
+\[
+  {}_{\mathcal{E}}M_{\mathcal{B}}(\mathrm{id}_{\mathbb{C}^2}) = \begin{pmatrix} 0 & 1 \\ i & 2i \end{pmatrix}
+\]
+
+Da ${}_{\mathcal{B}}M_{\mathcal{E}}(\mathrm{id}_{\mathbb{C}^2}) = \bigl({}_{\mathcal{E}}M_{\mathcal{B}}(\mathrm{id}_{\mathbb{C}^2})\bigr)^{-1}$,
+bestimmen wir die Inverse von ${}_{\mathcal{E}}M_{\mathcal{B}}(\mathrm{id}_{\mathbb{C}^2})$:
+
+\[
+  \left(\begin{array}{cc|cc} 0 & 1 & 1 & 0 \\ i & 2i & 0 & 1 \end{array}\right)
+  \xrightarrow{Z_{12}}
+  \left(\begin{array}{cc|cc} i & 2i & 0 & 1 \\ 0 & 1 & 1 & 0 \end{array}\right)
+  \xrightarrow{Z_1(-i)}
+  \left(\begin{array}{cc|cc} 1 & 2 & 0 & -i \\ 0 & 1 & 1 & 0 \end{array}\right)
+  \xrightarrow{Z_{12}(-2)}
+  \left(\begin{array}{cc|cc} 1 & 0 & -2 & -i \\ 0 & 1 & 1 & 0 \end{array}\right)
+\]
+
+\[
+  \Rightarrow \; {}_{\mathcal{B}}M_{\mathcal{E}}(\mathrm{id}_{\mathbb{C}^2}) = \begin{pmatrix} -2 & -i \\ 1 & 0 \end{pmatrix}
+\]
+
+\[
+  {}_{\mathcal{B}}M_{\mathcal{B}}(f)
+  = \begin{pmatrix} -2 & -i \\ 1 & 0 \end{pmatrix}
+    \begin{pmatrix} 1 & 1 \\ 1+i & -1 \end{pmatrix}
+    \begin{pmatrix} 0 & 1 \\ i & 2i \end{pmatrix}
+  = \begin{pmatrix} -2 & -i \\ 1 & 0 \end{pmatrix}
+    \begin{pmatrix} i & 1+2i \\ -i & 1-i \end{pmatrix}
+  = \begin{pmatrix} -1-2i & 1-5i \\ i & 1+2i \end{pmatrix}
+\]
+
+\item In c) haben wir schon ermittelt, dass
+\[
+  \begin{pmatrix} 0 & 1 \\ i & 2i \end{pmatrix}^{-1} = \begin{pmatrix} -2 & -i \\ 1 & 0 \end{pmatrix}
+\]
+
+Also ist $\mathcal{B}^* = \bigl((-2,\,-i),\,(1,\,0)\bigr)$.
+
+\end{enumerate}
+
+\end{document}
