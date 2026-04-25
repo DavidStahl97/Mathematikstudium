@@ -52,43 +52,52 @@
 
           Für alle $n \in \mathbb{N}$ ist $x^n$ streng monoton steigend in $[0, +\infty[$, da
           \[
-              \forall n \in \mathbb{N} \, \forall a, b \in \mathbb{R} : (0 \leq a < b \Rightarrow a^{n+1} < b^{n+1}).
+              \forall n \in \mathbb{N} \, \forall a, b \in \mathbb{R} : (0 \leq a < b \Rightarrow a^{n} < b^{n}).
           \]
 
           Daraus folgt, dass für alle $n \in \mathbb{N}$ $f_n$ streng monoton ist, da die Summe der streng monotonen Funktionen wieder streng monoton ist.
 
-          Wir zeigen durch Induktion, dass eine eindeutige Lösung für $f_n(x_n) = 1$ existiert und die Folge $(x_n)$ monoton fallend ist.
+          Wir zeigen durch Induktion, dass es eine eindeutige Lösung für $f_n(x_n) = 1$ existiert.
+
+          \bigskip
 
           \underline{Induktionsanfang: $n = 1$}
 
-          Für $x_1$ setzen wir $1$ und es gilt $f_1(x_1) = 1$. Da $f_1$ streng monoton steigend ist, ist die Lösung eindeutig.
+          Für $x_1$ setzen wir $1$ und es gilt $f_1(x_1) = 1$.
 
           \underline{Induktionsschritt: $n \to n+1$}
 
-          Nach Induktionsvoraussetzung existiert ein eindeutiges $x_n > 0$ mit $f_n(x_n) = 1$. Es gilt $f_{n+1}(x_n) = 1 + x^{n+1} > 1$. Nach dem Zwischenwertsatz existiert ein $x_{n+1}$ mit $f_{n+1}(x_{n+1}) = 1$, da $0 = f(0) < 1 < f_{n+1}(x_n)$.
+          Nach Induktionsvoraussetzung existiert ein eindeutiges $x_n > 0$ mit $f_n(x_n) = 1$. Es gilt $f_{n+1}(x_n) = 1 + x^{n+1} > 1$. Nach dem Zwischenwertsatz existiert ein $x_{n+1}$ mit $f_{n+1}(x_{n+1}) = 1$, da $f(0) < 1 < f_{n+1}(x_n)$.
 
-          Wegen der strengen Monotonie ist $x_{n+1}$ eindeutig und aus $f(x_{n+1}) < f(x_n)$ folgt $x_{n+1} < x_n$.
-
-          Da $(x_n)$ streng monoton fallend und beschränkt ist, konvergiert $(x_n)$.
+          \bigskip
+          
+          Wegen der strengen Monotonie von $f_{n}$ ist die Lösung $f_n(x_n) = 1$ eindeutig für alle $n \in \mathbb{N}$.
+          
+          \bigskip
 
           Nun ist noch der Grenzwert von $(x_n)$ zu bestimmen.
+
+          Die Folge $(x_n)$ ist streng monoton fallend, denn es gilt $f(x_{n+1}) < f(x_n)$ für alle $n \in \mathbb{N}$ wegen der Konstruktion der Folge $(x_n)$ und da $f$ in $[0, +\infty)$ streng monoton wächst, folgt $x_{n+1} < x_n$.
+
+          Da also $(x_n)$ streng monoton fallend und beschränkt ist, konvergiert $(x_n)$. Der Grenzwert von $(x_n)$ ist noch zu ermitteln.
+
+          \bigskip
 
           Wir betrachten die Folge $(f_n(x_n))_{n \in \mathbb{N}_0}$. Wir setzen $f_0(x_0) = 1$. Da jedes $f_n$ eine geometrische Summe ist, gilt:
           \[
               f_n(x_n) = \frac{1 - x_n^n}{1 - x_n}.
           \]
 
-          Wir untersuchen den Grenzwert von $(f_n(x_n))$. Die Folge $(x_n^n)$ konvergiert gegen $0$, da $x_2 < 1$, $x_2^n \to 0$ und für fast alle $x_n$ $x_n < x_2$ gilt.
+          Die Folge $(x_n^n)$ konvergiert gegen $0$, da $\sum_{n=0}^{\infty} x_n \leq \sum_{n=0}^{\infty} x_2^n$ und $\sum_{n=0}^{\infty} x_2^n$ konvergiert, weil es sich um eine geometrische Reihe handelt.
+          Also gilt:
 
-          Damit können wir den Grenzwert ermitteln:
           \[
-              \lim_{n \to \infty} \sum_{k=0}^{n} (x_n)^k = \lim_{n \to \infty} \frac{1 - x_n^n}{1 - x_n}
-          \]
-          \[
-              = \frac{1 - \lim_{n \to \infty} x_n^n}{1 - \lim_{n \to \infty} x_n} = \frac{1}{1 - \lim_{n \to \infty} x_n}
+              \lim_{n \to \infty} f_n(x_n) = \lim_{n \to \infty} \sum_{k=0}^{n} (x_n)^k = \frac{1 - \lim_{n \to \infty} x_n^n}{1 - \lim_{n \to \infty} x_n} = \frac{1}{1 - \lim_{n \to \infty} x_n}
           \]
 
-          Wir haben jedes $x_n$ eben so gewählt, dass $f_n(x_n) = 1$ gilt. Also gilt ebenfalls:
+          \bigskip
+
+          Außerdem haben wir jedes $x_n$ eben so gewählt, dass $f_n(x_n) = 1$ gilt. Also gilt ebenfalls:
           \[
               \lim_{n \to \infty} f_n(x_n) = 1.
           \]
@@ -98,7 +107,7 @@
               1 = \lim_{n \to \infty} f_n(x_n) = \frac{1}{1 - \lim_{n \to \infty} x_n}
           \]
 
-          Folglich muss $\lim_{n \to \infty} x_n = 0$ sein, was zu zeigen war.
+          Folglich gilt $\lim_{n \to \infty} x_n = 0$, was zu zeigen war.
 
           \bigskip
 
@@ -142,8 +151,10 @@
           \[
               |x_k - y_k| \leq |x_k| + |y_k| < \frac{\delta}{2} + \frac{\delta}{2} = \delta.
           \]
-
-          Da $\sin(x_k) = 1$ und $\sin(y_k) = -1$ können wir nun abschließend schlussfolgern:
+          
+          \bigskip
+          Noch zu zeigen: $|f(x_k) - f(y_k)| \geq \varepsilon$.
+          \\ Da $\sin(x_k) = 1$ und $\sin(y_k) = -1$ können wir nun abschließend schlussfolgern:
           \[
               |f(x_k) - f(y_k)| = |g(x_k) \sin(x_k) - g(y_k) \sin(y_k)|
           \]
