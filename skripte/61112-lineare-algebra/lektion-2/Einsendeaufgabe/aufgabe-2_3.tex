@@ -1,0 +1,48 @@
+\documentclass[a4paper,12pt]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[ngerman]{babel}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{enumitem}
+\usepackage{geometry}
+\geometry{a4paper, margin=2.5cm}
+
+\title{Einsendeaufgaben -- Lektion 2\\[0.5em]
+\large Modul 61112: Lineare Algebra}
+\author{}
+\date{}
+
+\begin{document}
+\maketitle
+
+\section*{Aufgabe 2.3}
+
+Es existiert wegen Korollar 2.2.13 eine geordnete Basis $B_U = (v_1, \ldots, v_t)$ für $U$.
+Nach dem Basisergänzungssatz lässt sich $B_U$ erweitern zu einer geordneten Basis
+$\mathcal{B} = (v_1, \ldots, v_t, v_{t+1}, \ldots, v_n)$ für $V$.
+
+Wir definieren die Linearformen $a_1, \ldots, a_{n-t} \in V^*$ durch die Basis $\mathcal{B}$.
+Denn eine Linearform ist eine lineare Abbildung und es reicht demnach aus,
+die Abbildung der Basis zu bestimmen.
+
+Also definieren wir $a_i$ mit $i \leq n-t$ wie folgt:
+\[
+  a_i(v) = \begin{cases} 1, & \text{wenn } v = v_{t+i} \\ 0, & \text{sonst} \end{cases}
+\]
+
+Die Basis von $\ker(a_i)$ für ein $i \leq n-t$ ist nach Definition $\mathcal{B} \setminus \{v_{t+i}\}$.
+Demnach gilt
+\[
+  \bigcap_{i=1}^{n-t} \mathcal{B} \setminus \{v_{t+i}\} = B_U \cap \bigcap_{i=1}^{n-t} \{v_{t+i}\} = B_U.
+\]
+
+Daraus folgt:
+\[
+  \bigcap_{i=1}^{n-t} \ker(a_i)
+  = \bigcap_{i=1}^{n-t} \langle \mathcal{B} \setminus \{v_{t+i}\} \rangle
+  = \langle B_U \rangle
+  = U
+\]
+
+\end{document}
