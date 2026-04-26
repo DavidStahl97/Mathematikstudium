@@ -28,22 +28,13 @@ curl -s "https://api.github.com/repos/DavidStahl97/Mathematikstudium/actions/run
 Logs selbst (Volltext) benötigen Admin-Rechte (403). Step-Status reicht aber meist zur Diagnose.
 
 ## PRs erstellen
-PRs können über die GitHub API erstellt werden. Den Token beim Benutzer anfragen (`GITHUB_TOKEN`):
+**Keinen PR automatisch erstellen** – keinen GitHub-Token anfragen und keine API-Calls zum Erstellen von PRs machen.
 
-```bash
-curl -s -X POST "https://api.github.com/repos/DavidStahl97/Mathematikstudium/pulls" \
-  -H "Authorization: Bearer $GITHUB_TOKEN" \
-  -H "Accept: application/vnd.github.v3+json" \
-  -H "Content-Type: application/json" \
-  -d '{
-    "title": "PR-Titel",
-    "body": "Beschreibung",
-    "head": "<branch>",
-    "base": "main"
-  }' | python3 -c "import sys,json; pr=json.load(sys.stdin); print(pr['html_url'])"
+Nach dem Push einfach den Compare-Link im Chat posten, damit der Benutzer selbst einen PR erstellen kann:
+
 ```
-
-Falls kein Token vorhanden: `https://github.com/DavidStahl97/Mathematikstudium/compare/main...<branch>`
+https://github.com/DavidStahl97/Mathematikstudium/compare/main...<branch>
+```
 
 ## LaTeX / GitHub Action
 - TeX-Dateien liegen in `skripte/`
