@@ -1,0 +1,60 @@
+\documentclass[a4paper,12pt]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[ngerman]{babel}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{enumitem}
+\usepackage{geometry}
+\geometry{a4paper, margin=2.5cm}
+
+\title{Einsendeaufgaben -- Lektion 2\\[0.5em]
+\large Modul 61112: Lineare Algebra}
+\author{}
+\date{}
+
+\begin{document}
+\maketitle
+
+\section*{Aufgabe 2.4}
+
+\[
+  \begin{pmatrix} 1 & 0 & 1 & 2 \\ 1 & -1 & 2 & 0 \end{pmatrix}
+  \xrightarrow{Z_{21}(-1)}
+  \begin{pmatrix} 1 & 0 & 1 & 2 \\ 0 & -1 & 1 & -2 \end{pmatrix}
+\]
+
+\[
+  \xrightarrow{Z_2(-1)}
+  \begin{pmatrix} 1 & 0 & 1 & 2 \\ 0 & 1 & -1 & 2 \end{pmatrix}
+\]
+
+\[
+  \Rightarrow U = \left\{ \begin{pmatrix} -x_3 - 2x_4 \\ x_3 - 2x_4 \\ x_3 \\ x_4 \end{pmatrix} \;\middle|\; x_3, x_4 \in \mathbb{R} \right\}
+  = \left\{ x_3 \begin{pmatrix} -1 \\ 1 \\ 1 \\ 0 \end{pmatrix} + x_4 \begin{pmatrix} -2 \\ -2 \\ 0 \\ 1 \end{pmatrix} \;\middle|\; x_3, x_4 \in \mathbb{R} \right\}
+\]
+
+\[
+  \Rightarrow \left( \begin{pmatrix} -1 \\ 1 \\ 1 \\ 0 \end{pmatrix},\; \begin{pmatrix} -2 \\ -2 \\ 0 \\ 1 \end{pmatrix} \right) \text{ ist Basis von } U.
+\]
+
+Wir untersuchen, für welches $t \in \mathbb{R}$ die Basen von $U$ und $W_t$ linear unabhängig sind.
+Wenn sie linear unabhängig sind, folgt aus Lemma 2.3.19, dass $W_t$ ein Komplement von $U$ ist.
+
+\[
+  \begin{pmatrix} -1 & -2 & 1 & 2 \\ 1 & -2 & 1 & 0 \\ 1 & 0 & 0 & t \\ 0 & 1 & 1 & 0 \end{pmatrix}
+  \xrightarrow{Z_{21}(1),\; Z_{31}(1)}
+  \begin{pmatrix} -1 & -2 & 1 & 2 \\ 0 & -4 & 2 & 2 \\ 0 & -2 & 1 & 2+t \\ 0 & -1 & 2 & 2 \end{pmatrix}
+\]
+
+\[
+  \xrightarrow{Z_{34}}
+  \begin{pmatrix} -1 & -2 & 1 & 2 \\ 0 & -4 & 2 & 2 \\ 0 & -1 & 2 & 2 \\ 0 & -2 & 1 & 2+t \end{pmatrix}
+  \xrightarrow{Z_{32}\!\left(-\tfrac{1}{4}\right),\; Z_{42}\!\left(-\tfrac{1}{2}\right)}
+  \begin{pmatrix} -1 & -2 & 1 & 2 \\ 0 & -4 & 2 & 2 \\ 0 & 0 & \tfrac{3}{2} & \tfrac{3}{2} \\ 0 & 0 & 0 & 1+t \end{pmatrix}
+\]
+
+Demnach muss $t \neq -1$ sein, damit die Basisvektoren von $U$ und $W_t$ linear unabhängig sind.
+Für $t \neq -1$ ist $W_t$ ein Komplement von $U$.
+
+\end{document}
