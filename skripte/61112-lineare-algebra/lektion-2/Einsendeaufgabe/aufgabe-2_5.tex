@@ -7,6 +7,7 @@
 \usepackage{enumitem}
 \usepackage{geometry}
 \geometry{a4paper, margin=2.5cm}
+\usepackage{parskip}
 
 \title{Einsendeaufgaben -- Lektion 2\\[0.5em]
 \large Modul 61112: Lineare Algebra}
@@ -20,21 +21,21 @@
 
 \subsection*{a)}
 
-\textbf{$\forall v \in \mathbb{K}^n: v \sim v$}
+\underline{$\forall v \in \mathbb{K}^n: v \sim v$}
 
 Das Nullelement von $\mathrm{GL}_n(\mathbb{K})$ ist $I_n$. Da $H$ eine Untergruppe ist, gilt $I_n \in H$.
 Demnach gilt $v \sim v$, da $I_n v = v$.
 
 \bigskip
 
-\textbf{$\forall u, v \in \mathbb{K}^n: u \sim v \Rightarrow v \sim u$}
+\underline{$\forall u, v \in \mathbb{K}^n: u \sim v \Rightarrow v \sim u$}
 
 Sei $u, v \in \mathbb{K}^n$ und $u \sim v$. Es existiert also ein $A \in H$ mit $Au = v$. Da $H$ eine Gruppe mit der Matrixmultiplikation ist, existiert ein $A^{-1} \in H$.
 Es gilt also $A^{-1}v = u$ und demnach $v \sim u$.
 
 \bigskip
 
-\textbf{$\forall u, v, w \in \mathbb{K}^n: u \sim v \land v \sim w \Rightarrow u \sim w$}
+\underline{$\forall u, v, w \in \mathbb{K}^n: u \sim v \land v \sim w \Rightarrow u \sim w$}
 
 Sei $u, v, w \in \mathbb{K}^n$ und $u \sim v$ sowie $v \sim w$. Es existiert also ein $A_1$ und $A_2$ mit
 \[
