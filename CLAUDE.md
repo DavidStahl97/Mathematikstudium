@@ -138,19 +138,79 @@ Der Ordner `Attachments/` dient als Ablageort für Dateien, die der Benutzer hoc
 3. Fix auf neuem Branch committen und pushen
 4. PR via GitHub API erstellen (Token beim Benutzer anfragen falls nötig)
 
+## Formatvorlagen
+
+Fertige LaTeX-Startdateien liegen in `vorlagen/`:
+
+| Datei | Verwendung |
+|---|---|
+| `vorlagen/einsendeaufgabe.tex` | Neue Einsendeaufgabe anlegen |
+| `vorlagen/ziele.tex` | Neue Ziele-Datei für eine Lektion |
+| `vorlagen/glossar.tex` | Neues Glossar für eine Lektion |
+
+Beim Erstellen einer neuen `.tex`-Datei die passende Vorlage kopieren und die Platzhalter (`N`, `M`, `MODULNAME`, `NUMMER`, `TITEL` usw.) ersetzen.
 
 
 
 
-# Format-Referenz: Ziele & Glossar
+
+# Format-Referenz: Einsendeaufgaben, Ziele & Glossar
 ## Mathematikstudium – Modul 61111 (und weitere)
 
 Orientierung an der **FernUni Analysis-Leseprobe (Modul 61211)**.
-Beide Dokumente liegen in der Ordnerstruktur:
+Dokumente liegen in der Ordnerstruktur:
 ```
+skripte/<modul>/lektion-<n>/Einsendeaufgabe/aufgabe-N_M.tex
 skripte/<modul>/lektion-<n>/Ziele/ziele.tex
 skripte/<modul>/lektion-<n>/Glossar/glossar.tex
 ```
+
+---
+
+## 0. Einsendeaufgaben (`aufgabe-N_M.tex`)
+
+### Zweck
+Transkription der handschriftlichen Lösung des Studierenden in LaTeX. Nur was im
+Handschrift-PDF steht – kein eigener Text, keine Korrekturen, keine Ergänzungen.
+
+### Dokumentklasse & Pakete
+```latex
+\documentclass[a4paper,12pt]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[ngerman]{babel}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{enumitem}
+\usepackage{geometry}
+\geometry{a4paper, margin=2.5cm}
+% Für Beweise mit \qed:
+% \usepackage{amsthm}
+```
+
+### Titel
+```latex
+\title{Einsendeaufgaben -- Aufgabe N.M\\[0.5em]
+\large MODUL-NUMMER MODULNAME}
+\author{}
+\date{}
+```
+
+### Aufbau
+```latex
+\section*{Aufgabe 1}
+\begin{enumerate}[label=\alph*)]
+  \item ...
+  \item ...
+\end{enumerate}
+```
+
+- Abschnitt heißt immer `\section*{Aufgabe 1}` (ohne Modulpräfix)
+- Teile mit `\begin{enumerate}[label=\alph*)]`
+- Beweise: `\textbf{Induktionsanfang}`, `\textbf{Induktionsschritt}`, `align*` für mehrzeilige Gleichungen, `\qed` am Ende
+- Fallunterscheidungen: `\textit{Fall 1:}`, `\textit{Fall 2:}` usw.
+- Fließtext mit Formeln: `$...$` inline, `\[...\]` für abgesetzte Formeln
+- Hinweise auf Sätze aus dem Lehrtext direkt übernehmen (z.B. „Satz 2.3.8(iv)")
 
 ---
 

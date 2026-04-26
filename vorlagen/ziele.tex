@@ -1,0 +1,93 @@
+\documentclass[a4paper,12pt]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[ngerman]{babel}
+\usepackage{amsmath, amssymb}
+\usepackage{tikz}
+\usetikzlibrary{shapes.geometric, arrows.meta, positioning, fit, backgrounds}
+\usepackage{geometry}
+\geometry{left=3cm, right=3cm, top=2.5cm, bottom=2.5cm}
+\usepackage{enumitem}
+\usepackage{parskip}
+
+\tikzset{
+  box/.style={rectangle, draw, rounded corners=3pt, text width=4.5cm,
+              align=center, minimum height=1.0cm, font=\small, inner sep=4pt},
+  arrow/.style={-{Latex[length=2mm]}, thick},
+}
+
+\begin{document}
+
+\begin{center}
+  {\LARGE\bfseries Studierhinweise zu Lektion N}\\[0.5em]
+  {\large MODULNAME (Modul NUMMER)}
+\end{center}
+
+\vspace{1em}
+
+% Einleitungstext: 1--3 Absätze über Inhalt und Aufbau der Lektion.
+
+% -----------------------------------------------------------------------
+\section*{Struktur der Lektion N}
+
+\begin{center}
+\begin{tikzpicture}[node distance=0.6cm and 0.8cm]
+
+  % Spaltenköpfe
+  \node[font=\bfseries\small] (h1) at (0,0)   {Kapitel 1: TITEL};
+  \node[font=\bfseries\small] (h2) at (6.5,0) {Kapitel 2: TITEL};
+
+  % Boxen Kapitel 1
+  \node[box, below=0.8cm of h1] (a1) {1.1 ABSCHNITT\\Stichworte};
+  \node[box, below=0.5cm of a1] (a2) {1.2 ABSCHNITT\\Stichworte};
+
+  % Boxen Kapitel 2
+  \node[box, below=0.8cm of h2] (b1) {2.1 ABSCHNITT\\Stichworte};
+  \node[box, below=0.5cm of b1] (b2) {2.2 ABSCHNITT\\Stichworte};
+
+  % Pfeile innerhalb Kapitel
+  \draw[arrow] (a1) -- (a2);
+  \draw[arrow] (b1) -- (b2);
+
+  % Kapitelübergreifende Pfeile (nur wenn nötig)
+  \draw[arrow] (a2.east) -- ++(0.3,0) |- (b1.west);
+
+\end{tikzpicture}
+\end{center}
+
+\newpage
+
+% -----------------------------------------------------------------------
+\section*{Zielelement 1.1 -- TITEL DES ABSCHNITTS}
+
+\subsection*{Lerninhalte}
+
+\begin{center}
+\begin{tikzpicture}[node distance=0.6cm and 1.0cm]
+  \node[box] (k1) {Begriff/Konzept 1};
+  \node[box, below=0.5cm of k1] (k2) {Begriff/Konzept 2};
+  \node[box, below=0.5cm of k2] (k3) {Begriff/Konzept 3};
+  \draw[arrow] (k1) -- (k2);
+  \draw[arrow] (k2) -- (k3);
+\end{tikzpicture}
+\end{center}
+
+\subsection*{Lernziele}
+
+Nach Durcharbeiten dieses Abschnitts sollten Sie:
+\begin{itemize}
+  \item ...können,
+  \item ...kennen,
+  \item ...verstehen und anwenden können.
+\end{itemize}
+
+\subsection*{Selbstkontrollelement 1.1}
+
+% Eine kurze, selbst beantwortbare Aufgabe zum Kernbegriff des Abschnitts.
+
+\newpage
+
+% -----------------------------------------------------------------------
+% Weitere Zielelemente nach demselben Schema...
+
+\end{document}

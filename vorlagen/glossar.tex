@@ -1,0 +1,61 @@
+\documentclass[a4paper,12pt]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[ngerman]{babel}
+\usepackage{amsmath, amssymb}
+\usepackage{geometry}
+\geometry{left=3cm, right=3cm, top=2.5cm, bottom=2.5cm}
+\usepackage{array, booktabs}
+\usepackage{enumitem}
+\usepackage{parskip}
+
+% Glossar-Eintrag: {Nummer}{Fetter Titel}{Inhalt}
+% Für Einträge ohne eigene Nummer: \gentry{}{Titel}{Inhalt}
+\newcommand{\gentry}[3]{%
+  \noindent\textbf{#1\quad #2}\nopagebreak\\[0.2em]
+  #3\par\smallskip
+}
+
+\begin{document}
+
+\begin{center}
+  {\LARGE\bfseries Glossar zu Lektion N}\\[0.5em]
+  {\large MODULNAME (Modul NUMMER)}
+\end{center}
+
+\vspace{1em}
+
+Dieses Glossar fasst die wesentlichen Definitionen, Merkregeln und Sätze
+der Lektion kompakt zusammen. Nummerierungen entsprechen dem Lehrtext.
+
+% ======================================================================
+\section*{1.1 \quad ABSCHNITTSTITEL}
+
+\gentry{1.1.1}{TITEL}{%
+  % Definition / Formel / Wahrheitstafel
+}
+
+% Wahrheitstafel-Beispiel:
+% \gentry{1.2.3}{Negation $\lnot A$}{%
+%   \[
+%     \begin{array}{c|c}
+%       A & \lnot A \\\hline
+%       w & f \\ f & w
+%     \end{array}
+%   \]
+% }
+
+% Aufzählung innerhalb eines Eintrags:
+% \gentry{}{TITEL}{%
+%   \begin{itemize}[topsep=2pt,itemsep=1pt]
+%     \item ...
+%     \item ...
+%   \end{itemize}
+% }
+
+% ======================================================================
+\section*{1.2 \quad ABSCHNITTSTITEL}
+
+% Weitere Einträge...
+
+\end{document}
