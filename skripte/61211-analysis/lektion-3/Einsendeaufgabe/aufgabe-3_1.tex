@@ -1,0 +1,142 @@
+\documentclass[a4paper,12pt]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[ngerman]{babel}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{enumitem}
+\usepackage{geometry}
+\geometry{a4paper, margin=2.5cm}
+\usepackage{parskip}
+
+\title{Einsendeaufgaben -- Aufgabe 3.1\\[0.5em]
+\large 61211 Analysis}
+\author{}
+\date{}
+
+\begin{document}
+\maketitle
+
+\section*{Aufgabe 1}
+
+\begin{enumerate}[label=\alph*)]
+
+    \item
+    Wir zeigen die Stetigkeit von $f$ in $(0,0)$ mit Hilfe des $\varepsilon$-$\delta$-Kriteriums.
+
+    Sei $\varepsilon > 0$ beliebig. Wir wählen $\delta = \min(1, 2\varepsilon)$.
+    Sei $\binom{x}{y} \in \mathbb{R}^2 \setminus \{0\}$ mit $\left\| \binom{x}{y} \right\|_\infty < \delta$.
+
+    \textit{Fall 1: $x^2 \leq y^2$}
+
+    Wir zeigen zunächst, dass $\left| \frac{\sin(x)}{x} \right| \leq 1$ gilt.
+
+    Wir betrachten $g(x) = x - \sin(x)$. $g'$ ist gegeben durch $g'(x) = 1 - \cos(x)$. Da $1 \geq \cos(x)$ (MG 13.1.3) folgt $g'(x) = 1 - \cos(x) \geq 0$. Nach 3.3.13 ist $g$ wegen $g'(x) \geq 0$ monoton wachsend. Wegen $g(0) = 0$ und der Monotonie von $g$ gilt demnach:
+    \[
+        g(x) = x - \sin(x) \geq 0 \quad \forall x \in [0, \infty)
+    \]
+    Daraus folgt
+    \[
+        x \geq \sin(x) \quad \forall x \in [0, \infty).
+    \]
+    Für $x < 0$ gilt $x \leq \sin(x)$, denn
+    \[
+        -y \leq -\sin(y) = \sin(-y) \quad \text{für alle } y \in [0, \infty)
+    \]
+    wegen $y \geq \sin(y)$.
+
+    Aus $x \geq \sin(x)$ für alle $x \geq 0$ und $x \leq \sin(x)$ für alle $x < 0$ folgt
+    \[
+        \left| \frac{\sin(x)}{x} \right| \leq 1 \quad \forall x \in \mathbb{R} \setminus \{0\}.
+    \]
+
+    Damit können wir nun $|f(x,y)| < \varepsilon$ zeigen:
+    \begin{align*}
+        |f(x,y)| &= \left| \frac{\sin(x)^4 \, y^6}{x^2 + y^2} \right| \\
+        &\leq \left| \frac{\sin(x)^4 \, y^6}{2 x^2} \right| && (\text{wegen } x^2 \leq y^2) \\
+        &\leq \left| \frac{\sin(x)^2 \, y^6}{2} \right| && \left( \text{wegen } \left| \tfrac{\sin(x)}{x} \right| \leq 1 \right) \\
+        &\leq \left| \frac{y^6}{2} \right| && (\text{wegen } |\sin(x)| \leq 1) \\
+        &\leq \frac{|y|}{2} && (\text{wegen } |y| < \delta \leq 1) \\
+        &< \varepsilon && (\text{wegen } |y| < \delta \leq 2\varepsilon)
+    \end{align*}
+
+    \textit{Fall 2: $y^2 < x^2$}
+
+    Wir können direkt schließen:
+    \begin{align*}
+        |f(x,y)| &= \left| \frac{\sin(x)^4 \, y^6}{x^2 + y^2} \right| \\
+        &\leq \left| \frac{\sin(x)^4 \, y^6}{2 y^2} \right| && (\text{wegen } y^2 < x^2) \\
+        &= \left| \frac{\sin(x)^4 \, y^4}{2} \right| \\
+        &\leq \left| \frac{y^4}{2} \right| && (\text{wegen } |\sin(x)| \leq 1) \\
+        &< \frac{|y|}{2} && (\text{wegen } |y| < \delta \leq 1) \\
+        &< \varepsilon && (\text{wegen } |y| < \delta \leq 2\varepsilon)
+    \end{align*}
+
+    \item
+    \[
+        D_1 f(x,y) = \begin{cases}
+            \dfrac{4 \cos(x) \sin(x)^3 \, y^6 \, (x^2 + y^2) - \sin(x)^4 \, y^6 \cdot 2x}{(x^2 + y^2)^2} & \text{für } (x,y) \neq (0,0) \\[1em]
+            0 & \text{für } (x,y) = (0,0)
+        \end{cases}
+    \]
+    \[
+        D_2 f(x,y) = \begin{cases}
+            \dfrac{6 \sin(x)^4 \, y^5 \, (x^2 + y^2) - \sin(x)^4 \, y^6 \cdot 2y}{(x^2 + y^2)^2} & \text{für } (x,y) \neq (0,0) \\[1em]
+            0 & \text{für } (x,y) = (0,0)
+        \end{cases}
+    \]
+
+    Für $\binom{a}{b}$ mit $b \neq 0$ gilt $D_1 f(a,b) = (f \circ \iota_1)'(a)$. Für $b = 0$ gilt $f(a, 0) = 0$, also
+    \[
+        D_1 f(a, 0) = 0 = (f \circ \iota_1)'(a).
+    \]
+    Also ist $D_1 f(x,y)$ die Ableitung von $(f \circ \iota_1)(x)$.
+
+    Nach der gleichen Argumentation ist $D_2 f(x,y)$ die Ableitung von $(f \circ \iota_2)(y)$.
+
+    $f$ ist also in $(0,0)$ partiell differenzierbar.
+
+    \item
+    Wir zeigen die Stetigkeit der partiellen Ableitungen $D_1 f$ und $D_2 f$ in $(0,0)$. Nach Satz 3.6.4 ist $f$ dann total differenzierbar in $(0,0)$.
+
+    Wir zeigen dies zunächst für $D_1 f$.
+
+    Nach der gleichen Argumentation von a) gilt
+    \[
+        \lim_{(x,y) \to 0} \frac{\sin^3(x) \, y^6}{x^2 + y^2} = 0
+    \]
+    und
+    \[
+        \lim_{(x,y) \to 0} \frac{\sin^2(x) \, y^3}{x^2 + y^2} = 0.
+    \]
+
+    Daraus schließen wir
+    \begin{align*}
+        &\lim_{(x,y) \to 0} D_1 f(x,y) \\
+        &= \lim_{(x,y) \to 0} 4 \cos(x) \cdot \lim_{(x,y) \to 0} \frac{\sin^3(x) \, y^6}{x^2 + y^2} \\
+        &\quad - \lim_{(x,y) \to 0} 2x \cdot \left( \lim_{(x,y) \to 0} \frac{\sin^2(x) \, y^3}{x^2 + y^2} \right)^2 = 0.
+    \end{align*}
+
+    Nun zeigen wir noch Stetigkeit in $(0,0)$ für $D_2 f$.
+
+    Nach der gleichen Argumentation von a) gilt
+    \[
+        \lim_{(x,y) \to 0} \frac{\sin^4(x) \, y^5}{x^2 + y^2} = 0
+    \]
+    und
+    \[
+        \lim_{(x,y) \to 0} \frac{\sin(x)^2 \, y^3}{x^2 + y^2} = 0.
+    \]
+
+    Daraus schließen wir:
+    \begin{align*}
+        &\lim_{(x,y) \to 0} D_2 f(x,y) \\
+        &= 6 \cdot \lim_{(x,y) \to 0} \frac{\sin(x)^4 \, y^5}{x^2 + y^2} - \lim_{(x,y) \to 0} 2y \cdot \left( \lim_{(x,y) \to 0} \frac{\sin(x)^2 \, y^3}{x^2 + y^2} \right)^2 \\
+        &= 0.
+    \end{align*}
+
+    Die partiellen Ableitungen sind also stetig in $(0,0)$ und nach Satz 3.6.4 ist $f$ demnach total differenzierbar.
+
+\end{enumerate}
+
+\end{document}
