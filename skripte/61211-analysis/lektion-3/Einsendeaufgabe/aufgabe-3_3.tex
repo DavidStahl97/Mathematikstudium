@@ -1,0 +1,122 @@
+\documentclass[a4paper,12pt]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[ngerman]{babel}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{enumitem}
+\usepackage{geometry}
+\geometry{a4paper, margin=2.5cm}
+
+\title{Einsendeaufgaben -- Aufgabe 3.3\\[0.5em]
+\large 61211 Analysis}
+\author{}
+\date{}
+
+\begin{document}
+\maketitle
+
+\begin{enumerate}[label=\alph*)]
+    \item
+
+          Wir zeigen zunächst, dass die Funktionenfolge punktweise konvergiert.
+
+          Wegen
+          \begin{align*}
+              \left| \frac{\sin(kx^2 y)}{k^4} \, e^{-kx^2} \right|
+               & \leq \left| \frac{\sin(kx^2 y)}{k^4} \right| && \text{(wegen } e^{-kx^2} \leq 1 \text{)}    \\
+               & \leq \frac{1}{k^4}                           && \text{(wegen } |\sin(kx^2 y)| \leq 1 \text{)}
+          \end{align*}
+          konvergiert die Reihe $\sum_{k=1}^{\infty} \frac{\sin(kx^2 y)}{k^4} \, e^{-kx^2}$
+          nach dem Majorantenkriterium für jedes $\binom{x}{y} \in \mathbb{R}^2$, da die Reihe
+          $\sum_{k=1}^{\infty} \frac{1}{k^4}$ konvergiert.
+
+          Die Funktionenfolge $(f_n)$ konvergiert also punktweise gegen ein $f: \mathbb{R}^2 \to \mathbb{R}$.
+          Die erste Voraussetzung für Satz 3.6.10 ist demnach gegeben.
+
+          Sei nun $a \in \mathbb{R}^2$ beliebig. $a$ ist ein innerer Punkt von $\mathbb{R}^2$. Ferner wählen
+          \[
+              U_a = \left\{ \binom{x}{y} \in \mathbb{R}^2 \,\middle|\, \left\| \binom{x}{y} - a \right\|_\infty < 1 \right\}
+          \]
+          als Umgebung von $a$.
+
+          Wir definieren die Funktionenfolge $(g_k)$ mit
+          \[
+              g_k(x,y) := \frac{\sin(kx^2 y)}{k^4} \, e^{-kx^2}
+          \]
+          Wir bilden die partiellen Ableitungen:
+          \begin{align*}
+              D_1 g_k(x,y) & = \left( 2kxy \cdot \cos(kx^2 y) e^{-kx^2} + \sin(kx^2 y) \cdot (-k 2x) e^{-kx^2} \right) / k^4 \\
+                           & = \frac{2 x e^{-kx^2} \left( y \cos(kx^2 y) - \sin(kx^2 y) \right)}{k^3}
+          \end{align*}
+          \[
+              D_2 g_k(x,y) = \frac{x^2 \cos(kx^2 y) \, e^{-kx^2}}{k^3}
+          \]
+
+          Offensichtlich ist $D_1 g_k$ und $D_2 g_k$ für alle $k \in \mathbb{N}$ in $a$ stetig.
+
+          Nun ist noch für die Anwendung von Satz 3.6.10 die gleichmäßige Konvergenz der Reihen
+          \[
+              \sum_{k=1}^{\infty} D_1 g_k \big|_{U_a} \quad \text{und} \quad \sum_{k=1}^{\infty} D_2 g_k \big|_{U_a}
+          \]
+          zu zeigen.
+
+          Sei $\binom{x}{y} \in U_a$ beliebig. Wir untersuchen zunächst $\sum_{k=1}^{\infty} D_1 g_k \big|_{U_a}$.
+
+          Es gilt
+          \begin{align*}
+              |D_1 g_k(x,y)| & = \left| \frac{2 x e^{-kx^2} \left( y \cos(kx^2 y) - \sin(kx^2 y) \right)}{k^3} \right|         \\
+                             & \leq \frac{2 |x| e^{-kx^2} \left( |y| |\cos(kx^2 y)| + |\sin(kx^2 y)| \right)}{k^3}             \\
+                             & \leq \frac{2 |x| e^{-kx^2} (|y| + 1)}{k^3}                                                      \\
+                             & \leq \frac{2 |x| (|y| + 1)}{k^3}                                                                \\
+                             & \leq \frac{2 c_1 (c_2 + 1)}{k^3} && \text{(Konstanten } c_1 \text{ und } c_2 \text{ existieren,} \\
+                             &                                  && \text{da } U_a \text{ beschränkt ist)}
+          \end{align*}
+
+          Daraus folgt
+          \begin{align*}
+              \| D_1 g_k(x,y) \|_\infty & = \sup \left\{ |D_1 g_k(x,y)| \,\middle|\, \binom{x}{y} \in U_a \right\} \\
+                                        & \leq \frac{2 c_1 (c_2 + 1)}{k^3}
+          \end{align*}
+
+          Da die Reihe $\sum_{k=1}^{\infty} \frac{2 c_1 (c_2 + 1)}{k^3}$ konvergiert, können wir das
+          Majorantenkriterium (Satz 2.6.8) anwenden und daraus folgt, dass
+          $\sum_{k=1}^{\infty} D_1 g_k(x,y) \big|_{U_a}$ gleichmäßig konvergiert.
+
+          Wir untersuchen nun die Konvergenz von $\sum_{k=1}^{\infty} D_2 g_k(x,y) \big|_{U_a}$.
+
+          Es gilt
+          \begin{align*}
+              |D_2 g_k(x,y)| & = \left| \frac{x^2 e^{-kx^2} \cos(kx^2 y)}{k^3} \right|                    \\
+                             & \leq \frac{x^2}{k^3}                                                       \\
+                             & \leq \frac{c_1}{k^3} && \text{(Konstante } c_1 \text{ existiert,}          \\
+                             &                      && \text{da } U_a \text{ beschränkt ist)}
+          \end{align*}
+
+          Daraus folgt
+          \begin{align*}
+              \| D_2 g_k(x,y) \|_\infty & = \sup \left\{ |D_2 g_k(x,y)| \,\middle|\, \binom{x}{y} \in U_a \right\} \\
+                                        & \leq \frac{c_1}{k^3}
+          \end{align*}
+
+          Da die Reihe $\sum_{k=1}^{\infty} \frac{c_1}{k^3}$ konvergiert, können wir das
+          Majorantenkriterium (Satz 2.6.8) anwenden und daraus folgt, dass
+          $\sum_{k=1}^{\infty} D_2 g_k(x,y) \big|_{U_a}$ gleichmäßig konvergiert.
+
+          Alle Voraussetzungen für Satz 3.6.10 sind erfüllt. Folglich ist die Summenfunktion
+          $f = \sum_{k=1}^{\infty} g_k$ in $a$ differenzierbar. Da $a$ beliebig war, ist $f$
+          differenzierbar auf ganz $\mathbb{R}^2$.
+
+    \item
+
+          Nach a) und Satz 3.6.10 gilt
+          \[
+              D_1 f(x,y) = \sum_{k=1}^{\infty} \frac{2 x e^{-kx^2} \left( y \cos(kx^2 y) - \sin(kx^2 y) \right)}{k^3}
+          \]
+          \[
+              D_2 f(x,y) = \sum_{k=1}^{\infty} \frac{x^2 \cos(kx^2 y) \, e^{-kx^2}}{k^3}
+          \]
+
+\end{enumerate}
+
+\end{document}
