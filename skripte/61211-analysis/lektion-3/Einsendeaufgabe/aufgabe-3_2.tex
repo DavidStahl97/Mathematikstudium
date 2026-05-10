@@ -60,15 +60,16 @@
     Da $D_1 f$ und $D_2 f$ für $\binom{x}{y} \neq \binom{0}{0}$ rationale Funktionen sind, sind sie stetig in $\binom{x}{y} \neq 0$.
     Die Stetigkeit von $D_1 f$ und $D_2 f$ in $\binom{x}{y} = 0$ ist noch zu untersuchen.
 
-    Sei $\varepsilon > 0$ beliebig. Wir wählen $\delta := \min(1, \varepsilon)$.
+    Sei $\varepsilon > 0$ beliebig. Wir wählen $\delta := \min\!\left(1, \tfrac{\varepsilon}{3}\right)$.
 
     Dann gilt:
     \begin{align*}
-        \frac{|3x^2 y^2 - 2xy^3|}{2x^2+2y^2}
-        &\leq \frac{3x^2 y^2 + 2|xy^3|}{2x^2+2y^2} \\
-        &\leq \frac{3x^2 + 2y^2}{2x^2+2y^2} && \text{(wegen $\left\|\binom{x}{y}\right\|_\infty < \delta \leq 1$)} \\
-        &= x^2 \\
-        &< \varepsilon && \text{(wegen $\left\|\binom{x}{y}\right\|_\infty < \delta \leq \varepsilon$ und $\left\|\binom{x}{y}\right\|^2 < \delta^2 \leq 1$)}
+        \left|\frac{3x^2 y^2 - 2xy^3}{2x^2+2y^2}\right|
+        &\leq \frac{3x^2 y^2 + 2|xy^3|}{2(x^2+y^2)} \\
+        &\leq \frac{3x^2 (x^2+y^2) + 2|xy|(x^2+y^2)}{2(x^2+y^2)} \\
+        &= \frac{3}{2} x^2 + |xy| \\
+        &< \frac{3}{2} \cdot \frac{\varepsilon}{3} + \frac{\varepsilon}{3} && \text{\parbox{6cm}{\raggedright (wegen $\left\|\binom{x}{y}\right\|_\infty^2 < \varepsilon$, da $\left\|\binom{x}{y}\right\|_\infty < 1$ und $\left\|\binom{x}{y}\right\|_\infty < \varepsilon$)}} \\
+        &< \varepsilon
     \end{align*}
 
     Daraus folgt $\displaystyle\lim_{\binom{x}{y} \to 0} \frac{3x^2 y^2 - 2xy^3}{2x^2+2y^2} = 0$.
