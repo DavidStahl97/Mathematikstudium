@@ -74,14 +74,14 @@
 
     Daraus folgt $\displaystyle\lim_{\binom{x}{y} \to 0} \frac{3x^2 y^2 - 2xy^3}{2x^2+2y^2} = 0$.
 
-    Außerdem für $\delta := \min\!\left(1, \tfrac{\varepsilon}{4}\right)$ gilt
+    Außerdem für $\delta := \min\!\left(1, \tfrac{\varepsilon}{8}\right)$ gilt
     \begin{align*}
         \frac{|x^2 y^2 (x-y) \, 4y|}{(2x^2+2y^2)^2}
         &\leq \frac{(2x^2+2y^2)^2 \, |x-y| \, 4|y|}{(2x^2+2y^2)^2} \\
         &= |x-y| \cdot 4|y| \\
         &\leq 4|x-y| && \text{(wegen $\left\|\binom{x}{y}\right\|_\infty < \delta \leq 1$)} \\
         &\leq 4|x| + 4|y| \\
-        &< \varepsilon && \text{(wegen $\left\|\binom{x}{y}\right\|_\infty < \delta \leq \tfrac{\varepsilon}{4}$)}
+        &< \varepsilon && \text{(wegen $\left\|\binom{x}{y}\right\|_\infty < \delta \leq \tfrac{\varepsilon}{8}$)}
     \end{align*}
 
     Daraus folgt
