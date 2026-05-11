@@ -150,6 +150,7 @@ def render_cards_to_svg(cards: list[dict], svg_out_dir: Path) -> bool:
                         [PDFTOCAIRO, "-svg", "-f", str(page), "-l", str(page),
                          str(pdf_file), str(out_svg)],
                         check=True, capture_output=True, text=True,
+                    encoding="utf-8", errors="replace",
                     )
                 except subprocess.CalledProcessError as e:
                     print(f"  [ERROR] pdftocairo (Seite {page}) fuer {out_svg}: {e.stderr}",
