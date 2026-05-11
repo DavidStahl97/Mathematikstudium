@@ -128,6 +128,7 @@ def render_cards_to_svg(cards: list[dict], svg_out_dir: Path) -> bool:
                 [PDFLATEX, "-interaction=nonstopmode", "-halt-on-error",
                  "-output-directory", str(tmp_dir), str(tex_file)],
                 check=True, capture_output=True, text=True,
+                encoding="utf-8", errors="replace",
             )
         except subprocess.CalledProcessError:
             print(f"  [ERROR] pdflatex fehlgeschlagen fuer {svg_out_dir}", file=sys.stderr)
@@ -150,7 +151,7 @@ def render_cards_to_svg(cards: list[dict], svg_out_dir: Path) -> bool:
                         [PDFTOCAIRO, "-svg", "-f", str(page), "-l", str(page),
                          str(pdf_file), str(out_svg)],
                         check=True, capture_output=True, text=True,
-                    encoding="utf-8", errors="replace",
+                        encoding="utf-8", errors="replace",
                     )
                 except subprocess.CalledProcessError as e:
                     print(f"  [ERROR] pdftocairo (Seite {page}) fuer {out_svg}: {e.stderr}",
