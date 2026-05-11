@@ -297,14 +297,18 @@ fcRoute();
 def generate_flashcard_page(
     glossar_tex: Path, out_md: Path, lesson_title: str,
     svg_out_dir: Path, svg_base_url: str,
-) -> None:
-    """Generate a Lernkarten .md page with SVG-rendered cards."""
+) -> bool:
+    """Generate a Lernkarten .md page with SVG-rendered cards.
+
+    Returns True wenn die Seite erfolgreich geschrieben wurde, sonst False.
+    """
     cards = extract_flashcards(glossar_tex)
     if not cards:
-        return
+        return False
     if not render_cards_to_svg(cards, svg_out_dir):
-        print(f"  [WARN] Keine Lernkarten-SVGs erzeugt fuer {glossar_tex}")
-        return
+        print(f"  [WARN] Keine Lernkarten-SVGs erzeugt fuer {glossar_tex}",
+              file=sys.stderr)
+        return False
     refs = [
         {"front": f"card-{i + 1}-front.svg", "back": f"card-{i + 1}-back.svg"}
         for i in range(len(cards))
@@ -317,8 +321,10 @@ def generate_flashcard_page(
         .replace("__CARDS_JSON__", cards_json)
         .replace("__SVG_BASE__", svg_base_url)
     )
+    out_md.parent.mkdir(parents=True, exist_ok=True)
     out_md.write_text(content, encoding="utf-8")
     print(f"  Lernkarten: {len(cards)} Karten -> {out_md}")
+    return True
 
 
 # ---------------------------------------------------------------------------
@@ -333,6 +339,7 @@ def build_tree(skripte_path: Path, docs_path: Path, site_url: str) -> list:
     site_url:     absolute Basis-URL der GitHub Pages Site (mit trailing slash)
     """
     items = []
+    docs_path.mkdir(parents=True, exist_ok=True)
 
     # Lernkarten-Seite, wenn dieses Verzeichnis ein glossar.tex enthält
     glossar_tex = skripte_path / "glossar.tex"
@@ -344,12 +351,12 @@ def build_tree(skripte_path: Path, docs_path: Path, site_url: str) -> list:
         svg_base_url = "../" * depth + str(
             Path("assets/lernkarten") / rel_from_docs
         ).replace("\\", "/") + "/"
-        generate_flashcard_page(
+        if generate_flashcard_page(
             glossar_tex, fc_md, folder_to_title(skripte_path.name),
             svg_out_dir, svg_base_url,
-        )
-        rel = str(fc_md.relative_to(DOCS_DIR)).replace("\\", "/")
-        items.append({"Lernkarten": rel})
+        ):
+            rel = str(fc_md.relative_to(DOCS_DIR)).replace("\\", "/")
+            items.append({"Lernkarten": rel})
 
     for entry in sorted(skripte_path.iterdir()):
         if entry.is_dir():
