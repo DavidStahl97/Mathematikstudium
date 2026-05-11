@@ -17,14 +17,15 @@ jobs:
       - name: Repository auschecken
         uses: actions/checkout@v4
 
-      - name: TeX Live installieren
+      - name: TeX Live und Poppler installieren
         run: |
           sudo apt-get update
           sudo apt-get install -y \
             texlive-latex-base \
             texlive-latex-extra \
             texlive-lang-german \
-            texlive-fonts-recommended
+            texlive-fonts-recommended \
+            poppler-utils
 
       - name: Alle .tex-Dateien rekursiv kompilieren
         run: |

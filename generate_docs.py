@@ -14,6 +14,9 @@ import json
 import os
 import re
 import shutil
+import subprocess
+import sys
+import tempfile
 import urllib.parse
 import yaml
 from pathlib import Path
@@ -21,6 +24,11 @@ from pathlib import Path
 SKRIPTE_DIR = Path("skripte")
 DOCS_DIR = Path("docs")
 MKDOCS_FILE = Path("mkdocs.yml")
+
+PDFLATEX = (os.environ.get("PDFLATEX") or shutil.which("pdflatex")
+            or "/c/texlive/2026/bin/windows/pdflatex.exe")
+PDFTOCAIRO = (os.environ.get("PDFTOCAIRO") or shutil.which("pdftocairo")
+              or "/c/texlive/2026/bin/windows/pdftocairo.exe")
 
 
 def folder_to_title(name: str) -> str:
@@ -81,69 +89,92 @@ def extract_flashcards(tex_path: Path) -> list[dict]:
     return cards
 
 
-def latex_to_html(tex: str) -> str:
-    """Minimal LaTeX → HTML. Math blocks pass through unchanged for MathJax."""
-    s = tex.strip()
+_CARDS_TEX_PREAMBLE = r"""\documentclass[border=10pt,varwidth=8cm,multi=lkcard]{standalone}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[ngerman]{babel}
+\usepackage{amsmath, amssymb}
+\usepackage{enumitem}
+\usepackage{array, booktabs}
+\begin{document}
+"""
 
-    # Remove LaTeX line comments (but not \%)
-    s = re.sub(r'(?<!\\)%[^\n]*', '', s)
 
-    # Protect display math \[...\] and inline math $...$
-    math_blocks: list[str] = []
+def render_cards_to_svg(cards: list[dict], svg_out_dir: Path) -> bool:
+    """Kompiliert alle Karten via pdflatex + pdftocairo zu SVGs.
 
-    def _protect(m: re.Match) -> str:
-        math_blocks.append(m.group(0))
-        return f'\x00M{len(math_blocks) - 1}\x00'
+    Erzeugt card-<k>-front.svg / card-<k>-back.svg in svg_out_dir (k ist 1-basiert).
+    """
+    if not cards:
+        return False
+    svg_out_dir.mkdir(parents=True, exist_ok=True)
 
-    s = re.sub(r'\\\[.*?\\\]', _protect, s, flags=re.DOTALL)
-    s = re.sub(r'\$[^$\n]+\$', _protect, s)
+    with tempfile.TemporaryDirectory(prefix="lernkarten_") as tmp:
+        tmp_dir = Path(tmp)
+        tex_lines = [_CARDS_TEX_PREAMBLE]
+        for c in cards:
+            tex_lines.append(r"\begin{lkcard}")
+            tex_lines.append(r"\textbf{" + c["front"] + "}")
+            tex_lines.append(r"\end{lkcard}")
+            tex_lines.append(r"\begin{lkcard}")
+            tex_lines.append(c["back"])
+            tex_lines.append(r"\end{lkcard}")
+        tex_lines.append(r"\end{document}")
+        tex_file = tmp_dir / "cards.tex"
+        tex_file.write_text("\n".join(tex_lines), encoding="utf-8")
 
-    # List environments
-    s = re.sub(r'\\begin\{itemize\}(?:\[[^\]]*\])?', '<ul>', s)
-    s = re.sub(r'\\end\{itemize\}', '</ul>', s)
-    s = re.sub(r'\\begin\{enumerate\}(?:\[[^\]]*\])?', '<ol>', s)
-    s = re.sub(r'\\end\{enumerate\}', '</ol>', s)
-    s = re.sub(r'\\item\b\s*', '<li>', s)
+        try:
+            subprocess.run(
+                [PDFLATEX, "-interaction=nonstopmode", "-halt-on-error",
+                 "-output-directory", str(tmp_dir), str(tex_file)],
+                check=True, capture_output=True, text=True,
+            )
+        except subprocess.CalledProcessError:
+            print(f"  [ERROR] pdflatex fehlgeschlagen fuer {svg_out_dir}", file=sys.stderr)
+            log = tmp_dir / "cards.log"
+            if log.exists():
+                tail = log.read_text(encoding="utf-8", errors="replace").splitlines()[-40:]
+                print("\n".join(tail), file=sys.stderr)
+            return False
 
-    # Text formatting
-    s = re.sub(r'\\textbf\{([^}]*)\}', r'<strong>\1</strong>', s)
-    s = re.sub(r'\\(?:emph|textit)\{([^}]*)\}', r'<em>\1</em>', s)
+        pdf_file = tmp_dir / "cards.pdf"
+        if not pdf_file.exists():
+            print(f"  [ERROR] cards.pdf nicht erzeugt fuer {svg_out_dir}", file=sys.stderr)
+            return False
 
-    # Line breaks
-    s = re.sub(r'\\\\(?:\[[^\]]*\])?', '<br>', s)
-    s = re.sub(r'\\(?:smallskip|medskip|bigskip)\b', '<br>', s)
-    s = re.sub(r'\\vspace\{[^}]*\}', '<br>', s)
-    s = re.sub(r'\\par\b', '<br>', s)
-
-    # Remove layout-only commands
-    s = re.sub(r'\\(?:noindent|nopagebreak)\b', '', s)
-
-    # Spacing commands → unicode spaces
-    s = re.sub(r'\\[,;:]', ' ', s)
-    s = re.sub(r'\\quad\b', '  ', s)
-    s = re.sub(r'\\qquad\b', '    ', s)
-
-    # Restore math blocks
-    for i, block in enumerate(math_blocks):
-        s = s.replace(f'\x00M{i}\x00', block)
-
-    # Collapse excessive blank lines
-    s = re.sub(r'\n{3,}', '\n\n', s)
-
-    return s.strip()
-
+        for i in range(len(cards)):
+            for side, page in (("front", 2 * i + 1), ("back", 2 * i + 2)):
+                out_svg = svg_out_dir / f"card-{i + 1}-{side}.svg"
+                try:
+                    subprocess.run(
+                        [PDFTOCAIRO, "-svg", "-f", str(page), "-l", str(page),
+                         str(pdf_file), str(out_svg)],
+                        check=True, capture_output=True, text=True,
+                    )
+                except subprocess.CalledProcessError as e:
+                    print(f"  [ERROR] pdftocairo (Seite {page}) fuer {out_svg}: {e.stderr}",
+                          file=sys.stderr)
+                    return False
+    return True
 
 _FLASHCARD_TEMPLATE = """\
-# Lernkarten – __LESSON_TITLE__
+# Lernkarten -- __LESSON_TITLE__
 
-<p style="color:#666;font-size:.9em">__CARD_COUNT__ Karten &middot; Leertaste: umdrehen &middot; &larr; &rarr;: bl&auml;ttern</p>
+<div id="fc-grid-view">
+  <p style="color:#666;font-size:.9em">__CARD_COUNT__ Karten &middot; auf eine Karte klicken zum Lernen</p>
+  <div class="fc-grid" id="fc-grid"></div>
+</div>
 
-<div class="fc-wrap">
-  <div class="fc-progress">Karte <span id="fc-curr">1</span> von <span id="fc-total">__CARD_COUNT__</span></div>
+<div id="fc-detail-view" style="display:none">
+  <div class="fc-toolbar">
+    <button class="md-button" onclick="fcGoToGrid()">&#8592; &Uuml;bersicht</button>
+    <span class="fc-progress">Karte <span id="fc-curr">1</span> von <span id="fc-total">__CARD_COUNT__</span></span>
+  </div>
+  <p style="color:#666;font-size:.85em;text-align:center;margin:.2em 0 1em">Leertaste/Klick: umdrehen &middot; &larr; &rarr;: bl&auml;ttern</p>
   <div class="fc-scene" id="fc-scene" title="Klicken zum Umdrehen">
     <div class="fc-card" id="fc-card">
-      <div class="fc-face fc-front" id="fc-front"></div>
-      <div class="fc-face fc-back" id="fc-back"></div>
+      <div class="fc-face fc-front"><img id="fc-front-img" alt="Vorderseite"></div>
+      <div class="fc-face fc-back"><img id="fc-back-img" alt="R&uuml;ckseite"></div>
     </div>
   </div>
   <div class="fc-btns">
@@ -154,74 +185,140 @@ _FLASHCARD_TEMPLATE = """\
 </div>
 
 <style>
-.fc-wrap{max-width:720px;margin:1.5em auto;text-align:center}
-.fc-progress{margin-bottom:.7em;color:#555;font-size:.88em}
-.fc-scene{perspective:1200px;height:300px;margin-bottom:1.2em;cursor:pointer}
+#fc-detail-view{max-width:820px;margin:1.5em auto;text-align:center}
+.fc-toolbar{position:sticky;top:3rem;z-index:5;background:var(--md-default-bg-color,#fff);display:flex;align-items:center;justify-content:space-between;gap:1em;padding:.6em 0;border-bottom:1px solid rgba(0,0,0,.08);margin-bottom:.5em}
+.fc-progress{color:#555;font-size:.9em}
+.fc-scene{perspective:1400px;margin-bottom:1.2em;cursor:pointer}
 .fc-card{position:relative;width:100%;height:100%;transform-style:preserve-3d;transition:transform .45s cubic-bezier(.4,0,.2,1)}
 .fc-card.flipped{transform:rotateY(180deg)}
-.fc-face{position:absolute;inset:0;backface-visibility:hidden;-webkit-backface-visibility:hidden;border:2px solid #3f51b5;border-radius:10px;display:flex;align-items:center;justify-content:center;padding:1.2em 1.6em;box-sizing:border-box;font-size:1.05em;overflow-y:auto;line-height:1.55}
-.fc-front{background:#e8eaf6;font-weight:600;font-size:1.15em}
-.fc-back{background:#fff;transform:rotateY(180deg);font-weight:normal;text-align:left;align-items:flex-start}
+.fc-face{position:absolute;inset:0;backface-visibility:hidden;-webkit-backface-visibility:hidden;border:2px solid #3f51b5;border-radius:10px;display:flex;align-items:center;justify-content:center;padding:1.2em 1.6em;box-sizing:border-box;overflow:auto;background:#fff}
+.fc-front{background:#e8eaf6}
+.fc-back{transform:rotateY(180deg)}
+.fc-face img{width:100%;height:auto;display:block}
 .fc-btns{display:flex;gap:.8em;justify-content:center;flex-wrap:wrap}
+
+.fc-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:1em;margin:1em 0}
+.fc-tile{display:flex;flex-direction:column;align-items:center;justify-content:center;border:2px solid #3f51b5;border-radius:10px;background:#e8eaf6;padding:.9em .8em;cursor:pointer;transition:transform .12s,box-shadow .12s;text-decoration:none;color:inherit;min-height:120px}
+.fc-tile:hover{transform:translateY(-2px);box-shadow:0 4px 10px rgba(63,81,181,.25);background:#dfe3f7}
+.fc-tile img{width:100%;height:auto;max-height:90px;object-fit:contain;display:block}
+.fc-tile-label{margin-top:.6em;font-size:.78em;color:#3f51b5;font-weight:600}
 </style>
 
 <script>
 const FC_CARDS = __CARDS_JSON__;
+const FC_BASE = "__SVG_BASE__";
 let fcIdx = 0;
+
+function fcRenderGrid() {
+  const g = document.getElementById('fc-grid');
+  g.innerHTML = FC_CARDS.map((c, i) =>
+    '<a class="fc-tile" href="#card-' + (i + 1) + '">' +
+      '<img loading="lazy" src="' + FC_BASE + c.front + '" alt="Karte ' + (i + 1) + '">' +
+      '<div class="fc-tile-label">Karte ' + (i + 1) + '</div>' +
+    '</a>'
+  ).join('');
+}
 
 function fcShow(i) {
   document.getElementById('fc-card').classList.remove('flipped');
-  document.getElementById('fc-front').innerHTML = FC_CARDS[i].front;
-  document.getElementById('fc-back').innerHTML = FC_CARDS[i].back;
+  const frontImg = document.getElementById('fc-front-img');
+  const backImg = document.getElementById('fc-back-img');
+  frontImg.src = FC_BASE + FC_CARDS[i].front;
+  backImg.src = FC_BASE + FC_CARDS[i].back;
   document.getElementById('fc-curr').textContent = i + 1;
-  if (window.MathJax && MathJax.typesetPromise) {
-    MathJax.typesetPromise([document.getElementById('fc-scene')]).catch(console.error);
+  Promise.all([
+    frontImg.complete ? Promise.resolve() : new Promise(r => { frontImg.onload = r; frontImg.onerror = r; }),
+    backImg.complete ? Promise.resolve() : new Promise(r => { backImg.onload = r; backImg.onerror = r; }),
+  ]).then(fcResize);
+}
+function fcResize() {
+  const scene = document.getElementById('fc-scene');
+  const front = document.getElementById('fc-front-img');
+  const back = document.getElementById('fc-back-img');
+  if (!front.naturalWidth || !back.naturalWidth) return;
+  const padX = 1.6 * 16 * 2 + 4;
+  const padY = 1.2 * 16 * 2 + 4;
+  const availW = scene.clientWidth - padX;
+  const hF = availW * (front.naturalHeight / front.naturalWidth);
+  const hB = availW * (back.naturalHeight / back.naturalWidth);
+  scene.style.height = (Math.max(hF, hB) + padY) + 'px';
+}
+window.addEventListener('resize', fcResize);
+function fcFlip() { document.getElementById('fc-card').classList.toggle('flipped'); }
+function fcNext() {
+  fcIdx = (fcIdx + 1) % FC_CARDS.length;
+  history.replaceState(null, '', '#card-' + (fcIdx + 1));
+  fcShow(fcIdx);
+}
+function fcPrev() {
+  fcIdx = (fcIdx - 1 + FC_CARDS.length) % FC_CARDS.length;
+  history.replaceState(null, '', '#card-' + (fcIdx + 1));
+  fcShow(fcIdx);
+}
+function fcGoToGrid() {
+  history.pushState(null, '', window.location.pathname + window.location.search);
+  fcRoute();
+  window.scrollTo({top: 0, behavior: 'smooth'});
+}
+
+function fcRoute() {
+  const m = window.location.hash.match(/^#card-(\\d+)$/);
+  const gridView = document.getElementById('fc-grid-view');
+  const detailView = document.getElementById('fc-detail-view');
+  if (m) {
+    const i = Math.max(0, Math.min(FC_CARDS.length - 1, parseInt(m[1], 10) - 1));
+    const wasGrid = gridView.style.display !== 'none';
+    fcIdx = i;
+    gridView.style.display = 'none';
+    detailView.style.display = '';
+    fcShow(i);
+    if (wasGrid) window.scrollTo({top: detailView.offsetTop - 70, behavior: 'auto'});
+  } else {
+    gridView.style.display = '';
+    detailView.style.display = 'none';
   }
 }
-function fcFlip() { document.getElementById('fc-card').classList.toggle('flipped'); }
-function fcNext() { fcIdx = (fcIdx + 1) % FC_CARDS.length; fcShow(fcIdx); }
-function fcPrev() { fcIdx = (fcIdx - 1 + FC_CARDS.length) % FC_CARDS.length; fcShow(fcIdx); }
 
 document.getElementById('fc-scene').addEventListener('click', fcFlip);
 document.addEventListener('keydown', function(e) {
+  if (document.getElementById('fc-detail-view').style.display === 'none') return;
   if (e.key === 'ArrowRight') fcNext();
   else if (e.key === 'ArrowLeft') fcPrev();
   else if (e.key === ' ') { e.preventDefault(); fcFlip(); }
 });
+window.addEventListener('hashchange', fcRoute);
 
-// Initial render – wait for DOM, then re-render once MathJax finishes loading
-if (document.readyState === 'loading') {
-  document.addEventListener('DOMContentLoaded', function() { fcShow(0); });
-} else {
-  fcShow(0);
-}
-window.addEventListener('load', function() {
-  if (window.MathJax && MathJax.typesetPromise) {
-    MathJax.typesetPromise([document.getElementById('fc-scene')]).catch(console.error);
-  }
-});
+fcRenderGrid();
+fcRoute();
 </script>
 """
 
 
-def generate_flashcard_page(glossar_tex: Path, out_md: Path, lesson_title: str) -> None:
-    """Generate a Lernkarten .md page from a glossar.tex file."""
+def generate_flashcard_page(
+    glossar_tex: Path, out_md: Path, lesson_title: str,
+    svg_out_dir: Path, svg_base_url: str,
+) -> None:
+    """Generate a Lernkarten .md page with SVG-rendered cards."""
     cards = extract_flashcards(glossar_tex)
     if not cards:
         return
-    cards_html = [
-        {'front': latex_to_html(c['front']), 'back': latex_to_html(c['back'])}
-        for c in cards
+    if not render_cards_to_svg(cards, svg_out_dir):
+        print(f"  [WARN] Keine Lernkarten-SVGs erzeugt fuer {glossar_tex}")
+        return
+    refs = [
+        {"front": f"card-{i + 1}-front.svg", "back": f"card-{i + 1}-back.svg"}
+        for i in range(len(cards))
     ]
-    cards_json = json.dumps(cards_html, ensure_ascii=False)
+    cards_json = json.dumps(refs, ensure_ascii=False)
     content = (
         _FLASHCARD_TEMPLATE
-        .replace('__LESSON_TITLE__', lesson_title)
-        .replace('__CARD_COUNT__', str(len(cards)))
-        .replace('__CARDS_JSON__', cards_json)
+        .replace("__LESSON_TITLE__", lesson_title)
+        .replace("__CARD_COUNT__", str(len(cards)))
+        .replace("__CARDS_JSON__", cards_json)
+        .replace("__SVG_BASE__", svg_base_url)
     )
-    out_md.write_text(content, encoding='utf-8')
-    print(f"  Lernkarten: {len(cards)} Karten → {out_md}")
+    out_md.write_text(content, encoding="utf-8")
+    print(f"  Lernkarten: {len(cards)} Karten -> {out_md}")
 
 
 # ---------------------------------------------------------------------------
@@ -241,7 +338,16 @@ def build_tree(skripte_path: Path, docs_path: Path, site_url: str) -> list:
     glossar_tex = skripte_path / "glossar.tex"
     if glossar_tex.exists():
         fc_md = docs_path / "lernkarten.md"
-        generate_flashcard_page(glossar_tex, fc_md, folder_to_title(skripte_path.name))
+        rel_from_docs = docs_path.relative_to(DOCS_DIR)
+        svg_out_dir = DOCS_DIR / "assets" / "lernkarten" / rel_from_docs
+        depth = len(rel_from_docs.parts) + 1
+        svg_base_url = "../" * depth + str(
+            Path("assets/lernkarten") / rel_from_docs
+        ).replace("\\", "/") + "/"
+        generate_flashcard_page(
+            glossar_tex, fc_md, folder_to_title(skripte_path.name),
+            svg_out_dir, svg_base_url,
+        )
         rel = str(fc_md.relative_to(DOCS_DIR)).replace("\\", "/")
         items.append({"Lernkarten": rel})
 
