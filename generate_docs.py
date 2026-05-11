@@ -89,7 +89,7 @@ def extract_flashcards(tex_path: Path) -> list[dict]:
     return cards
 
 
-_CARDS_TEX_PREAMBLE = r"""\documentclass[border=12pt,varwidth=14cm,multi=lkcard]{standalone}
+_CARDS_TEX_PREAMBLE = r"""\documentclass[border=10pt,varwidth=8cm,multi=lkcard]{standalone}
 \usepackage[utf8]{inputenc}
 \usepackage[T1]{fontenc}
 \usepackage[ngerman]{babel}
@@ -178,15 +178,15 @@ _FLASHCARD_TEMPLATE = """\
 </div>
 
 <style>
-.fc-wrap{max-width:760px;margin:1.5em auto;text-align:center}
+.fc-wrap{max-width:820px;margin:1.5em auto;text-align:center}
 .fc-progress{margin-bottom:.7em;color:#555;font-size:.88em}
-.fc-scene{perspective:1400px;min-height:360px;margin-bottom:1.2em;cursor:pointer}
-.fc-card{position:relative;width:100%;min-height:360px;transform-style:preserve-3d;transition:transform .45s cubic-bezier(.4,0,.2,1)}
+.fc-scene{perspective:1400px;margin-bottom:1.2em;cursor:pointer}
+.fc-card{position:relative;width:100%;height:100%;transform-style:preserve-3d;transition:transform .45s cubic-bezier(.4,0,.2,1)}
 .fc-card.flipped{transform:rotateY(180deg)}
 .fc-face{position:absolute;inset:0;backface-visibility:hidden;-webkit-backface-visibility:hidden;border:2px solid #3f51b5;border-radius:10px;display:flex;align-items:center;justify-content:center;padding:1.2em 1.6em;box-sizing:border-box;overflow:auto;background:#fff}
 .fc-front{background:#e8eaf6}
 .fc-back{transform:rotateY(180deg)}
-.fc-face img{max-width:100%;height:auto;display:block}
+.fc-face img{width:100%;height:auto;display:block}
 .fc-btns{display:flex;gap:.8em;justify-content:center;flex-wrap:wrap}
 </style>
 
@@ -197,10 +197,30 @@ let fcIdx = 0;
 
 function fcShow(i) {
   document.getElementById('fc-card').classList.remove('flipped');
-  document.getElementById('fc-front-img').src = FC_BASE + FC_CARDS[i].front;
-  document.getElementById('fc-back-img').src = FC_BASE + FC_CARDS[i].back;
+  const frontImg = document.getElementById('fc-front-img');
+  const backImg = document.getElementById('fc-back-img');
+  frontImg.src = FC_BASE + FC_CARDS[i].front;
+  backImg.src = FC_BASE + FC_CARDS[i].back;
   document.getElementById('fc-curr').textContent = i + 1;
+  Promise.all([
+    frontImg.complete ? Promise.resolve() : new Promise(r => { frontImg.onload = r; frontImg.onerror = r; }),
+    backImg.complete ? Promise.resolve() : new Promise(r => { backImg.onload = r; backImg.onerror = r; }),
+  ]).then(fcResize);
 }
+function fcResize() {
+  const scene = document.getElementById('fc-scene');
+  const front = document.getElementById('fc-front-img');
+  const back = document.getElementById('fc-back-img');
+  if (!front.naturalWidth || !back.naturalWidth) return;
+  // Padding der .fc-face: 1.2em vertikal, 1.6em horizontal (em = 16px) plus 2px Border
+  const padX = 1.6 * 16 * 2 + 4;
+  const padY = 1.2 * 16 * 2 + 4;
+  const availW = scene.clientWidth - padX;
+  const hF = availW * (front.naturalHeight / front.naturalWidth);
+  const hB = availW * (back.naturalHeight / back.naturalWidth);
+  scene.style.height = (Math.max(hF, hB) + padY) + 'px';
+}
+window.addEventListener('resize', fcResize);
 function fcFlip() { document.getElementById('fc-card').classList.toggle('flipped'); }
 function fcNext() { fcIdx = (fcIdx + 1) % FC_CARDS.length; fcShow(fcIdx); }
 function fcPrev() { fcIdx = (fcIdx - 1 + FC_CARDS.length) % FC_CARDS.length; fcShow(fcIdx); }
