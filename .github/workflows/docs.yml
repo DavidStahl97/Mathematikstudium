@@ -42,7 +42,18 @@ jobs:
         run: pip install mkdocs-material pyyaml
 
       - name: Docs generieren (docs/ + mkdocs.yml nav)
-        run: python generate_docs.py
+        id: gendocs
+        run: |
+          set -o pipefail
+          python generate_docs.py 2>&1 | tee gendocs.log
+
+      - name: gendocs-Log hochladen (immer)
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: gendocs-log
+          path: gendocs.log
+          if-no-files-found: ignore
 
       - name: PDF.js herunterladen
         run: |
