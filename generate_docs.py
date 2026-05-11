@@ -160,10 +160,17 @@ def render_cards_to_svg(cards: list[dict], svg_out_dir: Path) -> bool:
 _FLASHCARD_TEMPLATE = """\
 # Lernkarten -- __LESSON_TITLE__
 
-<p style="color:#666;font-size:.9em">__CARD_COUNT__ Karten &middot; Leertaste: umdrehen &middot; &larr; &rarr;: bl&auml;ttern</p>
+<div id="fc-grid-view">
+  <p style="color:#666;font-size:.9em">__CARD_COUNT__ Karten &middot; auf eine Karte klicken zum Lernen</p>
+  <div class="fc-grid" id="fc-grid"></div>
+</div>
 
-<div class="fc-wrap">
-  <div class="fc-progress">Karte <span id="fc-curr">1</span> von <span id="fc-total">__CARD_COUNT__</span></div>
+<div id="fc-detail-view" style="display:none">
+  <div class="fc-toolbar">
+    <button class="md-button" onclick="fcGoToGrid()">&#8592; &Uuml;bersicht</button>
+    <span class="fc-progress">Karte <span id="fc-curr">1</span> von <span id="fc-total">__CARD_COUNT__</span></span>
+  </div>
+  <p style="color:#666;font-size:.85em;text-align:center;margin:.2em 0 1em">Leertaste/Klick: umdrehen &middot; &larr; &rarr;: bl&auml;ttern</p>
   <div class="fc-scene" id="fc-scene" title="Klicken zum Umdrehen">
     <div class="fc-card" id="fc-card">
       <div class="fc-face fc-front"><img id="fc-front-img" alt="Vorderseite"></div>
@@ -178,8 +185,9 @@ _FLASHCARD_TEMPLATE = """\
 </div>
 
 <style>
-.fc-wrap{max-width:820px;margin:1.5em auto;text-align:center}
-.fc-progress{margin-bottom:.7em;color:#555;font-size:.88em}
+#fc-detail-view{max-width:820px;margin:1.5em auto;text-align:center}
+.fc-toolbar{position:sticky;top:3rem;z-index:5;background:var(--md-default-bg-color,#fff);display:flex;align-items:center;justify-content:space-between;gap:1em;padding:.6em 0;border-bottom:1px solid rgba(0,0,0,.08);margin-bottom:.5em}
+.fc-progress{color:#555;font-size:.9em}
 .fc-scene{perspective:1400px;margin-bottom:1.2em;cursor:pointer}
 .fc-card{position:relative;width:100%;height:100%;transform-style:preserve-3d;transition:transform .45s cubic-bezier(.4,0,.2,1)}
 .fc-card.flipped{transform:rotateY(180deg)}
@@ -188,12 +196,28 @@ _FLASHCARD_TEMPLATE = """\
 .fc-back{transform:rotateY(180deg)}
 .fc-face img{width:100%;height:auto;display:block}
 .fc-btns{display:flex;gap:.8em;justify-content:center;flex-wrap:wrap}
+
+.fc-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:1em;margin:1em 0}
+.fc-tile{display:flex;flex-direction:column;align-items:center;justify-content:center;border:2px solid #3f51b5;border-radius:10px;background:#e8eaf6;padding:.9em .8em;cursor:pointer;transition:transform .12s,box-shadow .12s;text-decoration:none;color:inherit;min-height:120px}
+.fc-tile:hover{transform:translateY(-2px);box-shadow:0 4px 10px rgba(63,81,181,.25);background:#dfe3f7}
+.fc-tile img{width:100%;height:auto;max-height:90px;object-fit:contain;display:block}
+.fc-tile-label{margin-top:.6em;font-size:.78em;color:#3f51b5;font-weight:600}
 </style>
 
 <script>
 const FC_CARDS = __CARDS_JSON__;
 const FC_BASE = "__SVG_BASE__";
 let fcIdx = 0;
+
+function fcRenderGrid() {
+  const g = document.getElementById('fc-grid');
+  g.innerHTML = FC_CARDS.map((c, i) =>
+    '<a class="fc-tile" href="#card-' + (i + 1) + '">' +
+      '<img loading="lazy" src="' + FC_BASE + c.front + '" alt="Karte ' + (i + 1) + '">' +
+      '<div class="fc-tile-label">Karte ' + (i + 1) + '</div>' +
+    '</a>'
+  ).join('');
+}
 
 function fcShow(i) {
   document.getElementById('fc-card').classList.remove('flipped');
@@ -212,7 +236,6 @@ function fcResize() {
   const front = document.getElementById('fc-front-img');
   const back = document.getElementById('fc-back-img');
   if (!front.naturalWidth || !back.naturalWidth) return;
-  // Padding der .fc-face: 1.2em vertikal, 1.6em horizontal (em = 16px) plus 2px Border
   const padX = 1.6 * 16 * 2 + 4;
   const padY = 1.2 * 16 * 2 + 4;
   const availW = scene.clientWidth - padX;
@@ -222,21 +245,51 @@ function fcResize() {
 }
 window.addEventListener('resize', fcResize);
 function fcFlip() { document.getElementById('fc-card').classList.toggle('flipped'); }
-function fcNext() { fcIdx = (fcIdx + 1) % FC_CARDS.length; fcShow(fcIdx); }
-function fcPrev() { fcIdx = (fcIdx - 1 + FC_CARDS.length) % FC_CARDS.length; fcShow(fcIdx); }
+function fcNext() {
+  fcIdx = (fcIdx + 1) % FC_CARDS.length;
+  history.replaceState(null, '', '#card-' + (fcIdx + 1));
+  fcShow(fcIdx);
+}
+function fcPrev() {
+  fcIdx = (fcIdx - 1 + FC_CARDS.length) % FC_CARDS.length;
+  history.replaceState(null, '', '#card-' + (fcIdx + 1));
+  fcShow(fcIdx);
+}
+function fcGoToGrid() {
+  history.pushState(null, '', window.location.pathname + window.location.search);
+  fcRoute();
+  window.scrollTo({top: 0, behavior: 'smooth'});
+}
+
+function fcRoute() {
+  const m = window.location.hash.match(/^#card-(\\d+)$/);
+  const gridView = document.getElementById('fc-grid-view');
+  const detailView = document.getElementById('fc-detail-view');
+  if (m) {
+    const i = Math.max(0, Math.min(FC_CARDS.length - 1, parseInt(m[1], 10) - 1));
+    const wasGrid = gridView.style.display !== 'none';
+    fcIdx = i;
+    gridView.style.display = 'none';
+    detailView.style.display = '';
+    fcShow(i);
+    if (wasGrid) window.scrollTo({top: detailView.offsetTop - 70, behavior: 'auto'});
+  } else {
+    gridView.style.display = '';
+    detailView.style.display = 'none';
+  }
+}
 
 document.getElementById('fc-scene').addEventListener('click', fcFlip);
 document.addEventListener('keydown', function(e) {
+  if (document.getElementById('fc-detail-view').style.display === 'none') return;
   if (e.key === 'ArrowRight') fcNext();
   else if (e.key === 'ArrowLeft') fcPrev();
   else if (e.key === ' ') { e.preventDefault(); fcFlip(); }
 });
+window.addEventListener('hashchange', fcRoute);
 
-if (document.readyState === 'loading') {
-  document.addEventListener('DOMContentLoaded', function() { fcShow(0); });
-} else {
-  fcShow(0);
-}
+fcRenderGrid();
+fcRoute();
 </script>
 """
 
