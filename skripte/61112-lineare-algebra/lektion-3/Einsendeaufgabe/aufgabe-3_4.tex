@@ -1,0 +1,78 @@
+\documentclass[a4paper,12pt]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[ngerman]{babel}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{enumitem}
+\usepackage{geometry}
+\geometry{a4paper, margin=2.5cm}
+\usepackage{parskip}
+
+\title{Einsendeaufgaben -- Aufgabe 3.4\\[0.5em]
+\large Modul 61112: Lineare Algebra}
+\author{}
+\date{}
+
+\begin{document}
+\maketitle
+
+\section*{Aufgabe 3.4}
+
+\begin{enumerate}[label=\alph*)]
+
+    \item
+    $C^2$ ist symmetrisch, da
+    \[
+      C^2 = -C(-C) = C^T C^T = (CC)^T = (C^2)^T.
+    \]
+    Nach Lemma 3.2.6 ist demnach $\beta$ symmetrisch.
+
+    \item
+    Es gilt:
+    \begin{align*}
+      \beta(v,v) &= v^T C^2 v \\
+                 &= (v^T C)(C v) \\
+                 &= (C^T v)^T (C v) \\
+                 &= (-C v)^T (C v) \\
+                 &= -(C v)^T (C v) \\
+                 &\leq 0 \quad (\text{da } v^T v \geq 0\ \forall v \in \mathbb{R}^n)
+    \end{align*}
+
+    Wir untersuchen nun eine beliebige diagonale Matrixdarstellung
+    $M_B(\beta) = \operatorname{diag}(\beta(v_1, v_1), \ldots, \beta(v_n, v_n))$
+    mit $B = (v_1, \ldots, v_n)$. Für jedes $v_i$ mit $1 \leq i \leq n$ muss
+    aus den vorherigen Überlegungen entweder $\beta(v_i, v_i) = 0$ oder
+    $\beta(v_i, v_i) < 0$ gelten. Wir betrachten die Unterräume mit den Basen
+    $B_1 := \{v_i \in B \mid \beta(v_i, v_i) = 0 \text{ für alle } 1 \leq i \leq n\}$
+    und $B_2 := \{v_i \in B \mid \beta(v_i, v_i) < 0 \text{ für alle } 1 \leq i \leq n\}$.
+
+    Wir definieren $f: V \to V,\ v \mapsto C v$ und bestimmen $\ker(f)$ durch
+    die Basen $B_1$ und $B_2$.
+
+    Nach Definition $B_1$ gilt für alle $v_1 \in B_1$ $\beta(v_1, v_1) = 0$
+    und demnach $f(v_1) = 0$. Es gilt also $v_1 \in \ker(f)$.
+
+    Nach Definition $B_2$ gilt für alle $v_2 \in B_2$ $\beta(v_2, v_2) < 0$
+    und demnach $f(v_2) \neq 0$ und $v_2 \notin \ker(f)$.
+
+    Da $\langle B_1 \rangle \cup \langle B_2 \rangle = V$, $f(\langle B_1 \rangle) = 0$
+    und $f(\langle B_2 \rangle) \neq 0$, folgt $\langle B_2 \rangle = \mathrm{Bild}(f)$,
+    also $\dim(\langle B_2 \rangle) = \mathrm{Rg}(C)$.
+
+    Da ebenfalls die Diagonalmatrix $M_B(\beta)$ den Rang $\dim(\langle B_2 \rangle)$ hat, folgt
+    \[
+      \mathrm{Rg}(M_B(\beta)) = \mathrm{Rg}(C).
+    \]
+
+    Also
+    \begin{align*}
+      (0,\, \mathrm{Rg}(M_B(\beta)),\, n - \mathrm{Rg}(M_B(\beta)))
+        &= (0,\, \mathrm{Rg}(C),\, n - \mathrm{Rg}(C)).
+    \end{align*}
+
+    $(0,\, \mathrm{Rg}(C),\, n - \mathrm{Rg}(C))$ ist der Typ von $\beta$.
+
+\end{enumerate}
+
+\end{document}
