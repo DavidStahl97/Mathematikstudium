@@ -1,0 +1,74 @@
+\documentclass[a4paper,12pt]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[ngerman]{babel}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{enumitem}
+\usepackage{geometry}
+\geometry{a4paper, margin=2.5cm}
+\usepackage{parskip}
+
+\title{Einsendeaufgaben -- Aufgabe 3.2\\[0.5em]
+\large Modul 61112: Lineare Algebra}
+\author{}
+\date{}
+
+\begin{document}
+\maketitle
+
+\section*{Aufgabe 3.2}
+
+Sei $\beta \in \mathrm{Bil}_K(V)$ beliebig. Es existiert eine geordnete Basis $B = (v_1, \ldots, v_n)$.
+
+\bigskip
+\textbf{\glqq$\Rightarrow$\grqq-Richtung}
+
+Es gelte $\mathrm{Rg}(\beta) = 1$.
+Nach Satz 3.1.19 gilt
+\[
+  \beta(u,v) = k_B(u)^T M_B(\beta)\, k_B(v).
+\]
+
+Da $\mathrm{Rg}(\beta) = 1$, also auch $\mathrm{Rg}(M_B(\beta)) = 1$, gilt für $f: V \to V,\ v \mapsto M_B(\beta)\, k_B(v)$:
+\[
+  \mathrm{Rg}(f) = 1.
+\]
+
+Es existiert also eine Basis $B' = \{v_0\}$ des Unterraums $\mathrm{Bild}(f)$.
+Daraus folgt:
+\begin{align*}
+  \beta(u,v) &= k_B(u)^T M_B(\beta)\, k_B(v) \\
+             &= k_B(u)^T a_v\, k_B(v_0) \quad (\text{mit } a_v \in K) \\
+             &= k_B(u)^T k_B(v_0)\, a_v = b_u \cdot a_v \quad (\text{mit } b_u \in K)
+\end{align*}
+
+Wir definieren die Linearformen
+\[
+  a_1: V \to K, \quad \text{und} \quad a_2: V \to K
+\]
+mit $a_1(v_i) := k_B(v_i)^T k_B(v_0) = b_{v_i}$
+und $a_2(v_i) := k_{B'}(M_B(\beta)\, k_B(v_i)) = a_{v_i}$
+für alle $v_i \in B$.
+
+Dann gilt
+\begin{align*}
+  \beta(u,v) &= k_B(u)^T M_B(\beta)\, k_B(v) \\
+             &= a_1(u) \cdot a_2(v).
+\end{align*}
+
+\bigskip
+\textbf{\glqq$\Leftarrow$\grqq-Richtung}
+
+Wegen $\beta(v_i, v_j) = a_1(v_i)\, a_2(v_j)\ \forall v_i, v_j \in B$ folgt:
+\begin{align*}
+  M_B(\beta) &= (\beta(v_i, v_j))_{i,j} = (a_1(v_i)\, a_2(v_j))_{i,j} \\
+             &= \sum_{j=1}^{n} a_2(v_j)\, (a_1(v_i))_i.
+\end{align*}
+
+Demnach hat $M_B(\beta)$ den Rang $1$, also
+\[
+  \mathrm{Rg}(\beta) = \mathrm{Rg}(M_B(\beta)) = 1.
+\]
+
+\end{document}
