@@ -67,13 +67,23 @@ jobs:
           path: neue-pdfs/
           if-no-files-found: ignore
 
-      - name: MkDocs installieren
-        run: pip3 install --break-system-packages mkdocs-material pyyaml
+      - name: MkDocs und Anki-Tools installieren
+        run: pip3 install --break-system-packages mkdocs-material pyyaml genanki
+
+      - name: BUILD_ANKI-Flag bestimmen (nur main/master)
+        id: anki_flag
+        run: |
+          if [ "${GITHUB_REF}" = "refs/heads/main" ] || [ "${GITHUB_REF}" = "refs/heads/master" ]; then
+            echo "value=1" >> "$GITHUB_OUTPUT"
+          else
+            echo "value=0" >> "$GITHUB_OUTPUT"
+          fi
 
       - name: Docs generieren (docs/ + mkdocs.yml nav)
         id: gendocs
         env:
           GENERATE_LERNKARTEN: "1"
+          BUILD_ANKI: ${{ steps.anki_flag.outputs.value }}
         run: |
           set -o pipefail
           python3 generate_docs.py 2>&1 | tee gendocs.log

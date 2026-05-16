@@ -32,6 +32,11 @@ LERNKARTEN_CACHE_DIR = Path(".lernkarten-cache")
 # Standardmäßig deaktiviert; aktivieren via Umgebungsvariable GENERATE_LERNKARTEN=1.
 GENERATE_LERNKARTEN = os.environ.get("GENERATE_LERNKARTEN", "0") == "1"
 
+# Anki-Decks nur in CI auf main bauen (BUILD_ANKI=1). Setzt zwingend auch
+# GENERATE_LERNKARTEN=1 voraus, da die Decks die gerenderten SVGs einbetten.
+BUILD_ANKI = os.environ.get("BUILD_ANKI", "0") == "1"
+ANKI_OUT_DIR = Path("docs") / "assets" / "anki"
+
 PDFLATEX = (os.environ.get("PDFLATEX") or shutil.which("pdflatex")
             or "/c/texlive/2026/bin/windows/pdflatex.exe")
 PDFTOCAIRO = (os.environ.get("PDFTOCAIRO") or shutil.which("pdftocairo")
@@ -593,23 +598,43 @@ def generate_module_uebersicht(module_skripte: Path, module_docs: Path) -> str:
     return str(out.relative_to(DOCS_DIR)).replace("\\", "/")
 
 
-def build_module_table(skripte_path: Path) -> str:
-    """Erstellt eine Markdown-Tabelle aller Module mit Links zur Übersicht."""
+def build_module_table(skripte_path: Path,
+                       anki_by_slug: dict | None = None) -> str:
+    """Erstellt eine Markdown-Tabelle aller Module mit Links zur Übersicht.
+
+    Wenn `anki_by_slug` befuellt ist, werden zwei zusaetzliche Spalten mit
+    Karten-Anzahl und Anki-Download-Link angezeigt.
+    """
+    anki_by_slug = anki_by_slug or {}
+    has_anki = bool(anki_by_slug)
     rows = []
     for entry in sorted(skripte_path.iterdir()):
-        if entry.is_dir():
-            title = folder_to_title(entry.name)
-            uebersicht_path = f"{entry.name}/uebersicht.md"
+        if not entry.is_dir():
+            continue
+        title = folder_to_title(entry.name)
+        uebersicht_path = f"{entry.name}/uebersicht.md"
+        if has_anki:
+            m = anki_by_slug.get(entry.name)
+            if m:
+                karten = str(m["notes"])
+                anki = f"[Download](assets/anki/{m['modul_slug']}.apkg)"
+            else:
+                karten = "—"
+                anki = "—"
+            rows.append(
+                f"| [{title}]({uebersicht_path}) | {karten} | {anki} |"
+            )
+        else:
             rows.append(f"| [{title}]({uebersicht_path}) |")
 
     if not rows:
         return ""
 
-    lines = [
-        "| Modul |",
-        "| ----- |",
-    ] + rows
-    return "\n".join(lines) + "\n"
+    if has_anki:
+        header = ["| Modul | Karten | Anki-Deck |", "| ----- | -----: | --------- |"]
+    else:
+        header = ["| Modul |", "| ----- |"]
+    return "\n".join(header + rows) + "\n"
 
 
 SOURCE_ICONS_DIR = Path("assets/icons")
@@ -718,16 +743,6 @@ def main():
         shutil.rmtree(DOCS_DIR)
     DOCS_DIR.mkdir()
 
-    # Startseite mit Modultabelle
-    module_table = build_module_table(SKRIPTE_DIR)
-    index_content = (
-        "# Mathematikstudium\n\n"
-        "Willkommen zu den Zusammenfassungen und Einsendeaufgaben.\n\n"
-        "## Module\n\n"
-        + module_table
-    )
-    (DOCS_DIR / "index.md").write_text(index_content, encoding="utf-8")
-
     # MathJax-Konfiguration erzeugen
     generate_mathjax_config()
 
@@ -746,6 +761,44 @@ def main():
                   file=sys.stderr)
             lernkarten_jobs = []
     lernkarten_by_glossar = {j["glossar_tex"]: j for j in lernkarten_jobs}
+
+    # Anki-Decks bauen (nur in CI auf main, ein Deck pro Modul)
+    anki_modules: list[dict] = []
+    if BUILD_ANKI:
+        if not GENERATE_LERNKARTEN:
+            print("  [WARN] BUILD_ANKI=1, aber GENERATE_LERNKARTEN=0 — "
+                  "ohne SVGs koennen keine Anki-Decks gebaut werden.",
+                  file=sys.stderr)
+        else:
+            from build_anki import build_anki_packages
+            result = build_anki_packages(ANKI_OUT_DIR)
+            if result is None:
+                print("  [WARN] Anki-Decks konnten nicht gebaut werden.",
+                      file=sys.stderr)
+            else:
+                anki_modules = result
+
+    # Startseite mit Modultabelle (inkl. Anki-Spalten, falls vorhanden)
+    anki_by_slug = {m["modul_slug"]: m for m in anki_modules}
+    module_table = build_module_table(SKRIPTE_DIR, anki_by_slug)
+    index_lines = [
+        "# Mathematikstudium",
+        "",
+        "Willkommen zu den Zusammenfassungen und Einsendeaufgaben.",
+        "",
+        "## Module",
+        "",
+        module_table,
+    ]
+    if anki_modules:
+        index_lines.extend([
+            "Die **Anki-Deck-Downloads** lassen sich per Doppelklick in "
+            "[Anki Desktop](https://apps.ankiweb.net/) importieren. Beim "
+            "erneuten Import werden Karten ueber eine stabile GUID erkannt, "
+            "sodass der Lernfortschritt bei Updates erhalten bleibt.",
+            "",
+        ])
+    (DOCS_DIR / "index.md").write_text("\n".join(index_lines), encoding="utf-8")
 
     # Docs-Baum aufbauen
     print("Generiere Docs aus skripte/ ...")
