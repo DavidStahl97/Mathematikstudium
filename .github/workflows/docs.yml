@@ -12,20 +12,23 @@ jobs:
   build:
     name: LaTeX kompilieren und Docs generieren
     runs-on: ubuntu-latest
+    container:
+      image: texlive/texlive:latest
 
     steps:
       - name: Repository auschecken
         uses: actions/checkout@v4
 
-      - name: TeX Live und Poppler installieren
+      - name: Zusatzpakete installieren (Poppler, pip, unzip, git)
         run: |
-          sudo apt-get update
-          sudo apt-get install -y \
-            texlive-latex-base \
-            texlive-latex-extra \
-            texlive-lang-german \
-            texlive-fonts-recommended \
-            poppler-utils
+          apt-get update
+          apt-get install -y --no-install-recommends \
+            poppler-utils \
+            python3-pip \
+            unzip \
+            git \
+            curl
+          git config --global --add safe.directory "$GITHUB_WORKSPACE"
 
       - name: PDF- und Lernkarten-Cache wiederherstellen
         uses: actions/cache@v4
@@ -39,10 +42,10 @@ jobs:
             pdf-cache-${{ runner.os }}-
 
       - name: Geänderte .tex-Dateien kompilieren
-        run: python build.py --skip-docs
+        run: python3 build.py --skip-docs
 
-      - name: Python und MkDocs installieren
-        run: pip install mkdocs-material pyyaml
+      - name: MkDocs installieren
+        run: pip3 install --break-system-packages mkdocs-material pyyaml
 
       - name: Docs generieren (docs/ + mkdocs.yml nav)
         id: gendocs
@@ -50,7 +53,7 @@ jobs:
           GENERATE_LERNKARTEN: "1"
         run: |
           set -o pipefail
-          python generate_docs.py 2>&1 | tee gendocs.log
+          python3 generate_docs.py 2>&1 | tee gendocs.log
 
       - name: gendocs-Log hochladen (immer)
         if: always()
