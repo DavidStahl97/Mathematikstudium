@@ -138,9 +138,18 @@ def _collect_lernkarten_jobs(skripte_path: Path, docs_path: Path) -> list[dict]:
     return jobs
 
 
+_CARD_LAYOUT_VERSION = "v2-minipage-8cm"
+
+
 def _card_hash(card: dict) -> str:
-    """Stabiler Hash ueber LaTeX-Inhalt einer Karte (front + back)."""
-    payload = (card["front"] + "\x00" + card["back"]).encode("utf-8")
+    """Stabiler Hash ueber LaTeX-Inhalt einer Karte (front + back).
+
+    Der Layout-Version-String ist Teil des Hash-Payloads, damit
+    Aenderungen am Karten-Wrap (z. B. minipage-Breite) den Cache
+    automatisch invalidieren.
+    """
+    payload = (_CARD_LAYOUT_VERSION + "\x00"
+               + card["front"] + "\x00" + card["back"]).encode("utf-8")
     return hashlib.sha256(payload).hexdigest()[:16]
 
 
@@ -210,11 +219,15 @@ def _render_misses_to_cache(misses: list[tuple[dict, str]]) -> bool:
         for card, h in misses:
             page += 1
             tex_lines += [r"\begin{lkcard}",
-                          r"\textbf{" + card["front"] + "}",
+                          r"\begin{minipage}{8cm}\centering\textbf{"
+                          + card["front"] + r"}\end{minipage}",
                           r"\end{lkcard}"]
             page_targets.append((page, LERNKARTEN_CACHE_DIR / f"{h}-front.svg"))
             page += 1
-            tex_lines += [r"\begin{lkcard}", card["back"], r"\end{lkcard}"]
+            tex_lines += [r"\begin{lkcard}",
+                          r"\begin{minipage}{8cm}" + card["back"]
+                          + r"\end{minipage}",
+                          r"\end{lkcard}"]
             page_targets.append((page, LERNKARTEN_CACHE_DIR / f"{h}-back.svg"))
         tex_lines.append(r"\end{document}")
         tex_file = tmp_dir / "cards.tex"
