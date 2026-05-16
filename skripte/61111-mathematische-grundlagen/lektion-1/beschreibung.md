@@ -1,0 +1,1 @@
+Sprachliche und begriffliche Grundlagen: Summensymbol, Aussagenlogik mit Junktoren und Quantoren, vollständige Induktion, Mengen und Abbildungen, Verknüpfungen und Körper. Anschließend Einführung der Matrizenrechnung (Addition, Skalar- und Matrizenmultiplikation) sowie der elementaren Zeilenumformungen, Elementarmatrizen und Zeilenäquivalenz.

@@ -1,0 +1,1 @@
+Höhere Ableitungen mit Mittelwertsatz, Regel von de l'Hospital und Satz von Taylor zur Polynomapproximation. Reihen als Folgen von Partialsummen mit Majoranten-, Minoranten-, Quotienten-, Wurzel- und Leibniz-Kriterium, absolute Konvergenz, Potenzreihen und Summenfunktionen. Behandlung der elementaren Funktionen.

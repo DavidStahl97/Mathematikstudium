@@ -1,0 +1,1 @@
+Lineare Unabhängigkeit, Basen und Dimension endlich erzeugter Vektorräume mit dem Austauschsatz von Steinitz. Lineare Abbildungen zwischen Vektorräumen, isomorphe Vektorräume, Kern, Bild und Rangsatz. Abschließend der Zusammenhang zwischen linearen Abbildungen und Matrizen über Koordinatenvektoren und Matrixdarstellungen sowie der Vektorraum $\mathrm{Hom}_K(V,W)$.

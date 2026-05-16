@@ -39,21 +39,23 @@ Die `docs/`-Ordner wird **nicht im Repository gespeichert** – er wird vollstä
 
 ## Lokal ausführen
 
+Einmalig Abhängigkeiten installieren (TeX Live separat):
+
 ```bash
-# Abhängigkeiten installieren
 pip install mkdocs-material pyyaml
-
-# .tex-Dateien kompilieren (TeX Live benötigt)
-find skripte -name "*.tex" | while read f; do
-  (cd "$(dirname "$f")" && pdflatex "$(basename "$f")" && pdflatex "$(basename "$f")")
-done
-
-# Docs generieren
-python generate_docs.py
-
-# Lokaler Dev-Server
-mkdocs serve
 ```
+
+Danach reicht ein einziger Befehl:
+
+```bash
+python build.py            # kompiliert .tex → .pdf (nur veraltete) und generiert docs/
+python build.py --serve    # zusätzlich: startet mkdocs serve danach
+python build.py --force    # alle .tex neu kompilieren
+python build.py --skip-tex # nur docs/ regenerieren, ohne LaTeX-Lauf
+```
+
+Pfad zu `pdflatex` ggf. per Umgebungsvariable `PDFLATEX` setzen (Default unter Windows:
+`/c/texlive/2026/bin/windows/pdflatex.exe`).
 
 ## Neue Inhalte hinzufügen
 
