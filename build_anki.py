@@ -46,7 +46,8 @@ _MODEL = genanki.Model(
     }],
     css=(
         ".card{font-family:sans-serif;text-align:center;background:#fff;}"
-        ".card img{max-width:100%;height:auto;}"
+        ".card img{max-width:100%;height:auto;"
+        "background:#fff;padding:12px;border-radius:4px;}"
     ),
 )
 
