@@ -3,6 +3,7 @@ name: Docs generieren und deployen
 on:
   push:
     branches: [main, master]
+  pull_request:
   workflow_dispatch:
 
 permissions:
@@ -41,8 +42,30 @@ jobs:
           restore-keys: |
             pdf-cache-${{ runner.os }}-
 
+      - name: Marker für neu erzeugte PDFs setzen
+        run: touch /tmp/cache-marker
+
       - name: Geänderte .tex-Dateien kompilieren
         run: python3 build.py --skip-docs
+
+      - name: Neu erzeugte PDFs sammeln
+        run: |
+          mkdir -p neue-pdfs
+          find skripte -name '*.pdf' -newer /tmp/cache-marker -print0 | \
+            while IFS= read -r -d '' pdf; do
+              dest="neue-pdfs/$(dirname "$pdf")"
+              mkdir -p "$dest"
+              cp "$pdf" "$dest/"
+            done
+          echo "Neu erzeugte PDFs:"
+          find neue-pdfs -name '*.pdf' || true
+
+      - name: Neu erzeugte PDFs als Artefakt hochladen
+        uses: actions/upload-artifact@v4
+        with:
+          name: neue-pdfs
+          path: neue-pdfs/
+          if-no-files-found: ignore
 
       - name: MkDocs installieren
         run: pip3 install --break-system-packages mkdocs-material pyyaml
