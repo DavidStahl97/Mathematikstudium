@@ -362,6 +362,18 @@ für den Lehrtext. Keine Beweise, keine Erklärungen – nur die Kernaussagen.
 % Für Einträge ohne eigene Nummer: \gentry{}{Vollständige Induktion}{...}
 ```
 
+**Wichtig – Titel müssen inhaltlich sein:** Aus jedem `\gentry` wird eine
+Lernkarte generiert (`generate_docs.py → extract_flashcards`), deren Vorderseite
+aus `<Nummer>\quad <Titel>` besteht. Ein rein generischer Titel wie `Satz`,
+`Lemma`, `Korollar`, `Proposition`, `Bemerkung` oder `Definition` macht die
+Karte unzuordenbar (`1.2.23 Lemma` sagt einem Lernenden nichts).
+
+Deshalb immer eine kurze inhaltliche Beschreibung anhängen, Schema
+`<Typ> (<Beschreibung>)`, max. ca. 5–7 Wörter:
+- ✗ `\gentry{1.2.23}{Lemma}{...}`
+- ✓ `\gentry{1.2.23}{Lemma (Körper sind nullteilerfrei)}{...}`
+- ✓ `\gentry{1.5.2}{Satz ($\mathbb{C}$ ist ein Körper)}{...}`
+
 ### Aufbau
 
 #### Titel
