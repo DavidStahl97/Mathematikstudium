@@ -138,7 +138,7 @@ def _collect_lernkarten_jobs(skripte_path: Path, docs_path: Path) -> list[dict]:
     return jobs
 
 
-_CARD_LAYOUT_VERSION = "v2-minipage-8cm"
+_CARD_LAYOUT_VERSION = "v4-minipage-8cm-LARGE-front"
 
 
 def _card_hash(card: dict) -> str:
@@ -219,8 +219,8 @@ def _render_misses_to_cache(misses: list[tuple[dict, str]]) -> bool:
         for card, h in misses:
             page += 1
             tex_lines += [r"\begin{lkcard}",
-                          r"\begin{minipage}{8cm}\centering\textbf{"
-                          + card["front"] + r"}\end{minipage}",
+                          r"\begin{minipage}{8cm}\centering\LARGE\bfseries "
+                          + card["front"] + r"\end{minipage}",
                           r"\end{lkcard}"]
             page_targets.append((page, LERNKARTEN_CACHE_DIR / f"{h}-front.svg"))
             page += 1
