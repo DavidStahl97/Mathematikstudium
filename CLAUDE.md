@@ -62,6 +62,30 @@ Dabei prüfen:
 - Kompilierung fehlerfrei (Exit-Code 0, keine Fehler im Log)
 - PDF mit dem Read-Tool öffnen und auf korrekte Formatierung prüfen (Abstände, Formeln, Einrückungen, Seitenumbrüche)
 
+## Build-Cache (build.py + CI)
+
+`build.py` und der Workflow `docs.yml` kompilieren nur **inhaltlich geänderte** `.tex`-Dateien neu. Die Detektion ist **content-hash-basiert**, nicht mtime-basiert (mtime ist nach `git checkout` und in frischen Worktrees unzuverlässig).
+
+### Sidecar-Dateien
+Neben jeder kompilierten `<file>.pdf` legt `build.py` `<file>.tex.hash` an – eine Textdatei mit dem SHA-256 der `.tex`. Beim nächsten Lauf:
+
+- **Kein Rebuild**, wenn `.pdf` existiert UND Sidecar existiert UND gespeicherter Hash == aktueller Hash.
+- **Rebuild** sonst (kein PDF, kein Sidecar, Hash-Mismatch, oder `--force`).
+
+Sidecars sind in `.gitignore` (`skripte/**/*.tex.hash`) – nicht ins Repo committen.
+
+### Praxis für Claude
+- Standardmäßig **`python build.py --skip-docs`** statt manuellem `pdflatex`-Aufruf benutzen, wenn nur eine einzelne `.tex` getestet werden soll. Das pflegt das Sidecar gleich mit.
+- Direkter `pdflatex`-Aufruf bleibt erlaubt (z. B. wenn `build.py` nicht verfügbar) – beim nächsten `build.py`-Lauf wird die Datei dann einmal erneut kompiliert (kein Schaden, nur Mehrarbeit).
+- `cleanup_aux` löscht `.aux`/`.log`/etc., aber **nicht** `.tex.hash` – das ist Absicht.
+
+### CI-Caching
+`docs.yml` nutzt `actions/cache@v4` mit den Pfaden `skripte/**/*.pdf`, `skripte/**/*.tex.hash`, `.lernkarten-cache/`. Cache-Key: `hashFiles('skripte/**/*.tex', 'build.py', 'generate_docs.py')`; `restore-keys` mit Prefix-Fallback für inkrementelle Rebuilds nach Einzeländerungen.
+
+### Lernkarten
+- Lokal standardmäßig **deaktiviert** (`GENERATE_LERNKARTEN=0` in `generate_docs.py`) – sonst müsste jeder frische Worktree alle Karten neu rendern.
+- In CI über Env-Variable im Workflow **aktiviert**. SVGs liegen content-hash-basiert in `.lernkarten-cache/<hash>-{front,back}.svg` und werden mitgecached.
+
 ## Docs-Generierung (GitHub Pages)
 
 ### Konzept

@@ -48,14 +48,46 @@ pip install mkdocs-material pyyaml
 Danach reicht ein einziger Befehl:
 
 ```bash
-python build.py            # kompiliert .tex → .pdf (nur veraltete) und generiert docs/
+python build.py            # kompiliert nur geänderte .tex → .pdf und generiert docs/
 python build.py --serve    # zusätzlich: startet mkdocs serve danach
 python build.py --force    # alle .tex neu kompilieren
 python build.py --skip-tex # nur docs/ regenerieren, ohne LaTeX-Lauf
+python build.py --skip-docs # nur LaTeX kompilieren, ohne docs/-Generierung
 ```
 
 Pfad zu `pdflatex` ggf. per Umgebungsvariable `PDFLATEX` setzen (Default unter Windows:
 `/c/texlive/2026/bin/windows/pdflatex.exe`).
+
+## Cache-Logik
+
+`build.py` kompiliert nur geänderte `.tex`-Dateien neu – sowohl lokal als auch in CI. Die Erkennung erfolgt **content-hash-basiert** über sogenannte Sidecar-Dateien:
+
+- Neben jeder erfolgreich kompilierten `<file>.pdf` wird `<file>.tex.hash` angelegt – eine Textdatei mit dem SHA-256 der zugehörigen `.tex`.
+- Beim nächsten Build vergleicht `build.py` den aktuellen Hash der `.tex` mit dem gespeicherten. Stimmen sie überein und die PDF existiert noch, wird die Kompilierung übersprungen.
+- Eine `.tex` gilt nur dann als "veraltet", wenn ihr Inhalt sich tatsächlich geändert hat – `touch` oder Branch-Wechsel allein lösen keinen Rebuild aus.
+
+Sidecars sind reine Build-Artefakte und werden via [.gitignore](.gitignore) (`skripte/**/*.tex.hash`) nicht ins Repo committed.
+
+### Warum content-hash statt mtime?
+
+Modifikationszeiten (`mtime`) sind nach `git checkout` oder in einem frischen Worktree unzuverlässig: alle Dateien bekommen denselben Zeitstempel. Inhaltshashes überleben Checkouts unverändert und funktionieren damit auch in der GitHub-Action.
+
+### Lernkarten-Cache
+
+Lernkarten-SVGs (siehe `generate_docs.py`) nutzen denselben Content-Hash-Ansatz: gerenderte SVGs liegen unter `.lernkarten-cache/<hash>-{front,back}.svg`. Lernkarten-Generierung ist standardmäßig deaktiviert (`GENERATE_LERNKARTEN=0`) – in CI wird sie über die Environment-Variable im Workflow aktiviert.
+
+### CI-Caching
+
+`.github/workflows/docs.yml` persistiert die Cache-Artefakte zwischen Workflow-Runs via [`actions/cache@v4`](https://github.com/actions/cache):
+
+```yaml
+path: |
+  skripte/**/*.pdf
+  skripte/**/*.tex.hash
+  .lernkarten-cache
+```
+
+Damit kompiliert die CI nach einer einzelnen `.tex`-Änderung nur diese eine Datei neu; alle anderen PDFs und Lernkarten-SVGs werden aus dem Cache restauriert.
 
 ## Neue Inhalte hinzufügen
 

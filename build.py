@@ -10,6 +10,7 @@ Verwendung:
 """
 
 import argparse
+import hashlib
 import os
 import shutil
 import subprocess
@@ -41,13 +42,28 @@ def _find_pdflatex() -> str:
 PDFLATEX = _find_pdflatex()
 
 
+def _tex_hash(tex: Path) -> str:
+    """SHA-256 Hex-Digest des .tex-Inhalts."""
+    return hashlib.sha256(tex.read_bytes()).hexdigest()
+
+
+def _hash_sidecar(tex: Path) -> Path:
+    return tex.with_name(tex.name + ".hash")
+
+
 def needs_rebuild(tex: Path, force: bool) -> bool:
     if force:
         return True
-    pdf = tex.with_suffix(".pdf")
-    if not pdf.exists():
+    if not tex.with_suffix(".pdf").exists():
         return True
-    return tex.stat().st_mtime > pdf.stat().st_mtime
+    sidecar = _hash_sidecar(tex)
+    if not sidecar.exists():
+        return True
+    try:
+        stored = sidecar.read_text(encoding="utf-8").strip()
+    except OSError:
+        return True
+    return stored != _tex_hash(tex)
 
 
 def compile_tex(tex: Path) -> bool:
@@ -66,6 +82,7 @@ def compile_tex(tex: Path) -> bool:
                 tail = log.read_text(encoding="utf-8", errors="replace").splitlines()[-30:]
                 print("\n".join(tail), file=sys.stderr)
             return False
+    _hash_sidecar(tex).write_text(_tex_hash(tex), encoding="utf-8")
     return True
 
 
@@ -85,6 +102,8 @@ def main() -> int:
                         help="Alle .tex-Dateien neu kompilieren")
     parser.add_argument("--skip-tex", action="store_true",
                         help="LaTeX-Kompilierung überspringen, nur Docs neu bauen")
+    parser.add_argument("--skip-docs", action="store_true",
+                        help="generate_docs.py nicht ausführen (nur LaTeX kompilieren)")
     args = parser.parse_args()
 
     if not SKRIPTE_DIR.exists():
@@ -117,6 +136,9 @@ def main() -> int:
             for f in failed:
                 print(f"  - {f}", file=sys.stderr)
             return 1
+
+    if args.skip_docs:
+        return 0
 
     print("\nGeneriere docs/ …")
     proc = subprocess.run([sys.executable, "generate_docs.py"])

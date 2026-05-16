@@ -27,22 +27,27 @@ jobs:
             texlive-fonts-recommended \
             poppler-utils
 
-      - name: Alle .tex-Dateien rekursiv kompilieren
-        run: |
-          find skripte -name "*.tex" | while read texfile; do
-            basename=$(basename "$texfile" .tex)
-            texdir=$(dirname "$texfile")
-            echo "Kompiliere $texfile ..."
-            (cd "$texdir" && \
-              pdflatex -interaction=nonstopmode -file-line-error "$basename.tex" && \
-              pdflatex -interaction=nonstopmode -file-line-error "$basename.tex")
-          done
+      - name: PDF- und Lernkarten-Cache wiederherstellen
+        uses: actions/cache@v4
+        with:
+          path: |
+            skripte/**/*.pdf
+            skripte/**/*.tex.hash
+            .lernkarten-cache
+          key: pdf-cache-${{ runner.os }}-${{ hashFiles('skripte/**/*.tex', 'build.py', 'generate_docs.py') }}
+          restore-keys: |
+            pdf-cache-${{ runner.os }}-
+
+      - name: Geänderte .tex-Dateien kompilieren
+        run: python build.py --skip-docs
 
       - name: Python und MkDocs installieren
         run: pip install mkdocs-material pyyaml
 
       - name: Docs generieren (docs/ + mkdocs.yml nav)
         id: gendocs
+        env:
+          GENERATE_LERNKARTEN: "1"
         run: |
           set -o pipefail
           python generate_docs.py 2>&1 | tee gendocs.log
