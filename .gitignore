@@ -36,6 +36,9 @@ skripte/**/*.pdf
 # MkDocs Site-Output (lokal)
 site/
 
+# Lernkarten-SVG-Cache (lokal, content-hash-basiert)
+.lernkarten-cache/
+
 .claude/
 
 # Attachments – Dateien zum temporären Verarbeiten (werden nach Verarbeitung gelöscht)

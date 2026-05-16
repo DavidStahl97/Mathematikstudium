@@ -10,6 +10,7 @@ Generiert MkDocs-Dokumentation aus der skripte/-Ordnerstruktur.
 - Aktualisiert den nav-Abschnitt in mkdocs.yml
 """
 
+import hashlib
 import json
 import os
 import re
@@ -25,6 +26,7 @@ from pathlib import Path
 SKRIPTE_DIR = Path("skripte")
 DOCS_DIR = Path("docs")
 MKDOCS_FILE = Path("mkdocs.yml")
+LERNKARTEN_CACHE_DIR = Path(".lernkarten-cache")
 
 # Lernkarten-Generierung ist zeitaufwendig (pdflatex + pdftocairo pro Karte).
 # Standardmäßig deaktiviert; aktivieren via Umgebungsvariable GENERATE_LERNKARTEN=1.
@@ -136,35 +138,84 @@ def _collect_lernkarten_jobs(skripte_path: Path, docs_path: Path) -> list[dict]:
     return jobs
 
 
-def render_all_lernkarten(jobs: list[dict]) -> bool:
-    """Rendert alle Karten aller Jobs in einem gebuendelten Lauf.
+def _card_hash(card: dict) -> str:
+    """Stabiler Hash ueber LaTeX-Inhalt einer Karte (front + back)."""
+    payload = (card["front"] + "\x00" + card["back"]).encode("utf-8")
+    return hashlib.sha256(payload).hexdigest()[:16]
 
-    Eine gemeinsame cards.tex -> ein pdflatex-Lauf -> parallel pdftocairo
-    pro PDF-Seite, wobei jede SVG-Datei direkt im richtigen Zielordner landet.
+
+def render_all_lernkarten(jobs: list[dict]) -> bool:
+    """Rendert alle Karten mit Content-Hash-Cache.
+
+    - Jede Karte wird ueber sha256(front+back) gehasht.
+    - SVGs liegen im Cache unter .lernkarten-cache/<hash>-{front,back}.svg.
+    - Nur Cache-Misses werden via pdflatex+pdftocairo neu gerendert.
+    - Anschliessend werden alle SVGs aus dem Cache in die Zielordner kopiert
+      (mit positionsbasiertem Namen card-N-{front,back}.svg).
     """
     if not jobs:
         return True
 
+    LERNKARTEN_CACHE_DIR.mkdir(parents=True, exist_ok=True)
     for job in jobs:
         job["svg_out_dir"].mkdir(parents=True, exist_ok=True)
 
+    # Cache-Status erfassen: pro Karte (hash, in_cache?)
+    misses: list[tuple[dict, str]] = []  # (card, hash) — fuer Karten ohne Cache-Treffer
+    seen_misses: set[str] = set()         # Hash-Deduplizierung im Render-Batch
+    total_cards = 0
+    for job in jobs:
+        for c in job["cards"]:
+            total_cards += 1
+            h = c["_hash"] = _card_hash(c)
+            front_cached = (LERNKARTEN_CACHE_DIR / f"{h}-front.svg").exists()
+            back_cached = (LERNKARTEN_CACHE_DIR / f"{h}-back.svg").exists()
+            if not (front_cached and back_cached) and h not in seen_misses:
+                misses.append((c, h))
+                seen_misses.add(h)
+
+    if misses:
+        if not _render_misses_to_cache(misses):
+            return False
+
+    # Cache -> Zielordner: Hardlinks (auf NTFS quasi gratis), Fallback copy
+    for job in jobs:
+        for i, c in enumerate(job["cards"]):
+            h = c["_hash"]
+            for side in ("front", "back"):
+                src = LERNKARTEN_CACHE_DIR / f"{h}-{side}.svg"
+                dst = job["svg_out_dir"] / f"card-{i + 1}-{side}.svg"
+                if dst.exists():
+                    dst.unlink()
+                try:
+                    os.link(src, dst)
+                except OSError:
+                    shutil.copyfile(src, dst)
+
+    hit = total_cards - len(misses)
+    print(f"Lernkarten: {len(jobs)} Lektionen, {total_cards} Karten "
+          f"({hit} aus Cache, {len(misses)} neu gerendert).")
+    return True
+
+
+def _render_misses_to_cache(misses: list[tuple[dict, str]]) -> bool:
+    """Kompiliert die Cache-Miss-Karten in einer gebuendelten cards.tex
+    und schreibt die SVGs in den Cache.
+    """
     with tempfile.TemporaryDirectory(prefix="lernkarten_") as tmp:
         tmp_dir = Path(tmp)
         tex_lines = [_CARDS_TEX_PREAMBLE]
         page_targets: list[tuple[int, Path]] = []
         page = 0
-        for job in jobs:
-            for i, c in enumerate(job["cards"]):
-                page += 1
-                tex_lines += [r"\begin{lkcard}",
-                              r"\textbf{" + c["front"] + "}",
-                              r"\end{lkcard}"]
-                page_targets.append(
-                    (page, job["svg_out_dir"] / f"card-{i + 1}-front.svg"))
-                page += 1
-                tex_lines += [r"\begin{lkcard}", c["back"], r"\end{lkcard}"]
-                page_targets.append(
-                    (page, job["svg_out_dir"] / f"card-{i + 1}-back.svg"))
+        for card, h in misses:
+            page += 1
+            tex_lines += [r"\begin{lkcard}",
+                          r"\textbf{" + card["front"] + "}",
+                          r"\end{lkcard}"]
+            page_targets.append((page, LERNKARTEN_CACHE_DIR / f"{h}-front.svg"))
+            page += 1
+            tex_lines += [r"\begin{lkcard}", card["back"], r"\end{lkcard}"]
+            page_targets.append((page, LERNKARTEN_CACHE_DIR / f"{h}-back.svg"))
         tex_lines.append(r"\end{document}")
         tex_file = tmp_dir / "cards.tex"
         tex_file.write_text("\n".join(tex_lines), encoding="utf-8")
@@ -210,9 +261,6 @@ def render_all_lernkarten(jobs: list[dict]) -> bool:
             print(err, file=sys.stderr)
         if errors:
             return False
-
-    total_cards = sum(len(j["cards"]) for j in jobs)
-    print(f"Lernkarten: {len(jobs)} Lektionen, {total_cards} Karten gerendert.")
     return True
 
 _FLASHCARD_TEMPLATE = """\
