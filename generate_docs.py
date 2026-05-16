@@ -25,6 +25,10 @@ SKRIPTE_DIR = Path("skripte")
 DOCS_DIR = Path("docs")
 MKDOCS_FILE = Path("mkdocs.yml")
 
+# Lernkarten-Generierung ist zeitaufwendig (pdflatex + pdftocairo pro Karte).
+# Standardmäßig deaktiviert; aktivieren via Umgebungsvariable GENERATE_LERNKARTEN=1.
+GENERATE_LERNKARTEN = os.environ.get("GENERATE_LERNKARTEN", "0") == "1"
+
 PDFLATEX = (os.environ.get("PDFLATEX") or shutil.which("pdflatex")
             or "/c/texlive/2026/bin/windows/pdflatex.exe")
 PDFTOCAIRO = (os.environ.get("PDFTOCAIRO") or shutil.which("pdftocairo")
@@ -345,7 +349,7 @@ def build_tree(skripte_path: Path, docs_path: Path, site_url: str) -> list:
 
     # Lernkarten-Seite, wenn dieses Verzeichnis ein glossar.tex enthält
     glossar_tex = skripte_path / "glossar.tex"
-    if glossar_tex.exists():
+    if GENERATE_LERNKARTEN and glossar_tex.exists():
         fc_md = docs_path / "lernkarten.md"
         rel_from_docs = docs_path.relative_to(DOCS_DIR)
         svg_out_dir = DOCS_DIR / "assets" / "lernkarten" / rel_from_docs
@@ -434,24 +438,79 @@ def build_tree(skripte_path: Path, docs_path: Path, site_url: str) -> list:
 
 
 def find_first_tex_page(module_path: Path) -> str | None:
-    """Gibt den relativen Docs-Pfad zur ersten .tex-Datei im Modul zurück."""
-    for tex in sorted(module_path.rglob("*.tex")):
-        rel = tex.relative_to(SKRIPTE_DIR)
-        return str(rel.with_suffix(".md")).replace("\\", "/")
-    return None
+    """Gibt den relativen Docs-Pfad zur ersten relevanten .tex-Seite zurück.
+
+    Bevorzugt ziele.tex (Studierhinweise), danach glossar.tex, sonst die erste
+    .tex-Datei in alphabetischer Reihenfolge.
+    """
+    all_tex = sorted(module_path.rglob("*.tex"))
+    if not all_tex:
+        return None
+    preferred = (
+        [t for t in all_tex if t.name == "ziele.tex"]
+        or [t for t in all_tex if t.name == "glossar.tex"]
+        or all_tex
+    )
+    rel = preferred[0].relative_to(SKRIPTE_DIR)
+    return str(rel.with_suffix(".md")).replace("\\", "/")
+
+
+def _read_description(path: Path) -> str:
+    """Liest eine optionale beschreibung.md Datei. Leerer String wenn nicht vorhanden."""
+    if path.exists():
+        return path.read_text(encoding="utf-8").strip()
+    return ""
+
+
+def generate_module_uebersicht(module_skripte: Path, module_docs: Path) -> str:
+    """Erstellt docs/<modul>/uebersicht.md mit Modulbeschreibung + Lektionsauflistung.
+
+    Quellen für Beschreibungen (optional):
+      - skripte/<modul>/beschreibung.md            -> Modulbeschreibung
+      - skripte/<modul>/lektion-N/beschreibung.md  -> Lektions-Kurzbeschreibung
+
+    Gibt den Docs-relativen Pfad zur erzeugten uebersicht.md zurück.
+    """
+    title = folder_to_title(module_skripte.name)
+    module_desc = _read_description(module_skripte / "beschreibung.md")
+
+    lines = [f"# {title}", "", "## Übersicht", ""]
+    if module_desc:
+        lines.extend([module_desc, ""])
+
+    lines.extend(["## Lektionen", ""])
+    for entry in sorted(module_skripte.iterdir()):
+        if not entry.is_dir() or not entry.name.startswith("lektion-"):
+            continue
+        lesson_title = folder_to_title(entry.name)
+        rel_tex = find_first_tex_page(entry)
+        if rel_tex:
+            # Relativer Link von uebersicht.md (in docs/<modul>/) zur Lektionsseite
+            rel_link = str(Path(*Path(rel_tex).parts[1:])).replace("\\", "/")
+            heading = f"### [{lesson_title}]({rel_link})"
+        else:
+            heading = f"### {lesson_title}"
+        lesson_desc = _read_description(entry / "beschreibung.md")
+        lines.append(heading)
+        lines.append("")
+        if lesson_desc:
+            lines.append(lesson_desc)
+            lines.append("")
+
+    module_docs.mkdir(parents=True, exist_ok=True)
+    out = module_docs / "uebersicht.md"
+    out.write_text("\n".join(lines), encoding="utf-8")
+    return str(out.relative_to(DOCS_DIR)).replace("\\", "/")
 
 
 def build_module_table(skripte_path: Path) -> str:
-    """Erstellt eine Markdown-Tabelle aller Module mit Links."""
+    """Erstellt eine Markdown-Tabelle aller Module mit Links zur Übersicht."""
     rows = []
     for entry in sorted(skripte_path.iterdir()):
         if entry.is_dir():
             title = folder_to_title(entry.name)
-            first_page = find_first_tex_page(entry)
-            if first_page:
-                rows.append(f"| [{title}]({first_page}) |")
-            else:
-                rows.append(f"| {title} |")
+            uebersicht_path = f"{entry.name}/uebersicht.md"
+            rows.append(f"| [{title}]({uebersicht_path}) |")
 
     if not rows:
         return ""
@@ -590,6 +649,23 @@ def main():
     # Docs-Baum aufbauen
     print("Generiere Docs aus skripte/ ...")
     nav_skripte = build_tree(SKRIPTE_DIR, DOCS_DIR, site_url)
+
+    # Pro Modul eine Übersicht-Seite erzeugen und als ersten Nav-Eintrag einfügen
+    module_dirs = {
+        folder_to_title(p.name): p
+        for p in sorted(SKRIPTE_DIR.iterdir()) if p.is_dir()
+    }
+    for module_entry in nav_skripte:
+        if not isinstance(module_entry, dict):
+            continue
+        for module_title, sub_items in module_entry.items():
+            module_skripte = module_dirs.get(module_title)
+            if module_skripte is None or not isinstance(sub_items, list):
+                continue
+            uebersicht_rel = generate_module_uebersicht(
+                module_skripte, DOCS_DIR / module_skripte.name
+            )
+            sub_items.insert(0, {"Übersicht": uebersicht_rel})
 
     nav = [{"Home": "index.md"}] + nav_skripte
 

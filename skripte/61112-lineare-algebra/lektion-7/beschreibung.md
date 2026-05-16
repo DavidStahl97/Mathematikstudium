@@ -1,0 +1,1 @@
+Euklidische und unitäre Vektorräume mit Skalarprodukt und Norm, Hauptminorenkriterium und Cauchy-Schwarz-Ungleichung. Behandelt werden Orthogonalität, orthogonales Komplement, Orthonormalbasen mit dem Gram-Schmidt-Verfahren, adjungierte Abbildungen, Isometrien (orthogonale und unitäre Matrizen) sowie die Spektralsätze für normale, unitäre und selbstadjungierte Endomorphismen.

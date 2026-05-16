@@ -1,0 +1,1 @@
+Zum Abschluss des Analysis-Teils das Riemann-Integral und der erste und zweite Hauptsatz der Differential- und Integralrechnung. Anschließend Einführung in die formale Logik mit Aussagenlogik und Prädikatenlogik als Sprachen zur eindeutigen Darstellung mathematischer Sachverhalte.

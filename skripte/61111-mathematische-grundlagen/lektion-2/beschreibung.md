@@ -1,0 +1,1 @@
+Einstieg in die Lineare Algebra: Treppennormalform und Gaußalgorithmus, Transformationsmatrix und Rang einer Matrix. Darauf aufbauend werden lineare Gleichungssysteme und die Struktur ihrer Lösungsmenge behandelt sowie der abstrakte Begriff des Vektorraums mit Unterräumen und endlich erzeugten Vektorräumen eingeführt.
