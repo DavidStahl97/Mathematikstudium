@@ -19,6 +19,7 @@ import sys
 import tempfile
 import urllib.parse
 import yaml
+from concurrent.futures import ThreadPoolExecutor
 from pathlib import Path
 
 SKRIPTE_DIR = Path("skripte")
@@ -104,25 +105,66 @@ _CARDS_TEX_PREAMBLE = r"""\documentclass[border=10pt,varwidth=8cm,multi=lkcard]{
 """
 
 
-def render_cards_to_svg(cards: list[dict], svg_out_dir: Path) -> bool:
-    """Kompiliert alle Karten via pdflatex + pdftocairo zu SVGs.
+def _collect_lernkarten_jobs(skripte_path: Path, docs_path: Path) -> list[dict]:
+    """Traversiert skripte/ und sammelt alle Lernkarten-Jobs (eine pro glossar.tex)."""
+    jobs = []
 
-    Erzeugt card-<k>-front.svg / card-<k>-back.svg in svg_out_dir (k ist 1-basiert).
+    def _walk(s_path: Path, d_path: Path):
+        glossar = s_path / "glossar.tex"
+        if glossar.exists():
+            cards = extract_flashcards(glossar)
+            if cards:
+                rel_from_docs = d_path.relative_to(DOCS_DIR)
+                svg_out_dir = DOCS_DIR / "assets" / "lernkarten" / rel_from_docs
+                depth = len(rel_from_docs.parts) + 1
+                svg_base_url = "../" * depth + str(
+                    Path("assets/lernkarten") / rel_from_docs
+                ).replace("\\", "/") + "/"
+                jobs.append({
+                    "glossar_tex": glossar,
+                    "cards": cards,
+                    "svg_out_dir": svg_out_dir,
+                    "out_md": d_path / "lernkarten.md",
+                    "lesson_title": folder_to_title(s_path.name),
+                    "svg_base_url": svg_base_url,
+                })
+        for entry in sorted(s_path.iterdir()):
+            if entry.is_dir():
+                _walk(entry, d_path / entry.name)
+
+    _walk(skripte_path, docs_path)
+    return jobs
+
+
+def render_all_lernkarten(jobs: list[dict]) -> bool:
+    """Rendert alle Karten aller Jobs in einem gebuendelten Lauf.
+
+    Eine gemeinsame cards.tex -> ein pdflatex-Lauf -> parallel pdftocairo
+    pro PDF-Seite, wobei jede SVG-Datei direkt im richtigen Zielordner landet.
     """
-    if not cards:
-        return False
-    svg_out_dir.mkdir(parents=True, exist_ok=True)
+    if not jobs:
+        return True
+
+    for job in jobs:
+        job["svg_out_dir"].mkdir(parents=True, exist_ok=True)
 
     with tempfile.TemporaryDirectory(prefix="lernkarten_") as tmp:
         tmp_dir = Path(tmp)
         tex_lines = [_CARDS_TEX_PREAMBLE]
-        for c in cards:
-            tex_lines.append(r"\begin{lkcard}")
-            tex_lines.append(r"\textbf{" + c["front"] + "}")
-            tex_lines.append(r"\end{lkcard}")
-            tex_lines.append(r"\begin{lkcard}")
-            tex_lines.append(c["back"])
-            tex_lines.append(r"\end{lkcard}")
+        page_targets: list[tuple[int, Path]] = []
+        page = 0
+        for job in jobs:
+            for i, c in enumerate(job["cards"]):
+                page += 1
+                tex_lines += [r"\begin{lkcard}",
+                              r"\textbf{" + c["front"] + "}",
+                              r"\end{lkcard}"]
+                page_targets.append(
+                    (page, job["svg_out_dir"] / f"card-{i + 1}-front.svg"))
+                page += 1
+                tex_lines += [r"\begin{lkcard}", c["back"], r"\end{lkcard}"]
+                page_targets.append(
+                    (page, job["svg_out_dir"] / f"card-{i + 1}-back.svg"))
         tex_lines.append(r"\end{document}")
         tex_file = tmp_dir / "cards.tex"
         tex_file.write_text("\n".join(tex_lines), encoding="utf-8")
@@ -135,32 +177,42 @@ def render_cards_to_svg(cards: list[dict], svg_out_dir: Path) -> bool:
                 encoding="utf-8", errors="replace",
             )
         except subprocess.CalledProcessError:
-            print(f"  [ERROR] pdflatex fehlgeschlagen fuer {svg_out_dir}", file=sys.stderr)
+            print("  [ERROR] pdflatex (gebuendelt) fehlgeschlagen", file=sys.stderr)
             log = tmp_dir / "cards.log"
             if log.exists():
-                tail = log.read_text(encoding="utf-8", errors="replace").splitlines()[-40:]
+                tail = log.read_text(encoding="utf-8", errors="replace").splitlines()[-60:]
                 print("\n".join(tail), file=sys.stderr)
             return False
 
         pdf_file = tmp_dir / "cards.pdf"
         if not pdf_file.exists():
-            print(f"  [ERROR] cards.pdf nicht erzeugt fuer {svg_out_dir}", file=sys.stderr)
+            print("  [ERROR] cards.pdf nicht erzeugt", file=sys.stderr)
             return False
 
-        for i in range(len(cards)):
-            for side, page in (("front", 2 * i + 1), ("back", 2 * i + 2)):
-                out_svg = svg_out_dir / f"card-{i + 1}-{side}.svg"
-                try:
-                    subprocess.run(
-                        [PDFTOCAIRO, "-svg", "-f", str(page), "-l", str(page),
-                         str(pdf_file), str(out_svg)],
-                        check=True, capture_output=True, text=True,
-                        encoding="utf-8", errors="replace",
-                    )
-                except subprocess.CalledProcessError as e:
-                    print(f"  [ERROR] pdftocairo (Seite {page}) fuer {out_svg}: {e.stderr}",
-                          file=sys.stderr)
-                    return False
+        def _render(target):
+            page_num, out_svg = target
+            try:
+                subprocess.run(
+                    [PDFTOCAIRO, "-svg", "-f", str(page_num), "-l", str(page_num),
+                     str(pdf_file), str(out_svg)],
+                    check=True, capture_output=True, text=True,
+                    encoding="utf-8", errors="replace",
+                )
+                return None
+            except subprocess.CalledProcessError as e:
+                return (f"  [ERROR] pdftocairo (Seite {page_num}) "
+                        f"fuer {out_svg}: {e.stderr}")
+
+        workers = min(len(page_targets), (os.cpu_count() or 4) * 2)
+        with ThreadPoolExecutor(max_workers=workers) as ex:
+            errors = [e for e in ex.map(_render, page_targets) if e is not None]
+        for err in errors:
+            print(err, file=sys.stderr)
+        if errors:
+            return False
+
+    total_cards = sum(len(j["cards"]) for j in jobs)
+    print(f"Lernkarten: {len(jobs)} Lektionen, {total_cards} Karten gerendert.")
     return True
 
 _FLASHCARD_TEMPLATE = """\
@@ -300,75 +352,52 @@ fcRoute();
 """
 
 
-def generate_flashcard_page(
-    glossar_tex: Path, out_md: Path, lesson_title: str,
-    svg_out_dir: Path, svg_base_url: str,
-) -> bool:
-    """Generate a Lernkarten .md page with SVG-rendered cards.
-
-    Returns True wenn die Seite erfolgreich geschrieben wurde, sonst False.
-    """
-    cards = extract_flashcards(glossar_tex)
-    if not cards:
-        return False
-    if not render_cards_to_svg(cards, svg_out_dir):
-        print(f"  [WARN] Keine Lernkarten-SVGs erzeugt fuer {glossar_tex}",
-              file=sys.stderr)
-        return False
+def write_flashcard_page(job: dict) -> None:
+    """Schreibt die lernkarten.md fuer einen Job (SVGs muessen existieren)."""
+    cards = job["cards"]
     refs = [
         {"front": f"card-{i + 1}-front.svg", "back": f"card-{i + 1}-back.svg"}
         for i in range(len(cards))
     ]
-    cards_json = json.dumps(refs, ensure_ascii=False)
     content = (
         _FLASHCARD_TEMPLATE
-        .replace("__LESSON_TITLE__", lesson_title)
+        .replace("__LESSON_TITLE__", job["lesson_title"])
         .replace("__CARD_COUNT__", str(len(cards)))
-        .replace("__CARDS_JSON__", cards_json)
-        .replace("__SVG_BASE__", svg_base_url)
+        .replace("__CARDS_JSON__", json.dumps(refs, ensure_ascii=False))
+        .replace("__SVG_BASE__", job["svg_base_url"])
     )
-    out_md.parent.mkdir(parents=True, exist_ok=True)
-    out_md.write_text(content, encoding="utf-8")
-    print(f"  Lernkarten: {len(cards)} Karten -> {out_md}")
-    return True
+    job["out_md"].parent.mkdir(parents=True, exist_ok=True)
+    job["out_md"].write_text(content, encoding="utf-8")
 
 
 # ---------------------------------------------------------------------------
 # Docs-Baum
 # ---------------------------------------------------------------------------
 
-def build_tree(skripte_path: Path, docs_path: Path, site_url: str) -> list:
+def build_tree(skripte_path: Path, docs_path: Path, site_url: str,
+               lernkarten_by_glossar: dict) -> list:
     """
     Rekursiv Ordner traversieren, .md-Dateien erzeugen, Nav-Liste zurückgeben.
-    skripte_path: aktueller Pfad in skripte/
-    docs_path:    korrespondierender Pfad in docs/
-    site_url:     absolute Basis-URL der GitHub Pages Site (mit trailing slash)
+    skripte_path:          aktueller Pfad in skripte/
+    docs_path:             korrespondierender Pfad in docs/
+    site_url:              absolute Basis-URL der GitHub Pages Site (mit trailing slash)
+    lernkarten_by_glossar: dict {glossar_tex_path: job} aus dem Pre-Render-Schritt
     """
     items = []
     docs_path.mkdir(parents=True, exist_ok=True)
 
-    # Lernkarten-Seite, wenn dieses Verzeichnis ein glossar.tex enthält
-    glossar_tex = skripte_path / "glossar.tex"
-    if GENERATE_LERNKARTEN and glossar_tex.exists():
-        fc_md = docs_path / "lernkarten.md"
-        rel_from_docs = docs_path.relative_to(DOCS_DIR)
-        svg_out_dir = DOCS_DIR / "assets" / "lernkarten" / rel_from_docs
-        depth = len(rel_from_docs.parts) + 1
-        svg_base_url = "../" * depth + str(
-            Path("assets/lernkarten") / rel_from_docs
-        ).replace("\\", "/") + "/"
-        if generate_flashcard_page(
-            glossar_tex, fc_md, folder_to_title(skripte_path.name),
-            svg_out_dir, svg_base_url,
-        ):
-            rel = str(fc_md.relative_to(DOCS_DIR)).replace("\\", "/")
-            items.append({"Lernkarten": rel})
+    # Lernkarten-Seite, wenn fuer dieses Verzeichnis ein Job vorgerendert wurde
+    job = lernkarten_by_glossar.get(skripte_path / "glossar.tex")
+    if job is not None:
+        write_flashcard_page(job)
+        rel = str(job["out_md"].relative_to(DOCS_DIR)).replace("\\", "/")
+        items.append({"Lernkarten": rel})
 
     for entry in sorted(skripte_path.iterdir()):
         if entry.is_dir():
             sub_docs = docs_path / entry.name
             sub_docs.mkdir(parents=True, exist_ok=True)
-            sub_items = build_tree(entry, sub_docs, site_url)
+            sub_items = build_tree(entry, sub_docs, site_url, lernkarten_by_glossar)
             if sub_items:
                 items.append({folder_to_title(entry.name): sub_items})
 
@@ -646,9 +675,20 @@ def main():
         config = yaml.safe_load(f)
     site_url = config.get("site_url", "").rstrip("/") + "/"
 
+    # Lernkarten: einmal alle Karten zusammen rendern (1x pdflatex statt 1x pro Lektion)
+    lernkarten_jobs = []
+    if GENERATE_LERNKARTEN:
+        print("Sammle und rendere Lernkarten ...")
+        lernkarten_jobs = _collect_lernkarten_jobs(SKRIPTE_DIR, DOCS_DIR)
+        if not render_all_lernkarten(lernkarten_jobs):
+            print("  [WARN] Lernkarten-Rendering teilweise/komplett fehlgeschlagen",
+                  file=sys.stderr)
+            lernkarten_jobs = []
+    lernkarten_by_glossar = {j["glossar_tex"]: j for j in lernkarten_jobs}
+
     # Docs-Baum aufbauen
     print("Generiere Docs aus skripte/ ...")
-    nav_skripte = build_tree(SKRIPTE_DIR, DOCS_DIR, site_url)
+    nav_skripte = build_tree(SKRIPTE_DIR, DOCS_DIR, site_url, lernkarten_by_glossar)
 
     # Pro Modul eine Übersicht-Seite erzeugen und als ersten Nav-Eintrag einfügen
     module_dirs = {
