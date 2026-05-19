@@ -1,0 +1,144 @@
+\documentclass[a4paper,12pt]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[ngerman]{babel}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{enumitem}
+\usepackage{geometry}
+\geometry{a4paper, margin=2.5cm}
+\usepackage{parskip}
+
+\title{Einsendeaufgaben -- Aufgabe 4.1\\[0.5em]
+\large 61211 Analysis}
+\author{}
+\date{}
+
+\begin{document}
+\maketitle
+
+\section*{Aufgabe 1}
+
+\begin{enumerate}[label=\alph*)]
+
+    \item
+    Wir definieren:
+    \[
+        F: \mathbb{R}^2 \to \mathbb{R}, \quad \binom{x}{y} \mapsto x^2 + y + \sin(xy)
+    \]
+
+    \textit{Bestimmung der partiellen Ableitungen von $F$:}
+    \begin{align*}
+        D_1 F(x,y) &= 2x + y\cos(xy) \\
+        D_2 F(x,y) &= 1 + x\cos(xy)
+    \end{align*}
+
+    Die partiellen Ableitungen $D_1 F$ und $D_2 F$ sind stetig und demnach ist $F$ partiell differenzierbar. Es gilt:
+    \[
+        F_y'(0,0) = 1
+    \]
+    und daraus folgt
+    \[
+        \operatorname{Rang} F_y'(0,0) = 1
+    \]
+
+    Wir können also Satz 4.2.3 über implizite Funktionen anwenden. Demzufolge existiert eine offene Umgebung $U$ von $0$ und eine offene Umgebung $V$ von $0$, sodass eine stetige Funktion $y: U \to V$ existiert mit:
+    \[
+        F(x, y(x)) = x^2 + y(x) + \sin(x\,y(x)) = 0
+    \]
+    Wir setzen $F(x, y(x))$ mit $x = 0$ ein und erhalten
+    \[
+        y(0) = 0
+    \]
+    Die stetige Funktion $y$ erfüllt also die Bedingung $y(0) = 0$.
+
+    \item
+    Nach Satz 4.2.3 ist $y$ stetig differenzierbar, also total differenzierbar, da die partiellen Ableitungen stetig sind. Der Definitionsbereich von $y$ ist die offene Umgebung $U$ von $x = 0$. $y$ ist also differenzierbar auf ganz $U$.
+
+    \item
+    Nach Satz 4.2.3(ii) gilt:
+    \begin{align*}
+        y'(0) &= -\left[ F_y'(0,0) \right]^{-1} F_x'(0,0) \\
+              &= -\frac{1}{D_2 F(0,0)} D_1 F(0,0) \\
+              &= -\frac{1}{1} \cdot 0 = 0
+    \end{align*}
+
+    Daraus folgt
+    \[
+        \lim_{x \to 0} \frac{y(x)}{x} = \lim_{x \to 0} \frac{y(x) - y(0)}{x - 0} = y'(0) = 0
+    \]
+    Nach dem $\varepsilon$-$\delta$-Kriterium existiert also ein $\delta > 0$, sodass $\frac{|y(x)|}{|x|} < 1$ und demnach $|y(x)| < |x|$ für alle $|x| < \delta$ gilt.
+
+    Wir betrachten $y'(x)$ in der Umgebung
+    \[
+        U' := U \cap U_\delta(0) \cap U_1(0)
+    \]
+
+    Nach Satz 4.2.3(ii) gilt:
+    \begin{align*}
+        y'(x) &= -\left[ F_y'(x, y(x)) \right]^{-1} F_x'(0,0) \\
+              &= -\frac{1}{D_2 F(x, y(x))} D_1 F(x, y(x)) \\
+              &= -\frac{2x + y(x) \cos(x\,y(x))}{1 + x\cos(x\,y(x))}
+    \end{align*}
+
+    Wegen $x \in U_1(0)$, also $|x| < 1$ folgt
+    \[
+        1 + x\cos(x\,y(x)) > 0
+    \]
+    Der Nenner von $y'(x)$ ist also positiv für alle $x \in U'$!
+
+    Außerdem gilt wegen $|y(x)| < |x|$
+    \[
+        y(x) \cos(x\,y(x)) \leq |y(x)| < |x| < |2x|.
+    \]
+
+    Mit den Abschätzungen können wir schließen
+    \begin{align*}
+        y'(x) &< 0 \quad \forall\, x \in U' \cap (0,1) \\
+        y'(x) &> 0 \quad \forall\, x \in U' \cap (-1,0)
+    \end{align*}
+
+    Die Funktion $y|_{U' \cap (0,1)}$ ist demnach streng monoton fallend und $y|_{U' \cap (-1,0)}$ streng monoton steigend.
+
+    \item
+    Wir zeigen, dass es keine eindeutig definierte Funktion $x = x(y)$ in einer Umgebung $W$ des Punktes $(0,0)$ gibt.
+
+    Sei $W \subseteq \mathbb{R}^2$ eine beliebige Umgebung des Punktes $(0,0)$. Wir können eine $\varepsilon$-Umgebung $W_\varepsilon(0,0) \subseteq W$ mit Norm $\|\cdot\|_\infty$ auswählen, mit der Bedingung:
+    \begin{itemize}
+        \item $U_\varepsilon(0) \subseteq \mathbb{R}$, sodass wir das Monotonieverhalten von $y(x)$ aus c) kennen
+    \end{itemize}
+
+    Da $y(x)$ stetig ist, existiert ein $\varepsilon' > 0$, mit $\varepsilon > \varepsilon' > 0$ und $y(U_{\varepsilon'}(0)) \subseteq U_\varepsilon(0)$.
+
+    Wir betrachten die Umgebung
+    \[
+        U := U_{\varepsilon'}(0) \times U_\varepsilon(0) \subseteq W.
+    \]
+    Wegen dem Monotonieverhalten von $y(x)$ in $U_{\varepsilon'}(0)$ und $y(0) = 0$ gilt
+    \[
+        y(-\varepsilon') < 0 \quad \text{und} \quad y(\varepsilon') < 0.
+    \]
+    (wegen $y(U_{\varepsilon'}(0)) \subseteq U_\varepsilon(0)$ gilt $y \in U_\varepsilon(0)$.)
+
+    Wir wählen ein $y \in \mathbb{R}$ aus, mit
+    \[
+        \max(y(-\varepsilon'),\, y(\varepsilon')) < y < 0.
+    \]
+
+    Wegen dem strengen Monotonieverhalten existieren $x_1, x_2 \in \mathbb{R}$ mit
+    \[
+        -\varepsilon < x_1 < 0 \quad \text{und} \quad 0 < x_2 < \varepsilon,
+    \]
+    sowie $y(x_1) = y = y(x_2)$.
+
+    Wir haben also zwei Punkte $\binom{x_1}{y}$ und $\binom{x_2}{y}$ mit
+    \[
+        \binom{x_1}{y},\, \binom{x_2}{y} \in U \subseteq W
+    \]
+    und $F(x_1, y) = 0 = F(x_2, y)$.
+
+    Demnach existiert kein eindeutiges $x(y)$ in der Umgebung $W$. Da $W$ beliebig war, existiert keine Umgebung des Punktes $(0,0)$ mit einer eindeutigen Funktion $x(y) = x$.
+
+\end{enumerate}
+
+\end{document}
