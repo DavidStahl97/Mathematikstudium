@@ -1,0 +1,39 @@
+\documentclass[a4paper,12pt]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[ngerman]{babel}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{enumitem}
+\usepackage{geometry}
+\geometry{a4paper, margin=2.5cm}
+\usepackage{parskip}
+
+\title{Einsendeaufgaben -- Aufgabe 4.3\\[0.5em]
+\large Modul 61112: Lineare Algebra}
+\author{}
+\date{}
+
+\begin{document}
+\maketitle
+
+\section*{Aufgabe 4.3}
+
+Anwendung des Adjunktensatzes:
+\begin{align*}
+  \mathrm{Adj}(B)\, \mathrm{Adj}(A)\, AB
+    &= \mathrm{Adj}(B)\, \det(A)\, I_n\, B && (\text{Adjunktensatz}) \\
+    &= \mathrm{Adj}(B)\, B\, \det(A)\, I_n && (\text{MG 2.4.1c}) \\
+    &= \det(B)\, I_n\, \det(A)\, I_n && (\text{Adjunktensatz}) \\
+    &= \det(B)\, \det(A)\, I_n && (\text{MG 2.4.1c}) \\
+    &= \det(A)\, \det(B)\, I_n && (\text{Eigenschaft Körper } K) \\
+    &= \det(AB)\, I_n && (\text{Determinantenmultiplikationssatz}) \\
+    &= \mathrm{Adj}(AB)\, AB && (\text{Adjunktensatz})
+\end{align*}
+
+Da $A$ und $B$ invertierbar sind und $\mathrm{Adj}(B)\, \mathrm{Adj}(A)\, AB = \mathrm{Adj}(AB)\, AB$ gilt, folgt
+\[
+  \mathrm{Adj}(B)\, \mathrm{Adj}(A) = \mathrm{Adj}(AB).
+\]
+
+\end{document}
