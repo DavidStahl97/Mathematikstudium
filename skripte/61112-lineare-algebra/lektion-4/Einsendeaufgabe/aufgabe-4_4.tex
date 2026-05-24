@@ -1,0 +1,79 @@
+\documentclass[a4paper,12pt]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[ngerman]{babel}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{enumitem}
+\usepackage{geometry}
+\geometry{a4paper, margin=2.5cm}
+\usepackage{parskip}
+
+\title{Einsendeaufgaben -- Aufgabe 4.4\\[0.5em]
+\large Modul 61112: Lineare Algebra}
+\author{}
+\date{}
+
+\begin{document}
+\maketitle
+
+\section*{Aufgabe 4.4}
+
+\begin{enumerate}[label=\alph*)]
+  \item
+  \begin{align*}
+    \det(A_x) &= x^3 + 2 - 3x && (\text{nach Regel von Sarrus}) \\
+              &= x^3 - 3x + 2 \\
+              &= (x-1)(x^2 + x - 2) \\
+              &= (x-1)^2 (x+2)
+  \end{align*}
+
+  Demnach gilt $\det(A_x) = 0$ für $x = 1$ und $x = -2$. Also ist $A_x$ für alle
+  $x \in \mathbb{R} \setminus \{1, -2\}$ invertierbar.
+
+  \item
+  $(\mathbb{Z}, +, \cdot)$ ist ein kommutativer Ring. Demzufolge ist nach
+  Satz 4.3.24 $A_x \in M_{33}(\mathbb{Z})$ genau dann invertierbar, wenn
+  $\det(A_x)$ eine Einheit in $\mathbb{Z}$ ist. Die einzigen Einheiten von
+  $\mathbb{Z}$ sind $-1$ und $1$. Also untersuchen wir, ob es ein
+  $x \in \mathbb{Z}$ existiert, sodass $\det(A_x) = 1$ oder $\det(A_x) = -1$
+  gilt.
+
+  Durch ausrechnen von $\det(A_x)$ für $x \in \{-2, -1, 0, 1, 2\}$ erkennen wir
+  $\det(A_x) \neq \pm 1$. Wir untersuchen noch $x \leq -3$ und $x \geq 3$.
+
+  \bigskip
+
+  \textit{Fall $x \leq -3$:}
+  \[
+    x^3 - 3x + 3 \leq x^3 + x^2 + 3 < x^3 + 2x^2 \leq 0
+  \]
+  Demzufolge $\det(A_x) \neq -1$ für $x \leq -3$.
+  Genauso gilt:
+  \[
+    x^3 - 3x + 1 < x^3 + 2x^2 \leq 0
+  \]
+  Also auch $\det(A_x) \neq 1$ für $x \leq -3$.
+
+  \bigskip
+
+  \textit{Fall $x \geq 3$:}
+  \[
+    x^3 - 3x + 3 \geq x^3 - x^2 + 3 > 0
+  \]
+  Demzufolge $\det(A_x) \neq -1$ für $x \geq 3$.
+  Genauso gilt:
+  \[
+    x^3 - 3x + 1 > 0
+  \]
+  Also auch $\det(A_x) \neq 1$ für $x \geq 3$.
+
+  \bigskip
+  \bigskip
+  \bigskip
+
+  Es existiert also kein $x \in \mathbb{Z}$ mit $\det(A_x) = \pm 1$. Folglich
+  existiert kein $A_x \in M_{nn}(\mathbb{Z})$, welches invertierbar ist.
+\end{enumerate}
+
+\end{document}
