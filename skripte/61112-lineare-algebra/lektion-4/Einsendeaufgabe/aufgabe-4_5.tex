@@ -1,0 +1,76 @@
+\documentclass[a4paper,12pt]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[ngerman]{babel}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{enumitem}
+\usepackage{geometry}
+\geometry{a4paper, margin=2.5cm}
+\usepackage{parskip}
+
+\title{Einsendeaufgaben -- Aufgabe 4.5\\[0.5em]
+\large Modul 61112: Lineare Algebra}
+\author{}
+\date{}
+
+\begin{document}
+\maketitle
+
+\section*{Aufgabe 4.5}
+
+\begin{enumerate}[label=\alph*)]
+  \item
+  $T$ ist eine lineare Abbildung, demnach ein Endomorphismus, denn:
+
+  \medskip
+
+  $\forall A \in M_{33}(K) \, \forall a \in K: \ T(aA) = a\,T(A)$
+  \[
+    T(aA) = (aA)^T = a A^T = a\,T(A)
+  \]
+
+  $\forall A, B \in M_{33}(K): \ T(A+B) = T(A) + T(B)$
+  \[
+    T(A+B) = (A+B)^T = A^T + B^T = T(A) + T(B)
+  \]
+
+  \item
+  Wir wählen die geordnete Basis $B$ bestehend aus den $3 \times 3$-Elementarmatrizen
+  aus:
+  \[
+    B := (E_{11}, E_{12}, \ldots, E_{32}, E_{33})
+  \]
+
+  Es gilt $T(E_{ij}) = E_{ji}$ für alle $i, j \in \{1, 2, 3\}$. Wir verwenden die
+  Leibniz-Formel:
+  \begin{align*}
+    \det(T) &= \det({}_B M_B(T)) \\
+            &= \sum_{\sigma \in S_9} \operatorname{sgn}(\sigma) \prod_{i=1}^{n} a_{\sigma(i), i}
+  \end{align*}
+
+  Wegen $T(E_{ij}) = E_{ji}$ ist in einer Spalte von ${}_B M_B(T)$ nur ein Eintrag $1$,
+  die anderen $0$. Also gibt es nur eine Permutation $\sigma$ mit
+  \[
+    \prod_{i=1}^{n} a_{\sigma(i), i} \neq 0.
+  \]
+  Wir betrachten diese Permutation und bestimmen die Fehlstellung.
+
+  \[
+    \sigma = \begin{pmatrix}
+      \overset{E_{11}}{1} & \overset{E_{12}}{2} & \overset{E_{13}}{3} & \overset{E_{21}}{4} & \overset{E_{22}}{5} & \overset{E_{23}}{6} & \overset{E_{31}}{7} & \overset{E_{32}}{8} & \overset{E_{33}}{9} \\
+      1 & 4 & 7 & 2 & 5 & 8 & 3 & 6 & 9
+    \end{pmatrix}
+  \]
+
+  \[
+    FS(\sigma) = \{(2,4), (2,7), (3,4), (3,5), (3,7), (3,8), (5,7), (6,7), (6,8)\}
+  \]
+
+  Die Signatur ist also $\operatorname{sgn}(\sigma) = -1$. Daraus folgt
+  \[
+    \det(T) = \operatorname{sgn}(\sigma) = -1.
+  \]
+\end{enumerate}
+
+\end{document}
