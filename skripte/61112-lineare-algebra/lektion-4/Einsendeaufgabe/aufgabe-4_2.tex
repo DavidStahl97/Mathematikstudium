@@ -1,0 +1,141 @@
+\documentclass[a4paper,12pt]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[ngerman]{babel}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{enumitem}
+\usepackage{geometry}
+\geometry{a4paper, margin=2.5cm}
+\usepackage{parskip}
+
+\title{Einsendeaufgaben -- Aufgabe 4.2\\[0.5em]
+\large Modul 61112: Lineare Algebra}
+\author{}
+\date{}
+
+\begin{document}
+\maketitle
+
+\section*{Aufgabe 4.2}
+
+Wir ziehen die erste Zeile mit $-1$ als Vielfaches von den anderen Zeilen ab:
+\[
+\begin{pmatrix}
+1+x_1 & x_2   & x_3   & \cdots & x_{n-1} & x_n \\
+x_1   & 1+x_2 & x_3   & \cdots & x_{n-1} & x_n \\
+x_1   & x_2   & 1+x_3 & \cdots & x_{n-1} & x_n \\
+\vdots & \vdots & \vdots & \ddots & \vdots & \vdots \\
+x_1   & x_2   & x_3   & \cdots & 1+x_{n-1} & x_n \\
+x_1   & x_2   & x_3   & \cdots & x_{n-1} & 1+x_n
+\end{pmatrix}
+\]
+\[
+\rightsquigarrow
+\]
+\[
+\begin{pmatrix}
+1+x_1 & x_2 & x_3 & \cdots & x_{n-1} & x_n \\
+-1    & 1   & 0   & \cdots & 0       & 0 \\
+-1    & 0   & 1   & \cdots & 0       & 0 \\
+\vdots & \vdots & \vdots & \ddots & \vdots & \vdots \\
+-1    & 0   & 0   & \cdots & 1       & 0 \\
+-1    & 0   & 0   & \cdots & 0       & 1
+\end{pmatrix}
+\]
+
+Wir nennen die transformierte Matrix $A'_n$. Nach Satz 4.2.27(3) gilt $\det(A_n) = \det(A'_n)$. Wir werden also $\det(A'_n) = 1 + \sum_{k=1}^{n} x_k$ zeigen. Daraus folgt dann $\det(A_n) = 1 + \sum_{k=1}^{n} x_k$.
+
+Wir zeigen $\det(A'_n) = 1 + \sum_{k=1}^{n} x_k$ mithilfe von Vollständiger Induktion:
+
+\textbf{Induktionsanfang:} $n=1$
+
+Es folgt direkt:
+\[
+\det(A'_1) = 1 + x_1 = 1 + \sum_{k=1}^{1} x_k
+\]
+
+\textbf{Induktionsschritt:} $n \to n+1$
+
+Wir untersuchen $A_{n+1}$:
+\[
+\begin{pmatrix}
+1+x_1 & x_2 & x_3 & \cdots & x_{n-1} & x_n & x_{n+1} \\
+-1    & 1   & 0   & \cdots & 0       & 0   & 0 \\
+-1    & 0   & 1   & \cdots & 0       & 0   & 0 \\
+\vdots & \vdots & \vdots & \ddots & \vdots & \vdots & \vdots \\
+-1    & 0   & 0   & \cdots & 1       & 0   & 0 \\
+-1    & 0   & 0   & \cdots & 0       & 1   & 0 \\
+-1    & 0   & 0   & \cdots & 0       & 0   & 1
+\end{pmatrix}
+\]
+
+Wir entwickeln $A_{n+1}$ an der $n{+}1$-ten Spalte nach dem Laplace'schen Entwicklungssatz, sodass folgt
+\[
+\det(A'_{n+1}) = \det(A'_{n+1,n+1}) + (-1)^{n+2} x_{n+1} \det(A'_{1,n+1}).
+\]
+
+Wir untersuchen zunächst die Unterdeterminante $A'_{1,n+1}$. Wir vertauschen die letzte Zeile mit der vorletzten, dann mit der vorvorletzten usw., bis die letzte Zeile von $A'_{1,n+1}$ oben ist:
+\[
+A'_{1,n+1} =
+\begin{pmatrix}
+-1 & 1 & 0 & \cdots & 0 \\
+-1 & 0 & 1 & \cdots & 0 \\
+\vdots & \vdots & \vdots & \ddots & \vdots \\
+-1 & 0 & 0 & \cdots & 1 \\
+-1 & 0 & 0 & \cdots & 0
+\end{pmatrix}
+\]
+\[
+\rightsquigarrow
+\begin{pmatrix}
+-1 & 1 & 0 & \cdots & 0 \\
+-1 & 0 & 1 & \cdots & 0 \\
+\vdots & \vdots & \vdots & \ddots & \vdots \\
+-1 & 0 & 0 & \cdots & 0 \\
+-1 & 0 & 0 & \cdots & 1
+\end{pmatrix}
+\]
+\[
+\rightsquigarrow
+\begin{pmatrix}
+-1 & 1 & 0 & \cdots & 0 & 0 \\
+-1 & 0 & 0 & \cdots & 0 & 0 \\
+\vdots & \vdots & \vdots & \ddots & \vdots & \vdots \\
+-1 & 0 & 0 & \cdots & 1 & 0 \\
+-1 & 0 & 0 & \cdots & 0 & 1
+\end{pmatrix}
+\]
+\[
+\rightsquigarrow
+\begin{pmatrix}
+-1 & 0 & 0 & \cdots & 0 & 0 \\
+-1 & 1 & 0 & \cdots & 0 & 0 \\
+\vdots & \vdots & \vdots & \ddots & \vdots & \vdots \\
+-1 & 0 & 0 & \cdots & 1 & 0 \\
+-1 & 0 & 0 & \cdots & 0 & 1
+\end{pmatrix}
+\]
+
+Wir nennen das neue Minor $A''_{1,n+1}$. Da $A''_{1,n+1}$ eine Dreiecksmatrix ist, folgt
+\[
+\det(A''_{1,n+1}) = \prod_{k=1}^{n} a_{kk} = -1.
+\]
+
+Da $A''_{1,n+1}$ durch $n-1$ Vertauschungen aus $A'_{1,n+1}$ konstruiert wurde, folgt
+\begin{align*}
+\det(A'_{1,n+1}) &= (-1)^{n-1} \det(A''_{1,n+1}) \\
+                 &= (-1)^{n-1} (-1) \\
+                 &= (-1)^{n}.
+\end{align*}
+
+Daraus können wir $\det(A'_{n+1})$ ermitteln:
+\begin{align*}
+\det(A'_{n+1}) &= \det(A'_{n+1,n+1}) + (-1)^{n+2} x_{n+1} \det(A'_{1,n+1}) \\
+               &= \det(A'_{n+1,n+1}) + (-1)^{n+2} x_{n+1} (-1)^{n} \\
+               &= \det(A'_{n+1,n+1}) + x_{n+1} \\
+               &= 1 + \sum_{k=1}^{n} x_k + x_{n+1} && (\text{Induktionsvoraussetzung}) \\
+               &= 1 + \sum_{k=1}^{n+1} x_k
+\end{align*}
+
+\end{document}
