@@ -1,0 +1,69 @@
+\documentclass[a4paper,12pt]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[ngerman]{babel}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{enumitem}
+\usepackage{geometry}
+\geometry{a4paper, margin=2.5cm}
+
+\title{Einsendeaufgaben -- Aufgabe 4.2\\[0.5em]
+\large 61211 Analysis}
+\author{}
+\date{}
+
+\begin{document}
+\maketitle
+
+\section*{Aufgabe 1}
+
+\begin{enumerate}[label=\alph*)]
+
+    \item
+    \begin{align*}
+        D_1 f(x,y) &= 2x \sin(x+y-1) + (1+x^2+y^2) \cos(x+y-1) \\
+        D_2 f(x,y) &= 2y \sin(x+y-1) + (1+x^2+y^2) \cos(x+y-1) \\
+        D_{11} f(x,y) &= 2 \sin(x+y-1) + 2x \cos(x+y-1) \\
+                      &\quad + 2x \cos(x+y-1) - (1+x^2+y^2) \sin(x+y-1) \\
+        D_{12} f(x,y) &= D_{21} f(x,y) = 2x \cos(x+y-1) + 2y \cos(x+y-1) \\
+                      &\quad - (1+x^2+y^2) \sin(x+y-1) \\
+        D_{22} f(x,y) &= 2 \sin(x+y-1) + 2y \cos(x+y-1) \\
+                      &\quad + 2y \cos(x+y-1) - (1+x^2+y^2) \sin(x+y-1)
+    \end{align*}
+
+    \begin{align*}
+        f(a) &= \sin(-1) & D_{11} f(a) &= 2 \sin(-1) + \cos(-1) \\
+        D_1 f(a) &= \cos(-1) & D_{12} f(a) &= D_{21} f(a) = -\sin(-1) \\
+        D_2 f(a) &= \cos(-1) & D_{22} f(a) &= 2 \sin(-1) - \sin(-1)
+    \end{align*}
+
+    \begin{align*}
+        T_1(x) &= \sin(-1) + \cos(-1) x_1 + \cos(-1) x_2 \\
+        T_2(x) &= T_1(x) + \tfrac{1}{2} (2 \sin(-1) + \cos(-1)) x_1^2 \\
+               &\quad - \sin(-1) x_1 x_2 \\
+               &\quad + \tfrac{1}{2} (2 \sin(-1) - \sin(-1)) x_2^2
+    \end{align*}
+
+    \item
+    \begin{align*}
+        D_1 g(x,y,z) &= -\frac{y}{x^2} + yz - 2xz \\
+        D_2 g(x,y,z) &= \frac{1}{x} + xz \\
+        D_3 g(x,y,z) &= xy - x^2 \\
+        D_{11} g(x,y,z) &= \frac{2y}{x^3} - 2z \\
+        D_{12} g(x,y,z) &= D_{21} g(x,y,z) = -\frac{1}{x^2} + z \\
+        D_{13} g(x,y,z) &= D_{31} g(x,y,z) = y - 2x \\
+        D_{23} g(x,y,z) &= D_{32} g(x,y,z) = x \\
+        D_{22} g(x,y,z) &= 0 \\
+        D_{33} g(x,y,z) &= -2
+    \end{align*}
+
+    \begin{align*}
+        T_1(x,y,z) &= -1 - 2(x-1) + 2y - (z-1) \\
+        T_2(x,y,z) &= T_1(x,y,z) - (x-1)^2 - 2(x-1)(z-1) \\
+                   &\quad - (z-1)^2
+    \end{align*}
+
+\end{enumerate}
+
+\end{document}
