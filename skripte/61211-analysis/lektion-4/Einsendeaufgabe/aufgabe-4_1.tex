@@ -27,7 +27,7 @@
         F: \mathbb{R}^2 \to \mathbb{R}, \quad \binom{x}{y} \mapsto x^2 + y + \sin(xy)
     \]
 
-    \textit{Bestimmung der partiellen Ableitungen von $F$:}
+    Bestimmung der partiellen Ableitungen von $F$:
     \begin{align*}
         D_1 F(x,y) &= 2x + y\cos(xy) \\
         D_2 F(x,y) &= 1 + x\cos(xy)
@@ -104,9 +104,9 @@
     Wir zeigen, dass es keine eindeutig definierte Funktion $x = x(y)$ in einer Umgebung $W$ des Punktes $(0,0)$ gibt.
 
     Sei $W \subseteq \mathbb{R}^2$ eine beliebige Umgebung des Punktes $(0,0)$. Wir können eine $\varepsilon$-Umgebung $W_\varepsilon(0,0) \subseteq W$ mit Norm $\|\cdot\|_\infty$ auswählen, mit der Bedingung:
-    \begin{itemize}
-        \item $U_\varepsilon(0) \subseteq \mathbb{R}$, sodass wir das Monotonieverhalten von $y(x)$ aus c) kennen
-    \end{itemize}
+    \[
+        U_\varepsilon(0) \subseteq \mathbb{R}, \quad\text{sodass wir das Monotonieverhalten von } y(x) \text{ aus c) kennen.}
+    \]
 
     Da $y(x)$ stetig ist, existiert ein $\varepsilon' > 0$, mit $\varepsilon > \varepsilon' > 0$ und $y(U_{\varepsilon'}(0)) \subseteq U_\varepsilon(0)$.
 
@@ -125,7 +125,7 @@
         \max(y(-\varepsilon'),\, y(\varepsilon')) < y < 0.
     \]
 
-    Wegen dem strengen Monotonieverhalten existieren $x_1, x_2 \in \mathbb{R}$ mit
+    Wegen dem strengen Monotonieverhalten und der Stetigkeit von $y(x)$ existieren $x_1, x_2 \in \mathbb{R}$ mit
     \[
         -\varepsilon < x_1 < 0 \quad \text{und} \quad 0 < x_2 < \varepsilon,
     \]
