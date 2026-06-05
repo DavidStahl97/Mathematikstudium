@@ -1,0 +1,62 @@
+\documentclass[a4paper,12pt]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[ngerman]{babel}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{enumitem}
+\usepackage{geometry}
+\geometry{a4paper, margin=2.5cm}
+\usepackage{parskip}
+
+\title{Einsendeaufgaben -- Aufgabe 5.3\\[0.5em]
+\large Modul 61112: Lineare Algebra}
+\author{}
+\date{}
+
+\begin{document}
+\maketitle
+
+\section*{Aufgabe 5.3}
+
+\begin{enumerate}[label=\alph*)]
+  \item Es gilt für alle $n \in \mathbb{N}$:
+  \begin{align*}
+    (AB)^n \cdot A
+      &= \underbrace{(AB \cdots AB)}_{AB:\ n\text{-mal}} \cdot A \\
+      &= A \cdot \underbrace{(BA \cdots BA)}_{BA:\ n\text{-mal}} \\
+      &= A \cdot (BA)^n.
+  \end{align*}
+  Daraus können wir schließen:
+  \begin{align*}
+    p(AB) \cdot A
+      &= \sum_{j=0}^{n} a_j \, (AB)^j \cdot A \\
+      &= \sum_{j=0}^{n} a_j \, A \cdot (BA)^j \\
+      &= A \cdot \sum_{j=0}^{n} a_j \, (BA)^j \\
+      &= A \cdot p(BA).
+  \end{align*}
+
+  \item Es gilt
+  \[
+    0 = \mu_{AB}(AB) = \mu_{AB}(AB) \cdot A = A \cdot \mu_{AB}(BA) \quad (\text{wegen a)}).
+  \]
+  Da $A$ invertierbar ist, folgt
+  \[
+    0 = A^{-1} \cdot 0 = A^{-1} \cdot A \cdot \mu_{AB}(BA) = \mu_{AB}(BA).
+  \]
+  Also $\mu_{AB} \in I_{BA}$ und demnach $\mathrm{grad}(\mu_{AB}) \geq \mathrm{grad}(\mu_{BA})$.
+  Nach der gleichen Argumentation folgt $\mu_{BA} \in I_{AB}$ und $\mathrm{grad}(\mu_{BA}) \geq \mathrm{grad}(\mu_{AB})$.
+
+  Wegen $\mathrm{grad}(\mu_{AB}) \geq \mathrm{grad}(\mu_{BA})$ und $\mathrm{grad}(\mu_{BA}) \geq \mathrm{grad}(\mu_{AB})$ können wir schließen
+  \[
+    \mathrm{grad}(\mu_{AB}) = \mathrm{grad}(\mu_{BA}).
+  \]
+  Da $\mu_{AB}$ das Polynom $\mu_{BA}$ erzeugt hat, existiert ein $\delta \in K[X]$ mit $\mu_{BA} = \mu_{AB} \cdot \delta$.
+  Wegen $\mathrm{grad}(\mu_{AB}) = \mathrm{grad}(\mu_{BA})$ muss allerdings $\mathrm{grad}(\delta) = 0$ gelten.
+  Es muss sogar $\delta = 1$ sein, da $\mu_{AB}$ und $\mu_{BA}$ normiert sind. Daraus folgt
+  \[
+    \mu_{BA} = \mu_{AB}.
+  \]
+\end{enumerate}
+
+\end{document}
