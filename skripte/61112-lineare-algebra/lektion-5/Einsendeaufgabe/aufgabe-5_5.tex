@@ -1,0 +1,113 @@
+\documentclass[a4paper,12pt]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[ngerman]{babel}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{enumitem}
+\usepackage{geometry}
+\geometry{a4paper, margin=2.5cm}
+\usepackage{parskip}
+
+\title{Einsendeaufgaben -- Aufgabe 5.5\\[0.5em]
+\large Modul 61112: Lineare Algebra}
+\author{}
+\date{}
+
+\begin{document}
+\maketitle
+
+\section*{Aufgabe 5.5}
+
+\begin{enumerate}[label=\alph*)]
+  \item
+  Nach dem Fundamentalsatz der Algebra zerfällt das charakteristische Polynom
+  $\chi_\psi \in \mathbb{C}[X]$ in Linearfaktoren. $\psi$ besitzt also
+  mindestens einen Eigenwert $\lambda$ mit dem Eigenraum
+  $\operatorname{Eig}_\psi(\lambda)$, da $V \neq \{0\}$.
+
+  Wir erkennen, dass für alle $v \in \operatorname{Eig}_\psi(\lambda)$ und für
+  alle $\varphi \in F$ gilt:
+  \begin{align*}
+    \psi(\varphi(v)) &= (\psi \circ \varphi)(v) \\
+                     &= (\varphi \circ \psi)(v)
+                       && \text{(wegen Voraussetzung } \psi \circ \varphi = \varphi \circ \psi\text{)} \\
+                     &= \varphi(\psi(v)) \\
+                     &= \varphi(\lambda v)
+                       && \text{(wegen } v \in \operatorname{Eig}_\psi(\lambda)\text{)} \\
+                     &= \lambda \varphi(v)
+                       && \text{(wegen Linearität von } \varphi\text{)}
+  \end{align*}
+  Demnach ist $\varphi(v) \in \operatorname{Eig}_\psi(\lambda)$.
+
+  Daraus können wir schließen, dass für jedes $\varphi$ der Eigenraum
+  $\operatorname{Eig}_\psi(\lambda)$ $\varphi$-invariant ist, da
+  \[
+    \varphi(v) \in \operatorname{Eig}_\psi(\lambda) \quad \text{für alle }
+    v \in \operatorname{Eig}_\psi(\lambda).
+  \]
+
+  Da $\dim(\operatorname{Eig}_\psi(\lambda)) \geq 1$, folgt
+  $\{0\} \subsetneq \operatorname{Eig}_\psi(\lambda)$.
+
+  Außerdem ist noch $\operatorname{Eig}_\psi(\lambda) \subsetneq V$ zu zeigen.
+  Damit $\operatorname{Eig}_\psi(\lambda) = V$ muss $\psi - \lambda \operatorname{id}_V$
+  die Nullabbildung sein, denn nur dann gilt $\operatorname{Ker}(\psi - \lambda \operatorname{id}_V) = V$.
+  $\psi - \lambda \operatorname{id}_V = 0_V$ ist äquivalent zu
+  $\psi = \lambda \operatorname{id}_V$. $\psi = \lambda \operatorname{id}_V$ ist
+  allerdings als Voraussetzung ausgeschlossen, weswegen nach Kontraposition
+  $\operatorname{Eig}_\psi(\lambda) \subsetneq V$ folgt.
+
+  Zusammengefasst gilt also
+  $\{0\} \subsetneq \operatorname{Eig}_\psi(\lambda) \subsetneq V$ sowie
+  $\operatorname{Eig}_\psi(\lambda)$ $\varphi$-invariant für alle
+  $\varphi \in F$, was zu zeigen war.
+
+  \item
+  \textbf{$\subseteq$-Richtung: $Z \subseteq \{\lambda \operatorname{id}_V \mid \lambda \in \mathbb{C}\}$}
+
+  Wir zeigen $Z \subseteq \{\lambda \operatorname{id}_V \mid \lambda \in \mathbb{C}\}$
+  mit Hilfe der Kontraposition von a) mit $F := \operatorname{End}(V)$.
+
+  Wir müssen also zeigen, dass für alle Unterräume $U$ von $V$ gilt:
+  \begin{align*}
+    &\text{Entweder } U = \{0\} \\
+    &\text{oder } U = V \\
+    &\text{oder es existiert ein } \varphi \in \operatorname{End}(V), \\
+    &\text{sodass } U \text{ nicht } \varphi\text{-invariant ist.}
+  \end{align*}
+
+  Dann können wir die Kontraposition von a) anwenden, woraus folgt, dass für
+  alle $\psi \in Z$
+  \[
+    \psi = \lambda \operatorname{id}_V \quad \text{für ein } \lambda \in \mathbb{C} \text{ gilt,}
+  \]
+  also $\psi \in \{\lambda \operatorname{id}_V \mid \lambda \in \mathbb{C}\}$.
+
+  Sei $U$ ein beliebiger Unterraum von $V$. Wenn $U = \{0\}$ oder $U = V$ ist
+  nichts zu tun. Wir können also voraussetzen $\{0\} \subsetneq U \subsetneq V$.
+  Wir wählen eine beliebige Basis $B_U$ aus. Da $U \subsetneq V$, muss es
+  mindestens ein $v$ geben, um $B_U$ zu ergänzen zu einer Basis $B$ von $V$.
+  Wir definieren eine lineare Abbildung $\varphi \in \operatorname{End}(V)$
+  durch die Abbildung der Basis $B = \{b_1, \ldots, b_n\}$:
+  \[
+    \varphi(b_i) = v \quad \text{für alle } 1 \leq i \leq n.
+  \]
+  Da $v \notin U$, ist $U$ nicht $\varphi$-invariant.
+
+  Wir können also die Kontraposition anwenden und erhalten
+  $Z \subseteq \{\lambda \operatorname{id}_V \mid \lambda \in \mathbb{C}\}$.
+
+  \textbf{$\supseteq$-Richtung: $\{\lambda \operatorname{id}_V \mid \lambda \in \mathbb{C}\} \subseteq Z$}
+
+  Sei $\lambda \in \mathbb{C}$ beliebig. Es folgt direkt
+  \[
+    \varphi \circ \lambda \operatorname{id}_V = \lambda \varphi
+    = \lambda \operatorname{id}_V \circ \varphi
+    \quad \text{für alle } \varphi \in \operatorname{End}(V).
+  \]
+  Also $\lambda \operatorname{id}_V \in Z$ und dadurch
+  $\{\lambda \operatorname{id}_V \mid \lambda \in \mathbb{C}\} \subseteq Z$.
+\end{enumerate}
+
+\end{document}
