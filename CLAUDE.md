@@ -132,6 +132,36 @@ skripte/
 - **Kein eigener Text** – kein „Aus den Gleichungen folgt:", kein „Damit ist die Lösungsmenge:", keine selbst formulierten Sätze – nur was im PDF steht
 - Der Benutzer muss die Lösungen selbst erarbeiten; Claude dient nur zur Transkription
 
+### Handschrift-PDFs lesen (Read-Tool meldet fälschlich „password-protected")
+
+Bei manchen Handschrift-PDFs bricht das **Read-Tool** mit
+`PDF is password-protected. Please provide an unprotected version.` ab,
+obwohl die Datei **gar nicht verschlüsselt** ist (Fehlalarm). Prüfen lässt
+sich das mit `pikepdf` (`is_encrypted` → `False`).
+
+In dem Fall die Seiten mit **pypdfium2** zu PNG rendern und stattdessen die
+Bilder mit dem Read-Tool öffnen:
+
+```bash
+pip install pypdfium2          # einmalig; pikepdf nur zum Prüfen nötig
+python -c "
+import pypdfium2 as pdfium
+from PIL import ImageOps, ImageEnhance
+pdf = pdfium.PdfDocument('datei.pdf')
+for i in range(len(pdf)):
+    img = pdf[i].render(scale=5).to_pil().convert('L')
+    img = ImageOps.autocontrast(img, cutoff=2)
+    img.save(f'page_{i+1}.png')
+"
+```
+
+- `scale=5`–`7` für lesbare Auflösung, dann Seite ggf. in Hälften/Zeilen
+  zuschneiden (`img.crop(...)`).
+- Blasse Handschrift: `ImageOps.autocontrast`; dunkle Schattenbereiche zuerst
+  mit `ImageEnhance.Brightness(...).enhance(1.4)` aufhellen.
+- **Nicht** `pymupdf`/`fitz` verwenden – DLL-Ladefehler unter Python 3.14.
+- Render-PNGs nach dem Lesen wieder löschen (liegen außerhalb des Repos).
+
 ## Attachments-Workflow
 
 Der Ordner `Attachments/` dient als Ablageort für Dateien, die der Benutzer hochlädt und von Claude verarbeitet werden sollen.

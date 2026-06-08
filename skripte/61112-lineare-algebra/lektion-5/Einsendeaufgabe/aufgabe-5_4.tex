@@ -1,0 +1,70 @@
+\documentclass[a4paper,12pt]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[ngerman]{babel}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{enumitem}
+\usepackage{geometry}
+\geometry{a4paper, margin=2.5cm}
+\usepackage{parskip}
+
+\DeclareMathOperator{\diag}{diag}
+
+\title{Einsendeaufgaben -- Aufgabe 5.4\\[0.5em]
+\large Modul 61112: Lineare Algebra}
+\author{}
+\date{}
+
+\begin{document}
+\maketitle
+
+\section*{Aufgabe 5.4}
+
+Sei $A \in M_{nn}(\mathbb{C})$ eine beliebige Matrix der Form
+\[
+  A = \diag(a_1, a_2, \ldots, a_n)
+\]
+Wir beobachten, dass das Einsetzen einer diagonalen Matrix in ein Polynom
+$p \in \mathbb{C}[X]$ wieder zu einer diagonalen Matrix resultiert.
+
+Wir definieren also $B := \diag(b_1, \ldots, b_n)$ und suchen die Variablen
+$b_1, \ldots, b_n \in \mathbb{C}$, sodass
+\[
+  A = f(B)
+\]
+gilt.
+
+Wir erkennen, dass für jedes $b_j$ mit $1 \leq j \leq n$ eine Polynomgleichung
+aufgestellt werden kann:
+\begin{align*}
+  \diag(a_1, \ldots, a_n)
+    &= f(\diag(b_1, \ldots, b_n)) \\
+    &= \sum_{i=0}^{m} c_i \diag(b_1, \ldots, b_n)^i
+       && \left( f := \sum_{i=0}^{m} c_i X^i \right) \\
+    &= \sum_{i=0}^{m} c_i \diag(b_1^i, \ldots, b_n^i) \\
+    &= \diag\left( \sum_{i=0}^{m} c_i b_1^i, \ldots, \sum_{i=0}^{m} c_i b_n^i \right)
+\end{align*}
+
+Da $f$ ein nicht konstantes Polynom ist, existieren nach dem Fundamentalsatz der
+Algebra Lösungen der Gleichungen
+\[
+  0 = \left( \sum_{i=0}^{m} c_i b_j^i \right) - a_j
+\]
+für $b_j$ mit $1 \leq j \leq n$.
+
+Noch zu untersuchen, ob es auch für nicht diagonalisierbare Matrizen gilt. Wir
+wählen $f = X^2$, $n = 2$ und $A = \begin{pmatrix} -1 & 1 \\ 1 & -1 \end{pmatrix}$.
+Wir setzen $B := \begin{pmatrix} a & b \\ c & d \end{pmatrix}$ in $f$ ein:
+\begin{align*}
+  f(B) &= \begin{pmatrix} a & b \\ c & d \end{pmatrix}^2 \\
+       &= \begin{pmatrix} a^2 + cb & ab + bd \\ ca + cd & bc + d^2 \end{pmatrix} \\
+       &= \begin{pmatrix} a^2 + cb & b(a+d) \\ c(a+d) & bc + d^2 \end{pmatrix} \\
+       &= \begin{pmatrix} a^2 + 1 & 1 \\ 1 & (1 \pm a)^2 + 1 \end{pmatrix}
+\end{align*}
+denn wegen $b(a+d) = 1$ und $c(a+d) = 1$ folgt $b = c = a + d = 1$ oder
+$b = c = a + d = -1$. Wegen $a^2 + 1 > -1$, existiert also kein
+$B \in M_{22}(\mathbb{C})$ mit $f(B) = A$, weshalb die Voraussetzung der
+Diagonalisierbarkeit nicht weggelassen werden darf.
+
+\end{document}
