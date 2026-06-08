@@ -1,0 +1,122 @@
+\documentclass[a4paper,12pt]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[ngerman]{babel}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{enumitem}
+\usepackage{geometry}
+\geometry{a4paper, margin=2.5cm}
+\usepackage{parskip}
+
+\title{Einsendeaufgaben -- Aufgabe 5.2\\[0.5em]
+\large Modul 61112: Lineare Algebra}
+\author{}
+\date{}
+
+\begin{document}
+\maketitle
+
+\section*{Aufgabe 5.2}
+
+\begin{align*}
+\chi_A &= \det(XI_4 - A) \\
+       &= \det\begin{pmatrix}
+            X-\overline{3} & \overline{0}   & \overline{0}   & \overline{0} \\
+            \overline{1}   & X-\overline{3} & \overline{2}   & \overline{0} \\
+            \overline{0}   & \overline{0}   & X-\overline{1} & \overline{0} \\
+            \overline{0}   & \overline{0}   & \overline{0}   & X-\overline{1}
+          \end{pmatrix} \\
+       &= (X-\overline{3}) \det\begin{pmatrix}
+            X-\overline{3} & \overline{2}   & \overline{0} \\
+            \overline{0}   & X-\overline{1} & \overline{0} \\
+            \overline{0}   & \overline{0}   & X-\overline{1}
+          \end{pmatrix} \\
+       &= (X-\overline{3})^{2} \det\begin{pmatrix}
+            X-\overline{1} & \overline{0} \\
+            \overline{0}   & X-\overline{1}
+          \end{pmatrix} \\
+       &= (X-\overline{3})^{2}\, (X-\overline{1})^{2}
+\end{align*}
+
+Das Minimalpolynom $\mu_A$ teilt nach Satz von Cayley-Hamilton das charakteristische Polynom $\chi_A$. Da $\chi_A$ in Linearfaktoren zerfällt, also $\chi_A = (X-\overline{3})^{2}\, (X-\overline{1})^{2}$, muss nach Lemma 1.4.37 $\mu_A$ auch in diese Linearfaktoren zerfallen.
+
+$(X-\overline{3})$ und $(X-\overline{1})$ liegen nicht in $I_A$. Es existiert also kein Teiler vom Grad 1 in $I_A$.
+
+Wir testen die Teiler vom Grad 2:
+
+\[
+(A - \overline{3}I_4)^2 = \begin{pmatrix}
+  \overline{0} & \overline{0} & \overline{0}  & \overline{0} \\
+  \overline{1} & \overline{0} & \overline{2}  & \overline{0} \\
+  \overline{0} & \overline{0} & \overline{-2} & \overline{0} \\
+  \overline{0} & \overline{0} & \overline{0}  & \overline{-2}
+\end{pmatrix}^{\!2}
+= \begin{pmatrix}
+  \overline{0} & \overline{0} & \overline{0}  & \overline{0} \\
+  \overline{0} & \overline{0} & \overline{-4} & \overline{0} \\
+  \overline{0} & \overline{0} & \overline{4}  & \overline{0} \\
+  \overline{0} & \overline{0} & \overline{0}  & \overline{4}
+\end{pmatrix}
+\]
+
+\[
+(A - \overline{1}I_4)^2 = \begin{pmatrix}
+  \overline{2} & \overline{0} & \overline{0} & \overline{0} \\
+  \overline{1} & \overline{2} & \overline{2} & \overline{0} \\
+  \overline{0} & \overline{0} & \overline{0} & \overline{0} \\
+  \overline{0} & \overline{0} & \overline{0} & \overline{0}
+\end{pmatrix}^{\!2}
+= \begin{pmatrix}
+  \overline{4} & \overline{0} & \overline{0} & \overline{0} \\
+  \overline{4} & \overline{4} & \overline{4} & \overline{0} \\
+  \overline{0} & \overline{0} & \overline{0} & \overline{0} \\
+  \overline{0} & \overline{0} & \overline{0} & \overline{0}
+\end{pmatrix}
+\]
+
+\[
+(A - \overline{3}I_4)(A - \overline{1}I_4) =
+\begin{pmatrix}
+  \overline{0} & \overline{0} & \overline{0}  & \overline{0} \\
+  \overline{1} & \overline{0} & \overline{2}  & \overline{0} \\
+  \overline{0} & \overline{0} & \overline{-2} & \overline{0} \\
+  \overline{0} & \overline{0} & \overline{0}  & \overline{-2}
+\end{pmatrix}
+\begin{pmatrix}
+  \overline{2} & \overline{0} & \overline{0} & \overline{0} \\
+  \overline{1} & \overline{2} & \overline{2} & \overline{0} \\
+  \overline{0} & \overline{0} & \overline{0} & \overline{0} \\
+  \overline{0} & \overline{0} & \overline{0} & \overline{0}
+\end{pmatrix}
+= \begin{pmatrix}
+  \overline{2} & \cdot & \cdot & \cdot \\
+  \cdot & \cdot & \cdot & \cdot \\
+  \cdot & \cdot & \cdot & \cdot \\
+  \cdot & \cdot & \cdot & \cdot
+\end{pmatrix}
+\]
+
+Dennoch liegt auch kein Teiler vom Grad 2 in $I_A$.
+
+Aber $g \in \mathbb{F}_p[X]$ mit $g := (X-\overline{3})^2 (X-\overline{1})$ liegt in $I_A$, da
+\begin{align*}
+g(A) &= (A - \overline{3}I_n)^2 (A - \overline{1}I_n) \\
+     &= \begin{pmatrix}
+       \overline{0} & \overline{0} & \overline{0}  & \overline{0} \\
+       \overline{0} & \overline{0} & \overline{-4} & \overline{0} \\
+       \overline{0} & \overline{0} & \overline{4}  & \overline{0} \\
+       \overline{0} & \overline{0} & \overline{0}  & \overline{4}
+     \end{pmatrix}
+     \begin{pmatrix}
+       \overline{2} & \overline{0} & \overline{0} & \overline{0} \\
+       \overline{1} & \overline{2} & \overline{2} & \overline{0} \\
+       \overline{0} & \overline{0} & \overline{0} & \overline{0} \\
+       \overline{0} & \overline{0} & \overline{0} & \overline{0}
+     \end{pmatrix} \\
+     &= 0
+\end{align*}
+
+Da $\mu_A$ aufgrund der vorherigen Überlegungen vom Grad $\geq 3$ sein muss, ist $\mu_A = g = (X-\overline{3})^2 (X-\overline{1})$.
+
+\end{document}
