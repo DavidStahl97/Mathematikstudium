@@ -54,8 +54,9 @@ Algebra Lösungen der Gleichungen
 für $b_j$ mit $1 \leq j \leq n$.
 
 Noch zu untersuchen, ob es auch für nicht diagonalisierbare Matrizen gilt. Wir
-wählen $f = X^2$, $n = 2$ und $A = \begin{pmatrix} -1 & 1 \\ 1 & -1 \end{pmatrix}$.
-Wir setzen $B := \begin{pmatrix} a & b \\ c & d \end{pmatrix}$ in $f$ ein:
+wählen $f = X^2$, $n = 2$ und $A = \begin{pmatrix} x & 1 \\ 1 & y \end{pmatrix}$
+mit $x, y \in \mathbb{C}$. Wir setzen $B := \begin{pmatrix} a & b \\ c & d \end{pmatrix}$
+in $f$ ein:
 \begin{align*}
   f(B) &= \begin{pmatrix} a & b \\ c & d \end{pmatrix}^2 \\
        &= \begin{pmatrix} a^2 + cb & ab + bd \\ ca + cd & bc + d^2 \end{pmatrix} \\
@@ -63,7 +64,9 @@ Wir setzen $B := \begin{pmatrix} a & b \\ c & d \end{pmatrix}$ in $f$ ein:
        &= \begin{pmatrix} a^2 + 1 & 1 \\ 1 & (1 \pm a)^2 + 1 \end{pmatrix}
 \end{align*}
 denn wegen $b(a+d) = 1$ und $c(a+d) = 1$ folgt $b = c = a + d = 1$ oder
-$b = c = a + d = -1$. Wegen $a^2 + 1 > -1$, existiert also kein
+$b = c = a + d = -1$. Damit hängen sowohl der Eintrag $(1,1) = a^2 + 1$ als auch
+der Eintrag $(2,2) = (1 \pm a)^2 + 1$ nur von dem einen Parameter $a$ ab. Da $x$
+und $y$ aber beliebig wählbar sind, existiert also im Allgemeinen kein
 $B \in M_{22}(\mathbb{C})$ mit $f(B) = A$, weshalb die Voraussetzung der
 Diagonalisierbarkeit nicht weggelassen werden darf.
 
