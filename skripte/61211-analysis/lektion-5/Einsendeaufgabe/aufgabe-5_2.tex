@@ -1,0 +1,36 @@
+\documentclass[a4paper,12pt]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[ngerman]{babel}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{enumitem}
+\usepackage{geometry}
+\geometry{a4paper, margin=2.5cm}
+\usepackage{parskip}
+
+\title{Einsendeaufgaben -- Aufgabe 5.2\\[0.5em]
+\large Modul 61211: Analysis}
+\author{}
+\date{}
+
+\begin{document}
+\maketitle
+
+\section*{Aufgabe 5.2}
+
+Wir beobachten zunächst, dass $\int_0^\infty g'(x)\,dx$ integrierbar ist, da
+\[
+  \lim_{a\to\infty} \int_0^a g'(x)\,dx = \lim_{a\to\infty} g(a) - g(0) = -g(0).
+\]
+Demnach ist auch $\int_0^\infty M|g'(x)|\,dx$ integrierbar.
+
+Wegen $|F(x)| \le M$ folgt $|F(x)g'(x)| \le M|g'(x)|$ für alle $x \in [0,\infty)$. Wir können also das Majorantenkriterium anwenden und schließen, dass $\int_0^\infty F(x)g'(x)\,dx$ integrierbar ist.
+
+Nach der partiellen Integration folgt für $a\to\infty$:
+\[
+  \int_0^a f(x)g(x)\,dx = F(a)g(a) - F(0)g(0) - \int_0^a F(x)g'(x)\,dx \longrightarrow c \quad \text{mit } c \in \mathbb{R}.
+\]
+Denn wegen der Beschränktheit von $F$ folgt $F(a)g(a) \to 0$ für $a\to\infty$ und $Fg' \in \mathcal{R}([0,\infty])$.
+
+\end{document}
