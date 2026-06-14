@@ -1,0 +1,49 @@
+\documentclass[a4paper,12pt]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[ngerman]{babel}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{enumitem}
+\usepackage{geometry}
+\geometry{a4paper, margin=2.5cm}
+
+\title{Einsendeaufgaben -- Aufgabe 5.2\\[0.5em]
+\large Modul 61111: Mathematische Grundlagen}
+\author{}
+\date{}
+
+\begin{document}
+\maketitle
+
+\section*{Aufgabe 5.2}
+
+\begin{enumerate}[label=\alph*)]
+
+    \item
+    Die Folge $(x_n)$ mit $x_n = \frac{1}{n}$ konvergiert gegen $0$.
+
+    Da für jedes $x_n$ gilt $x_n \neq 0$, folgt
+    \[
+        \lim_{n \to \infty} f(x_n) = \lim_{n \to \infty} 1 = 1 \neq 0 = f(0).
+    \]
+
+    Also ist $f$ in $0$ nicht stetig.
+
+    \item
+    Sei $\varepsilon > 0$ beliebig. Dann wählen wir
+    ein $\delta := \varepsilon^2$.
+
+    Sei $x \in \mathbb{R}$ mit $|x| < \delta$ beliebig.
+
+    Dann gilt:
+    \begin{align*}
+        |f(x) - f(0)| = |\sqrt{x}| = \sqrt{x}
+        < \sqrt{\varepsilon^2} = \varepsilon.
+    \end{align*}
+
+    Nach dem $\varepsilon$-$\delta$-Kriterium ist $f$ in $0$ stetig.
+
+\end{enumerate}
+
+\end{document}
