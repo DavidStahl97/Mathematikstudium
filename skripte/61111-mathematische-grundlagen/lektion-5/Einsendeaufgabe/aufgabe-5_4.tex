@@ -1,0 +1,55 @@
+\documentclass[a4paper,12pt]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[ngerman]{babel}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{enumitem}
+\usepackage{geometry}
+\geometry{a4paper, margin=2.5cm}
+
+\title{Einsendeaufgaben -- Aufgabe 5.4\\[0.5em]
+\large Modul 61111: Mathematische Grundlagen}
+\author{}
+\date{}
+
+\begin{document}
+\maketitle
+
+\section*{Aufgabe 5.4}
+
+\begin{enumerate}[label=\alph*)]
+  \item
+  \begin{align*}
+    f_1'(x) &= \left(\sqrt{1+x^2}\right)' \frac{1}{\sqrt{1+x^2}} \\[0.5em]
+            &= \frac{2x \cdot \frac{1}{2}\left(\frac{1}{\sqrt{1+x^2}}\right)}{\sqrt{1+x^2}} \\[0.5em]
+            &= \frac{x}{1+x^2}
+  \end{align*}
+
+  \item
+  \[
+    \left(\sqrt{1+\tfrac{1}{x}}\right)' = -\frac{1}{x^2} \cdot \frac{1}{2} \cdot \frac{1}{\sqrt{1+\frac{1}{x}}}
+  \]
+  \[
+    f_2'(x) = \left(\sqrt{1+\tfrac{1}{x}} - \frac{1}{2x\sqrt{1+\frac{1}{x}}}\right) \cdot \exp\!\left(x\sqrt{1+\tfrac{1}{x}}\right)
+  \]
+
+  \item
+  \begin{align*}
+    f_3'(x) &= 2x\sqrt{x+1} + (x^2+2)\, 2x \cdot \frac{1}{2} \cdot \frac{1}{\sqrt{x+1}} \\[0.5em]
+            &= 2x\sqrt{x+1} + \frac{(x^2+2)\,x}{\sqrt{x+1}}
+  \end{align*}
+
+  \item
+  \[
+    f_4'(x) = -\sin(x)\cdot\cos^2(x)
+  \]
+
+  \item
+  \begin{align*}
+    f_5'(x) &= \frac{\frac{\exp(\sin(x))}{x} + \ln(x)\cdot\cos(x)\cdot\exp(\sin(x))}{\exp(\sin(x))^2} \\[0.8em]
+            &= \frac{\frac{1}{x} + \ln(x)\cos(x)}{\exp(\sin(x))}
+  \end{align*}
+\end{enumerate}
+
+\end{document}
