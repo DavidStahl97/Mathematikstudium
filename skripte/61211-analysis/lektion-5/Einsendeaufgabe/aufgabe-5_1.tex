@@ -1,0 +1,58 @@
+\documentclass[a4paper,12pt]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[ngerman]{babel}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{enumitem}
+\usepackage{geometry}
+\geometry{a4paper, margin=2.5cm}
+\usepackage{parskip}
+
+\title{Einsendeaufgaben -- Aufgabe 5.1\\[0.5em]
+\large 61211 Analysis}
+\author{}
+\date{}
+
+\begin{document}
+\maketitle
+
+\section*{Aufgabe 1}
+
+\begin{enumerate}[label=\alph*), start=2]
+
+    \item
+    Wir nutzen das Majorantenkriterium.
+
+    Wir definieren
+    \[
+        f: (1,\infty) \to \mathbb{R} : (x+\sin^2(x))e^{-x}
+        \quad\text{und}\quad
+        g: (1,\infty) \to \mathbb{R} : (x+1)e^{-x}
+    \]
+
+    Zunächst zeigen wir, dass $\int_1^\infty g(x)\,dx = \int_1^\infty (x+1)e^{-x}\,dx$ integrierbar ist. Für ein $a \in [1,\infty)$ gilt:
+    \begin{align*}
+        \int_1^a (x+1)e^{-x}\,dx
+        &= (x+1)(-e^{-x})\Big|_1^a - \int_1^a e^{-x} \\
+        &= -\frac{(a-1)}{e^a} + 2e^{-1} + e^{-a} - e^{-1} \\
+        &= -\frac{a+1}{e^a} + e^{-a} + e^{-1}
+    \end{align*}
+
+    Es gilt $\lim_{a\to\infty} e^{-a} = 0$. Außerdem existiert der Grenzwert von $\lim_{a\to\infty} \frac{a+1}{e^a}$, da $0 \leq \frac{a+1}{e^a} \leq 1$ wegen $e^a \geq a+1$.
+
+    Demnach ist $\int_1^\infty g(x)\,dx$ integrierbar.
+
+    Für alle $x \in (1,\infty)$ gilt
+    \begin{align*}
+        |f(x)| &= \left| (x+\sin^2(x))e^{-x} \right| \\
+        &= (x+\sin^2(x))e^{-x} \qquad (\text{wegen } x>1 \text{ und } 0 \leq \sin^2(x) \leq 1) \\
+        &\leq (x+1)e^{-x} \\
+        &= g(x).
+    \end{align*}
+
+    Da $f$ stetig ist, gilt auch $f \in R([\alpha,\beta])$ für alle $1 < \alpha < \beta < \infty$. Wir können also das Majorantenkriterium anwenden. Demnach ist $\int_1^\infty (x+\sin^2(x))e^{-x}\,dx$ integrierbar.
+
+\end{enumerate}
+
+\end{document}
