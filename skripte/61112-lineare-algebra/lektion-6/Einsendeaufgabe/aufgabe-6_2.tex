@@ -1,0 +1,280 @@
+\documentclass[a4paper,12pt]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[ngerman]{babel}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{enumitem}
+\usepackage{geometry}
+\geometry{a4paper, margin=2.5cm}
+\usepackage{parskip}
+
+\title{Einsendeaufgaben -- Aufgabe 6.2\\[0.5em]
+\large Modul 61112: Lineare Algebra}
+\author{}
+\date{}
+
+\begin{document}
+\maketitle
+
+\section*{Aufgabe 1}
+
+\[
+A^2 =
+\begin{pmatrix}
+0 & 1 & 0 & 0 & 0 \\
+1 & 1 & 0 & 0 & 1 \\
+0 & 0 & 0 & 0 & 0 \\
+5 & 5 & -1 & 0 & 5 \\
+-1 & -2 & 0 & 0 & -1
+\end{pmatrix}^2
+=
+\begin{pmatrix}
+1 & 1 & 0 & 0 & 1 \\
+0 & 0 & 0 & 0 & 0 \\
+0 & 0 & 0 & 0 & 0 \\
+0 & 0 & 0 & 0 & 0 \\
+-1 & -1 & 0 & 0 & -1
+\end{pmatrix}
+\]
+
+\[
+A^3 =
+\begin{pmatrix}
+0 & 0 & 0 & 0 & 0 \\
+0 & 0 & 0 & 0 & 0 \\
+0 & 0 & 0 & 0 & 0 \\
+0 & 0 & 0 & 0 & 0 \\
+0 & 0 & 0 & 0 & 0
+\end{pmatrix}
+\]
+
+Demnach ist $A$ nilpotent mit $\mathrm{Ni}(A) = 3$.
+
+Nun bestimmen wir die Rangpartition:
+
+\[
+V_3 = \ker(A^3) = V, \quad \dim(V_3) = 5
+\]
+\[
+V_2 = \ker(A^2) = \left\langle
+\begin{pmatrix}1\\-1\\0\\0\\0\end{pmatrix},
+\begin{pmatrix}0\\0\\1\\0\\0\end{pmatrix},
+\begin{pmatrix}0\\0\\0\\1\\0\end{pmatrix},
+\begin{pmatrix}1\\0\\0\\0\\-1\end{pmatrix}
+\right\rangle, \quad \dim(V_2) = 4
+\]
+\[
+V_1 = \ker(A) = \left\langle
+\begin{pmatrix}0\\0\\0\\1\\0\end{pmatrix},
+\begin{pmatrix}1\\0\\0\\0\\-1\end{pmatrix}
+\right\rangle, \quad \dim(V_1) = 2, \text{ da}
+\]
+
+\[
+\begin{pmatrix}
+0 & 1 & 0 & 0 & 0 \\
+1 & 1 & 0 & 0 & 1 \\
+0 & 0 & 0 & 0 & 0 \\
+5 & 5 & -1 & 0 & 5 \\
+-1 & -2 & 0 & 0 & -1
+\end{pmatrix}
+\rightsquigarrow
+\begin{pmatrix}
+1 & 1 & 0 & 0 & 1 \\
+0 & 1 & 0 & 0 & 0 \\
+5 & 5 & -1 & 0 & 5 \\
+-1 & -2 & 0 & 0 & -1 \\
+0 & 0 & 0 & 0 & 0
+\end{pmatrix}
+\]
+\[
+\rightsquigarrow
+\begin{pmatrix}
+1 & 1 & 0 & 0 & 1 \\
+0 & 1 & 0 & 0 & 0 \\
+0 & 0 & -1 & 0 & 0 \\
+0 & -1 & 0 & 0 & 0 \\
+0 & 0 & 0 & 0 & 0
+\end{pmatrix}
+\rightsquigarrow
+\begin{pmatrix}
+1 & 1 & 0 & 0 & 1 \\
+0 & 1 & 0 & 0 & 0 \\
+0 & 0 & -1 & 0 & 0 \\
+0 & 0 & 0 & 0 & 0 \\
+0 & 0 & 0 & 0 & 0
+\end{pmatrix}
+\]
+
+\[
+p(A) = (2,\ 4-2,\ 5-4) = (2,2,1)
+\]
+\[
+p(A)^* = (3,2)
+\]
+
+\[
+\begin{array}{|c|c|c|}
+\hline
+V_{1,1} & V_{1,2} & V_{1,3} \\
+\hline
+V_{2,1} & V_{2,2} & \multicolumn{1}{c}{} \\
+\cline{1-2}
+\end{array}
+\]
+
+Wir wählen $V_{1,3} = \begin{pmatrix}1\\0\\0\\0\\0\end{pmatrix}$. Dann bestimmen wir
+
+\[
+V_{1,2} = A V_{1,3} = \begin{pmatrix}0\\1\\0\\5\\-1\end{pmatrix}
+\quad\text{und}\quad
+V_{1,1} = A^2 V_{1,3} = \begin{pmatrix}1\\0\\0\\0\\-1\end{pmatrix}.
+\]
+
+Wir wählen $V_{2,2} := \begin{pmatrix}0\\0\\1\\0\\0\end{pmatrix}$, da $\begin{pmatrix}0\\0\\1\\0\\0\end{pmatrix} \in V_2 \setminus V_1$
+
+und $\langle V_{2,1}, V_{2,2}\rangle$ ein Komplement zu $V_1$ ist.
+
+Wir bestimmen $V_{2,1} = \begin{pmatrix}0\\0\\0\\-1\\0\end{pmatrix}$.
+
+Schließlich können wir $S$ aufstellen:
+
+\[
+S =
+\begin{pmatrix}
+1 & 0 & 1 & 0 & 0 \\
+0 & 1 & 0 & 0 & 0 \\
+0 & 0 & 0 & 0 & 1 \\
+0 & 5 & 0 & -1 & 0 \\
+-1 & -1 & 0 & 0 & 0
+\end{pmatrix}
+\]
+
+Wir überprüfen, dass $S$ korrekt ist:
+
+\[
+\left(\begin{array}{ccccc|ccccc}
+1 & 0 & 1 & 0 & 0 & 1 & 0 & 0 & 0 & 0 \\
+0 & 1 & 0 & 0 & 0 & 0 & 1 & 0 & 0 & 0 \\
+0 & 0 & 0 & 0 & 1 & 0 & 0 & 1 & 0 & 0 \\
+0 & 5 & 0 & -1 & 0 & 0 & 0 & 0 & 1 & 0 \\
+-1 & -1 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 1
+\end{array}\right)
+\]
+\[
+\rightsquigarrow
+\left(\begin{array}{ccccc|ccccc}
+1 & 0 & 1 & 0 & 0 & 1 & 0 & 0 & 0 & 0 \\
+0 & 1 & 0 & 0 & 0 & 0 & 1 & 0 & 0 & 0 \\
+0 & 0 & 0 & 0 & 1 & 0 & 0 & 1 & 0 & 0 \\
+0 & 0 & 0 & -1 & 0 & 0 & -5 & 0 & 1 & 0 \\
+0 & -1 & 1 & 0 & 0 & 1 & 0 & 0 & 0 & 1
+\end{array}\right)
+\]
+\[
+\rightsquigarrow
+\left(\begin{array}{ccccc|ccccc}
+1 & 0 & 1 & 0 & 0 & 1 & 0 & 0 & 0 & 0 \\
+0 & 1 & 0 & 0 & 0 & 0 & 1 & 0 & 0 & 0 \\
+0 & 0 & 0 & 0 & 1 & 0 & 0 & 1 & 0 & 0 \\
+0 & 0 & 0 & 1 & 0 & 0 & 5 & 0 & -1 & 0 \\
+0 & 0 & 1 & 0 & 0 & 1 & 1 & 0 & 0 & 1
+\end{array}\right)
+\]
+\[
+\rightsquigarrow
+\left(\begin{array}{ccccc|ccccc}
+1 & 0 & 0 & 0 & 0 & 0 & -1 & 0 & 0 & -1 \\
+0 & 1 & 0 & 0 & 0 & 0 & 1 & 0 & 0 & 0 \\
+0 & 0 & 0 & 0 & 1 & 0 & 0 & 1 & 0 & 0 \\
+0 & 0 & 0 & 1 & 0 & 0 & 5 & 0 & -1 & 0 \\
+0 & 0 & 1 & 0 & 0 & 1 & 1 & 0 & 0 & 1
+\end{array}\right)
+\]
+\[
+\rightsquigarrow
+\left(\begin{array}{ccccc|ccccc}
+1 & 0 & 0 & 0 & 0 & 0 & -1 & 0 & 0 & -1 \\
+0 & 1 & 0 & 0 & 0 & 0 & 1 & 0 & 0 & 0 \\
+0 & 0 & 1 & 0 & 0 & 1 & 1 & 0 & 0 & 1 \\
+0 & 0 & 0 & 1 & 0 & 0 & 5 & 0 & -1 & 0 \\
+0 & 0 & 0 & 0 & 1 & 0 & 0 & 1 & 0 & 0
+\end{array}\right)
+\]
+
+\[
+S S^{-1} =
+\begin{pmatrix}
+1 & 0 & 1 & 0 & 0 \\
+0 & 1 & 0 & 0 & 0 \\
+0 & 0 & 0 & 0 & 1 \\
+0 & 5 & 0 & -1 & 0 \\
+-1 & -1 & 0 & 0 & 0
+\end{pmatrix}
+\begin{pmatrix}
+0 & -1 & 0 & 0 & -1 \\
+0 & 1 & 0 & 0 & 0 \\
+1 & 1 & 0 & 0 & 1 \\
+0 & 5 & 0 & -1 & 0 \\
+0 & 0 & 1 & 0 & 0
+\end{pmatrix}
+\]
+\[
+=
+\begin{pmatrix}
+1 & 0 & 0 & 0 & 0 \\
+0 & 1 & 0 & 0 & 0 \\
+0 & 0 & 1 & 0 & 0 \\
+0 & 0 & 0 & 1 & 0 \\
+0 & 0 & 0 & 0 & 1
+\end{pmatrix}
+\]
+
+\[
+S^{-1} A S = S^{-1}
+\begin{pmatrix}
+0 & 1 & 0 & 0 & 0 \\
+1 & 1 & 0 & 0 & 1 \\
+0 & 0 & 0 & 0 & 0 \\
+5 & 5 & -1 & 0 & 5 \\
+-1 & -2 & 0 & 0 & -1
+\end{pmatrix}
+\begin{pmatrix}
+1 & 0 & 1 & 0 & 0 \\
+0 & 1 & 0 & 0 & 0 \\
+0 & 0 & 0 & 0 & 1 \\
+0 & 5 & 0 & -1 & 0 \\
+-1 & -1 & 0 & 0 & 0
+\end{pmatrix}
+\]
+\[
+=
+\begin{pmatrix}
+0 & -1 & 0 & 0 & -1 \\
+0 & 1 & 0 & 0 & 0 \\
+1 & 1 & 0 & 0 & 1 \\
+0 & 5 & 0 & -1 & 0 \\
+0 & 0 & 1 & 0 & 0
+\end{pmatrix}
+\begin{pmatrix}
+0 & 1 & 0 & 0 & 0 \\
+0 & 0 & 1 & 0 & 0 \\
+0 & 0 & 0 & 0 & 0 \\
+0 & 0 & 5 & 0 & -1 \\
+0 & -1 & -1 & 0 & 0
+\end{pmatrix}
+\]
+\[
+=
+\begin{pmatrix}
+0 & 1 & 0 & 0 & 0 \\
+0 & 0 & 1 & 0 & 0 \\
+0 & 0 & 0 & 0 & 0 \\
+0 & 0 & 0 & 0 & 1 \\
+0 & 0 & 0 & 0 & 0
+\end{pmatrix}
+= N\bigl(p(A)^*\bigr)
+\]
+
+\end{document}
