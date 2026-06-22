@@ -1,0 +1,45 @@
+\documentclass[a4paper,12pt]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[ngerman]{babel}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{enumitem}
+\usepackage{geometry}
+\geometry{a4paper, margin=2.5cm}
+\usepackage{parskip}
+
+\title{Einsendeaufgaben -- Aufgabe 6.3\\[0.5em]
+\large Modul 61112: Lineare Algebra}
+\author{}
+\date{}
+
+\begin{document}
+\maketitle
+
+\section*{Aufgabe 6.3}
+
+\begin{enumerate}[label=\alph*)]
+  \item Da $\mathbb{C}$ algebraisch abgeschlossen ist, zerfällt $\chi_A$ in
+  Linearfaktoren. Nach dem Hauptsatz zur Jordan'schen Normalform Satz 6.3.8
+  ist $A$ ähnlich zu einer Matrix $J \in M_{n,n}(\mathbb{C})$ in Jordan'scher
+  Normalform. Da die Ähnlichkeitsklasse eine Äquivalenzklasse und ähnlich zu
+  $2A$ ist, ist auch $2A$ ähnlich zu $J$. Demnach besitzen $A$ und $2A$ nach
+  Satz 6.3.9 die gleichen Eigenwerte.
+
+  Das bedeutet aber, dass es nur einen Eigenwert von $A$ und $2A$ gibt, welcher
+  die $0$ ist. Denn wenn wir einen beliebigen Eigenwert $\lambda \in \mathbb{C}$
+  von $A$ wählen, folgt:
+  \[
+    2Av = 2\lambda v \quad \text{für alle } v \in \mathrm{Eig}_A(\lambda).
+  \]
+  Demnach ist zu jedem Eigenwert $\lambda \in \mathbb{C}$ von $A$, $2\lambda$ ein
+  Eigenwert von $2A$. Da aber $A$ und $2A$ die gleichen Eigenwerte besitzen, muss
+  also $0$ der einzige Eigenwert von $A$ und $2A$ sein.
+
+  Da $0$ also der einzige Eigenwert von $A$ ist, sind die Jordan-Blöcke in
+  nilpotenter Normalform und dadurch auch $J$. Abschließend können wir
+  schlussfolgern, dass $A$ nilpotent ist.
+\end{enumerate}
+
+\end{document}
