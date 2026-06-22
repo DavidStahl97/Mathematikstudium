@@ -1,0 +1,70 @@
+\documentclass[a4paper,12pt]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[ngerman]{babel}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{enumitem}
+\usepackage{geometry}
+\geometry{a4paper, margin=2.5cm}
+\usepackage{parskip}
+
+\title{Einsendeaufgaben -- Aufgabe 6.5\\[0.5em]
+\large Modul 61112: Lineare Algebra}
+\author{}
+\date{}
+
+\begin{document}
+\maketitle
+
+\section*{Aufgabe 6.5}
+
+Wir zeigen zunächst, dass $\chi_f$ in Linearfaktoren zerfällt. Um $\chi_f$ zu
+ermitteln, definieren wir eine geeignete Basis. Als ersten Vektor wählen wir ein
+beliebiges $v_1 \in \mathrm{Bild}(f) \setminus \{0\}$, dies ist möglich, da
+$\mathrm{Bild}(f) \setminus \{0\} \neq \emptyset$ wegen $\mathrm{Rg}(f) = 1$.
+$v_1$ lässt sich zu einer Basis $B_{v_1} = (v_1, v_2, \ldots, v_n)$ erweitern.
+
+Da $\mathrm{Rg}(f) = 1$, gilt
+\[
+  f(v_i) = k_i v_1 \quad \text{mit } k_i \in \mathbb{K} \text{ für alle } v_1, \ldots, v_n.
+\]
+
+Demnach ist
+\[
+  {}_{B_{v_1}}M_{B_{v_1}}(f) = \begin{pmatrix}
+    k_1 & k_2 & \cdots & k_n \\
+    0 & 0 & \cdots & 0 \\
+    \vdots & \vdots & & \vdots \\
+    0 & 0 & \cdots & 0
+  \end{pmatrix}.
+\]
+
+Wir können demnach $\chi_f$ ermitteln
+\[
+  \chi_f = \det \begin{pmatrix}
+    X-k_1 & -k_2 & \cdots & -k_n \\
+    0 & X & & \\
+    \vdots & & \ddots & \\
+    0 & 0 & \cdots & X
+  \end{pmatrix} = X^{n-1}(X - k_1).
+\]
+
+$\chi_f$ zerfällt also in Linearfaktoren und demnach existiert eine Basis $B$,
+sodass ${}_{B}M_{B}(f)$ in jordan'sche Normalform ist.
+
+Nun untersuchen wir nach den möglichen Normalformen für alle
+$f \in \mathrm{End}(V)$ mit $\mathrm{Rg}(f) = 1$.
+
+\textbf{\underline{Fall 1: $k_1 = 0$}}
+
+Dann gilt $\chi_f = X^n$ und demnach ist der einzige Eigenwert $0$.
+${}_{B}M_{B}(f)$ ist also in nilpotenter Normalform.
+
+\textbf{\underline{Fall 2: $k_1 \neq 0$}}
+
+Da $a(k_1) = 1$ ist $J(k_1, (1)) = (k_1)$. Wenn dann $\dim V > 1$ ist $0$ der
+zweite Eigenwert und der Jordanblock von $0$ ist wie in Fall 1 in nilpotenter
+Normalform.
+
+\end{document}
