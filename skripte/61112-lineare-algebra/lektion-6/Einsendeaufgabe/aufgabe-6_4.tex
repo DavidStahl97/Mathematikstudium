@@ -1,0 +1,87 @@
+\documentclass[a4paper,12pt]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[ngerman]{babel}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{enumitem}
+\usepackage{geometry}
+\geometry{a4paper, margin=2.5cm}
+\usepackage{parskip}
+
+\title{Einsendeaufgaben -- Aufgabe 6.4\\[0.5em]
+\large Modul 61112: Lineare Algebra}
+\author{}
+\date{}
+
+\begin{document}
+\maketitle
+
+\section*{Aufgabe 6.4}
+
+\begin{enumerate}[label=\alph*)]
+  \item
+  \begin{align*}
+    \chi_A &= \det(X I_3 - A)
+      = \det\begin{pmatrix} X-5 & -6 & -2 \\ 2 & X+2 & 1 \\ 0 & 0 & X-2 \end{pmatrix} \\
+    &= (X-2)\big((X-5)(X+2)+12\big) \\
+    &= (X-2)(X^2-3X+2) \\
+    &= (X-2)^2(X-1)
+  \end{align*}
+  \[
+    \Rightarrow \lambda_1 = 2 \text{ und } \lambda_2 = 1
+  \]
+
+  \item
+  \begin{align*}
+    \mathrm{Eig}_A(2) = \ker(A - 2I_3)
+    &= \ker\begin{pmatrix} 3 & 6 & 2 \\ -2 & -4 & -1 \\ 0 & 0 & 0 \end{pmatrix} \\
+    &= \ker\begin{pmatrix} 3 & 6 & 2 \\ 0 & 0 & 1 \\ 0 & 0 & 0 \end{pmatrix} \\
+    &= \ker\begin{pmatrix} 1 & 2 & \tfrac{2}{3} \\ 0 & 0 & 0 \\ 0 & 0 & 1 \end{pmatrix} \\
+    &= \left\langle \begin{pmatrix} 2 \\ -1 \\ 0 \end{pmatrix} \right\rangle
+  \end{align*}
+
+  \begin{align*}
+    \mathrm{Eig}_A(1) = \ker(A - I_3)
+    &= \ker\begin{pmatrix} 4 & 6 & 2 \\ -2 & -3 & -1 \\ 0 & 0 & 1 \end{pmatrix} \\
+    &= \ker\begin{pmatrix} 2 & 3 & 1 \\ 0 & 0 & 0 \\ 0 & 0 & 1 \end{pmatrix} \\
+    &= \ker\begin{pmatrix} 1 & \tfrac{3}{2} & 0 \\ 0 & 0 & 0 \\ 0 & 0 & 1 \end{pmatrix} \\
+    &= \left\langle \begin{pmatrix} \tfrac{3}{2} \\ -1 \\ 0 \end{pmatrix} \right\rangle
+     = \left\langle \begin{pmatrix} 3 \\ -2 \\ 0 \end{pmatrix} \right\rangle
+  \end{align*}
+
+  \item
+  \[
+    H_A(1) = \left\langle \begin{pmatrix} 3 \\ -2 \\ 0 \end{pmatrix} \right\rangle
+  \]
+  \begin{align*}
+    H_A(2) = \ker\!\left( (A - 2I_3)^2 \right)
+    &= \ker\begin{pmatrix} 3 & 6 & 2 \\ -2 & -4 & -1 \\ 0 & 0 & 0 \end{pmatrix}^2 \\
+    &= \ker\begin{pmatrix} -3 & -6 & 0 \\ 2 & 4 & 0 \\ 0 & 0 & 0 \end{pmatrix} \\
+    &= \ker\begin{pmatrix} 1 & 2 & 0 \\ 0 & 0 & 0 \\ 0 & 0 & 0 \end{pmatrix} \\
+    &= \left\langle \begin{pmatrix} 2 \\ -1 \\ 0 \end{pmatrix}, \begin{pmatrix} 0 \\ 0 \\ 1 \end{pmatrix} \right\rangle
+  \end{align*}
+
+  $p = (1,1)$ ist die Rangpartition von $\mathrm{Eig}_A(2) \subsetneq \mathrm{Eig}_A^2(2)$.
+  Die duale Partition von $p$ ist $q = (2)$.
+
+  Wir wählen $v_{1,2} = \begin{pmatrix} 0 \\ 0 \\ 1 \end{pmatrix}
+  \in \mathrm{Eig}_A^2(2) \setminus \mathrm{Eig}_A(2)$.
+
+  Wir erhalten $v_{1,1} = (A - 2I_3)\, v_{1,2} = \begin{pmatrix} 2 \\ -1 \\ 0 \end{pmatrix}$.
+
+  Wir können $S$ mit $B_1 = \left( \begin{pmatrix} 2 \\ -1 \\ 0 \end{pmatrix},
+  \begin{pmatrix} 0 \\ 0 \\ 1 \end{pmatrix} \right)$ von $H_A(2)$ und
+  $B_2 = \begin{pmatrix} 3 \\ -2 \\ 0 \end{pmatrix}$ von $H_A(1)$:
+  \[
+    S = \begin{pmatrix} 2 & 0 & 3 \\ -1 & 0 & -2 \\ 0 & 1 & 0 \end{pmatrix}
+  \]
+
+  Die Jordan'sche Normalform von $A$ ist
+  \[
+    \mathrm{diag}\big( J_2(2), J_1(1) \big)
+    = \begin{pmatrix} 2 & 1 & 0 \\ 0 & 2 & 0 \\ 0 & 0 & 1 \end{pmatrix}
+  \]
+\end{enumerate}
+
+\end{document}
