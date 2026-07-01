@@ -83,6 +83,14 @@ Sidecars sind in `.gitignore` (`skripte/**/*.tex.hash`) – nicht ins Repo commi
 `docs.yml` nutzt `actions/cache@v4` mit den Pfaden `skripte/**/*.pdf`, `skripte/**/*.tex.hash`, `.lernkarten-cache/`. Cache-Key: `hashFiles('skripte/**/*.tex', 'build.py', 'generate_docs.py')`; `restore-keys` mit Prefix-Fallback für inkrementelle Rebuilds nach Einzeländerungen.
 
 ### Lernkarten
+- **Quelle: eigene Notizen, nicht mehr das Glossar.** Karten werden aus
+  `skripte/<modul>/lektion-N/lernkarten.tex` erzeugt (Makro
+  `\lernkarte{Vorderseite}{Rückseite}`, geparst von `generate_docs.py →
+  extract_lernkarten`). Vorderseite = roter Titel/Begriff aus den Notizen,
+  Rückseite = zugehöriger weißer Inhalt. Vorlage: `vorlagen/lernkarten.tex`.
+- `lernkarten.tex` wird **nicht** als eigene PDF-Seite gerendert (nur als
+  Kartenquelle geparst). Das `glossar.tex` bleibt als PDF-Glossarseite bestehen,
+  ist aber **keine** Kartenquelle mehr.
 - Lokal standardmäßig **deaktiviert** (`GENERATE_LERNKARTEN=0` in `generate_docs.py`) – sonst müsste jeder frische Worktree alle Karten neu rendern.
 - In CI über Env-Variable im Workflow **aktiviert**. SVGs liegen content-hash-basiert in `.lernkarten-cache/<hash>-{front,back}.svg` und werden mitgecached.
 
@@ -192,6 +200,7 @@ Fertige LaTeX-Startdateien liegen in `vorlagen/`:
 | `vorlagen/einsendeaufgabe.tex` | Neue Einsendeaufgabe anlegen |
 | `vorlagen/ziele.tex` | Neue Ziele-Datei für eine Lektion |
 | `vorlagen/glossar.tex` | Neues Glossar für eine Lektion |
+| `vorlagen/lernkarten.tex` | Neue Lernkarten aus Notizen (`\lernkarte{front}{back}`) |
 
 Beim Erstellen einer neuen `.tex`-Datei die passende Vorlage kopieren und die Platzhalter (`N`, `M`, `MODULNAME`, `NUMMER`, `TITEL` usw.) ersetzen.
 
@@ -392,11 +401,12 @@ für den Lehrtext. Keine Beweise, keine Erklärungen – nur die Kernaussagen.
 % Für Einträge ohne eigene Nummer: \gentry{}{Vollständige Induktion}{...}
 ```
 
-**Wichtig – Titel müssen inhaltlich sein:** Aus jedem `\gentry` wird eine
-Lernkarte generiert (`generate_docs.py → extract_flashcards`), deren Vorderseite
-aus `<Nummer>\quad <Titel>` besteht. Ein rein generischer Titel wie `Satz`,
-`Lemma`, `Korollar`, `Proposition`, `Bemerkung` oder `Definition` macht die
-Karte unzuordenbar (`1.2.23 Lemma` sagt einem Lernenden nichts).
+**Wichtig – Titel müssen inhaltlich sein:** Das Glossar ist eine
+Nachschlage-PDF (keine Lernkarten-Quelle mehr – Karten kommen aus
+`lernkarten.tex`, siehe Abschnitt „Lernkarten"). Trotzdem sollten `\gentry`-Titel
+inhaltlich sein, damit das Glossar für sich lesbar bleibt. Ein rein generischer
+Titel wie `Satz`, `Lemma`, `Korollar`, `Proposition`, `Bemerkung` oder
+`Definition` ist unzuordenbar (`1.2.23 Lemma` sagt einem Lernenden nichts).
 
 Deshalb immer eine kurze inhaltliche Beschreibung anhängen, Schema
 `<Typ> (<Beschreibung>)`, max. ca. 5–7 Wörter:

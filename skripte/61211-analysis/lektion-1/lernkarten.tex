@@ -1,0 +1,203 @@
+% Lernkarten -- Analysis (Modul 61211), Lektion 1
+% Quelle: eigene OneNote-Notizen (Fernuni Notizbuch > 61211 Analysis)
+% Format: \lernkarte{Vorderseite (roter Titel)}{Rueckseite (weisser Inhalt)}
+%
+% --- OneNote-Seite 1.1 "Reelle Zahlen" -----------------------------------
+
+\lernkarte{Geordnete Menge}{%
+  \begin{align*}
+    & x \le x \\
+    & x \le y \,\wedge\, y \le x \;\Rightarrow\; x = y \\
+    & x \le y \,\wedge\, y \le z \;\Rightarrow\; x \le z
+  \end{align*}
+  \[ \Rightarrow \text{Axiom von } \mathbb{R} \]
+}
+
+\lernkarte{linear geordnete Menge}{%
+  \[ x \le y \;\vee\; y \le x \]
+  nach dieser Regel können je zwei Elemente verglichen werden.
+}
+
+\lernkarte{Regeln der Vergleichung}{%
+  \[ 0 \le a \le b \,\wedge\, 0 \le c \le d \;\Rightarrow\; ac \le bd \]
+}
+
+\lernkarte{Cauchy-Schwarz Ungleichung}{%
+  \[ \left|\sum_{k=1}^{n} x_k y_k\right|
+     \le \sqrt{\sum_{k=1}^{n} x_k^2}\;\sqrt{\sum_{k=1}^{n} y_k^2} \]
+  \[ \sqrt{\sum_{k=1}^{n} (x_k+y_k)^2}
+     \le \sqrt{\sum_{k=1}^{n} x_k^2} + \sqrt{\sum_{k=1}^{n} y_k^2} \]
+}
+
+\lernkarte{Supremum \& Infimum}{%
+  \begin{align*}
+    \sup M &= S \le S' \in \text{obere Schranke} \\
+    \inf M &= S \ge S' \in \text{untere Schranke}
+  \end{align*}
+  \[ \text{Maximum} \;\Leftrightarrow\; \sup M \in M \qquad
+     \text{Minimum} \;\Leftrightarrow\; \inf M \in M \]
+}
+
+\lernkarte{beschränkte Funktion}{%
+  \[ \|f\|_\infty := \sup\{\, \|f(x)\| \;\mid\; x \in M \,\} \]
+}
+
+\lernkarte{Supremumsnorm}{%
+  \[ \|f\|_\infty < \infty \;\Rightarrow\; f \in B(M) \]
+}
+
+% --- OneNote-Seite 1.2 "Konvergenz" --------------------------------------
+
+\lernkarte{zweite Dreiecksungleichung}{%
+  \[ \bigl|\,|x|-|y|\,\bigr| \;\le\; |x+y| \]
+}
+
+\lernkarte{Umgebung}{%
+  \[ U_\varepsilon(a) := \{\, x \in \mathbb{R} \;\mid\; d(x,a) < \varepsilon \,\} \]
+  \[ U_\varepsilon(a) \subseteq U \;\Rightarrow\; U \text{ ist Umgebung von } a \]
+}
+
+\lernkarte{Hausdorffeigenschaft}{%
+  \[ a \neq b \;\Rightarrow\; U(a) \cap U(b) = \emptyset \]
+}
+
+% PRÜFEN: Notiz schreibt wörtlich "endlich viele" (unten transkribiert).
+% Mathematisch müsste es "fast alle" heißen (so auch in Seite 1.5). Bitte
+% in OneNote prüfen -- ich korrigiere es nicht selbst.
+\lernkarte{konvergente Folge}{%
+  $f$ konvergiert gegen $a :\Leftrightarrow$ endlich viele Folgenglieder
+  liegen in $U(a)$, $U(a)$ beliebig.
+}
+
+\lernkarte{Menge der konvergenten Folgen}{%
+  Bezeichnung: $c$
+  \[ c \subsetneq W \quad (\text{Menge aller Folgen}) \]
+}
+
+\lernkarte{Konvergenzkriterien}{%
+  \begin{itemize}[topsep=2pt,itemsep=3pt,leftmargin=*]
+    \item \textbf{Nullfolge:}
+      $\lim f = 0 \,\wedge\, h \in \ell^\infty \;\Rightarrow\; \lim hf = 0$
+    \item \textbf{Einschnürungssatz:}
+      $\lim f = \lim g \,\wedge\, f_k \le h_k \le g_k \ \forall\,\text{fast } k\in\mathbb{N}
+       \;\Rightarrow\; \lim f = \lim h = \lim g$
+    \item \textbf{$\varepsilon$-$n_0$-Kriterium:}
+      $\forall \varepsilon>0 \ \exists n_0\in\mathbb{N} \ \forall k\in\mathbb{N}:
+       k \ge n_0 \Rightarrow |a_k - a| < \varepsilon$
+    \item \textbf{Monotoniekriterium:} monoton wachsend $\wedge$ beschränkt
+      $\;\Rightarrow\; \lim f = \sup\{\, a_k \mid k\in\mathbb{N} \,\}$
+    \item \textbf{Divergenz:} eine Teilfolge divergiert, oder zwei Teilfolgen
+      haben andere Grenzwerte
+  \end{itemize}
+}
+
+\lernkarte{Bolzano-Weierstraß}{%
+  \begin{enumerate}[topsep=2pt,itemsep=2pt,leftmargin=*]
+    \item Jede Folge enthält eine monotone Teilfolge.
+    \item Jede beschränkte Folge enthält eine konvergente Teilfolge.
+  \end{enumerate}
+}
+
+\lernkarte{bestimmte Divergenz (Kriterium)}{%
+  Für jedes $n_0 \in \mathbb{N}$ liegen fast alle $a_k$ über $n_0$.
+}
+
+\lernkarte{Cauchykriterium}{%
+  Jede Cauchyfolge konvergiert.
+  \begin{align*}
+    &\forall \varepsilon>0 \ \exists n_0\in\mathbb{N} \ \forall k\in\mathbb{N}:
+      \ k \ge n_0 \Rightarrow |a_k - a_{n_0}| < \varepsilon \\
+    \Leftrightarrow\ &\forall \varepsilon>0 \ \exists n_0\in\mathbb{N} \ \forall k,l\in\mathbb{N}:
+      \ k \ge n_0 \wedge l \ge n_0 \Rightarrow |a_k - a_l| < \varepsilon
+  \end{align*}
+}
+
+% --- OneNote-Seite 1.3 "R^n reeller Vektorraum" --------------------------
+% Hinweis: Der obere Block "Beispiele reelle Vektorräume" ist in den Notizen
+% durchgestrichen und daher hier ausgelassen.
+
+\lernkarte{$B(M)$}{%
+  Beschränkte Funktionen. \\
+  Unterraum von $\mathrm{Abb}(M,\mathbb{R})$.
+}
+
+\lernkarte{$C(M)$, $C^1(M)$}{%
+  \begin{itemize}[topsep=2pt,itemsep=1pt,leftmargin=*]
+    \item $C(M) = $ stetige Funktionen
+    \item $C^1(M) = $ differenzierbar und Ableitung stetig
+    \item $C^1(M)$ ist Unterraum von $C(M)$
+  \end{itemize}
+}
+
+\lernkarte{Folgenräume $W, \ell^\infty, c, c_0$}{%
+  Unterräume:
+  \[ W \supseteq \ell^\infty \supseteq c \supseteq c_0 \]
+}
+
+% --- OneNote-Seite 1.4 "R^n normierter Raum" -----------------------------
+
+\lernkarte{Norm}{%
+  \begin{align*}
+    \text{(i)} \ \ & \|x\| \ge 0 \ \wedge \ \big(\|x\| = 0 \Leftrightarrow x = 0\big) \\
+    \text{(ii)} \ \ & \|\alpha x\| = |\alpha|\,\|x\| \\
+    \text{(iii)} \ \ & \|x+y\| \le \|x\| + \|y\|
+  \end{align*}
+}
+
+\lernkarte{Supremumsnorm (Raum)}{%
+  \[ \big(\, B(M),\ \|\cdot\|_\infty \,\big) \]
+}
+
+\lernkarte{Euklidische Norm}{%
+  \[ \|x\|_2 := \sqrt{\sum_{k=1}^{n} x_k^2} \]
+}
+
+\lernkarte{Maximumnorm}{%
+  \[ \|x\|_\infty := \max\{\, |x_k| \;\mid\; 1 \le k \le n \,\} \]
+}
+
+% --- OneNote-Seite 1.5 "Konvergenz in R^n" -------------------------------
+
+\lernkarte{Umgebung (in $\mathbb{R}^n$)}{%
+  \[ U_\varepsilon(a) := \{\, x \in X \;\mid\; d(x,a) < \varepsilon \,\} \]
+  Der Abstand $d$ wird aus der Norm $\|\cdot\|$ erzeugt.
+  \[ U_\varepsilon(a) \subseteq U \;\Rightarrow\; U \text{ ist Umgebung von } a \]
+}
+
+\lernkarte{konvergente Folge (in $\mathbb{R}^n$)}{%
+  In jeder Umgebung von $a$ liegen fast alle Folgenglieder
+  $\;\Rightarrow\; f$ konvergiert gegen $a$.
+}
+
+\lernkarte{Konvergenzkriterium (in $\mathbb{R}^n$)}{%
+  $\varepsilon$-$n_0$-Kriterium:
+  \[ \forall \varepsilon>0 \ \exists n_0\in\mathbb{N} \ \forall k\in\mathbb{N}:
+     \ k \ge n_0 \Rightarrow \|y_k - a\| < \varepsilon \]
+  \[ \Leftrightarrow\ \lim_{k\to\infty} \|x_k - a\| = 0 \]
+}
+
+\lernkarte{Bolzano-Weierstraß (in $\mathbb{R}^n$)}{%
+  \[ \|x_k\|_\infty \le S \;\Rightarrow\; \text{es existiert eine konvergente Teilfolge} \]
+}
+
+\lernkarte{Äquivalenz der Normen}{%
+  \[ \|x\| \le a\,\|x\|_\infty \qquad \|x\|_\infty \le b\,\|x\| \]
+  $U$ ist Umgebung von $a$ bzgl.\ $\|\cdot\|$
+  $\Leftrightarrow$ bzgl.\ $\|\cdot\|_*$. \\[0.3em]
+  Konvergenz in $(\mathbb{R}^n, \|\cdot\|) \Leftrightarrow (\mathbb{R}^n, \|\cdot\|_*)
+  \Leftrightarrow$ komponentenweise in $(\mathbb{R}, |\cdot|)$.
+}
+
+\lernkarte{Cauchyfolge (in $\mathbb{R}^n$)}{%
+  \begin{align*}
+    &\forall \varepsilon>0 \ \exists n_0\in\mathbb{N} \ \forall k\in\mathbb{N}:
+      \ k \ge n_0 \Rightarrow \|x_k - x_{n_0}\| < \varepsilon \\
+    \Leftrightarrow\ &\forall \varepsilon>0 \ \exists n_0\in\mathbb{N} \ \forall k,l\in\mathbb{N}:
+      \ k \ge n_0 \wedge l \ge n_0 \Rightarrow \|x_k - x_l\| < \varepsilon
+  \end{align*}
+}
+
+\lernkarte{Banachraum}{%
+  Vollständiger normierter Raum (jede Cauchyfolge konvergiert). \\
+  $\mathbb{R}^n$ ist ein Banachraum.
+}

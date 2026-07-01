@@ -6,7 +6,7 @@ Voraussetzung: `generate_docs.py` wurde mit GENERATE_LERNKARTEN=1 ausgefuehrt,
 so dass die SVGs unter .lernkarten-cache/<hash>-{front,back}.svg liegen.
 
 Karten-GUIDs werden deterministisch aus
-    <glossar-relpath> + <front-LaTeX>
+    <lernkarten-relpath> + <front-LaTeX>
 abgeleitet. Wiederimport in Anki erkennt Karten an der GUID, sodass der
 Lernfortschritt bei Aenderungen der Rueckseite erhalten bleibt.
 """
@@ -52,22 +52,22 @@ _MODEL = genanki.Model(
 )
 
 
-def _module_and_lesson(glossar_tex: Path) -> tuple[str, str, str]:
-    """Liefert (Modul-Slug, Modul-Titel, Lektions-Titel) aus dem Glossar-Pfad.
+def _module_and_lesson(source_tex: Path) -> tuple[str, str, str]:
+    """Liefert (Modul-Slug, Modul-Titel, Lektions-Titel) aus dem Kartenquellen-Pfad.
 
-    Erwartete Struktur: skripte/<modul>/<lektion>/Glossar/glossar.tex
+    Erwartete Struktur: skripte/<modul>/<lektion>/lernkarten.tex
     """
-    rel = glossar_tex.resolve().relative_to(SKRIPTE_DIR.resolve())
+    rel = source_tex.resolve().relative_to(SKRIPTE_DIR.resolve())
     parts = rel.parts
-    # parts: (<modul>, <lektion>, "Glossar", "glossar.tex")
+    # parts: (<modul>, <lektion>, "lernkarten.tex")
     modul_slug = parts[0] if len(parts) >= 1 else "unbekannt"
     modul = folder_to_title(modul_slug)
     lektion = folder_to_title(parts[1]) if len(parts) >= 2 else "Unbekannt"
     return modul_slug, modul, lektion
 
 
-def _card_guid(glossar_tex: Path, front_tex: str) -> str:
-    rel = glossar_tex.resolve().relative_to(SKRIPTE_DIR.resolve())
+def _card_guid(source_tex: Path, front_tex: str) -> str:
+    rel = source_tex.resolve().relative_to(SKRIPTE_DIR.resolve())
     return genanki.guid_for(str(rel).replace("\\", "/"), front_tex)
 
 
@@ -105,7 +105,7 @@ def build_anki_packages(out_dir: Path) -> list[dict] | None:
     by_module: dict[str, list[dict]] = {}
     module_titles: dict[str, str] = {}
     for job in jobs:
-        modul_slug, modul_title, _ = _module_and_lesson(job["glossar_tex"])
+        modul_slug, modul_title, _ = _module_and_lesson(job["source_tex"])
         by_module.setdefault(modul_slug, []).append(job)
         module_titles[modul_slug] = modul_title
 
@@ -126,8 +126,8 @@ def build_anki_packages(out_dir: Path) -> list[dict] | None:
         decks_by_name[root_name] = genanki.Deck(_deck_id_for(root_name), root_name)
 
         for job in module_jobs:
-            glossar_tex: Path = job["glossar_tex"]
-            _, _, lektion = _module_and_lesson(glossar_tex)
+            source_tex: Path = job["source_tex"]
+            _, _, lektion = _module_and_lesson(source_tex)
             deck_name = f"{root_name}::{lektion}"
 
             if deck_name not in decks_by_name:
@@ -154,7 +154,7 @@ def build_anki_packages(out_dir: Path) -> list[dict] | None:
                         f'<img src="{front_svg.name}">',
                         f'<img src="{back_svg.name}">',
                     ],
-                    guid=_card_guid(glossar_tex, c["front"]),
+                    guid=_card_guid(source_tex, c["front"]),
                 )
                 deck.add_note(note)
                 notes_count += 1
