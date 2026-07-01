@@ -1,0 +1,120 @@
+% Lernkarten -- Analysis (Modul 61211), Lektion 3
+% Quelle: eigene OneNote-Notizen (Fernuni Notizbuch > 61211 Analysis)
+% Format: \lernkarte{Vorderseite (roter Titel)}{Rueckseite (weisser Inhalt)}
+
+% --- OneNote-Seite 3.1 "Grenzwert Funktionen" ---------------------------
+
+\lernkarte{Stetige Fortsetzung}{%
+  \[ F : M \cup \{a\}, \quad F(x) = f(x) \ \forall x \in M \setminus \{a\} \]
+  $F$ ist stetig.
+}
+
+\lernkarte{Definition Grenzwert einer Funktion}{%
+  $F(a)$ stetige Fortsetzung.
+  \[ \lim_{x \to a} f(x) = F(a) \qquad (\text{Schreibweise}) \]
+}
+
+\lernkarte{Stetigkeit und Grenzwert}{%
+  \[ f \text{ ist stetig in } a \;\Leftrightarrow\; \lim_{x \to a} f(x) = f(a) \]
+}
+
+\lernkarte{Grenzwert-Kriterien}{%
+  Umgebungskriterium, $\varepsilon$-$\delta$-Kriterium, Folgenkriterium,
+  Cauchykriterium.
+}
+
+\lernkarte{Definition uneigentlicher Grenzwert}{%
+  \[ \lim_{x \to a} f(x) = \infty \]
+}
+
+% --- OneNote-Seite 3.2 "Grenzwert Funktion normierte Räume" --------------
+
+\lernkarte{Grenzwert (normierte Räume)}{%
+  $f$ nach $a$ stetig fortsetzbar, $F(a)$ Grenzwert von $f$ in $a$.
+  \[ f \text{ ist stetig in } a \;\Leftrightarrow\; \lim_{x \to a} f(x) = f(a) \]
+}
+
+\lernkarte{Grenzwert-Kriterien (normierte Räume)}{%
+  Umgebungskriterium, $\varepsilon$-$\delta$-Kriterium, Folgenkriterium.
+}
+
+% --- OneNote-Seite 3.3 "Differenzierbarkeit in R" -----------------------
+
+\lernkarte{Definition Differenzierbarkeit (in $\mathbb{R}$)}{%
+  $a$ Häufungspunkt.
+  \[ \lim_{x \to a} \frac{f(x) - \big[f(a) + \beta(x-a)\big]}{x - a} = 0 \]
+  $\beta$ ist der Grenzwert des Differenzenquotienten $\dfrac{f(x)-f(a)}{x-a}$.
+}
+
+\lernkarte{Ableitung Umkehrfunktion}{%
+  \[ (f^{-1})'(b) = \frac{1}{f'\!\big(f^{-1}(b)\big)}, \qquad f'(a) \neq 0 \]
+}
+
+\lernkarte{Mittelwertsatz der Differentialrechnung}{%
+  \[ \frac{f(b) - f(a)}{b - a} = f'(\xi) \]
+  \[ \frac{f(b) - f(a)}{g(b) - g(a)} = \frac{f'(\xi)}{g'(\xi)} \]
+}
+
+\lernkarte{Regel von l'Hospital}{%
+  \[ \lim_{x \to a} \frac{f(x)}{g(x)} = \lim_{x \to a} \frac{f'(x)}{g'(x)} \]
+  \begin{itemize}[topsep=2pt,itemsep=1pt,leftmargin=*]
+    \item \textbf{Typ $\tfrac{0}{0}$:} $g'(a)\neq 0,\ \lim_{x\to a} f=0,\ \lim_{x\to a} g=0$
+    \item \textbf{Typ $\tfrac{0}{0}$ ($\infty,-\infty$):} Grenzwert für $x\to\infty$
+    \item \textbf{Typ $\tfrac{\infty}{\infty}$:} $g'(x)\neq 0\ \forall x\in I,\
+      \lim f'=\infty,\ \lim g'=\infty$
+  \end{itemize}
+}
+
+% PRÜFEN: Notiz schreibt "gleichmäßig stetig"; der Satz braucht gleichmäßige
+% KONVERGENZ der Ableitungen (so hier gesetzt) -- bitte prüfen.
+\lernkarte{Differenzierbarkeit der Grenzfunktion}{%
+  $f_k'$ gleichmäßig konvergent $\wedge\ f_k(c)$ konvergiert
+  $\;\Rightarrow\; f_k$ gleichmäßig konvergent und
+  \[ f'(x) = \lim_{k \to \infty} f_k'(x) \]
+  Bei Reihen: $\displaystyle s'(x) = \sum_{k=1}^{\infty} f_k'(x)$.
+}
+
+% --- OneNote-Seite 3.4 "Raum Hom" ---------------------------------------
+
+\lernkarte{Norm auf $\mathbb{R}^{n\times n}$}{%
+  Zeilensummennorm:
+  \[ \|A\| := \max\Bigg\{ \sum_{v=1}^{n} |a_{1v}|, \ \ldots, \
+     \sum_{v=1}^{n} |a_{mv}| \Bigg\} \]
+}
+
+% --- OneNote-Seite 3.5 "Differenzierbarkeit Funktionen" -----------------
+
+\lernkarte{Definition Differenzierbarkeit (Funktionen)}{%
+  \[ \lim_{x \to a} \frac{f(x) - \big[f(a) + A(x-a)\big]}{\|x - a\|} = 0 \]
+}
+
+\lernkarte{Definition Ableitung}{%
+  \[ f' : M \to \mathbb{R}^{m\times n} = \{\, A \mid A \text{ ist } (m,n)\text{-Matrix} \,\} \]
+  \[ a \mapsto f'(a) \]
+}
+
+% --- OneNote-Seite 3.6 "Partielle Ableitung" ----------------------------
+
+\lernkarte{Definition partielle Ableitung}{%
+  \begin{itemize}[topsep=2pt,itemsep=2pt,leftmargin=*]
+    \item[(i)] $f \circ \varphi_k$ in $a_k$ differenzierbar
+      $\Rightarrow f$ ist nach der $k$-ten Koordinate partiell differenzierbar
+    \item[(ii)] in jeder Koordinate partiell differenzierbar
+      $\Rightarrow f$ ist in $a$ partiell differenzierbar
+  \end{itemize}
+}
+
+\lernkarte{Beziehung partiell und total}{%
+  \[ f'(a) = \nabla f(a) \]
+  Funktionalmatrix:
+  {\small\[ f'(a) = \begin{pmatrix} D_1 f_1(a) & \cdots & D_n f_1(a) \\
+                             \vdots & \ddots & \vdots \\
+                             D_1 f_m(a) & \cdots & D_n f_m(a) \end{pmatrix} \]}
+  $D_k f : U \to \mathbb{R}, \ x \mapsto D_k f(x)$. \\
+  Stetig in $a \;\Rightarrow\; f'(a) = \nabla f(a)$.
+}
+
+\lernkarte{Definition Richtungsableitung}{%
+  \[ D_v f(a) = (f \circ \varphi)'(0), \qquad \varphi(t) = a + t\,v \]
+  $v = $ Richtung von $\nabla f(a) \;\Rightarrow\; D_v f(a)$ maximal.
+}

@@ -1,0 +1,28 @@
+% Lernkarten -- MODULNAME (Modul NUMMER), Lektion N
+% Quelle: eigene handschriftliche Notizen (z. B. OneNote), NICHT das Glossar.
+%
+% Format je Karte:  \lernkarte{Vorderseite}{Rueckseite}
+%   Vorderseite = roter Titel/Begriff aus den Notizen (Ueberschrift)
+%   Rueckseite  = weisser Inhalt darunter (Definition/Formel/Regel)
+%
+% Diese Datei wird NICHT als eigenstaendiges PDF kompiliert. generate_docs.py
+% (extract_lernkarten) parst nur die \lernkarte-Makros; Vorder- und Rueckseite
+% werden einzeln in Flip-Karten (Web) und Anki-Karten gerendert. Der Inhalt
+% beider Argumente ist reines LaTeX -- Mathe inline mit $...$ oder abgesetzt
+% mit \[...\]; Aufzaehlungen mit enumitem; Tabellen mit array/booktabs.
+%
+% Verfuegbare Pakete beim Rendern: amsmath, amssymb, enumitem, array, booktabs.
+% Kommentarzeilen (mit % am Zeilenanfang) werden ignoriert und koennen daher
+% gefahrlos das Wort \lernkarte enthalten.
+
+\lernkarte{Titel der ersten Karte}{%
+  Inhalt der Rueckseite -- z. B. eine Definition mit Formel:
+  \[ a^2 + b^2 = c^2 \]
+}
+
+\lernkarte{Titel der zweiten Karte}{%
+  \begin{itemize}[topsep=2pt,itemsep=1pt]
+    \item erste Eigenschaft
+    \item zweite Eigenschaft
+  \end{itemize}
+}

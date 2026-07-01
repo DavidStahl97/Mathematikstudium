@@ -5,7 +5,7 @@ Generiert MkDocs-Dokumentation aus der skripte/-Ordnerstruktur.
 - Traversiert skripte/ rekursiv
 - Baut Navigationsstruktur aus Ordnerhierarchie
 - Für jede .tex-Datei (Leaf): erstellt .md-Seite mit eingebetteter PDF
-- Für jede Lektion mit Glossar/glossar.tex: erstellt lernkarten.md
+- Für jede Lektion mit lernkarten.tex: erstellt lernkarten.md (Karten aus Notizen)
 - Kopiert PDFs nach docs/assets/pdfs/
 - Aktualisiert den nav-Abschnitt in mkdocs.yml
 """
@@ -74,30 +74,54 @@ def _extract_brace(s: str, pos: int) -> tuple[str, int]:
     return s[pos + 1:i - 1], i
 
 
-def extract_flashcards(tex_path: Path) -> list[dict]:
-    r"""Parse glossar.tex and return [{front, back}] dicts for each \gentry."""
-    text = tex_path.read_text(encoding='utf-8')
+def _strip_tex_comments(text: str) -> str:
+    """Entfernt LaTeX-Kommentare (unescaped % bis Zeilenende, Newline bleibt).
+
+    Nötig, damit erklärende Kommentare in lernkarten.tex, die selbst das
+    Makro \\lernkarte erwähnen, nicht als echte Karten geparst werden.
+    """
+    out = []
+    for line in text.splitlines(keepends=True):
+        i = 0
+        res = []
+        while i < len(line):
+            c = line[i]
+            if c == '\\' and i + 1 < len(line):
+                res.append(line[i:i + 2])
+                i += 2
+                continue
+            if c == '%':
+                if line.endswith('\n'):
+                    res.append('\n')
+                break
+            res.append(c)
+            i += 1
+        out.append(''.join(res))
+    return ''.join(out)
+
+
+def extract_lernkarten(tex_path: Path) -> list[dict]:
+    r"""Parse lernkarten.tex und liefere [{front, back}] je \lernkarte{front}{back}.
+
+    Quelle sind die eigenen Notizen des Studierenden (nicht mehr das Glossar):
+    Vorderseite = roter Titel/Begriff, Rückseite = zugehöriger Inhalt.
+    """
+    text = _strip_tex_comments(tex_path.read_text(encoding='utf-8'))
     cards = []
-    for m in re.finditer(r'\\gentry\b', text):
+    for m in re.finditer(r'\\lernkarte\b', text):
         pos = m.end()
         while pos < len(text) and text[pos] in ' \t\n':
             pos += 1
         if pos >= len(text) or text[pos] != '{':
             continue
         try:
-            num, pos = _extract_brace(text, pos)
+            front, pos = _extract_brace(text, pos)
             while pos < len(text) and text[pos] in ' \t\n':
                 pos += 1
-            title, pos = _extract_brace(text, pos)
-            while pos < len(text) and text[pos] in ' \t\n':
-                pos += 1
-            content, pos = _extract_brace(text, pos)
+            back, pos = _extract_brace(text, pos)
         except (AssertionError, IndexError):
             continue
-        num = num.strip()
-        title = title.strip()
-        front_tex = f"{num}\\quad {title}" if num else title
-        cards.append({'front': front_tex, 'back': content.strip()})
+        cards.append({'front': front.strip(), 'back': back.strip()})
     return cards
 
 
@@ -113,13 +137,17 @@ _CARDS_TEX_PREAMBLE = r"""\documentclass[border=10pt,varwidth=8cm,multi=lkcard]{
 
 
 def _collect_lernkarten_jobs(skripte_path: Path, docs_path: Path) -> list[dict]:
-    """Traversiert skripte/ und sammelt alle Lernkarten-Jobs (eine pro glossar.tex)."""
+    """Traversiert skripte/ und sammelt alle Lernkarten-Jobs (eine pro lernkarten.tex).
+
+    Quelle der Karten sind seit dem Umbau die eigenen Notizen
+    (lernkarten.tex mit \\lernkarte{front}{back}), nicht mehr das Glossar.
+    """
     jobs = []
 
     def _walk(s_path: Path, d_path: Path):
-        glossar = s_path / "glossar.tex"
-        if glossar.exists():
-            cards = extract_flashcards(glossar)
+        source = s_path / "lernkarten.tex"
+        if source.exists():
+            cards = extract_lernkarten(source)
             if cards:
                 rel_from_docs = d_path.relative_to(DOCS_DIR)
                 svg_out_dir = DOCS_DIR / "assets" / "lernkarten" / rel_from_docs
@@ -128,7 +156,7 @@ def _collect_lernkarten_jobs(skripte_path: Path, docs_path: Path) -> list[dict]:
                     Path("assets/lernkarten") / rel_from_docs
                 ).replace("\\", "/") + "/"
                 jobs.append({
-                    "glossar_tex": glossar,
+                    "source_tex": source,
                     "cards": cards,
                     "svg_out_dir": svg_out_dir,
                     "out_md": d_path / "lernkarten.md",
@@ -441,19 +469,19 @@ def write_flashcard_page(job: dict) -> None:
 # ---------------------------------------------------------------------------
 
 def build_tree(skripte_path: Path, docs_path: Path, site_url: str,
-               lernkarten_by_glossar: dict) -> list:
+               lernkarten_by_source: dict) -> list:
     """
     Rekursiv Ordner traversieren, .md-Dateien erzeugen, Nav-Liste zurückgeben.
     skripte_path:          aktueller Pfad in skripte/
     docs_path:             korrespondierender Pfad in docs/
     site_url:              absolute Basis-URL der GitHub Pages Site (mit trailing slash)
-    lernkarten_by_glossar: dict {glossar_tex_path: job} aus dem Pre-Render-Schritt
+    lernkarten_by_source:  dict {lernkarten_tex_path: job} aus dem Pre-Render-Schritt
     """
     items = []
     docs_path.mkdir(parents=True, exist_ok=True)
 
     # Lernkarten-Seite, wenn fuer dieses Verzeichnis ein Job vorgerendert wurde
-    job = lernkarten_by_glossar.get(skripte_path / "glossar.tex")
+    job = lernkarten_by_source.get(skripte_path / "lernkarten.tex")
     if job is not None:
         write_flashcard_page(job)
         rel = str(job["out_md"].relative_to(DOCS_DIR)).replace("\\", "/")
@@ -463,11 +491,12 @@ def build_tree(skripte_path: Path, docs_path: Path, site_url: str,
         if entry.is_dir():
             sub_docs = docs_path / entry.name
             sub_docs.mkdir(parents=True, exist_ok=True)
-            sub_items = build_tree(entry, sub_docs, site_url, lernkarten_by_glossar)
+            sub_items = build_tree(entry, sub_docs, site_url, lernkarten_by_source)
             if sub_items:
                 items.append({folder_to_title(entry.name): sub_items})
 
-        elif entry.suffix == ".tex":
+        # lernkarten.tex ist reine Kartenquelle, keine eigene PDF-Seite
+        elif entry.suffix == ".tex" and entry.name != "lernkarten.tex":
             stem = entry.stem
             title = tex_to_title(stem)
 
@@ -538,7 +567,8 @@ def find_first_tex_page(module_path: Path) -> str | None:
     Bevorzugt ziele.tex (Studierhinweise), danach glossar.tex, sonst die erste
     .tex-Datei in alphabetischer Reihenfolge.
     """
-    all_tex = sorted(module_path.rglob("*.tex"))
+    all_tex = [t for t in sorted(module_path.rglob("*.tex"))
+               if t.name != "lernkarten.tex"]
     if not all_tex:
         return None
     preferred = (
@@ -760,7 +790,7 @@ def main():
             print("  [WARN] Lernkarten-Rendering teilweise/komplett fehlgeschlagen",
                   file=sys.stderr)
             lernkarten_jobs = []
-    lernkarten_by_glossar = {j["glossar_tex"]: j for j in lernkarten_jobs}
+    lernkarten_by_source = {j["source_tex"]: j for j in lernkarten_jobs}
 
     # Anki-Decks bauen (nur in CI auf main, ein Deck pro Modul)
     anki_modules: list[dict] = []
@@ -802,7 +832,7 @@ def main():
 
     # Docs-Baum aufbauen
     print("Generiere Docs aus skripte/ ...")
-    nav_skripte = build_tree(SKRIPTE_DIR, DOCS_DIR, site_url, lernkarten_by_glossar)
+    nav_skripte = build_tree(SKRIPTE_DIR, DOCS_DIR, site_url, lernkarten_by_source)
 
     # Pro Modul eine Übersicht-Seite erzeugen und als ersten Nav-Eintrag einfügen
     module_dirs = {
