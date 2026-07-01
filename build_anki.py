@@ -66,9 +66,22 @@ def _module_and_lesson(source_tex: Path) -> tuple[str, str, str]:
     return modul_slug, modul, lektion
 
 
-def _card_guid(source_tex: Path, front_tex: str) -> str:
+def _card_guid(source_tex: Path, card: dict) -> str:
+    """Stabile, eindeutige GUID einer Karte.
+
+    Bevorzugt die explizite, inhaltsunabhaengige Karten-id (\\lernkarte[id]{..}).
+    Damit bleibt der Anki-Lernfortschritt erhalten, auch wenn sich Titel oder
+    Rueckseite spaeter aendern. Die id muss global eindeutig sein.
+
+    Fallback (Karte ohne id): (Datei-Pfad, Abschnitt, Titel) -- eindeutig, aber
+    nicht stabil gegen Titelaenderungen.
+    """
+    cid = card.get('id')
+    if cid:
+        return genanki.guid_for("lernkarte", cid)
     rel = source_tex.resolve().relative_to(SKRIPTE_DIR.resolve())
-    return genanki.guid_for(str(rel).replace("\\", "/"), front_tex)
+    key = f"{card.get('section', '')}||{card.get('title', card.get('front', ''))}"
+    return genanki.guid_for(str(rel).replace("\\", "/"), key)
 
 
 def _deck_id_for(name: str) -> int:
@@ -154,7 +167,7 @@ def build_anki_packages(out_dir: Path) -> list[dict] | None:
                         f'<img src="{front_svg.name}">',
                         f'<img src="{back_svg.name}">',
                     ],
-                    guid=_card_guid(source_tex, c["front"]),
+                    guid=_card_guid(source_tex, c),
                 )
                 deck.add_note(note)
                 notes_count += 1

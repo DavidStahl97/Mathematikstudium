@@ -88,6 +88,16 @@ Sidecars sind in `.gitignore` (`skripte/**/*.tex.hash`) – nicht ins Repo commi
   `\lernkarte{Vorderseite}{Rückseite}`, geparst von `generate_docs.py →
   extract_lernkarten`). Vorderseite = roter Titel/Begriff aus den Notizen,
   Rückseite = zugehöriger weißer Inhalt. Vorlage: `vorlagen/lernkarten.tex`.
+- `\lernabschnitt{1.1 Reelle Zahlen}` setzt den aktuellen Abschnitt; er wird
+  klein über den Kartentitel gesetzt.
+- **Karten-id & Anki-GUID:** `\lernkarte[61211-1-01]{Titel}{Rückseite}` – die
+  optionale `[id]` ist ein stabiler, inhaltsunabhängiger Bezeichner (Schema
+  `<modul>-<lektion>-<nr>`). Die **Anki-GUID** = `guid_for("lernkarte", id)`
+  (`build_anki.py`). Dadurch bleibt der Lernfortschritt beim Re-Import erhalten,
+  **auch wenn Titel oder Rückseite später geändert werden** – nur die `id` darf
+  sich nie ändern und muss global eindeutig sein (neue Karte = neue id).
+  Ohne `[id]` Fallback auf `(datei-relpath, abschnitt, titel)` (eindeutig, aber
+  nicht stabil gegen Titeländerungen).
 - `lernkarten.tex` wird **nicht** als eigene PDF-Seite gerendert (nur als
   Kartenquelle geparst). Das `glossar.tex` bleibt als PDF-Glossarseite bestehen,
   ist aber **keine** Kartenquelle mehr.

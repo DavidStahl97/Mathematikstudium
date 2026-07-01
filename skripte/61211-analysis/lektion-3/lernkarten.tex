@@ -3,59 +3,62 @@
 % Format: \lernkarte{Vorderseite (roter Titel)}{Rueckseite (weisser Inhalt)}
 
 % --- OneNote-Seite 3.1 "Grenzwert Funktionen" ---------------------------
+\lernabschnitt{3.1 Grenzwert Funktionen}
 
-\lernkarte{Stetige Fortsetzung}{%
+\lernkarte[61211-3-01]{Stetige Fortsetzung}{%
   \[ F : M \cup \{a\}, \quad F(x) = f(x) \ \forall x \in M \setminus \{a\} \]
   $F$ ist stetig.
 }
 
-\lernkarte{Definition Grenzwert einer Funktion}{%
+\lernkarte[61211-3-02]{Definition Grenzwert einer Funktion}{%
   $F(a)$ stetige Fortsetzung.
   \[ \lim_{x \to a} f(x) = F(a) \qquad (\text{Schreibweise}) \]
 }
 
-\lernkarte{Stetigkeit und Grenzwert}{%
+\lernkarte[61211-3-03]{Stetigkeit und Grenzwert}{%
   \[ f \text{ ist stetig in } a \;\Leftrightarrow\; \lim_{x \to a} f(x) = f(a) \]
 }
 
-\lernkarte{Grenzwert-Kriterien}{%
+\lernkarte[61211-3-04]{Grenzwert-Kriterien}{%
   Umgebungskriterium, $\varepsilon$-$\delta$-Kriterium, Folgenkriterium,
   Cauchykriterium.
 }
 
-\lernkarte{Definition uneigentlicher Grenzwert}{%
+\lernkarte[61211-3-05]{Definition uneigentlicher Grenzwert}{%
   \[ \lim_{x \to a} f(x) = \infty \]
 }
 
 % --- OneNote-Seite 3.2 "Grenzwert Funktion normierte Räume" --------------
+\lernabschnitt{3.2 Grenzwert (normierte Räume)}
 
-\lernkarte{Grenzwert (normierte Räume)}{%
+\lernkarte[61211-3-06]{Grenzwert (normierte Räume)}{%
   $f$ nach $a$ stetig fortsetzbar, $F(a)$ Grenzwert von $f$ in $a$.
   \[ f \text{ ist stetig in } a \;\Leftrightarrow\; \lim_{x \to a} f(x) = f(a) \]
 }
 
-\lernkarte{Grenzwert-Kriterien (normierte Räume)}{%
+\lernkarte[61211-3-07]{Grenzwert-Kriterien (normierte Räume)}{%
   Umgebungskriterium, $\varepsilon$-$\delta$-Kriterium, Folgenkriterium.
 }
 
 % --- OneNote-Seite 3.3 "Differenzierbarkeit in R" -----------------------
+\lernabschnitt{3.3 Differenzierbarkeit in $\mathbb{R}$}
 
-\lernkarte{Definition Differenzierbarkeit (in $\mathbb{R}$)}{%
+\lernkarte[61211-3-08]{Definition Differenzierbarkeit (in $\mathbb{R}$)}{%
   $a$ Häufungspunkt.
   \[ \lim_{x \to a} \frac{f(x) - \big[f(a) + \beta(x-a)\big]}{x - a} = 0 \]
   $\beta$ ist der Grenzwert des Differenzenquotienten $\dfrac{f(x)-f(a)}{x-a}$.
 }
 
-\lernkarte{Ableitung Umkehrfunktion}{%
+\lernkarte[61211-3-09]{Ableitung Umkehrfunktion}{%
   \[ (f^{-1})'(b) = \frac{1}{f'\!\big(f^{-1}(b)\big)}, \qquad f'(a) \neq 0 \]
 }
 
-\lernkarte{Mittelwertsatz der Differentialrechnung}{%
+\lernkarte[61211-3-10]{Mittelwertsatz der Differentialrechnung}{%
   \[ \frac{f(b) - f(a)}{b - a} = f'(\xi) \]
   \[ \frac{f(b) - f(a)}{g(b) - g(a)} = \frac{f'(\xi)}{g'(\xi)} \]
 }
 
-\lernkarte{Regel von l'Hospital}{%
+\lernkarte[61211-3-11]{Regel von l'Hospital}{%
   \[ \lim_{x \to a} \frac{f(x)}{g(x)} = \lim_{x \to a} \frac{f'(x)}{g'(x)} \]
   \begin{itemize}[topsep=2pt,itemsep=1pt,leftmargin=*]
     \item \textbf{Typ $\tfrac{0}{0}$:} $g'(a)\neq 0,\ \lim_{x\to a} f=0,\ \lim_{x\to a} g=0$
@@ -67,7 +70,7 @@
 
 % PRÜFEN: Notiz schreibt "gleichmäßig stetig"; der Satz braucht gleichmäßige
 % KONVERGENZ der Ableitungen (so hier gesetzt) -- bitte prüfen.
-\lernkarte{Differenzierbarkeit der Grenzfunktion}{%
+\lernkarte[61211-3-12]{Differenzierbarkeit der Grenzfunktion}{%
   $f_k'$ gleichmäßig konvergent $\wedge\ f_k(c)$ konvergiert
   $\;\Rightarrow\; f_k$ gleichmäßig konvergent und
   \[ f'(x) = \lim_{k \to \infty} f_k'(x) \]
@@ -75,27 +78,30 @@
 }
 
 % --- OneNote-Seite 3.4 "Raum Hom" ---------------------------------------
+\lernabschnitt{3.4 Raum Hom}
 
-\lernkarte{Norm auf $\mathbb{R}^{n\times n}$}{%
+\lernkarte[61211-3-13]{Norm auf $\mathbb{R}^{n\times n}$}{%
   Zeilensummennorm:
   \[ \|A\| := \max\Bigg\{ \sum_{v=1}^{n} |a_{1v}|, \ \ldots, \
      \sum_{v=1}^{n} |a_{mv}| \Bigg\} \]
 }
 
 % --- OneNote-Seite 3.5 "Differenzierbarkeit Funktionen" -----------------
+\lernabschnitt{3.5 Differenzierbarkeit Funktionen}
 
-\lernkarte{Definition Differenzierbarkeit (Funktionen)}{%
+\lernkarte[61211-3-14]{Definition Differenzierbarkeit (Funktionen)}{%
   \[ \lim_{x \to a} \frac{f(x) - \big[f(a) + A(x-a)\big]}{\|x - a\|} = 0 \]
 }
 
-\lernkarte{Definition Ableitung}{%
+\lernkarte[61211-3-15]{Definition Ableitung}{%
   \[ f' : M \to \mathbb{R}^{m\times n} = \{\, A \mid A \text{ ist } (m,n)\text{-Matrix} \,\} \]
   \[ a \mapsto f'(a) \]
 }
 
 % --- OneNote-Seite 3.6 "Partielle Ableitung" ----------------------------
+\lernabschnitt{3.6 Partielle Ableitung}
 
-\lernkarte{Definition partielle Ableitung}{%
+\lernkarte[61211-3-16]{Definition partielle Ableitung}{%
   \begin{itemize}[topsep=2pt,itemsep=2pt,leftmargin=*]
     \item[(i)] $f \circ \varphi_k$ in $a_k$ differenzierbar
       $\Rightarrow f$ ist nach der $k$-ten Koordinate partiell differenzierbar
@@ -104,7 +110,7 @@
   \end{itemize}
 }
 
-\lernkarte{Beziehung partiell und total}{%
+\lernkarte[61211-3-17]{Beziehung partiell und total}{%
   \[ f'(a) = \nabla f(a) \]
   Funktionalmatrix:
   {\small\[ f'(a) = \begin{pmatrix} D_1 f_1(a) & \cdots & D_n f_1(a) \\
@@ -114,7 +120,7 @@
   Stetig in $a \;\Rightarrow\; f'(a) = \nabla f(a)$.
 }
 
-\lernkarte{Definition Richtungsableitung}{%
+\lernkarte[61211-3-18]{Definition Richtungsableitung}{%
   \[ D_v f(a) = (f \circ \varphi)'(0), \qquad \varphi(t) = a + t\,v \]
   $v = $ Richtung von $\nabla f(a) \;\Rightarrow\; D_v f(a)$ maximal.
 }

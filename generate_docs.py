@@ -101,27 +101,67 @@ def _strip_tex_comments(text: str) -> str:
 
 
 def extract_lernkarten(tex_path: Path) -> list[dict]:
-    r"""Parse lernkarten.tex und liefere [{front, back}] je \lernkarte{front}{back}.
+    r"""Parse lernkarten.tex und liefere Kartendicts.
 
     Quelle sind die eigenen Notizen des Studierenden (nicht mehr das Glossar):
     Vorderseite = roter Titel/Begriff, Rückseite = zugehöriger Inhalt.
+
+    Makros:
+      \lernabschnitt{1.1 Reelle Zahlen}  -- setzt den aktuellen Abschnitt; er
+          wird klein über den Titel jeder folgenden Karte gesetzt.
+      \lernkarte[id]{Titel}{Rueckseite}  -- die optionale [id] ist ein stabiler,
+          inhaltsunabhängiger Bezeichner; daraus wird die Anki-GUID gebildet.
+          Titel/Rückseite dürfen sich ändern, ohne den Lernfortschritt zu
+          verlieren -- solange die id gleich bleibt.
+
+    Rueckgabe je Karte: {front, back, section, title, id}
+      - id:      stabiler Bezeichner (optionales [..]-Argument, oder "")
+      - title:   roher Titel (2. Makro-Argument)
+      - section: aktueller \lernabschnitt (oder "")
+      - front:   gerenderte Vorderseite (Abschnitt klein + Titel gross)
     """
     text = _strip_tex_comments(tex_path.read_text(encoding='utf-8'))
     cards = []
-    for m in re.finditer(r'\\lernkarte\b', text):
+    section = ""
+    for m in re.finditer(r'\\(lernabschnitt|lernkarte)\b', text):
+        cmd = m.group(1)
         pos = m.end()
         while pos < len(text) and text[pos] in ' \t\n':
             pos += 1
+        card_id = ""
+        if cmd == 'lernkarte' and pos < len(text) and text[pos] == '[':
+            close = text.find(']', pos)
+            if close != -1:
+                card_id = text[pos + 1:close].strip()
+                pos = close + 1
+                while pos < len(text) and text[pos] in ' \t\n':
+                    pos += 1
         if pos >= len(text) or text[pos] != '{':
             continue
         try:
+            if cmd == 'lernabschnitt':
+                section, _ = _extract_brace(text, pos)
+                section = section.strip()
+                continue
             front, pos = _extract_brace(text, pos)
             while pos < len(text) and text[pos] in ' \t\n':
                 pos += 1
             back, pos = _extract_brace(text, pos)
         except (AssertionError, IndexError):
             continue
-        cards.append({'front': front.strip(), 'back': back.strip()})
+        title = front.strip()
+        if section:
+            front_render = (r'{\normalsize\mdseries ' + section
+                            + r'}\\[4pt] ' + title)
+        else:
+            front_render = title
+        cards.append({
+            'front': front_render,
+            'back': back.strip(),
+            'section': section,
+            'title': title,
+            'id': card_id,
+        })
     return cards
 
 
