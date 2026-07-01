@@ -16,17 +16,22 @@
 % gefahrlos das Wort \lernkarte enthalten.
 %
 % \lernabschnitt{1.1 Reelle Zahlen}  setzt den aktuellen Abschnitt; er wird
-% klein ueber den Titel jeder folgenden Karte gesetzt und macht die Karten
-% eindeutig (Basis der stabilen Anki-GUID = Datei + Abschnitt + Titel).
+% klein ueber den Titel jeder folgenden Karte gesetzt.
+%
+% \lernkarte[id]{Titel}{Rueckseite}  Die optionale [id] ist ein STABILER,
+% inhaltsunabhaengiger Bezeichner; daraus wird die Anki-GUID gebildet. Schema:
+% <modul>-<lektion>-<laufnummer>, z. B. [61211-1-01]. Titel/Rueckseite duerfen
+% sich spaeter aendern, ohne den Anki-Lernfortschritt zu verlieren -- die id
+% NICHT aendern und je Karte eindeutig vergeben (neue Karte = neue id).
 
 \lernabschnitt{1.1 Titel des Abschnitts}
 
-\lernkarte{Titel der ersten Karte}{%
+\lernkarte[MODUL-N-01]{Titel der ersten Karte}{%
   Inhalt der Rueckseite -- z. B. eine Definition mit Formel:
   \[ a^2 + b^2 = c^2 \]
 }
 
-\lernkarte{Titel der zweiten Karte}{%
+\lernkarte[MODUL-N-02]{Titel der zweiten Karte}{%
   \begin{itemize}[topsep=2pt,itemsep=1pt]
     \item erste Eigenschaft
     \item zweite Eigenschaft

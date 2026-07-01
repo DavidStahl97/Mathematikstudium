@@ -5,22 +5,22 @@
 % --- OneNote-Seite 2.1 "Rückblick Stetigkeit" ---------------------------
 \lernabschnitt{2.1 Rückblick Stetigkeit}
 
-\lernkarte{Definition Umkehrfunktion}{%
+\lernkarte[61211-2-01]{Definition Umkehrfunktion}{%
   $f : A \to B$. \\
   $f$ ist injektiv, dann $f^{-1} : f(A) \to B$.
 }
 
-\lernkarte{Definition Stetigkeit}{%
+\lernkarte[61211-2-02]{Definition Stetigkeit}{%
   \[ \forall V \text{ Umgebung von } f(a) \ \exists U \text{ Umgebung von } a:
      \ f(U \cap M) \subseteq V \]
 }
 
-\lernkarte{Restriktion / lokale Eigenschaft}{%
+\lernkarte[61211-2-03]{Restriktion / lokale Eigenschaft}{%
   $f|_{U\cap M}$ ist stetig. \\
   $f|_{U\cap M}$ stetig in $a \;\Rightarrow\; f$ stetig in $a$.
 }
 
-\lernkarte{Stetigkeitskriterien}{%
+\lernkarte[61211-2-04]{Stetigkeitskriterien}{%
   \begin{itemize}[topsep=2pt,itemsep=3pt,leftmargin=*]
     \item \textbf{$\varepsilon$-$\delta$-Kriterium:}
       $\forall\varepsilon>0 \ \exists\delta>0 \ \forall x\in M:
@@ -32,49 +32,49 @@
   \end{itemize}
 }
 
-\lernkarte{lokale Beschränktheit}{%
+\lernkarte[61211-2-05]{lokale Beschränktheit}{%
   $f|_{U\cap M}$ (Restriktion) ist beschränkt.
 }
 
 % PRÜFEN: Notiz schwer lesbar ("f(a) < f(b)"); sinngemäß Trennung zweier
 % Funktionen -- bitte gegen OneNote prüfen.
-\lernkarte{lokale Trennung}{%
+\lernkarte[61211-2-06]{lokale Trennung}{%
   \[ f(a) < g(a) \;\Rightarrow\; \forall x \in U\cap M: \ f(x) < g(x) \]
 }
 
-\lernkarte{Zwischenwertsatz}{%
+\lernkarte[61211-2-07]{Zwischenwertsatz}{%
   \[ I = [y_1, y_2], \quad \forall c \in (y_1, y_2) \ \exists \xi: \ f(\xi) = c \]
 }
 
-\lernkarte{Eigenschaften strenge Monotonie}{%
+\lernkarte[61211-2-08]{Eigenschaften strenge Monotonie}{%
   \begin{itemize}[topsep=2pt,itemsep=1pt,leftmargin=*]
     \item injektiv $\Leftrightarrow$ streng monoton
     \item streng monoton $\Rightarrow$ stetige, streng monotone Umkehrfunktion
   \end{itemize}
 }
 
-\lernkarte{Definition Häufungspunkt}{%
+\lernkarte[61211-2-09]{Definition Häufungspunkt}{%
   Wenn ein $x \neq a$ in jeder Umgebung von $a$ liegt. \\
   $\forall x$ ist Häufungspunkt in $M \;\Rightarrow\; M$ abgeschlossen.
 }
 
-\lernkarte{Satz von Bolzano-Weierstraß (Häufungspunkte)}{%
+\lernkarte[61211-2-10]{Satz von Bolzano-Weierstraß (Häufungspunkte)}{%
   \[ M \text{ beschränkt} \;\Rightarrow\; \exists \text{ Häufungspunkt} \]
 }
 
-\lernkarte{Kompakte Teilmenge von $\mathbb{R}$}{%
+\lernkarte[61211-2-11]{Kompakte Teilmenge von $\mathbb{R}$}{%
   \[ \text{kompakt} \;\Leftrightarrow\; \text{abgeschlossen} \wedge \text{beschränkt} \]
 }
 
-\lernkarte{Stetiges Bild einer kompakten Menge}{%
+\lernkarte[61211-2-12]{Stetiges Bild einer kompakten Menge}{%
   \[ M \text{ kompakt} \;\Rightarrow\; \text{Bild von } M \text{ ist kompakt} \]
 }
 
-\lernkarte{Satz von Weierstraß}{%
+\lernkarte[61211-2-13]{Satz von Weierstraß}{%
   $M$ kompakt $\Rightarrow \exists$ Maximum und Minimum; gleichmäßig stetig.
 }
 
-\lernkarte{gleichmäßige Stetigkeit}{%
+\lernkarte[61211-2-14]{gleichmäßige Stetigkeit}{%
   \[ \forall\varepsilon>0 \ \exists\delta>0 \ \forall x,y\in M:
      \ |x-y|<\delta \Rightarrow |f(x)-f(y)|<\varepsilon \]
 }
@@ -82,12 +82,12 @@
 % --- OneNote-Seite 2.3 "Stetigkeit R^n" ---------------------------------
 \lernabschnitt{2.3 Stetigkeit $\mathbb{R}^n$}
 
-\lernkarte{Definition Stetigkeit (in $\mathbb{R}^n$)}{%
+\lernkarte[61211-2-15]{Definition Stetigkeit (in $\mathbb{R}^n$)}{%
   \[ \forall V \text{ Umgebung von } f(a) \ \exists U:
      \ f(U \cap M) \subseteq V \]
 }
 
-\lernkarte{Stetigkeitskriterien (in $\mathbb{R}^n$)}{%
+\lernkarte[61211-2-16]{Stetigkeitskriterien (in $\mathbb{R}^n$)}{%
   \begin{itemize}[topsep=2pt,itemsep=3pt,leftmargin=*]
     \item \textbf{$\varepsilon$-$\delta$-Kriterium:}
       $\forall\varepsilon>0 \ \exists\delta>0 \ \forall x\in M:
@@ -100,77 +100,77 @@
   \end{itemize}
 }
 
-\lernkarte{Restriktion / lokale Eigenschaft (in $\mathbb{R}^n$)}{%
+\lernkarte[61211-2-17]{Restriktion / lokale Eigenschaft (in $\mathbb{R}^n$)}{%
   \begin{itemize}[topsep=2pt,itemsep=1pt,leftmargin=*]
     \item $f$ in $a$ stetig $\Rightarrow$ Restriktion $f|_U$ stetig in $a$
     \item $f|_U$ stetig mit Umgebung $U \Rightarrow f$ ist stetig in $a$
   \end{itemize}
 }
 
-\lernkarte{lokale Beschränktheit (in $\mathbb{R}^n$)}{%
+\lernkarte[61211-2-18]{lokale Beschränktheit (in $\mathbb{R}^n$)}{%
   $f$ stetig in $a \;\Rightarrow\; f|_{U\cap M}$ ist beschränkt.
 }
 
-\lernkarte{lokale Trennung (in $\mathbb{R}^n$)}{%
+\lernkarte[61211-2-19]{lokale Trennung (in $\mathbb{R}^n$)}{%
   \[ f(a) \neq g(a) \;\Rightarrow\; f(x) \neq g(x) \quad \forall x \in U(a) \]
 }
 
 % --- OneNote-Seite 2.4 "Zusammenhängende Mengen" ------------------------
 \lernabschnitt{2.4 Zusammenhängende Mengen}
 
-\lernkarte{Definition offene Menge}{%
+\lernkarte[61211-2-20]{Definition offene Menge}{%
   \[ M \text{ ist offen} := \forall x \in M: \ M \text{ ist Umgebung von } x \]
 }
 
-\lernkarte{Definition abgeschlossene Menge}{%
+\lernkarte[61211-2-21]{Definition abgeschlossene Menge}{%
   Jeder Häufungspunkt liegt in $M \;\Rightarrow\; M$ ist abgeschlossen.
 }
 
-\lernkarte{Topologische Stetigkeit}{%
+\lernkarte[61211-2-22]{Topologische Stetigkeit}{%
   \[ \forall S \text{ offen} \ \exists Q \text{ offen}: \ f^{-1}(S) = Q \cap M \]
 }
 
-\lernkarte{Definition zusammenhängende Mengen}{%
+\lernkarte[61211-2-23]{Definition zusammenhängende Mengen}{%
   Keine Trennung in zwei Mengen durch zwei getrennte offene Mengen.
 }
 
-\lernkarte{Zusammenhängende Mengen in $\mathbb{R}$}{%
+\lernkarte[61211-2-24]{Zusammenhängende Mengen in $\mathbb{R}$}{%
   \[ \text{zusammenhängend} \;\Leftrightarrow\; \text{Intervall} \]
 }
 
-\lernkarte{Stetiges Bild zusammenhängender Menge}{%
+\lernkarte[61211-2-25]{Stetiges Bild zusammenhängender Menge}{%
   \[ M \text{ zusammenhängend} \;\Rightarrow\; f(M) \text{ ist zusammenhängend} \]
 }
 
 % --- OneNote-Seite 2.5 "Kompakte Menge" ---------------------------------
 \lernabschnitt{2.5 Kompakte Menge}
 
-\lernkarte{Definition Kompaktheit}{%
+\lernkarte[61211-2-26]{Definition Kompaktheit}{%
   Jede offene Überdeckung besitzt eine (endliche) Teilüberdeckung.
 }
 
-\lernkarte{Folgenkompaktheit}{%
+\lernkarte[61211-2-27]{Folgenkompaktheit}{%
   Jede Folge besitzt eine konvergente Teilfolge.
 }
 
-\lernkarte{Folgerungen Kompaktheit}{%
+\lernkarte[61211-2-28]{Folgerungen Kompaktheit}{%
   \begin{itemize}[topsep=2pt,itemsep=1pt,leftmargin=*]
     \item kompakt $\Rightarrow$ abgeschlossen $\wedge$ beschränkt
     \item stetig: nimmt Maximum und Minimum an
   \end{itemize}
 }
 
-\lernkarte{Satz von Heine-Borel}{%
+\lernkarte[61211-2-29]{Satz von Heine-Borel}{%
   \[ \text{in } \mathbb{R}^n: \quad \text{kompakt} \;\Leftrightarrow\;
      \text{abgeschlossen} \wedge \text{beschränkt} \]
 }
 
-\lernkarte{Stetiges Bild kompakter Menge}{%
+\lernkarte[61211-2-30]{Stetiges Bild kompakter Menge}{%
   \[ f \text{ stetig} \wedge M \text{ kompakt} \;\Rightarrow\;
      f(M) \text{ ist kompakt} \]
 }
 
-\lernkarte{Definition \& Satz gleichmäßige Stetigkeit}{%
+\lernkarte[61211-2-31]{Definition \& Satz gleichmäßige Stetigkeit}{%
   \[ \forall\varepsilon>0 \ \exists\delta>0 \ \forall x,y\in M:
      \ \|x-y\|<\delta \Rightarrow \|f(x)-f(y)\|<\varepsilon \]
   $M$ kompakt und $f$ stetig $\Rightarrow f$ gleichmäßig stetig.
@@ -179,15 +179,15 @@
 % --- OneNote-Seite 2.6 "Konvergenz Funktionenfolgen" --------------------
 \lernabschnitt{2.6 Konvergenz Funktionenfolgen}
 
-\lernkarte{Definition punktweise Konvergenz}{%
+\lernkarte[61211-2-32]{Definition punktweise Konvergenz}{%
   $f_k(x) \to f(x)$ mit $k \to \infty$ für jedes $x$.
 }
 
-\lernkarte{Definition gleichmäßige Konvergenz}{%
+\lernkarte[61211-2-33]{Definition gleichmäßige Konvergenz}{%
   \[ \sup\{\, \|f_k(x) - f(x)\| \;\mid\; x \in M \,\} \;\longrightarrow\; 0 \]
 }
 
-\lernkarte{$\varepsilon$-$n_0$-Definition der Konvergenz}{%
+\lernkarte[61211-2-34]{$\varepsilon$-$n_0$-Definition der Konvergenz}{%
   \begin{itemize}[topsep=2pt,itemsep=3pt,leftmargin=*]
     \item \textbf{punktweise:}
       $\forall x\in M \ \forall\varepsilon>0 \ \exists n_0\in\mathbb{N} \ \forall k\in\mathbb{N}:
@@ -200,22 +200,22 @@
 
 % PRÜFEN: Notiz schreibt "gleichmäßig stetig"; der Satz von Weierstraß
 % braucht gleichmäßige KONVERGENZ (so hier gesetzt) -- bitte prüfen.
-\lernkarte{Satz von Weierstraß (Funktionenfolgen)}{%
+\lernkarte[61211-2-35]{Satz von Weierstraß (Funktionenfolgen)}{%
   $f_k$ stetig in $a \;\wedge\; (f_k)$ gleichmäßig konvergent
   $\;\Rightarrow\; f$ ist stetig in $a$.
 }
 
-\lernkarte{Definition konvergente Funktionenreihe}{%
+\lernkarte[61211-2-36]{Definition konvergente Funktionenreihe}{%
   Funktionenreihe: $\displaystyle\sum_{k=1}^{\infty} f_k$. \\
   $(S_k)$ ist punktweise bzw.\ gleichmäßig konvergent.
 }
 
-\lernkarte{Stetigkeit der Summenfunktion}{%
+\lernkarte[61211-2-37]{Stetigkeit der Summenfunktion}{%
   \[ \sum_{k=1}^{\infty} f_k \ \xrightarrow{\text{gleichm.}}\ S
      \ \wedge\ f_k \text{ stetig in } a \;\Rightarrow\; S \text{ stetig in } a \]
 }
 
-\lernkarte{Majorantenkriterium}{%
+\lernkarte[61211-2-38]{Majorantenkriterium}{%
   $\forall k \ \exists a_k$ (eine Schranke): $\ \sup\{\|f_k(x)\| \mid x\in M\} \le a_k$
   \[ \wedge \ \sum_{k=1}^{\infty} a_k \text{ konvergent}
      \;\Rightarrow\; \sum_{k=1}^{\infty} f_k \text{ konvergiert gleichmäßig} \]
