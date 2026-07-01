@@ -67,12 +67,18 @@ def _module_and_lesson(source_tex: Path) -> tuple[str, str, str]:
 
 
 def _card_guid(source_tex: Path, card: dict) -> str:
-    """Stabile, eindeutige GUID aus (Datei-Pfad, Abschnitt, Titel).
+    """Stabile, eindeutige GUID einer Karte.
 
-    Nutzt den rohen Titel + Abschnitt statt der gerenderten Vorderseite, damit
-    die GUID auch bei rein kosmetischen Aenderungen der Front-Darstellung stabil
-    bleibt. Abschnitt + Titel machen die Karte innerhalb einer Lektion eindeutig.
+    Bevorzugt die explizite, inhaltsunabhaengige Karten-id (\\lernkarte[id]{..}).
+    Damit bleibt der Anki-Lernfortschritt erhalten, auch wenn sich Titel oder
+    Rueckseite spaeter aendern. Die id muss global eindeutig sein.
+
+    Fallback (Karte ohne id): (Datei-Pfad, Abschnitt, Titel) -- eindeutig, aber
+    nicht stabil gegen Titelaenderungen.
     """
+    cid = card.get('id')
+    if cid:
+        return genanki.guid_for("lernkarte", cid)
     rel = source_tex.resolve().relative_to(SKRIPTE_DIR.resolve())
     key = f"{card.get('section', '')}||{card.get('title', card.get('front', ''))}"
     return genanki.guid_for(str(rel).replace("\\", "/"), key)

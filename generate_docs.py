@@ -109,9 +109,13 @@ def extract_lernkarten(tex_path: Path) -> list[dict]:
     Makros:
       \lernabschnitt{1.1 Reelle Zahlen}  -- setzt den aktuellen Abschnitt; er
           wird klein über den Titel jeder folgenden Karte gesetzt.
-      \lernkarte{Titel}{Rueckseite}
+      \lernkarte[id]{Titel}{Rueckseite}  -- die optionale [id] ist ein stabiler,
+          inhaltsunabhängiger Bezeichner; daraus wird die Anki-GUID gebildet.
+          Titel/Rückseite dürfen sich ändern, ohne den Lernfortschritt zu
+          verlieren -- solange die id gleich bleibt.
 
-    Rueckgabe je Karte: {front, back, section, title}
+    Rueckgabe je Karte: {front, back, section, title, id}
+      - id:      stabiler Bezeichner (optionales [..]-Argument, oder "")
       - title:   roher Titel (2. Makro-Argument)
       - section: aktueller \lernabschnitt (oder "")
       - front:   gerenderte Vorderseite (Abschnitt klein + Titel gross)
@@ -124,6 +128,14 @@ def extract_lernkarten(tex_path: Path) -> list[dict]:
         pos = m.end()
         while pos < len(text) and text[pos] in ' \t\n':
             pos += 1
+        card_id = ""
+        if cmd == 'lernkarte' and pos < len(text) and text[pos] == '[':
+            close = text.find(']', pos)
+            if close != -1:
+                card_id = text[pos + 1:close].strip()
+                pos = close + 1
+                while pos < len(text) and text[pos] in ' \t\n':
+                    pos += 1
         if pos >= len(text) or text[pos] != '{':
             continue
         try:
@@ -148,6 +160,7 @@ def extract_lernkarten(tex_path: Path) -> list[dict]:
             'back': back.strip(),
             'section': section,
             'title': title,
+            'id': card_id,
         })
     return cards
 
