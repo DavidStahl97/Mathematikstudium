@@ -1,0 +1,145 @@
+% Lernkarten -- Analysis (Modul 61211), Lektion 4
+% Quelle: eigene OneNote-Notizen (Fernuni Notizbuch > 61211 Analysis)
+% Format: \lernkarte{Vorderseite (roter Titel)}{Rueckseite (weisser Inhalt)}
+
+% --- OneNote-Seite 4.1 "Umkehrsatz" -------------------------------------
+\lernabschnitt{4.1 Umkehrsatz}
+
+\lernkarte[61211-4-01]{Umkehrsatz $\mathrm{Hom}(\mathbb{R}^n,\mathbb{R}^n)$}{%
+  \[ f \text{ injektiv} \Leftrightarrow f \text{ surjektiv}
+     \Leftrightarrow \operatorname{Rang} A = n \Leftrightarrow A^{-1} \text{ existiert} \]
+  \[ f^{-1}(y) = A^{-1} y \]
+}
+
+\lernkarte[61211-4-02]{Lokaler Umkehrsatz}{%
+  $\operatorname{Rang} f'(a) = n$ und stetig differenzierbar $\Rightarrow$
+  \begin{itemize}[topsep=2pt,itemsep=1pt,leftmargin=*]
+    \item $f|_U$ ist injektiv und $f(U) = V$
+    \item Umkehrfunktion $g$ stetig differenzierbar und
+      $g'(y) = f'(x)^{-1}$
+  \end{itemize}
+}
+
+\lernkarte[61211-4-03]{Banachscher Fixpunktsatz}{%
+  \[ \exists\, q \in \mathbb{R}: 0 \le q < 1 \ \text{und}\
+     \|F(x) - F(y)\| \le q\,\|x - y\| \]
+  $\Rightarrow$ genau ein Fixpunkt $x^*$.
+  \[ x_k := F(x_{k-1}) \]
+}
+
+% --- OneNote-Seite 4.2 "Implizit definierte Funktionen" -----------------
+\lernabschnitt{4.2 Implizit definierte Funktionen}
+
+\lernkarte[61211-4-04]{Implizite lineare Funktionen}{%
+  \[ A_2 \begin{pmatrix} z_{m+1} \\ \vdots \\ z_{m+n} \end{pmatrix}
+     = -A_1 \begin{pmatrix} z_1 \\ \vdots \\ z_m \end{pmatrix} \]
+  $\operatorname{Rang} A_2 = n \Rightarrow$
+  \[ L\big(z_1,\ldots,z_m,\, g_1(z_1,\ldots,z_m),\ldots,
+     g_n(z_1,\ldots,z_m)\big) = 0 \]
+}
+
+\lernkarte[61211-4-05]{Satz über implizite Funktionen}{%
+  $F$ stetig differenzierbar, $F(c) = 0$, $\operatorname{Rang} F_y'(c) = n$,
+  \[ \forall z \in M:\ F_y'(z) = \begin{pmatrix}
+       D_{m+1}F_1(z) & \cdots & D_{m+n}F_1(z) \\
+       \vdots & & \vdots \\
+       D_{m+1}F_n(z) & \cdots & D_{m+n}F_n(z) \end{pmatrix} \]
+  \begin{itemize}[topsep=2pt,itemsep=2pt,leftmargin=*]
+    \item[(i)] $\exists\, U,V:\ g : U \to V$ mit $F(x, g(x)) = 0$
+    \item[(ii)] $g'(x) = -\big[F_y'(x, g(x))\big]^{-1} F_x'(x, g(x))$ \\[0.2em]
+      $g'(a) = -\big[F_y'(c)\big]^{-1} F_x'(c)$
+  \end{itemize}
+}
+
+% --- OneNote-Seite 4.3 "Rückblick Höhere Ordnung" -----------------------
+\lernabschnitt{4.3 Rückblick Höhere Ordnung}
+
+\lernkarte[61211-4-06]{Taylorpolynom}{%
+  \[ T_k(x) = \sum_{v=0}^{k} \frac{f^{(v)}(a)}{v!} (x-a)^v \]
+}
+
+\lernkarte[61211-4-07]{Satz von Taylor}{%
+  Restglied:
+  \[ R_k(x) = \frac{f^{(k+1)}(\xi)}{(k+1)!} (x-a)^{k+1} \]
+}
+
+% --- OneNote-Seite 4.4 "Ableitung höherer Ordnung" ----------------------
+\lernabschnitt{4.4 Ableitung höherer Ordnung}
+
+\lernkarte[61211-4-08]{Partielle Ableitung höherer Ordnung}{%
+  Definiert durch Rekursion.
+}
+
+\lernkarte[61211-4-09]{Satz von Schwarz}{%
+  Für alle $k \ge 2$: Wenn alle partiellen Ableitungen stetig sind,
+  dann Reihenfolge egal.
+}
+
+\lernkarte[61211-4-10]{Differenzierbarkeit höherer Ordnung}{%
+  Durch Definition partielle Ableitung höherer Ordnung.
+}
+
+\lernkarte[61211-4-11]{Taylorpolynom (Funktionen)}{%
+  \[ T_k(x) = \sum_{j=0}^{k} \frac{1}{j!}\, t_j(x-a) \]
+  \[ t_j(u) = \begin{cases}
+       f(a) & j = 0 \\[0.3em]
+       \displaystyle\sum_{v_1=1}^{n} \cdots \sum_{v_j=1}^{n}
+         D_{v_1 \cdots v_j} f(a)\, u_{v_1} \cdots u_{v_j} & 1 \le j \le k
+     \end{cases} \]
+}
+
+% --- OneNote-Seite 4.5 "Extrema" ----------------------------------------
+\lernabschnitt{4.5 Extrema}
+
+\lernkarte[61211-4-12]{Definition lokales Maximum}{%
+  \[ f(a) \ge f(x) \quad \forall x \in U \cap M \]
+  bzw. lokales Minimum:
+  \[ f(a) \le f(x) \quad \forall x \in U \cap M \]
+}
+
+\lernkarte[61211-4-13]{Notwendige Bedingung Extrema}{%
+  $f$ in $a$ differenzierbar $\Rightarrow$
+  \[ f'(a) = 0 \]
+  oder ausgedrückt:
+  \[ \operatorname{grad} f(a) = 0 \]
+}
+
+\lernkarte[61211-4-14]{Definition quadratische Form}{%
+  symmetrisch $:= a_{ij} = a_{ji}$ mit $A = (a_{ij})_{nn}$.
+  \[ Q(x) = x \cdot Ax, \qquad A \text{ ist symmetrisch} \]
+  \begin{itemize}[topsep=2pt,itemsep=1pt,leftmargin=*]
+    \item positiv definit $:= Q(x) > 0$
+    \item negativ definit $:= Q(x) < 0$
+    \item semidefinit: $\le$ bzw. $\ge$
+    \item indefinit ansonsten
+  \end{itemize}
+}
+
+\lernkarte[61211-4-15]{Satz lokales Extremum}{%
+  Voraussetzung stetig differenzierbar, deswegen ist $H(a)$ symmetrisch.
+  \begin{itemize}[topsep=2pt,itemsep=1pt,leftmargin=*]
+    \item negativ definit $\Rightarrow$ lokales Maximum
+    \item positiv definit $\Rightarrow$ lokales Minimum
+    \item indefinit $\Rightarrow$ kein lokales Extremum
+    \item positiv bzw. negativ semidefinit $\Rightarrow$ keine Aussage
+      getroffen
+  \end{itemize}
+}
+
+\lernkarte[61211-4-16]{Folgerung lokales Extremum}{%
+  \[ \Delta(a) := D_{11}f(a)\, D_{22}f(a) - \big(D_{12}f(a)\big)^2 \]
+  \begin{itemize}[topsep=2pt,itemsep=2pt,leftmargin=*]
+    \item[(i)] $\Delta(a) > 0$: lokales Maximum, wenn $D_{11}f(a) < 0$;
+      lokales Minimum, wenn $D_{11}f(a) > 0$
+    \item[(ii)] $\Delta(a) < 0$: Sattelpunkt
+    \item[(iii)] $\Delta(a) = 0$: keine Aussage möglich
+  \end{itemize}
+}
+
+\lernkarte[61211-4-17]{Extremum unter Nebenbedingungen}{%
+  $f$ und $g$ stetig differenzierbar,
+  \[ M(g) := \{\, z \in M \mid g(z) = 0 \,\} \neq \emptyset, \]
+  $g'(z)$ Höchstrang $\forall z \in M(g)$.
+  Wenn $f|_{M(g)}$ in einem $c \in M(g)$ ein lokales Extremum, dann
+  \[ f'(c) = (\lambda_1 \cdots \lambda_m)\, g'(c) \]
+}
