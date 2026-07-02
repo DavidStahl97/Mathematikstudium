@@ -1,0 +1,141 @@
+% Lernkarten -- Analysis (Modul 61211), Lektion 5
+% Quelle: eigene OneNote-Notizen (Fernuni Notizbuch > 61211 Analysis, Kapitel 5)
+% Format: \lernkarte{Vorderseite (roter Titel)}{Rueckseite (weisser Inhalt)}
+
+% --- OneNote-Seite 5.1 "Rueckblick Riemann Integral" --------------------
+\lernabschnitt{5.1 Rückblick Riemann Integral}
+
+\lernkarte[61211-5-01]{Unter-/Obersumme}{%
+  Für eine Partition $P = (t_0,\ldots,t_r)$:
+  \[ m_p := \inf\{\, f(t) \mid t_{p-1} \le t \le t_p \,\}, \qquad
+     M_p := \sup\{\, f(t) \mid t_{p-1} \le t \le t_p \,\} \]
+  \[ U(f,P) := \sum_{p=1}^{r} m_p\,(t_p - t_{p-1}), \qquad
+     O(f,P) := \sum_{p=1}^{r} M_p\,(t_p - t_{p-1}) \]
+}
+
+\lernkarte[61211-5-02]{Definition Riemann-Integral}{%
+  Riemann-integrierbar $:=$
+  \[ \sup\{\, U(f,P) \mid P \text{ ist Partition von } I \,\}
+     = \inf\{\, O(f,P) \mid P \text{ ist Partition von } I \,\} \]
+  Bezeichnung: $\int_I f$. \\
+  $R(I)$ ist die Menge der Riemann-integrierbaren Funktionen mit dem
+  Intervall $I$.
+}
+
+\lernkarte[61211-5-03]{Monotone Funktion}{%
+  Jede monotone Funktion ist integrierbar.
+}
+
+\lernkarte[61211-5-04]{Hauptsatz der Differenzial- und Integralrechnung}{%
+  \[ \int_a^b f(t)\,dt = F(a) - F(b) \]
+  Wenn $f$ stetig ist, dann besitzt $f$ eine Stammfunktion mit
+  $F'(x_0) = f(x_0)$.
+}
+
+\lernkarte[61211-5-05]{Partielle Integration}{%
+  \[ \int_a^b f'(x)\,g(x)\,dx
+     = f(x)\,g(x)\Big|_a^b - \int_a^b f(x)\,g'(x)\,dx \]
+}
+
+\lernkarte[61211-5-06]{Substitutionsregel (1. Formel)}{%
+  \[ \int_{\varphi(a)}^{\varphi(b)} f(x)\,dx
+     = \int_a^b f(\varphi(t))\,\varphi'(t)\,dt \]
+  durch die Substitution $x = \varphi(t)$,
+  \[ dx = \frac{d\varphi(t)}{dt}\,dt = \varphi'(t)\,dt \]
+}
+
+\lernkarte[61211-5-07]{Substitutionsregel (2. Formel)}{%
+  \[ \int_a^b f(x)\,dx
+     = \int_{\varphi^{-1}(a)}^{\varphi^{-1}(b)}
+       f(\varphi(t))\,\varphi^{-1}(t)\,dt \]
+}
+
+\lernkarte[61211-5-08]{Mittelwertsatz der Integralrechnung}{%
+  \[ \int_a^b f(x)\,dx = (b-a)\,f(\xi) \]
+}
+
+\lernkarte[61211-5-09]{Folgen integrierbarer Funktionen}{%
+  $(f_k)_{k \in \mathbb{N}} \subset R(I)$, gleichmäßig konvergent gegen $f$.
+  Dann gilt:
+  \[ \int_I f = \lim_{k \to \infty} \int_I f_k \]
+}
+
+\lernkarte[61211-5-10]{Reihen integrierbarer Funktionen}{%
+  $(f_k)_{k \in \mathbb{N}} \subset R(I)$ konvergiert gleichmäßig gegen $s$.
+  Dann gilt:
+  \[ \int_I s = \sum_{k=1}^{\infty} \int_I f_k \]
+  Man darf gliedweise integrieren:
+  \[ \int_I \sum_{k=1}^{\infty} f_k = \sum_{k=1}^{\infty} \int_I f_k \]
+}
+
+% --- OneNote-Seite 5.2 "Uneigentliche Integrale" ------------------------
+\lernabschnitt{5.2 Uneigentliche Integrale}
+
+\lernkarte[61211-5-11]{Definition uneigentliche Integrale}{%
+  Voraussetzung $f|_{[\alpha,\beta]} \in R([\alpha,\beta])$.
+  \[ \int_a^b f(x)\,dx :=
+     \lim_{\substack{\alpha \to a \\ a < \alpha < b}} \int_\alpha^r f(x)\,dx
+     + \lim_{\substack{\beta \to b \\ a < \beta < b}} \int^\beta f(x)\,dx \]
+  (kann gegen $\infty$, $-\infty$ oder auch gegen ein $a \in \mathbb{R}$.)
+}
+
+\lernkarte[61211-5-12]{Gammafunktion}{%
+  \[ \Gamma(x) = \int_0^\infty t^{x-1}\,e^{-t}\,dt \]
+  \begin{enumerate}[topsep=2pt,itemsep=1pt,leftmargin=*]
+    \item[(1)] $\Gamma(x+1) = x\,\Gamma(x)$
+    \item[(2)] $\Gamma(n+1) = n!$
+  \end{enumerate}
+}
+
+\lernkarte[61211-5-13]{Cauchy-Kriterium}{%
+  $\int_a^r f(x)\,dx$ konvergiert ($a \in \widehat{\mathbb{R}}$)
+  \[ \Longleftrightarrow \forall \varepsilon > 0 \ \exists a_0 \in\, ]a,r[
+     \ \forall a', a'' \in\, ]a,a_0[ :\
+     \left| \int_{a'}^{a''} f(x)\,dx \right| < \varepsilon \]
+}
+
+\lernkarte[61211-5-14]{Majorantenkriterium für uneigentliche Integrale}{%
+  $g|_{[a,\beta]},\, f|_{[a,\beta]} \in R([a,\beta])$,
+  \[ |f(x)| \le g(x) \quad \text{für jedes } x \in\, ]a,b[ \quad
+     (\text{mit } b \in \widehat{\mathbb{R}}) \]
+  und $\int_a^b g(x)\,dx$ konvergiert. Dann gilt:
+  \[ \left| \int_a^b f(x)\,dx \right| \le \int_a^b |f(x)|\,dx
+     \le \int_a^b g(x)\,dx \]
+}
+
+% --- OneNote-Seite 5.3 "Parameterintegrale" ----------------------------
+\lernabschnitt{5.3 Parameterintegrale}
+
+\lernkarte[61211-5-15]{Satz Parameterintegrale}{%
+  $K : G \to \mathbb{R},\ \binom{x}{t} \mapsto K(x,t)$ eine auf $G$ stetige
+  Funktion. Dann ist
+  \[ F(x) = \int_\alpha^\beta K(x,t)\,dt \qquad (\alpha, \beta \in \mathbb{R}) \]
+  stetig auf $G$.
+}
+
+\lernkarte[61211-5-16]{Satz uneigentliche Parameterintegrale}{%
+  Stetige Funktion, $F(x) := \int_a^\infty K(x,t)\,dt$ (für jedes $x \in M$
+  konvergiert). $F(x) := \int_a^\infty K(x,t)\,dx$ konvergiert
+  $\forall x \in M$.
+  \\
+  $(T_k)$ mit $F_k(x) := \int_a^{T_k} K(x,t)\,dt$ gleichmäßig auf $U \cap M$
+  konvergiert, so ist $F$ stetig in $a$.
+}
+
+\lernkarte[61211-5-17]{Leibnizsche Regel}{%
+  Gleiche Voraussetzungen wie Satz Parameterintegrale.
+  Weitere Voraussetzungen:
+  \begin{itemize}[topsep=2pt,itemsep=1pt,leftmargin=*]
+    \item $D_1 K, \ldots, D_n K$ existieren und stetig
+    \item Integrale $\int_a^\infty D_1 K(x,t)\,dt, \ldots,
+      \int_a^\infty D_n K(x,t)\,dt$ konvergieren für $x \in M$
+  \end{itemize}
+}
+
+% --- OneNote-Seite 5.4 "Fourierreihe" ----------------------------------
+\lernabschnitt{5.4 Fourierreihe}
+
+\lernkarte[61211-5-18]{Skalarprodukt}{%
+  \[ \langle f, g \rangle := \frac{1}{\pi} \int_{-\pi}^{\pi} f(x)\,g(x)\,dx \]
+  $f$ und $g$ orthogonal, wenn $\langle f, g \rangle = 0$.
+}
