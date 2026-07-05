@@ -5,6 +5,11 @@ on:
     branches: [main, master]
   pull_request:
   workflow_dispatch:
+    inputs:
+      upload_docs_site:
+        description: "docs-site-Artefakt hochladen (nur für Sonderfälle)"
+        type: boolean
+        default: false
 
 permissions:
   contents: write
@@ -111,10 +116,12 @@ jobs:
         run: mkdocs build
 
       - name: HTML-Seite als Artefakt hochladen
+        if: ${{ inputs.upload_docs_site }}
         uses: actions/upload-artifact@v4
         with:
           name: docs-site
           path: site/
+          retention-days: 1
 
       - name: Git konfigurieren
         if: github.ref == 'refs/heads/main' || github.ref == 'refs/heads/master'
@@ -122,6 +129,9 @@ jobs:
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
 
-      - name: Deploy zu gh-pages
+      # Schiebt die gebaute Seite in den gh-pages-Branch.
+      # Das ist KEIN GitHub-Pages-Deploy, sondern nur die Quelle,
+      # aus der Cloudflare Pages die Seite deployt.
+      - name: gh-pages-Branch aktualisieren (Quelle für Cloudflare)
         if: github.ref == 'refs/heads/main' || github.ref == 'refs/heads/master'
         run: mkdocs gh-deploy --force
