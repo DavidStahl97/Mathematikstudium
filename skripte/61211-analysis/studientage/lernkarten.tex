@@ -1,0 +1,942 @@
+% Lernkarten -- Analysis (Modul 61211), Erster Studientag (Delio Mugnolo, Mai 2025)
+% Quelle: studientag-analysis-2026.pdf (Beamer-Folien)
+% Format: \lernkarte[id]{Vorderseite}{Rueckseite}
+%   - \lernabschnitt{...} = das Kapitel, das oben auf jeder Folie steht.
+%     Es wird klein ueber den Kartentitel gesetzt.
+%   - Definition/Satz: Vorderseite = Titel, Rueckseite = Inhalt.
+%   - Aufgabe/Multiple Choice: Vorderseite = Aufgabe, Rueckseite = Loesung.
+%   - Warum-Fragen: Vorderseite = kurze Verstaendnisfrage, Rueckseite = Begruendung.
+%     (Die Begruendungen der Warum-Fragen stehen nicht im PDF; sie wurden
+%      als knappe Standardargumente ergaenzt.)
+% id-Schema: 61211-st-NNN (st = Studientag), global eindeutig, stabil.
+
+% =========================================================================
+% Wiederholung
+% =========================================================================
+\lernabschnitt{Wiederholung}
+
+\lernkarte[61211-st-001]{Definition (konvergente Folge)}{%
+  Sei $(x_n)_{n\in\mathbb{N}}$ eine Folge in $\mathbb{R}$. Dann heißt $(x_n)_{n\in\mathbb{N}}$
+  \emph{konvergent} gegen einen Grenzwert $x\in\mathbb{R}$, falls zu jedem $\varepsilon>0$
+  ein $N\in\mathbb{N}$ existiert, sodass
+  \[ |x_n-x|<\varepsilon \quad\text{für alle } n\ge N. \]
+  \begin{itemize}[topsep=3pt,itemsep=1pt,leftmargin=*]
+    \item $d(x,y):=|x-y|$ ist die Abstandsmetrik.
+    \item Metriken können auch abstrakter über ihre Eigenschaften definiert werden.
+    \item Verallgemeinerung $\leadsto$ normierte Räume.
+  \end{itemize}
+}
+
+\lernkarte[61211-st-002]{Definition (Stetigkeit)}{%
+  Sei $I\subseteq\mathbb{R}$ ein Intervall und $x_0\in I$. Eine Funktion $f:I\to\mathbb{R}$
+  heißt \emph{stetig in $x_0$}, falls
+  \[ \forall\varepsilon>0\ \exists\delta>0\ \forall x\in I:\quad
+     |x-x_0|<\delta \;\Rightarrow\; |f(x)-f(x_0)|<\varepsilon. \]
+  Anschaulich: Jede stetige Funktion kann skizziert werden, ohne den Stift abzusetzen.
+}
+
+\lernkarte[61211-st-003]{Satz (Zwischenwertsatz)}{%
+  Sei $f:I\to\mathbb{R}$ stetig und seien $x,y\in I$ mit $x<y$. Sei weiter $c\in\mathbb{R}$
+  zwischen $f(x)$ und $f(y)$, d.h.
+  \[ c\in[\min\{f(x),f(y)\},\ \max\{f(x),f(y)\}]. \]
+  Dann existiert ein $z\in[x,y]$ mit $f(z)=c$.
+}
+
+\lernkarte[61211-st-004]{\textbf{Aufgabe 1}\\[6pt]{\normalsize\mdseries
+  Zeigen Sie mithilfe des Zwischenwertsatzes, dass die Gleichung
+  $\cos(x)=\frac{x}{2}$ mindestens zwei Lösungen in $\mathbb{R}$ besitzt.}}{%
+  Definiere $g(x)=\cos(x)-\frac{x}{2}$. Da $\cos(x)$ und $\frac{x}{2}$ stetig sind, ist
+  auch $g$ stetig.
+  \begin{itemize}[topsep=3pt,itemsep=1pt,leftmargin=*]
+    \item $g(0)=1-0=1>0$
+    \item $g(\pi)=-1-\frac{\pi}{2}<0$
+    \item $g(-\pi)=-1-\frac{\pi}{2}<0$
+  \end{itemize}
+  Auf $[-\pi,0]$ ist $g(-\pi)<0$, $g(0)>0$, also existiert nach dem ZWS ein
+  $x_1\in(-\pi,0)$ mit $g(x_1)=0$. Auf $[0,\pi]$ ist $g(0)>0$, $g(\pi)<0$, also
+  existiert ein $x_2\in(0,\pi)$ mit $g(x_2)=0$. Somit besitzt $\cos(x)=\frac{x}{2}$
+  mindestens zwei Lösungen.
+}
+
+% =========================================================================
+% Kurseinheit 1: R^n als normierter Raum
+% =========================================================================
+\lernabschnitt{Kurseinheit 1: $\mathbb{R}^n$ als normierter Raum}
+
+\lernkarte[61211-st-005]{Definition (Normierter Raum)}{%
+  Sei $X$ ein Vektorraum über $\mathbb{R}$. Eine Abbildung
+  $\|\cdot\|:X\to\mathbb{R},\ x\mapsto\|x\|$ heißt \emph{Norm}, falls für alle
+  $x,y\in X$ gelten:
+  \begin{align*}
+    \text{(i)}\ \ &\text{(Definitheit)}\quad \|x\|\ge 0 \ \wedge\ (\|x\|=0\Leftrightarrow x=0)\\
+    \text{(ii)}\ \ &\text{(pos.\ Homogenität)}\quad \|\alpha x\|=|\alpha|\,\|x\|\ \ \forall\alpha\in\mathbb{R}\\
+    \text{(iii)}\ \ &\text{(Dreiecksungl.)}\quad \|x+y\|\le\|x\|+\|y\|
+  \end{align*}
+  $(X,\|\cdot\|)$ heißt dann normierter (Vektor-)raum.
+}
+
+\lernkarte[61211-st-006]{Satz (Normen induzieren Metriken)}{%
+  Ist $(X,\|\cdot\|)$ ein normierter Raum, so ist
+  \[ d(x,y):=\|x-y\| \]
+  ein Abstand (eine Metrik).
+}
+
+\lernkarte[61211-st-007]{Beispiele normierter Räume (Folgen \& Funktionen)}{%
+  \begin{itemize}[topsep=3pt,itemsep=3pt,leftmargin=*]
+    \item $(\mathbb{R},|\cdot|)$ ist ein normierter Raum.
+    \item Auf $\mathbb{R}^n$:\ \ $\displaystyle\|x\|_\infty:=\max_{k=1,\dots,n}|x_k|$,\quad
+      $\displaystyle\|x\|_p:=\Big(\sum_{k=1}^n|x_k|^p\Big)^{1/p}$ für $p\in[1,\infty[$.\\
+      $p=2$: Euklidische Norm; $\|\cdot\|_\infty$: Maximumsnorm.
+      Für $p\in\,]0,1[$ ist $\|\cdot\|_p$ \emph{keine} Norm!
+    \item $B(M)=\{f:M\to\mathbb{R}\mid \exists K>0: |f(x)|\le K\ \forall x\}$ mit der
+      Supremumsnorm $\|f\|_\infty:=\sup_{x\in M}|f(x)|$.
+      Spezialfall $\ell^\infty:=B(\mathbb{N})$ (beschränkte Folgen).
+  \end{itemize}
+}
+
+\lernkarte[61211-st-008]{Beispiele normierter Räume ($C([a,b])$)}{%
+  Für $a<b$:
+  \begin{itemize}[topsep=3pt,itemsep=3pt,leftmargin=*]
+    \item $C([a,b])$ (stetige Funktionen) mit
+      $\displaystyle\|f\|=\int_a^b|f(x)|\,dx$ ist ein normierter Raum.
+    \item Da jede stetige Funktion auf einem kompakten Intervall beschränkt ist, ist
+      $C([a,b])$ auch mit $\|\cdot\|_\infty$ ein normierter Raum.
+    \item Frage: Sind diese Normen äquivalent?
+  \end{itemize}
+}
+
+\lernkarte[61211-st-009]{Definition (Äquivalenz von Normen)}{%
+  Sei $X$ ein Vektorraum über $\mathbb{R}$. Zwei Normen $\|\cdot\|$, $|\!\|\cdot\|\!|$
+  auf $X$ heißen \emph{äquivalent}, falls es Konstanten $c,C>0$ gibt mit
+  \[ c\,\|x\|\le |\!\|x\|\!|\le C\,\|x\| \quad\text{für alle } x\in X. \]
+}
+
+\lernkarte[61211-st-010]{\textbf{Aufgabe 2}\\[6pt]{\normalsize\mdseries
+  Betrachten Sie auf $\mathbb{R}^n$ die Abbildung
+  $\displaystyle\|x\|_a:=\sum_{i=1}^n i\cdot|x_i|$. Zeigen Sie, dass dies eine Norm
+  auf $\mathbb{R}^n$ definiert.}}{%
+  \textbf{Definitheit:} $\|x\|_a=0\Leftrightarrow\sum_i i|x_i|=0$. Da alle Summanden
+  $\ge 0$ und $i\ge 1$, folgt $|x_i|=0$ für alle $i$, also $x=0$.\\[3pt]
+  \textbf{Homogenität:} $\|\lambda x\|_a=\sum_i i|\lambda||x_i|=|\lambda|\sum_i i|x_i|
+  =|\lambda|\,\|x\|_a$.\\[3pt]
+  \textbf{Dreiecksungleichung:}
+  $\|x+y\|_a=\sum_i i|x_i+y_i|\le\sum_i i(|x_i|+|y_i|)=\|x\|_a+\|y\|_a$.\\
+  Damit ist $\|\cdot\|_a$ eine Norm.
+}
+
+\lernkarte[61211-st-011]{\textbf{Aufgabe 4}\\[6pt]{\normalsize\mdseries
+  Auf $C^1([0,1])$ betrachten wir $\|f\|_b:=|f(1)|+\|f'\|_\infty$.
+  Prüfen Sie, ob dies eine Norm definiert.}}{%
+  \textbf{Definitheit:} $\|f\|_b=0\Rightarrow|f(1)|=0$ und $\sup|f'|=0$. Aus $f'=0$
+  folgt $f\equiv c$; wegen $f(1)=0$ ist $c=0$, also $f\equiv 0$.\\[3pt]
+  \textbf{Homogenität:} $\|\lambda f\|_b=|\lambda f(1)|+\|\lambda f'\|_\infty
+  =|\lambda|\,\|f\|_b$.\\[3pt]
+  \textbf{Dreiecksungleichung:}
+  $\|f+g\|_b=|f(1)+g(1)|+\|f'+g'\|_\infty\le\|f\|_b+\|g\|_b$.\\
+  Es handelt sich um eine Norm.
+}
+
+\lernkarte[61211-st-012]{Äquivalenz von $\|\cdot\|$ und $\|\cdot\|_\infty$ auf $C([0,1])$}{%
+  Normen $\displaystyle\|f\|=\int_0^1|f(x)|\,dx$ und $\|f\|_\infty=\sup_{x\in[0,1]}|f(x)|$.
+  \begin{itemize}[topsep=3pt,itemsep=2pt,leftmargin=*]
+    \item Wegen Monotonie des Integrals: $\|f\|\le\|f\|_\infty$, also $C:=1$ möglich.
+    \item Aber: Es gibt \emph{kein} $c>0$ mit $c\|f\|_\infty\le\|f\|$. Für
+      $f_n(x):=nx^{n-1}$ gilt
+      \[ +\infty\leftarrow cn=c\|f_n\|_\infty\le\|f_n\|=\int_0^1 nx^{n-1}\,dx=1, \]
+      ein Widerspruch! Die Normen sind \emph{nicht} äquivalent.
+  \end{itemize}
+}
+
+\lernkarte[61211-st-013]{Definition (Konvergenz einer Folge)}{%
+  Sei $(x_n)_{n\in\mathbb{N}}$ eine Folge in einem normierten Raum $(X,\|\cdot\|)$. Dann
+  heißt $(x_n)$ \emph{konvergent} mit Grenzwert $x\in X$, falls
+  \[ \forall\varepsilon>0\ \exists n_0\in\mathbb{N}\ \forall n\ge n_0:\ \|x_n-x\|<\varepsilon. \]
+  Schreibweise $x=\lim_{n\to\infty}x_n$. Andernfalls heißt $(x_n)$ \emph{divergent}.
+  \begin{itemize}[topsep=3pt,itemsep=1pt,leftmargin=*]
+    \item $\lim(x_n+\lambda y_n)=\lim x_n+\lambda\lim y_n$.
+    \item $x_n\to x\Leftrightarrow\|x_n-x\|\to 0$ (in $\mathbb{R}$).
+  \end{itemize}
+}
+
+\lernkarte[61211-st-014]{\textbf{Warum?}\\[6pt]{\normalsize\mdseries
+  Warum ist der Grenzwert einer konvergenten Folge eindeutig?}}{%
+  Angenommen $x_n\to x$ und $x_n\to y$. Mit der Dreiecksungleichung gilt für jedes $n$
+  \[ \|x-y\|\le\|x-x_n\|+\|x_n-y\|\xrightarrow{n\to\infty}0, \]
+  also $\|x-y\|=0$ und damit $x=y$.
+}
+
+\lernkarte[61211-st-015]{Definition (Häufungspunkt einer Folge)}{%
+  Sei $(x_n)_{n\in\mathbb{N}}$ eine Folge in $(X,\|\cdot\|)$. Dann heißt $x\in X$
+  \emph{Häufungspunkt} von $(x_n)$, falls
+  \[ \forall\varepsilon>0\ \forall m\in\mathbb{N}\ \exists n\ge m:\ \|x_n-x\|<\varepsilon. \]
+}
+
+\lernkarte[61211-st-016]{Lemma (Charakterisierung via Teilfolgen)}{%
+  $x\in X$ ist genau dann ein Häufungspunkt von $(x_n)_{n\in\mathbb{N}}$, wenn es eine
+  Teilfolge $(x_{n_k})_{k\in\mathbb{N}}$ gibt, die gegen $x$ konvergiert.
+}
+
+\lernkarte[61211-st-017]{Satz (Bolzano-Weierstraß)}{%
+  Jede beschränkte Folge $(x_n)_{n\in\mathbb{N}}$ in $\mathbb{R}^n$ (d.h.\ es gibt $S\ge 0$
+  mit $\|x_n\|\le S$ für alle $n$) besitzt eine konvergente Teilfolge.\\[3pt]
+  Die Wahl der Norm auf $\mathbb{R}^n$ spielt keine Rolle, da alle Normen auf
+  $\mathbb{R}^n$ äquivalent sind (Satz 1.5.11).
+}
+
+\lernkarte[61211-st-018]{\textbf{Aufgabe 5}\\[6pt]{\normalsize\mdseries
+  Bestimmen Sie alle Häufungspunkte der Folge
+  $x_n=\big(\cos(\tfrac{\pi n}{2}),\ \tfrac{n+1}{n}\big)$ im $\mathbb{R}^2$.}}{%
+  $x_n=(a_n,b_n)$ mit $a_n=\cos(n\pi/2)$ und $b_n=\frac{n+1}{n}\to 1$. Die
+  Häufungspunkte hängen also nur von $a_n$ ab. $a_n$ nimmt periodisch die Werte
+  $\{0,-1,0,1\}$ an; die Häufungswerte sind $0,-1,1$. Kombiniert mit $b_n\to 1$:
+  \[ \{(0,1),\ (-1,1),\ (1,1)\}. \]
+}
+
+\lernkarte[61211-st-019]{Definition (Cauchyfolge)}{%
+  Eine Folge $(x_n)_{n\in\mathbb{N}}$ in einem normierten Raum heißt \emph{Cauchyfolge},
+  falls
+  \[ \forall\varepsilon>0\ \exists n_0\in\mathbb{N}\ \forall n,m\ge n_0:\ \|x_n-x_m\|<\varepsilon. \]
+}
+
+\lernkarte[61211-st-020]{Satz (Eigenschaften von Cauchyfolgen)}{%
+  \begin{enumerate}[label=(\roman*),topsep=3pt,itemsep=2pt,leftmargin=*]
+    \item Jede konvergente Folge ist eine Cauchyfolge.
+    \item Jede Cauchyfolge ist beschränkt.
+    \item Besitzt eine Cauchyfolge eine konvergente Teilfolge, so konvergiert sie selbst.
+  \end{enumerate}
+  Die Rückrichtung von (i) gilt \emph{nicht} immer. Räume, in denen sie gilt, heißen
+  \emph{vollständig}.
+}
+
+\lernkarte[61211-st-021]{Definition (Vollständig / Banachraum)}{%
+  Ein normierter Raum $(X,\|\cdot\|)$ heißt \emph{vollständig} (oder \emph{Banachraum}),
+  falls jede Cauchyfolge konvergiert.
+}
+
+\lernkarte[61211-st-022]{Beispiele (Vollständigkeit)}{%
+  \begin{enumerate}[label=(\roman*),topsep=3pt,itemsep=2pt,leftmargin=*]
+    \item $(\mathbb{R}^n,\|\cdot\|)$ ist vollständig für jede Norm.
+    \item $(B(M),\|\cdot\|_\infty)$ ist vollständig für jede $M\neq\emptyset$.
+    \item $(C([a,b]),\|\cdot\|_\infty)$ ist vollständig.
+    \item $(C([a,b]),\|\cdot\|)$ mit $\|f\|=\int_a^b|f|\,dx$ ist \emph{nicht} vollständig.
+  \end{enumerate}
+  $(\mathbb{Q},|\cdot|)$ ist nicht vollständig: $(1+\tfrac1n)^n$ ist Cauchy, konvergiert
+  aber gegen $e\in\mathbb{R}\setminus\mathbb{Q}$.
+}
+
+\lernkarte[61211-st-023]{\textbf{Aufgabe 3}\\[6pt]{\normalsize\mdseries
+  Sei $a=(a_n)$ eine reelle Folge mit totaler Variation
+  $V(a):=\sum_{n=1}^\infty|a_{n+1}-a_n|$. Zeigen Sie: Ist $V(a)<\infty$, so ist $(a_n)$
+  eine Cauchy-Folge und konvergiert.}}{%
+  Sei $\varepsilon>0$. Da $\sum|a_{k+1}-a_k|$ konvergiert, existiert nach dem
+  Cauchy-Kriterium für Reihen ein $N$, sodass für $n>m\ge N$:
+  $\sum_{k=m}^{n-1}|a_{k+1}-a_k|<\varepsilon$. Mit Teleskopsumme und
+  Dreiecksungleichung:
+  \[ |a_n-a_m|=\Big|\sum_{k=m}^{n-1}(a_{k+1}-a_k)\Big|\le\sum_{k=m}^{n-1}|a_{k+1}-a_k|<\varepsilon. \]
+  Also ist $(a_n)$ Cauchy und konvergiert, da $\mathbb{R}$ vollständig ist.
+}
+
+\lernkarte[61211-st-024]{\textbf{Aufgabe 13}\\[6pt]{\normalsize\mdseries
+  Zeigen Sie, dass der Raum der Polynome $P$ auf $[0,1]$ mit der Maximumsnorm kein
+  Banachraum ist.}}{%
+  Die Taylor-Polynome
+  $\displaystyle p_n(x)=\sum_{k=1}^n\frac{x^k}{k!}$, $x\in[0,1]$, der
+  Exponentialfunktion konvergieren gleichmäßig gegen $e^x$. Daher ist $(p_n)$ eine
+  Cauchyfolge in $(P,\|\cdot\|_\infty)$, aber der Grenzwert $e^x$ ist kein Polynom,
+  liegt also nicht in $P$. Somit ist $P$ nicht vollständig.
+}
+
+% =========================================================================
+% Kurseinheit 1: Multiple Choice
+% =========================================================================
+\lernabschnitt{Kurseinheit 1: Multiple Choice}
+
+\lernkarte[61211-st-025]{\textbf{Frage 1}\\[6pt]{\normalsize\mdseries
+  Die Abbildung $f\mapsto\|f'\|_\infty$ für $f\in C^1([0,1])$ definiert eine Norm auf
+  $C^1([0,1])$.}}{%
+  \textbf{Falsch.} Die Definitheit ist verletzt: konstante Funktionen $f=c\cdot 1$ mit
+  $c\neq 0$ haben Ableitung $0$, also $\|f'\|_\infty=0$, aber $f\neq 0$.
+}
+
+\lernkarte[61211-st-026]{\textbf{Frage 2}\\[6pt]{\normalsize\mdseries
+  Mit $U:=(0,1]$ und $d(x,y):=|x-y|$ ist $((0,1],|\cdot|)$ vollständig, d.h.\ jede
+  Cauchyfolge konvergiert.}}{%
+  \textbf{Falsch.} Die Folge $(\tfrac1n)_{n\in\mathbb{N}}\subseteq(0,1]$ ist eine
+  Cauchyfolge, aber $\tfrac1n\to 0\notin U$.
+}
+
+\lernkarte[61211-st-027]{\textbf{Frage 3}\\[6pt]{\normalsize\mdseries
+  Die Euklidische Norm $\|\cdot\|_2$ und die Maximumsnorm $\|\cdot\|_\infty$ sind
+  äquivalent auf $\mathbb{R}^n$.}}{%
+  \textbf{Wahr.} Für $x=(x_1,\dots,x_n)$ gilt
+  \[ \|x\|_\infty=\max_j|x_j|\le\Big(\sum_{j=1}^n|x_j|^2\Big)^{1/2}=\|x\|_2
+     \le\Big(\sum_{j=1}^n\|x\|_\infty^2\Big)^{1/2}=\sqrt{n}\,\|x\|_\infty. \]
+}
+
+\lernkarte[61211-st-028]{\textbf{Frage 4}\\[6pt]{\normalsize\mdseries
+  Die Menge $L^1([a,b];\mathbb{R})$ aller Riemann-integrierbaren $f:[a,b]\to\mathbb{R}$ ist
+  ein normierter Raum mit $\|f\|_1:=\int_a^b|f(x)|\,dx$.}}{%
+  \textbf{Falsch.} Die Funktion $f(x)=1$ für $x=a$ und $f(x)=0$ für $x\in(a,b]$
+  erfüllt $f\neq 0$ (da $f(a)=1$), aber $\|f\|_1=0$. Die Definitheit ist also verletzt.
+}
+
+\lernkarte[61211-st-029]{\textbf{Frage 5}\\[6pt]{\normalsize\mdseries
+  Für die Definitheit eines normierten Raums genügt es, $\|x\|\ge 0$ und
+  $(\|x\|=0\Rightarrow x=0)$ zu fordern (bei gültiger Homogenität und
+  Dreiecksungleichung).}}{%
+  \textbf{Wahr.} Die andere Implikation folgt aus der positiven Homogenität: ist
+  $x=0$, so gilt $\|x\|=\|0\|=|0|\cdot\|0\|=0$.
+}
+
+% =========================================================================
+% Kurseinheit 2: Stetige Funktionen
+% =========================================================================
+\lernabschnitt{Kurseinheit 2: Stetige Funktionen}
+
+\lernkarte[61211-st-030]{Definition (Umgebungsbegriff)}{%
+  Sei $(X,\|\cdot\|)$ ein normierter Raum, $x\in X$.
+  \begin{enumerate}[label=(\roman*),topsep=3pt,itemsep=2pt,leftmargin=*]
+    \item Für $\varepsilon>0$ heißt $U_\varepsilon(x):=\{y\in X\mid\|x-y\|<\varepsilon\}$
+      die $\varepsilon$-Umgebung von $x$.
+    \item $U\subseteq X$ heißt \emph{Umgebung} von $x$, falls ein $\varepsilon>0$
+      existiert mit $U_\varepsilon(x)\subseteq U$.
+  \end{enumerate}
+}
+
+\lernkarte[61211-st-031]{Definition (Stetigkeit, normierte Räume)}{%
+  Seien $(X,\|\cdot\|_X)$, $(Y,\|\cdot\|_Y)$ normierte Räume, $\emptyset\neq M\subseteq X$.
+  $f:M\to Y$ heißt \emph{stetig in $a\in M$}, falls eine der äquivalenten Bedingungen gilt:
+  \begin{enumerate}[label=(\roman*),topsep=3pt,itemsep=2pt,leftmargin=*]
+    \item (Umgebungen) Zu jeder Umgebung $V$ von $f(a)$ gibt es eine Umgebung $U$ von
+      $a$ mit $f(U\cap M)\subseteq V$.
+    \item ($\varepsilon$-$\delta$) $\forall\varepsilon>0\ \exists\delta>0\ \forall x\in M:
+      \|x-a\|_X<\delta\Rightarrow\|f(x)-f(a)\|_Y<\varepsilon$.
+    \item (Folgen) $x_n\to a\Rightarrow f(x_n)\to f(a)$.
+  \end{enumerate}
+}
+
+\lernkarte[61211-st-032]{Satz (Stetigkeit unter Standardoperationen)}{%
+  Seien $X,Y,Z$ normierte Räume, $M\subseteq X$, $N\subseteq Y$.
+  \begin{enumerate}[label=(\roman*),topsep=3pt,itemsep=1pt,leftmargin=*]
+    \item $f:M\to Y$, $g:N\to Z$ stetig, $f(M)\subseteq N$ $\Rightarrow$ $g\circ f$ stetig.
+    \item $f,g:M\to Y$ stetig, $\alpha\in\mathbb{R}$ $\Rightarrow$ $f+g,\ f-g,\ \alpha f$ stetig.
+    \item $f:M\to Y$ stetig, $M'\subseteq M$ $\Rightarrow$ $f|_{M'}$ stetig.
+    \item $f:M\to Y$, $h:M\to\mathbb{R}$ stetig $\Rightarrow$ $f\cdot h$ stetig.
+    \item $g=(g_1,\dots,g_n):M\to\mathbb{R}^n$ stetig $\Leftrightarrow$ alle $g_i$ stetig.
+  \end{enumerate}
+  Auch $\tfrac{f}{g}$ ist stetig in $a$, falls $g(a)\neq 0$.
+}
+
+\lernkarte[61211-st-033]{Beispiele stetiger Funktionen (I)}{%
+  \begin{enumerate}[label=(\roman*),topsep=3pt,itemsep=1pt,leftmargin=*]
+    \item Jede konstante Funktion ist stetig.
+    \item Jede Lipschitz-stetige (dehnungsbeschränkte) Funktion ist stetig.
+    \item Jede affin-lineare Abbildung $f(x)=Ax+b$ ($A\in\mathbb{R}^{m\times n}$,
+      $b\in\mathbb{R}^m$) ist stetig.
+    \item Eine Norm $\|\cdot\|_X:X\to\mathbb{R}$ ist dehnungsbeschränkt mit $L=1$.
+    \item Projektionen $\pi_j(x_1,\dots,x_n)=x_j$ sind stetig.
+  \end{enumerate}
+}
+
+\lernkarte[61211-st-034]{\textbf{Warum?}\\[6pt]{\normalsize\mdseries
+  Warum ist jede Lipschitz-stetige (dehnungsbeschränkte) Funktion stetig?}}{%
+  Gilt $\|f(x)-f(y)\|\le L\|x-y\|$, so wähle zu $\varepsilon>0$ einfach
+  $\delta:=\varepsilon/L$ (bzw.\ $\delta$ beliebig für $L=0$). Dann folgt
+  \[ \|x-y\|<\delta\ \Rightarrow\ \|f(x)-f(y)\|\le L\|x-y\|<L\delta=\varepsilon. \]
+  Das $\delta$ ist sogar unabhängig vom Punkt (gleichmäßige Stetigkeit).
+}
+
+\lernkarte[61211-st-035]{Beispiele stetiger Funktionen (II)}{%
+  \begin{enumerate}[label=(\roman*),start=6,topsep=3pt,itemsep=2pt,leftmargin=*]
+    \item Jede Polynomfunktion $P:\mathbb{R}^m\to\mathbb{R}$ ist stetig.
+    \item $f:[-1,1]\to\mathbb{R}$, $f(x)=-1$ für $x\in[-1,0]$, $f(x)=1$ für $x\in(0,1]$,
+      ist \emph{unstetig} in $0$: zu $\varepsilon=\tfrac12$ gibt es zu jedem $\delta>0$
+      ein $x_\delta=\tfrac\delta2$ mit $|x_\delta|<\delta$, aber
+      $|f(x_\delta)-f(0)|=2\ge\tfrac12$.
+  \end{enumerate}
+}
+
+\lernkarte[61211-st-036]{\textbf{Aufgabe 6}\\[6pt]{\normalsize\mdseries
+  Untersuchen Sie $\Psi:(C([0,1]),\|\cdot\|_\infty)\to\mathbb{R}$,
+  $\Psi(f)=\int_0^{1/2}f(x)\,dx$ auf Stetigkeit und Dehnungsbeschränktheit und
+  bestimmen Sie eine Konstante $L$.}}{%
+  \[ |\Psi(f)-\Psi(g)|=\Big|\int_0^{1/2}(f-g)\,dx\Big|\le\int_0^{1/2}|f-g|\,dx
+     \le\int_0^{1/2}\|f-g\|_\infty\,dx=\tfrac12\|f-g\|_\infty. \]
+  Dies ist Dehnungsbeschränktheit mit $L=\tfrac12$; daraus folgt die Stetigkeit von $\Psi$.
+}
+
+\lernkarte[61211-st-037]{\textbf{Aufgabe 8}\\[6pt]{\normalsize\mdseries
+  Distanzfunktion $d_M(x)=\inf_{y\in M}\|x-y\|$ ($M\neq\emptyset$).
+  (1) Zeigen Sie: $d_M$ ist dehnungsbeschränkt. (2) Ist $M$ abgeschlossen, so gilt
+  $d_M(x)=0\Leftrightarrow x\in M$.}}{%
+  (1) Für $x,z\in X$ und $y\in M$: $\|x-y\|\le\|x-z\|+\|z-y\|$. Infimum über $y$:
+  $d_M(x)\le\|x-z\|+d_M(z)$, also $d_M(x)-d_M(z)\le\|x-z\|$. Analog umgekehrt, somit
+  $|d_M(x)-d_M(z)|\le\|x-z\|$ (dehnungsbeschränkt mit $L=1$).\\[3pt]
+  (2) $d_M(x)=0\Leftrightarrow$ es gibt $y_n\in M$ mit $y_n\to x$. Da $M$ abgeschlossen
+  ist, liegt der Grenzwert $x$ in $M$.
+}
+
+\lernkarte[61211-st-038]{\textbf{Aufgabe 12}\\[6pt]{\normalsize\mdseries
+  Untersuchen Sie $f:\mathbb{R}^2\to\mathbb{R}$,
+  $f(x,y)=\frac{x^2y}{x^4+y^2}$ für $(x,y)\neq(0,0)$, $f(0,0)=0$, im Ursprung auf
+  Stetigkeit.}}{%
+  Einschränken entlang Geraden bzw.\ Parabeln:
+  \begin{itemize}[topsep=3pt,itemsep=1pt,leftmargin=*]
+    \item $y=x$:\ \ $f(x,x)=\dfrac{x^3}{x^4+x^2}=\dfrac{x}{x^2+1}\to 0$.
+    \item $y=x^2$:\ \ $f(x,x^2)=\dfrac{x^4}{2x^4}=\dfrac12$.
+  \end{itemize}
+  Da $\tfrac12\neq 0$, ist $f$ \emph{unstetig} im Ursprung.
+}
+
+\lernkarte[61211-st-039]{Definition (offene und abgeschlossene Teilmengen)}{%
+  Sei $(X,\|\cdot\|)$ normiert, $A\subseteq X$.
+  \begin{enumerate}[label=(\roman*),topsep=3pt,itemsep=1pt,leftmargin=*]
+    \item $x$ innerer Punkt von $A$: $A$ ist Umgebung von $x$. Das Innere $\mathring A$
+      ist die Menge aller inneren Punkte; $A$ \emph{offen}, falls $A=\mathring A$.
+    \item $x$ Berührpunkt von $A$: jede Umgebung von $x$ enthält ein Element von $A$.
+      Der Abschluss $\overline A$ ist die Menge aller Berührpunkte; $A$
+      \emph{abgeschlossen}, falls $A=\overline A$.
+    \item Rand $\partial A:=\overline A\setminus\mathring A$.
+  \end{enumerate}
+  $A$ abgeschlossen $\Leftrightarrow$ $X\setminus A$ offen.
+}
+
+\lernkarte[61211-st-040]{Beispiel (Inneres, Abschluss, Rand)}{%
+  In $(\mathbb{R},|\cdot|)$:
+  \begin{itemize}[topsep=3pt,itemsep=1pt,leftmargin=*]
+    \item $A=(0,1]$: $\mathring A=(0,1)$,\ $\overline A=[0,1]$,\ $\partial A=\{0,1\}$.
+    \item $A=\mathbb{Q}$: $\mathring A=\emptyset$,\ $\overline A=\mathbb{R}$,\ $\partial A=\mathbb{R}$.
+  \end{itemize}
+}
+
+\lernkarte[61211-st-041]{\textbf{Aufgabe 4 (KE2)}\\[6pt]{\normalsize\mdseries
+  Zeigen Sie: Zwei Normen $\|\cdot\|_a$, $\|\cdot\|_b$ auf $X$ sind genau dann
+  äquivalent, wenn jede $\|\cdot\|_a$-abgeschlossene Menge auch
+  $\|\cdot\|_b$-abgeschlossen ist.}}{%
+  \glqq$\Rightarrow$\grqq{}: Sei $c\|x\|_a\le\|x\|_b\le C\|x\|_a$ und $A$
+  $\|\cdot\|_a$-abgeschlossen. Ist $(x_n)\subseteq A$ mit $x_n\xrightarrow{\|\cdot\|_b}x$,
+  so folgt aus $\|x_n-x\|_a\le\tfrac1c\|x_n-x\|_b$ Konvergenz auch in $\|\cdot\|_a$,
+  also $x\in A$.\\[3pt]
+  \glqq$\Leftarrow$\grqq{}: Widerspruch. Gäbe es zu jedem $n$ ein $x_n$ mit
+  $\|x_n\|_b>n\|x_n\|_a$, so setze $y_n=\tfrac{x_n}{\|x_n\|_b}$: $\|y_n\|_b=1$,
+  $\|y_n\|_a<\tfrac1n\to 0$. $M=\{y_n\}$ ist $\|\cdot\|_b$-abgeschlossen (kein
+  Grenzwert), nach Voraussetzung also auch $\|\cdot\|_a$-abgeschlossen, müsste somit
+  $0$ enthalten -- Widerspruch zu $\|y_n\|_b=1$. Also existiert $C$; $c$ analog.
+}
+
+\lernkarte[61211-st-042]{\textbf{Aufgabe 10}\\[6pt]{\normalsize\mdseries
+  $X=C([0,1])$ mit $\|\cdot\|_\infty$, $A=\{f\mid f(x)>0\ \forall x\in[0,1]\}$.
+  (1) $A$ offen? (2) Bestimmen Sie $\partial A$.}}{%
+  (1) Sei $f\in A$. $f$ ist stetig auf dem kompakten $[0,1]$, also existiert
+  $m=\min f>0$. Für $g\in B_{m/2}(f)$: $g(x)\ge m-\|f-g\|_\infty>m/2>0$, also $g\in A$.
+  $A$ ist offen.\\[3pt]
+  (2) $\overline A=\{f\mid f\ge 0\}$. Da $A$ offen ist, ist
+  $\partial A=\overline A\setminus A$ = alle nicht-negativen Funktionen mit
+  mindestens einer Nullstelle.
+}
+
+\lernkarte[61211-st-043]{\textbf{Aufgabe 14}\\[6pt]{\normalsize\mdseries
+  Sei $X$ normiert und $f:X\to X$. Zeigen Sie: $f$ ist genau dann stetig, wenn
+  $f(\overline A)\subseteq\overline{f(A)}$ für alle $A\subseteq X$.}}{%
+  Stetigkeit bedeutet, dass Urbilder abgeschlossener Mengen abgeschlossen sind. Sei
+  $y=f(x)\in f(\overline A)$. Dann gibt es $x_n\in A$ mit $x_n\to x$. Wegen Stetigkeit
+  $f(x_n)\to f(x)$; da $f(x_n)\in f(A)$, folgt $f(x)\in\overline{f(A)}$.
+}
+
+\lernkarte[61211-st-044]{Satz (Folgenabgeschlossenheit)}{%
+  Eine Teilmenge $A\subseteq X$ ist genau dann abgeschlossen, wenn der Grenzwert jeder
+  konvergenten Folge $(x_n)_{n\in\mathbb{N}}\subseteq A$ ebenfalls in $A$ liegt.
+}
+
+\lernkarte[61211-st-045]{Beispiel (nicht abgeschlossene Menge)}{%
+  $A:=\{\tfrac1n\mid n\in\mathbb{N}\}\subseteq\mathbb{R}$ ist \emph{nicht} abgeschlossen
+  in $\mathbb{R}$, da $A\ni\tfrac1n\to 0\notin A$.
+}
+
+\lernkarte[61211-st-046]{Satz (Eigenschaften offener Mengen)}{%
+  Sei $(X,\|\cdot\|)$ normiert. Dann gilt:
+  \begin{enumerate}[label=(\roman*),topsep=3pt,itemsep=1pt,leftmargin=*]
+    \item $\emptyset$ und $X$ sind offen.
+    \item Die Vereinigung beliebig vieler offener Mengen ist offen.
+    \item Der Durchschnitt endlich vieler offener Mengen ist offen.
+  \end{enumerate}
+}
+
+\lernkarte[61211-st-047]{Korollar (Eigenschaften abgeschlossener Mengen)}{%
+  Sei $(X,\|\cdot\|)$ normiert. Dann gilt:
+  \begin{enumerate}[label=(\roman*),topsep=3pt,itemsep=1pt,leftmargin=*]
+    \item $\emptyset$ und $X$ sind abgeschlossen.
+    \item Der Durchschnitt beliebig vieler abgeschlossener Mengen ist abgeschlossen.
+    \item Die Vereinigung endlich vieler abgeschlossener Mengen ist abgeschlossen.
+  \end{enumerate}
+}
+
+\lernkarte[61211-st-048]{Definition (punktweise \& gleichmäßige Konvergenz)}{%
+  $(f_n)$ Folge beschränkter Funktionen $f_n:M\to Y$, $f:M\to Y$.
+  \begin{enumerate}[label=(\roman*),topsep=3pt,itemsep=2pt,leftmargin=*]
+    \item \emph{punktweise} konvergent: $\forall x:\ \lim_n f_n(x)=f(x)$, d.h.
+      $\forall\varepsilon\,\forall x\,\exists n_0\,\forall n\ge n_0:\|f_n(x)-f(x)\|<\varepsilon$.
+    \item \emph{gleichmäßig} konvergent:
+      $\forall\varepsilon\,\exists n_0\,\forall n\ge n_0\,\forall x:\|f_n(x)-f(x)\|<\varepsilon$
+      $\Leftrightarrow\ \lim_n\sup_{x\in M}\|f_n(x)-f(x)\|=0$.
+  \end{enumerate}
+  Gleichmäßige Konvergenz $\Rightarrow$ punktweise (mit gleichem Grenzwert).
+}
+
+\lernkarte[61211-st-049]{\textbf{Warum?}\\[6pt]{\normalsize\mdseries
+  Warum ist der gleichmäßige Grenzwert stetiger Funktionen wieder stetig?}}{%
+  $\varepsilon/3$-Argument: Für großes $n$ ist $\sup_x\|f_n(x)-f(x)\|<\varepsilon/3$
+  (gleichmäßig). Zu festem $a$ wähle $\delta$ mit $\|f_n(x)-f_n(a)\|<\varepsilon/3$
+  ($f_n$ stetig). Dann
+  \[ \|f(x)-f(a)\|\le\|f(x)-f_n(x)\|+\|f_n(x)-f_n(a)\|+\|f_n(a)-f(a)\|<\varepsilon. \]
+}
+
+\lernkarte[61211-st-050]{Beispiel ($f_n(x)=x^n$)}{%
+  $f_n:[0,1]\to\mathbb{R}$, $f_n(x)=x^n$ konvergiert \emph{punktweise} gegen
+  \[ f(x)=\begin{cases}1,&x=1,\\ 0,&x\in[0,1),\end{cases} \]
+  aber \emph{nicht gleichmäßig} ($f$ ist unstetig). Auf $[0,\tfrac12]$ ist die
+  Einschränkung dagegen gleichmäßig konvergent.
+}
+
+\lernkarte[61211-st-051]{\textbf{Aufgabe 9}\\[6pt]{\normalsize\mdseries
+  Untersuchen Sie $f_n(x)=\frac{x^n}{n}$ auf $[0,1]$ auf punktweise und gleichmäßige
+  Konvergenz.}}{%
+  \textbf{Punktweise:} Für $x\in[0,1)$ ist $x^n\to 0$, für $x=1$ ist $f_n(1)=1/n\to 0$.
+  Grenzwert $f\equiv 0$.\\[3pt]
+  \textbf{Gleichmäßig:} $\|f_n-f\|_\infty=\sup_{[0,1]}\big|\tfrac{x^n}{n}\big|
+  =\tfrac1n\to 0$, also gleichmäßig konvergent.
+}
+
+\lernkarte[61211-st-052]{Definition (Konvergenz einer Funktionenreihe)}{%
+  Sei $(s_n)$ eine Folge von Funktionen $s_n:M\to Y$. Die Reihe
+  $\sum_{n=1}^\infty s_n$ konvergiert \emph{punktweise} bzw.\ \emph{gleichmäßig}, falls
+  die Folge der Partialsummen $\big(\sum_{n=1}^N s_n\big)_{N\in\mathbb{N}}$ punktweise
+  bzw.\ gleichmäßig konvergiert.
+}
+
+\lernkarte[61211-st-053]{Satz (Majorantenkriterium)}{%
+  Gibt es für jedes $n$ eine Konstante $a_n\ge 0$ mit
+  \begin{enumerate}[label=(\roman*),topsep=3pt,itemsep=1pt,leftmargin=*]
+    \item $|s_n(x)|\le a_n$ für alle $n$ und alle $x\in M$,
+    \item $\sum_{n=1}^\infty a_n$ konvergiert,
+  \end{enumerate}
+  dann konvergiert $\sum_{n=1}^\infty s_n$ \emph{gleichmäßig}.
+}
+
+\lernkarte[61211-st-054]{Beispiel (Majorantenkriterium)}{%
+  $s_n:[-1,1]\to\mathbb{R}$, $s_n(x)=\dfrac{x}{n^\alpha}$ mit $\alpha>1$. Dann
+  \[ \sum_{n=1}^\infty|s_n(x)|=\sum_{n=1}^\infty\frac{|x|}{n^\alpha}
+     \le\sum_{n=1}^\infty\frac{1}{n^\alpha}<\infty, \]
+  also konvergiert $\sum_{n=1}^\infty s_n$ nach dem Majorantenkriterium gleichmäßig.
+}
+
+\lernkarte[61211-st-055]{Satz (topologische Charakterisierung der Stetigkeit)}{%
+  Seien $X,Y$ normiert, $M\subseteq X$, $f:M\to Y$. Äquivalent:
+  \begin{enumerate}[label=(\roman*),topsep=3pt,itemsep=1pt,leftmargin=*]
+    \item $f$ ist stetig.
+    \item Für jede offene Menge $U\subseteq Y$ gibt es eine offene Menge $V\subseteq X$
+      mit $f^{-1}(U)=M\cap V$.
+    \item Für jede abgeschlossene Menge $A\subseteq Y$ gibt es eine abgeschlossene
+      Menge $B\subseteq X$ mit $f^{-1}(A)=M\cap B$.
+  \end{enumerate}
+  ($f^{-1}(U)$ bzw.\ $f^{-1}(A)$ ist relativ offen bzw.\ abgeschlossen in $M$.)
+}
+
+\lernkarte[61211-st-056]{Korollar (Urbilder offener/abgeschlossener Mengen)}{%
+  Äquivalent:
+  \begin{enumerate}[label=(\roman*),topsep=3pt,itemsep=1pt,leftmargin=*]
+    \item $f:X\to Y$ ist stetig.
+    \item Für jedes offene $U\subseteq Y$ ist $f^{-1}(U)\subseteq X$ offen.
+    \item Für jedes abgeschlossene $A\subseteq Y$ ist $f^{-1}(A)\subseteq X$ abgeschlossen.
+  \end{enumerate}
+}
+
+\lernkarte[61211-st-057]{Definition und Satz (Kompaktheit)}{%
+  $K\subseteq X$ heißt \emph{kompakt}, falls eine der äquivalenten Bedingungen gilt:
+  \begin{enumerate}[label=(\roman*),topsep=3pt,itemsep=2pt,leftmargin=*]
+    \item (Überdeckungskompaktheit) Jede offene Überdeckung von $K$ besitzt eine
+      endliche Teilüberdeckung.
+    \item (Folgenkompaktheit) Jede Folge $(x_n)\subseteq K$ besitzt eine konvergente
+      Teilfolge mit Grenzwert in $K$.
+  \end{enumerate}
+  Endliche Mengen sind stets kompakt.
+}
+
+\lernkarte[61211-st-058]{\textbf{Aufgabe 11}\\[6pt]{\normalsize\mdseries
+  $K\subset X$ kompakt, $A\subset X$ abgeschlossen. Zeigen Sie, dass
+  $A+K=\{a+k\mid a\in A,k\in K\}$ abgeschlossen ist. Gegenbeispiel für zwei
+  abgeschlossene Mengen im $\mathbb{R}^2$, deren Summe nicht abgeschlossen ist.}}{%
+  Sei $x_n=a_n+k_n\in A+K$ mit $x_n\to x$. Wegen Kompaktheit hat $(k_n)$ eine
+  Teilfolge $k_{n_j}\to k\in K$; dann $a_{n_j}=x_{n_j}-k_{n_j}\to x-k=:a\in A$ (da $A$
+  abgeschlossen). Also $x=a+k\in A+K$.\\[3pt]
+  \textbf{Gegenbeispiel:} $A=\{(x,\tfrac1x)\mid x>0\}$, $B=\{(y,-\tfrac1y)\mid y>0\}$
+  sind abgeschlossen, aber $A+B=(0,\infty)\times\mathbb{R}$ ist nicht abgeschlossen
+  (Punkte beliebig nah an $\{0\}\times\mathbb{R}$, aber keiner darauf).
+}
+
+\lernkarte[61211-st-059]{Satz (stetiges Bild einer kompakten Menge)}{%
+  Seien $X,Y$ normiert, $K\subseteq X$ kompakt und $f:K\to Y$ stetig. Dann ist $f(K)$
+  kompakt.
+}
+
+\lernkarte[61211-st-060]{Korollar (Satz von Weierstraß)}{%
+  Sei $X$ normiert, $K\subseteq X$ kompakt und $f:K\to\mathbb{R}$ stetig. Dann nimmt
+  $f$ Minimum und Maximum auf $K$ an: $\exists x_1,x_2\in K$ mit
+  \[ f(x_1)=\inf_{x\in K}f(x),\qquad f(x_2)=\sup_{x\in K}f(x). \]
+}
+
+\lernkarte[61211-st-061]{Definition (Gleichmäßige Stetigkeit)}{%
+  Seien $(X,\|\cdot\|_X),(Y,\|\cdot\|_Y)$ normiert. $f:M\subseteq X\to Y$ heißt
+  \emph{gleichmäßig stetig}, falls
+  \[ \forall\varepsilon>0\ \exists\delta>0\ \forall x,y\in M:\
+     \|x-y\|_X<\delta\Rightarrow\|f(x)-f(y)\|_Y<\varepsilon. \]
+  Das $\delta$ ist uniform (unabhängig von $x,y$). Es gilt:
+  Dehnungsbeschränktheit $\Rightarrow$ gleichmäßige Stetigkeit $\Rightarrow$ Stetigkeit.
+}
+
+\lernkarte[61211-st-062]{Satz (Heine)}{%
+  Seien $X,Y$ normiert, $K\subseteq X$ kompakt und $f:K\to Y$ stetig. Dann ist $f$
+  \emph{gleichmäßig stetig}.
+}
+
+\lernkarte[61211-st-063]{\textbf{Aufgabe 15}\\[6pt]{\normalsize\mdseries
+  Prüfen Sie, ob $f:(0,\infty)\to\mathbb{R}$, $x\mapsto\sin(\tfrac1x)$ gleichmäßig
+  stetig ist.}}{%
+  Wähle $x_n=\dfrac{1}{2\pi n+\pi/2}$ und $y_n=\dfrac{1}{2\pi n}$. Dann $|x_n-y_n|\to 0$,
+  aber $|f(x_n)-f(y_n)|=1$. Die Definition der gleichmäßigen Stetigkeit ist verletzt --
+  $f$ ist \emph{nicht} gleichmäßig stetig.
+}
+
+\lernkarte[61211-st-064]{Satz (kompakt $\Rightarrow$ abgeschlossen \& beschränkt)}{%
+  Sei $K$ eine kompakte Teilmenge eines normierten Raums $(X,\|\cdot\|)$. Dann ist $K$
+  abgeschlossen und beschränkt (es gibt $C\ge 0$ mit $\|x\|\le C$ für alle $x\in K$).
+}
+
+\lernkarte[61211-st-065]{Korollar (Heine-Borel)}{%
+  Eine Teilmenge $K\subseteq\mathbb{R}^n$ ist genau dann kompakt, wenn sie
+  abgeschlossen und beschränkt ist.
+}
+
+\lernkarte[61211-st-066]{Korollar (Normäquivalenz auf $\mathbb{R}^n$)}{%
+  Je zwei Normen $\|\cdot\|_1$, $\|\cdot\|_2$ auf $\mathbb{R}^n$ sind äquivalent. Für
+  äquivalente Normen stimmen Konvergenz-, Cauchy-, Stetigkeits- und Topologiebegriffe
+  überein (offen/abgeschlossen/kompakt).\\[3pt]
+  \textbf{Vorsicht:} In $\infty$-dimensionalen Räumen sind nicht alle Normen äquivalent!
+}
+
+\lernkarte[61211-st-067]{Beispiel ($B(\mathbb{N})$: nicht konvergente Folge)}{%
+  $B(\mathbb{N})$ mit $\|x\|_\infty=\sup_n|x_n|$. Betrachte $(x^{(k)})_{k\in\mathbb{N}}$
+  mit $x_n^{(k)}=1$ für $n=k$ und $0$ sonst. Für $k\neq l$ ist
+  $\|x^{(k)}-x^{(l)}\|_\infty=1$, also ist $(x^{(k)})$ keine Cauchyfolge und
+  \emph{nicht konvergent} bzgl.\ $\|\cdot\|_\infty$.
+}
+
+\lernkarte[61211-st-068]{Heine-Borel gilt nicht in $\infty$-dim.\ Räumen}{%
+  In $B(\mathbb{N})$ mit $\|\cdot\|_\infty$ sei $M=\{x\mid\|x\|_\infty\le 1\}$.
+  \begin{itemize}[topsep=3pt,itemsep=1pt,leftmargin=*]
+    \item $M$ ist beschränkt.
+    \item $M=(\|\cdot\|_\infty)^{-1}(]-\infty,1])$ ist abgeschlossen (Urbild einer
+      abgeschlossenen Menge unter der stetigen Norm).
+    \item Die Einheitsvektor-Folge $(x^{(k)})$ liegt in $M$, aber jede Teilfolge erfüllt
+      $\|x^{(k_l)}\|_\infty=1$, kann also nicht konvergieren.
+  \end{itemize}
+  $M$ ist beschränkt und abgeschlossen, aber \emph{nicht} kompakt.
+}
+
+\lernkarte[61211-st-069]{Definition (Zusammenhängende Menge)}{%
+  $M\subseteq X$ heißt \emph{zusammenhängend}, falls für jedes Paar offener Mengen
+  $U_1,U_2\subseteq X$ mit $U_1\cap U_2=\emptyset$ und $M\subseteq U_1\cup U_2$ gilt:
+  $U_1\cap M=\emptyset$ oder $U_2\cap M=\emptyset$.\\[3pt]
+  Zusammenhängende Mengen können nicht durch offene Mengen getrennt werden.
+}
+
+\lernkarte[61211-st-070]{Satz (Zusammenhängende Mengen in $\mathbb{R}$)}{%
+  Eine Teilmenge $M\subseteq\mathbb{R}$ ist genau dann zusammenhängend, wenn $M$ ein
+  Intervall ist.
+}
+
+\lernkarte[61211-st-071]{Satz (Verallgemeinerung des Zwischenwertsatzes)}{%
+  Seien $X,Y$ normiert, $\emptyset\neq M\subseteq X$ zusammenhängend und $f:M\to Y$
+  stetig. Dann ist $f(M)$ zusammenhängend.
+}
+
+\lernkarte[61211-st-072]{Definition (Häufungspunkt einer Menge)}{%
+  Sei $X$ normiert, $\emptyset\neq M\subseteq X$, $a\in X$. Dann heißt $a$
+  \emph{Häufungspunkt von $M$}, falls in jeder Umgebung von $a$ mindestens ein Punkt
+  $x\in M$ mit $x\neq a$ liegt.
+}
+
+\lernkarte[61211-st-073]{Satz (Häufungspunkt via Folge)}{%
+  $a\in X$ ist genau dann Häufungspunkt von $\emptyset\neq M\subseteq X$, wenn es eine
+  Folge $(a_n)\subseteq M\setminus\{a\}$ mit $a_n\to a$ gibt.\\[3pt]
+  \glqq$\Rightarrow$\grqq{}: Wähle zu jedem $n$ ein $a\neq a_n\in U_{1/n}(a)\cap M$;
+  dann $\|a_n-a\|<\tfrac1n\to 0$.\\[2pt]
+  \emph{Beispiel:} Die Häufungspunkte von $(0,1)$ in $(\mathbb{R},|\cdot|)$ sind $[0,1]$.
+}
+
+\lernkarte[61211-st-074]{\textbf{Warum?}\\[6pt]{\normalsize\mdseries
+  Warum ist die Richtung \glqq$\Leftarrow$\grqq{} (Häufungspunkt via Folge) klar?}}{%
+  Gibt es eine Folge $(a_n)\subseteq M\setminus\{a\}$ mit $a_n\to a$, so enthält jede
+  Umgebung $U$ von $a$ ab einem Index $n_0$ das Glied $a_{n_0}\in M$ mit $a_{n_0}\neq a$.
+  Also liegt in jeder Umgebung von $a$ ein von $a$ verschiedener Punkt aus $M$ -- $a$
+  ist Häufungspunkt.
+}
+
+\lernkarte[61211-st-075]{Definition und Satz (stetige Fortsetzung)}{%
+  Seien $X,Y$ normiert, $f:M\to Y$, $a\in X$ Häufungspunkt von $M$. Dann existiert
+  \emph{höchstens eine} stetige Funktion $F:M\cup\{a\}\to Y$ mit $F|_M=f$. Existiert
+  sie, so heißt $F$ die \emph{stetige Fortsetzung} von $f$ in $a$ und $F(a)$ der
+  \emph{Grenzwert} von $f$ in $a$:
+  \[ F(a)=\lim_{x\to a}f(x). \]
+}
+
+\lernkarte[61211-st-076]{Beispiel (stetige Fortsetzung $\tfrac{\sin x}{x}$)}{%
+  $f:(0,1]\to\mathbb{R}$, $f(x)=\dfrac{\sin(x)}{x}$ besitzt die stetige Fortsetzung
+  $F:[0,1]\to\mathbb{R}$ mit
+  \[ F(x)=\begin{cases}\dfrac{\sin x}{x},&x\in(0,1],\\[4pt]1,&x=0,\end{cases} \]
+  da $\lim_{x\to 0}\dfrac{\sin x}{x}=1$.
+}
+
+% =========================================================================
+% Kurseinheit 2: Multiple Choice
+% =========================================================================
+\lernabschnitt{Kurseinheit 2: Multiple Choice}
+
+\lernkarte[61211-st-077]{\textbf{Frage 1}\\[6pt]{\normalsize\mdseries
+  Die Menge $\bigcup_{n=1}^\infty(0,\tfrac{1}{n^{27}})$ ist offen in $\mathbb{R}$.}}{%
+  \textbf{Wahr.} Sie ist als Vereinigung offener Intervalle offen in $\mathbb{R}$.
+}
+
+\lernkarte[61211-st-078]{\textbf{Frage 2}\\[6pt]{\normalsize\mdseries
+  Sei $X$ ein zusammenhängender normierter Raum. Dann gibt es eine nichtleere
+  Teilmenge $A\subsetneq X$, die sowohl offen als auch abgeschlossen ist.}}{%
+  \textbf{Falsch.} Wäre $A$ offen und abgeschlossen, so wäre
+  $X=A\,\dot\cup\,(X\setminus A)$ mit beiden Teilen offen und disjunkt. Da $X$
+  zusammenhängend ist, folgt $A=\emptyset$ oder $X\setminus A=\emptyset$, also
+  $A\in\{\emptyset,X\}$ -- Widerspruch zur Voraussetzung.
+}
+
+\lernkarte[61211-st-079]{\textbf{Frage 3}\\[6pt]{\normalsize\mdseries
+  Sei $f:\mathbb{R}^n\to\mathbb{R}$ stetig. Dann ist
+  $\{x\in\mathbb{R}^n\mid\|x\|_2<2027\cdot f(x)\}$ offen in $\mathbb{R}^n$.}}{%
+  \textbf{Wahr.} Die Menge ist
+  $\{x\mid\|x\|_2-2027f(x)<0\}=(\|\cdot\|_2-2027f)^{-1}\big((-\infty,0)\big)$, also das
+  Urbild einer offenen Menge unter einer stetigen Abbildung (die Norm ist stetig) --
+  damit offen.
+}
+
+\lernkarte[61211-st-080]{\textbf{Frage 4}\\[6pt]{\normalsize\mdseries
+  $f(x,y)=\dfrac{xy}{\sqrt{x^2+y^2}}$ für $(x,y)\neq(0,0)$, $f(0,0)=0$, ist stetig in
+  $(0,0)$.}}{%
+  \textbf{Wahr.} Aus $(x-y)^2\ge 0$ folgt $x^2+y^2\ge 2xy$, also
+  \[ \Big|\frac{xy}{\sqrt{x^2+y^2}}\Big|\le\frac{\tfrac12(x^2+y^2)}{\sqrt{x^2+y^2}}
+     =\tfrac12\sqrt{x^2+y^2}=\tfrac12\|(x,y)\|_2\to 0 \]
+  für $(x,y)\to(0,0)$. Also $\lim_{(x,y)\to 0}f=0=f(0,0)$ (Satz 3.2.2).
+}
+
+\lernkarte[61211-st-081]{\textbf{Frage 5}\\[6pt]{\normalsize\mdseries
+  Sei $M\neq\emptyset$ Teilmenge eines normierten Raums, sodass jeder Häufungspunkt von
+  $M$ in $M$ liegt. Dann ist $M$ abgeschlossen.}}{%
+  \textbf{Wahr.} Ist $(x_n)\subseteq M$ mit $x_n\to x$ (o.B.d.A.\ $x_n\neq x$), so ist
+  $x$ Häufungspunkt von $M$ (jede Umgebung von $x$ enthält fast alle $x_n\in M$), liegt
+  nach Voraussetzung also in $M$. Damit ist $M$ (folgen-)abgeschlossen.
+}
+
+% =========================================================================
+% Kurseinheit 3: Differenzierbare Funktionen im R^n
+% =========================================================================
+\lernabschnitt{Kurseinheit 3: Differenzierbare Funktionen im $\mathbb{R}^n$}
+
+\lernkarte[61211-st-082]{Definition (Differenzierbarkeit in einer Dimension)}{%
+  $f:I\to\mathbb{R}$ auf einem Intervall $I\subseteq\mathbb{R}$ heißt
+  \emph{differenzierbar in $a\in I$}, falls der Grenzwert
+  \[ \lim_{x\to a}\frac{f(x)-f(a)}{x-a}=:c\in\mathbb{R} \]
+  existiert. Dann heißt $f'(a):=c$ die Ableitung. Äquivalent:
+  \[ \lim_{x\to a}\frac{f(x)-(f(a)+c(x-a))}{x-a}=0, \]
+  d.h.\ $f$ wird nahe $a$ durch das Taylorpolynom 1.\ Ordnung (Tangente) approximiert.
+}
+
+\lernkarte[61211-st-083]{Definition ((Totale) Differenzierbarkeit)}{%
+  Sei $M\subseteq\mathbb{R}^n$, $a\in M$ innerer Punkt, $f:M\to\mathbb{R}^m$. Dann heißt
+  $f$ \emph{(total) differenzierbar in $a$}, falls eine Matrix
+  $A\in\mathbb{R}^{m\times n}$ existiert mit
+  \[ \lim_{x\to a}\frac{f(x)-(f(a)+A(x-a))}{\|x-a\|}=0. \]
+  Dann heißt $f'(a):=A$ die (totale) Ableitung. $A$ ist eindeutig; die Wahl der Norm
+  spielt keine Rolle.
+}
+
+\lernkarte[61211-st-084]{Satz (Mittelwertsatz in höherer Dimension)}{%
+  Sei $\emptyset\neq M\subseteq\mathbb{R}^n$, $a,b\in M$, $a\neq b$, sodass die offene
+  Strecke $]a,b[\,\subseteq\mathring M$. Ist $f:M\to\mathbb{R}$ stetig auf $[a,b]$ und
+  differenzierbar auf $]a,b[$, so gibt es ein $c\in\,]a,b[$ mit
+  \[ f(b)-f(a)=f'(c)(b-a). \]
+}
+
+\lernkarte[61211-st-085]{Korollar (konstante Funktionen)}{%
+  Sei $\emptyset\neq M\subseteq\mathbb{R}^n$ zusammenhängend und $f:M\to\mathbb{R}$
+  differenzierbar. Dann gilt:
+  \[ f\ \text{konstant}\ \Longleftrightarrow\ f'(x)=0\in\mathbb{R}^{1\times n}\ \ \forall x\in M. \]
+}
+
+\lernkarte[61211-st-086]{Beispiele (Totale Differenzierbarkeit)}{%
+  \begin{enumerate}[label=(\roman*),topsep=3pt,itemsep=2pt,leftmargin=*]
+    \item $f(x)=Ax+b$ ist auf ganz $\mathbb{R}^n$ differenzierbar mit $f'(a)=A$.
+    \item Jede Polynomfunktion ist differenzierbar.
+    \item Die Euklidische Norm $x\mapsto\|x\|_2$ ist in $0$ \emph{nicht} total
+      differenzierbar: Ein Vektor $v$ mit
+      $\lim_{x\to 0}\big(1-\tfrac{v\cdot x}{\|x\|_2}\big)=0$ würde für $x\perp v$
+      den Grenzwert $1$ liefern -- Widerspruch.
+  \end{enumerate}
+}
+
+\lernkarte[61211-st-087]{Definition (Partielle \& Richtungsdifferenzierbarkeit)}{%
+  Sei $f:M\subseteq\mathbb{R}^n\to\mathbb{R}^m$, $a\in M$.
+  \begin{enumerate}[label=(\roman*),topsep=3pt,itemsep=2pt,leftmargin=*]
+    \item \emph{richtungsdifferenzierbar} in Richtung $v$ ($\|v\|_2=1$):
+      $\displaystyle D_vf(a):=\lim_{t\to 0}\frac{f(a+tv)-f(a)}{t}$ existiert.
+    \item \emph{partiell differenzierbar} bzgl.\ $k$:
+      $\displaystyle D_kf(a)=\frac{\partial f}{\partial x_k}(a)
+      :=\lim_{t\to 0}\frac{f(a+te_k)-f(a)}{t}$ existiert.
+  \end{enumerate}
+}
+
+\lernkarte[61211-st-088]{Satz (Ableitungsregeln)}{%
+  Seien $f,g:M\subseteq\mathbb{R}^n\to\mathbb{R}^m$, $a$ innerer Punkt, $\alpha\in\mathbb{R}$.
+  \begin{enumerate}[label=(\roman*),topsep=3pt,itemsep=1pt,leftmargin=*]
+    \item (Summenregel) $(f+g)'(a)=f'(a)+g'(a)$.
+    \item (Faktorregel) $(\alpha f)'(a)=\alpha f'(a)$.
+    \item (Kettenregel) Ist $h:N\to\mathbb{R}^l$ mit $f(M)\subseteq N$, so gilt
+      \[ (h\circ f)'(a)=\underbrace{h'(f(a))}_{\in\mathbb{R}^{l\times m}}\cdot
+         \underbrace{f'(a)}_{\in\mathbb{R}^{m\times n}}. \]
+  \end{enumerate}
+}
+
+\lernkarte[61211-st-089]{Richtungsableitung \& Jacobimatrix}{%
+  \begin{itemize}[topsep=3pt,itemsep=2pt,leftmargin=*]
+    \item Partielle Differenzierbarkeit bzgl.\ $k$ = Richtungsdifferenzierbarkeit in
+      Richtung $v=e_k$.
+    \item Totale Differenzierbarkeit $\Rightarrow$ Richtungsdifferenzierbarkeit mit
+      $D_vf(a)=f'(a)\cdot v$. Die Ableitung (Jacobimatrix) ist
+      \[ f'(a)=\begin{pmatrix}D_1f_1(a)&\cdots&D_nf_1(a)\\
+         \vdots&&\vdots\\ D_1f_m(a)&\cdots&D_nf_m(a)\end{pmatrix}\in\mathbb{R}^{m\times n}. \]
+  \end{itemize}
+}
+
+\lernkarte[61211-st-090]{Satz (stetige partielle Ableitungen $\Rightarrow$ total db)}{%
+  Sei $a\in M\subseteq\mathbb{R}^n$ innerer Punkt, $f:M\to\mathbb{R}$. Existieren die
+  partiellen Ableitungen $D_1f,\dots,D_nf$ in einer Umgebung $U\subseteq M$ von $a$ und
+  sind sie in $a$ stetig, so ist $f$ (total) differenzierbar in $a$ mit
+  \[ f'(a)=(D_1f(a),\dots,D_nf(a))=\operatorname{grad}f(a). \]
+}
+
+\lernkarte[61211-st-091]{Korollar (stetig partiell db $\Rightarrow$ total db)}{%
+  Sei $M\subseteq\mathbb{R}^n$ offen und $f:M\to\mathbb{R}$ partiell differenzierbar mit
+  stetigen partiellen Ableitungen $D_1f,\dots,D_nf$. Dann ist $f$ (total)
+  differenzierbar. Analog für $f=(f_1,\dots,f_m)$ komponentenweise.
+}
+
+\lernkarte[61211-st-092]{Satz (total differenzierbar $\Rightarrow$ stetig)}{%
+  Sei $M\subseteq\mathbb{R}^n$ offen und $f:M\to\mathbb{R}^n$ (total) differenzierbar.
+  Dann ist $f$ stetig.
+}
+
+\lernkarte[61211-st-093]{\textbf{Aufgabe 17}\\[6pt]{\normalsize\mdseries
+  (a) Ist $g:\mathbb{R}^n\to\mathbb{R}$ total differenzierbar in $a$ notwendig stetig
+  in $a$? (b) Zeigen Sie an $h(x)=x^2\sin(1/x)$ ($h(0)=0$), dass eine differenzierbare
+  Funktion eine unstetige Ableitung haben kann.}}{%
+  (a) \textbf{Ja.} Total diff.\ $\Rightarrow$ $g(a+h)=g(a)+L(h)+r(h)$ mit
+  $\tfrac{r(h)}{\|h\|}\to 0$; da $L$ linear (also stetig) ist, folgt
+  $\lim_{h\to 0}g(a+h)=g(a)$.\\[3pt]
+  (b) $h'(0)=0$ (Differenzenquotient). Für $x\neq 0$:
+  $h'(x)=2x\sin(1/x)-\cos(1/x)$. Da $\cos(1/x)$ für $x\to 0$ keinen Grenzwert hat, ist
+  $h'$ in $0$ nicht stetig.
+}
+
+\lernkarte[61211-st-094]{Beispiel (richtungsdiff., aber nicht total diff.)}{%
+  $f(x,y)=\dfrac{x^2-y^2}{x^2+y^2}\,y$ für $(x,y)\neq(0,0)$, $f(0,0)=0$.
+  \begin{itemize}[topsep=3pt,itemsep=2pt,leftmargin=*]
+    \item \textbf{stetig} in $(0,0)$: $|f(x,y)|\le\|(x,y)\|_2\to 0$.
+    \item \textbf{richtungsdifferenzierbar} in jeder Richtung $v$ ($\|v\|_2=1$):
+      $D_vf(0,0)=v_2(v_1^2-v_2^2)$.
+    \item \textbf{nicht total differenzierbar}: $v\mapsto D_vf(0,0)$ ist nicht linear.
+      Für $v=(\tfrac1{\sqrt2},\tfrac1{\sqrt2})$ ergäbe Linearität
+      $0=\tfrac1{\sqrt2}D_{e_1}f+\tfrac1{\sqrt2}D_{e_2}f=-\tfrac1{\sqrt2}$ -- Widerspruch.
+  \end{itemize}
+}
+
+\lernkarte[61211-st-095]{\textbf{Aufgabe 16}\\[6pt]{\normalsize\mdseries
+  $f(x,y)=\dfrac{xy^2}{x^2+y^2}$ für $(x,y)\neq(0,0)$, $f(0,0)=0$.
+  (a) Partielle Ableitungen in $(0,0)$. (b) Total differenzierbar in $(0,0)$?
+  (c) Richtungsableitung $D_vf(0,0)$.}}{%
+  (a) $\dfrac{\partial f}{\partial x}(0,0)=\lim_{h\to 0}\dfrac{f(h,0)-0}{h}=0$, ebenso
+  $\dfrac{\partial f}{\partial y}(0,0)=0$.\\[3pt]
+  (b) Bei totaler Differenzierbarkeit müsste $L=(0,0)$ sein. Aber entlang $h_1=h_2=t$:
+  \[ \frac{|h_1h_2^2|}{(h_1^2+h_2^2)^{3/2}}=\frac{|t^3|}{(2t^2)^{3/2}}
+     =\frac{1}{2\sqrt2}\neq 0, \]
+  also \emph{nicht} total differenzierbar.\\[3pt]
+  (c) $D_vf(0,0)=\lim_{t\to 0}\dfrac{f(tv_1,tv_2)}{t}=\dfrac{v_1v_2^2}{v_1^2+v_2^2}=v_1v_2^2$.
+}
+
+% =========================================================================
+% Kurseinheit 3: Multiple Choice
+% =========================================================================
+\lernabschnitt{Kurseinheit 3: Multiple Choice}
+
+\lernkarte[61211-st-096]{\textbf{Frage 1}\\[6pt]{\normalsize\mdseries
+  Ist $f:\mathbb{R}\to\mathbb{R}$ stetig differenzierbar mit $f(0)=f(1)$, so hat $f'$
+  im Intervall $[0,1]$ eine Nullstelle.}}{%
+  \textbf{Wahr.} Nach dem Mittelwertsatz existiert ein $c\in[0,1]$ mit
+  \[ f'(c)=\frac{f(1)-f(0)}{1-0}=0. \]
+}
+
+\lernkarte[61211-st-097]{\textbf{Frage 2}\\[6pt]{\normalsize\mdseries
+  Die Euklidische Norm $\mathbb{R}^2\ni x\mapsto\|x\|_2=\sqrt{x^2+y^2}$ ist partiell
+  differenzierbar.}}{%
+  \textbf{Falsch.} In $(0,0)$ ist sie nicht partiell differenzierbar, da
+  $\dfrac{\|(0,0)+he_i\|_2-0}{h}=\dfrac{|h|}{h}$ und
+  $\lim_{h\to 0^-}\tfrac{|h|}{h}=-1\neq 1=\lim_{h\to 0^+}\tfrac{|h|}{h}$.
+}
+
+\lernkarte[61211-st-098]{\textbf{Frage 3}\\[6pt]{\normalsize\mdseries
+  Sei $f:(0,\infty)\to\mathbb{R}$ differenzierbar und $g(x):=f(\|x\|_2)$ auf
+  $\mathbb{R}^n\setminus\{0\}$. Dann ist $g$ total differenzierbar mit
+  $g'(x)=f'(\|x\|)\cdot\frac{x^T}{\|x\|_2}$.}}{%
+  \textbf{Wahr.} Dies folgt mit der Kettenregel.
+}
+
+\lernkarte[61211-st-099]{\textbf{Frage 4}\\[6pt]{\normalsize\mdseries
+  Sei $n\ge 2$. Ist $f:\mathbb{R}^n\to\mathbb{R}$ partiell differenzierbar in $a$, so
+  ist $f$ auch stetig in $a$.}}{%
+  \textbf{Falsch.} Für $f(x,y)=\dfrac{xy}{x^2+y^2}$ ($f(0,0)=0$) ist $f$ in $(0,0)$
+  unstetig (entlang $(\tfrac1n,\tfrac1n)$ gilt $f=\tfrac12\not\to 0$), aber partiell
+  differenzierbar mit $D_if(0,0)=0$ für $i=1,2$.
+}
+
+\lernkarte[61211-st-100]{\textbf{Frage 5}\\[6pt]{\normalsize\mdseries
+  Sei $f:\mathbb{R}\to\mathbb{R}$ differenzierbar mit beschränkter Ableitung $f'$. Dann
+  ist $f$ dehnungsbeschränkt.}}{%
+  \textbf{Wahr.} Nach dem Mittelwertsatz existiert zu $x<y$ ein $c\in(x,y)$ mit
+  \[ |f(x)-f(y)|=|f'(c)|\cdot|x-y|\le\|f'\|_\infty\cdot|x-y|, \]
+  also ist $f$ dehnungsbeschränkt mit $L=\|f'\|_\infty<\infty$.
+}
+
+\lernkarte[61211-st-101]{Satz (Differenzierbarkeit der Grenzfunktion)}{%
+  Sei $a\in M\subseteq\mathbb{R}^n$ innerer Punkt, $(f_k)$ eine Folge in
+  $\mathrm{Abb}(M,\mathbb{R})$, die punktweise gegen $f$ konvergiert. Existieren auf
+  einer Umgebung $U$ von $a$ die partiellen Ableitungen $D_1f_k,\dots,D_nf_k$ (in $a$
+  stetig) und konvergieren $(D_if_k)_k$ gleichmäßig auf $U$, so ist $f$ in $a$ partiell
+  differenzierbar mit
+  \[ D_if(a)=\lim_{k\to\infty}D_if_k(a). \]
+  (\glqq Vertausche Differentiation mit punktweiser Konvergenz\grqq{}.)
+}
+
+\lernkarte[61211-st-102]{Satz (Differenzierbarkeit der Summenfunktion)}{%
+  Sei $a\in M\subseteq\mathbb{R}^n$ innerer Punkt, $(f_k)$ mit
+  $\sum_{k=1}^\infty f_k$ punktweise konvergent. Existieren auf $U$ die stetigen
+  partiellen Ableitungen $D_if_k$ und konvergieren die Reihen
+  $\sum_k D_if_k$ gleichmäßig auf $U$, so ist $\sum_{k=1}^\infty f_k$ in $a$ partiell
+  differenzierbar mit
+  \[ \Big(\sum_{k=1}^\infty f_k\Big)'(a)=\Big(\sum_{k=1}^\infty D_1f_k,\dots,
+     \sum_{k=1}^\infty D_nf_k\Big). \]
+  Das Majorantenkriterium hilft, die gleichmäßige Konvergenz nachzuweisen.
+}
