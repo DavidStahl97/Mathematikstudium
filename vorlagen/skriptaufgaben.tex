@@ -1,0 +1,54 @@
+% Skriptaufgaben -- MODULNAME (Modul NUMMER), Lektion N
+% Quelle: die im Lehrtext-Skript eingebetteten UEBUNGSAUFGABEN (z. B. "Ü 1.3.1")
+% am Ende jedes Abschnitts, samt der zugehoerigen offiziellen Loesungen aus dem
+% Loesungsteil desselben Skripts. NICHT die Einsendeaufgaben.
+%
+% Format je Karte:  \lernkarte[id]{Vorderseite}{Rueckseite}
+%   Vorderseite = Uebungsnummer (Titelzeile) + Aufgabenstellung (moeglichst
+%                 originalgetreu transkribiert -- nur was im Skript steht)
+%   Rueckseite  = GANZ KURZ skizzierte Loesung (Kernidee + Ergebnis, 1-3 Zeilen),
+%                 abgeleitet aus dem offiziellen Loesungsteil
+%
+% Diese Datei wird -- wie lernkarten.tex -- NICHT als eigenstaendiges PDF
+% kompiliert. generate_docs.py (extract_lernkarten) parst nur die \lernkarte-
+% Makros; Vorder- und Rueckseite werden einzeln in Flip-Karten (Web) und
+% Anki-Karten gerendert. Der Inhalt beider Argumente ist reines LaTeX -- Mathe
+% inline mit $...$ oder abgesetzt mit \[...\]; Aufzaehlungen mit enumitem;
+% Tabellen mit array/booktabs.
+%
+% Verfuegbare Pakete beim Rendern: amsmath, amssymb, enumitem, array, booktabs.
+% Kommentarzeilen (mit % am Zeilenanfang) werden ignoriert.
+%
+% \lernabschnitt{1.1 Reelle Zahlen}  setzt den aktuellen Abschnitt; er wird
+% klein ueber den Titel jeder folgenden Karte gesetzt.
+%
+% \lernkarte[id]{Titel}{Rueckseite}  Die optionale [id] ist ein STABILER,
+% inhaltsunabhaengiger Bezeichner; daraus wird die Anki-GUID gebildet. Schema
+% fuer Skriptaufgaben: <modul>-<lektion>-sa-<laufnummer>, z. B. [61211-1-sa-01]
+% ("sa" = Skriptaufgabe). Titel/Rueckseite duerfen sich spaeter aendern, ohne
+% den Anki-Lernfortschritt zu verlieren -- die id NICHT aendern und je Karte
+% eindeutig vergeben (neue Karte = neue id). Die id muss global eindeutig sein
+% und ist damit disjunkt zu den Notiz-ids <modul>-<lektion>-<nr>.
+%
+% Im Anki-Deck landen diese Karten unter einem eigenen Unterdeck je Lektion:
+%   Mathematikstudium::MODULNAME::Lektion N::Skriptaufgaben
+
+\lernabschnitt{1.1 Titel des Abschnitts}
+
+\lernkarte[MODUL-N-sa-01]{%
+  Übungsaufgabe Ü 1.1.1\\[4pt]
+  Aufgabenstellung der ersten Übungsaufgabe.
+}{%
+  Kurze Lösungsskizze -- Kernidee und Ergebnis:
+  \[ x = 42 \]
+}
+
+\lernkarte[MODUL-N-sa-02]{%
+  Übungsaufgabe Ü 1.1.2\\[4pt]
+  Aufgabenstellung der zweiten Übungsaufgabe.
+}{%
+  \begin{itemize}[topsep=2pt,itemsep=1pt]
+    \item Schritt / Kernidee
+    \item Ergebnis
+  \end{itemize}
+}

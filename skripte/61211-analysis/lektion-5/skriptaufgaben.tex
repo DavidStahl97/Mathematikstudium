@@ -1,0 +1,257 @@
+% Skriptaufgaben -- Analysis (Modul 61211), Lektion 5
+% Quelle: die im Lehrtext-Skript (61211-05-S.pdf) eingebetteten UEBUNGSAUFGABEN
+%   "Ü 5.x.y" am Ende jedes Abschnitts, samt der offiziellen Loesungen aus dem
+%   Loesungsteil "Loesungen der Aufgaben zu 5.x" desselben Skripts.
+% Format: \lernkarte[id]{Vorderseite: Ü-Nummer + Aufgabe}{Rueckseite: kurze Loesung}
+% id-Schema: 61211-5-sa-NN  ("sa" = Skriptaufgabe)
+%
+% --- Abschnitt 5.1 Riemannintegral auf Intervallen des R^1 ---------------
+\lernabschnitt{5.1 Rückblick und Ergänzungen: Das Riemannintegral auf Intervallen des $\mathbb{R}^1$}
+
+\lernkarte[61211-5-sa-01]{%
+  Übung 5.1.1\\[4pt]
+  Sei $I=[a,b]$, $a<b$, und seien $f,g\in\mathcal{R}(I)$. Zeigen Sie
+  $fg\in\mathcal{R}(I)$.
+  (Hinweis: Betrachten Sie zunächst $g=f$, und benutzen Sie
+  $4fg=(f+g)^2-(f-g)^2$.)
+}{%
+  Für $f\ge0$: $O(f^2,P)-U(f^2,P)\le2\|f\|_\infty\bigl(O(f,P)-U(f,P)\bigr)$,
+  also $f^2\in\mathcal{R}(I)$; allgemein via $\widehat f=f+\widehat c$.
+  Dann $fg=\tfrac14\bigl[(f+g)^2-(f-g)^2\bigr]\in\mathcal{R}(I)$.
+}
+
+\lernkarte[61211-5-sa-02]{%
+  Übung 5.1.2\\[4pt]
+  Beweisen Sie die Aussagen (i) bis (iv) von 5.1.9 (Rechenregeln für das
+  Integral mit vertauschten bzw. beliebig angeordneten Grenzen).
+}{%
+  Jeweils über $\int_b^a=-\int_a^b$ auf 5.1.7 zurückführen:
+  (i) Linearität in $\pm g$, (ii) $\int_b^a\alpha f=\alpha\int_b^a f$,
+  (iii) $|\int_b^a f|\le(b-a)\|f\|_\infty$, (iv) Additivität
+  $\int_{x_1}^{x_2}+\int_{x_2}^{x_3}=\int_{x_1}^{x_3}$ per Fallunterscheidung.
+}
+
+\lernkarte[61211-5-sa-03]{%
+  Übung 5.1.3\\[4pt]
+  (a) Sei $I=[a,b]$, $f:I\to\mathbb{R}$ stetig, $f(x)\ge0$. Zeigen Sie
+  $\int_I f=0\Rightarrow f=\widehat{0}|_I$.
+  (b) Zeigen Sie, dass $\|f\|_1:=\int_a^b|f(t)|\,dt$ eine Norm auf $C(I)$ ist.
+}{%
+  (a) Annahme $f(c)>0$: lokale Trennung (2.1.12) liefert eine positive
+  Riemannsche Untersumme, also $\int_I f>0$ -- Widerspruch.\\
+  (b) Definitheit aus (a), Homogenität aus 5.1.7(ii), Dreiecksungleichung
+  aus $|f+g|\le|f|+|g|$ und 5.1.7(i),(iii).
+}
+
+\lernkarte[61211-5-sa-04]{%
+  Übung 5.1.4\\[4pt]
+  Berechnen Sie mithilfe partieller Integration:
+  (i) $\int_a^b xe^x\,dx$,\quad
+  (ii) $\int_a^b e^x\sin x\,dx$,\quad
+  (iii) $\int_a^b x^2\ln|x|\,dx$ ($a,b<0$ oder $a,b>0$).
+}{%
+  (i) $(b-1)e^b-(a-1)e^a$.\\
+  (ii) $\tfrac12\bigl(e^b(\sin b-\cos b)-e^a(\sin a-\cos a)\bigr)$.\\
+  (iii) $\tfrac{b^3}{3}\ln|b|-\tfrac{a^3}{3}\ln|a|-\tfrac19(b^3-a^3)$.
+}
+
+\lernkarte[61211-5-sa-05]{%
+  Übung 5.1.5\\[4pt]
+  Berechnen Sie mithilfe geeigneter Substitutionen (für positive $a,b$):
+  (i) $\int_a^b e^{\sqrt{x}}\,dx$,\quad (ii) $\int_a^b\tfrac{\ln x}{x}\,dx$,\quad
+  (iii) $\int_a^b\sqrt{\arctan x}\,\tfrac{1}{1+x^2}\,dx$,\quad
+  (iv) $\int_a^b\bigl((x+\alpha)^2+\beta^2\bigr)^{-1}dx$ ($\beta>0$).
+}{%
+  (i) $2\bigl((\sqrt b-1)e^{\sqrt b}-(\sqrt a-1)e^{\sqrt a}\bigr)$
+  ($x=t^2$).\\
+  (ii) $\tfrac12(\ln^2 b-\ln^2 a)$ ($x=e^t$).\\
+  (iii) $\tfrac23\bigl(\sqrt{(\arctan b)^3}-\sqrt{(\arctan a)^3}\bigr)$.\\
+  (iv) $\tfrac1\beta\bigl(\arctan\tfrac{b+\alpha}{\beta}-\arctan\tfrac{a+\alpha}{\beta}\bigr)$.
+}
+
+% --- Abschnitt 5.2 Uneigentliche Integrale -------------------------------
+\lernabschnitt{5.2 Uneigentliche Integrale}
+
+\lernkarte[61211-5-sa-06]{%
+  Übung 5.2.1\\[4pt]
+  Zeigen Sie, dass die Eigenschaften des Integrals (i) bis (iii) von 5.1.7
+  auch für uneigentliche Integrale gelten.
+}{%
+  Da $f|_{[\alpha,\beta]},g|_{[\alpha,\beta]}\in\mathcal{R}$, gilt
+  $(f\pm g)|_{[\alpha,\beta]}\in\mathcal{R}$; mit 5.1.7 und Grenzübergang
+  (3.1.6) folgen (i) Linearität, (ii) Skalar, (iii) Monotonie/Positivität.
+}
+
+\lernkarte[61211-5-sa-07]{%
+  Übung 5.2.2\\[4pt]
+  Seien $f,g$ differenzierbar auf $I$ mit stetigen Ableitungen. Ist $f'g$
+  uneigentlich integrierbar und existieren $(fg)(a+),(fg)(b-)$, so ist auch
+  $fg'$ uneigentlich integrierbar und
+  $\int_a^b f'g\,dx=(fg)(b-)-(fg)(a+)-\int_a^b fg'\,dx$.
+}{%
+  Partielle Integration 5.1.11 auf jedem $[\alpha,\beta]$ liefert
+  $\int_\alpha^\beta f'g=f(\beta)g(\beta)-f(\alpha)g(\alpha)-\int_\alpha^\beta fg'$.
+  Grenzübergänge $\alpha\to a$, $\beta\to b$ (Existenz aus Voraussetzung)
+  ergeben die Behauptung.
+}
+
+\lernkarte[61211-5-sa-08]{%
+  Übung 5.2.3\\[4pt]
+  Zeigen Sie, dass $\displaystyle\int_0^1\frac{1}{\sqrt{x}\sqrt{1-x}}\,dx$
+  konvergiert, und bestimmen Sie seinen Wert.
+}{%
+  Mit $\tfrac{1}{\sqrt{x-x^2}}=\tfrac{2}{\sqrt{1-(2x-1)^2}}$ ist eine
+  Stammfunktion $\arcsin(2x-1)$. Grenzwerte
+  $\arcsin(-1)=-\tfrac\pi2$, $\arcsin1=\tfrac\pi2$, also Wert $\pi$.
+}
+
+\lernkarte[61211-5-sa-09]{%
+  Übung 5.2.4\\[4pt]
+  Beweisen Sie das Majorantenkriterium: Gilt $|f(x)|\le g(x)$ auf $]a,b[$ und
+  konvergiert $\int_a^b g\,dx$, so konvergieren auch $\int_a^b|f|\,dx$ und
+  $\int_a^b f\,dx$ mit $|\int_a^b f|\le\int_a^b|f|\le\int_a^b g$.
+}{%
+  Cauchykriterium 5.2.6: aus $|\int_{\alpha'}^\alpha f|\le\int_{\alpha'}^\alpha|f|
+  \le\int_{\alpha'}^\alpha g<\varepsilon$ (analog rechts) folgt die
+  uneigentliche Integrierbarkeit von $|f|$ und $f$; die Abschätzung aus
+  3.1.6(vi).
+}
+
+\lernkarte[61211-5-sa-10]{%
+  Übung 5.2.5\\[4pt]
+  (a) Beweisen Sie das Integralkriterium: Für monoton fallendes
+  $f:[1,\infty[\to[0,\infty[$ konvergiert $\sum_{k=1}^\infty f(k)$ genau dann,
+  wenn $\int_1^\infty f(x)\,dx$ konvergiert.
+  (b) Folgern Sie: $\sum_{k=1}^\infty\tfrac{1}{k^\alpha}$ konvergiert genau
+  für $\alpha>1$.
+}{%
+  (a) Aus $f(k)\ge\int_k^{k+1}f\ge f(k+1)$ folgt
+  $\sum_{k=1}^j f(k)\ge\int_1^{j+1}f\ge\sum_{k=2}^{j+1}f(k)$; beide
+  Richtungen über Monotonie und Beschränktheit.\\
+  (b) $\int_1^\beta x^{-\alpha}dx=\tfrac{1}{1-\alpha}(\beta^{1-\alpha}-1)$
+  konvergiert für $\alpha>1$, divergiert für $\alpha\le1$.
+}
+
+% --- Abschnitt 5.3 Parameterintegrale ------------------------------------
+\lernabschnitt{5.3 Parameterintegrale}
+
+\lernkarte[61211-5-sa-11]{%
+  Übung 5.3.1\\[4pt]
+  Zeigen Sie, dass durch
+  $\displaystyle F(x):=\int_1^\infty\frac{1-\cos(xt)}{t}e^{-\gamma t}\,dt$
+  ($\gamma>0$) eine stetige Funktion $F:[0,\infty[\to\mathbb{R}$ definiert wird.
+}{%
+  $|K(x,t)|\le2e^{-\gamma t}$ und $\int_1^\infty e^{-\gamma t}dt=\tfrac1\gamma
+  e^{-\gamma}$, also Konvergenz nach Majorantenkriterium. Die
+  $F_k(x)=\int_1^{k+1}K$ konvergieren wegen $|F-F_k|\le\tfrac2\gamma
+  e^{-\gamma(k+1)}\to0$ gleichmäßig; mit 5.3.2 ist $F$ stetig.
+}
+
+\lernkarte[61211-5-sa-12]{%
+  Übung 5.3.2\\[4pt]
+  Zeigen Sie, dass durch $\displaystyle F(x):=\int_0^1\ln(x^2+t^2)\,dt$ eine
+  differenzierbare Funktion $F:\mathbb{R}\setminus\{0\}\to\mathbb{R}$ gegeben
+  ist, und berechnen Sie $F'$ (i) mit partieller Integration, (ii) mit der
+  Leibnizschen Regel.
+}{%
+  (i) $F(x)=\ln(x^2+1)-2+2x\arctan\tfrac1x$, ableiten.\\
+  (ii) Leibniz 5.3.4 mit $D_1K=\tfrac{2x}{x^2+t^2}$.\\
+  Beide Wege: $F'(x)=2\arctan\tfrac1x$.
+}
+
+\lernkarte[61211-5-sa-13]{%
+  Übung 5.3.3\\[4pt]
+  Zeigen Sie, dass (für festes $\beta>0$) durch
+  $\displaystyle F(x):=\int_0^\beta e^{-xt}\frac{\sin t}{t}\,dt$
+  (mit $\tfrac1t\sin t:=1$ für $t=0$) eine differenzierbare Funktion
+  $F:\mathbb{R}\to\mathbb{R}$ definiert ist. Berechnen Sie $F'(x)$.
+}{%
+  $K$ stetig, $D_1K(x,t)=-e^{-xt}\sin t$ stetig; Leibniz 5.3.4 gibt
+  $F'(x)=-\int_0^\beta e^{-xt}\sin t\,dt$. Zweimalige partielle Integration:
+  \[ F'(x)=\frac{e^{-x\beta}}{1+x^2}(x\sin\beta+\cos\beta)-\frac{1}{1+x^2}. \]
+}
+
+\lernkarte[61211-5-sa-14]{%
+  Übung 5.3.4\\[4pt]
+  Zeigen Sie, dass durch
+  $\displaystyle F(x):=\int_0^\infty e^{-xt}\frac{\sin t}{t}\,dt$ eine
+  differenzierbare Funktion $F:\,]0,\infty[\to\mathbb{R}$ gegeben ist,
+  berechnen Sie $F'(x)$ und zeigen Sie $F(x)=-\arctan x+c$; bestimmen Sie $c$.
+}{%
+  $|K|\le e^{-xt}$, $|D_1K|\le e^{-xt}$: Majoranten- und gleichmäßige
+  Konvergenz, Leibniz 5.3.5 gibt $F'(x)=-\int_0^\infty e^{-xt}\sin t\,dt
+  =-\tfrac{1}{1+x^2}$. Also $F(x)=-\arctan x+c$; aus $\lim_{x\to\infty}F=0$
+  folgt $c=\tfrac\pi2$, d.\,h. $F(x)=-\arctan x+\tfrac\pi2$.
+}
+
+% --- Abschnitt 5.4 Fourierreihen -----------------------------------------
+\lernabschnitt{5.4 Fourierreihen}
+
+\lernkarte[61211-5-sa-15]{%
+  Übung 5.4.1\\[4pt]
+  Sei $f\in\mathcal{R}(]-\pi,\pi])$. Zeigen Sie:
+  (i) ist $f$ gerade, so $a_k=\tfrac2\pi\int_0^\pi f(x)\cos(kx)\,dx$, $b_k=0$;
+  (ii) ist $f$ ungerade, so $a_k=0$, $b_k=\tfrac2\pi\int_0^\pi f(x)\sin(kx)\,dx$.
+}{%
+  Integral über $[-\pi,\pi]$ aufspalten, im linken Teil $x=-t$ substituieren.
+  (i) $\cos$ gerade, $f$ gerade $\Rightarrow$ die beiden Integrale addieren
+  sich ($a_k$) bzw. heben sich auf ($b_k=0$).
+  (ii) $f$ ungerade $\Rightarrow$ $a_k=0$, $b_k$ verdoppelt sich.
+}
+
+\lernkarte[61211-5-sa-16]{%
+  Übung 5.4.2\\[4pt]
+  Stellen Sie die Fourierreihe von $f(x):=\tfrac{|x|}{x}$ für
+  $x\in\,]-\pi,\pi]\setminus\{0\}$, $f(0):=0$ (im Übrigen $2\pi$-periodisch)
+  auf, und bestimmen Sie alle $x$, für welche die Reihe gegen $f(x)$
+  konvergiert. Was erhalten Sie für $x=\tfrac\pi2$?
+}{%
+  $f$ ungerade, $a_k=0$, $b_k=\tfrac{2}{\pi k}(1-(-1)^k)$; Reihe
+  $\tfrac4\pi\sum_{\ell=1}^\infty\tfrac{\sin((2\ell-1)x)}{2\ell-1}$.
+  Konvergenz gegen $f(x)$ für alle $x\ne(2j-1)\pi$; für $x=\tfrac\pi2$:
+  $1=\tfrac4\pi\sum_{\ell=1}^\infty\tfrac{(-1)^{\ell-1}}{2\ell-1}$.
+}
+
+\lernkarte[61211-5-sa-17]{%
+  Übung 5.4.3\\[4pt]
+  Stellen Sie die Fourierreihe von $f(x):=x^2$ für $x\in\,]-\pi,\pi]$
+  (im Übrigen $2\pi$-periodisch) auf und zeigen Sie, dass $f$ dargestellt
+  wird. Beweisen Sie damit
+  $1-\tfrac{1}{2^2}+\tfrac{1}{3^2}-\dots=\tfrac{\pi^2}{12}$ und
+  $1+\tfrac{1}{2^2}+\tfrac{1}{3^2}+\dots=\tfrac{\pi^2}{6}$.
+}{%
+  $f$ gerade: $b_k=0$, $a_0=\tfrac23\pi^2$,
+  $a_k=\tfrac{4(-1)^k}{k^2}$, also
+  $f(x)=\tfrac{\pi^2}{3}+4\sum_{k=1}^\infty\tfrac{(-1)^k}{k^2}\cos(kx)$.
+  $x=0$: $\sum\tfrac{(-1)^{k-1}}{k^2}=\tfrac{\pi^2}{12}$;
+  $x=\pi$: $\sum\tfrac{1}{k^2}=\tfrac{\pi^2}{6}$.
+}
+
+% --- Abschnitt 5.5 Der Weierstraßsche Approximationssatz -----------------
+\lernabschnitt{5.5 Der Weierstraßsche Approximationssatz}
+
+\lernkarte[61211-5-sa-18]{%
+  Übung 5.5.1\\[4pt]
+  Sei $f:\mathbb{R}\to\mathbb{R}$ $2\pi$-periodisch mit
+  $f|_{]-\pi,\pi]}\in\mathcal{R}(]-\pi,\pi])$. Zeigen Sie für die Fejérschen
+  Summen
+  $\displaystyle\sigma_n(x)=\tfrac12 a_0+\sum_{k=1}^n\Bigl(1-\tfrac{k}{n+1}\Bigr)
+  (a_k\cos(kx)+b_k\sin(kx))$.
+}{%
+  Mit $A_k$ ($=\tfrac12 a_0C_0$ bzw. $a_kC_k+b_kS_k$) und $s_k=\sum_{j=0}^k A_j$:
+  \[ \sigma_n=\tfrac{1}{n+1}\sum_{k=0}^n s_k
+     =\tfrac{1}{n+1}\sum_{j=0}^n(n+1-j)A_j
+     =\sum_{j=0}^n\Bigl(1-\tfrac{j}{n+1}\Bigr)A_j. \]
+}
+
+\lernkarte[61211-5-sa-19]{%
+  Übung 5.5.2\\[4pt]
+  Für $n\in\mathbb{N}_0$ sei $T_n:[-1,1]\to\mathbb{R}$, $T_n(x):=\cos(n\arccos x)$.
+  Zeigen Sie, dass $T_n$ eine Polynomfunktion vom Grad $n$ ist
+  (Tschebyscheffpolynom).
+}{%
+  Mit $y:=\arccos x$ und dem Additionstheorem:
+  $T_{n+2}(x)+T_n(x)=2\cos((n+1)y)\cos y=2xT_{n+1}(x)$,
+  also $T_{n+2}(x)=2xT_{n+1}(x)-T_n(x)$. Wegen $T_0=1$, $T_1(x)=x$ folgt per
+  Induktion, dass $T_n$ ein Polynom vom Grad $n$ ist.
+}
