@@ -1,0 +1,371 @@
+% Skriptaufgaben -- Analysis (Modul 61211), Lektion 3
+% Quelle: die im Lehrtext-Skript (61211-03-S.pdf) eingebetteten UEBUNGSAUFGABEN
+%   "Ü 3.x.y" am Ende jedes Abschnitts, samt der offiziellen Loesungen aus dem
+%   Loesungsteil "Loesungen der Aufgaben zu 3.x" desselben Skripts.
+% Format: \lernkarte[id]{Vorderseite: Ü-Nummer + Aufgabe}{Rueckseite: kurze Loesung}
+% id-Schema: 61211-3-sa-NN  ("sa" = Skriptaufgabe)
+%
+% --- Abschnitt 3.1 Rückblick und Ergänzungen: Grenzwerte reeller Funktionen ---
+\lernabschnitt{3.1 Rückblick und Ergänzungen: Grenzwerte reeller Funktionen}
+
+\lernkarte[61211-3-sa-01]{%
+  Übung 3.1.1\\[4pt]
+  Beweisen Sie Satz 3.1.4.
+}{%
+  Für $f\in\mathrm{Abb}(M,\mathbb{R})$ und einen Häufungspunkt $a\in M$ gilt
+  \[ f \text{ stetig in } a \iff \lim_{x\to a}f(x)=f(a). \]
+  $\Rightarrow$: Setze $F:=f$. \quad $\Leftarrow$: aus
+  $\lim_{x\to a}f(x)=f(a)$ folgt $F=f$, also $f$ stetig in $a$.
+}
+
+\lernkarte[61211-3-sa-02]{%
+  Übung 3.1.2\\[4pt]
+  Sei $a\in\mathbb{R}$, $a\ge0$, und $f:[0,\infty[\,\setminus\{a\}\to\mathbb{R}$,
+  \[ f(x):=\frac{\sqrt{x}-\sqrt{a}}{x-a}. \]
+  Geben Sie die stetige Fortsetzung $F:[0,\infty[\to\mathbb{R}$ für alle $a\ge0$
+  an, für die sie existiert, und berechnen Sie $\lim_{x\to a}f(x)$.
+}{%
+  $a=0$: keine Fortsetzung, da $f(x)=\tfrac{1}{\sqrt{x}}\to\infty$.\\
+  $a>0$: mit $(\sqrt{x}-\sqrt{a})(\sqrt{x}+\sqrt{a})=x-a$ folgt
+  $f(x)=\tfrac{1}{\sqrt{x}+\sqrt{a}}$, also
+  $\lim_{x\to a}f(x)=\tfrac{1}{2\sqrt{a}}=F(a)$.
+}
+
+\lernkarte[61211-3-sa-03]{%
+  Übung 3.1.3\\[4pt]
+  Untersuchen Sie für alle $a\in\mathbb{R}\cup\{-\infty,\infty\}$, ob
+  $\displaystyle\lim_{x\to a}\frac{x^2-x+1}{x^2-1}$ existiert, und entsprechend
+  für $a\in\mathbb{R}$ die einseitigen Grenzwerte.
+}{%
+  $a\notin\{-1,1\}$: $f$ rational, also stetig, $\lim=f(a)$ (auch einseitig).\\
+  $a=\pm\infty$: $\lim=1$.\\
+  $a=1$: $\lim_{x>1}=+\infty$, $\lim_{x<1}=-\infty$; $a=-1$:
+  $\lim_{x<-1}=+\infty$, $\lim_{x>-1}=-\infty$. In $\pm1$ kein
+  (uneigentlicher) Grenzwert.
+}
+
+\lernkarte[61211-3-sa-04]{%
+  Übung 3.1.4\\[4pt]
+  Sei $M\subseteq\mathbb{R}$ nichtleer, nach oben beschränkt, $a:=\sup M$ ein
+  Häufungspunkt von $M$. Zeigen Sie: Ist $f\in\mathrm{Abb}(M,\mathbb{R})$
+  monoton wachsend und $f(M)$ nach oben beschränkt, so besitzt $f$ in $a$ einen
+  Grenzwert. Formulieren und beweisen Sie den entsprechenden Satz für monoton
+  fallende Funktionen.
+}{%
+  Grenzwert $b:=\sup\{f(x)\mid x\in M\setminus\{a\}\}$ ($\varepsilon$--$\delta$:
+  zu $\varepsilon$ existiert $x_0$ mit $f(x_0)>b-\varepsilon$, setze
+  $\delta:=a-x_0$).\\
+  Monoton fallend: Grenzwert $=\inf f(M)$; Beweis via $g:=-f$ (monoton
+  wachsend, $g(M)$ nach oben beschränkt) und $3.1.6$(ii).
+}
+
+\lernkarte[61211-3-sa-05]{%
+  Übung 3.1.5\\[4pt]
+  Sei $c\in\mathbb{R}$. Zeigen Sie, dass $f:\mathbb{R}\to\mathbb{R}$ mit
+  \[ f(x):=\begin{cases}\sin\tfrac1x,&\text{falls }x\neq0,\\ c,&\text{falls }x=0,\end{cases} \]
+  in $0$ weder einen rechtsseitigen noch einen linksseitigen Grenzwert besitzt.
+}{%
+  Nullfolgen $x_k:=\tfrac{2}{(2k+1)\pi}\to0^+$ bzw.
+  $x_k:=\tfrac{-2}{(2k-1)\pi}\to0^-$ liefern
+  $f(x_k)=\sin\!\big((k+\tfrac12)\pi\big)=(-1)^k$, also divergente Bildfolgen.
+  Nach dem Folgenkriterium existiert kein einseitiger Grenzwert.
+}
+
+% --- Abschnitt 3.2 Grenzwerte von Funktionen auf normierten Räumen -----------
+\lernabschnitt{3.2 Grenzwerte von Funktionen auf normierten Räumen}
+
+\lernkarte[61211-3-sa-06]{%
+  Übung 3.2.1\\[4pt]
+  Sei $M:=\{\,{}^t(x,y)\in\mathbb{R}^2\mid xy\neq0\,\}$ und $f:M\to\mathbb{R}$,
+  $f(x,y):=x\ln|xy|$. (i) Zeigen Sie, dass jedes $a={}^t(\alpha,\beta)$
+  Häufungspunkt von $M$ ist. (ii) Untersuchen Sie für jeden Punkt $a$, ob $f$
+  nach $a$ stetig fortsetzbar ist, und bestimmen Sie ggf.\ den Grenzwert.
+  (Hinweis: $\lim_{x\to0}x\ln|x|=0$.)
+}{%
+  (i) Jede Umgebung von $a$ enthält Punkte mit $xy\neq0$ (verschieden von $a$).\\
+  (ii) $\alpha\beta\neq0$ ($a\in M$): Grenzwert $f(a)$.
+  $a={}^t(0,\beta)$, $\beta\neq0$: Grenzwert $0$.
+  $a={}^t(\alpha,0)$, $\alpha\neq0$, und $a={}^t(0,0)$: nicht stetig
+  fortsetzbar.
+}
+
+\lernkarte[61211-3-sa-07]{%
+  Übung 3.2.2\\[4pt]
+  Beweisen Sie die Aussagen von 3.2.6.
+}{%
+  Grenzwertregeln für $\lim_{x\to a}f=u$, $\lim_{x\to a}g=v$,
+  $\lim_{x\to a}h=\gamma$: $\lim(f\pm g)=u\pm v$, $\lim(\alpha f)=\alpha u$,
+  $\lim(hf)=\gamma u$, $\lim(\tfrac1h f)=\tfrac1\gamma u$ (falls
+  $h\neq0,\gamma\neq0$). Beweis über das Folgenkriterium 3.2.4.
+}
+
+\lernkarte[61211-3-sa-08]{%
+  Übung 3.2.3\\[4pt]
+  Seien $(X,\|\ \|_X)$ und $(Y,\|\ \|_Y)$ normierte Räume, $M\subseteq X$,
+  $a\in X$ ein Häufungspunkt von $M$, $b\in Y$ und $f\in\mathrm{Abb}(M,Y)$.
+  Zeigen Sie
+  \[ \lim_{x\to a}f(x)=b \iff \lim_{x\to a}\|f(x)-b\|_Y=0. \]
+}{%
+  Unmittelbar aus dem Folgenkriterium 3.2.4: für $x_k\to a$ in $M\setminus\{a\}$
+  gilt $f(x_k)\to b$ in $Y$ genau dann, wenn $\|f(x_k)-b\|_Y\to0$ (vgl.\ 1.5.6).
+}
+
+% --- Abschnitt 3.3 Rückblick und Ergänzungen: Differenzierbarkeit in R -------
+\lernabschnitt{3.3 Rückblick und Ergänzungen: Differenzierbarkeit in $\mathbb{R}$}
+
+\lernkarte[61211-3-sa-09]{%
+  Übung 3.3.1\\[4pt]
+  Sei $a\in E\subseteq M\subseteq\mathbb{R}$, $f\in\mathrm{Abb}(M,\mathbb{R})$.
+  Zeigen Sie: (i) Ist $a$ Häufungspunkt von $E$ und $f$ in $a$ differenzierbar,
+  so ist $f|_E$ in $a$ differenzierbar mit $(f|_E)'(a)=f'(a)$. (ii) Ist $U$
+  Umgebung von $a$ und $f|_{U\cap M}$ in $a$ differenzierbar, so ist $f$ in $a$
+  differenzierbar. (iii) Sind $f_1:=f|_{]-\infty,a]\cap M}$ und
+  $f_2:=f|_{[a,\infty[\,\cap M}$ in $a$ differenzierbar mit $f_1'(a)=f_2'(a)$, so
+  ist $f$ in $a$ differenzierbar mit $f'(a)=f_1'(a)$.
+}{%
+  (i) $f|_E=f\circ\mathrm{id}|_E$, Kettenregel mit $(\mathrm{id}|_E)'(a)=1$.\\
+  (ii) Die Restfunktion $\Delta$ mit $\Delta(x)=\tfrac{R(x)}{x-a}$ ist in $a$
+  stetig, also $f$ diffbar.\\
+  (iii) Zusammenkleben der einseitigen Differenzenquotienten ($3.1.13$).
+}
+
+\lernkarte[61211-3-sa-10]{%
+  Übung 3.3.2\\[4pt]
+  Zeigen Sie, dass die Funktionen $f_i$ ($i=1,2,3,4$) differenzierbar sind, und
+  berechnen Sie die Ableitungen:
+  \[ f_1(x):=\frac{7x^3+6x^2-5x-4}{x^2+2x+2},\quad
+     f_2(x):=\sqrt[3]{x^2+2x+2}, \]
+  \[ f_3:\,]1,\infty[\to\mathbb{R},\ f_3(x):=\sqrt{x\sqrt{x-1}},\quad
+     f_4(x):=(x-1)^k\sqrt{x^2+1}\ (k\in\mathbb{N}). \]
+}{%
+  \begin{itemize}[topsep=2pt,itemsep=1pt]
+    \item $f_1'(x)=\dfrac{7x^4+28x^3+59x^2+32x-2}{(x^2+2x+2)^2}$
+    \item $f_2'(x)=\dfrac{2x+2}{3\big(\sqrt[3]{x^2+2x+2}\big)^2}$
+    \item $f_3'(x)=\dfrac{3x-2}{4\sqrt{x-1}\,\sqrt{x\sqrt{x-1}}}$ ($x>1$)
+    \item $f_4'(x)=\dfrac{(x-1)^{k-1}}{\sqrt{x^2+1}}\big((k+1)x^2-x+k\big)$
+  \end{itemize}
+}
+
+\lernkarte[61211-3-sa-11]{%
+  Übung 3.3.3\\[4pt]
+  Sei $f:\mathbb{R}\to\mathbb{R}$ durch
+  \[ f(x):=\begin{cases}x^2,&\text{falls }x\le1,\\ 2-(2-x)^2,&\text{falls }x>1,\end{cases} \]
+  gegeben. Bestimmen Sie alle Punkte $a$, in denen $f$ differenzierbar ist, und
+  berechnen Sie dort $f'(a)$.
+}{%
+  $f$ ist auf ganz $\mathbb{R}$ differenzierbar (auch in $1$: der
+  Differenzenquotient ist $2-|x-1|$). Es gilt
+  \[ f'(x)=2\big(1-|x-1|\big)=\begin{cases}2x,&x<1,\\2,&x=1,\\4-2x,&x>1.\end{cases} \]
+}
+
+\lernkarte[61211-3-sa-12]{%
+  Übung 3.3.4\\[4pt]
+  Sei $f:\mathbb{R}\to\mathbb{R}$ durch
+  \[ f(x):=\begin{cases}x^2\sin\tfrac1x,&\text{falls }x\neq0,\\ 0,&\text{falls }x=0,\end{cases} \]
+  gegeben. Zeigen Sie, dass $f$ differenzierbar ist, berechnen Sie $f'(x)$ für
+  jedes $x\in\mathbb{R}$, und weisen Sie nach, dass $f'$ in $0$ nicht stetig ist.
+}{%
+  $f'(x)=2x\sin\tfrac1x-\cos\tfrac1x$ für $x\neq0$; $f'(0)=0$, denn
+  $\big|\tfrac{f(x)-f(0)}{x}\big|=|x\sin\tfrac1x|\le|x|\to0$.\\
+  $f'$ in $0$ unstetig: $f'\!\big(\tfrac{1}{2\pi k}\big)=-\cos(2\pi k)=-1\not\to0$.
+}
+
+\lernkarte[61211-3-sa-13]{%
+  Übung 3.3.5\\[4pt]
+  Zeigen Sie mithilfe des Mittelwertsatzes, dass
+  \[ \sqrt[k]{1+x}\le1+\frac{x}{k}\quad\text{für jedes }x\ge-1\text{ und jedes }k\in\mathbb{N} \]
+  gilt, indem Sie für $f:[-1,\infty[\to\mathbb{R}$, $f(x):=\sqrt[k]{1+x}-1$, den
+  Quotienten $\tfrac{f(x)-f(0)}{x-0}$ abschätzen.
+}{%
+  MWS: $\tfrac{f(x)}{x}=f'(\xi)=\tfrac{1}{k}\big(\sqrt[k]{1+\xi}\big)^{-(k-1)}$.\\
+  $x>0$: $\big(\sqrt[k]{1+\xi}\big)^{k-1}\ge1$, also $\tfrac{f(x)}{x}\le\tfrac1k$,
+  d.\,h.\ $f(x)\le\tfrac xk$. $-1\le x<0$: analog $f(x)\le\tfrac xk$. $x=0$:
+  Gleichheit.
+}
+
+\lernkarte[61211-3-sa-14]{%
+  Übung 3.3.6\\[4pt]
+  Sei $f:\mathbb{R}\to\mathbb{R}$ durch $f(x):=3x^5+10x^3+15x+1$ definiert.
+  Zeigen Sie, dass $f$ streng monoton wachsend (und somit injektiv) ist, und
+  bestimmen Sie $(f^{-1})'(1)$.
+}{%
+  $f'(x)=15x^4+30x^2+15\ge15>0$, also $f$ streng monoton wachsend (3.3.13).\\
+  Wegen $f(0)=1$ und $f'(0)=15$: $(f^{-1})'(1)=\dfrac{1}{f'(0)}=\dfrac{1}{15}$.
+}
+
+\lernkarte[61211-3-sa-15]{%
+  Übung 3.3.7\\[4pt]
+  Zeigen Sie mithilfe einer Regel von de l'Hospital, dass die Grenzwerte
+  \[ \text{(i)}\ \lim_{x\to0}\frac{\exp x-1}{\ln(1+x)},\qquad
+     \text{(ii)}\ \lim_{x\to\infty}x\ln\!\Big(1+\frac rx\Big)\ (r\in\mathbb{R}) \]
+  existieren, und berechnen Sie sie. Benutzen Sie (ii), um
+  $\lim_{k\to\infty}\big(1+\tfrac rk\big)^k$ zu berechnen.
+}{%
+  (i) $=1$.\quad (ii) $=r$.\\
+  Wegen $\big(1+\tfrac rk\big)^k=\exp\!\big(k\ln(1+\tfrac rk)\big)$ und
+  $\lim_{k\to\infty}k\ln(1+\tfrac rk)=r$ folgt
+  $\lim_{k\to\infty}\big(1+\tfrac rk\big)^k=\exp r$.
+}
+
+% --- Abschnitt 3.4 Rückblick und Ergänzungen: Der Raum Hom(R^n,R^m) ----------
+\lernabschnitt{3.4 Rückblick und Ergänzungen: Der Raum $\mathrm{Hom}(\mathbb{R}^n,\mathbb{R}^m)$}
+
+\lernkarte[61211-3-sa-16]{%
+  Übung 3.4.1\\[4pt]
+  Sei $A_\varphi$ wie in Beispiel 3.4.2(4) (Drehmatrix um $\varphi$),
+  $A_\psi$ entsprechend. Berechnen Sie $A_\varphi A_\psi$ und $A_\psi A_\varphi$
+  sowie $A_\varphi S$ und $S A_\varphi$ für die Spiegelungsmatrix
+  $S:=\begin{pmatrix}1&0\\0&-1\end{pmatrix}$. Wann gilt $A_\varphi S=S A_\varphi$?
+}{%
+  $A_\varphi A_\psi=A_{\varphi+\psi}=A_\psi A_\varphi$ (Additionstheoreme;
+  Drehungen kommutieren).\\
+  $A_\varphi S=\begin{pmatrix}\cos\varphi&\sin\varphi\\\sin\varphi&-\cos\varphi\end{pmatrix}$,
+  $S A_\varphi=\begin{pmatrix}\cos\varphi&-\sin\varphi\\-\sin\varphi&-\cos\varphi\end{pmatrix}$.\\
+  Gleichheit $\iff\sin\varphi=0\iff\varphi\in\{k\pi\}$, d.\,h.\ $A_\varphi=\pm E_2$.
+}
+
+\lernkarte[61211-3-sa-17]{%
+  Übung 3.4.2\\[4pt]
+  Zu einer $(m,n)$--Matrix $A=(a_{ik})$ sei ${}^tA:=(a_{ki})$ die Transponierte.
+  Zeigen Sie für $(m,n)$--Matrizen $A,B$, $\alpha\in\mathbb{R}$ und eine
+  $(\ell,m)$--Matrix $C$: (i) ${}^t({}^tA)=A$, (ii)
+  ${}^t(A+B)={}^tA+{}^tB$ und ${}^t(\alpha A)=\alpha\,{}^tA$,
+  (iii) ${}^t(CA)={}^tA\,{}^tC$.
+}{%
+  Nachrechnen über die Einträge. (i),(ii) unmittelbar aus $({}^tA)_{ki}=a_{ik}$.\\
+  (iii) $({}^t(CA))_{ji}=(CA)_{ij}=\sum_k c_{ik}a_{kj}
+  =\sum_k({}^tA)_{jk}({}^tC)_{ki}=({}^tA\,{}^tC)_{ji}$.\\
+  Nach (ii) ist $T:\mathbb{R}_{mn}\to\mathbb{R}_{nm}$, $A\mapsto{}^tA$, linear.
+}
+
+\lernkarte[61211-3-sa-18]{%
+  Übung 3.4.3\\[4pt]
+  Sei $A\in\mathbb{R}_{mn}$ und $C\in\mathbb{R}_{\ell m}$, also
+  $CA\in\mathbb{R}_{\ell n}$. $\|\ \|$ bezeichne die Norm gemäß 3.4.6 (auf
+  $\mathbb{R}_{mn}$, $\mathbb{R}_{\ell m}$, $\mathbb{R}_{\ell n}$). Zeigen Sie
+  \[ \|CA\|\le\|C\|\,\|A\|. \]
+}{%
+  Für $x$ mit $\|x\|_\infty=1$:
+  $\|(CA)x\|_\infty=\|C(Ax)\|_\infty\le\|C\|\,\|Ax\|_\infty\le\|C\|\,\|A\|$.\\
+  Wählt man bei festem $\lambda$ die Koordinaten $x_\nu=\pm1$ passend, folgt
+  $\sum_\nu|b_{\lambda\nu}|\le\|C\|\,\|A\|$ für jede Zeile, also
+  $\|CA\|\le\|C\|\,\|A\|$.
+}
+
+% --- Abschnitt 3.5 Differenzierbare Funktionen ------------------------------
+\lernabschnitt{3.5 Differenzierbare Funktionen}
+
+\lernkarte[61211-3-sa-19]{%
+  Übung 3.5.1\\[4pt]
+  Sei $E\subseteq M\subseteq\mathbb{R}^n$, $a$ ein innerer Punkt von $E$, und
+  $f\in\mathrm{Abb}(M,\mathbb{R}^m)$. Zeigen Sie, dass $f$ genau dann in $a$
+  differenzierbar ist, wenn $f|_E$ in $a$ differenzierbar ist, und dass
+  gegebenenfalls $f'(a)=(f|_E)'(a)$ gilt.
+}{%
+  Über die Restfunktion $Q(x)=\tfrac{f(x)-[f(a)+A(x-a)]}{\|x-a\|}$: da $a$
+  innerer Punkt von $E$ (und $M$) ist, ist $Q$ bzw.\ die zugehörige Fortsetzung
+  in $a$ stetig mit Grenzwert $0$. Die Differenzierbarkeit überträgt sich mit
+  derselben Ableitung $A$.
+}
+
+\lernkarte[61211-3-sa-20]{%
+  Übung 3.5.2\\[4pt]
+  Beweisen Sie 3.5.6(i).
+}{%
+  Für in $a$ differenzierbare $f,g$ und $\alpha\in\mathbb{R}$ sind $f+g$ und
+  $\alpha f$ in $a$ differenzierbar mit
+  \[ (f+g)'(a)=f'(a)+g'(a),\qquad(\alpha f)'(a)=\alpha f'(a). \]
+  Beweis über die Restfunktionen: $r=r_f+r_g$ und $r_{\alpha f}=\alpha r_f$,
+  jeweils $o(\|x-a\|)$.
+}
+
+\lernkarte[61211-3-sa-21]{%
+  Übung 3.5.3\\[4pt]
+  Sei $M:=\{\,{}^t(x_1,x_2)\in\mathbb{R}^2\mid x_1>0,\ x_2>0\,\}$ und
+  $f:M\to\mathbb{R}$, $f(x_1,x_2):=\ln(x_1x_2)$. Zeigen Sie, dass $f$ in jedem
+  Punkt $a={}^t(a_1,a_2)\in M$ differenzierbar ist und dort die Matrix
+  $f'(a)=\big(\tfrac{1}{a_1}\ \ \tfrac{1}{a_2}\big)$ als Ableitung besitzt,
+  (i) mithilfe der Definitionen 3.5.1 und 3.5.2, (ii) mithilfe der Kettenregel
+  3.5.6(iii) und Beispiel 3.5.4(5).
+}{%
+  $M$ ist offen ($U_\varepsilon(a)\subseteq M$ mit
+  $\varepsilon=\min\{a_1,a_2\}$), $a$ innerer Punkt. In beiden Wegen ergibt sich
+  \[ f'(a)=\Big(\tfrac{1}{a_1}\quad\tfrac{1}{a_2}\Big). \]
+}
+
+\lernkarte[61211-3-sa-22]{%
+  Übung 3.5.4\\[4pt]
+  Seien $r>0$, $h>0$ und $f:\mathbb{R}\to\mathbb{R}^2$,
+  $g:\mathbb{R}\to\mathbb{R}^3$ durch
+  \[ f(t):=\begin{pmatrix}r\cos t\\ r\sin t\end{pmatrix},\qquad
+     g(t):=\begin{pmatrix}r\cos t\\ r\sin t\\ \tfrac{ht}{2\pi}\end{pmatrix} \]
+  gegeben. Zeigen Sie, dass $f$ und $g$ differenzierbar sind, und berechnen Sie
+  $f'(t)$ und $g'(t)$ für jedes $t\in\mathbb{R}$.
+}{%
+  Koordinatenweise differenzierbar (3.5.7):
+  \[ f'(t)=\begin{pmatrix}-r\sin t\\ r\cos t\end{pmatrix},\qquad
+     g'(t)=\begin{pmatrix}-r\sin t\\ r\cos t\\ \tfrac{h}{2\pi}\end{pmatrix}. \]
+}
+
+% --- Abschnitt 3.6 Partielle Ableitungen. Richtungsableitungen --------------
+\lernabschnitt{3.6 Partielle Ableitungen. Richtungsableitungen}
+
+\lernkarte[61211-3-sa-23]{%
+  Übung 3.6.1\\[4pt]
+  Sei $f:\mathbb{R}^2\to\mathbb{R}$ durch
+  \[ f(x,y):=\begin{cases}\tfrac{x^2}{y},&\text{falls }y\neq0,\\ 0,&\text{falls }y=0.\end{cases} \]
+  (i) Berechnen Sie $D_1f(a,b)$ und $D_2f(a,b)$, soweit sie existieren.
+  (ii) Zeigen Sie, dass $D_vf(0,0)$ für alle $v$ mit $\|v\|_2=1$ existiert, und
+  berechnen Sie sie. (iii) Ist $f$ in ${}^t(0,0)$ stetig? Differenzierbar?
+}{%
+  (i) $D_1f(a,b)=\tfrac{2a}{b}$ ($b\neq0$), $=0$ ($b=0$);
+  $D_2f(a,b)=-\tfrac{a^2}{b^2}$ ($b\neq0$), $D_2f(0,0)=0$; für $a\neq0,b=0$
+  existiert $D_2f$ nicht.\\
+  (ii) $D_vf(0,0)=\tfrac{v_1^2}{v_2}$ ($v_2\neq0$), $=0$ ($v_2=0$).\\
+  (iii) $f$ in $(0,0)$ nicht stetig ($f(\tfrac1k,\tfrac1{k^3})=k\to\infty$),
+  also auch nicht differenzierbar.
+}
+
+\lernkarte[61211-3-sa-24]{%
+  Übung 3.6.2\\[4pt]
+  Berechnen Sie die Funktionalmatrix der folgenden Funktionen für alle Punkte
+  des jeweiligen Definitionsbereichs.
+  (i) $f:\mathbb{R}^3\to\mathbb{R}$, $f(x,y,z):=\ln(1+x^2+y^2+z^2)$;
+  (ii) $g:\mathbb{R}^n\to\mathbb{R}$, $g(x):=\|x\|_2^2=\sum_{k=1}^n x_k^2$;
+  (iii) $h:\{\,{}^t(x,y)\mid x>0\,\}\to\mathbb{R}^3$,
+  $h(x,y):={}^t\!\big(x\sin(xy),\,x\cos(xy),\,\sqrt{2x}\big)$.
+}{%
+  (i) $f'(x,y,z)=\dfrac{2}{1+x^2+y^2+z^2}\,(x\ \ y\ \ z)$.\\
+  (ii) $g'(x)=2\,(x_1\ \cdots\ x_n)$.\\
+  (iii) $h'(x,y)=\begin{pmatrix}
+    \sin xy+xy\cos xy & x^2\cos xy\\
+    \cos xy-xy\sin xy & -x^2\sin xy\\
+    \tfrac{1}{\sqrt{2x}} & 0\end{pmatrix}$.
+}
+
+\lernkarte[61211-3-sa-25]{%
+  Übung 3.6.3\\[4pt]
+  Sei $\varphi:=f\circ h$ mit $f$ und $h$ aus Ü 3.6.2. Berechnen Sie
+  $\varphi'(x,y)$ für ${}^t(x,y)\in\mathbb{R}^2$ mit $x>0$, (i) indem Sie
+  $\varphi(x,y)$ ausrechnen und dann ableiten, (ii) mithilfe der Kettenregel und
+  den Ergebnissen aus Ü 3.6.2.
+}{%
+  Wegen $\sin^2(xy)+\cos^2(xy)=1$ ist $\varphi(x,y)=\ln(1+x^2+2x)$, also
+  \[ \varphi'(x,y)=\Big(\tfrac{2}{1+x}\quad 0\Big). \]
+  Der Weg über die Kettenregel $\varphi'=f'(h)\,h'$ liefert dasselbe Ergebnis.
+}
+
+\lernkarte[61211-3-sa-26]{%
+  Übung 3.6.4\\[4pt]
+  Seien $M:=\{\,{}^t(x,y)\mid x>0,\ y>0\,\}$ und
+  $\widetilde M:=\{\,{}^t(x,y)\mid x>0,\ y<0\,\}$. Zeigen Sie für
+  $f:M\cup\widetilde M\to\mathbb{R}$,
+  $f(x,y):=\arctan\tfrac xy+\arctan\tfrac yx$, dass $f|_M$ und
+  $f|_{\widetilde M}$ konstante Funktionen sind. Ist $f$ konstant?
+}{%
+  $D_1f=\tfrac{y}{x^2+y^2}-\tfrac{y}{x^2+y^2}=0$ und $D_2f=0$ auf
+  $M\cup\widetilde M$, also $f'(x,y)=(0\ \ 0)$; $f|_M$, $f|_{\widetilde M}$
+  konstant (3.5.10).\\
+  $f$ ist \emph{nicht} konstant: $f(1,1)=\tfrac\pi2$, $f(1,-1)=-\tfrac\pi2$
+  ($M\cup\widetilde M$ nicht zusammenhängend).
+}

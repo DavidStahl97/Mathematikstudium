@@ -1,0 +1,276 @@
+% Skriptaufgaben -- Analysis (Modul 61211), Lektion 4
+% Quelle: die im Lehrtext-Skript (61211-04-S.pdf) eingebetteten UEBUNGSAUFGABEN
+%   "Ü 4.x.y" am Ende jedes Abschnitts, samt der offiziellen Loesungen aus dem
+%   Loesungsteil "Loesungen der Aufgaben zu 4.x" desselben Skripts.
+% Format: \lernkarte[id]{Vorderseite: Ü-Nummer + Aufgabe}{Rueckseite: kurze Loesung}
+% id-Schema: 61211-4-sa-NN  ("sa" = Skriptaufgabe)
+%
+% --- Abschnitt 4.1 Der Umkehrsatz ----------------------------------------
+\lernabschnitt{4.1 Der Umkehrsatz}
+
+\lernkarte[61211-4-sa-01]{%
+  Übung 4.1.1\\[4pt]
+  Sei $f:\mathbb{R}^3\to\mathbb{R}^3$,
+  $f(x,y,z):={}^t(3x-y+z,\;3x-y,\;x-z)$. Existiert die Umkehrfunktion
+  $f^{-1}$? Wenn ja, berechnen Sie $f^{-1}(u,v,w)$ für jedes
+  ${}^t(u,v,w)\in\mathbb{R}^3$.
+}{%
+  $f$ ist linear mit Matrix $A$; Gauß liefert $\mathrm{Rang}\,A=3$, also
+  existiert $f^{-1}$. Es ist
+  \[ f^{-1}(u,v,w)=A^{-1}\,{}^t(u,v,w),\quad
+     A^{-1}=\begin{pmatrix}1&-1&1\\3&-4&3\\1&-1&0\end{pmatrix}. \]
+}
+
+\lernkarte[61211-4-sa-02]{%
+  Übung 4.1.2\\[4pt]
+  Sei $U:=\{{}^t(r,\varphi,\theta)\mid r>0,\,-\pi<\varphi<\pi,\,
+  -\tfrac{\pi}{2}<\theta<\tfrac{\pi}{2}\}$ und $V:=f(U)$ für $f$ aus
+  Beispiel 4.1.4 (Kugelkoordinaten). Berechnen Sie $g:=f|_U^{-1}$ sowie
+  $g'(x,y,z)$ und verifizieren Sie $g'(x,y,z)=f'(g(x,y,z))^{-1}$ für
+  $y>0$.
+}{%
+  $g={}^t(g_1,g_2,g_3)$ mit $g_1=\sqrt{x^2+y^2+z^2}$,
+  $g_2=\arccos\frac{x}{\sqrt{x^2+y^2}}$ (für $y\ge0$),
+  $g_3=\arcsin\frac{z}{\sqrt{x^2+y^2+z^2}}$. Direktes Nachrechnen der
+  Ableitungen ergibt $g'(x,y,z)\,f'(g(x,y,z))=E_3$, also
+  $g'(x,y,z)=f'(g(x,y,z))^{-1}$.
+}
+
+\lernkarte[61211-4-sa-03]{%
+  Übung 4.1.3\\[4pt]
+  Zeigen Sie, dass $f:\mathbb{R}^2\to\mathbb{R}^2$,
+  $f(x,y):={}^t(x^2-y^2,\;2xy)$ stetig differenzierbar ist, berechnen Sie
+  $f'(x,y)$, zeigen Sie $\mathrm{Rang}\,f'(1,-1)=2$ und berechnen Sie
+  $g'(f(1,-1))$ für $g:=(f|_U)^{-1}$.
+}{%
+  \[ f'(x,y)=\begin{pmatrix}2x&-2y\\2y&2x\end{pmatrix},\qquad
+     \mathrm{Rang}\,f'(1,-1)=2. \]
+  Nach dem lokalen Umkehrsatz existiert $g=(f|_U)^{-1}$ mit
+  \[ g'(f(1,-1))=f'(1,-1)^{-1}
+     =\begin{pmatrix}\tfrac14&-\tfrac14\\[2pt]\tfrac14&\tfrac14\end{pmatrix}. \]
+}
+
+\lernkarte[61211-4-sa-04]{%
+  Übung 4.1.4\\[4pt]
+  Zeigen Sie, dass $f:\mathbb{R}^2\to\mathbb{R}^2$,
+  $f(x,y):={}^t(e^x\cos y,\;e^x\sin y)$ stetig differenzierbar ist und
+  $\mathrm{Rang}\,f'(x,y)=2$ für alle $(x,y)$ erfüllt (also lokal injektiv),
+  dass aber $f$ nicht injektiv ist.
+}{%
+  $f'(x,y)=\begin{pmatrix}e^x\cos y&-e^x\sin y\\e^x\sin y&e^x\cos y\end{pmatrix}$
+  hat stets Rang $2$. Aber $f$ ist nicht injektiv, denn
+  \[ f(0,0)={}^t(1,0)=f(0,2\pi). \]
+}
+
+% --- Abschnitt 4.2 Implizit definierte Funktionen ------------------------
+\lernabschnitt{4.2 Implizit definierte Funktionen}
+
+\lernkarte[61211-4-sa-05]{%
+  Übung 4.2.1\\[4pt]
+  Zeigen Sie für das Gleichungssystem
+  \[ 4x-3y+2z-6w=0,\qquad 8x-y+4z-3w=0, \]
+  nach welchen Paaren von Unbekannten es auflösbar ist:
+  (i) $z,w$; (ii) $y,z$; (iii) $x,y$; (iv) $x,z$; (v) $y,w$; (vi) $x,w$.
+}{%
+  Entscheidend ist der Rang der jeweiligen $2\times2$-Untermatrix von
+  $A=\begin{pmatrix}4&-3&2&-6\\8&-1&4&-3\end{pmatrix}$. Auflösbar (Rang $2$):
+  (i), (ii), (iii), (v), (vi). \textbf{Nicht} auflösbar: (iv) $x,z$
+  (Untermatrix $\begin{pmatrix}4&2\\8&4\end{pmatrix}$ hat Rang $1$).
+}
+
+\lernkarte[61211-4-sa-06]{%
+  Übung 4.2.2\\[4pt]
+  Zeigen Sie, dass man
+  \[ -x^2+y+z=0,\qquad x^2-y+ze^x=1 \]
+  nach $y,z$ (in Abhängigkeit von $x$) auflösen kann,
+  (i) direkt, (ii) mit dem Satz über implizite Funktionen 4.2.3, und
+  berechnen Sie jeweils $g'(x)$.
+}{%
+  Addition der Gleichungen: $z=\frac{1}{1+e^x}$, damit
+  $y=x^2-\frac{1}{1+e^x}$. Also
+  \[ g'(x)=\begin{pmatrix}2x+\frac{e^x}{(1+e^x)^2}\\[4pt]
+     -\frac{e^x}{(1+e^x)^2}\end{pmatrix}. \]
+  Der Satz 4.2.3 (mit $F'_{\boldsymbol y}$ invertierbar) liefert dasselbe
+  Ergebnis.
+}
+
+\lernkarte[61211-4-sa-07]{%
+  Übung 4.2.3\\[4pt]
+  Leiten Sie den lokalen Umkehrsatz 4.1.2 aus dem Satz über implizite
+  Funktionen 4.2.3 her, indem Sie die Auflösbarkeit von
+  $F_\nu(x_1,\dots,x_n,y_1,\dots,y_n):=f_\nu(y_1,\dots,y_n)-x_\nu=0$
+  nach den $y_1,\dots,y_n$ untersuchen.
+}{%
+  Für $F(x,y):=f(y)-x$ ist $F'_x=-E_n$, $F'_{\boldsymbol y}=f'(y)$. In
+  $c={}^t(f(a),a)$ gilt $F(c)=0$ und $\mathrm{Rang}\,F'_{\boldsymbol y}(c)
+  =\mathrm{Rang}\,f'(a)=n$. Der Satz 4.2.3 liefert eine
+  Umkehrfunktion $g$ mit
+  \[ g'(y)=-[f'(g(y))]^{-1}(-E_n)=[f'(g(y))]^{-1}. \]
+}
+
+% --- Abschnitt 4.3 Rückblick und Ergänzungen: Ableitungen höherer Ordnung -
+\lernabschnitt{4.3 Rückblick und Ergänzungen: Ableitungen höherer Ordnung}
+
+\lernkarte[61211-4-sa-08]{%
+  Übung 4.3.1\\[4pt]
+  Sei $f(x):=\exp(-x^{-2})$ für $x\neq0$, $f(0):=0$.
+  (i) Zeigen Sie, dass $f$ auf $\mathbb{R}\setminus\{0\}$ beliebig oft
+  differenzierbar ist, und berechnen Sie $f',f'',f'''$.
+  (ii) Zeigen Sie $f^{(k)}(x)=x^{-3k}P_k(x)f(x)$ mit einem Polynom $P_k$.
+  (iii) Zeigen Sie $f^{(k)}(0)=0$ für jedes $k$.
+}{%
+  (i) $f'(x)=2x^{-3}f(x)$, $f''(x)=(-6x^{-4}+4x^{-6})f(x)$,
+  $f'''(x)=(24x^{-5}-36x^{-7}+8x^{-9})f(x)$.\\
+  (ii) Induktion mit $P_{k+1}(x)=-3kx^2P_k(x)+x^3P_k'(x)+2P_k(x)$.\\
+  (iii) Wegen $\lim_{x\to0}x^{-m}\exp(-x^{-2})=0$ ist $f^{(k)}(0)=0$; die
+  Taylorreihe konvergiert nicht gegen $f$.
+}
+
+\lernkarte[61211-4-sa-09]{%
+  Übung 4.3.2\\[4pt]
+  Berechnen Sie das 4.\ Taylorpolynom der Funktion $\arctan$
+  (i) mit Entwicklungspunkt $0$, (ii) mit Entwicklungspunkt $1$.
+}{%
+  Mit $f'(x)=\frac{1}{1+x^2}$:\\
+  (i) $f'(0)=1,f''(0)=0,f'''(0)=-2,f^{(4)}(0)=0$, also
+  \[ T_4(x)=x-\tfrac13x^3. \]
+  (ii) $f(1)=\tfrac{\pi}{4}$, $f'(1)=\tfrac12,f''(1)=-\tfrac12,
+  f'''(1)=\tfrac12$, also
+  \[ T_4(x)=\tfrac{\pi}{4}+\tfrac12(x-1)-\tfrac14(x-1)^2+\tfrac{1}{12}(x-1)^3. \]
+}
+
+\lernkarte[61211-4-sa-10]{%
+  Übung 4.3.3\\[4pt]
+  Beweisen Sie für $0<x<\tfrac{\pi}{2}$ die Ungleichungen
+  \[ x-\tfrac{x^3}{3!}<\sin x<x,\qquad
+     1-\tfrac{x^2}{2!}<\cos x<1-\tfrac{x^2}{2!}+\tfrac{x^4}{4!}, \]
+  indem Sie das 2.\ bzw.\ 3.\ Taylorpolynom von $\sin$ bzw.\ $\cos$ mit
+  Entwicklungspunkt $0$ und das Restglied betrachten.
+}{%
+  $T_2^{\sin}(x)=x$: Restglied $R_2(x)=(-\cos\xi)\frac{x^3}{3!}$ mit
+  $\xi\in\,]0,x[$, also $-\frac{x^3}{3!}<R_2(x)<0$, woraus die 1.\ Ungleichung
+  folgt.\\
+  $T_3^{\cos}(x)=1-\frac{x^2}{2!}$: Restglied $R_3(x)=(\cos\xi)\frac{x^4}{4!}$,
+  also $0<R_3(x)<\frac{x^4}{4!}$, woraus die 2.\ Ungleichung folgt.
+}
+
+% --- Abschnitt 4.4 Ableitungen höherer Ordnung ---------------------------
+\lernabschnitt{4.4 Ableitungen höherer Ordnung}
+
+\lernkarte[61211-4-sa-11]{%
+  Übung 4.4.1\\[4pt]
+  Berechnen Sie alle partiellen Ableitungen vierter Ordnung von
+  $f:\mathbb{R}^2\to\mathbb{R}$, $f(x):=\|x\|_2$, in den Punkten $x\neq0$
+  und stellen Sie das vierte Taylorpolynom von $f$ mit Entwicklungspunkt
+  $a=\binom{4}{3}$ auf.
+}{%
+  Z.\,B.\ $D_{1111}f(x)=(12x_1^2x_2^2-3x_2^4)\|x\|_2^{-7}$ usw.\ (übrige
+  nach dem Satz von Schwarz). Mit $f(a)=5$ ergibt sich
+  \begin{align*}
+    T_4(x)={}&5+\tfrac45(x_1{-}4)+\tfrac35(x_2{-}3)\\
+    &+\tfrac{9}{250}(x_1{-}4)^2-\tfrac{12}{125}(x_1{-}4)(x_2{-}3)\\
+    &+\tfrac{8}{125}(x_2{-}3)^2+\dots
+  \end{align*}
+  (Terme 3.\ und 4.\ Ordnung analog).
+}
+
+\lernkarte[61211-4-sa-12]{%
+  Übung 4.4.2\\[4pt]
+  Untersuchen Sie für $f:\mathbb{R}^2\to\mathbb{R}$,
+  $f(x,y):=\frac{x^2y^2}{x^2+y^2}$ für $(x,y)\neq(0,0)$, $f(0,0):=0$:
+  (i) ob die part.\ Ableitungen 1.\ und 2.\ Ordnung in $(x,y)$ existieren,
+  (ii) ob $f$ einmal differenzierbar,
+  (iii) ob $f$ einmal stetig differenzierbar,
+  (iv) ob $f$ zweimal differenzierbar ist.
+}{%
+  (i) Ja, alle existieren; im Nullpunkt ist
+  $D_1f(0,0)=D_2f(0,0)=D_{ij}f(0,0)=0$.\\
+  (ii), (iii) $f$ ist in $(0,0)$ einmal differenzierbar und sogar stetig
+  differenzierbar.\\
+  (iv) \textbf{Nein}: $D_1f$ ist in $(0,0)$ nicht differenzierbar, also $f$
+  dort nicht zweimal differenzierbar.
+}
+
+\lernkarte[61211-4-sa-13]{%
+  Übung 4.4.3\\[4pt]
+  Berechnen Sie $D_{11}f+D_{22}f+D_{33}f$ für
+  $f:\mathbb{R}^3\setminus\{0\}\to\mathbb{R}$,
+  $f(x,y,z):=Ae^{-ar}+Be^{ar}$ mit $r:=\sqrt{x^2+y^2+z^2}$ und
+  Konstanten $a,A,B\in\mathbb{R}$.
+}{%
+  \[ D_{11}f+D_{22}f+D_{33}f
+     =\Bigl(a^2-\tfrac{2a}{r}\Bigr)Ae^{-ar}
+     +\Bigl(a^2+\tfrac{2a}{r}\Bigr)Be^{ar} \]
+  für ${}^t(x,y,z)\in\mathbb{R}^3\setminus\{0\}$.
+}
+
+\lernkarte[61211-4-sa-14]{%
+  Übung 4.4.4\\[4pt]
+  Zeigen Sie, dass im Fall des Beispiels 4.4.7(2),
+  $f(x,y):=\alpha x^3+\beta x^2y+\gamma xy^2+\delta y^3$, die Gleichung
+  $f=T_k$ für jedes $k\ge3$ gilt ($T_k$ Taylorpolynom mit
+  Entwicklungspunkt $a=\binom{0}{1}$).
+}{%
+  Für $k\ge4$ verschwinden nach Beispiel 4.4.2(2) alle partiellen
+  Ableitungen der Ordnung $k$, also $D_{\nu_1\dots\nu_k}f(z)=0$. Nach dem Satz
+  von Taylor ist damit $f(u)=T_{k-1}(u)$ für alle $u$ und alle $k\ge4$, d.\,h.
+  $f=T_k$ für jedes $k\ge3$.
+}
+
+% --- Abschnitt 4.5 Extrema -----------------------------------------------
+\lernabschnitt{4.5 Extrema}
+
+\lernkarte[61211-4-sa-15]{%
+  Übung 4.5.1\\[4pt]
+  Führen Sie die unter 4.5.4 begonnene Untersuchung von
+  $f:\mathbb{R}^2\to\mathbb{R}$, $f(x,y)=\sin(x+y)\exp(x-y^2)$ fort:
+  Liegen in den kritischen Punkten
+  $a_m={}^t\!\left(\tfrac12-\tfrac{\pi}{4}+m\pi,\,-\tfrac12\right)$,
+  $m\in\mathbb{Z}$, lokale Extrema vor, und welcher Art?
+}{%
+  Mit $c_m:=\exp(\alpha_m-\beta_m^2)>0$ ist
+  $\Delta(a_m)=D_{11}D_{22}-(D_{12})^2=2c_m^2>0$ und
+  $D_{11}f(a_m)=\sqrt2(-1)^mc_m$. Also: strenges lokales
+  \textbf{Minimum} für gerades $m$, strenges lokales \textbf{Maximum} für
+  ungerades $m$.
+}
+
+\lernkarte[61211-4-sa-16]{%
+  Übung 4.5.2\\[4pt]
+  Bestimmen Sie die Stellen lokaler Extrema von
+  $f:\mathbb{R}^2\to\mathbb{R}$, $f(x,y)=e^5+\tfrac{1}{10}(x^2+y^2-35)e^{-x}$,
+  sowie die Stellen des globalen Maximums und Minimums von $f|_Q$ mit
+  $Q:=\{(x,y)\mid\|(x,y)\|_\infty\le6\}$.
+}{%
+  Kritische Punkte $a_1={}^t(-5,0)$, $a_2={}^t(7,0)$. Es ist
+  $\Delta(a_1)>0,\;D_{11}f(a_1)>0$: lokales Minimum; $\Delta(a_2)<0$:
+  Sattelpunkt.\\
+  Auf $Q$: globales Minimum in ${}^t(-5,0)$, globales Maximum in
+  ${}^t(-6,-6)$ und ${}^t(-6,6)$.
+}
+
+\lernkarte[61211-4-sa-17]{%
+  Übung 4.5.3\\[4pt]
+  In welchem Dreieck ist das Produkt der Winkel am größten? Gesucht ist das
+  Maximum von $f(x,y,z)=xyz$ auf $\{x,y,z>0\}$ unter der Nebenbedingung
+  $g(x,y,z)=x+y+z-\pi=0$; (i) durch Einsetzen von $z=\pi-x-y$,
+  (ii) mit Lagrangemultiplikatoren.
+}{%
+  Beide Wege liefern das Maximum in
+  \[ x=y=z=\tfrac{\pi}{3} \]
+  (gleichseitiges Dreieck). Bei (i): $D_1F=D_2F=0$ ergibt $x=y=\tfrac{\pi}{3}$,
+  $\Delta>0$, $D_{11}F<0$ (Maximum). Bei (ii): $yz=xz=xy=\lambda$ liefert
+  $x=y=z$, mit $g=0$ folgt $\tfrac{\pi}{3}$.
+}
+
+\lernkarte[61211-4-sa-18]{%
+  Übung 4.5.4\\[4pt]
+  Maximieren Sie die Produktivität $P(K,A)=cK^\alpha A^{1-\alpha}$
+  ($c>0$, $0<\alpha<1$) unter der Budgetnebenbedingung $pK+qA\le B$
+  ($p,q,B>0$).
+}{%
+  Da $P$ im Innern kein Extremum hat, liegt das Maximum auf $pK+qA=B$.
+  Lagrange liefert
+  \[ K=\frac{\alpha B}{p},\qquad A=\frac{(1-\alpha)B}{q}, \]
+  wo $P|_N$ sein Maximum annimmt.
+}

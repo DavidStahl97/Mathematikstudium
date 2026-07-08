@@ -1,0 +1,258 @@
+% Skriptaufgaben -- Analysis (Modul 61211), Lektion 6
+% Quelle: die im Lehrtext-Skript (61211-06-S.pdf) eingebetteten UEBUNGSAUFGABEN
+%   "Ü 6.x.y" am Ende jedes Abschnitts, samt der offiziellen Loesungen aus dem
+%   Loesungsteil "Loesungen der Aufgaben zu 6.x" desselben Skripts.
+% Format: \lernkarte[id]{Vorderseite: Ü-Nummer + Aufgabe}{Rueckseite: kurze Loesung}
+% id-Schema: 61211-6-sa-NN  ("sa" = Skriptaufgabe)
+%
+% --- Abschnitt 6.1 Der Kurvenbegriff -------------------------------------
+\lernabschnitt{6.1 Der Kurvenbegriff}
+
+\lernkarte[61211-6-sa-01]{%
+  Übung 6.1.1\\[4pt]
+  Eine Kurve $W$ in $\mathbb{R}^n$ heißt \textbf{Jordankurve}, wenn es eine
+  injektive Parameterdarstellung $\varphi$ gibt. Zeigen Sie:
+  (i) Jede Parameterdarstellung einer Jordankurve ist injektiv.
+  (ii) Ist $W$ eine Jordankurve, so auch $-W$.
+}{%
+  (i) Ist $\psi=\varphi\circ f$ mit $f$ streng monoton wachsend und stetig,
+  so ist $f$ injektiv; aus $\varphi$ injektiv folgt $\psi$ injektiv.\\
+  (ii) $\varphi^-(t)=\varphi(-t)$ ist injektiv, da $\varphi$ injektiv;
+  also ist $-W$ Jordankurve.
+}
+
+\lernkarte[61211-6-sa-02]{%
+  Übung 6.1.2\\[4pt]
+  Skizzieren Sie $\varphi_1(t)={}^t(t,t)$ ($t\in[-1,1]$),
+  $\varphi_2(t)={}^t(\cos t,\cos t)$, $\varphi_3(t)={}^t(2\sin t-1,2\sin t-1)$
+  ($t\in[0,\pi]$) und zeigen Sie für $W_i:=[\varphi_i]$:
+  (i) $W_1\neq W_2$, $W_2\neq W_3$, $W_1\neq W_3$;
+  (ii) $W_2=-W_1$, $W_1+W_2=W_3$.
+}{%
+  Alle drei Bilder liegen auf der Geraden $y=x$.
+  (i) Verschiedene Anfangs-/Endpunkte: $\varphi_1(-1)={}^t(-1,-1)$,
+  $\varphi_2(0)={}^t(1,1)$, $\varphi_3(0)={}^t(-1,-1)=\varphi_3(\pi)$.\\
+  (ii) Mit $f(t)=-\cos t$ gilt $\varphi_1^-\circ f=\varphi_2$, also
+  $W_2=-W_1$; mit passendem $f$ folgt $W_1+(-W_1)=W_3$.
+}
+
+\lernkarte[61211-6-sa-03]{%
+  Übung 6.1.3\\[4pt]
+  Seien $W_1,W_3$ die Kurven aus 6.1.8 ($\varphi_1(t)={}^t(\cos t,\sin t)$
+  auf $[0,\pi]$, $\varphi_3$ auf $[-\pi,0]$). Geben Sie
+  Parameterdarstellungen für $W_1+W_3$ und $W_3+W_1$ an. Warum sind sie
+  verschieden?
+}{%
+  $W_1+W_3=[\psi]$ mit $\psi(t)={}^t(\cos t,\sin t)$ auf $[0,2\pi]$;
+  $W_3+W_1=[\chi]$ mit $\chi(t)={}^t(\cos t,\sin t)$ auf $[-\pi,\pi]$.
+  Anfangspunkte $\psi(0)={}^t(1,0)$ bzw. $\chi(-\pi)={}^t(-1,0)$
+  verschieden, also $W_1+W_3\neq W_3+W_1$.
+}
+
+\lernkarte[61211-6-sa-04]{%
+  Übung 6.1.4\\[4pt]
+  Seien $W_1,W_2,W_3$ Kurven in $\mathbb{R}^n$, sodass $W_1+W_2$ und
+  $W_2+W_3$ gebildet werden können. Zeigen Sie: Auch $(W_1+W_2)+W_3$ und
+  $W_1+(W_2+W_3)$ existieren und $(W_1+W_2)+W_3=W_1+(W_2+W_3)$.
+}{%
+  Endpunkt von $W_1$ = Anfangspunkt $a$ von $W_2$, Endpunkt $b$ von $W_2$
+  = Anfangspunkt von $W_3$; damit sind beide Verkettungen erklärt.
+  Wählt man $\varphi_i:I_i\to\mathbb{R}^n$ auf angrenzenden Intervallen, so
+  ist $\psi$ auf $I=I_1\cup I_2\cup I_3$ Parameterdarstellung beider Seiten,
+  also gleich.
+}
+
+% --- Abschnitt 6.2 Länge einer Kurve -------------------------------------
+\lernabschnitt{6.2 Länge einer Kurve}
+
+\lernkarte[61211-6-sa-05]{%
+  Übung 6.2.1\\[4pt]
+  Sei $P=P(a_0,\dots,a_k,a_{k+1},\dots,a_r)$ ein Polygonzug. Durch
+  Hinzunehmen eines Punktes $a^*$ entstehe $P^*:=P(a_0,\dots,a_k,a^*,
+  a_{k+1},\dots,a_r)$. Zeigen Sie $L(P)\le L(P^*)$.
+}{%
+  Der Summand $\|a_{k+1}-a_k\|_2$ wird durch
+  $\|a^*-a_k\|_2+\|a_{k+1}-a^*\|_2$ ersetzt. Nach der Dreiecksungleichung
+  \[ \|a_{k+1}-a_k\|_2\le\|a_{k+1}-a^*\|_2+\|a^*-a_k\|_2, \]
+  also $L(P)\le L(P^*)$.
+}
+
+\lernkarte[61211-6-sa-06]{%
+  Übung 6.2.2\\[4pt]
+  Für $\alpha\in\mathbb{R}$ sei $\varphi_\alpha:[0,1]\to\mathbb{R}^2$,
+  $\varphi_\alpha(t)={}^t\!\bigl(t^\alpha\cos\tfrac{\pi}{t},
+  t^\alpha\sin\tfrac{\pi}{t}\bigr)$ für $0<t\le1$, $\varphi_\alpha(0)=\mathbf{0}$.
+  Ist $W_\alpha$ eine Kurve? Wenn ja, ist $W_\alpha$ rektifizierbar?
+}{%
+  $\varphi_\alpha$ ist stetig (und damit Kurve) genau für $\alpha>0$;
+  für $\alpha\le0$ divergiert $\varphi_\alpha(1/k)$.
+  $\|\dot\varphi_\alpha(t)\|_2=t^{\alpha-2}\sqrt{\alpha^2t^2+\pi^2}$.
+  $W_\alpha$ rektifizierbar genau für $\alpha>1$ (für $0<\alpha\le1$
+  divergiert $\int_0^1\|\dot\varphi_\alpha\|_2\,dt$).
+}
+
+\lernkarte[61211-6-sa-07]{%
+  Übung 6.2.3\\[4pt]
+  Sei $A>0$ und $W$ das Stück der Kettenlinie mit
+  $\varphi:[-A,A]\to\mathbb{R}^2$, $\varphi(t)={}^t(t,\cosh t)$. Berechnen
+  Sie die Bogenlänge $s_\varphi$, geben Sie die ausgezeichnete
+  Parameterdarstellung $\Phi$ an und verifizieren Sie $\|\dot\Phi(t)\|_2=1$.
+}{%
+  $\|\dot\varphi(t)\|_2=\sqrt{1+\sinh^2 t}=\cosh t$, also
+  $s_\varphi(t)=\sinh t+\sinh A$ und $L(W)=2\sinh A$.
+  \[ \Phi(\tau)={}^t\!\bigl(\operatorname{arsinh}(\tau-\sinh A),
+     \sqrt{1+(\tau-\sinh A)^2}\bigr), \]
+  und $\|\dot\Phi(\tau)\|_2^2=\tfrac{1}{1+(\tau-\sinh A)^2}
+  +\tfrac{(\tau-\sinh A)^2}{1+(\tau-\sinh A)^2}=1$.
+}
+
+\lernkarte[61211-6-sa-08]{%
+  Übung 6.2.4\\[4pt]
+  Berechnen Sie die Bogenlänge $s_\varphi$ der Astroide bezüglich
+  $\varphi:[0,2\pi]\to\mathbb{R}^2$, $\varphi(t)={}^t(r\cos^3 t,r\sin^3 t)$
+  ($r>0$), insbesondere die Länge $L([\varphi])=s_\varphi(2\pi)$.
+}{%
+  $\|\dot\varphi(t)\|_2=\tfrac{3r}{2}|\sin(2t)|$, also
+  $s_\varphi(t)=\tfrac{3r}{2}\int_0^t|\sin(2\tau)|\,d\tau$
+  (abschnittsweise $\tfrac{3r}{4}(1-\cos 2t)$ usw.).
+  Insbesondere $L([\varphi])=s_\varphi(2\pi)=6r$.
+}
+
+% --- Abschnitt 6.3 Kurvenintegrale ---------------------------------------
+\lernabschnitt{6.3 Kurvenintegrale}
+
+\lernkarte[61211-6-sa-09]{%
+  Übung 6.3.1\\[4pt]
+  Sei $f(x,y):=x^2y$. Berechnen Sie $\int_W f\,ds$ für
+  $W_1:=[\varphi]$, $\varphi(t)={}^t(3\cos t,3\sin t)$ ($[0,2\pi]$);
+  $W_2:=[\psi]$, $\psi(t)={}^t(3\cos t,0)$ ($[0,\pi]$);
+  $W_3:=[\chi]$ mit $\chi=\psi$ auf $[0,\pi]$, $\chi=\varphi$ auf $[\pi,2\pi]$.
+}{%
+  $\int_{W_1}f\,ds=81\int_0^{2\pi}\cos^2 t\sin t\,dt=0$.\\
+  $\int_{W_2}f\,ds=0$ (denn $y\equiv0$).\\
+  $\int_{W_3}f\,ds=81\int_\pi^{2\pi}\cos^2 t\sin t\,dt=-54$.
+}
+
+\lernkarte[61211-6-sa-10]{%
+  Übung 6.3.2\\[4pt]
+  Sei $f(x,y):=\dfrac{1}{x^2+y^2-2y+1}\,{}^t(y-1,\,x)$ auf
+  $\mathbb{R}^2\setminus\{{}^t(0,1)\}$. Berechnen Sie
+  $\int_{W_2}f\cdot d{}^t(x,y)$ für $W_2$ aus Ü 6.3.1
+  ($\psi(t)={}^t(3\cos t,0)$).
+}{%
+  $f(\psi(t))\cdot\dot\psi(t)=\dfrac{3\sin t}{1+9\cos^2 t}$, also
+  \[ \int_{W_2}f\cdot d{}^t(x,y)
+     =-\arctan(3\cos t)\big|_0^\pi=2\arctan 3. \]
+}
+
+\lernkarte[61211-6-sa-11]{%
+  Übung 6.3.3\\[4pt]
+  Beweisen Sie die Rechenregeln aus Satz 6.3.6 (Linearität, Additivität,
+  Vorzeichenwechsel bei $-W$, Standardabschätzung).
+}{%
+  Linearität folgt aus der Linearität des Riemannintegrals; Additivität aus
+  der Intervalladditivität. Für $-W$: mit $\varphi^-(t)=\varphi(-t)$ und
+  Substitution $\int_{-W}f\cdot dx=-\int_W f\cdot dx$.
+  Abschätzung: $\bigl|\int_W f\cdot dx\bigr|\le\mu\,L(W)$ mit
+  $\mu=\max\{\|f(x)\|_2:x\in|W|\}$ (Cauchy--Schwarz).
+}
+
+\lernkarte[61211-6-sa-12]{%
+  Übung 6.3.4\\[4pt]
+  Welche Arbeit hat das Kraftfeld $f(x,y,z)={}^t(2x-y,2z,y-z)$ zu leisten,
+  um einen Massenpunkt von $a={}^t(0,0,0)$ nach $b={}^t(1,1,1)$ zu bewegen
+  (i) längs $S(a,b)$; (ii) längs $\varphi(t)={}^t(\sin\tfrac{\pi t}{2},
+  \sin\tfrac{\pi t}{2},t)$; (iii) längs $S(a,c)+S(c,d)+S(d,b)$,
+  $c={}^t(1,0,0)$, $d={}^t(1,1,0)$?
+}{%
+  (i) $f(\varphi(t))\cdot\dot\varphi(t)=3t$, $A=3\int_0^1 t\,dt=\tfrac{3}{2}$.\\
+  (ii) $A=2-\tfrac{2}{\pi}$.\\
+  (iii) $A=1+0+\tfrac{1}{2}=\tfrac{3}{2}$.
+}
+
+% --- Abschnitt 6.4 Stammfunktionen ---------------------------------------
+\lernabschnitt{6.4 Stammfunktionen}
+
+\lernkarte[61211-6-sa-13]{%
+  Übung 6.4.1\\[4pt]
+  Sei $h:\,]0,\infty[\to\mathbb{R}$ stetig, $H$ differenzierbar mit
+  $H'(\rho)=\rho h(\rho)$ und $r(x,y,z)=\sqrt{x^2+y^2+z^2}$. Zeigen Sie,
+  dass $H\circ r$ Stammfunktion von $f(x,y,z)=h(r)\,{}^t(x,y,z)$ ist, und
+  bestimmen Sie Stammfunktionen im Fall $h(\rho)=\rho^{-k}$ ($k\ge2$).
+}{%
+  $D_j r=\tfrac{x_j}{r}$, also $(H\circ r)'={}^tf$ (Kettenregel), d.\,h.
+  $H\circ r$ ist Stammfunktion auf dem Gebiet $\mathbb{R}^3\setminus\{0\}$.
+  Für $h(\rho)=\rho^{-k}$: $H'(\rho)=\rho^{1-k}$, also
+  $H(\rho)=\tfrac{1}{2-k}\rho^{2-k}$ ($k>2$) bzw. $H(\rho)=\ln\rho$ ($k=2$).
+}
+
+\lernkarte[61211-6-sa-14]{%
+  Übung 6.4.2\\[4pt]
+  Prüfen Sie, ob Gradientenfeld, und bestimmen Sie ggf. eine Stammfunktion:
+  (i) $f(x,y)={}^t(6x^2y,2x^3)$; (ii) $f(x,y)={}^t(\sin x\cosh y,
+  \cos x\sinh y)$; (iii) $f(x,y,z)={}^t(x+z,-y-z,x-y)$;
+  (iv) $f(x,y,z)={}^t(xy^2,\exp z,xy)$.
+}{%
+  (i) Ja, $D_1f_2=6x^2=D_2f_1$; $F(x,y)=2x^3y$.\\
+  (ii) Nein: $D_1f_2=-\sin x\sinh y\neq\sin x\sinh y=D_2f_1$.\\
+  (iii) Ja (alle Integrabilitätsbed.\ erfüllt);
+  $F=\tfrac{1}{2}(x^2-y^2)+z(x-y)$.\\
+  (iv) Nein: $D_1f_2=0\neq2xy=D_2f_1$.
+}
+
+\lernkarte[61211-6-sa-15]{%
+  Übung 6.4.3\\[4pt]
+  Berechnen Sie für die Vektorfelder $f$ aus Ü 6.4.2(iii) und (iv) die
+  Kurvenintegrale $\int_W f\cdot d{}^t(x,y,z)$ für
+  (i) $W:=S(a,b)$, $a={}^t(0,0,0)$, $b={}^t(1,1,1)$;
+  (ii) $W:=S(a,c)+S(c,d)+S(d,b)$, $c={}^t(1,0,0)$, $d={}^t(1,1,0)$.
+}{%
+  \textbf{Feld (iii)} (Gradientenfeld, $F=\tfrac12(x^2-y^2)+z(x-y)$):
+  wegunabhängig, $\int_W=F(b)-F(a)=0$ in (i) \emph{und} (ii).\\
+  \textbf{Feld (iv)} (kein Gradientenfeld):
+  (i) $\int_W=e-\tfrac{5}{12}$;\quad (ii) $\int_W=0+1+1=2$.
+}
+
+% --- Abschnitt 6.5 Flächen- und Volumenberechnungen ----------------------
+\lernabschnitt{6.5 Flächen- und Volumenberechnungen}
+
+\lernkarte[61211-6-sa-16]{%
+  Übung 6.5.1\\[4pt]
+  Berechnen Sie den Flächeninhalt unter dem Graphen von
+  (i) $f(x)=\sqrt{r^2-x^2}$ auf $[a,r]$ ($-r\le a<r$);
+  (ii) $f$ auf $[0,r]$ mit $f(x)=mx$ für $x\in[0,\tfrac{r}{\sqrt{1+m^2}}]$
+  und $f(x)=\sqrt{r^2-x^2}$ sonst ($m>0$).
+}{%
+  (i) $\displaystyle\int_a^r\sqrt{r^2-x^2}\,dx
+     =\tfrac{r^2}{2}\arccos\tfrac{a}{r}-\tfrac{a}{2}\sqrt{r^2-a^2}$
+  (Halbkreis $a=-r$: $\tfrac{\pi}{2}r^2$).\\
+  (ii) Mit $a=\tfrac{r}{\sqrt{1+m^2}}$:
+  $\lambda_2(F)=\tfrac{m}{2}a^2+\bigl(\tfrac{r^2}{2}\arccos\tfrac{a}{r}
+  -\tfrac{a}{2}\sqrt{r^2-a^2}\bigr)=\tfrac{r^2}{2}\arccos\tfrac{1}{\sqrt{1+m^2}}$.
+}
+
+\lernkarte[61211-6-sa-17]{%
+  Übung 6.5.2\\[4pt]
+  Berechnen Sie den Flächeninhalt zwischen den Graphen von
+  (i) $f(x)=\sqrt{x}$ und $g(x)=x^2$ auf $[0,2]$;
+  (ii) $f(x)=\cosh x$ und $g(x)=\sinh x$ auf $[0,\infty[$.
+}{%
+  (i) $\displaystyle\int_0^1(\sqrt{x}-x^2)\,dx+\int_1^2(x^2-\sqrt{x})\,dx
+     =\tfrac{2}{3}(5-2\sqrt2)$.\\
+  (ii) $\int_0^\beta(\cosh x-\sinh x)\,dx=1-e^{-\beta}\to1$
+  für $\beta\to\infty$, also $\lambda_2(F)=1$.
+}
+
+\lernkarte[61211-6-sa-18]{%
+  Übung 6.5.3\\[4pt]
+  Berechnen Sie den Flächeninhalt der Ellipsenfläche
+  $F_{a,b}=\{{}^t(x,y):\tfrac{x^2}{a^2}+\tfrac{y^2}{b^2}\le1\}$ ($a,b>0$)
+  sowie das Volumen des Rotationsellipsoids (Rotation der Ellipse um die
+  $x$-Achse).
+}{%
+  Mit $f(x)=\tfrac{b}{a}\sqrt{a^2-x^2}$, $g=-f$:
+  $\lambda_2(F_{a,b})=2\tfrac{b}{a}\int_{-a}^a\sqrt{a^2-x^2}\,dx
+  =\tfrac{b}{a}\cdot a^2\pi=ab\pi$.\\
+  Volumen: $\lambda_3(K_{a,b})=\pi\int_{-a}^a f(x)^2\,dx
+  =\tfrac{4}{3}\pi ab^2$.
+}

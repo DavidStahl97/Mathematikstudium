@@ -1,0 +1,377 @@
+% Skriptaufgaben -- Analysis (Modul 61211), Lektion 2
+% Quelle: die im Lehrtext-Skript (KE2_Analysis.pdf) eingebetteten UEBUNGSAUFGABEN
+%   "Ü 2.x.y" am Ende jedes Abschnitts, samt der offiziellen Loesungen aus dem
+%   Loesungsteil "Loesungen der Aufgaben zu 2.x" desselben Skripts.
+% Format: \lernkarte[id]{Vorderseite: Ü-Nummer + Aufgabe}{Rueckseite: kurze Loesung}
+% id-Schema: 61211-2-sa-NN  ("sa" = Skriptaufgabe)
+%
+% --- Abschnitt 2.1 Stetigkeit (Rückblick und Ergänzungen) -----------------
+\lernabschnitt{2.1 Stetigkeit (Rückblick und Ergänzungen)}
+
+\lernkarte[61211-2-sa-01]{%
+  Übung 2.1.1\\[4pt]
+  Seien $f:A\longrightarrow B$ und $g:f(A)\longrightarrow A$ zwei gegebene
+  Funktionen. Zeigen Sie: Genau dann ist $f$ injektiv und $g$ die
+  Umkehrfunktion von $f$, wenn $g(f(x))=x$ für jedes $x\in A$ gilt.
+}{%
+  \textbf{$\Rightarrow$:} $f$ injektiv, $g=f^{-1}$: dann ist $g(f(x))$ das
+  eindeutige $z$ mit $f(z)=f(x)$, also $z=x$.\\
+  \textbf{$\Leftarrow$:} aus $f(x)=f(z)$ folgt $x=g(f(x))=g(f(z))=z$
+  ($f$ injektiv); und $g(y)=g(f(x))=x$ zeigt $g=f^{-1}$.
+}
+
+\lernkarte[61211-2-sa-02]{%
+  Übung 2.1.2\\[4pt]
+  Zeigen Sie, dass eine Polynomfunktion $P:\mathbb{R}\to\mathbb{R}$,
+  $P(x):=\sum_{k=0}^{n}a_kx^k$ mit ungeradem $n$ und $a_n\neq0$ jeden Wert
+  $y\in\mathbb{R}$ annimmt.
+}{%
+  Zwischenwertsatz 2.1.13; o.\,B.\,d.\,A.\ $a_n=1$, $\alpha:=\max\{|a_k|\}$.
+  Für $x_2:=\alpha n+|y|+1$ gilt $P(x_2)\ge|y|+1>y$, für $x_1:=-x_2$ gilt
+  $P(x_1)\le-|y|-1<y$. Also existiert $x$ mit $P(x_1)\le y\le P(x_2)$ und
+  $P(x)=y$.
+}
+
+\lernkarte[61211-2-sa-03]{%
+  Übung 2.1.3\\[4pt]
+  Sei $M\subseteq\mathbb{R}$. Zeigen Sie: $a\in\mathbb{R}$ ist genau dann
+  Häufungspunkt von $M$, wenn es eine Folge $(a_k)$ in $M\setminus\{a\}$ mit
+  $\lim_{k\to\infty}a_k=a$ gibt.
+}{%
+  \textbf{$\Leftarrow$:} in jeder Umgebung von $a$ liegen fast alle
+  $a_k\in M\setminus\{a\}$, also ein von $a$ verschiedener Punkt aus $M$.\\
+  \textbf{$\Rightarrow$:} wähle $a_k\in U_{1/k}(a)\cap(M\setminus\{a\})$;
+  dann $|a_k-a|<\tfrac1k\to0$.
+}
+
+\lernkarte[61211-2-sa-04]{%
+  Übung 2.1.4\\[4pt]
+  Sei $M\subseteq\mathbb{R}$ nichtleer. Zeigen Sie: Ist $M$ nach oben (bzw.
+  unten) beschränkt und $\sup M\notin M$ (bzw. $\inf M\notin M$), so ist
+  $\sup M$ (bzw. $\inf M$) Häufungspunkt von $M$. Folgerung: Ist $M$
+  abgeschlossen und beschränkt, so existiert $\max M$ (bzw. $\min M$).
+}{%
+  $S:=\sup M$: in $U_\varepsilon(S)$ gibt es $a\in M$ mit $a+\varepsilon>S$
+  (sonst wäre $S-\varepsilon$ obere Schranke), also $0\le S-a<\varepsilon$,
+  $a\neq S$. Somit $S$ Häufungspunkt. Ist $M$ abgeschlossen, folgt
+  $\sup M\in M$, d.\,h.\ $\max M$ existiert.
+}
+
+\lernkarte[61211-2-sa-05]{%
+  Übung 2.1.5\\[4pt]
+  Seien $M\subseteq\mathbb{R}$ nichtleer und $(x_k)$ eine konvergente Folge mit
+  Gliedern aus $M$. Zeigen Sie: Ist $a:=\lim_{k\to\infty}x_k\notin M$, so ist
+  $a$ Häufungspunkt von $M$. Folgerung: Ist $M$ abgeschlossen, so gilt
+  $\lim x_k\in M$.
+}{%
+  In jeder Umgebung von $a$ liegen fast alle $x_k\in M$; wegen $a\notin M$
+  sind diese von $a$ verschieden $\Rightarrow$ $a$ Häufungspunkt. Ist $M$
+  abgeschlossen, so kann $a$ kein Häufungspunkt außerhalb $M$ sein, also
+  $a\in M$.
+}
+
+\lernkarte[61211-2-sa-06]{%
+  Übung 2.1.6\\[4pt]
+  Zeigen Sie, dass die Funktion $f$ aus 2.1.26(iii) und die Wurzelfunktion
+  $\sqrt{\ }:[0,\infty[\longrightarrow\mathbb{R}$, $x\mapsto\sqrt{x}$,
+  gleichmäßig stetig sind.
+}{%
+  $f(x)=x^2$ auf $[-r,r]$: $|x^2-y^2|\le2r|x-y|$, wähle $\delta=\tfrac{\varepsilon}{2r}$.\\
+  $\sqrt{\ }$: aus $|\sqrt{x}-\sqrt{y}|^2\le|x-y|$ folgt
+  $|\sqrt{x}-\sqrt{y}|\le\sqrt{|x-y|}$, wähle $\delta=\varepsilon^2$.
+}
+
+\lernkarte[61211-2-sa-07]{%
+  Übung 2.1.7\\[4pt]
+  Sei $\emptyset\neq M\subseteq\mathbb{R}$, $f\in\mathrm{Abb}(M,\mathbb{R})$.
+  $f$ heißt \textbf{dehnungsbeschränkt}, wenn es $L>0$ gibt mit
+  $|f(x)-f(y)|\le L|x-y|$ für alle $x,y\in M$. Zeigen Sie: (i) $f$
+  dehnungsbeschränkt $\Rightarrow$ $f$ gleichmäßig stetig. (ii) Die Umkehrung
+  ist falsch.
+}{%
+  (i) $\delta:=\tfrac{\varepsilon}{L}$: $|f(x)-f(y)|\le L|x-y|<L\delta=\varepsilon$.\\
+  (ii) $\sqrt{\ }$ ist gleichmäßig stetig (2.1.6), aber nicht
+  dehnungsbeschränkt: mit $x=\tfrac{1}{4L^2}$, $y=0$ ist
+  $|\sqrt{x}-\sqrt{y}|=\tfrac{1}{2L}>L\cdot\tfrac{1}{4L^2}=L|x-y|$.
+}
+
+% --- Abschnitt 2.2 Allgemeines über Funktionen von R^n nach R^m -----------
+\lernabschnitt{2.2 Allgemeines über Funktionen von $\mathbb{R}^n$ nach $\mathbb{R}^m$}
+
+\lernkarte[61211-2-sa-08]{%
+  Übung 2.2.1\\[4pt]
+  Zeichnen Sie die Höhenlinien
+  $H_c:=\bigl\{\,{}^t(x,y)\in\mathbb{R}^2\mid f(x,y)=c\,\bigr\}$ für
+  $c\in\{-4,\dots,4\}$ im Fall der linearen Funktion
+  $f:\mathbb{R}^2\to\mathbb{R}$, $f(x,y):=3x-4y$.
+}{%
+  $f(x,y)=c\iff y=\tfrac34 x-\tfrac{c}{4}$. Die $H_c$ sind parallele Geraden
+  mit Steigung $\tfrac34$ und Achsenabschnitt $-\tfrac{c}{4}$.
+}
+
+\lernkarte[61211-2-sa-09]{%
+  Übung 2.2.2\\[4pt]
+  Sei $f={}^t(f_1,\dots,f_m)\in\mathrm{Abb}(\mathbb{R}^n,\mathbb{R}^m)$.
+  Zeigen Sie, dass $f$ genau dann linear ist, wenn die
+  $f_1,\dots,f_m\in\mathrm{Abb}(\mathbb{R}^n,\mathbb{R}^1)$ sämtlich linear
+  sind.
+}{%
+  Wegen komponentenweiser Gleichheit gilt $f(x+y)=f(x)+f(y)$ und
+  $f(\alpha x)=\alpha f(x)$ genau dann, wenn
+  $f_i(x+y)=f_i(x)+f_i(y)$ und $f_i(\alpha x)=\alpha f_i(x)$ für jedes
+  $i=1,\dots,m$.
+}
+
+\lernkarte[61211-2-sa-10]{%
+  Übung 2.2.3\\[4pt]
+  Seien $f={}^t(f_1,\dots,f_m):\mathbb{R}^n\to\mathbb{R}^m$ und
+  $g={}^t(g_1,\dots,g_k):\mathbb{R}^m\to\mathbb{R}^k$ linear. Zeigen Sie:
+  (i) $g\circ f$ ist linear. (ii) Mit $f_\mu(x)=a_\mu\cdot x$ und
+  $g_\kappa(y)=b_\kappa\cdot y$ gilt für die Koordinatenfunktionen $h_\kappa$
+  von $g\circ f$: $h_\kappa(x)=c_\kappa\cdot x$ mit
+  $c_{\kappa\nu}=\sum_{\mu=1}^m b_{\kappa\mu}a_{\mu\nu}$.
+}{%
+  (i) $(g\circ f)(x+y)=g(f(x)+f(y))=g(f(x))+g(f(y))$ und
+  $(g\circ f)(\alpha x)=\alpha(g\circ f)(x)$.\\
+  (ii) $h_\kappa(x)=b_\kappa\cdot{}^t(a_1\cdot x,\dots,a_m\cdot x)
+  =\sum_{\nu=1}^{n}\bigl(\sum_{\mu=1}^{m}b_{\kappa\mu}a_{\mu\nu}\bigr)x_\nu$
+  (Matrixprodukt der Koeffizienten).
+}
+
+\lernkarte[61211-2-sa-11]{%
+  Übung 2.2.4\\[4pt]
+  Zeigen Sie, dass mit $P$ und $Q$ auch $P+Q$, $P-Q$, $\alpha P$ (für
+  $\alpha\in\mathbb{R}$) sowie $PQ$ Polynomfunktionen in
+  $\mathrm{Abb}(\mathbb{R}^n,\mathbb{R})$ sind.
+}{%
+  $P,Q$ sind endliche Summen von Monomen
+  $c\,x_1^{i_1}\cdots x_n^{i_n}$ ($c\in\mathbb{R}$, $i_\nu\in\mathbb{N}_0$).
+  Summe, $\alpha$-Vielfaches und Produkt solcher Monome sind wieder von
+  diesem Typ; also sind $P+Q$, $\alpha P$, $P-Q=P+(-Q)$ und $PQ$ ebenfalls
+  Polynomfunktionen.
+}
+
+% --- Abschnitt 2.3 Stetigkeit. Lokale Eigenschaften ----------------------
+\lernabschnitt{2.3 Stetigkeit. Lokale Eigenschaften}
+
+\lernkarte[61211-2-sa-12]{%
+  Übung 2.3.1\\[4pt]
+  Sei $(X,\|\ \|)$ ein normierter Raum. Zeigen Sie, dass die identische
+  Abbildung $\mathrm{id}_X:X\to X$, $x\mapsto x$, stetig ist,
+  (i) mithilfe der Definition 2.3.1, (ii) mithilfe des
+  $\varepsilon$--$\delta$--Kriteriums 2.3.2, (iii) mithilfe des
+  Folgenkriteriums 2.3.3.
+}{%
+  (i) Zu Umgebung $V$ von $a$ wähle $U:=V$: $\mathrm{id}_X(U\cap X)=U=V$.\\
+  (ii) $\delta:=\varepsilon$: $\|\mathrm{id}_X(x)-\mathrm{id}_X(a)\|=\|x-a\|<\delta=\varepsilon$.\\
+  (iii) $x_k\to a\Rightarrow\mathrm{id}_X(x_k)=x_k\to a=\mathrm{id}_X(a)$.
+}
+
+\lernkarte[61211-2-sa-13]{%
+  Übung 2.3.2\\[4pt]
+  Beweisen Sie Satz 2.3.8 (Stetigkeit von $f+g$, $f-g$, $\alpha f$, $hf$ und
+  $\tfrac1h f$ in $a$ für in $a$ stetige $f,g\in\mathrm{Abb}(M,\mathbb{R}^m)$,
+  $h\in\mathrm{Abb}(M,\mathbb{R})$, im letzten Fall $h(x)\neq0$).
+}{%
+  Über das Folgenkriterium: für $x_k\to a$ gilt koordinatenweise
+  $f_\mu(x_k)\to f_\mu(a)$, $g_\mu(x_k)\to g_\mu(a)$, $h(x_k)\to h(a)$. Mit
+  den Rechenregeln für konvergente Folgen in $\mathbb{R}$ folgt die
+  Konvergenz der Koordinatenfunktionen von $f\pm g$, $\alpha f$, $hf$,
+  $\tfrac1h f$, also (1.5.11(ii)) die Stetigkeit in $a$.
+}
+
+\lernkarte[61211-2-sa-14]{%
+  Übung 2.3.3\\[4pt]
+  Führen Sie den Beweis zu Beispiel 2.3.12(iii) aus: $D:C^1(I)\to C(I)$,
+  $f\mapsto f'$, ist linear, aber in $f=\widehat{0}|_I$ nicht stetig
+  ($I=[0,1]$, $\|\ \|_\infty$).
+}{%
+  Mit $f_k(t):=\tfrac1k t^k$ gilt
+  $\|f_k-\widehat{0}\|_\infty=\tfrac1k\to0$, aber
+  $\|Df_k-D\widehat{0}\|_\infty=\sup_{t\in[0,1]}|t^{k-1}|=1$ für alle $k$.
+  Nach dem Folgenkriterium ist $D$ in $\widehat{0}$ nicht stetig.
+}
+
+\lernkarte[61211-2-sa-15]{%
+  Übung 2.3.4\\[4pt]
+  Sei $f:\mathbb{R}^2\to\mathbb{R}$ mit
+  $f(x,y):=\dfrac{xy}{x^2+y^2}$ für $\binom{x}{y}\neq\binom{0}{0}$ und
+  $f(0,0):=0$. Untersuchen Sie, in welchen Punkten $f$ stetig ist.
+}{%
+  Auf $M=\mathbb{R}^2\setminus\{0\}$ ist $f$ rational, also stetig
+  (2.3.10(iii)). In $\binom00$ unstetig: für
+  ${}^t\!\left(\tfrac1k,\tfrac1k\right)\to\binom00$ gilt
+  $f\!\left(\tfrac1k,\tfrac1k\right)=\tfrac12\to\tfrac12\neq0=f(0,0)$.
+}
+
+% --- Abschnitt 2.4 Stetige Funktionen auf zusammenhängenden Mengen -------
+\lernabschnitt{2.4 Stetige Funktionen auf zusammenhängenden Mengen}
+
+\lernkarte[61211-2-sa-16]{%
+  Übung 2.4.1\\[4pt]
+  Seien $M,Y$ nichtleere Mengen und $f\in\mathrm{Abb}(M,Y)$. Zeigen Sie für
+  $S,T,S_i$ ($i\in I$) und $A\subseteq M$ die Verträglichkeitseigenschaften
+  der $f$-Urbilder, u.\,a.\ $S\subseteq T\Rightarrow f^{-1}(S)\subseteq f^{-1}(T)$,
+  $f(f^{-1}(S))\subseteq S$, $A\subseteq f^{-1}(f(A))$ sowie die
+  Vertauschbarkeit mit $\bigcup,\bigcap$.
+}{%
+  Alles elementweise über $f^{-1}(S)=\{x\mid f(x)\in S\}$. Vertauschung mit
+  $\bigcup,\bigcap$: $x\in f^{-1}(\bigcup S_i)\iff f(x)\in\bigcup S_i\iff
+  \exists i:\,x\in f^{-1}(S_i)$ (analog $\bigcap$). Die restlichen Aussagen
+  (v),(vi) folgen aus diesen und $S\cup T\supseteq f(M)$ bzw.\ $S\cap T=\emptyset$.
+}
+
+\lernkarte[61211-2-sa-17]{%
+  Übung 2.4.2\\[4pt]
+  Beweisen Sie mithilfe des Satzes 2.4.7 die Stetigkeit der Projektion
+  $\pi_1:\mathbb{R}^n\to\mathbb{R}$, ${}^t(x_1,\dots,x_n)\mapsto x_1$.
+}{%
+  Nach 2.4.7 genügt: $\pi_1^{-1}(S)$ ist offen für offenes $S\subseteq\mathbb{R}$.
+  Für $a\in A:=\pi_1^{-1}(S)$ ist $a_1\in S$, also $U_\varepsilon^{\mathbb{R}}(a_1)\subseteq S$.
+  Wegen $|x_1-a_1|\le\|x-a\|_\infty$ folgt $U_\varepsilon^{\mathbb{R}^n}(a)\subseteq A$;
+  $A$ ist offen.
+}
+
+\lernkarte[61211-2-sa-18]{%
+  Übung 2.4.3\\[4pt]
+  Sei $(X,\|\ \|)$ normiert, $\emptyset\neq M\subseteq X$. Zeigen Sie: Sind
+  $M_1,M_2$ disjunkte Teilmengen von $M$ mit offenen $Q_1,Q_2$,
+  $M_i=Q_i\cap M$, so gibt es offene $\widetilde{Q}_1,\widetilde{Q}_2$ mit
+  $M_i=\widetilde{Q}_i\cap M$ und $\widetilde{Q}_1\cap\widetilde{Q}_2=\emptyset$.
+}{%
+  Zu $a\in M_1$ wähle $\varepsilon(a)$ mit $U_{\varepsilon(a)}(a)\subseteq Q_1$,
+  setze $\widetilde{\varepsilon}(a)=\tfrac12\varepsilon(a)$;
+  $\widetilde{Q}_1:=\bigcup_{a\in M_1}U_{\widetilde{\varepsilon}(a)}(a)$,
+  analog $\widetilde{Q}_2$. Diese sind offen und erfüllen $M_i=\widetilde{Q}_i\cap M$.
+  Ein $x\in\widetilde{Q}_1\cap\widetilde{Q}_2$ führt per Dreiecksungleichung auf
+  $\|a-b\|<\|a-b\|$ -- Widerspruch.
+}
+
+\lernkarte[61211-2-sa-19]{%
+  Übung 2.4.4\\[4pt]
+  Sei $(X,\|\ \|)$ normiert, $\emptyset\neq M\subseteq X$. Zu je zwei Punkten
+  $a,b\in M$ gebe es eine stetige Kurve $\varphi_{ab}:[0,1]\to M$ mit
+  $\varphi_{ab}(0)=a$, $\varphi_{ab}(1)=b$. Zeigen Sie, dass $M$
+  zusammenhängend ist.
+}{%
+  Widerspruch: wäre $M$ nicht zusammenhängend, gäbe es offene $Q_1,Q_2$ mit
+  $M\subseteq Q_1\cup Q_2$, $Q_1\cap Q_2=\emptyset$, $a\in Q_1\cap M$,
+  $b\in Q_2\cap M$. Dann wäre $B:=\varphi_{ab}([0,1])$ nicht
+  zusammenhängend -- im Widerspruch zu 2.4.12 ($B$ ist stetiges Bild des
+  zusammenhängenden $[0,1]$).
+}
+
+\lernkarte[61211-2-sa-20]{%
+  Übung 2.4.5\\[4pt]
+  Sei $M$ eine nichtleere, abgeschlossene Teilmenge von $\mathbb{R}^n$ und
+  $g,h\in\mathrm{Abb}(M,\mathbb{R})$ stetig. Zeigen Sie, dass
+  $N:=\{x\in M\mid g(x)\le h(x)\}$ abgeschlossen ist.
+}{%
+  Sei $a$ Häufungspunkt von $N$. Wegen $N\subseteq M$ und $M$ abgeschlossen
+  ist $a\in M$. Wähle $x_k\in U_{1/k}(a)\cap N\to a$; das Folgenkriterium
+  liefert $g(x_k)\to g(a)$, $h(x_k)\to h(a)$. Aus $g(x_k)\le h(x_k)$ folgt
+  $g(a)\le h(a)$, also $a\in N$.
+}
+
+% --- Abschnitt 2.5 Stetige Funktionen auf kompakten Mengen ---------------
+\lernabschnitt{2.5 Stetige Funktionen auf kompakten Mengen}
+
+\lernkarte[61211-2-sa-21]{%
+  Übung 2.5.1\\[4pt]
+  Sei $(X,\|\ \|)$ ein normierter Raum. Zeigen Sie: Jede endliche Teilmenge
+  von $X$ ist kompakt.
+}{%
+  $M=\emptyset$ ist trivial kompakt. Für $M=\{a_1,\dots,a_k\}$ wähle zu jeder
+  offenen Überdeckung $\mathcal{F}$ ein $F_i\in\mathcal{F}$ mit $a_i\in F_i$;
+  dann ist $\{F_1,\dots,F_k\}$ eine endliche Teilüberdeckung.
+}
+
+\lernkarte[61211-2-sa-22]{%
+  Übung 2.5.2\\[4pt]
+  Sei $M:=\bigl\{\,{}^t(x,y)\in\mathbb{R}^2\mid 0<x^2+y^2\le1\,\bigr\}$.
+  Zeigen Sie, dass $M$ nicht kompakt ist (in $\mathbb{R}^2$),
+  (i) mithilfe von 2.5.3, (ii) mithilfe von 2.5.6.
+}{%
+  (i) $x_k:={}^t\!\left(\tfrac1k,0\right)\in M\to\binom00\notin M$; keine
+  Teilfolge konvergiert in $M$ $\Rightarrow$ nicht folgenkompakt.\\
+  (ii) $\binom00$ ist Häufungspunkt von $M$, aber $\notin M$, also $M$ nicht
+  abgeschlossen; nach Heine--Borel nicht kompakt.
+}
+
+\lernkarte[61211-2-sa-23]{%
+  Übung 2.5.3\\[4pt]
+  Seien $(X,\|\ \|_X)$, $(Y,\|\ \|_Y)$ normierte Räume, $\emptyset\neq M\subseteq X$
+  und $f:M\to Y$ dehnungsbeschränkt. Zeigen Sie: $f$ ist gleichmäßig stetig.
+}{%
+  Es gibt $L>0$ mit $\|f(x)-f(a)\|_Y\le L\|x-a\|_X$. Wähle $\delta:=\tfrac{\varepsilon}{L}$:
+  für $\|x-a\|_X<\delta$ gilt $\|f(x)-f(a)\|_Y\le L\|x-a\|_X<L\delta=\varepsilon$;
+  $\delta$ ist unabhängig von $a,x$.
+}
+
+% --- Abschnitt 2.6 Punktweise und gleichmäßige Konvergenz von Funktionenfolgen
+\lernabschnitt{2.6 Punktweise und gleichmäßige Konvergenz von Funktionenfolgen}
+
+\lernkarte[61211-2-sa-24]{%
+  Übung 2.6.1\\[4pt]
+  Sei $\emptyset\neq M\subseteq\mathbb{R}$ und $(f_k)$ eine Folge in
+  $\mathrm{Abb}(M,\mathbb{R})$. Ist jede $f_k$ monoton wachsend (bzw.\ fallend)
+  und konvergiert $(f_k)$ punktweise gegen $f$, so ist auch $f$ monoton
+  wachsend (bzw.\ fallend).
+}{%
+  O.\,B.\,d.\,A.\ wachsend. Für $x<y$ gilt $f_k(x)\le f_k(y)$ für alle $k$;
+  Grenzübergang (1.2.10(v)) liefert
+  $f(x)=\lim f_k(x)\le\lim f_k(y)=f(y)$.
+}
+
+\lernkarte[61211-2-sa-25]{%
+  Übung 2.6.2\\[4pt]
+  Für $k\in\mathbb{N}$ sei $f_k:\mathbb{R}\to\mathbb{R}$,
+  $x\mapsto\tfrac1k[kx]$ ($[\,\cdot\,]$ Gaußklammer). Zeigen Sie, dass
+  $(f_k)$ gleichmäßig konvergiert, und bestimmen Sie die Grenzfunktion.
+}{%
+  Aus $y-1<[y]\le y$ folgt $|f_k(x)-x|<\tfrac1k$, also
+  $\|f_k-\mathrm{id}\|_\infty\le\tfrac1k\to0$. $(f_k)$ konvergiert gleichmäßig
+  gegen die Identität $\mathrm{id}$.
+}
+
+\lernkarte[61211-2-sa-26]{%
+  Übung 2.6.3\\[4pt]
+  Für $k\in\mathbb{N}$ sei $f_k:[0,1]\to\mathbb{R}$, $x\mapsto\tfrac{x}{1+kx}$.
+  Zeigen Sie, dass $(f_k)$ gleichmäßig konvergiert und $(f_k')$ punktweise,
+  aber nicht gleichmäßig; vergleichen Sie $f'$ und die Grenzfunktion $g$ von
+  $(f_k')$.
+}{%
+  $|f_k(x)|\le\tfrac1k\Rightarrow\|f_k\|_\infty\le\tfrac1k\to0$, also
+  $f=\widehat{0}$. $f_k'(x)=\tfrac{1}{(1+kx)^2}$: $f_k'(0)=1$, $f_k'(x)\to0$
+  für $x>0$, also $g(0)=1$, $g(x)=0$ sonst. $(f_k')$ nicht gleichmäßig
+  ($g$ unstetig, Satz von Weierstraß 2.6.5). Es ist $f'=\widehat{0}\neq g$.
+}
+
+\lernkarte[61211-2-sa-27]{%
+  Übung 2.6.4\\[4pt]
+  Sei $M$ nichtleer und $(f_k)$ eine Folge in $\mathrm{Abb}(M,\mathbb{R}^n)$,
+  $f_k={}^t(f_{k1},\dots,f_{kn})$. Zeigen Sie: (i) $(f_k)$ punktweise
+  konvergent $\iff$ alle Koordinatenfolgen punktweise konvergent;
+  (ii) $(f_k)$ gleichmäßig konvergent $\iff$ alle Koordinatenfolgen
+  gleichmäßig konvergent.
+}{%
+  (i) folgt aus der koordinatenweisen Konvergenz in $\mathbb{R}^n$ (1.5.11(ii)).\\
+  (ii) Mit $\|\ \|_\infty$: $|f_{k\nu}(x)-g_\nu(x)|\le\|f_k(x)-g(x)\|_\infty
+  \le\sum_{\nu}|f_{k\nu}(x)-g_\nu(x)|$. Die Sup-Abschätzungen liefern beide
+  Richtungen (endliche Summe reeller Nullfolgen).
+}
+
+\lernkarte[61211-2-sa-28]{%
+  Übung 2.6.5\\[4pt]
+  Sei $M:=\{\,{}^t(x,y)\in\mathbb{R}^2\mid x\ge1\,\}$ und $f_k:M\to\mathbb{R}^2$,
+  ${}^t(x,y)\mapsto\exp(-k(x^2+y^2))\binom{\cos ky}{\sin ky}$. Zeigen Sie,
+  dass die Reihe $\sum_{k=1}^{\infty}f_k$ gleichmäßig konvergiert.
+}{%
+  Majorantenkriterium 2.6.8 mit $\|\ \|_\infty$: für $x\ge1$ ist
+  \[
+    \|f_k(x,y)\|_\infty=e^{-k(x^2+y^2)}\max\{|\cos ky|,|\sin ky|\}
+    \le e^{-k(x^2+y^2)}\le e^{-k}.
+  \]
+  Da $\sum_{k=1}^\infty e^{-k}$ (geometrisch, $0<\tfrac1e<1$) konvergiert,
+  ist $\sum f_k$ gleichmäßig konvergent.
+}
