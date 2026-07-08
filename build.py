@@ -118,10 +118,11 @@ def main() -> int:
                   file=sys.stderr)
             return 1
 
-        # lernkarten.tex ist reine Kartenquelle (kein eigenständiges Dokument)
-        # und wird nicht zu PDF kompiliert – vgl. generate_docs.py.
+        # Reine Kartenquellen (kein eigenständiges Dokument) werden nicht zu PDF
+        # kompiliert – vgl. CARD_SOURCE_FILES in generate_docs.py.
+        card_sources = {"lernkarten.tex", "skriptaufgaben.tex"}
         tex_files = sorted(t for t in SKRIPTE_DIR.rglob("*.tex")
-                           if t.name != "lernkarten.tex")
+                           if t.name not in card_sources)
         todo = [t for t in tex_files if needs_rebuild(t, args.force)]
         print(f"LaTeX: {len(todo)} von {len(tex_files)} Dateien kompilieren …")
 

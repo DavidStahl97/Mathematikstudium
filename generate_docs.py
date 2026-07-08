@@ -28,6 +28,12 @@ DOCS_DIR = Path("docs")
 MKDOCS_FILE = Path("mkdocs.yml")
 LERNKARTEN_CACHE_DIR = Path(".lernkarten-cache")
 
+# Reine Kartenquellen (kein eigenständiges Dokument, keine eigene PDF-Seite):
+#   lernkarten.tex      -- Karten aus eigenen Notizen
+#   skriptaufgaben.tex  -- Karten aus Skript-Übungsaufgaben (Front: Ü-Nummer +
+#                          Aufgabe, Back: kurze Lösungsskizze)
+CARD_SOURCE_FILES = ("lernkarten.tex", "skriptaufgaben.tex")
+
 # Lernkarten-Generierung ist zeitaufwendig (pdflatex + pdftocairo pro Karte).
 # Standardmäßig deaktiviert; aktivieren via Umgebungsvariable GENERATE_LERNKARTEN=1.
 GENERATE_LERNKARTEN = os.environ.get("GENERATE_LERNKARTEN", "0") == "1"
@@ -184,25 +190,40 @@ def _collect_lernkarten_jobs(skripte_path: Path, docs_path: Path) -> list[dict]:
     """
     jobs = []
 
+    # Kartenquelle -> (Kind, docs-Unterordner für SVGs, md-Dateiname, Titelsuffix)
+    # "lernkarten.tex" liegt direkt im Lektionsordner; "skriptaufgaben.tex" bekommt
+    # einen eigenen SVG-Unterordner, damit sich die positionsbasierten
+    # card-N-*.svg der beiden Seiten im selben Lektionsordner nicht überschreiben.
+    _sources = {
+        "lernkarten.tex": ("lernkarten", "", "lernkarten.md", ""),
+        "skriptaufgaben.tex": ("skriptaufgaben", "skriptaufgaben",
+                               "skriptaufgaben.md", " — Skriptaufgaben"),
+    }
+
     def _walk(s_path: Path, d_path: Path):
-        source = s_path / "lernkarten.tex"
-        if source.exists():
+        for fname, (kind, sub, md_name, title_suffix) in _sources.items():
+            source = s_path / fname
+            if not source.exists():
+                continue
             cards = extract_lernkarten(source)
-            if cards:
-                rel_from_docs = d_path.relative_to(DOCS_DIR)
-                svg_out_dir = DOCS_DIR / "assets" / "lernkarten" / rel_from_docs
-                depth = len(rel_from_docs.parts) + 1
-                svg_base_url = "../" * depth + str(
-                    Path("assets/lernkarten") / rel_from_docs
-                ).replace("\\", "/") + "/"
-                jobs.append({
-                    "source_tex": source,
-                    "cards": cards,
-                    "svg_out_dir": svg_out_dir,
-                    "out_md": d_path / "lernkarten.md",
-                    "lesson_title": folder_to_title(s_path.name),
-                    "svg_base_url": svg_base_url,
-                })
+            if not cards:
+                continue
+            rel_from_docs = d_path.relative_to(DOCS_DIR)
+            asset_rel = Path("assets/lernkarten") / rel_from_docs
+            if sub:
+                asset_rel = asset_rel / sub
+            svg_out_dir = DOCS_DIR / asset_rel
+            depth = len(rel_from_docs.parts) + 1
+            svg_base_url = "../" * depth + str(asset_rel).replace("\\", "/") + "/"
+            jobs.append({
+                "source_tex": source,
+                "kind": kind,
+                "cards": cards,
+                "svg_out_dir": svg_out_dir,
+                "out_md": d_path / md_name,
+                "lesson_title": folder_to_title(s_path.name) + title_suffix,
+                "svg_base_url": svg_base_url,
+            })
         for entry in sorted(s_path.iterdir()):
             if entry.is_dir():
                 _walk(entry, d_path / entry.name)
@@ -520,12 +541,15 @@ def build_tree(skripte_path: Path, docs_path: Path, site_url: str,
     items = []
     docs_path.mkdir(parents=True, exist_ok=True)
 
-    # Lernkarten-Seite, wenn fuer dieses Verzeichnis ein Job vorgerendert wurde
-    job = lernkarten_by_source.get(skripte_path / "lernkarten.tex")
-    if job is not None:
-        write_flashcard_page(job)
-        rel = str(job["out_md"].relative_to(DOCS_DIR)).replace("\\", "/")
-        items.append({"Lernkarten": rel})
+    # Karten-Seiten (Lernkarten / Skriptaufgaben), wenn für dieses Verzeichnis
+    # ein Job vorgerendert wurde
+    for src_name, nav_label in (("lernkarten.tex", "Lernkarten"),
+                                ("skriptaufgaben.tex", "Skriptaufgaben")):
+        job = lernkarten_by_source.get(skripte_path / src_name)
+        if job is not None:
+            write_flashcard_page(job)
+            rel = str(job["out_md"].relative_to(DOCS_DIR)).replace("\\", "/")
+            items.append({nav_label: rel})
 
     for entry in sorted(skripte_path.iterdir()):
         if entry.is_dir():
@@ -535,8 +559,8 @@ def build_tree(skripte_path: Path, docs_path: Path, site_url: str,
             if sub_items:
                 items.append({folder_to_title(entry.name): sub_items})
 
-        # lernkarten.tex ist reine Kartenquelle, keine eigene PDF-Seite
-        elif entry.suffix == ".tex" and entry.name != "lernkarten.tex":
+        # Kartenquellen (lernkarten.tex/skriptaufgaben.tex) sind keine PDF-Seiten
+        elif entry.suffix == ".tex" and entry.name not in CARD_SOURCE_FILES:
             stem = entry.stem
             title = tex_to_title(stem)
 
@@ -608,7 +632,7 @@ def find_first_tex_page(module_path: Path) -> str | None:
     .tex-Datei in alphabetischer Reihenfolge.
     """
     all_tex = [t for t in sorted(module_path.rglob("*.tex"))
-               if t.name != "lernkarten.tex"]
+               if t.name not in CARD_SOURCE_FILES]
     if not all_tex:
         return None
     preferred = (

@@ -142,6 +142,9 @@ def build_anki_packages(out_dir: Path) -> list[dict] | None:
             source_tex: Path = job["source_tex"]
             _, _, lektion = _module_and_lesson(source_tex)
             deck_name = f"{root_name}::{lektion}"
+            # Skriptaufgaben-Karten in ein eigenes Unterdeck je Lektion.
+            if job.get("kind") == "skriptaufgaben":
+                deck_name = f"{deck_name}::Skriptaufgaben"
 
             if deck_name not in decks_by_name:
                 decks_by_name[deck_name] = genanki.Deck(
