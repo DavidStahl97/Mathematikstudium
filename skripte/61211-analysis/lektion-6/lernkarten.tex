@@ -1,0 +1,113 @@
+% Lernkarten -- Analysis (Modul 61211), Lektion 6
+% Quelle: eigene handschriftliche Notizen (Fernuni Notizbuch > 61211 Analysis, Kapitel 6)
+% Format: \lernkarte{Vorderseite (roter Titel)}{Rueckseite (weisser Inhalt)}
+
+% --- Notiz-Seite 6.1 "Kurvenbegriff" -----------------------------------
+\lernabschnitt{6.1 Kurvenbegriff}
+
+\lernkarte[61211-6-01]{Parametrisierte Kurve}{%
+  $I$ ein Intervall aus $\mathbb{R}$,
+  \[ \varphi : I \longrightarrow \mathbb{R}^n \]
+  ist eine parametrische Kurve. \\
+  Spur von $\varphi := \mathrm{Bild}(\varphi)$.
+}
+
+\lernkarte[61211-6-02]{Äquivalenzrelation (Umparametrisierung)}{%
+  Streng monoton wachsende Funktion $f$ mit $f(I) = J$ und
+  $\varphi = \psi \circ f$, \; $\varphi : I \to \mathbb{R}^n$, \; $\psi : J \to \mathbb{R}^n$.
+  \begin{enumerate}[label=(\roman*),topsep=2pt,itemsep=1pt,leftmargin=*]
+    \item $\varphi \sim \varphi$
+    \item $\varphi \sim \psi \Rightarrow \psi \sim \varphi$
+    \item $\varphi \sim \psi,\ \psi \sim \chi \Rightarrow \varphi \sim \chi$
+  \end{enumerate}
+}
+
+\lernkarte[61211-6-03]{Eigenschaften äquivalenter parametrisierter Kurven}{%
+  \begin{enumerate}[topsep=2pt,itemsep=1pt,leftmargin=*]
+    \item[(0)] $[\varphi] = [\psi]$
+    \item[(i)] $\mathrm{Spur}(\varphi) = \mathrm{Spur}(\psi)$
+    \item[(ii)] $t_1 < t_2 \Rightarrow \exists\, \tau_1 < \tau_2$ mit
+          $\varphi(t_1) = \psi(\tau_1)$ und $\varphi(t_2) = \psi(\tau_2)$
+    \item[(iii)] $\varphi(\text{Endpunkt}) = \psi(\text{Endpunkt})$
+  \end{enumerate}
+}
+
+\lernkarte[61211-6-04]{Kurve}{%
+  Eine Kurve $W$ ist eine Äquivalenzklasse $[\varphi]$ parametrisierter Kurven.
+}
+
+% --- Notiz-Seite 6.3 "Kurvenintegrale" ---------------------------------
+\lernabschnitt{6.3 Kurvenintegrale}
+
+\lernkarte[61211-6-05]{Kurvenintegral für skalare Funktion}{%
+  Voraussetzung: $W$ ist glatt, $\varphi$ auch glatt, $f : |W| \to \mathbb{R}$
+  stetig. So heißt
+  \[ \int_W f\, ds := \int_a^b f(\varphi(t))\, \|\dot{\varphi}(t)\|_2\, dt \]
+  das Kurvenintegral.
+}
+
+\lernkarte[61211-6-06]{Kurvenintegral für Vektorfunktionen}{%
+  Voraussetzung: glatte Kurve, glatte Parameterdarstellung.
+  \[ \int_W f \cdot dx := \int_a^b f(\varphi(t)) \cdot \dot{\varphi}(t)\, dt \]
+  oder
+  \[ \int_W (f_1\, dx_1 + \ldots + f_n\, dx_n) \]
+}
+
+% --- Notiz-Seite 6.4 "Stammfunktion" -----------------------------------
+\lernabschnitt{6.4 Stammfunktion}
+
+\lernkarte[61211-6-07]{Gebiet}{%
+  Nicht leere, zusammenhängende, offene Teilmenge von $\mathbb{R}^n$.
+}
+
+\lernkarte[61211-6-08]{Stammfunktion}{%
+  $G$ ist ein Gebiet, $f : G \to \mathbb{R}^n$, $F : G \to \mathbb{R}$. \\
+  Wenn ${}^t F'(x) = f(x)$, dann heißt $F$ eine Stammfunktion von $f$.
+}
+
+\lernkarte[61211-6-09]{Potentialfeld}{%
+  $U := -F$ heißt Potenzialfeld zum Vektorfeld $f$.
+}
+
+\lernkarte[61211-6-10]{Gradientenfeld}{%
+  $f$ ist das Gradientenfeld, erzeugt vom Potenzial $U := -F$.
+}
+
+\lernkarte[61211-6-11]{Integritätsbedingungen}{%
+  Besitzt $f$ eine Stammfunktion, so gelten
+  \[ D_i f_j = D_j f_i \]
+}
+
+\lernkarte[61211-6-12]{Wegunabhängigkeit}{%
+  Voraussetzung: $W$ stückweise glatte Kurve, mit Anfangs- und Endpunkt
+  $a, b$ und $|W| \subseteq G$. Dann
+  \[ \int_W f \cdot dx = F(b) - F(a) \]
+  Also spielt der Verlauf keine Rolle.
+}
+
+\lernkarte[61211-6-13]{Satz Stammfunktion (Existenz)}{%
+  Sei $G$ ein Gebiet, $f$ stetig differenzierbar, erfüllt die
+  Integritätsbedingung. Ist $G$ sternförmig, so besitzt $f$ eine
+  Stammfunktion $F$.
+}
+
+\lernkarte[61211-6-14]{Sternförmig}{%
+  \[ \exists\, a \in G \ \forall\, u \in G : \ S(a, u) \subseteq G \]
+}
+
+% --- Notiz-Seite 6.5 "Flächen und Volumenberechnung" -------------------
+\lernabschnitt{6.5 Flächen und Volumenberechnung}
+
+\lernkarte[61211-6-15]{Flächeninhalt}{%
+  \[ \text{Fläche} = F := \left\{ \tbinom{x}{y} \in \mathbb{R}^2 \ \middle|\
+     x \in I \text{ und } 0 \le y \le f(x) \right\} \]
+  \[ \text{Flächeninhalt} = \lambda_2(F) := \int_I f \]
+}
+
+\lernkarte[61211-6-16]{Körper zwischen zwei Graphen}{%
+  \begin{align*}
+    \lambda_3(K) &= \int_a^b \lambda_2(F(x))\, dx \\
+                 &= \int_a^b \left( \int_{\alpha(x)}^{\beta(x)}
+                    (f(x,t) - g(x,t))\, dt \right) dx
+  \end{align*}
+}
