@@ -1,0 +1,192 @@
+\documentclass[a4paper,12pt]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[ngerman]{babel}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{enumitem}
+\usepackage{array}
+\usepackage{geometry}
+\geometry{a4paper, margin=2.5cm}
+\usepackage{fancyhdr}
+\usepackage{parskip}
+
+\providecommand{\qed}{\hfill\ensuremath{\blacksquare}}
+\newcommand{\aufgabe}[2]{%
+  \bigskip\par\noindent\textbf{Aufgabe #1: #2}\par\nobreak\medskip}
+
+\pagestyle{fancy}
+\fancyhf{}
+\lhead{\small 61211 Analysis -- Probeklausur 2}
+\rhead{\small Lösungsvorschlag}
+\cfoot{\small Seite \thepage}
+\renewcommand{\headrulewidth}{0.4pt}
+
+\begin{document}
+
+\begin{center}
+  {\LARGE\bfseries Probeklausur 2 -- 61211 Analysis}\\[0.4em]
+  {\large Lösungsvorschlag}
+\end{center}
+
+\medskip
+\noindent\textit{Dieser Lösungsvorschlag dient der Selbstkontrolle. Zitierte Satznummern
+beziehen sich auf den Kurstext 61211 Analysis.}
+
+% =====================================================================
+\aufgabe{1}{Multiple Choice}
+
+\renewcommand{\arraystretch}{1.5}
+\noindent\begin{tabular}{@{}c@{\hspace{0.8em}}c@{\hspace{0.8em}}p{12.4cm}@{}}
+  (a) & \textbf{Falsch} & Der Satz von Bolzano--Weierstraß 1.5.9 gilt nur \emph{endlichdimensional}. In $(c_0,\|\cdot\|_\infty)$ etwa hat die beschränkte Folge der Einheitsvektoren $e_k$ keine konvergente Teilfolge ($\|e_k-e_m\|_\infty=1$).\\
+  (b) & \textbf{Wahr} & Jeder endlichdimensionale normierte Raum ist vollständig (für $\mathbb{R}^n$: Satz 1.5.18; jeder $n$-dimensionale Raum ist dazu isomorph).\\
+  (c) & \textbf{Wahr} & Satz von Heine: eine auf dem Kompaktum $[a,b]$ stetige Funktion ist gleichmäßig stetig.\\
+  (d) & \textbf{Falsch} & Gegenbeispiel $f_k(x)=x^k$ auf $[0,1]$: der punktweise Grenzwert ist $0$ auf $[0,1[$ und $1$ in $x=1$, also unstetig. (Für Stetigkeit der Grenzfunktion braucht man \emph{gleichmäßige} Konvergenz, Satz 2.6.5.)\\
+  (e) & \textbf{Falsch} & Gegenbeispiel $f(x,y)=\dfrac{x^2y}{x^4+y^2}$ (und $f(0,0)=0$): in $(0,0)$ existieren alle Richtungsableitungen, aber längs $y=x^2$ ist $f=\tfrac12\not\to 0$, also ist $f$ dort nicht stetig.\\
+  (f) & \textbf{Wahr} & Satz 3.6.4: sind die partiellen Ableitungen in einer Umgebung vorhanden und in $a$ stetig, so ist $f$ in $a$ total differenzierbar.\\
+  (g) & \textbf{Falsch} & Positive \emph{Semi}definitheit genügt nicht. Für $f(x,y)=x^2-y^4$ ist $\operatorname{grad} f(0,0)=0$ und $H(0,0)=\operatorname{diag}(2,0)$ positiv semidefinit, aber $f(0,y)=-y^4<0$: kein Minimum.\\
+  (h) & \textbf{Wahr} & Notwendige Lagrange-Bedingung (Satz 4.5.9): wegen $\operatorname{grad} g(a)\neq 0$ (Regularität) existiert ein solches $\lambda$.\\
+  (i) & \textbf{Falsch} & Gegenbeispiel $f(x)=\dfrac{1}{1+x}$: es gilt $f(x)\to 0$, aber $\int_0^\infty \tfrac{1}{1+x}\,dx=\lim_{R\to\infty}\ln(1+R)=\infty$.\\
+  (j) & \textbf{Wahr} & Satz 6.2.5: eine stetig differenzierbare Kurve ist rektifizierbar mit $L(W)=\int_a^b\|\dot\varphi(t)\|\,dt$.\\
+\end{tabular}
+
+\medskip
+\noindent Antworten kompakt: (a) F, (b) W, (c) W, (d) F, (e) F, (f) W, (g) F, (h) W, (i) F, (j) W.
+
+% =====================================================================
+\aufgabe{2}{Wann ist $N_p$ eine Norm?}
+
+\emph{Vorbemerkung.} Wir schreiben $S(x):=\sum_{k=1}^n |x_k|^p$, sodass $N_p(x)=S(x)^{1/p}$. Wegen $p>0$ ist $t\mapsto t^{1/p}$ auf $[0,\infty)$ streng monoton wachsend mit $t^{1/p}=0\iff t=0$.
+
+\textbf{a) Definitheit.} Für jedes $k$ ist $|x_k|^p\ge 0$, also $S(x)\ge 0$ und $N_p(x)=S(x)^{1/p}\ge 0$. Ferner
+\[
+N_p(x)=0\iff S(x)=0\iff \sum_{k=1}^n|x_k|^p=0\iff |x_k|=0\ \forall k\iff x=0,
+\]
+da eine Summe nichtnegativer Zahlen genau dann $0$ ist, wenn jeder Summand $0$ ist.
+
+\textbf{b) Positive Homogenität.} Aus $|\alpha x_k|^p=|\alpha|^p|x_k|^p$ folgt
+\[
+N_p(\alpha x)=\Big(\sum_{k=1}^n|\alpha|^p|x_k|^p\Big)^{1/p}=\big(|\alpha|^p\big)^{1/p}\Big(\sum_{k=1}^n|x_k|^p\Big)^{1/p}=|\alpha|\,N_p(x).
+\]
+
+\textbf{c) Verletzung der Dreiecksungleichung.} Wegen $n\ge 2$ gibt es $e_1={}^t(1,0,\dots,0)$, $e_2={}^t(0,1,0,\dots,0)$ mit
+\[
+N_p(e_1)=N_p(e_2)=1,\qquad N_p(e_1+e_2)=(1^p+1^p)^{1/p}=2^{1/p}.
+\]
+Wegen $0<p<1$ ist $\tfrac1p>1$, und $t\mapsto 2^t$ ist streng wachsend, also
+\[
+N_p(e_1+e_2)=2^{1/p}>2=N_p(e_1)+N_p(e_2).
+\]
+Die Dreiecksungleichung ist verletzt; zusammen mit a), b) ist $N_p$ für $p\in(0,1)$ \textbf{keine} Norm.
+
+\emph{Zur Rolle von $p\ge 1$:} Für $p\ge 1$ ist $\|\cdot\|_p$ nach Satz und Definition 1.4.4 eine Norm; die Dreiecksungleichung ist die Minkowski-Ungleichung (für $p=2$ gerade Satz 1.1.8). Sie gilt \emph{nur} für $p\ge 1$; für $p<1$ verkehrt sie sich ins Gegenteil (Faktor $2^{1/p}$ statt $2$). Der Grund ist die \emph{Subadditivität} $(a+b)^p\le a^p+b^p$ für $p<1$ (Teil d) -- das Gegenteil der für $p\ge 1$ gültigen Konvexität.
+
+\textbf{d)} \textbf{(i) $(a+b)^p\le a^p+b^p$ für $a,b\ge 0$.} Für $a=b=0$ klar. Sei $a+b>0$, setze $s=\tfrac{a}{a+b},\ t=\tfrac{b}{a+b}\in[0,1]$ mit $s+t=1$. Für $s\in(0,1)$ ist $\tfrac{s^p}{s}=s^{p-1}=(\tfrac1s)^{1-p}>1$, also $s^p\ge s$; ebenso $t^p\ge t$. Somit $s^p+t^p\ge s+t=1$. Mit $s^p=\tfrac{a^p}{(a+b)^p}$, $t^p=\tfrac{b^p}{(a+b)^p}$ folgt $\tfrac{a^p+b^p}{(a+b)^p}\ge 1$, also $(a+b)^p\le a^p+b^p$.
+
+\textbf{(ii) $d$ ist eine Metrik.} \emph{Definitheit:} $d(x,y)\ge 0$ und $d(x,y)=0\iff x_k=y_k\ \forall k\iff x=y$ (wie a). \emph{Symmetrie:} $|x_k-y_k|=|y_k-x_k|$. \emph{Dreiecksungleichung:} mit der Dreiecksungleichung des Betrags ist $|x_k-y_k|\le a+b$ mit $a=|x_k-z_k|,\ b=|z_k-y_k|$; da $t\mapsto t^p$ wächst und mit (i)
+\[
+|x_k-y_k|^p\le (a+b)^p\le a^p+b^p=|x_k-z_k|^p+|z_k-y_k|^p.
+\]
+Summation über $k$ liefert $d(x,y)\le d(x,z)+d(z,y)$. Nach Definition und Satz 1.4.2 ist $d$ eine Metrik.
+
+\textbf{(iii) $d$ rührt von keiner Norm her.} Käme $d$ von einer Norm, so wäre $d(\alpha x,\alpha y)=|\alpha|\,d(x,y)$. Direkt gilt aber
+\[
+d(\alpha x,\alpha y)=\sum_{k=1}^n|\alpha|^p|x_k-y_k|^p=|\alpha|^p\,d(x,y).
+\]
+Für $x=e_1$, $y=0$ ist $d(x,y)=1$, und $|\alpha|^p=|\alpha|$ ist z.\,B.\ für $\alpha=2$ falsch (da $2^p\neq 2$). Also wird $d$ von keiner Norm erzeugt. \qed
+
+% =====================================================================
+\aufgabe{3}{Funktionenfolge und gleichmäßige Konvergenz}
+
+\textbf{a)} Für $x=0$ ist $f_k(0)=0$. Für festes $x\neq0$ gilt $f_k(x)=\dfrac{x/k}{1/k^2+x^2}\to\dfrac{0}{x^2}=0$. Also konvergiert $(f_k)$ punktweise gegen $f\equiv 0$.
+
+\textbf{b)} Es ist $|f_k(x)|=\dfrac{k|x|}{1+k^2x^2}$. Substituiere $t:=kx$; dann $|f_k(x)|=\varphi(t)$ mit $\varphi(t)=\dfrac{|t|}{1+t^2}$. Wegen $\varphi'(t)=\dfrac{1-t^2}{(1+t^2)^2}$ (für $t>0$) hat $\varphi$ ihr Maximum bei $t=1$ mit $\varphi(1)=\tfrac12$; für $x=\tfrac1k$ wird $t=1$ erreicht, also
+\[
+\|f_k-f\|_\infty=\sup_{x\in\mathbb{R}}\frac{k|x|}{1+k^2x^2}=f_k\!\left(\tfrac1k\right)=\frac{1}{2}\quad\text{für jedes }k.
+\]
+Da $\|f_k-f\|_\infty=\tfrac12\not\to0$, konvergiert $(f_k)$ nach Definition 2.6.2 \emph{nicht} gleichmäßig auf $\mathbb{R}$.
+
+\textbf{c)} Sei $a>0$ und $k\ge\tfrac1a$, also $\tfrac1k\le a$. Für $x\ge a\ge\tfrac1k$ ist $t=kx\ge1$, und dort ist $\varphi(t)=\tfrac{t}{1+t^2}$ streng fallend ($\varphi'(t)<0$ für $t>1$). Also
+\[
+\sup_{x\ge a}|f_k(x)|=f_k(a)=\frac{ka}{1+k^2a^2}\le\frac{ka}{k^2a^2}=\frac{1}{ka}\xrightarrow{k\to\infty}0.
+\]
+Somit $\sup_{x\ge a}|f_k(x)-f(x)|\to0$, d.\,h.\ $(f_k)$ konvergiert nach 2.6.2 gleichmäßig auf $[a,\infty[$ (auf die endlich vielen $k<\tfrac1a$ kommt es nicht an).
+
+\textbf{d)} Die Behauptung ist \emph{falsch}. Der Satz von Weierstraß 2.6.5 hat die gleichmäßige Konvergenz als \emph{Voraussetzung} und die Stetigkeit der Grenzfunktion als \emph{Folgerung} -- nicht umgekehrt. Hier sind alle $f_k$ stetig (rationale Funktion mit nullstellenfreiem Nenner, 2.3.10(iii)) und $f\equiv0$ stetig, dennoch ist die Konvergenz nach b) auf $\mathbb{R}$ \emph{nicht} gleichmäßig. Aus der Stetigkeit von $f$ darf man also nicht auf gleichmäßige Konvergenz schließen. \qed
+
+% =====================================================================
+\aufgabe{4}{Richtungsableitungen und Differenzierbarkeit}
+
+\textbf{a)} Für $(x,y)\neq(0,0)$ ist $x^2\le x^2+y^2$, also
+\[
+|f(x,y)|=\frac{|x|\,x^2}{x^2+y^2}\le |x|\le \|(x,y)\|_2.
+\]
+Zu $\varepsilon>0$ wähle $\delta:=\varepsilon$; dann folgt $|f(x,y)-f(0,0)|\le\|(x,y)\|_2<\varepsilon$ für $\|(x,y)\|_2<\delta$. Nach dem $\varepsilon$-$\delta$-Kriterium 3.2.4 ist $f$ in $(0,0)$ stetig.
+
+\textbf{b)} Sei $\|v\|_2=1$, $\varphi(t)=(tv_1,tv_2)$. Für $t\neq0$
+\[
+(f\circ\varphi)(t)=\frac{t^3v_1^3}{t^2(v_1^2+v_2^2)}=t\,v_1^3,
+\]
+und $(f\circ\varphi)(0)=0$. Also ist $t\mapsto t\,v_1^3$ linear, differenzierbar in $0$ mit
+\[
+D_v f(0,0)=(f\circ\varphi)'(0)=v_1^3.
+\]
+Insbesondere $D_{e_1}f(0,0)=1$, $D_{e_2}f(0,0)=0$, also $\operatorname{grad} f(0,0)=(1,0)$.
+
+\textbf{c)} $f$ ist in $(0,0)$ \emph{nicht} differenzierbar. Wäre $f$ differenzierbar, so gälte nach Satz 3.6.7 $D_v f(0,0)=\operatorname{grad} f(0,0)\cdot v=v_1$ für jeden Einheitsvektor $v$. Nach b) ist aber $D_v f(0,0)=v_1^3$. Für $v=\bigl(\tfrac{1}{\sqrt2},\tfrac{1}{\sqrt2}\bigr)$ wäre $v_1^3=\tfrac{1}{2\sqrt2}\neq\tfrac{1}{\sqrt2}=v_1$ -- Widerspruch. Also ist $f$ in $(0,0)$ nicht differenzierbar. \qed
+
+% =====================================================================
+\aufgabe{5}{Extremum unter einer Nebenbedingung}
+
+Sei $M=\{(x,y):x>0,y>0\}$, $f(x,y)=x^3y^2$, $g(x,y)=x+y-5$; beide stetig differenzierbar auf $M$.
+
+\textbf{a)} Es ist $g'(x,y)=(1\ \ 1)$, also Höchstrang $1$ auf $M(g)$ (Voraussetzung von Satz 4.5.9 mit $n=2$, $m=1$). Mit $D_1f=3x^2y^2$, $D_2f=2x^3y$ liefert $f'(c)=\lambda g'(c)$:
+\[
+3x^2y^2=\lambda,\qquad 2x^3y=\lambda,\qquad x+y=5.
+\]
+Gleichsetzen: $3x^2y^2=2x^3y$; wegen $x,y>0$ Division durch $x^2y$ gibt $3y=2x$, also $x=\tfrac32 y$. Einsetzen: $\tfrac32 y+y=5\Rightarrow y=2,\ x=3$. Einziger Kandidat $c=(3,2)$ mit $\lambda=2\cdot27\cdot2=108$ (Probe $3\cdot9\cdot4=108$) und $f(3,2)=27\cdot4=108$.
+
+\textbf{b)} Parametrisiere $M(g)$ durch $y\in\,]0,5[$, $x=5-y$:
+\[
+\varphi(y):=f(5-y,y)=(5-y)^3y^2.
+\]
+$\varphi$ ist stetig auf $]0,5[$, positiv, und $\varphi(y)\to0$ für $y\to0^+$ (Faktor $y^2$) wie für $y\to5^-$ (Faktor $(5-y)^3$). Da $\varphi$ innere positive Werte annimmt ($\varphi(2)=108$) und an beiden Rändern gegen $0$ strebt, wird das Supremum in einem inneren Punkt mit $\varphi'=0$ angenommen. Nach a) ist $y=2$ der einzige innere kritische Punkt; also ist $c=(3,2)$ globale Maximalstelle mit Maximalwert $108$. \qed
+
+% =====================================================================
+\aufgabe{6}{Beweise oder widerlege: Grenzwert und Integral}
+
+Die Aussage ist \textbf{falsch}; das angegebene $f_k(x)=k\,x\,(1-x^2)^k$ ist ein Gegenbeispiel.
+
+\textbf{1. $f_k\in R([0,1])$:} jedes $f_k$ ist Polynomfunktion, also stetig und integrierbar.
+
+\textbf{2. Punktweiser Grenzwert $f\equiv0$:} $f_k(0)=0$; für $x\in(0,1]$ mit $q:=1-x^2\in[0,1)$ ist $f_k(x)=k\,x\,q^k\to0$ (denn $k\,q^k\to0$ für $0\le q<1$, vgl.\ 3.1.12). Also $\int_0^1 f=0$.
+
+\textbf{3. Die Integrale:} mit der Substitution $u=1-x^2$ (Satz 5.1.12)
+\[
+\int_0^1 k\,x\,(1-x^2)^k\,dx=k\left[-\frac{(1-x^2)^{k+1}}{2(k+1)}\right]_0^1=\frac{k}{2(k+1)}\xrightarrow{k\to\infty}\frac12.
+\]
+
+\textbf{4. Widerspruch:} $\displaystyle\lim_{k\to\infty}\int_0^1 f_k=\frac12\neq0=\int_0^1\lim_{k\to\infty}f_k$. Die Vertauschung gilt also nicht.
+
+\emph{Einordnung:} Satz 5.1.15 garantiert $\lim_k\int f_k=\int f$ nur bei \emph{gleichmäßiger} Konvergenz. Diese ist verletzt: für $x_k=1/\sqrt k$ ist $f_k(x_k)=\sqrt k\,(1-\tfrac1k)^k\to\infty$, also $\|f_k\|_\infty\to\infty$. \qed
+
+% =====================================================================
+\aufgabe{7}{Beweise oder widerlege: Kurvenintegrale}
+
+\textbf{a) Falsch.} Gegenbeispiel: $f(x,y)={}^t(0,\,x)$ (stetig differenzierbar auf $\mathbb{R}^2$) und $W=[\varphi]$ die Einheitskreislinie im Gegenuhrzeigersinn, $\varphi(t)={}^t(\cos t,\sin t)$, $t\in[0,2\pi]$. Dann ist $W$ geschlossen, $\dot\varphi(t)={}^t(-\sin t,\cos t)$ und
+\[
+\int_W f\cdot dx=\int_0^{2\pi}{}^t(0,\cos t)\cdot{}^t(-\sin t,\cos t)\,dt=\int_0^{2\pi}\cos^2 t\,dt=\pi\neq0.
+\]
+Über eine geschlossene Kurve verschwindet das Integral also im Allgemeinen nicht. (Es gilt nur, wenn $f$ eine Stammfunktion besitzt, vgl.\ 6.4.4 -- was hier wegen $D_1f_2=1\neq0=D_2f_1$ nicht der Fall ist.)
+
+\textbf{b) Falsch.} Nach Satz 6.4.2 sind die Integrabilitätsbedingungen nur \emph{notwendig}. Gegenbeispiel (das klassische Wirbelfeld auf $G=\mathbb{R}^2\setminus\{0\}$):
+\[
+f(x,y)={}^t\!\left(\frac{-y}{x^2+y^2},\ \frac{x}{x^2+y^2}\right).
+\]
+Hier ist $D_1f_2=\dfrac{y^2-x^2}{(x^2+y^2)^2}=D_2f_1$, die Integrabilitätsbedingungen sind also erfüllt. Dennoch besitzt $f$ keine Stammfunktion: Hätte $f$ auf $G$ eine Stammfunktion $F$, so müsste nach 6.4.4 das Integral über die geschlossene Einheitskreislinie $0$ sein. Man berechnet aber
+\[
+\int_W f\cdot dx=\int_0^{2\pi}{}^t(-\sin t,\cos t)\cdot{}^t(-\sin t,\cos t)\,dt=\int_0^{2\pi}1\,dt=2\pi\neq0,
+\]
+Widerspruch. Der Grund: $G=\mathbb{R}^2\setminus\{0\}$ ist nicht sternförmig, sodass Satz 6.4.6 nicht anwendbar ist. \qed
+
+\end{document}

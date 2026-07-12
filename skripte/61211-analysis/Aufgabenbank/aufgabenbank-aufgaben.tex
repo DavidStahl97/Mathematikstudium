@@ -1,0 +1,1277 @@
+\documentclass[a4paper,11pt]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[ngerman]{babel}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{enumitem}
+\usepackage{geometry}
+\geometry{a4paper, margin=2.2cm}
+\usepackage{newunicodechar}
+\usepackage{parskip}
+\providecommand{\qed}{\hfill\ensuremath{\blacksquare}}
+\newunicodechar{α}{\ensuremath{\alpha}}
+\newunicodechar{β}{\ensuremath{\beta}}
+\newunicodechar{γ}{\ensuremath{\gamma}}
+\newunicodechar{δ}{\ensuremath{\delta}}
+\newunicodechar{ε}{\ensuremath{\varepsilon}}
+\newunicodechar{ν}{\ensuremath{\nu}}
+\newunicodechar{ξ}{\ensuremath{\xi}}
+\newunicodechar{π}{\ensuremath{\pi}}
+\newunicodechar{ρ}{\ensuremath{\rho}}
+\newunicodechar{σ}{\ensuremath{\sigma}}
+\newunicodechar{τ}{\ensuremath{\tau}}
+\newunicodechar{φ}{\ensuremath{\varphi}}
+\newunicodechar{ψ}{\ensuremath{\psi}}
+\newunicodechar{λ}{\ensuremath{\lambda}}
+\newunicodechar{μ}{\ensuremath{\mu}}
+\newunicodechar{Γ}{\ensuremath{\Gamma}}
+\newunicodechar{Δ}{\ensuremath{\Delta}}
+\newunicodechar{Σ}{\ensuremath{\Sigma}}
+\newunicodechar{Φ}{\ensuremath{\Phi}}
+\newunicodechar{→}{\ensuremath{\to}}
+\newunicodechar{↦}{\ensuremath{\mapsto}}
+\newunicodechar{↔}{\ensuremath{\leftrightarrow}}
+\newunicodechar{⇒}{\ensuremath{\Rightarrow}}
+\newunicodechar{⇔}{\ensuremath{\Leftrightarrow}}
+\newunicodechar{⟹}{\ensuremath{\Longrightarrow}}
+\newunicodechar{⟺}{\ensuremath{\Longleftrightarrow}}
+\newunicodechar{∈}{\ensuremath{\in}}
+\newunicodechar{⊆}{\ensuremath{\subseteq}}
+\newunicodechar{∪}{\ensuremath{\cup}}
+\newunicodechar{∩}{\ensuremath{\cap}}
+\newunicodechar{∅}{\ensuremath{\emptyset}}
+\newunicodechar{∞}{\ensuremath{\infty}}
+\newunicodechar{≤}{\ensuremath{\le}}
+\newunicodechar{≥}{\ensuremath{\ge}}
+\newunicodechar{≠}{\ensuremath{\neq}}
+\newunicodechar{∀}{\ensuremath{\forall}}
+\newunicodechar{∃}{\ensuremath{\exists}}
+\newunicodechar{∘}{\ensuremath{\circ}}
+\newunicodechar{∼}{\ensuremath{\sim}}
+\newunicodechar{∫}{\ensuremath{\int}}
+\newunicodechar{√}{\ensuremath{\surd}}
+\newunicodechar{±}{\ensuremath{\pm}}
+\newunicodechar{×}{\ensuremath{\times}}
+\newunicodechar{·}{\ensuremath{\cdot}}
+\newunicodechar{−}{\ensuremath{-}}
+\newunicodechar{∥}{\ensuremath{\|}}
+\newunicodechar{‖}{\ensuremath{\|}}
+\newunicodechar{⟨}{\ensuremath{\langle}}
+\newunicodechar{⟩}{\ensuremath{\rangle}}
+\newunicodechar{²}{\ensuremath{^2}}
+\newunicodechar{³}{\ensuremath{^3}}
+\newunicodechar{…}{\dots}
+\newunicodechar{–}{--}
+\newunicodechar{„}{\glqq{}}
+\newunicodechar{“}{\grqq{}}
+\setlength{\parindent}{0pt}
+
+\begin{document}
+\begin{center}{\LARGE\bfseries Aufgabensammlung -- 61211 Analysis}\\[0.3em]{\large Gepr\"ufte Aufgaben mit L\"osungen (Kapitel 1--6)}\end{center}
+\medskip\textit{Wiederverwendbarer Aufgabenpool zum Zusammenstellen von Probeklausuren. Jede Aufgabe hat eine ID \texttt{[Kx-ID]}, Typ, Schwierigkeit und Richt-Punktzahl. Klausur bauen: IDs w\"ahlen (ca.\ 100 Punkte / 120 min) und ggf.\ einen Multiple-Choice-Teil erg\"anzen.}\par\medskip
+\tableofcontents\newpage
+\section*{Kapitel 1 \quad Rn als normierter Raum}
+\addcontentsline{toc}{section}{Kapitel 1}
+\subsection*{[K1-P1] \normalfont mittel \textbullet\ 12\,P \textbullet\ Pr\"ufung: none}
+\addcontentsline{toc}{subsection}{K1-P1}
+\textit{Typ: gemischt (Rechnung + Beweis)  ---  Thema: Konvergenz in R2, komponentenweise Konvergenz (1.5.8/1.5.11), Cauchyfolge}\par\smallskip
+\textbf{Aufgabe.}\par
+Betrachten Sie die Folge $(x_k)_{k\in\mathbb{N}}$ in $\mathbb{R}^2$ mit
+\[ x_k = \begin{pmatrix} \dfrac{3k^2-1}{k^2+k} \\[2mm] \sqrt{k^2+k}-k \end{pmatrix}. \]
+\begin{enumerate}[label=\alph*)]
+\item Zeigen Sie, dass $(x_k)$ in $\mathbb{R}^2$ konvergiert, und bestimmen Sie den Grenzwert $a$. Begründen Sie präzise, warum es dabei gleichgültig ist, mit welcher Norm $\mathbb{R}^2$ versehen wird.
+\item Folgt aus a), dass $(x_k)$ eine Cauchyfolge in $(\mathbb{R}^2,\|\cdot\|_2)$ ist? Begründen Sie mit dem passenden Ergebnis aus dem Skript.
+\item Geben Sie zu $\varepsilon=\tfrac{1}{10}$ bezüglich der \emph{ersten} Koordinatenfolge ein $n_0\in\mathbb{N}$ an, sodass $\left|\tfrac{3k^2-1}{k^2+k}-3\right|<\varepsilon$ für alle $k\ge n_0$ gilt (konkrete Zahl mit Begründung).
+\end{enumerate}\par\smallskip
+\textbf{L\"osungsvorschlag.}\par
+\textbf{a)} Nach Satz 1.5.11(ii) (Äquivalenz der Normen auf $\mathbb{R}^n$) ist Konvergenz in $\mathbb{R}^2$ unabhängig von der gewählten Norm und gleichbedeutend mit der Konvergenz jeder Koordinatenfolge in $(\mathbb{R},|\cdot|)$. Wir untersuchen also die beiden Koordinatenfolgen einzeln.
+
+Erste Koordinate: $\dfrac{3k^2-1}{k^2+k}=\dfrac{3-1/k^2}{1+1/k}\to \dfrac{3-0}{1+0}=3$ für $k\to\infty$ (nach den Rechenregeln 1.2.10).
+
+Zweite Koordinate: Erweitern mit dem konjugierten Ausdruck liefert
+\[ \sqrt{k^2+k}-k=\frac{(\sqrt{k^2+k}-k)(\sqrt{k^2+k}+k)}{\sqrt{k^2+k}+k}=\frac{k}{\sqrt{k^2+k}+k}=\frac{1}{\sqrt{1+1/k}+1}\to\frac{1}{1+1}=\tfrac12. \]
+Beide Koordinatenfolgen konvergieren, also konvergiert $(x_k)$ nach 1.5.11(ii)/1.5.8, und zwar gegen $a=\begin{pmatrix}3\\ 1/2\end{pmatrix}$.
+
+\textbf{b)} Ja. Nach Hilfssatz 1.5.15(i) ist in jedem normierten Raum jede konvergente Folge eine Cauchyfolge. Da $(x_k)$ nach a) in $(\mathbb{R}^2,\|\cdot\|_2)$ konvergiert, ist sie dort eine Cauchyfolge.
+
+\textbf{c)} Für die erste Koordinate gilt
+\[ \left|\frac{3k^2-1}{k^2+k}-3\right|=\left|\frac{3k^2-1-3(k^2+k)}{k^2+k}\right|=\left|\frac{-3k-1}{k^2+k}\right|=\frac{3k+1}{k^2+k}. \]
+Wegen $\dfrac{3k+1}{k^2+k}\le\dfrac{3k+k}{k^2}=\dfrac{4k}{k^2}=\dfrac{4}{k}$ (für $k\ge1$) genügt $\dfrac{4}{k}<\dfrac{1}{10}$, also $k>40$. Somit leistet $n_0=41$ das Verlangte. (Probe: $\tfrac{3\cdot41+1}{41^2+41}=\tfrac{124}{1722}\approx0{,}072<0{,}1$.)\par\bigskip\hrule\bigskip
+\subsection*{[K1-P2] \normalfont mittel \textbullet\ 13\,P \textbullet\ Pr\"ufung: none}
+\addcontentsline{toc}{subsection}{K1-P2}
+\textit{Typ: Beweis / Optimierung mit Cauchy-Schwarz  ---  Thema: Cauchy-Schwarzsche Ungleichung (1.1.8), Skalarprodukt}\par\smallskip
+\textbf{Aufgabe.}\par
+Sei $n\in\mathbb{N}$ und $c\in\mathbb{R}$ fest. Betrachten Sie alle Vektoren $x=(x_1,\dots,x_n)\in\mathbb{R}^n$ mit $\sum_{k=1}^n x_k = c$.
+\begin{enumerate}[label=\alph*)]
+\item Beweisen Sie mit der Cauchy-Schwarzschen Ungleichung 1.1.8, dass für jedes solche $x$ gilt $\;\sum_{k=1}^n x_k^2 \ge \dfrac{c^2}{n}.$
+\item Bestimmen Sie alle $x$, für die in a) Gleichheit gilt. (Hinweis: Überlegen Sie im Beweis von 1.1.8, wann in der dortigen Ungleichung Gleichheit eintritt, bzw. arbeiten Sie mit der geeigneten Wahl der $y_k$.)
+\item Werten Sie das Ergebnis für $n=5$, $c=10$ konkret aus: Wie lautet der kleinstmögliche Wert von $\sum x_k^2$, und für welches $x$ wird er angenommen?
+\end{enumerate}\par\smallskip
+\textbf{L\"osungsvorschlag.}\par
+\textbf{a)} Wende die Cauchy-Schwarzsche Ungleichung 1.1.8 auf die Vektoren $x=(x_1,\dots,x_n)$ und $y=(1,1,\dots,1)$ an:
+\[ \Big|\sum_{k=1}^n x_k\cdot 1\Big| \le \sqrt{\sum_{k=1}^n x_k^2}\;\sqrt{\sum_{k=1}^n 1^2}=\sqrt{\sum_{k=1}^n x_k^2}\cdot\sqrt{n}. \]
+Die linke Seite ist $\big|\sum x_k\big|=|c|$. Quadrieren (beide Seiten $\ge0$) liefert $c^2\le n\sum_{k=1}^n x_k^2$, also
+\[ \sum_{k=1}^n x_k^2 \ge \frac{c^2}{n}. \]
+
+\textbf{b)} Für den Gleichheitsfall betrachten wir den Beweis von 1.1.8: Dort wird die Ungleichung aus $0\le \sum_{k}(|x_k|-|y_k|)^2$ (nach Normierung) gewonnen; Gleichheit tritt genau dann ein, wenn die Vektoren $x$ und $y$ proportional sind, hier also $x_k=\lambda\cdot 1=\lambda$ für ein $\lambda\in\mathbb{R}$ und alle $k$. Aus der Nebenbedingung $\sum x_k = n\lambda = c$ folgt $\lambda=\tfrac{c}{n}$. Gleichheit gilt also genau für den konstanten Vektor
+\[ x=\Big(\tfrac{c}{n},\tfrac{c}{n},\dots,\tfrac{c}{n}\Big), \]
+denn dann ist $\sum x_k^2 = n\cdot\big(\tfrac{c}{n}\big)^2=\tfrac{c^2}{n}$.
+
+\textbf{c)} Für $n=5$, $c=10$: $\displaystyle \sum_{k=1}^5 x_k^2 \ge \frac{10^2}{5}=\frac{100}{5}=20.$ Der Minimalwert $20$ wird genau für $x=(2,2,2,2,2)$ angenommen (denn $\tfrac{c}{n}=\tfrac{10}{5}=2$ und $5\cdot 2^2=20$).\par\bigskip\hrule\bigskip
+\subsection*{[K1-P3] \normalfont schwer \textbullet\ 16\,P \textbullet\ Pr\"ufung: major}
+\addcontentsline{toc}{subsection}{K1-P3}
+\textit{Typ: Wahr/Falsch mit Begründung bzw. Gegenbeispiel  ---  Thema: Cauchyfolgen, Vollständigkeit, Banachraum, Normen (1.5.15-1.5.19)}\par\smallskip
+\textbf{Aufgabe.}\par
+Entscheiden Sie für jede der folgenden Aussagen, ob sie \emph{wahr} oder \emph{falsch} ist. Beweisen Sie die wahren Aussagen mithilfe der Ergebnisse aus Kapitel 1 und widerlegen Sie die falschen durch ein konkretes Gegenbeispiel.
+\begin{enumerate}[label=\alph*)]
+\item In jedem normierten Raum $(X,\|\cdot\|)$ ist jede beschränkte Folge eine Cauchyfolge.
+\item Ist $(X,\|\cdot\|)$ ein normierter Raum und $(x_k)$ eine Cauchyfolge, die eine gegen $a$ konvergente Teilfolge besitzt, so gilt $x_k\to a$.
+\item Es gibt einen normierten Raum, in dem eine Cauchyfolge existiert, die nicht konvergiert.
+\item Für $x=\,^{t}(x_1,\dots,x_n)\in\mathbb{R}^n$ gilt stets $\|x\|_2 \le \|x\|_1$.
+\end{enumerate}\par\smallskip
+\textbf{L\"osungsvorschlag.}\par
+\textbf{a) Falsch.} Beschränktheit impliziert im Allgemeinen nicht die Cauchy-Eigenschaft. Gegenbeispiel in $(\mathbb{R},|\cdot|)$: $a_k=(-1)^k$. Die Folge ist beschränkt ($\|f\|_\infty=1$), aber keine Cauchyfolge, denn für $\varepsilon=1$ gilt $|a_{k+1}-a_k|=2\ge\varepsilon$ für alle $k$, sodass die Bedingung aus 1.5.14 (bzw. 1.2.18) verletzt ist. (Alternativ: $(a_k)$ hat die zwei konvergenten Teilfolgen mit Grenzwerten $1$ und $-1$, ist also nach 1.2.13 divergent, wäre sie Cauchy, so wäre sie nach 1.2.21 konvergent.)
+
+\textbf{b) Wahr.} Das ist genau Aussage (iii) des Hilfssatzes 1.5.15: Besitzt eine Cauchyfolge eine konvergente Teilfolge, so ist sie selbst konvergent. Der Grenzwert der Gesamtfolge stimmt dabei mit dem Grenzwert $a$ der Teilfolge überein (Eindeutigkeit des Grenzwerts, folgt aus der Hausdorffeigenschaft 1.5.3). Kurzbegründung: Sei $\varepsilon>0$. Wähle $n_0$ mit $\|x_k-x_\ell\|<\tfrac{\varepsilon}{2}$ für $k,\ell\ge n_0$ (Cauchy). Wähle in der Teilfolge $(x_{k_j})$ einen Index $k_j\ge n_0$ mit $\|x_{k_j}-a\|<\tfrac{\varepsilon}{2}$. Dann gilt für alle $k\ge n_0$: $\|x_k-a\|\le\|x_k-x_{k_j}\|+\|x_{k_j}-a\|<\tfrac{\varepsilon}{2}+\tfrac{\varepsilon}{2}=\varepsilon$. Also $x_k\to a$.
+
+\textbf{c) Wahr.} Ein solcher (nicht vollständiger) normierter Raum existiert. Beispiel 1.5.16: Im Raum $c_0$ der reellen Nullfolgen mit der Norm $\|(x_j)\|=\big\|(x_j/j)\big\|_\infty$ ist die Folge $f_k=(1,\dots,1,0,0,\dots)$ ($k$ Einsen) eine Cauchyfolge (es gilt $\|f_k-f_{n_0}\|=\tfrac{1}{n_0+1}$ für $k>n_0$), die in $c_0$ nicht konvergiert. Ebenso ist nach Beispiel 1.5.19(iii) $(C([0,1]),\|\cdot\|_1)$ nicht vollständig. (Nach 1.5.18 kann ein solches Beispiel allerdings \emph{nicht} in einem $\mathbb{R}^n$ auftreten.)
+
+\textbf{d) Falsch.} Es gilt umgekehrt $\|x\|_2\le\|x\|_1$, aber die behauptete Ungleichung ist als \emph{stets} geltende Aussage falsch nur, wenn man sie in die andere Richtung liest — hier ist zu prüfen: Behauptet wird $\|x\|_2\le\|x\|_1$. Diese ist tatsächlich richtig? Prüfen: $\|x\|_1^2=\big(\sum|x_k|\big)^2=\sum x_k^2+2\sum_{i<j}|x_i||x_j|\ge \sum x_k^2=\|x\|_2^2$, also $\|x\|_2\le\|x\|_1$ — die Aussage d) ist somit \textbf{wahr}. Beweis: Da alle gemischten Terme $2|x_i||x_j|\ge0$ sind, folgt $\|x\|_1^2\ge\|x\|_2^2$ und wegen Nichtnegativität beider Seiten $\|x\|_2\le\|x\|_1$. Gleichheit genau dann, wenn höchstens eine Koordinate von $0$ verschieden ist.\par\bigskip\hrule\bigskip
+\subsection*{[K1-P4] \normalfont leicht \textbullet\ 11\,P \textbullet\ Pr\"ufung: none}
+\addcontentsline{toc}{subsection}{K1-P4}
+\textit{Typ: Rechnung + Beweis (Orthogonalität und Pythagoras)  ---  Thema: Skalarprodukt, Orthogonalität, Satz des Pythagoras (1.4.5-1.4.7), euklidische Norm}\par\smallskip
+\textbf{Aufgabe.}\par
+Im $\mathbb{R}^3$ seien $u=\,^{t}(1,2,2)$ und $v=\,^{t}(2,a,-1)$ mit einem Parameter $a\in\mathbb{R}$.
+\begin{enumerate}[label=\alph*)]
+\item Bestimmen Sie $a$ so, dass $u$ und $v$ orthogonal (im Sinne von 1.4.5) sind.
+\item Berechnen Sie für dieses $a$ die euklidischen Normen $|u|$, $|v|$ und $|u-v|$ und bestätigen Sie damit den Satz des Pythagoras 1.4.7 durch direktes Nachrechnen.
+\item Zeigen Sie allgemein: Sind $x,y\in\mathbb{R}^n$ orthogonal, so gilt auch $|x+y|^2=|x|^2+|y|^2$. Ist umgekehrt $|x+y|^2=|x|^2+|y|^2$, so sind $x$ und $y$ orthogonal.
+\end{enumerate}\par\smallskip
+\textbf{L\"osungsvorschlag.}\par
+\textbf{a)} Nach 1.4.5 gilt $u\cdot v=1\cdot2+2\cdot a+2\cdot(-1)=2+2a-2=2a$. Orthogonalität bedeutet $u\cdot v=0$, also $2a=0$, d.h. $a=0$. Damit ist $v=\,^{t}(2,0,-1)$.
+
+\textbf{b)} Mit $a=0$:
+\[ |u|=\sqrt{1^2+2^2+2^2}=\sqrt{1+4+4}=\sqrt{9}=3, \]
+\[ |v|=\sqrt{2^2+0^2+(-1)^2}=\sqrt{4+0+1}=\sqrt{5}. \]
+Ferner ist $u-v=\,^{t}(1-2,\;2-0,\;2-(-1))=\,^{t}(-1,2,3)$, also
+\[ |u-v|=\sqrt{(-1)^2+2^2+3^2}=\sqrt{1+4+9}=\sqrt{14}. \]
+Probe (Pythagoras 1.4.7, Form $|u-v|^2=|u|^2+|v|^2$): $|u|^2+|v|^2=9+5=14=|u-v|^2$. Die Gleichung ist erfüllt. \qed
+
+\textbf{c)} Aus der Bilinearität und Kommutativität des Skalarprodukts (1.4.6) folgt allgemein
+\[ |x+y|^2=(x+y)\cdot(x+y)=x\cdot x+x\cdot y+y\cdot x+y\cdot y=|x|^2+2\,(x\cdot y)+|y|^2. \]
+Sind $x,y$ orthogonal, so ist $x\cdot y=0$, und es folgt sofort $|x+y|^2=|x|^2+|y|^2$ (das ist die additive Version von 1.4.7).
+
+Gilt umgekehrt $|x+y|^2=|x|^2+|y|^2$, so liefert die obige Identität
+\[ |x|^2+2\,(x\cdot y)+|y|^2=|x|^2+|y|^2 \;\Longrightarrow\; 2\,(x\cdot y)=0 \;\Longrightarrow\; x\cdot y=0, \]
+also sind $x$ und $y$ orthogonal. Damit ist die Äquivalenz gezeigt. \qed\par\bigskip\hrule\bigskip
+\section*{Kapitel 2 \quad Stetige Funktionen}
+\addcontentsline{toc}{section}{Kapitel 2}
+\subsection*{[K2-A1] \normalfont mittel \textbullet\ 12\,P \textbullet\ Pr\"ufung: minor}
+\addcontentsline{toc}{subsection}{K2-A1}
+\textit{Typ: Beweis (Rechnung mit Abschätzung)  ---  Thema: Dehnungsbeschränktheit ⇒ gleichmäßige Stetigkeit (2.3.9(ii), 2.5.9, U 2.1.7)}\par\smallskip
+\textbf{Aufgabe.}\par
+Betrachten Sie $f:\mathbb{R}\to\mathbb{R}$, $f(x):=\sqrt{1+x^2}$ (dabei trägt $\mathbb{R}$ die Betragsnorm).
+
+\begin{enumerate}[label=\alph*)]
+  \item Zeigen Sie, dass $f$ dehnungsbeschränkt (lipschitzstetig) mit Lipschitzkonstante $L=1$ ist, d.h. $|f(x)-f(y)|\le|x-y|$ für alle $x,y\in\mathbb{R}$.
+  \item Folgern Sie mit einem Satz aus dem Skript, dass $f$ auf ganz $\mathbb{R}$ gleichmäßig stetig ist, obwohl der Definitionsbereich $\mathbb{R}$ nicht kompakt ist. Warum ist der Übergang zur gleichmäßigen Stetigkeit hier \emph{nicht} über Satz 2.5.9 bzw. 2.1.27 begründbar?
+  \item Ist die Umkehrung von b) richtig, d.h. folgt aus „gleichmäßig stetig“ stets „dehnungsbeschränkt“? Begründen Sie mit einem Beispiel aus dem Skript.
+\end{enumerate}\par\smallskip
+\textbf{L\"osungsvorschlag.}\par
+\textbf{a)} Für $x,y\in\mathbb{R}$ erweitern wir mit dem konjugierten Term:
+\[|f(x)-f(y)|=\bigl|\sqrt{1+x^2}-\sqrt{1+y^2}\bigr|=\left|\frac{(1+x^2)-(1+y^2)}{\sqrt{1+x^2}+\sqrt{1+y^2}}\right|=|x-y|\cdot\frac{|x+y|}{\sqrt{1+x^2}+\sqrt{1+y^2}}.\]
+Wegen $|x|=\sqrt{x^2}\le\sqrt{1+x^2}$ und $|y|\le\sqrt{1+y^2}$ gilt nach der Dreiecksungleichung
+\[|x+y|\le|x|+|y|\le\sqrt{1+x^2}+\sqrt{1+y^2},\]
+also ist der Bruch $\le1$. Damit folgt $|f(x)-f(y)|\le|x-y|$ für alle $x,y\in\mathbb{R}$, d.h. $f$ ist dehnungsbeschränkt mit $L=1$.
+
+\textbf{b)} Nach Übungsaufgabe U 2.1.7(i) bzw. der allgemeinen Fassung U 2.5.3 ist jede dehnungsbeschränkte Funktion gleichmäßig stetig: Zu $\varepsilon>0$ wähle $\delta:=\varepsilon/L=\varepsilon$; dann gilt für alle $x,y\in\mathbb{R}$ mit $|x-y|<\delta$
+\[|f(x)-f(y)|\le L\,|x-y|<L\delta=\varepsilon.\]
+Das $\delta$ hängt nur von $\varepsilon$ (nicht von der Stelle) ab, also ist $f$ nach Definition 2.1.24 gleichmäßig stetig. — Satz 2.5.9 bzw. 2.1.27 ist hier \emph{nicht} anwendbar, weil $\mathbb{R}=\,]-\infty,\infty[$ zwar abgeschlossen, aber nicht beschränkt und damit nicht kompakt ist (vgl. 2.1.21, 2.5.6). Die gleichmäßige Stetigkeit ergibt sich hier allein aus der Lipschitzeigenschaft, unabhängig von der Kompaktheit.
+
+\textbf{c)} Nein. Nach U 2.1.7(ii) bzw. U 2.1.6 ist die Wurzelfunktion $\sqrt{\cdot}:[0,\infty[\to\mathbb{R}$ gleichmäßig stetig, aber \emph{nicht} dehnungsbeschränkt: Für $y=0$ und $x>0$ wäre $|\sqrt{x}-\sqrt0|=\sqrt{x}\le L\,|x-0|=Lx$, also $L\ge 1/\sqrt{x}$; für $x\to0^+$ würde $1/\sqrt{x}\to\infty$, sodass keine feste Konstante $L$ existiert. Damit ist gleichmäßige Stetigkeit strikt schwächer als Dehnungsbeschränktheit. $\qed$\par\bigskip\hrule\bigskip
+\subsection*{[K2-A2] \normalfont mittel \textbullet\ 14\,P \textbullet\ Pr\"ufung: none}
+\addcontentsline{toc}{subsection}{K2-A2}
+\textit{Typ: Beweis (Anwendung Zusammenhang + Zwischenwertsatz)  ---  Thema: Zusammenhängende Mengen, stetiges Bild, Intervalle in R (2.4.11, 2.4.12, 2.4.13)}\par\smallskip
+\textbf{Aufgabe.}\par
+Sei $(X,\|\cdot\|)$ ein normierter Raum, $\emptyset\neq M\subseteq X$ eine \emph{zusammenhängende} Teilmenge und $f:M\to\mathbb{R}$ stetig.
+
+\begin{enumerate}[label=\alph*)]
+  \item Beweisen Sie: Nimmt $f$ nur ganzzahlige Werte an (d.h. $f(M)\subseteq\mathbb{Z}$), so ist $f$ konstant.
+  \item Beweisen oder widerlegen Sie: Die Aussage aus a) bleibt richtig, wenn man die Voraussetzung „$M$ zusammenhängend“ streicht.
+\end{enumerate}
+Benutzen Sie ausschließlich Sätze aus Kapitel 2.\par\smallskip
+\textbf{L\"osungsvorschlag.}\par
+\textbf{a)} Da $M$ zusammenhängend und $f:M\to\mathbb{R}$ stetig ist, ist nach Satz 2.4.12 das Bild $f(M)\subseteq\mathbb{R}$ zusammenhängend. Nach Satz 2.4.11 sind die zusammenhängenden Teilmengen von $\mathbb{R}$ genau die Intervalle; also ist $f(M)$ ein Intervall.
+
+Angenommen, $f$ wäre nicht konstant. Dann gäbe es $x,y\in M$ mit $f(x)\neq f(y)$, o.B.d.A. $f(x)<f(y)$. Da $f(M)$ ein Intervall ist, gilt $[f(x),f(y)]\subseteq f(M)$ (bzw. mit dem verallgemeinerten Zwischenwertsatz 2.4.13(iii): jeder Wert $c$ mit $f(x)<c<f(y)$ wird angenommen). Wähle einen nicht-ganzzahligen Zwischenwert, etwa $c:=\tfrac{f(x)+f(y)}2$ falls dieser nicht ganz ist, andernfalls einen beliebigen $c\in\,]f(x),f(y)[\,\setminus\mathbb{Z}$ (ein solcher existiert, da ein nichtentartetes reelles Intervall überabzählbar viele nicht-ganze Zahlen enthält). Nach 2.4.13(iii) gibt es $z\in M$ mit $f(z)=c\notin\mathbb{Z}$ — Widerspruch zu $f(M)\subseteq\mathbb{Z}$.
+
+Also ist $f$ konstant. (Kurzfassung: $f(M)$ ist ein in $\mathbb{Z}$ enthaltenes Intervall; ein Intervall, das nur ganze Zahlen enthält, besteht aus höchstens einem Punkt, also ist $f$ konstant.)
+
+\textbf{b)} Die Aussage wird \emph{falsch}, wenn man den Zusammenhang weglässt. Gegenbeispiel: $X=\mathbb{R}$, $M:=\{0\}\cup\{1\}=\{0,1\}$ (nicht zusammenhängend, denn eine zweielementige Menge ist nach Beispiel 2.4.10(2) nicht zusammenhängend). Definiere $f:M\to\mathbb{R}$ durch $f(0):=0$, $f(1):=1$. $f$ ist stetig (jeder Punkt von $M$ ist isoliert: mit $W:=U_{1/2}(0)$ ist $W$ eine Umgebung von $0$ und $f|_{W\cap M}$ konstant $=0$, also nach 2.3.4(ii) stetig in $0$; analog in $1$), und es gilt $f(M)=\{0,1\}\subseteq\mathbb{Z}$, aber $f$ ist nicht konstant. $\qed$\par\bigskip\hrule\bigskip
+\subsection*{[K2-A3] \normalfont schwer \textbullet\ 16\,P \textbullet\ Pr\"ufung: none}
+\addcontentsline{toc}{subsection}{K2-A3}
+\textit{Typ: gemischt (Überdeckung konstruieren + Heine–Borel + Satz vom Maximum)  ---  Thema: Kompaktheit über offene Überdeckungen, Heine–Borel, Satz vom Maximum (2.5.1, 2.5.5, 2.5.6, 2.5.8)}\par\smallskip
+\textbf{Aufgabe.}\par
+Wir betrachten in $(\mathbb{R},|\cdot|)$ die Menge $M:=\left\{\tfrac1n : n\in\mathbb{N}\right\}$ und $K:=M\cup\{0\}$.
+
+\begin{enumerate}[label=\alph*)]
+  \item Geben Sie eine \emph{konkrete} offene Überdeckung $\mathcal F$ von $M$ an, die \emph{keine} endliche Teilüberdeckung besitzt, und weisen Sie beides nach. Was folgt für die Kompaktheit von $M$?
+  \item Zeigen Sie mit dem Satz von Heine–Borel, dass $K$ kompakt ist.
+  \item Sei $g:K\to\mathbb{R}$, $g(x):=x^2-x$. Existieren $\max g(K)$ und $\min g(K)$? Bestimmen Sie beide Werte exakt (mit Begründung, an welcher Stelle sie angenommen werden).
+\end{enumerate}\par\smallskip
+\textbf{L\"osungsvorschlag.}\par
+\textbf{a)} Für $n\in\mathbb{N}$ setze $r_n:=\dfrac{1}{2n(n+1)}>0$ und $Q_n:=U_{r_n}\!\left(\tfrac1n\right)=\left]\tfrac1n-r_n,\ \tfrac1n+r_n\right[$. Jedes $Q_n$ ist offen (2.4.3(3)), und wegen $\tfrac1n\in Q_n$ ist $\mathcal F:=\{Q_n : n\in\mathbb{N}\}$ eine offene Überdeckung von $M$.
+
+\emph{Isolationseigenschaft:} Der Abstand zwischen $\tfrac1n$ und den Nachbarpunkten beträgt
+\[\tfrac1n-\tfrac1{n+1}=\tfrac{1}{n(n+1)}=2r_n,\qquad \tfrac1{n-1}-\tfrac1n=\tfrac{1}{(n-1)n}>2r_n\ (n\ge2).\]
+Daher enthält $Q_n$ von allen Punkten von $M$ nur $\tfrac1n$ selbst (jeder andere Punkt $\tfrac1m$ hat Abstand $\ge 2r_n> r_n$).
+
+\emph{Keine endliche Teilüberdeckung:} Wäre $\{Q_{n_1},\dots,Q_{n_k}\}$ eine endliche Teilüberdeckung, so lägen in $Q_{n_1}\cup\dots\cup Q_{n_k}$ nach der Isolationseigenschaft nur die Punkte $\tfrac1{n_1},\dots,\tfrac1{n_k}$ von $M$ — also nur endlich viele. $M$ ist aber unendlich; wähle $m\notin\{n_1,\dots,n_k\}$, dann ist $\tfrac1m\in M$ nicht überdeckt. Widerspruch. Also besitzt $\mathcal F$ keine endliche Teilüberdeckung, und $M$ ist nach Definition 2.5.1(ii) \emph{nicht kompakt}. (Konsistent mit 2.5.5: $0$ ist Häufungspunkt von $M$ mit $0\notin M$, also $M$ nicht abgeschlossen.)
+
+\textbf{b)} $K=M\cup\{0\}$ ist beschränkt (es gilt $0\le x\le 1$ für alle $x\in K$, also $K\subseteq U_2(0)$). $K$ ist abgeschlossen: Sei $a$ ein Häufungspunkt von $K$. In jeder Umgebung von $a$ liegen von $a$ verschiedene Punkte von $K$; da für $a\notin\{0\}\cup M$ leicht eine punktfreie Umgebung angebbar ist (die Punkte $\tfrac1n$ häufen sich nur bei $0$), kann ein Häufungspunkt nur $a=0$ sein — und $0\in K$. Genauer: Jeder Punkt $\tfrac1n\in M$ ist isoliert (siehe a), also kein Häufungspunkt; der einzige Häufungspunkt von $K$ ist $0\in K$. Damit liegt jeder Häufungspunkt in $K$, $K$ ist abgeschlossen. Nach dem Satz von Heine–Borel 2.5.6 ist $K$ (abgeschlossen und beschränkt in $\mathbb{R}^1$) kompakt.
+
+\textbf{c)} $g(x)=x^2-x$ ist als Polynomfunktion stetig (2.3.10(ii)). Da $K$ kompakt ist, nimmt $g$ nach dem Satz vom Maximum 2.5.8 Maximum und Minimum an; beide existieren.
+
+Auf $K\subseteq[0,1]$ hat $g(x)=x^2-x=\left(x-\tfrac12\right)^2-\tfrac14$ den Scheitel bei $x=\tfrac12=\tfrac1{2}\in M$ (denn $\tfrac12=\tfrac1n$ für $n=2$). Dort ist $g(\tfrac12)=\tfrac14-\tfrac12=-\tfrac14$, das globale Minimum der Parabel; da $\tfrac12\in K$, gilt
+\[\min g(K)=g\!\left(\tfrac12\right)=-\tfrac14.\]
+Das Maximum wird an den Rändern des Wertebereichs gesucht: $g(0)=0$ und $g(1)=1-1=0$; für alle übrigen $x\in K$ mit $0<x<1$ gilt $x^2-x<0$. Beide Randstellen $0=0\in K$ und $1=\tfrac11\in K$ liegen in $K$, also
+\[\max g(K)=g(0)=g(1)=0.\]
+$\qed$\par\bigskip\hrule\bigskip
+\subsection*{[K2-A4] \normalfont mittel \textbullet\ 14\,P \textbullet\ Pr\"ufung: none}
+\addcontentsline{toc}{subsection}{K2-A4}
+\textit{Typ: Rechnung (Supremumsnorm) + Wahr/Falsch mit Weierstraß  ---  Thema: Punktweise/gleichmäßige Konvergenz, Supremumsnorm, Satz von Weierstraß (2.6.1, 2.6.2, 2.6.5)}\par\smallskip
+\textbf{Aufgabe.}\par
+Für $k\in\mathbb{N}$ sei
+\[f_k:\mathbb{R}\to\mathbb{R},\qquad f_k(x):=\frac{kx}{1+k^2x^2}.\]
+\begin{enumerate}[label=\alph*)]
+  \item Bestimmen Sie die punktweise Grenzfunktion $f$ von $(f_k)$ auf $\mathbb{R}$.
+  \item Berechnen Sie $\|f_k-f\|_\infty=\sup_{x\in\mathbb{R}}|f_k(x)-f(x)|$ \emph{exakt} und entscheiden Sie, ob $(f_k)$ auf $\mathbb{R}$ gleichmäßig konvergiert.
+  \item Sei $a>0$ fest. Zeigen Sie, dass $(f_k)$ auf $[a,\infty[$ gleichmäßig gegen $f$ konvergiert.
+  \item Betrachten Sie folgende Behauptung und beweisen oder widerlegen Sie sie: „Da alle $f_k$ stetig sind und die Grenzfunktion $f$ stetig ist, folgt aus dem Satz von Weierstraß 2.6.5, dass $(f_k)$ auf $\mathbb{R}$ gleichmäßig konvergiert.“
+\end{enumerate}\par\smallskip
+\textbf{L\"osungsvorschlag.}\par
+\textbf{a)} Für $x=0$ ist $f_k(0)=0$ für alle $k$. Für festes $x\neq0$ gilt
+\[f_k(x)=\frac{kx}{1+k^2x^2}=\frac{x/k}{1/k^2+x^2}\xrightarrow{k\to\infty}\frac{0}{x^2}=0.\]
+Also konvergiert $(f_k)$ punktweise gegen die Nullfunktion $f\equiv 0$.
+
+\textbf{b)} Es ist $|f_k(x)-f(x)|=|f_k(x)|=\dfrac{k|x|}{1+k^2x^2}$. Substituiere $t:=k x\in\mathbb{R}$; dann
+\[|f_k(x)|=\frac{|t|}{1+t^2}.\]
+Die Funktion $\varphi(t)=\dfrac{|t|}{1+t^2}$ hat wegen $\varphi'(t)=\dfrac{1-t^2}{(1+t^2)^2}$ (für $t>0$) ihr Maximum bei $t=1$ mit $\varphi(1)=\tfrac12$. Da $t=kx$ für $x=\tfrac1k\in\mathbb{R}$ den Wert $1$ annimmt, wird das Supremum tatsächlich angenommen:
+\[\|f_k-f\|_\infty=\sup_{x\in\mathbb{R}}\frac{k|x|}{1+k^2x^2}=f_k\!\left(\tfrac1k\right)=\frac{k\cdot\frac1k}{1+k^2\cdot\frac1{k^2}}=\frac{1}{2}\quad\text{für jedes }k\in\mathbb{N}.\]
+Da $\|f_k-f\|_\infty=\tfrac12\not\to0$, konvergiert $(f_k)$ nach Definition 2.6.2 \emph{nicht} gleichmäßig auf $\mathbb{R}$.
+
+\textbf{c)} Sei $a>0$ und $k\ge \tfrac1a$, also $\tfrac1k\le a$. Für $x\ge a\ge\tfrac1k$ ist $t=kx\ge1$, und dort ist $\varphi(t)=\tfrac{t}{1+t^2}$ streng fallend (da $\varphi'(t)=\tfrac{1-t^2}{(1+t^2)^2}<0$ für $t>1$). Somit ist $|f_k(x)|$ auf $[a,\infty[$ maximal bei $x=a$:
+\[\sup_{x\ge a}|f_k(x)|=f_k(a)=\frac{ka}{1+k^2a^2}\le\frac{ka}{k^2a^2}=\frac{1}{ka}\xrightarrow{k\to\infty}0.\]
+Also $\sup_{x\in[a,\infty[}|f_k(x)-f(x)|\le\tfrac1{ka}\to0$, und $(f_k)$ konvergiert nach 2.6.2 gleichmäßig gegen $f\equiv0$ auf $[a,\infty[$. (Für die endlich vielen $k<\tfrac1a$ spielt der genaue Wert keine Rolle, da es bei der Konvergenz auf endlich viele Glieder nicht ankommt.)
+
+\textbf{d)} Die Behauptung ist \emph{falsch}. Der Satz von Weierstraß 2.6.5 hat die gleichmäßige Konvergenz als \emph{Voraussetzung} und die Stetigkeit der Grenzfunktion als \emph{Folgerung} — nicht umgekehrt. Aus der Stetigkeit von $f$ darf man keineswegs auf gleichmäßige Konvergenz schließen. Das vorliegende Beispiel belegt dies konkret: Alle $f_k$ sind stetig (rationale Funktion mit nullstellenfreiem Nenner, 2.3.10(iii)) und $f\equiv0$ ist stetig, dennoch ist die Konvergenz nach b) auf $\mathbb{R}$ \emph{nicht} gleichmäßig. Der Satz 2.6.5 ist also mit stetiger Grenzfunktion verträglich, liefert aber keine Umkehrung. $\qed$\par\bigskip\hrule\bigskip
+\section*{Kapitel 3 \quad Differenzierbare Funktionen (1. Teil)}
+\addcontentsline{toc}{section}{Kapitel 3}
+\subsection*{[K3-P1] \normalfont mittel \textbullet\ 12\,P \textbullet\ Pr\"ufung: none}
+\addcontentsline{toc}{subsection}{K3-P1}
+\textit{Typ: gemischt (Rechnung + Beweis eines Gegenbeispiels)  ---  Thema: Zusammenhang partiell / Richtungsableitung / total, Stetigkeit}\par\smallskip
+\textbf{Aufgabe.}\par
+Sei $f:\mathbb{R}^2\to\mathbb{R}$ definiert durch
+\[
+f(x,y):=\begin{cases}\dfrac{x^3}{x^2+y^2},&(x,y)\neq(0,0),\\[1ex]0,&(x,y)=(0,0).\end{cases}
+\]
+\begin{enumerate}[label=\alph*)]
+\item Zeigen Sie, dass $f$ in $(0,0)$ stetig ist.
+\item Zeigen Sie, dass f\"ur jeden Richtungsvektor $v=(v_1,v_2)^{T}$ mit $\|v\|_2=1$ die Richtungsableitung $D_v f(0,0)$ existiert, und berechnen Sie sie. Geben Sie insbesondere $\operatorname{grad} f(0,0)$ an.
+\item Entscheiden Sie mit Begr\"undung, ob $f$ in $(0,0)$ (total) differenzierbar ist.
+\end{enumerate}\par\smallskip
+\textbf{L\"osungsvorschlag.}\par
+\textbf{a)} F\"ur $(x,y)\neq(0,0)$ gilt $x^2\le x^2+y^2$, also
+\[
+|f(x,y)|=\frac{|x|\,x^2}{x^2+y^2}\le |x|\le \|(x,y)\|_2 .
+\]
+Sei $\varepsilon>0$. Mit $\delta:=\varepsilon$ folgt f\"ur $\|(x,y)-(0,0)\|_2<\delta$ die Ungleichung $|f(x,y)-f(0,0)|=|f(x,y)|\le\|(x,y)\|_2<\varepsilon$ (der Fall $(x,y)=(0,0)$ ist trivial). Nach dem $\varepsilon$-$\delta$-Kriterium 3.2.4 ist $f$ in $(0,0)$ stetig.
+
+\textbf{b)} Sei $\|v\|_2=1$, also $v_1^2+v_2^2=1$, und $\varphi(t)=(tv_1,tv_2)$. F\"ur $t\neq0$ gilt
+\[
+(f\circ\varphi)(t)=\frac{(tv_1)^3}{(tv_1)^2+(tv_2)^2}=\frac{t^3v_1^3}{t^2(v_1^2+v_2^2)}=t\,v_1^3 ,
+\]
+und $(f\circ\varphi)(0)=0$. Also ist $t\mapsto (f\circ\varphi)(t)=t\,v_1^3$ linear und in $t=0$ differenzierbar mit
+\[
+D_v f(0,0)=(f\circ\varphi)'(0)=v_1^3 .
+\]
+Insbesondere $D_1 f(0,0)=D_{e_1}f(0,0)=1^3=1$ und $D_2 f(0,0)=D_{e_2}f(0,0)=0^3=0$, also $\operatorname{grad} f(0,0)=(1,\,0)$.
+
+\textbf{c)} $f$ ist in $(0,0)$ \emph{nicht} differenzierbar. W\"are $f$ differenzierbar, so g\"alte nach Satz 3.6.7 f\"ur jeden Einheitsvektor $v$
+\[
+D_v f(0,0)=\operatorname{grad} f(0,0)\cdot v = 1\cdot v_1 + 0\cdot v_2 = v_1 .
+\]
+Nach b) ist aber $D_v f(0,0)=v_1^3$. F\"ur $v=\bigl(\tfrac{1}{\sqrt2},\tfrac{1}{\sqrt2}\bigr)$ w\"are dann $v_1^3=\tfrac{1}{2\sqrt2}$ gleich $v_1=\tfrac{1}{\sqrt2}$ — Widerspruch, da $\tfrac{1}{2\sqrt2}\neq\tfrac{1}{\sqrt2}$. Also kann $f$ in $(0,0)$ nicht differenzierbar sein. $\qed$\par\bigskip\hrule\bigskip
+\subsection*{[K3-P2] \normalfont leicht \textbullet\ 10\,P \textbullet\ Pr\"ufung: none}
+\addcontentsline{toc}{subsection}{K3-P2}
+\textit{Typ: Rechnung (Kettenregel, Funktional-/Jacobimatrix)  ---  Thema: Kettenregel und Funktionalmatrix in Rn}\par\smallskip
+\textbf{Aufgabe.}\par
+Gegeben seien
+\[
+g:\mathbb{R}^2\to\mathbb{R}^3,\quad g(x,y):=\begin{pmatrix}x+y\\ xy\\ x^2\end{pmatrix},\qquad f:\mathbb{R}^3\to\mathbb{R},\quad f(a,b,c):=a^2+b-c .
+\]
+\begin{enumerate}[label=\alph*)]
+\item Bestimmen Sie die Funktionalmatrix $g'(x,y)$ sowie $\operatorname{grad} f(a,b,c)$.
+\item Berechnen Sie $(f\circ g)'(x,y)$ mithilfe der Kettenregel 3.5.6(iii).
+\item Kontrollieren Sie das Ergebnis, indem Sie $h(x,y):=(f\circ g)(x,y)$ explizit ausrechnen und direkt differenzieren.
+\end{enumerate}\par\smallskip
+\textbf{L\"osungsvorschlag.}\par
+\textbf{a)} Die Koordinatenfunktionen von $g$ sind $g_1=x+y,\ g_2=xy,\ g_3=x^2$. Ihre partiellen Ableitungen liefern nach 3.6.8
+\[
+g'(x,y)=\begin{pmatrix}D_1g_1 & D_2g_1\\ D_1g_2 & D_2g_2\\ D_1g_3 & D_2g_3\end{pmatrix}=\begin{pmatrix}1 & 1\\ y & x\\ 2x & 0\end{pmatrix}.
+\]
+F\"ur $f$ gilt $\operatorname{grad} f(a,b,c)=(D_a f,\,D_b f,\,D_c f)=(2a,\,1,\,-1)$.
+
+\textbf{b)} Nach der Kettenregel ist $(f\circ g)'(x,y)=f'(g(x,y))\,g'(x,y)$. Mit $g(x,y)=(x+y,\,xy,\,x^2)^{T}$ ist $f'(g(x,y))=\bigl(2(x+y),\,1,\,-1\bigr)$, also
+\[
+(f\circ g)'(x,y)=\bigl(2(x+y),\,1,\,-1\bigr)\begin{pmatrix}1 & 1\\ y & x\\ 2x & 0\end{pmatrix}.
+\]
+Die erste Komponente: $2(x+y)\cdot1+1\cdot y+(-1)\cdot 2x = 2x+2y+y-2x=3y$. Die zweite: $2(x+y)\cdot1+1\cdot x+(-1)\cdot0=2x+2y+x=3x+2y$. Damit
+\[
+(f\circ g)'(x,y)=(\,3y\ \ 3x+2y\,).
+\]
+
+\textbf{c)} Explizit:
+\[
+h(x,y)=(x+y)^2+xy-x^2=x^2+2xy+y^2+xy-x^2=3xy+y^2 .
+\]
+Direkte Ableitung: $D_1 h=3y$, $D_2 h=3x+2y$, also $h'(x,y)=(3y\ \ 3x+2y)$ — in \"Ubereinstimmung mit b). $\qed$\par\bigskip\hrule\bigskip
+\subsection*{[K3-P3] \normalfont mittel \textbullet\ 12\,P \textbullet\ Pr\"ufung: none}
+\addcontentsline{toc}{subsection}{K3-P3}
+\textit{Typ: Rechnung (Gradient, Richtungsableitung, Extremaleigenschaft)  ---  Thema: Gradient, Richtungsableitung, Richtung stärksten Wachstums}\par\smallskip
+\textbf{Aufgabe.}\par
+Sei $f:\mathbb{R}^3\to\mathbb{R}$, $f(x,y,z):=x^2y+yz^2-xz$, und $a:=(1,-1,2)^{T}$.
+\begin{enumerate}[label=\alph*)]
+\item Begr\"unden Sie kurz, dass $f$ auf ganz $\mathbb{R}^3$ differenzierbar ist, und berechnen Sie $\operatorname{grad} f(a)$.
+\item Berechnen Sie die Richtungsableitung $D_v f(a)$ f\"ur $v:=\tfrac13(2,-2,1)^{T}$. Weisen Sie zuvor nach, dass $v$ ein zul\"assiger Richtungsvektor ist.
+\item In welche Richtung w\"achst $f$ im Punkt $a$ am st\"arksten, und wie gro\ss{} ist dort der maximale Wert einer Richtungsableitung $D_w f(a)$ (\"uber alle $\|w\|_2=1$)?
+\end{enumerate}\par\smallskip
+\textbf{L\"osungsvorschlag.}\par
+\textbf{a)} $f$ ist eine Polynomfunktion; nach Beispiel 3.6.5 sind Polynomfunktionen auf $\mathbb{R}^n$ differenzierbar. Die partiellen Ableitungen sind
+\[
+D_1f=2xy-z,\quad D_2f=x^2+z^2,\quad D_3f=2yz-x .
+\]
+An der Stelle $a=(1,-1,2)$:
+\[
+D_1f(a)=2\cdot1\cdot(-1)-2=-4,\quad D_2f(a)=1^2+2^2=5,\quad D_3f(a)=2\cdot(-1)\cdot2-1=-5,
+\]
+also $\operatorname{grad} f(a)=(-4,\,5,\,-5)$.
+
+\textbf{b)} $\|v\|_2^2=\tfrac19(2^2+(-2)^2+1^2)=\tfrac19(4+4+1)=1$, also $\|v\|_2=1$: zul\"assig. Da $f$ differenzierbar ist, gilt nach Satz 3.6.7
+\[
+D_v f(a)=\operatorname{grad} f(a)\cdot v=(-4,5,-5)\cdot\tfrac13(2,-2,1)=\tfrac13\bigl((-4)\cdot2+5\cdot(-2)+(-5)\cdot1\bigr)=\tfrac13(-8-10-5)=-\tfrac{23}{3}.
+\]
+
+\textbf{c)} Nach Satz 3.6.7 wird $D_w f(a)$ maximal, wenn $w$ die Richtung von $\bigl(\operatorname{grad} f(a)\bigr)^{T}=(-4,5,-5)^{T}$ hat, d.h.
+\[
+w_{\max}=\frac{1}{\|\operatorname{grad} f(a)\|_2}(-4,5,-5)^{T}=\frac{1}{\sqrt{66}}(-4,5,-5)^{T},
+\]
+denn $\|\operatorname{grad} f(a)\|_2=\sqrt{(-4)^2+5^2+(-5)^2}=\sqrt{16+25+25}=\sqrt{66}$. Der maximale Wert ist gerade
+\[
+D_{w_{\max}}f(a)=\|\operatorname{grad} f(a)\|_2=\sqrt{66}. \qed
+\]\par\bigskip\hrule\bigskip
+\subsection*{[K3-P4] \normalfont mittel \textbullet\ 11\,P \textbullet\ Pr\"ufung: none}
+\addcontentsline{toc}{subsection}{K3-P4}
+\textit{Typ: Beweis (Satz vom endlichen Zuwachs / Mittelwertsatz-Anwendung)  ---  Thema: Satz vom endlichen Zuwachs, Zeilensummennorm, Lipschitz-Abschätzung}\par\smallskip
+\textbf{Aufgabe.}\par
+Sei $f:\mathbb{R}^2\to\mathbb{R}$ gegeben durch $f(x,y):=\sin x+\tfrac12\cos y$.
+\begin{enumerate}[label=\alph*)]
+\item Begr\"unden Sie, dass $f$ auf $\mathbb{R}^2$ differenzierbar ist, und bestimmen Sie $f'(x,y)$.
+\item Zeigen Sie mithilfe der Zeilensummennorm aus 3.4.6, dass $\|f'(x,y)\|\le \tfrac32$ f\"ur alle $(x,y)\in\mathbb{R}^2$ gilt.
+\item Folgern Sie mit dem Satz vom endlichen Zuwachs 3.5.11, dass
+\[
+|f(b)-f(a)|\le \tfrac32\,\|b-a\|_\infty\qquad\text{f\"ur alle }a,b\in\mathbb{R}^2
+\]
+gilt. Warum darf man 3.5.11 hier ohne Zusatzvoraussetzung an $a,b$ anwenden?
+\end{enumerate}\par\smallskip
+\textbf{L\"osungsvorschlag.}\par
+\textbf{a)} Die partiellen Ableitungen sind $D_1f(x,y)=\cos x$ und $D_2f(x,y)=-\tfrac12\sin y$. Beide sind auf ganz $\mathbb{R}^2$ als Kompositionen stetiger Funktionen stetig; nach Satz 3.6.4 ist $f$ daher in jedem Punkt differenzierbar mit
+\[
+f'(x,y)=\operatorname{grad} f(x,y)=\bigl(\cos x,\ -\tfrac12\sin y\bigr).
+\]
+
+\textbf{b)} $f'(x,y)$ ist eine $(1,2)$-Matrix (eine Zeile). Nach 3.4.6 ist die Zeilensummennorm gerade die Summe der Betr\"age der Zeileneintr\"age:
+\[
+\|f'(x,y)\|=|\cos x|+\Bigl|-\tfrac12\sin y\Bigr|=|\cos x|+\tfrac12|\sin y|\le 1+\tfrac12\cdot1=\tfrac32 ,
+\]
+da $|\cos x|\le1$ und $|\sin y|\le1$ f\"ur alle $x,y\in\mathbb{R}$.
+
+\textbf{c)} Seien $a,b\in\mathbb{R}^2$ beliebig. Da $M=\mathbb{R}^2$ offen ist, liegt die offene Verbindungsstrecke $]a,b[$ ganz im Innern von $M$ (das Innere von $\mathbb{R}^2$ ist $\mathbb{R}^2$), und $f$ ist auf $\mathbb{R}^2$ differenzierbar, also insbesondere auf $]a,b[$ differenzierbar und in $a$ und $b$ stetig. Damit sind s\"amtliche Voraussetzungen von Satz 3.5.11 f\"ur jedes Paar $a,b$ erf\"ullt; eine Zusatzvoraussetzung ist nicht n\"otig. Mit der Konstanten $C=\tfrac32$ aus b) liefert 3.5.11 (Bildbereich $R$, also $\|\cdot\|_\infty=|\cdot|$)
+\[
+|f(b)-f(a)|=\|f(b)-f(a)\|_\infty\le C\,\|b-a\|_\infty=\tfrac32\,\|b-a\|_\infty . \qed
+\]\par\bigskip\hrule\bigskip
+\section*{Kapitel 4 \quad Differenzierbare Funktionen (2. Teil)}
+\addcontentsline{toc}{section}{Kapitel 4}
+\subsection*{[K4-A] \normalfont mittel \textbullet\ 12\,P \textbullet\ Pr\"ufung: none}
+\addcontentsline{toc}{subsection}{K4-A}
+\textit{Typ: Rechnung (Taylor im Rn mit Fehlerabschätzung)  ---  Thema: Taylorpolynom und Satz von Taylor (4.4.6, 4.4.8)}\par\smallskip
+\textbf{Aufgabe.}\par
+Gegeben sei $f:\mathbb{R}^2\to\mathbb{R}$, $f(x,y):=e^{x}\cos y$.
+\begin{enumerate}[label=\alph*)]
+  \item Bestimmen Sie das $2$-te Taylorpolynom $T_2$ von $f$ mit Entwicklungspunkt $a=\binom{0}{0}$.
+  \item Zeigen Sie, dass für alle dritten partiellen Ableitungen $D_{\nu_1\nu_2\nu_3}f(z)$ von $f$ und alle $z$ im Quadrat $[0,\tfrac{1}{10}]\times[0,\tfrac{1}{10}]$ die Abschätzung $|D_{\nu_1\nu_2\nu_3}f(z)|\le e^{1/10}$ gilt.
+  \item Berechnen Sie $T_2\!\left(\tfrac{1}{10},\tfrac{1}{10}\right)$ und leiten Sie mit dem Satz von Taylor $4.4.8$ (Fall $k=3$) eine Schranke für $\bigl|f(\tfrac{1}{10},\tfrac{1}{10})-T_2(\tfrac{1}{10},\tfrac{1}{10})\bigr|$ her. Geben Sie damit ein Intervall an, in dem $f(\tfrac{1}{10},\tfrac{1}{10})$ sicher liegt.
+\end{enumerate}\par\smallskip
+\textbf{L\"osungsvorschlag.}\par
+\textbf{a)} $f$ ist als Produkt von $e^x$ und $\cos y$ beliebig oft stetig differenzierbar. Die benötigten Ableitungen im Punkt $a=\binom{0}{0}$:
+\[ f(0,0)=1,\quad D_1f=e^x\cos y,\ D_2f=-e^x\sin y \ \Rightarrow\ D_1f(0,0)=1,\ D_2f(0,0)=0. \]
+\[ D_{11}f=e^x\cos y,\ D_{12}f=D_{21}f=-e^x\sin y,\ D_{22}f=-e^x\cos y \]
+\[ \Rightarrow\ D_{11}f(0,0)=1,\ D_{12}f(0,0)=0,\ D_{22}f(0,0)=-1. \]
+Nach Definition $4.4.6$ ist
+\[ T_2(x,y)=f(0,0)+D_1f(0,0)x+D_2f(0,0)y+\tfrac{1}{2}\bigl(D_{11}f(0,0)x^2+2D_{12}f(0,0)xy+D_{22}f(0,0)y^2\bigr) \]
+\[ = 1+x+\tfrac{1}{2}\bigl(x^2-y^2\bigr). \]
+
+\textbf{b)} Alle dritten partiellen Ableitungen von $f=e^x\cos y$ haben die Form $\pm e^x\cos y$ oder $\pm e^x\sin y$: Da jede Ableitung nach $x$ den Faktor $e^x$ unverändert lässt und jede Ableitung nach $y$ zwischen $\cos y$ und $\pm\sin y$ wechselt, gilt
+\[ |D_{\nu_1\nu_2\nu_3}f(z)| = e^{z_1}\,|{\cos z_2}| \ \text{oder}\ e^{z_1}\,|{\sin z_2}| \ \le\ e^{z_1}. \]
+Für $z=\binom{z_1}{z_2}\in[0,\tfrac1{10}]^2$ ist $z_1\le\tfrac1{10}$, also $e^{z_1}\le e^{1/10}$. Somit $|D_{\nu_1\nu_2\nu_3}f(z)|\le e^{1/10}$.
+
+\textbf{c)} Auf der Diagonalen ist $x=y=\tfrac1{10}$, daher $x^2-y^2=0$ und
+\[ T_2\!\left(\tfrac1{10},\tfrac1{10}\right)=1+\tfrac1{10}+0=\tfrac{11}{10}=1{,}1. \]
+Nach dem Satz von Taylor $4.4.8$ mit $k=3$ und $a=\binom00$ gibt es $\tau\in(0,1)$, sodass mit $z=\tau\binom{1/10}{1/10}\in[0,\tfrac1{10}]^2$
+\[ f(x,y)-T_2(x,y)=\frac{1}{3!}\sum_{\nu_1=1}^{2}\sum_{\nu_2=1}^{2}\sum_{\nu_3=1}^{2} D_{\nu_1\nu_2\nu_3}f(z)\,x_{\nu_1}x_{\nu_2}x_{\nu_3}. \]
+Die Summe hat $2^3=8$ Summanden. Mit $|x_{\nu}|\le\|(x,y)\|_\infty=\tfrac1{10}$ und der Schranke aus b) folgt
+\[ \Bigl|f\!\left(\tfrac1{10},\tfrac1{10}\right)-T_2\!\left(\tfrac1{10},\tfrac1{10}\right)\Bigr| \le \frac{1}{6}\cdot 8\cdot e^{1/10}\cdot\left(\tfrac{1}{10}\right)^3 = \frac{8}{6}\,e^{1/10}\cdot 10^{-3}. \]
+Wegen $e^{1/10}<1{,}106$ ist $\tfrac{8}{6}\cdot 1{,}106\cdot 10^{-3}<0{,}00148$. Also
+\[ |f(\tfrac1{10},\tfrac1{10})-1{,}1|<0{,}00148,\qquad\text{d.h.}\qquad f\!\left(\tfrac1{10},\tfrac1{10}\right)\in\,]\,1{,}0985,\ 1{,}1015\,[. \]
+(Der exakte Wert ist $e^{0{,}1}\cos 0{,}1=1{,}09965\ldots$, was innerhalb des Intervalls liegt.)\par\bigskip\hrule\bigskip
+\subsection*{[K4-B] \normalfont mittel \textbullet\ 10\,P \textbullet\ Pr\"ufung: none}
+\addcontentsline{toc}{subsection}{K4-B}
+\textit{Typ: Rechnung (lokale Extrema mit Hessescher Matrix)  ---  Thema: Notwendige/hinreichende Bedingung, Hesse-Matrix (4.5.3, 4.5.6, 4.5.8)}\par\smallskip
+\textbf{Aufgabe.}\par
+Sei $f:\mathbb{R}^2\to\mathbb{R}$, $f(x,y):=2x^3-6xy+3y^2$.
+\begin{enumerate}[label=\alph*)]
+  \item Bestimmen Sie alle Punkte, die als Stelle eines lokalen Extremums in Frage kommen (Satz $4.5.3$).
+  \item Entscheiden Sie mit dem Kriterium aus Folgerung $4.5.8$ für jeden dieser Punkte, ob ein lokales Maximum, ein lokales Minimum oder ein Sattelpunkt vorliegt.
+  \item Besitzt $f$ ein globales Minimum auf $\mathbb{R}^2$? Begründen Sie Ihre Antwort.
+\end{enumerate}\par\smallskip
+\textbf{L\"osungsvorschlag.}\par
+\textbf{a)} $f$ ist als Polynomfunktion beliebig oft stetig differenzierbar (Beispiel $4.4.5(1)$), und $M=\mathbb{R}^2$ ist offen. Nach Satz $4.5.3$ kommen nur Punkte mit $f'(x,y)=0$ in Frage. Es ist
+\[ D_1f(x,y)=6x^2-6y,\qquad D_2f(x,y)=-6x+6y. \]
+Aus $D_2f=0$ folgt $y=x$; eingesetzt in $D_1f=0$: $6x^2-6x=0$, also $6x(x-1)=0$, d.h. $x=0$ oder $x=1$. Mit $y=x$ ergeben sich die kritischen Punkte
+\[ a_1=\binom{0}{0},\qquad a_2=\binom{1}{1}. \]
+
+\textbf{b)} Die zweiten partiellen Ableitungen sind
+\[ D_{11}f(x,y)=12x,\quad D_{12}f(x,y)=D_{21}f(x,y)=-6,\quad D_{22}f(x,y)=6, \]
+also die Hesse-Matrix $H(x,y)=\begin{pmatrix}12x & -6\\ -6 & 6\end{pmatrix}$ und
+\[ \Delta(x,y)=D_{11}f\,D_{22}f-(D_{12}f)^2=12x\cdot 6-36=72x-36. \]
+\textit{Punkt $a_1=(0,0)$:} $\Delta(0,0)=-36<0$. Nach $4.5.8(ii)$ liegt ein \emph{Sattelpunkt} vor (kein lokales Extremum).\\
+\textit{Punkt $a_2=(1,1)$:} $\Delta(1,1)=72-36=36>0$ und $D_{11}f(1,1)=12>0$. Nach $4.5.8(i)$ liegt ein \emph{(strenges) lokales Minimum} vor, mit Wert $f(1,1)=2-6+3=-1$.
+
+\textbf{c)} $f$ besitzt \emph{kein} globales Minimum: Für $y=0$ ist $f(x,0)=2x^3$, und $2x^3\to-\infty$ für $x\to-\infty$. Also ist $f$ nach unten unbeschränkt und nimmt kein globales Minimum an. (Das lokale Minimum in $(1,1)$ ist demnach nur lokal.)\par\bigskip\hrule\bigskip
+\subsection*{[K4-C] \normalfont schwer \textbullet\ 14\,P \textbullet\ Pr\"ufung: none}
+\addcontentsline{toc}{subsection}{K4-C}
+\textit{Typ: Rechnung + Nachweis (Satz über implizite Funktionen, System)  ---  Thema: Satz über implizite Funktionen 4.2.3 (Fall m=2, n=2)}\par\smallskip
+\textbf{Aufgabe.}\par
+Betrachtet werde $F=\,^{t}(F_1,F_2):\mathbb{R}^4\to\mathbb{R}^2$ mit
+\[ F_1(x,y,u,v):=u^2+v^2+x-y-1,\qquad F_2(x,y,u,v):=u+v+xy-2, \]
+und der Punkt $c=\,^{t}(1,1,1,0)$.
+\begin{enumerate}[label=\alph*)]
+  \item Zeigen Sie $F(c)=0$ und dass sich die Gleichung $F(x,y,u,v)=0$ in einer Umgebung von $c$ eindeutig \glqq nach $(u,v)$ auflösen\grqq{} lässt, d.h. es gibt eine stetig differenzierbare Funktion $g=\,^{t}(g_1,g_2)$ auf einer Umgebung $U$ von $(1,1)$ mit $(u,v)=g(x,y)$ und $g(1,1)=(1,0)$.
+  \item Berechnen Sie die Jacobi-Matrix $g'(1,1)$.
+  \item Lässt sich $F(x,y,u,v)=0$ nahe $c$ auch eindeutig \glqq nach $(x,y)$ auflösen\grqq? Begründen Sie kurz (ohne die auflösende Funktion anzugeben).
+\end{enumerate}\par\smallskip
+\textbf{L\"osungsvorschlag.}\par
+Wir schreiben $z=\,^{t}(x,y,u,v)$, fassen $(x,y)$ als \glqq freie\grqq{} und $(u,v)$ als \glqq abhängige\grqq{} Variablen auf. Damit ist $F'_x$ die Ableitung nach $(x,y)$ und $F'_y$ die Ableitung nach $(u,v)$ im Sinne von Satz $4.2.3$.
+
+\textbf{a)} \textit{Nullstelle:} $F_1(c)=1^2+0^2+1-1-1=0$, $F_2(c)=1+0+1\cdot1-2=0$, also $F(c)=0$. $F$ ist als Polynomabbildung stetig differenzierbar. Die Funktionalmatrix bezüglich $(u,v)$ ist
+\[ F'_{(u,v)}(z)=\begin{pmatrix} D_uF_1 & D_vF_1\\ D_uF_2 & D_vF_2\end{pmatrix}=\begin{pmatrix} 2u & 2v\\ 1 & 1\end{pmatrix},\qquad F'_{(u,v)}(c)=\begin{pmatrix} 2 & 0\\ 1 & 1\end{pmatrix}. \]
+Deren Determinante ist $2\cdot1-0\cdot1=2\neq 0$, also $\operatorname{Rang}F'_{(u,v)}(c)=2=n$. Damit sind alle Voraussetzungen von Satz $4.2.3$ erfüllt: Es gibt offene Umgebungen $U$ von $(1,1)$ und $V$ von $(1,0)$ und ein stetig differenzierbares $g:U\to V$ mit $F(x,y,g(x,y))=0$ und $g(1,1)=(1,0)$.
+
+\textbf{b)} Nach $4.2.3(ii)$ gilt $g'(1,1)=-\bigl[F'_{(u,v)}(c)\bigr]^{-1}F'_{(x,y)}(c)$. Die Ableitung nach $(x,y)$ ist
+\[ F'_{(x,y)}(z)=\begin{pmatrix} D_xF_1 & D_yF_1\\ D_xF_2 & D_yF_2\end{pmatrix}=\begin{pmatrix} 1 & -1\\ y & x\end{pmatrix},\qquad F'_{(x,y)}(c)=\begin{pmatrix} 1 & -1\\ 1 & 1\end{pmatrix}. \]
+Die Inverse von $\begin{pmatrix}2&0\\1&1\end{pmatrix}$ ist $\dfrac{1}{2}\begin{pmatrix}1&0\\-1&2\end{pmatrix}=\begin{pmatrix}\tfrac12&0\\[2pt]-\tfrac12&1\end{pmatrix}$. Somit
+\[ g'(1,1)=-\begin{pmatrix}\tfrac12&0\\[2pt]-\tfrac12&1\end{pmatrix}\begin{pmatrix}1&-1\\1&1\end{pmatrix} = -\begin{pmatrix}\tfrac12&-\tfrac12\\[2pt]\tfrac12&\tfrac32\end{pmatrix} = \begin{pmatrix}-\tfrac12&\tfrac12\\[2pt]-\tfrac12&-\tfrac32\end{pmatrix}. \]
+
+\textbf{c)} Ja. Für die Auflösung nach $(x,y)$ ist der Rang der Untermatrix der Ableitungen nach $(x,y)$ entscheidend. Aus b) ist $F'_{(x,y)}(c)=\begin{pmatrix}1&-1\\1&1\end{pmatrix}$ mit Determinante $1\cdot1-(-1)\cdot1=2\neq0$, also Rang $2$. Da $F(c)=0$ und $F$ stetig differenzierbar ist, sind (nach der Bemerkung zu geeigneter Umbenennung der Variablen im Anschluss an $4.2.1$ bzw. der symmetrischen Rolle im Satz $4.2.3$) auch hier alle Voraussetzungen erfüllt: $F(x,y,u,v)=0$ ist nahe $c$ eindeutig nach $(x,y)$ auflösbar.\par\bigskip\hrule\bigskip
+\subsection*{[K4-D] \normalfont mittel \textbullet\ 12\,P \textbullet\ Pr\"ufung: none}
+\addcontentsline{toc}{subsection}{K4-D}
+\textit{Typ: Gemischt (Lagrangemultiplikatoren + Existenzargument)  ---  Thema: Extremum unter Nebenbedingungen, Satz 4.5.9}\par\smallskip
+\textbf{Aufgabe.}\par
+Für welches Paar positiver Zahlen $(x,y)$ mit $x+y=5$ wird $f(x,y)=x^3y^2$ maximal?
+\begin{enumerate}[label=\alph*)]
+  \item Bestimmen Sie mit der Methode der Lagrangemultiplikatoren $4.5.9$ alle Punkte der Menge $M(g)=\{(x,y): x>0,\ y>0,\ x+y-5=0\}$, die als Extremalstelle von $f|_{M(g)}$ in Frage kommen, und geben Sie den zugehörigen Multiplikator $\lambda$ an.
+  \item Begründen Sie, dass $f|_{M(g)}$ dort tatsächlich ein globales Maximum annimmt. (Hinweis: Verhalten von $f$ am \glqq Rand\grqq{} $x\to0^+$ bzw. $y\to0^+$ des Segments.)
+\end{enumerate}\par\smallskip
+\textbf{L\"osungsvorschlag.}\par
+Sei $M:=\{(x,y):x>0,y>0\}$ (offen), $f(x,y)=x^3y^2$ und $g(x,y)=x+y-5$; beide sind stetig differenzierbar auf $M$.
+
+\textbf{a)} Es ist $g'(x,y)=(1\ \ 1)$, also hat $g'(x,y)$ für jedes $(x,y)\in M(g)$ Höchstrang $1$ (die Voraussetzung von Satz $4.5.9$ mit $n=2$, $m=1$ ist erfüllt). Ferner
+\[ D_1f(x,y)=3x^2y^2,\qquad D_2f(x,y)=2x^3y. \]
+Hat $f|_{M(g)}$ in $c=(x,y)$ ein lokales Extremum, so gibt es nach $4.5.9$ ein $\lambda\in\mathbb{R}$ mit $f'(c)=\lambda\,g'(c)$, d.h.
+\[ 3x^2y^2=\lambda,\qquad 2x^3y=\lambda,\qquad\text{sowie}\qquad x+y=5. \]
+Gleichsetzen der ersten beiden Gleichungen: $3x^2y^2=2x^3y$. Da $x>0,y>0$, dürfen wir durch $x^2y$ teilen und erhalten $3y=2x$, also $x=\tfrac32 y$. Einsetzen in $x+y=5$:
+\[ \tfrac32 y+y=5\ \Rightarrow\ \tfrac52 y=5\ \Rightarrow\ y=2,\quad x=3. \]
+Einziger Kandidat: $c=(3,2)$. Der Multiplikator ist $\lambda=2x^3y=2\cdot27\cdot2=108$ (Probe: $3x^2y^2=3\cdot9\cdot4=108$). Der Funktionswert ist $f(3,2)=27\cdot4=108$.
+
+\textbf{b)} Wir parametrisieren $M(g)$ durch $y\in\,]0,5[$, $x=5-y$, und betrachten
+\[ \varphi(y):=f(5-y,\,y)=(5-y)^3y^2,\qquad y\in\,]0,5[. \]
+$\varphi$ ist stetig auf $]0,5[$ mit $\varphi(y)>0$ und $\varphi(y)\to 0$ sowohl für $y\to0^+$ (Faktor $y^2\to0$) als auch für $y\to5^-$ (Faktor $(5-y)^3\to0$). Da $\varphi$ auf dem offenen Intervall positive Werte annimmt (z.B. $\varphi(2)=27\cdot4=108>0$) und an beiden Rändern gegen $0$ strebt, nimmt $\varphi$ ihr Supremum in einem inneren Punkt an; dort gilt $\varphi'=0$. Nach a) ist der einzige innere kritische Punkt $y=2$. Folglich ist $y=2$, also $c=(3,2)$, die Stelle des globalen Maximums von $f|_{M(g)}$, mit Maximalwert $f(3,2)=108$.\par\bigskip\hrule\bigskip
+\section*{Kapitel 5 \quad Integration}
+\addcontentsline{toc}{section}{Kapitel 5}
+\subsection*{[K5-P1] \normalfont mittel \textbullet\ 12\,P \textbullet\ Pr\"ufung: none}
+\addcontentsline{toc}{subsection}{K5-P1}
+\textit{Typ: Rechnung (uneigentliches Integral: Konvergenz + exakter Wert)  ---  Thema: Uneigentliche Integrale, Majorantenkriterium, partielle Integration/Reduktion}\par\smallskip
+\textbf{Aufgabe.}\par
+Betrachtet werde das uneigentliche Integral
+\[ I \;=\; \int_{0}^{\infty} \frac{dx}{(1+x^{2})^{2}}. \]
+\begin{enumerate}[label=\alph*)]
+  \item Begründen Sie mit dem Majorantenkriterium (U 5.2.4), dass $I$ konvergiert.
+  \item Zeigen Sie mittels partieller Integration die Reduktionsformel
+  \[ \int_{0}^{R} \frac{dx}{(1+x^{2})^{2}} \;=\; \frac{1}{2}\,\frac{R}{1+R^{2}} \;+\; \frac{1}{2}\arctan R \qquad (R>0), \]
+  und berechnen Sie damit den exakten Wert von $I$.
+\end{enumerate}\par\smallskip
+\textbf{L\"osungsvorschlag.}\par
+\textbf{a)} Für $x\ge 0$ ist $0\le \frac{1}{(1+x^{2})^{2}}\le \frac{1}{1+x^{2}}=:g(x)$. Die Funktion $\frac{1}{(1+x^2)^2}$ ist auf jedem $[0,R]$ stetig, also dort integrierbar. Nach Beispiel 5.2.4(1) konvergiert $\int_{0}^{\infty} g(x)\,dx=\lim_{R\to\infty}\arctan R=\frac{\pi}{2}$. Nach dem Majorantenkriterium U 5.2.4 (mit $b=\infty$, einziges kritisches Ende) konvergiert daher auch $I=\int_0^\infty \frac{dx}{(1+x^2)^2}$.
+
+\textbf{b)} Für festes $R>0$ ist der Integrand stetig, also (eigentlich) integrierbar auf $[0,R]$. Setze $J(R):=\int_0^R \frac{dx}{(1+x^2)^2}$. Wir starten von $\int_0^R \frac{dx}{1+x^2}=\arctan R$ und wenden \emph{partielle Integration} (5.1.11) mit $f'(x)=1$, also $f(x)=x$, und $g(x)=\frac{1}{1+x^2}$, $g'(x)=\frac{-2x}{(1+x^2)^2}$, an:
+\[ \arctan R=\int_0^R 1\cdot\frac{1}{1+x^2}\,dx = \frac{x}{1+x^2}\Big|_0^R - \int_0^R x\cdot\frac{-2x}{(1+x^2)^2}\,dx = \frac{R}{1+R^2} + 2\int_0^R \frac{x^2}{(1+x^2)^2}\,dx. \]
+Wegen $\frac{x^2}{(1+x^2)^2}=\frac{(1+x^2)-1}{(1+x^2)^2}=\frac{1}{1+x^2}-\frac{1}{(1+x^2)^2}$ folgt
+\[ \int_0^R \frac{x^2}{(1+x^2)^2}\,dx = \arctan R - J(R). \]
+Einsetzen liefert
+\[ \arctan R = \frac{R}{1+R^2} + 2\bigl(\arctan R - J(R)\bigr) = \frac{R}{1+R^2} + 2\arctan R - 2J(R), \]
+also
+\[ 2J(R) = \frac{R}{1+R^2} + \arctan R,\qquad J(R)=\frac{1}{2}\,\frac{R}{1+R^2}+\frac{1}{2}\arctan R. \]
+Das ist die behauptete Reduktionsformel.
+
+\textbf{Grenzübergang.} Nach 5.2.3(ii) ist $I=\lim_{R\to\infty} J(R)$. Wegen $\frac{R}{1+R^2}\to 0$ und $\arctan R\to \frac{\pi}{2}$ (vgl. 3.1.12) erhalten wir
+\[ I = \frac{1}{2}\cdot 0 + \frac{1}{2}\cdot\frac{\pi}{2} = \boxed{\dfrac{\pi}{4}}. \]\par\bigskip\hrule\bigskip
+\subsection*{[K5-P2] \normalfont mittel \textbullet\ 14\,P \textbullet\ Pr\"ufung: minor}
+\addcontentsline{toc}{subsection}{K5-P2}
+\textit{Typ: Rechnung (Parameterintegral, Differentiation unter dem Integral)  ---  Thema: Parameterintegrale, Leibnizsche Regel 5.3.4}\par\smallskip
+\textbf{Aufgabe.}\par
+Für $a\ge 0$ sei
+\[ F(a) \;=\; \int_{0}^{1} \frac{x^{a}-1}{\ln x}\,dx, \]
+wobei der Integrand an $x=1$ durch seinen Grenzwert $a$ und an $x=0$ durch $0$ stetig ergänzt wird.
+\begin{enumerate}[label=\alph*)]
+  \item Zeigen Sie, dass der Integrand $K(a,x):=\frac{x^a-1}{\ln x}$ auf $[0,\infty[\times[0,1]$ stetig ist (mit den angegebenen Ergänzungen) und dass $\partial_a K(a,x)=x^a$ gilt.
+  \item Berechnen Sie $F'(a)$ mit der Leibnizschen Regel und bestimmen Sie daraus $F(a)$ in geschlossener Form. Geben Sie insbesondere den Wert $\int_0^1 \frac{x-1}{\ln x}\,dx$ an.
+\end{enumerate}\par\smallskip
+\textbf{L\"osungsvorschlag.}\par
+\textbf{a)} Für $x\in(0,1)$ gilt $\ln x<0$ und $K(a,x)=\frac{x^a-1}{\ln x}$; für $x\in(0,1)$ ist dies als Quotient stetiger Funktionen (Nenner $\neq 0$) stetig in $(a,x)$.
+\emph{Ergänzung bei $x=1$:} Mit $x^a=e^{a\ln x}$ und $e^{u}-1=u+O(u^2)$ folgt für $u=a\ln x\to 0$
+\[ \frac{x^a-1}{\ln x}=\frac{e^{a\ln x}-1}{\ln x}\longrightarrow a \quad (x\to 1), \]
+also ist $K(a,1):=a$ stetig.
+\emph{Ergänzung bei $x=0$:} Für $a>0$ gilt $x^a\to 0$ und $\ln x\to-\infty$, also $\frac{x^a-1}{\ln x}\to \frac{-1}{-\infty}=0$; für $a=0$ ist $K\equiv 0$. Die Ergänzung $K(a,0):=0$ ist stetig. Somit ist $K$ auf $[0,\infty[\times[0,1]$ stetig.
+
+Die partielle Ableitung nach $a$ ist für $x\in(0,1)$
+\[ \partial_a K(a,x)=\partial_a\frac{e^{a\ln x}-1}{\ln x}=\frac{(\ln x)\,e^{a\ln x}}{\ln x}=e^{a\ln x}=x^a, \]
+und die stetige Fortsetzung liefert $\partial_a K(a,1)=1=1^a$ und $\partial_a K(a,0)=0=0^a$ (für $a>0$). Also $\partial_a K(a,x)=x^a$, stetig auf $M\times[0,1]$ für jede offene beschränkte Teilmenge $M\subset\,]{-1},\infty[$.
+
+\textbf{b)} Wir wenden die Leibnizsche Regel 5.3.4 auf eine beliebige offene beschränkte Menge $M\subset\,]{-1},\infty[$ an: $K$ und $\partial_a K=x^a$ sind stetig auf $M\times[0,1]$, also ist $F$ differenzierbar mit
+\[ F'(a)=\int_0^1 \partial_a K(a,x)\,dx=\int_0^1 x^a\,dx=\frac{x^{a+1}}{a+1}\Big|_0^1=\frac{1}{a+1}\qquad(a>-1). \]
+Eine Stammfunktion ist $\ln(a+1)$; nach dem Hauptsatz (5.1.10) gilt daher $F(a)=\ln(a+1)+C$. Die Konstante bestimmt sich aus $F(0)=\int_0^1 \frac{x^0-1}{\ln x}\,dx=\int_0^1 0\,dx=0$, also $\ln 1+C=0$, d.h. $C=0$. Somit
+\[ \boxed{F(a)=\ln(a+1)\quad(a\ge 0).} \]
+Insbesondere ergibt $a=1$
+\[ \int_0^1 \frac{x-1}{\ln x}\,dx = F(1)=\ln 2. \]\par\bigskip\hrule\bigskip
+\subsection*{[K5-P3] \normalfont mittel \textbullet\ 11\,P \textbullet\ Pr\"ufung: none}
+\addcontentsline{toc}{subsection}{K5-P3}
+\textit{Typ: Beweise oder widerlege (Gegenbeispiel)  ---  Thema: Vertauschung von Grenzwert und Integral, Notwendigkeit gleichmäßiger Konvergenz (5.1.15)}\par\smallskip
+\textbf{Aufgabe.}\par
+Beweisen oder widerlegen Sie die folgende Aussage:
+\begin{quote}
+\itshape Sei $(f_k)$ eine Folge in $R([0,1])$, die punktweise gegen $f\in R([0,1])$ konvergiert. Dann gilt stets $\displaystyle\lim_{k\to\infty}\int_0^1 f_k(x)\,dx=\int_0^1 f(x)\,dx$.
+\end{quote}
+Betrachten Sie zur Untersuchung die Folge $f_k:[0,1]\to\mathbb{R}$, $f_k(x):=k\,x\,(1-x^2)^k$.\par\smallskip
+\textbf{L\"osungsvorschlag.}\par
+Die Aussage ist \textbf{falsch}. Wir widerlegen sie am angegebenen Gegenbeispiel $f_k(x)=k\,x\,(1-x^2)^k$.
+
+\textbf{1. $f_k\in R([0,1])$.} Jedes $f_k$ ist als Polynomfunktion stetig auf $[0,1]$, also nach $C(I)\subseteq R(I)$ integrierbar.
+
+\textbf{2. Punktweiser Grenzwert $f\equiv 0$.} Für $x=0$ ist $f_k(0)=0$ für alle $k$. Für festes $x\in(0,1]$ setze $q:=1-x^2\in[0,1)$. Dann ist $f_k(x)=k\,x\,q^{k}$. Da $0\le q<1$, gilt $k\,q^{k}\to 0$ für $k\to\infty$ (Polynom mal geometrisch fallend: $q^k=e^{k\ln q}$ mit $\ln q<0$, und $t\,e^{t}\to 0$ für $t\to-\infty$, vgl. 3.1.12). Also $f_k(x)\to 0$ für jedes $x\in[0,1]$, d.h. $(f_k)$ konvergiert punktweise gegen $f\equiv 0\in R([0,1])$ mit $\int_0^1 f=0$.
+
+\textbf{3. Die Integrale.} Mit der Substitution $u=1-x^2$, $du=-2x\,dx$ (5.1.12) bzw. der Stammfunktion und dem Hauptsatz ergibt sich für jedes $k$
+\[ \int_0^1 k\,x\,(1-x^2)^k\,dx = k\left[-\frac{(1-x^2)^{k+1}}{2(k+1)}\right]_0^1 = k\cdot\frac{1}{2(k+1)} = \frac{k}{2(k+1)}. \]
+Daher
+\[ \lim_{k\to\infty}\int_0^1 f_k(x)\,dx = \lim_{k\to\infty}\frac{k}{2(k+1)} = \frac{1}{2}. \]
+
+\textbf{4. Widerspruch.} Es ist
+\[ \lim_{k\to\infty}\int_0^1 f_k = \frac{1}{2}\neq 0 = \int_0^1 \lim_{k\to\infty} f_k. \]
+Die behauptete Vertauschung gilt also \emph{nicht}.
+
+\textbf{Bemerkung (Einordnung).} Satz 5.1.15 garantiert $\lim_k\int f_k=\int f$ nur unter der Voraussetzung \emph{gleichmäßiger} Konvergenz. Diese ist hier verletzt: Für $x_k:=1/\sqrt{k}$ ($k\ge 2$) gilt
+\[ f_k(x_k)=k\cdot\frac{1}{\sqrt k}\Bigl(1-\tfrac1k\Bigr)^{k}=\sqrt{k}\,\Bigl(1-\tfrac1k\Bigr)^{k}\xrightarrow[k\to\infty]{}\infty\cdot e^{-1}=\infty, \]
+somit $\|f_k-0\|_\infty\to\infty\not\to 0$. Die Konvergenz ist also nicht gleichmäßig, weshalb die "Fläche" nicht verschwindet. $\qed$\par\bigskip\hrule\bigskip
+\subsection*{[K5-P4] \normalfont schwer \textbullet\ 16\,P \textbullet\ Pr\"ufung: none}
+\addcontentsline{toc}{subsection}{K5-P4}
+\textit{Typ: Rechnung + Anwendung (Fourierreihe, Darstellungssatz, Reihensumme)  ---  Thema: Fourierreihen, gerade Funktionen (U 5.4.1), Darstellungssatz 5.4.9}\par\smallskip
+\textbf{Aufgabe.}\par
+Sei $f:\mathbb{R}\to\mathbb{R}$ die $2\pi$-periodische Fortsetzung von
+\[ f(x)=\cos\!\Big(\frac{x}{2}\Big),\qquad x\in[-\pi,\pi]. \]
+\begin{enumerate}[label=\alph*)]
+  \item Zeigen Sie, dass $f$ gerade ist, und berechnen Sie die Fourierkoeffizienten. Weisen Sie nach, dass
+  \[ a_k=\frac{4(-1)^{k+1}}{\pi\,(4k^{2}-1)}\ (k\in\mathbb{N}_0),\qquad b_k=0\ (k\in\mathbb{N}). \]
+  \item Begründen Sie mit dem Darstellungssatz 5.4.9, dass $f$ in jedem Punkt durch seine Fourierreihe dargestellt wird, und leiten Sie durch Auswertung an geeigneten Stellen die Reihensummen
+  \[ \sum_{k=1}^{\infty}\frac{1}{4k^{2}-1}=\frac{1}{2}\qquad\text{und}\qquad \sum_{k=1}^{\infty}\frac{(-1)^{k+1}}{4k^{2}-1}=\frac{\pi}{4}-\frac{1}{2} \]
+  her.
+\end{enumerate}\par\smallskip
+\textbf{L\"osungsvorschlag.}\par
+\textbf{a)} Auf $[-\pi,\pi]$ ist $f(x)=\cos(x/2)$; wegen $\cos(-x/2)=\cos(x/2)$ ist $f$ gerade, und als stetige Funktion gilt $f|_{]-\pi,\pi]}\in R(]-\pi,\pi])$. Nach U 5.4.1(i) ist $b_k=0$ für alle $k\in\mathbb{N}$ und
+\[ a_k=\frac{2}{\pi}\int_0^\pi \cos\!\Big(\frac{x}{2}\Big)\cos(kx)\,dx. \]
+Mit $\cos A\cos B=\tfrac12[\cos(A+B)+\cos(A-B)]$ (Additionstheorem des Kosinus) und $A=x/2$, $B=kx$:
+\[ a_k=\frac{1}{\pi}\int_0^\pi\Big[\cos\!\big((k+\tfrac12)x\big)+\cos\!\big((k-\tfrac12)x\big)\Big]dx = \frac{1}{\pi}\left[\frac{\sin((k+\frac12)x)}{k+\frac12}+\frac{\sin((k-\frac12)x)}{k-\frac12}\right]_0^\pi. \]
+An der oberen Grenze ist $\sin\!\big((k\pm\tfrac12)\pi\big)=\sin(k\pi\pm\tfrac{\pi}{2})=\pm\cos(k\pi)=\pm(-1)^k$; an der unteren Grenze verschwinden beide Terme. Also
+\[ a_k=\frac{1}{\pi}\left[\frac{(-1)^k}{k+\frac12}-\frac{(-1)^k}{k-\frac12}\right] = \frac{(-1)^k}{\pi}\cdot\frac{(k-\frac12)-(k+\frac12)}{(k+\frac12)(k-\frac12)} = \frac{(-1)^k}{\pi}\cdot\frac{-1}{k^2-\frac14}. \]
+Mit $k^2-\tfrac14=\tfrac14(4k^2-1)$ folgt
+\[ a_k=\frac{(-1)^{k+1}}{\pi\,(k^2-\frac14)}=\frac{4(-1)^{k+1}}{\pi\,(4k^2-1)}\qquad(k\in\mathbb{N}_0). \]
+(Speziell $a_0=\dfrac{4\cdot(-1)}{\pi\cdot(-1)}=\dfrac{4}{\pi}$; direkt: $a_0=\tfrac{2}{\pi}\int_0^\pi\cos(x/2)dx=\tfrac{2}{\pi}[2\sin(x/2)]_0^\pi=\tfrac{4}{\pi}$, stimmt überein.)
+
+Die Fourierreihe lautet also
+\[ \frac{a_0}{2}+\sum_{k=1}^\infty a_k\cos(kx)=\frac{2}{\pi}+\frac{4}{\pi}\sum_{k=1}^\infty \frac{(-1)^{k+1}}{4k^2-1}\cos(kx). \]
+
+\textbf{b)} Die $2\pi$-periodische Funktion $f$ ist stetig (denn $\cos(\pi/2)=\cos(-\pi/2)=0$, die Nahtwerte passen) und in jedem Punkt rechts- und linksseitig differenzierbar: im Inneren $(-\pi,\pi)$ ist $\cos(x/2)$ glatt, und an den Nahtstellen $x=(2m+1)\pi$ existieren die einseitigen Ableitungen (endlich), da $f$ dort mit einer $C^1$-Funktion übereinstimmt. Nach dem Darstellungssatz 5.4.9 konvergiert die Fourierreihe daher in jedem $x\in\mathbb{R}$ gegen $f(x)$:
+\[ \cos\!\Big(\frac{x}{2}\Big)=\frac{2}{\pi}+\frac{4}{\pi}\sum_{k=1}^\infty\frac{(-1)^{k+1}}{4k^2-1}\cos(kx)\qquad(x\in[-\pi,\pi]). \]
+
+\emph{Auswertung bei $x=\pi$:} $f(\pi)=\cos(\pi/2)=0$ und $\cos(k\pi)=(-1)^k$, also
+\[ 0=\frac{2}{\pi}+\frac{4}{\pi}\sum_{k=1}^\infty\frac{(-1)^{k+1}(-1)^k}{4k^2-1} = \frac{2}{\pi}-\frac{4}{\pi}\sum_{k=1}^\infty\frac{1}{4k^2-1}, \]
+wegen $(-1)^{k+1}(-1)^k=(-1)^{2k+1}=-1$. Auflösen ergibt
+\[ \sum_{k=1}^\infty\frac{1}{4k^2-1}=\frac{1}{2}. \]
+
+\emph{Auswertung bei $x=0$:} $f(0)=\cos 0=1$ und $\cos 0=1$, also
+\[ 1=\frac{2}{\pi}+\frac{4}{\pi}\sum_{k=1}^\infty\frac{(-1)^{k+1}}{4k^2-1} \ \Longrightarrow\ \sum_{k=1}^\infty\frac{(-1)^{k+1}}{4k^2-1}=\frac{\pi}{4}\Big(1-\frac{2}{\pi}\Big)=\frac{\pi}{4}-\frac{1}{2}. \]
+Beide Reihensummen sind damit hergeleitet. $\qed$
+
+(Kontrolle: $\frac{1}{4k^2-1}=\frac{1}{2}\big(\frac{1}{2k-1}-\frac{1}{2k+1}\big)$ ist eine Teleskopreihe mit Summe $\frac12\cdot 1=\frac12$ — konsistent mit dem ersten Ergebnis.)\par\bigskip\hrule\bigskip
+\section*{Kapitel 6 \quad Kurven}
+\addcontentsline{toc}{section}{Kapitel 6}
+\subsection*{[K6-P1] \normalfont mittel \textbullet\ 12\,P \textbullet\ Pr\"ufung: minor}
+\addcontentsline{toc}{subsection}{K6-P1}
+\textit{Typ: Rechnung (Bogenlänge)  ---  Thema: 6.2 Länge einer stetig differenzierbaren Kurve}\par\smallskip
+\textbf{Aufgabe.}\par
+Sei die logarithmische Spirale $W:=[\varphi]$ gegeben durch
+\[\varphi:[0,\pi]\longrightarrow\mathbb{R}^2,\qquad \varphi(t):=\begin{pmatrix} e^{t}\cos t\\ e^{t}\sin t\end{pmatrix}.\]
+\begin{enumerate}[label=\alph*)]
+\item Zeigen Sie, dass $W$ eine glatte Kurve mit Anfangs- und Endpunkt ist.
+\item Berechnen Sie die Länge $L(W)$.
+\item Geben Sie die Bogenlänge $s_\varphi(t)$ bezüglich $\varphi$ an und bestimmen Sie die ausgezeichnete Parameterdarstellung $\Phi$ von $W$. Verifizieren Sie $\lVert\dot\Phi(\tau)\rVert_2=1$.
+\end{enumerate}\par\smallskip
+\textbf{L\"osungsvorschlag.}\par
+\textbf{a)} $\varphi$ ist als Zusammensetzung stetiger Funktionen stetig, also $W=[\varphi]$ eine Kurve mit Anfangspunkt $\varphi(0)=\binom{1}{0}$ und Endpunkt $\varphi(\pi)=\binom{-e^{\pi}}{0}$. Auf $]0,\pi[$ ist $\varphi$ stetig differenzierbar mit
+\[\dot\varphi(t)=\begin{pmatrix} e^{t}(\cos t-\sin t)\\ e^{t}(\sin t+\cos t)\end{pmatrix}.\]
+Es gilt
+\begin{align*}\lVert\dot\varphi(t)\rVert_2^2 &= e^{2t}\big[(\cos t-\sin t)^2+(\sin t+\cos t)^2\big]\\ &= e^{2t}\big[(\cos^2 t-2\sin t\cos t+\sin^2 t)+(\sin^2 t+2\sin t\cos t+\cos^2 t)\big]\\ &= 2\,e^{2t},\end{align*}
+also $\lVert\dot\varphi(t)\rVert_2=\sqrt{2}\,e^{t}>0$ für alle $t$. Da $\dot\varphi(t)\neq 0$ und $\int_0^\pi\sqrt2\,e^t\,dt$ existiert, ist $W$ nach 6.2.10 glatt.
+
+\textbf{b)} Nach Satz 6.2.5 ist $W$ rektifizierbar mit
+\[L(W)=\int_0^{\pi}\lVert\dot\varphi(t)\rVert_2\,dt=\int_0^{\pi}\sqrt2\,e^{t}\,dt=\sqrt2\,\big[e^{t}\big]_0^{\pi}=\sqrt2\,(e^{\pi}-1).\]
+
+\textbf{c)} Nach 6.2.8 ist die Bogenlänge
+\[s_\varphi(t)=\int_0^{t}\lVert\dot\varphi(\tau)\rVert_2\,d\tau=\int_0^{t}\sqrt2\,e^{\tau}\,d\tau=\sqrt2\,(e^{t}-1),\qquad t\in[0,\pi].\]
+Auflösen von $\tau=s_\varphi(t)=\sqrt2(e^t-1)$ nach $t$ liefert $e^{t}=1+\tfrac{\tau}{\sqrt2}$, also
+\[t=s_\varphi^{-1}(\tau)=\ln\!\Big(1+\tfrac{\tau}{\sqrt2}\Big),\qquad \tau\in[0,\sqrt2(e^{\pi}-1)].\]
+Mit $e^{t}=1+\tfrac{\tau}{\sqrt2}$ und $\Phi=\varphi\circ s_\varphi^{-1}$ folgt
+\[\Phi(\tau)=\Big(1+\tfrac{\tau}{\sqrt2}\Big)\begin{pmatrix}\cos\!\big(\ln(1+\tfrac{\tau}{\sqrt2})\big)\\[2pt]\sin\!\big(\ln(1+\tfrac{\tau}{\sqrt2})\big)\end{pmatrix}.\]
+Wegen $\dot\Phi(\tau)=\dot\varphi(t)\cdot\dot{(s_\varphi^{-1})}(\tau)=\dfrac{\dot\varphi(t)}{\lVert\dot\varphi(t)\rVert_2}$ (Kettenregel, vgl. 6.2.8) ist unmittelbar $\lVert\dot\Phi(\tau)\rVert_2=1$ für $\tau\in\,]0,L(W)[$.\par\bigskip\hrule\bigskip
+\subsection*{[K6-P2] \normalfont mittel \textbullet\ 14\,P \textbullet\ Pr\"ufung: none}
+\addcontentsline{toc}{subsection}{K6-P2}
+\textit{Typ: Rechnung (Integrabilitätsbedingungen + Stammfunktion + Wegunabhängigkeit)  ---  Thema: 6.4 Stammfunktionen / Wegunabhängigkeit}\par\smallskip
+\textbf{Aufgabe.}\par
+Gegeben sei das Vektorfeld
+\[f:\mathbb{R}^2\longrightarrow\mathbb{R}^2,\qquad f(x,y):=\begin{pmatrix} 2xy+y\cos(xy)\\ x^{2}+x\cos(xy)\end{pmatrix}.\]
+\begin{enumerate}[label=\alph*)]
+\item Prüfen Sie, ob $f$ ein Gradientenfeld ist, und bestimmen Sie gegebenenfalls eine Stammfunktion $F$.
+\item Berechnen Sie $\displaystyle\int_W f\cdot d\!\begin{pmatrix}x\\y\end{pmatrix}$ für die Kurve $W:=S(a,c)+S(c,b)$ mit $a=\binom{0}{0}$, $c=\binom{1}{0}$, $b=\binom{1}{\pi/2}$.
+\item Warum liefert jede andere stückweise glatte Kurve von $a$ nach $b$ denselben Wert?
+\end{enumerate}\par\smallskip
+\textbf{L\"osungsvorschlag.}\par
+\textbf{a)} $f$ ist stetig differenzierbar mit
+\[D_1 f_2(x,y)=2x+\cos(xy)-xy\sin(xy),\qquad D_2 f_1(x,y)=2x+\cos(xy)-xy\sin(xy),\]
+denn $D_1\big(x\cos(xy)\big)=\cos(xy)+x\cdot(-\sin(xy))\cdot y$ und $D_2\big(y\cos(xy)\big)=\cos(xy)+y\cdot(-\sin(xy))\cdot x$. Also gilt $D_1 f_2=D_2 f_1$; die Integrabilitätsbedingung ist erfüllt. Da $\mathbb{R}^2$ sternförmig ist, besitzt $f$ nach Satz 6.4.6 eine Stammfunktion. Man errät (Stammfunktion von $f_1$ bezüglich $x$)
+\[F(x,y):=x^{2}y+\sin(xy).\]
+Probe: $D_1 F=2xy+y\cos(xy)=f_1$ und $D_2 F=x^{2}+x\cos(xy)=f_2$. Also ist $F$ Stammfunktion, $f$ ein Gradientenfeld.
+
+\textbf{b)} Nach dem Satz über die Wegunabhängigkeit 6.4.4 gilt für die stückweise glatte Kurve $W$ von $a$ nach $b$
+\[\int_W f\cdot d\!\begin{pmatrix}x\\y\end{pmatrix}=F(b)-F(a)=F\!\Big(1,\tfrac{\pi}{2}\Big)-F(0,0).\]
+Es ist $F(1,\tfrac{\pi}{2})=1^{2}\cdot\tfrac{\pi}{2}+\sin\!\big(\tfrac{\pi}{2}\big)=\tfrac{\pi}{2}+1$ und $F(0,0)=0$, also
+\[\int_W f\cdot d\!\begin{pmatrix}x\\y\end{pmatrix}=\frac{\pi}{2}+1.\]
+Kontrollrechnung direkt: Auf $S(a,c)$ mit $\varphi(t)=(t,0)$, $\dot\varphi=\binom10$, ist $f_1(\varphi)=0$, Beitrag $0$. Auf $S(c,b)$ mit $\varphi(t)=(1,\tfrac{\pi}{2}t)$, $t\in[0,1]$, $\dot\varphi=\binom{0}{\pi/2}$ und $f_2(\varphi)=1+\cos(\tfrac{\pi}{2}t)$, also $\int_0^1(1+\cos(\tfrac{\pi}{2}t))\tfrac{\pi}{2}\,dt=\tfrac{\pi}{2}+\big[\sin(\tfrac{\pi}{2}t)\big]_0^1=\tfrac{\pi}{2}+1$. Bestätigt.
+
+\textbf{c)} Da $f$ auf ganz $\mathbb{R}^2$ eine Stammfunktion $F$ besitzt, hängt das Kurvenintegral nach 6.4.4 nur von Anfangspunkt $a$ und Endpunkt $b$ ab, nicht vom Verlauf der Kurve; jede stückweise glatte Kurve von $a$ nach $b$ liefert $F(b)-F(a)=\tfrac{\pi}{2}+1$.\par\bigskip\hrule\bigskip
+\subsection*{[K6-P3] \normalfont mittel \textbullet\ 12\,P \textbullet\ Pr\"ufung: none}
+\addcontentsline{toc}{subsection}{K6-P3}
+\textit{Typ: Beweise oder widerlege / Gegenbeispiel  ---  Thema: 6.4 geschlossene Kurven / 6.3 Kurvenintegral von Vektorfunktionen}\par\smallskip
+\textbf{Aufgabe.}\par
+Beweisen oder widerlegen Sie:
+\begin{enumerate}[label=\alph*)]
+\item Für jede stückweise glatte geschlossene Kurve $W$ in $\mathbb{R}^2$ und jedes auf einem Gebiet $G\supseteq|W|$ stetige Vektorfeld $f$ gilt $\displaystyle\int_W f\cdot dx=0$.
+\item Erfüllt ein stetig differenzierbares Vektorfeld $f:G\to\mathbb{R}^n$ auf einem Gebiet $G$ die Integrabilitätsbedingungen $D_i f_j=D_j f_i$, so besitzt $f$ eine Stammfunktion.
+\end{enumerate}\par\smallskip
+\textbf{L\"osungsvorschlag.}\par
+\textbf{a) Falsch.} Gegenbeispiel: Sei $f(x,y):=\binom{0}{x}$ (stetig, sogar stetig differenzierbar auf ganz $\mathbb{R}^2$) und $W:=[\varphi]$ die im Gegenuhrzeigersinn durchlaufene Einheitskreislinie mit $\varphi:[0,2\pi]\to\mathbb{R}^2$, $\varphi(t)=\binom{\cos t}{\sin t}$. Dann ist $W$ geschlossen ($\varphi(0)=\varphi(2\pi)=\binom10$), $\dot\varphi(t)=\binom{-\sin t}{\cos t}$ und
+\[\int_W f\cdot dx=\int_0^{2\pi}\binom{0}{\cos t}\cdot\binom{-\sin t}{\cos t}\,dt=\int_0^{2\pi}\cos^{2}t\,dt=\Big[\tfrac{t}{2}+\tfrac{\sin(2t)}{4}\Big]_0^{2\pi}=\pi\neq 0.\]
+Also verschwindet das Integral über eine geschlossene Kurve im Allgemeinen nicht. Die Aussage gilt nur unter der Zusatzvoraussetzung, dass $f$ eine Stammfunktion besitzt (vgl. 6.4.4) – und dieses $f$ hat keine, denn $D_1 f_2=1\neq 0=D_2 f_1$.
+
+\textbf{b) Falsch.} Nach Satz 6.4.2 sind die Integrabilitätsbedingungen nur \emph{notwendig}. Gegenbeispiel (vgl. 6.4.3(2)/6.4.7(1)): $G:=\mathbb{R}^2\setminus\{0\}$ und
+\[f(x,y):=\begin{pmatrix}\dfrac{-y}{x^{2}+y^{2}}\\[6pt]\dfrac{x}{x^{2}+y^{2}}\end{pmatrix}.\]
+Hier gilt $D_1 f_2=\dfrac{y^{2}-x^{2}}{(x^{2}+y^{2})^{2}}=D_2 f_1$, die Integrabilitätsbedingungen sind also erfüllt. Dennoch besitzt $f$ keine Stammfunktion: Hätte $f$ eine Stammfunktion $F$ auf $G$, so müsste nach 6.4.4 das Integral über die geschlossene Kreislinie $W$ (Radius $1$, Gegenuhrzeigersinn) den Wert $0$ haben. Man berechnet aber (vgl. 6.3.5(2))
+\[\int_W f\cdot dx=\int_0^{2\pi}\binom{-\sin t}{\cos t}\cdot\binom{-\sin t}{\cos t}\,dt=\int_0^{2\pi}(\sin^2 t+\cos^2 t)\,dt=2\pi\neq 0,\]
+Widerspruch. Der Grund ist, dass $G=\mathbb{R}^2\setminus\{0\}$ nicht sternförmig ist, sodass Satz 6.4.6 nicht anwendbar ist.\par\bigskip\hrule\bigskip
+\subsection*{[K6-P4] \normalfont leicht \textbullet\ 10\,P \textbullet\ Pr\"ufung: none}
+\addcontentsline{toc}{subsection}{K6-P4}
+\textit{Typ: Rechnung (Fläche + Rotationsvolumen)  ---  Thema: 6.5 Flächen- und Volumenberechnungen}\par\smallskip
+\textbf{Aufgabe.}\par
+Sei $f:[0,\pi]\to\mathbb{R}$, $f(x):=\sin x$, und $F:=\{\binom{x}{y}\in\mathbb{R}^2 : x\in[0,\pi],\ 0\le y\le\sin x\}$ die Fläche unter dem Graphen von $f$.
+\begin{enumerate}[label=\alph*)]
+\item Berechnen Sie den Flächeninhalt $\lambda_2(F)$.
+\item Der Körper $K$ entstehe durch Rotation von $F$ um die $x$-Achse. Berechnen Sie das Volumen $\lambda_3(K)$.
+\item Der Körper $K'$ entstehe durch Rotation der Fläche unter dem Graphen von $h(x):=\sqrt{\sin x}$ auf $[0,\pi]$ um die $x$-Achse. Berechnen Sie $\lambda_3(K')$ und vergleichen Sie mit $\lambda_2(F)$.
+\end{enumerate}\par\smallskip
+\textbf{L\"osungsvorschlag.}\par
+\textbf{a)} Da $f(x)=\sin x\ge 0$ auf $[0,\pi]$ und $f\in R([0,\pi])$, gilt nach Definition 6.5.1
+\[\lambda_2(F)=\int_0^{\pi}\sin x\,dx=\big[-\cos x\big]_0^{\pi}=-\cos\pi+\cos 0=1+1=2.\]
+
+\textbf{b)} Nach der Rotationskörperformel 6.5.5 ist
+\[\lambda_3(K)=\pi\int_0^{\pi}\big(\sin x\big)^{2}\,dx.\]
+Mit $\sin^2 x=\tfrac12\big(1-\cos(2x)\big)$ folgt
+\[\int_0^{\pi}\sin^{2}x\,dx=\frac12\int_0^{\pi}\big(1-\cos(2x)\big)\,dx=\frac12\Big[x-\tfrac{\sin(2x)}{2}\Big]_0^{\pi}=\frac12\,(\pi-0)=\frac{\pi}{2},\]
+also
+\[\lambda_3(K)=\pi\cdot\frac{\pi}{2}=\frac{\pi^{2}}{2}.\]
+
+\textbf{c)} Für $h(x)=\sqrt{\sin x}$ (wohldefiniert, da $\sin x\ge 0$ auf $[0,\pi]$) liefert 6.5.5
+\[\lambda_3(K')=\pi\int_0^{\pi}\big(\sqrt{\sin x}\big)^{2}\,dx=\pi\int_0^{\pi}\sin x\,dx=\pi\big[-\cos x\big]_0^{\pi}=\pi\cdot 2=2\pi.\]
+Es gilt also $\lambda_3(K')=2\pi=\pi\cdot\lambda_2(F)$, denn $(\sqrt{\sin x})^2=\sin x$ ist gerade der Integrand aus a).\par\bigskip\hrule\bigskip
+\section*{Zusatz: Normen-Beweisaufgaben (Kapitel 1)}
+\addcontentsline{toc}{section}{Zusatz: Normen}
+\subsection*{[K1-N-p-quasinorm] \normalfont schwer \textbullet\ 16\,P \textbullet\ Pr\"ufung: none}
+\addcontentsline{toc}{subsection}{K1-N-p-quasinorm}
+\textit{Typ: Normen-Beweisaufgabe}\par\smallskip
+\textbf{Aufgabe.}\par
+Sei $n\ge 2$ und $p\in(0,1)$ fest. Betrachtet wird die Abbildung
+\[
+N_p:\mathbb{R}^n\to\mathbb{R},\qquad
+N_p(x)=\Big(\sum_{k=1}^n |x_k|^p\Big)^{1/p},\qquad x={}^t(x_1,\dots,x_n).
+\]
+(Für $p\ge 1$ liefert dieselbe Formel nach Satz und Definition 1.4.4 eine Norm $\|\cdot\|_p$ auf $\mathbb{R}^n$; hier ist dagegen $0<p<1$.)
+
+\textbf{a) (3 P.)} Zeigen Sie, dass $N_p$ die \emph{Definitheit} erfüllt, d.\,h.\ $N_p(x)\ge 0$ für alle $x\in\mathbb{R}^n$ und
+\[
+N_p(x)=0\iff x=0 .
+\]
+
+\textbf{b) (3 P.)} Zeigen Sie, dass $N_p$ \emph{positiv homogen} ist, d.\,h.
+\[
+N_p(\alpha x)=|\alpha|\,N_p(x)\qquad\text{für alle }\alpha\in\mathbb{R},\ x\in\mathbb{R}^n .
+\]
+
+\textbf{c) (4 P.)} Weisen Sie anhand des konkreten Beispiels $x=e_1$, $y=e_2$ (Standardbasisvektoren des $\mathbb{R}^n$) nach, dass die \emph{Dreiecksungleichung} für $N_p$ verletzt ist. Folgern Sie, dass $N_p$ für $p\in(0,1)$ \textbf{keine} Norm auf $\mathbb{R}^n$ ist, obwohl sie zwei der drei Normaxiome aus Definition 1.4.1 erfüllt. Wo genau geht im Vergleich zu $p\ge 1$ (Minkowski-Ungleichung, Satz 1.1.8) die Bedingung $p\ge 1$ ein?
+
+\textbf{d) (6 P.)} Betrachten Sie nun die Abbildung
+\[
+d(x,y):=\sum_{k=1}^n |x_k-y_k|^p\qquad (x,y\in\mathbb{R}^n)
+\]
+(\emph{ohne} äußere $\tfrac1p$-Wurzel!).
+\begin{enumerate}
+\item[(i)] Beweisen Sie die Ungleichung
+\[
+(a+b)^p\le a^p+b^p\qquad\text{für alle }a,b\ge 0 .
+\]
+\item[(ii)] Folgern Sie, dass $d$ eine \emph{Metrik} auf $\mathbb{R}^n$ ist, d.\,h.\ die Eigenschaften (i)–(iii) aus Definition und Satz 1.4.2 (Definitheit, Symmetrie, Dreiecksungleichung) erfüllt.
+\item[(iii)] Begründen Sie kurz, dass $d$ dennoch von \emph{keiner} Norm im Sinne von 1.4.2 erzeugt sein kann.
+\end{enumerate}\par\smallskip
+\textbf{L\"osungsvorschlag.}\par
+Vorbemerkung. Wir schreiben $S(x):=\sum_{k=1}^n |x_k|^p$, sodass $N_p(x)=S(x)^{1/p}$. Wegen $p>0$ ist $t\mapsto t^{1/p}$ auf $[0,\infty)$ wohldefiniert, streng monoton wachsend, und es gilt $t^{1/p}=0\iff t=0$.
+
+\medskip
+\textbf{a) Definitheit.}
+Für jedes $k$ ist $|x_k|\ge 0$, und wegen $p>0$ auch $|x_k|^p\ge 0$. Also ist $S(x)=\sum_{k=1}^n|x_k|^p\ge 0$ als Summe nichtnegativer Zahlen, und damit
+\[
+N_p(x)=S(x)^{1/p}\ge 0 .
+\]
+Für die Äquivalenz:
+\[
+N_p(x)=0\iff S(x)^{1/p}=0\iff S(x)=0\iff \sum_{k=1}^n|x_k|^p=0 .
+\]
+Eine Summe nichtnegativer Summanden ist genau dann $0$, wenn jeder Summand $0$ ist; also
+\[
+\sum_{k=1}^n|x_k|^p=0\iff |x_k|^p=0\ \forall k\iff |x_k|=0\ \forall k\iff x_k=0\ \forall k\iff x=0 .
+\]
+Somit $N_p(x)=0\iff x=0$. Axiom (i) aus Definition 1.4.1 ist erfüllt. \hfill$\square$
+
+\medskip
+\textbf{b) Positive Homogenität.}
+Seien $\alpha\in\mathbb{R}$, $x\in\mathbb{R}^n$. Aus $|\alpha x_k|=|\alpha|\,|x_k|$ und der Multiplikativität von $t\mapsto t^p$ auf $[0,\infty)$ folgt
+\[
+|\alpha x_k|^p=(|\alpha|\,|x_k|)^p=|\alpha|^p\,|x_k|^p .
+\]
+Damit
+\begin{align*}
+N_p(\alpha x)
+&=\Big(\sum_{k=1}^n|\alpha x_k|^p\Big)^{1/p}
+=\Big(\sum_{k=1}^n|\alpha|^p|x_k|^p\Big)^{1/p}
+=\Big(|\alpha|^p\sum_{k=1}^n|x_k|^p\Big)^{1/p}\\[0.3em]
+&=(|\alpha|^p)^{1/p}\Big(\sum_{k=1}^n|x_k|^p\Big)^{1/p}
+=|\alpha|^{\,p\cdot\frac1p}\,N_p(x)
+=|\alpha|\,N_p(x).
+\end{align*}
+Benutzt wurden $(ab)^{1/p}=a^{1/p}b^{1/p}$ für $a,b\ge 0$ sowie $(t^r)^s=t^{rs}$ für $t\ge 0$. Der Fall $\alpha=0$ ist eingeschlossen ($N_p(0)=0=|0|\,N_p(x)$). Axiom (ii) aus Definition 1.4.1 ist erfüllt. \hfill$\square$
+
+\medskip
+\textbf{c) Verletzung der Dreiecksungleichung.}
+Da $n\ge 2$, existieren die Vektoren $x=e_1={}^t(1,0,\dots,0)$ und $y=e_2={}^t(0,1,0,\dots,0)$. Es gilt
+\[
+N_p(e_1)=(1^p+0+\dots+0)^{1/p}=1,\qquad N_p(e_2)=1,
+\]
+also $N_p(e_1)+N_p(e_2)=2$. Ferner ist $e_1+e_2={}^t(1,1,0,\dots,0)$ und
+\[
+N_p(e_1+e_2)=(1^p+1^p+0+\dots+0)^{1/p}=2^{1/p}.
+\]
+Wegen $0<p<1$ ist $\tfrac1p>1$. Die Funktion $t\mapsto 2^t=e^{t\ln 2}$ ist streng monoton wachsend (da $\ln 2>0$), also
+\[
+N_p(e_1+e_2)=2^{1/p}>2^{1}=2=N_p(e_1)+N_p(e_2).
+\]
+Somit gilt $N_p(e_1+e_2)>N_p(e_1)+N_p(e_2)$: die Dreiecksungleichung (Axiom (iii) aus Definition 1.4.1) ist verletzt.
+
+Nach a) und b) erfüllt $N_p$ zwar die Definitheit und die positive Homogenität, verletzt aber die Dreiecksungleichung. Daher ist $N_p$ für $p\in(0,1)$ \textbf{keine} Norm auf $\mathbb{R}^n$.
+
+\emph{Zur Rolle von $p\ge 1$:} Für $p\ge 1$ ist $\|\cdot\|_p$ nach Satz und Definition 1.4.4 eine Norm; im Fall $p=2$ ist die Dreiecksungleichung gerade die Minkowski-Ungleichung aus Satz 1.1.8. Genau diese Ungleichung
+$\big(\sum|x_k+y_k|^p\big)^{1/p}\le\big(\sum|x_k|^p\big)^{1/p}+\big(\sum|y_k|^p\big)^{1/p}$
+gilt \emph{nur} für $p\ge 1$; das Beispiel oben zeigt, dass sie sich für $p<1$ ins Gegenteil verkehrt (Faktor $2^{1/p}$ statt $2$). Der Grund liegt (siehe d)(i)) in der Ungleichung $(a+b)^p\le a^p+b^p$, die für $p<1$ gilt und der Subadditivität $t\mapsto t^p$ entspricht — dem genauen Gegenteil der für $p\ge 1$ gültigen Konvexität. \hfill$\square$
+
+\medskip
+\textbf{d) $d(x,y)=\sum_{k=1}^n|x_k-y_k|^p$ ist eine Metrik.}
+
+\textbf{(i) Hilfsungleichung $(a+b)^p\le a^p+b^p$ für $a,b\ge 0$.}
+Für $a=b=0$ steht $0\le 0$. Sei nun $a+b>0$ und setze
+\[
+s:=\frac{a}{a+b},\qquad t:=\frac{b}{a+b},\qquad\text{also } s,t\in[0,1],\ \ s+t=1 .
+\]
+\emph{Behauptung: $s^p\ge s$ für $s\in[0,1]$.} Für $s\in\{0,1\}$ gilt Gleichheit. Für $s\in(0,1)$ ist
+\[
+\frac{s^p}{s}=s^{\,p-1}=\Big(\tfrac1s\Big)^{1-p}>1,
+\]
+da $\tfrac1s>1$ und $1-p>0$; also $s^p>s$. Ebenso $t^p\ge t$. Addition liefert
+\[
+s^p+t^p\ \ge\ s+t\ =\ 1 .
+\]
+Wegen $s^p=\dfrac{a^p}{(a+b)^p}$ und $t^p=\dfrac{b^p}{(a+b)^p}$ (Multiplikativität der Potenz) folgt
+\[
+\frac{a^p+b^p}{(a+b)^p}\ge 1\quad\Longrightarrow\quad (a+b)^p\le a^p+b^p .
+\]
+
+\textbf{(ii) Metrikeigenschaften (i)–(iii) aus 1.4.2.}
+
+\emph{Definitheit.} Jeder Summand $|x_k-y_k|^p\ge 0$, also $d(x,y)\ge 0$. Wie in a) gilt
+\[
+d(x,y)=0\iff |x_k-y_k|^p=0\ \forall k\iff x_k=y_k\ \forall k\iff x=y .
+\]
+
+\emph{Symmetrie.} Wegen $|x_k-y_k|=|y_k-x_k|$ ist jeder Summand symmetrisch, also $d(x,y)=d(y,x)$.
+
+\emph{Dreiecksungleichung.} Seien $x,y,z\in\mathbb{R}^n$ und $k$ fest. Mit der Dreiecksungleichung des Betrages (Definition und Satz 1.2.2(iii)) und den Abkürzungen $a:=|x_k-z_k|\ge 0$, $b:=|z_k-y_k|\ge 0$ gilt
+\[
+|x_k-y_k|=|(x_k-z_k)+(z_k-y_k)|\le a+b .
+\]
+Da $t\mapsto t^p$ auf $[0,\infty)$ monoton wächst, folgt $|x_k-y_k|^p\le (a+b)^p$, und mit (i)
+\[
+|x_k-y_k|^p\le (a+b)^p\le a^p+b^p=|x_k-z_k|^p+|z_k-y_k|^p .
+\]
+Summation über $k=1,\dots,n$ ergibt
+\[
+d(x,y)=\sum_{k=1}^n|x_k-y_k|^p
+\le \sum_{k=1}^n|x_k-z_k|^p+\sum_{k=1}^n|z_k-y_k|^p
+= d(x,z)+d(z,y) .
+\]
+Alle drei Eigenschaften aus 1.4.2 sind nachgewiesen; $d$ ist eine Metrik auf $\mathbb{R}^n$.
+
+\textbf{(iii) $d$ rührt von keiner Norm her.}
+Wäre $d$ gemäß 1.4.2 von einer Norm $\|\cdot\|$ erzeugt, so müsste wegen der positiven Homogenität der Norm für alle $\alpha\in\mathbb{R}$ gelten
+\[
+d(\alpha x,\alpha y)=\|\alpha x-\alpha y\|=\|\alpha(x-y)\|=|\alpha|\,\|x-y\|=|\alpha|\,d(x,y).
+\]
+Direkt aus der Definition folgt jedoch
+\[
+d(\alpha x,\alpha y)=\sum_{k=1}^n|\alpha x_k-\alpha y_k|^p=|\alpha|^p\sum_{k=1}^n|x_k-y_k|^p=|\alpha|^p\,d(x,y).
+\]
+Für $x=e_1$, $y=0$ ist $d(x,y)=1$; beide Ausdrücke stimmen nur überein, wenn $|\alpha|^p=|\alpha|$ für alle $\alpha$ gilt — das ist z.\,B.\ für $\alpha=2$ wegen $2^p\ne 2$ (denn $0<p<1$) falsch. Also existiert keine solche Norm: $d$ ist eine Metrik, die von keiner Norm erzeugt wird. (Dies zeigt zugleich, dass die Umkehrung von 1.4.2 — jede Metrik komme von einer Norm — falsch ist.) \hfill$\square$\par\bigskip\hrule\bigskip
+\subsection*{[K1-N-C1-incomplete] \normalfont schwer \textbullet\ 15\,P \textbullet\ Pr\"ufung: minor}
+\addcontentsline{toc}{subsection}{K1-N-C1-incomplete}
+\textit{Typ: Normen-Beweisaufgabe}\par\smallskip
+\textbf{Aufgabe.}\par
+Wir betrachten den reellen Vektorraum $C([0,1])$ der stetigen Funktionen $f\colon[0,1]\to\mathbb{R}$, versehen mit der \emph{Einsnorm}
+\[
+\|f\|_1 \;:=\; \int_0^1 |f(t)|\,\mathrm{d}t
+\qquad(\text{vgl. Beispiel }1.4.3(3)).
+\]
+Ziel dieser Aufgabe ist ein vollständiger Beweis, dass $(C([0,1]),\|\cdot\|_1)$ \emph{nicht} vollständig ist, also \emph{kein} Banachraum (vgl. Beispiel~1.5.19(iii)).
+
+Für $n\in\mathbb{N}$ mit $n\ge 2$ sei $g_n\colon[0,1]\to\mathbb{R}$ die stückweise lineare Approximation der Sprungfunktion mit Sprung bei $\tfrac12$:
+\[
+g_n(t) \;:=\;
+\begin{cases}
+0, & 0 \le t \le \tfrac12,\\[2pt]
+n\!\left(t-\tfrac12\right), & \tfrac12 < t \le \tfrac12+\tfrac1n,\\[2pt]
+1, & \tfrac12+\tfrac1n < t \le 1.
+\end{cases}
+\]
+
+\textbf{a) [4 Punkte] Definitheit der Einsnorm.}\;
+Beweisen Sie das folgende Lemma, das gerade die Normeigenschaft der Definitheit (Definition~1.4.1(i)) für $\|\cdot\|_1$ sichert:
+\begin{quote}
+Ist $h\in C([0,1])$ mit $h(t)\ge 0$ für alle $t\in[0,1]$ und $\displaystyle\int_0^1 h(t)\,\mathrm{d}t = 0$, so gilt $h\equiv 0$.
+\end{quote}
+Folgern Sie daraus, dass aus $\|f\|_1=0$ stets $f\equiv 0$ folgt.
+
+\textbf{b) [4 Punkte] Cauchy-Eigenschaft.}\;
+Zeigen Sie, dass $g_n\in C([0,1])$ für jedes $n\ge 2$ gilt, und beweisen Sie
+\[
+\|g_m-g_n\|_1 \;=\; \frac{1}{2n}-\frac{1}{2m}
+\qquad\text{für alle } m>n\ge 2.
+\]
+Folgern Sie mithilfe von Definition~1.5.14, dass $(g_n)_{n\ge 2}$ eine Cauchyfolge in $(C([0,1]),\|\cdot\|_1)$ ist.
+
+\textbf{c) [5 Punkte] Kein Grenzwert in $C([0,1])$.}\;
+Nehmen Sie an, es gäbe ein $f\in C([0,1])$ mit $\|g_n-f\|_1\to 0$ für $n\to\infty$. Zeigen Sie unter Verwendung von Teil~a):
+\[
+f\equiv 0 \ \text{auf}\ \left[0,\tfrac12\right]
+\qquad\text{und}\qquad
+f\equiv 1 \ \text{auf}\ \left(\tfrac12,1\right].
+\]
+Leiten Sie hieraus einen Widerspruch her. Begründen Sie damit, dass $(g_n)$ in $(C([0,1]),\|\cdot\|_1)$ keinen Grenzwert besitzt, und schließen Sie, dass $(C([0,1]),\|\cdot\|_1)$ nicht vollständig ist (Definition~1.5.17).
+
+\textbf{d) [2 Punkte] Kein Widerspruch zur Normäquivalenz.}\;
+Nach Beispiel~1.5.19(ii) ist $(C([0,1]),\|\cdot\|_\infty)$ vollständig. Erklären Sie, warum das Ergebnis aus~c) kein Widerspruch zu Satz~1.5.11 (Äquivalenz der Normen) ist, und belegen Sie Ihre Erklärung, indem Sie zeigen, dass $\|\cdot\|_1$ und $\|\cdot\|_\infty$ auf $C([0,1])$ \emph{nicht} äquivalent sind.\par\smallskip
+\textbf{L\"osungsvorschlag.}\par
+\textbf{Zu a) Definitheits-Lemma.}
+
+Wir zeigen die Kontraposition ist nicht nötig; wir argumentieren direkt per Widerspruch.
+
+Sei $h\in C([0,1])$ mit $h\ge 0$ und $\int_0^1 h=0$. Angenommen, $h\not\equiv 0$. Da $h\ge 0$, gibt es dann ein $t_0\in[0,1]$ mit $h(t_0)>0$. Setze
+\[
+c:=\tfrac12\,h(t_0)>0.
+\]
+Weil $h$ in $t_0$ stetig ist, existiert ein $\delta>0$, sodass für alle $t\in[0,1]$ mit $|t-t_0|<\delta$ gilt $|h(t)-h(t_0)|<c$, also
+\[
+h(t) > h(t_0)-c = 2c-c = c \qquad (t\in[0,1],\ |t-t_0|<\delta).
+\]
+Wähle das Teilintervall $I:=\bigl[t_0-\tfrac\delta2,\,t_0+\tfrac\delta2\bigr]\cap[0,1]$. Da $t_0\in[0,1]$, enthält $I$ mindestens eine der beiden Hälften der Länge $\tfrac\delta2$; somit hat $I$ positive Länge $\ell\ge\tfrac\delta2>0$, und für $t\in I$ gilt $|t-t_0|\le\tfrac\delta2<\delta$, also $h(t)>c$. Mit der Monotonie des Integrals (angewandt auf $h\ge 0$ außerhalb $I$ und auf $h\ge c$ auf $I$) folgt
+\[
+\int_0^1 h(t)\,\mathrm{d}t \;\ge\; \int_I h(t)\,\mathrm{d}t \;\ge\; \int_I c\,\mathrm{d}t \;=\; c\,\ell \;>\; 0,
+\]
+im Widerspruch zu $\int_0^1 h=0$. Also war die Annahme falsch, und es gilt $h\equiv 0$.
+
+Anwendung auf $h:=|f|$: Die Funktion $|f|$ ist stetig, $\ge 0$, und $\|f\|_1=\int_0^1|f|=0$ liefert nach dem Lemma $|f|\equiv 0$, also $f\equiv 0$. Das ist gerade die nichttriviale Richtung der Definitheit~1.4.1(i). (Die beiden übrigen Normaxiome sind Folge der Linearität bzw. Monotonie des Integrals: $\|\alpha f\|_1=\int|\alpha|\,|f|=|\alpha|\,\|f\|_1$ und $\|f+g\|_1=\int|f+g|\le\int(|f|+|g|)=\|f\|_1+\|g\|_1$.)
+
+\medskip
+\textbf{Zu b) Cauchy-Eigenschaft.}
+
+\emph{Stetigkeit.} Für $n\ge 2$ ist $\tfrac12+\tfrac1n\le 1$, sodass die drei Zweige tatsächlich das Intervall $[0,1]$ abdecken. Jeder Zweig ist stetig (konstant bzw. affin-linear). An der Nahtstelle $t=\tfrac12$ stimmen linker Wert $0$ und rechter Grenzwert $n(\tfrac12-\tfrac12)=0$ überein; an der Nahtstelle $t=\tfrac12+\tfrac1n$ stimmen der Rampenwert $n\cdot\tfrac1n=1$ und der konstante Wert $1$ überein. Also ist $g_n\in C([0,1])$.
+
+\emph{Normberechnung.} Sei $m>n\ge 2$. Beide Funktionen verschwinden auf $[0,\tfrac12]$, daher trägt nur $[\tfrac12,1]$ bei. Mit der Substitution $s=t-\tfrac12\in[0,\tfrac12]$ schreiben wir
+\[
+G_k(s):=\min\{k s,\,1\}\qquad(k\ge 2),
+\]
+sodass $g_k(t)=G_k(s)$ für $t=\tfrac12+s$ (wegen $k\ge 2$ ist $\tfrac1k\le\tfrac12$, die Rampe sättigt also bei $s=\tfrac1k$ innerhalb von $[0,\tfrac12]$). Da $s\mapsto\min\{ks,1\}$ in $k$ monoton wachsend ist, gilt $G_m(s)\ge G_n(s)$ für alle $s$, also $|G_m-G_n|=G_m-G_n$. Damit
+\[
+\|g_m-g_n\|_1=\int_{1/2}^{1}\!\!|g_m-g_n|\,\mathrm{d}t
+=\int_0^{1/2}\!\!\bigl(G_m(s)-G_n(s)\bigr)\,\mathrm{d}s
+=\int_0^{1/2}\!\!G_m\,\mathrm{d}s-\int_0^{1/2}\!\!G_n\,\mathrm{d}s.
+\]
+Für jedes $k\ge 2$ ist
+\[
+\int_0^{1/2} G_k(s)\,\mathrm{d}s
+=\int_0^{1/k} k s\,\mathrm{d}s+\int_{1/k}^{1/2} 1\,\mathrm{d}s
+=k\cdot\frac{(1/k)^2}{2}+\Bigl(\tfrac12-\tfrac1k\Bigr)
+=\frac{1}{2k}+\frac12-\frac1k=\frac12-\frac{1}{2k}.
+\]
+(Dies ist zugleich $\int_0^1 g_k\,\mathrm{d}t$.) Folglich
+\[
+\|g_m-g_n\|_1=\Bigl(\tfrac12-\tfrac{1}{2m}\Bigr)-\Bigl(\tfrac12-\tfrac{1}{2n}\Bigr)
+=\frac{1}{2n}-\frac{1}{2m}.
+\]
+
+\emph{Cauchy nach 1.5.14.} Für $m>n\ge 2$ ist insbesondere $\|g_m-g_n\|_1=\tfrac{1}{2n}-\tfrac{1}{2m}<\tfrac{1}{2n}$. Sei $\varepsilon>0$. Wähle $n_0\in\mathbb{N}$ mit $n_0\ge 2$ und $n_0>\tfrac{1}{2\varepsilon}$, also $\tfrac{1}{2n_0}<\varepsilon$. Für jedes $k>n_0$ gilt dann
+\[
+\|g_k-g_{n_0}\|_1=\frac{1}{2n_0}-\frac{1}{2k}<\frac{1}{2n_0}<\varepsilon.
+\]
+Das ist genau die Cauchy-Bedingung aus Definition~1.5.14. Also ist $(g_n)_{n\ge 2}$ eine Cauchyfolge in $(C([0,1]),\|\cdot\|_1)$.
+
+\medskip
+\textbf{Zu c) Nichtexistenz eines Grenzwertes.}
+
+Angenommen, es gäbe ein $f\in C([0,1])$ mit $\|g_n-f\|_1\to 0$.
+
+\emph{Linke Hälfte.} Für jedes $n$ ist $g_n\equiv 0$ auf $[0,\tfrac12]$. Wegen $|f|\ge 0$ und der Monotonie des Integrals gilt daher
+\[
+0\le\int_0^{1/2}|f(t)|\,\mathrm{d}t
+=\int_0^{1/2}|f(t)-g_n(t)|\,\mathrm{d}t
+\le\int_0^{1}|f-g_n|\,\mathrm{d}t=\|f-g_n\|_1\xrightarrow{\;n\to\infty\;}0.
+\]
+Die linke Seite ist eine feste, von $n$ unabhängige Zahl, die durch eine Nullfolge nach oben beschränkt ist; also $\int_0^{1/2}|f|=0$. Die Funktion $|f|$ ist stetig und $\ge 0$ auf $[0,\tfrac12]$, sodass Teil~a) (angewandt auf $[0,\tfrac12]$) liefert: $f\equiv 0$ auf $[0,\tfrac12]$. Insbesondere $f(\tfrac12)=0$.
+
+\emph{Rechte Hälfte.} Sei $\delta$ mit $0<\delta\le\tfrac12$ fest. Für $n>\tfrac1\delta$ ist $\tfrac1n<\delta$, also $\tfrac12+\tfrac1n<\tfrac12+\delta$; damit ist $g_n\equiv 1$ auf $[\tfrac12+\delta,1]$. Für diese $n$ gilt wie oben
+\[
+0\le\int_{1/2+\delta}^{1}|f(t)-1|\,\mathrm{d}t
+=\int_{1/2+\delta}^{1}|f(t)-g_n(t)|\,\mathrm{d}t
+\le\|f-g_n\|_1\to 0,
+\]
+also $\int_{1/2+\delta}^{1}|f-1|=0$. Da $|f-1|$ stetig und $\ge 0$ ist, folgt mit Teil~a) $f\equiv 1$ auf $[\tfrac12+\delta,1]$. Weil $\delta\in(0,\tfrac12]$ beliebig war und $\bigcup_{0<\delta\le 1/2}[\tfrac12+\delta,1]=(\tfrac12,1]$, ergibt sich $f\equiv 1$ auf $(\tfrac12,1]$.
+
+\emph{Widerspruch.} $f$ ist stetig in $\tfrac12$. Einerseits ist $f(\tfrac12)=0$ (linke Hälfte). Andererseits ist $f(t)=1$ für alle $t\in(\tfrac12,1]$, also $\lim_{t\to 1/2^+}f(t)=1$, und aus der Stetigkeit folgt $f(\tfrac12)=\lim_{t\to 1/2^+}f(t)=1$. Somit $0=f(\tfrac12)=1$ --- Widerspruch.
+
+Also existiert kein $f\in C([0,1])$ mit $\|g_n-f\|_1\to 0$. Nach dem $\varepsilon$--$n_0$-Kriterium (Satz~1.5.6: $g_n\to f$ in $(C([0,1]),\|\cdot\|_1)$ ist gleichbedeutend mit $\|g_n-f\|_1\to 0$) besitzt $(g_n)$ in $(C([0,1]),\|\cdot\|_1)$ keinen Grenzwert, ist dort also divergent.
+
+\emph{Schluss.} Nach Teil~b) ist $(g_n)$ eine Cauchyfolge, die in $(C([0,1]),\|\cdot\|_1)$ nicht konvergiert. Nach Definition~1.5.17 ist ein normierter Raum genau dann vollständig (ein Banachraum), wenn jede Cauchyfolge konvergiert. Da dies hier verletzt ist, ist $(C([0,1]),\|\cdot\|_1)$ \emph{nicht} vollständig, insbesondere kein Banachraum. Das ist die Aussage von Beispiel~1.5.19(iii).
+
+\medskip
+\textbf{Zu d) Kein Widerspruch zu Satz~1.5.11.}
+
+Satz~1.5.11 garantiert die Äquivalenz je zweier Normen \emph{nur auf $\mathbb{R}^n$}, also in \emph{endlicher} Dimension; sein Beweis stützt sich über Hilfssatz~1.5.10 wesentlich auf die Kompaktheit der Einheitssphäre (Satz von Bolzano--Weierstraß~1.5.9), die die Endlichdimensionalität benutzt. Der Raum $C([0,1])$ ist hingegen \emph{unendlichdimensional} (etwa sind die Monome $1,t,t^2,\dots$ linear unabhängig), sodass Satz~1.5.11 hier \emph{nicht} anwendbar ist.
+
+Dass $\|\cdot\|_1$ und $\|\cdot\|_\infty$ auf $C([0,1])$ nicht äquivalent sind, zeigt man konkret: Für $n\in\mathbb{N}$ sei
+\[
+h_n(t):=\max\{1-n t,\,0\}\in C([0,1]).
+\]
+Dann ist $\|h_n\|_\infty=h_n(0)=1$, während
+\[
+\|h_n\|_1=\int_0^{1/n}(1-n t)\,\mathrm{d}t=\Bigl[t-\tfrac{n}{2}t^2\Bigr]_0^{1/n}=\frac1n-\frac{n}{2}\cdot\frac1{n^2}=\frac1n-\frac1{2n}=\frac{1}{2n}.
+\]
+Somit $\dfrac{\|h_n\|_\infty}{\|h_n\|_1}=2n\to\infty$. Es gibt also \emph{keine} Konstante $C>0$ mit $\|f\|_\infty\le C\,\|f\|_1$ für alle $f\in C([0,1])$; die beiden Normen sind nicht äquivalent.
+
+Gerade diese Nicht-Äquivalenz macht~c) möglich: Wären die Normen äquivalent, so hätten sie dieselben Cauchy- und dieselben konvergenten Folgen, und aus der $\|\cdot\|_\infty$-Vollständigkeit (Beispiel~1.5.19(ii)) folgte die $\|\cdot\|_1$-Vollständigkeit --- im Widerspruch zu~c). Es liegt also kein Widerspruch zu Satz~1.5.11 vor, sondern eine Illustration seiner Beschränkung auf endlichdimensionale Räume. $\qed$\par\bigskip\hrule\bigskip
+\subsection*{[K1-N-A-injective] \normalfont schwer \textbullet\ 14\,P \textbullet\ Pr\"ufung: minor}
+\addcontentsline{toc}{subsection}{K1-N-A-injective}
+\textit{Typ: Normen-Beweisaufgabe}\par\smallskip
+\textbf{Aufgabe.}\par
+Auf dem $\mathbb{R}^n$ sei $\|\cdot\|_2$ die euklidische Norm (Satz und Definition 1.4.4). Für eine reelle $n\times n$-Matrix $A$ definiere man
+\[
+\|x\|_A \;:=\; \|Ax\|_2 \qquad (x\in\mathbb{R}^n).
+\]
+Ziel der Aufgabe ist der Nachweis der Äquivalenz:
+\begin{center}
+\emph{$\|\cdot\|_A$ ist genau dann eine Norm auf $\mathbb{R}^n$ (im Sinne von Definition 1.4.1), wenn $A$ invertierbar ist.}
+\end{center}
+Aus der Linearen Algebra (MG) darf ohne Beweis verwendet werden: Für eine quadratische Matrix gilt
+\[
+A \text{ invertierbar} \iff A \text{ injektiv} \iff \ker A=\{0\} \iff \det A\neq 0.
+\]
+
+\medskip
+\textbf{a) (2 Punkte)}\quad Zeigen Sie, dass $\|\cdot\|_A$ -- unabhängig davon, ob $A$ invertierbar ist -- stets die positive Homogenität (Axiom (ii)) und die Dreiecksungleichung (Axiom (iii)) aus Definition 1.4.1 erfüllt. Welche der drei Normeigenschaften kann demnach überhaupt nur verletzt sein?
+
+\medskip
+\textbf{b) (3 Punkte)}\quad Sei $A$ \emph{nicht} invertierbar. Beweisen Sie, dass $\|\cdot\|_A$ keine Norm auf $\mathbb{R}^n$ ist. Geben Sie genau an, welches Axiom aus Definition 1.4.1 verletzt ist und welche weiterhin gelten, und begründen Sie dies über den Kern von $A$.
+
+\medskip
+\textbf{c) (3 Punkte)}\quad Konkretes Beispiel im $\mathbb{R}^2$: Sei
+\[
+A=\begin{pmatrix}1&2\\[2pt]2&4\end{pmatrix}.
+\]
+Berechnen Sie $\det A$, geben Sie einen Vektor $x\neq 0$ mit $\|x\|_A=0$ an und weisen Sie $\|x\|_A=0$ durch Rechnung nach.
+
+\medskip
+\textbf{d) (4 Punkte)}\quad Sei nun $A$ invertierbar. Beweisen Sie, dass $\|\cdot\|_A$ alle drei Axiome aus Definition 1.4.1 erfüllt, also eine Norm ist. Gehen Sie dabei besonders sorgfältig auf den Gleichheitsfall der Definitheit ein: Warum folgt aus $\|x\|_A=0$ bereits $x=0$, und an welcher Stelle geht die Invertierbarkeit (Injektivität) von $A$ entscheidend ein?
+
+\medskip
+\textbf{e) (2 Punkte)}\quad Folgern Sie, dass $(\mathbb{R}^n,\|\cdot\|_A)$ für invertierbares $A$ ein Banachraum (Definition 1.5.17) ist. Begründen Sie dies mithilfe der einschlägigen Sätze aus Abschnitt 1.5.\par\smallskip
+\textbf{L\"osungsvorschlag.}\par
+\textbf{Vorbemerkung.} Für alle $x\in\mathbb{R}^n$ ist $\|x\|_A=\|Ax\|_2$ mit der euklidischen Norm $\|\cdot\|_2$ aus Satz und Definition 1.4.4, welche die drei Normeigenschaften (i)--(iii) aus Definition 1.4.1 erfüllt. Die Abbildung $x\mapsto Ax$ ist linear, d.\,h.\ $A(\alpha x)=\alpha\,Ax$ und $A(x+y)=Ax+Ay$. Diese beiden Tatsachen tragen die gesamte Argumentation.
+
+\bigskip
+\textbf{a) Homogenität und Dreiecksungleichung gelten immer.}
+
+\emph{Positive Homogenität (Axiom (ii) für $\|\cdot\|_A$).} Für $\alpha\in\mathbb{R}$, $x\in\mathbb{R}^n$:
+\[
+\|\alpha x\|_A=\|A(\alpha x)\|_2=\|\alpha\,(Ax)\|_2
+\overset{\text{(ii) für }\|\cdot\|_2}{=}|\alpha|\,\|Ax\|_2=|\alpha|\,\|x\|_A .
+\]
+Verwendet wurde die Linearität von $A$ und die positive Homogenität der euklidischen Norm.
+
+\emph{Dreiecksungleichung (Axiom (iii) für $\|\cdot\|_A$).} Für $x,y\in\mathbb{R}^n$:
+\[
+\|x+y\|_A=\|A(x+y)\|_2=\|Ax+Ay\|_2
+\overset{\text{(iii) für }\|\cdot\|_2}{\le}\|Ax\|_2+\|Ay\|_2=\|x\|_A+\|y\|_A .
+\]
+
+Ferner ist $\|x\|_A=\|Ax\|_2\ge 0$ für alle $x$ (Nichtnegativität aus (i) für $\|\cdot\|_2$), und aus $x=0$ folgt stets $\|0\|_A=\|A0\|_2=\|0\|_2=0$.
+
+\emph{Fazit.} Von den Bedingungen aus Definition 1.4.1 sind Nichtnegativität, positive Homogenität (ii), Dreiecksungleichung (iii) sowie die Implikation $x=0\Rightarrow\|x\|_A=0$ \emph{immer} erfüllt. Verletzt sein kann daher \emph{ausschließlich} die verbleibende Hälfte der Definitheit (i), nämlich die Implikation
+\[
+\|x\|_A=0 \;\Longrightarrow\; x=0 .
+\]
+
+\bigskip
+\textbf{b) Nicht invertierbares $A$: die Definitheit scheitert.}
+
+Sei $A$ nicht invertierbar. Nach der zitierten Äquivalenz ist $A$ dann nicht injektiv, also $\ker A\neq\{0\}$. Somit existiert ein
+\[
+x_0\in\mathbb{R}^n \quad\text{mit}\quad x_0\neq 0 \ \text{ und }\ Ax_0=0 .
+\]
+Für dieses $x_0$ gilt
+\[
+\|x_0\|_A=\|Ax_0\|_2=\|0\|_2=0 ,
+\]
+obwohl $x_0\neq 0$. Damit ist genau die Definitheitsbedingung (i) aus Definition 1.4.1 -- präzise die Implikation ``$\|x\|=0\Rightarrow x=0$'' -- verletzt, und $\|\cdot\|_A$ ist \emph{keine} Norm auf $\mathbb{R}^n$.
+
+Nach Teil a) bleiben dabei die Nichtnegativität, die positive Homogenität (ii) und die Dreiecksungleichung (iii) weiterhin gültig; $\|\cdot\|_A$ ist also eine \emph{Halbnorm}, aber keine Norm. (Der Begriff Halbnorm wird im Skript nicht verwendet.)
+
+\bigskip
+\textbf{c) Konkretes Gegenbeispiel im $\mathbb{R}^2$.}
+
+Für $A=\begin{pmatrix}1&2\\2&4\end{pmatrix}$ gilt
+\[
+\det A = 1\cdot 4 - 2\cdot 2 = 0 ,
+\]
+also ist $A$ nach der zitierten Äquivalenz nicht invertierbar. Die zweite Spalte ist das Doppelte der ersten, $\operatorname{rang}A=1$, folglich ist $\ker A$ eindimensional. Die Kernbedingung $Ax=0$ lautet ausgeschrieben
+\[
+x_1+2x_2=0 \quad\text{und}\quad 2x_1+4x_2=0 ,
+\]
+was auf die eine Gleichung $x_1=-2x_2$ hinausläuft. Wähle $x_2=-1$, also
+\[
+x_0=\begin{pmatrix}2\\-1\end{pmatrix}\neq 0 .
+\]
+Dann
+\[
+Ax_0=\begin{pmatrix}1&2\\2&4\end{pmatrix}\begin{pmatrix}2\\-1\end{pmatrix}
+=\begin{pmatrix}1\cdot 2+2\cdot(-1)\\[2pt]2\cdot 2+4\cdot(-1)\end{pmatrix}
+=\begin{pmatrix}0\\0\end{pmatrix},
+\]
+und daher
+\[
+\|x_0\|_A=\|Ax_0\|_2=\|0\|_2=0 ,\qquad\text{obwohl } x_0\neq 0 .
+\]
+Geometrisch bildet $A$ die gesamte Gerade $\mathbb{R}\cdot\binom{2}{-1}$ auf den Nullpunkt ab; allen ihren Punkten würde $\|\cdot\|_A$ die ``Länge'' $0$ zuweisen.
+
+\bigskip
+\textbf{d) Invertierbares $A$: alle drei Normaxiome.}
+
+Sei $A$ invertierbar. Wir prüfen die Axiome aus Definition 1.4.1 für $\|\cdot\|_A$.
+
+\emph{(ii) und (iii)} wurden bereits in Teil a) für beliebiges $A$ nachgewiesen und gelten daher insbesondere hier.
+
+\emph{(i) Definitheit.} Nichtnegativität: $\|x\|_A=\|Ax\|_2\ge 0$ für alle $x$ nach (i) für $\|\cdot\|_2$.
+
+Nun der entscheidende Gleichheitsfall. Sei $\|x\|_A=0$, d.\,h.\ $\|Ax\|_2=0$. Da $\|\cdot\|_2$ definit ist (Definitheit in Axiom (i) für $\|\cdot\|_2$), erzwingt dies
+\[
+Ax=0 .
+\]
+Weil $A$ invertierbar, also injektiv ist ($\ker A=\{0\}$), folgt aus $Ax=0$ bereits
+\[
+x=0 .
+\]
+Genau an dieser Stelle -- und nur hier -- geht die Invertierbarkeit ein: Ohne Injektivität dürfte man von $Ax=0$ nicht auf $x=0$ schließen (vgl.\ Teil b). Umgekehrt liefert $x=0$ stets $\|0\|_A=\|0\|_2=0$. Insgesamt
+\[
+\|x\|_A=0 \iff x=0 ,
+\]
+sodass die Definitheit (i) vollständig gilt.
+
+Damit sind für invertierbares $A$ alle drei Axiome (i)--(iii) aus Definition 1.4.1 erfüllt: $\|\cdot\|_A$ \emph{ist} eine Norm auf $\mathbb{R}^n$.
+
+\emph{Zusammenfassung der Äquivalenz.} Teil b) zeigt ``$\|\cdot\|_A$ Norm $\Rightarrow$ $A$ invertierbar'' (durch Kontraposition: nicht invertierbar $\Rightarrow$ keine Norm), Teil d) zeigt ``$A$ invertierbar $\Rightarrow$ $\|\cdot\|_A$ Norm''. Somit ist $\|\cdot\|_A$ genau dann eine Norm auf $\mathbb{R}^n$, wenn $A$ invertierbar ist. \hfill$\square$
+
+\emph{Illustration.} Für $A=\operatorname{diag}(a_1,\dots,a_n)$ mit sämtlich $a_i\neq 0$ (invertierbar) erhält man die gewichtete euklidische Norm $\|x\|_A=\bigl(\sum_{i=1}^n a_i^2\,x_i^2\bigr)^{1/2}$; für $A=E_n$ die euklidische Norm selbst.
+
+\bigskip
+\textbf{e) Vollständigkeit: $(\mathbb{R}^n,\|\cdot\|_A)$ ist ein Banachraum.}
+
+Sei $A$ invertierbar. Nach Teil d) ist $\|\cdot\|_A$ eine Norm auf $\mathbb{R}^n$.
+
+\emph{Direkter Weg.} Satz 1.5.18 (``$\mathbb{R}^n$ als Banachraum'') besagt, dass $(\mathbb{R}^n,\|\cdot\|)$ für \emph{jede} Norm $\|\cdot\|$ auf $\mathbb{R}^n$ vollständig ist. Da $\|\cdot\|_A$ eine solche Norm ist, ist $(\mathbb{R}^n,\|\cdot\|_A)$ vollständig, also nach Definition 1.5.17 ein Banachraum.
+
+\emph{Weg über die Normäquivalenz (Herzstück des Arguments).} Nach Satz 1.5.11 (Äquivalenz der Normen auf $\mathbb{R}^n$) sind $\|\cdot\|_A$ und die euklidische Norm $\|\cdot\|_2$ äquivalent; sie besitzen dieselben Umgebungen und dieselben konvergenten Folgen. Der zugrunde liegende Hilfssatz 1.5.10 liefert Konstanten $c_1,c_2>0$ mit
+\[
+c_1\,\|x\|_2 \le \|x\|_A \le c_2\,\|x\|_2 \qquad (x\in\mathbb{R}^n),
+\]
+woraus zusätzlich folgt, dass $\|\cdot\|_A$- und $\|\cdot\|_2$-Cauchyfolgen (Definition 1.5.14) übereinstimmen. Ist nun $(x_k)$ eine $\|\cdot\|_A$-Cauchyfolge, so ist sie eine $\|\cdot\|_2$-Cauchyfolge, konvergiert daher in dem (nach Satz 1.5.18 für $\|\cdot\|_2$) vollständigen Raum $(\mathbb{R}^n,\|\cdot\|_2)$ gegen ein $a$, und wegen der Äquivalenz konvergiert $(x_k)$ dann auch bezüglich $\|\cdot\|_A$ gegen $a$. Also ist jede $\|\cdot\|_A$-Cauchyfolge konvergent, d.\,h.\ $(\mathbb{R}^n,\|\cdot\|_A)$ ist vollständig -- ein Banachraum. \hfill$\square$\par\bigskip\hrule\bigskip
+\subsection*{[K1-N-equiv-sharp] \normalfont schwer \textbullet\ 16\,P \textbullet\ Pr\"ufung: none}
+\addcontentsline{toc}{subsection}{K1-N-equiv-sharp}
+\textit{Typ: Normen-Beweisaufgabe}\par\smallskip
+\textbf{Aufgabe.}\par
+Sei $n\in\mathbb{N}$. Auf dem $\mathbb{R}^n$ betrachten wir die \emph{Einsnorm} $\|\cdot\|_1$ und die \emph{euklidische Norm} $\|\cdot\|_2$ gemäß Satz und Definition~1.4.4, also
+\[
+\|x\|_1=\sum_{k=1}^n |x_k|,\qquad \|x\|_2=\Big(\sum_{k=1}^n |x_k|^2\Big)^{1/2},\qquad x={}^t(x_1,\dots,x_n)\in\mathbb{R}^n .
+\]
+
+\begin{enumerate}[label=\alph*)]
+  \item (5 P) Beweisen Sie, dass für alle $x\in\mathbb{R}^n$
+  \[
+  \|x\|_2\;\le\;\|x\|_1\;\le\;\sqrt{n}\,\|x\|_2
+  \]
+  gilt. \emph{Hinweis:} Da beide Seiten jeweils $\ge 0$ sind, genügt es, die quadrierten Ungleichungen zu zeigen. Schreiben Sie dazu die Differenzen $\|x\|_1^2-\|x\|_2^2$ bzw. $n\|x\|_2^2-\|x\|_1^2$ als Summe nichtnegativer Terme. (Für die rechte Ungleichung dürfen Sie stattdessen die Cauchy--Schwarzsche Ungleichung aus Satz~1.1.8 heranziehen.)
+
+  \item (6 P) Bestimmen Sie für \emph{jede} der beiden Ungleichungen aus a) die Menge aller $x\in\mathbb{R}^n$, für die Gleichheit gilt, und beweisen Sie Ihre Behauptung. Folgern Sie, dass die Konstanten $1$ (links) und $\sqrt{n}$ (rechts) \emph{scharf} sind: Geben Sie jeweils einen Vektor $x\ne 0$ mit Gleichheit an und begründen Sie, dass die jeweilige Abschätzung mit keiner kleineren Konstante für alle $x\in\mathbb{R}^n$ richtig bleibt.
+
+  \item (5 P) Ordnen Sie das Ergebnis in Satz~1.5.11 (Äquivalenz der Normen auf $\mathbb{R}^n$) ein.
+  \begin{enumerate}[label=(\roman*)]
+    \item Erklären Sie, wann zwei Normen auf $\mathbb{R}^n$ \emph{äquivalent} heißen (zweiseitige Konstantenabschätzung), und lesen Sie aus a) explizite Konstanten $c,C>0$ mit $c\|x\|_2\le\|x\|_1\le C\|x\|_2$ für alle $x$ ab.
+    \item Beweisen Sie \emph{allein} mithilfe der Abschätzungen aus a): Eine Folge $(x_k)_{k\in\mathbb{N}}$ in $\mathbb{R}^n$ konvergiert genau dann gegen $a\in\mathbb{R}^n$ bezüglich $\|\cdot\|_1$, wenn sie bezüglich $\|\cdot\|_2$ gegen $a$ konvergiert. (Dies ist der Spezialfall von Satz~1.5.11(ii) für dieses Normenpaar.)
+    \item Worin liegt der Mehrwert der \emph{scharfen} Konstanten gegenüber der reinen Existenzaussage von Hilfssatz~1.5.10 bzw. Satz~1.5.11? Gehen Sie insbesondere darauf ein, wie die Konstante $\beta$ in Hilfssatz~1.5.10 gewonnen wird (Stichwort: Satz von Bolzano--Weierstraß~1.5.9).
+  \end{enumerate}
+\end{enumerate}\par\smallskip
+\textbf{L\"osungsvorschlag.}\par
+\subsection*{Vorbemerkung}
+Sei $x={}^t(x_1,\dots,x_n)\in\mathbb{R}^n$ und setze $a_k:=|x_k|\ge 0$ ($k=1,\dots,n$). Dann ist
+\[
+\|x\|_1=\sum_{k=1}^n a_k\ge 0,\qquad \|x\|_2^2=\sum_{k=1}^n |x_k|^2=\sum_{k=1}^n a_k^2,\qquad \|x\|_2\ge 0 .
+\]
+Da die Wurzelfunktion auf $[0,\infty[$ streng monoton wächst, sind für nichtnegative Zahlen $s,t$ die Aussagen $s\le t$ und $s^2\le t^2$ äquivalent; wir dürfen die Ungleichungen daher quadriert nachweisen.
+
+\subsection*{a) Die beiden Ungleichungen}
+\textbf{Linke Ungleichung $\|x\|_2\le\|x\|_1$.} Es gilt
+\[
+\|x\|_1^2-\|x\|_2^2=\Big(\sum_{k=1}^n a_k\Big)^2-\sum_{k=1}^n a_k^2
+=\sum_{i=1}^n\sum_{j=1}^n a_i a_j-\sum_{k=1}^n a_k^2
+=\sum_{\substack{i,j=1\\ i\ne j}}^n a_i a_j
+=2\!\!\sum_{1\le i<j\le n}\!\! a_i a_j .
+\]
+Da alle $a_i\ge 0$, ist jeder Summand $a_i a_j\ge 0$, also $\|x\|_1^2-\|x\|_2^2\ge 0$, d.\,h.\ $\|x\|_2^2\le\|x\|_1^2$ und somit $\|x\|_2\le\|x\|_1$.
+
+\textbf{Rechte Ungleichung $\|x\|_1\le\sqrt{n}\,\|x\|_2$.} Wir benutzen die Identität
+\[
+n\sum_{k=1}^n a_k^2-\Big(\sum_{k=1}^n a_k\Big)^2=\sum_{1\le i<j\le n}(a_i-a_j)^2. \tag{$\ast$}
+\]
+\emph{Nachweis von ($\ast$):} Es ist $\displaystyle\sum_{i<j}(a_i-a_j)^2=\sum_{i<j}(a_i^2+a_j^2)-2\sum_{i<j}a_i a_j$. Jeder Index $k$ tritt in genau $n-1$ der Paare $\{i,j\}$ auf, also $\sum_{i<j}(a_i^2+a_j^2)=(n-1)\sum_{k=1}^n a_k^2$. Ferner gilt $2\sum_{i<j}a_i a_j=\big(\sum_k a_k\big)^2-\sum_k a_k^2$. Zusammen:
+\[
+\sum_{i<j}(a_i-a_j)^2=(n-1)\sum_k a_k^2-\Big[\big(\textstyle\sum_k a_k\big)^2-\sum_k a_k^2\Big]=n\sum_k a_k^2-\big(\textstyle\sum_k a_k\big)^2 .
+\]
+Die rechte Seite von ($\ast$) ist eine Summe von Quadraten, also $\ge 0$. Damit $\big(\sum_k a_k\big)^2\le n\sum_k a_k^2$, d.\,h.\ $\|x\|_1^2\le n\|x\|_2^2$ und folglich $\|x\|_1\le\sqrt{n}\,\|x\|_2$.
+
+\emph{Alternativ} (Cauchy--Schwarz, Satz~1.1.8, angewandt auf $a_k=|x_k|$ und $y_k:=1$):
+\[
+\|x\|_1=\sum_{k=1}^n 1\cdot a_k\le\Big(\sum_{k=1}^n 1^2\Big)^{1/2}\Big(\sum_{k=1}^n a_k^2\Big)^{1/2}=\sqrt{n}\,\|x\|_2 . \qquad\square
+\]
+
+\subsection*{b) Gleichheitsfälle und Schärfe}
+\textbf{Linke Ungleichung.} Wegen $\|x\|_1,\|x\|_2\ge 0$ gilt $\|x\|_2=\|x\|_1\iff\|x\|_1^2-\|x\|_2^2=0$. Nach a) ist $\|x\|_1^2-\|x\|_2^2=2\sum_{i<j}a_i a_j$ mit lauter nichtnegativen Summanden; die Summe verschwindet also genau dann, wenn $a_i a_j=0$ für alle $i<j$ gilt. Das bedeutet: höchstens ein $a_k=|x_k|$ ist von Null verschieden. Somit
+\[
+\|x\|_2=\|x\|_1\iff x \text{ hat höchstens eine von Null verschiedene Koordinate},\ \text{d.\,h.\ } x=\lambda e_k\ (k\in\{1,\dots,n\},\ \lambda\in\mathbb{R}).
+\]
+(Insbesondere ist $x=0$ eingeschlossen.) Probe: für $x=\lambda e_k$ ist $\|x\|_1=|\lambda|=\|x\|_2$.
+
+\textbf{Rechte Ungleichung.} Analog gilt $\|x\|_1=\sqrt{n}\,\|x\|_2\iff n\|x\|_2^2-\|x\|_1^2=0$. Nach ($\ast$) ist dies gleichbedeutend mit $\sum_{i<j}(a_i-a_j)^2=0$, also $a_i=a_j$ für alle $i,j$. Somit
+\[
+\|x\|_1=\sqrt{n}\,\|x\|_2\iff |x_1|=|x_2|=\dots=|x_n| ,
+\]
+d.\,h.\ $x=\lambda\,{}^t(\varepsilon_1,\dots,\varepsilon_n)$ mit $\lambda\ge 0$ und Vorzeichen $\varepsilon_k\in\{+1,-1\}$ (alle Koordinaten gleichen Betrags). Probe: für $x={}^t(1,\dots,1)$ ist $\|x\|_1=n$ und $\sqrt{n}\,\|x\|_2=\sqrt{n}\cdot\sqrt{n}=n$.
+
+\textbf{Schärfe der Konstanten.}
+\begin{itemize}
+  \item Konstante $1$ (links): Angenommen $c\ge 0$ erfüllt $\|x\|_2\le c\,\|x\|_1$ für alle $x$. Für $x=e_1\ne 0$ folgt $1=\|e_1\|_2\le c\,\|e_1\|_1=c$, also $c\ge 1$. Damit ist $1$ die kleinstmögliche Konstante; mit $c<1$ wäre die Ungleichung falsch (etwa für $e_1$).
+  \item Konstante $\sqrt{n}$ (rechts): Angenommen $C\ge 0$ erfüllt $\|x\|_1\le C\,\|x\|_2$ für alle $x$. Für $x={}^t(1,\dots,1)\ne 0$ folgt $n=\|x\|_1\le C\,\|x\|_2=C\sqrt{n}$, also $C\ge\sqrt{n}$. Somit ist $\sqrt{n}$ optimal.
+\end{itemize}
+Gleichwertig: $\displaystyle\sup_{x\ne 0}\frac{\|x\|_2}{\|x\|_1}=1$ und $\displaystyle\sup_{x\ne 0}\frac{\|x\|_1}{\|x\|_2}=\sqrt{n}$, jeweils angenommen. $\square$
+
+\subsection*{c) Einordnung in Satz~1.5.11}
+\textbf{(i) Äquivalenz und explizite Konstanten.} Zwei Normen $\|\cdot\|$ und $\|\cdot\|_\ast$ auf $\mathbb{R}^n$ heißen \emph{äquivalent}, wenn es Konstanten $c,C>0$ gibt mit
+\[
+c\,\|x\|_\ast\le\|x\|\le C\,\|x\|_\ast\qquad\text{für alle } x\in\mathbb{R}^n .
+\]
+Aus a) liest man mit $\|\cdot\|=\|\cdot\|_1$ und $\|\cdot\|_\ast=\|\cdot\|_2$ unmittelbar ab:
+\[
+1\cdot\|x\|_2\le\|x\|_1\le\sqrt{n}\,\|x\|_2\qquad(x\in\mathbb{R}^n),
+\]
+also $c=1$ und $C=\sqrt{n}$. Nach b) sind dies zudem die \emph{optimalen} (größt- bzw.\ kleinstmöglichen) Konstanten. Insbesondere sind $\|\cdot\|_1$ und $\|\cdot\|_2$ äquivalent.
+
+\textbf{(ii) Gleiche konvergente Folgen.} Sei $(x_k)$ eine Folge in $\mathbb{R}^n$ und $a\in\mathbb{R}^n$. Konvergenz $x_k\to a$ in $(\mathbb{R}^n,\|\cdot\|)$ bedeutet $\|x_k-a\|\to 0$ in $(\mathbb{R},|\cdot|)$ (vgl.\ das $\varepsilon$--$n_0$--Kriterium 1.5.6). Wende a) auf den Vektor $x_k-a$ an:
+\[
+\|x_k-a\|_2\le\|x_k-a\|_1\le\sqrt{n}\,\|x_k-a\|_2. \tag{$\dagger$}
+\]
+\glqq$\Leftarrow$\grqq{}: Ist $\|x_k-a\|_2\to 0$, so folgt aus $0\le\|x_k-a\|_1\le\sqrt{n}\,\|x_k-a\|_2\to 0$ mit dem Sandwich-Theorem $\|x_k-a\|_1\to 0$, also $x_k\to a$ bzgl.\ $\|\cdot\|_1$.\\
+\glqq$\Rightarrow$\grqq{}: Ist $\|x_k-a\|_1\to 0$, so folgt aus $0\le\|x_k-a\|_2\le\|x_k-a\|_1\to 0$ ebenso $\|x_k-a\|_2\to 0$, also $x_k\to a$ bzgl.\ $\|\cdot\|_2$.\\
+Somit stimmen die bzgl.\ $\|\cdot\|_1$ und bzgl.\ $\|\cdot\|_2$ konvergenten Folgen (mit gleichem Grenzwert) überein --- der Spezialfall von Satz~1.5.11(ii) für dieses Normenpaar. Für den Beweis wurde nur die \emph{Existenz} der zweiseitigen Schranke ($\dagger$) benutzt, nicht deren Optimalität.
+
+\textbf{(iii) Mehrwert der scharfen Konstanten.} Satz~1.5.11 (gestützt auf Hilfssatz~1.5.10) besagt \emph{qualitativ}, dass je zwei Normen auf $\mathbb{R}^n$ äquivalent sind --- sie erzeugen dieselben Umgebungen und dieselben konvergenten Folgen. Der Beweis von Hilfssatz~1.5.10(ii) ist jedoch \emph{nicht konstruktiv}: Er zeigt lediglich die \emph{Existenz} eines $\beta>0$ mit $\|x\|_\infty\le\beta\|x\|$, und zwar per Widerspruch --- aus der Annahme, es gebe kein solches $\beta$, wird eine Folge $(x_k)$ mit $\|x_k\|_\infty=1$ konstruiert, die nach dem Satz von Bolzano--Weierstraß~1.5.9 eine in $\|\cdot\|_\infty$ konvergente Teilfolge besitzt; deren Grenzwert liefert den Widerspruch. Dieses Argument nennt \emph{keinen} konkreten Wert von $\beta$. (Die Konstante $\alpha=\sum_{\nu=1}^n\|e_\nu\|$ in 1.5.10(i) ist zwar explizit, i.\,A.\ aber nicht optimal.)
+
+Unser Ergebnis ist demgegenüber \emph{quantitativ scharf}: Für das konkrete Paar $(\|\cdot\|_1,\|\cdot\|_2)$ liefert es die \emph{bestmöglichen} Konstanten $1$ und $\sqrt{n}$, die nach b) sogar angenommen werden. Man erfährt also nicht nur, \emph{dass} die Normen äquivalent sind, sondern \emph{wie stark} sie sich unterscheiden können: Der maximale \glqq Verzerrungsfaktor\grqq{} $\sqrt{n}$ wächst mit der Dimension. Für die rein topologische Aussage (gleiche konvergente Folgen, Teil (ii)) ist der genaue Wert der Konstanten hingegen unerheblich --- dort genügt bereits die Existenz irgendeiner zweiseitigen Schranke, weshalb Satz~1.5.11 ohne explizite Konstanten auskommt.
+
+\emph{Bemerkung.} Nach Satz~1.5.18 sind $(\mathbb{R}^n,\|\cdot\|_1)$ und $(\mathbb{R}^n,\|\cdot\|_2)$ beide Banachräume; wegen ($\dagger$) ist eine Folge genau dann Cauchyfolge bzgl.\ $\|\cdot\|_1$, wenn sie es bzgl.\ $\|\cdot\|_2$ ist. $\square$\par\bigskip\hrule\bigskip
+\end{document}
