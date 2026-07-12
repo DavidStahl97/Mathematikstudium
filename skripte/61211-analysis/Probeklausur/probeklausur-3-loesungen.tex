@@ -1,0 +1,154 @@
+\documentclass[a4paper,12pt]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[ngerman]{babel}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{enumitem}
+\usepackage{array}
+\usepackage{geometry}
+\geometry{a4paper, margin=2.5cm}
+\usepackage{fancyhdr}
+\usepackage{parskip}
+
+\providecommand{\qed}{\hfill\ensuremath{\blacksquare}}
+\newcommand{\aufgabe}[2]{%
+  \bigskip\par\noindent\textbf{Aufgabe #1: #2}\par\nobreak\medskip}
+
+\pagestyle{fancy}
+\fancyhf{}
+\lhead{\small 61211 Analysis -- Probeklausur 3}
+\rhead{\small Lösungsvorschlag}
+\cfoot{\small Seite \thepage}
+\renewcommand{\headrulewidth}{0.4pt}
+
+\begin{document}
+
+\begin{center}
+  {\LARGE\bfseries Probeklausur 3 -- 61211 Analysis}\\[0.4em]
+  {\large Lösungsvorschlag}
+\end{center}
+
+\medskip
+\noindent\textit{Dieser Lösungsvorschlag dient der Selbstkontrolle. Zitierte Satznummern
+beziehen sich auf den Kurstext 61211 Analysis (Nummerierung wie im Aufgabenbank-Glossar).}
+
+% =====================================================================
+\aufgabe{1}{Multiple Choice}
+
+\renewcommand{\arraystretch}{1.4}
+\noindent\begin{tabular}{@{}c@{\hspace{0.8em}}c@{\hspace{0.8em}}p{12.5cm}@{}}
+  (a) & \textbf{Falsch} & Die Ordnungsvollständigkeit (Satz~1.1.12) sichert das Supremum nur in $\mathbb{R}$. Für $A=\{q\in\mathbb{Q}\mid q^2<2\}$ ist die kleinste obere Schranke $\sqrt2\notin\mathbb{Q}$; in $\mathbb{Q}$ existiert kein Supremum.\\
+  (b) & \textbf{Falsch} & $(C([0,1]),\|\cdot\|_1)$ ist \emph{nicht} vollständig (vgl.\ 1.5.18--19); es ist also kein Banachraum.\\
+  (c) & \textbf{Falsch} & $\mathbb{Q}\cap[0,1]$ ist beschränkt, aber nicht abgeschlossen (jedes irrationale $x\in[0,1]$ ist Häufungspunkt, liegt aber nicht in der Menge). Nach 2.1.21 ist sie damit nicht kompakt.\\
+  (d) & \textbf{Wahr} & Das stetige Bild einer kompakten Menge ist kompakt (Satz~2.5.7).\\
+  (e) & \textbf{Wahr} & Für differenzierbares $f$ existiert jede Richtungsableitung und es gilt $D_v f(a)=f'(a)v=\operatorname{grad} f(a)\cdot v$ (Satz~3.6.7).\\
+  (f) & \textbf{Falsch} & Der Umkehrsatz~4.1.2 liefert nur \emph{lokale} Injektivität. Gegenbeispiel: $f(x,y)=(e^{x}\cos y,\,e^{x}\sin y)$ hat überall $\operatorname{Rang} f'=2$, ist aber wegen der $2\pi$-Periodizität in $y$ nicht injektiv.\\
+  (g) & \textbf{Wahr} & Positiv definite Hesse-Matrix im kritischen Punkt $\Rightarrow$ lokales Minimum (Satz~4.5.6(ii)).\\
+  (h) & \textbf{Wahr} & Jede monotone Funktion auf $[a,b]$ ist integrierbar (Satz~5.1.6).\\
+  (i) & \textbf{Wahr} & Aus der Besselschen Ungleichung~5.4.7 folgt $a_k\to 0$ und $b_k\to 0$.\\
+  (j) & \textbf{Falsch} & Stetigkeit genügt nicht für Rektifizierbarkeit. Gegenbeispiel: $\varphi(t)=t\sin(1/t)$ (mit $\varphi(0)=0$) ist stetig, aber nicht rektifizierbar -- die Längen einbeschriebener Polygonzüge wachsen wie die harmonische Reihe über alle Grenzen (vgl.\ 6.2.2).\\
+\end{tabular}
+
+\medskip
+\noindent Antworten kompakt: (a) F, (b) F, (c) F, (d) W, (e) W, (f) F, (g) W, (h) W, (i) W, (j) F.
+
+% =====================================================================
+\aufgabe{2}{Supremum und Infimum}
+
+Da $A,B$ nichtleer und beschränkt sind, existieren $s_A:=\sup A$ und $s_B:=\sup B$ in $\mathbb{R}$ (Satz~1.1.12).
+
+\textbf{a)} Sei $s:=\max\{s_A,s_B\}$. \emph{$s$ ist obere Schranke von $A\cup B$:} Für $x\in A\cup B$ ist $x\in A$ (dann $x\le s_A\le s$) oder $x\in B$ (dann $x\le s_B\le s$); in jedem Fall $x\le s$. \emph{$s$ ist die kleinste:} Sei $u$ eine beliebige obere Schranke von $A\cup B$. Dann ist $u$ obere Schranke von $A$ \emph{und} von $B$, also $u\ge s_A$ und $u\ge s_B$, folglich $u\ge\max\{s_A,s_B\}=s$. Damit ist $s$ die kleinste obere Schranke, also $\sup(A\cup B)=s=\max\{\sup A,\sup B\}$.
+
+\textbf{b)} \emph{$s_A+s_B$ ist obere Schranke von $A+B$:} Für $a\in A$, $b\in B$ gilt $a\le s_A$ und $b\le s_B$, also $a+b\le s_A+s_B$. \emph{$s_A+s_B$ ist die kleinste:} Sei $\varepsilon>0$. Da $s_A$ kleinste obere Schranke von $A$ ist, ist $s_A-\tfrac{\varepsilon}{2}$ keine obere Schranke, es gibt also $a\in A$ mit $a>s_A-\tfrac{\varepsilon}{2}$; analog $b\in B$ mit $b>s_B-\tfrac{\varepsilon}{2}$. Dann ist $a+b\in A+B$ mit
+\[ a+b> s_A+s_B-\varepsilon. \]
+Wäre nun eine obere Schranke $u$ von $A+B$ echt kleiner als $s_A+s_B$, so führte die Wahl $\varepsilon:=s_A+s_B-u>0$ auf ein $a+b\in A+B$ mit $a+b>s_A+s_B-\varepsilon=u$ -- Widerspruch. Also ist $s_A+s_B$ die kleinste obere Schranke: $\sup(A+B)=\sup A+\sup B$.
+
+\textbf{c)} Die Aussage ist \emph{falsch}. Gegenbeispiel: $A=B=\{-2,-1\}$. Dann ist $\sup A=\sup B=-1$, also $\sup A\cdot\sup B=1$. Andererseits ist $A\cdot B=\{4,2,1\}$ mit $\sup(A\cdot B)=4\neq 1$. (Die Formel gilt nur unter Zusatzvoraussetzungen wie $A,B\subseteq[0,\infty[$.) \qed
+
+% =====================================================================
+\aufgabe{3}{Zwischenwertsatz und Fixpunkte}
+
+\textbf{a)} Betrachte $g:[0,1]\to\mathbb{R}$, $g(x):=f(x)-x$. Als Differenz der stetigen Funktion $f$ und der Identität ist $g$ stetig (Satz~2.1.10). Da $f(0),f(1)\in[0,1]$, gilt
+\[ g(0)=f(0)-0=f(0)\ge 0,\qquad g(1)=f(1)-1\le 0. \]
+Ist $g(0)=0$ oder $g(1)=0$, so ist $0$ bzw.\ $1$ ein Fixpunkt. Andernfalls ist $g(1)<0<g(0)$; nach dem Zwischenwertsatz~2.1.13 (bzw.\ Nullstellensatz~2.1.14) gibt es ein $\xi\in\,]0,1[$ mit $g(\xi)=0$, also $f(\xi)=\xi$. In jedem Fall besitzt $f$ einen Fixpunkt.
+
+\textbf{b)} Die Aussage ist \emph{falsch}. Gegenbeispiel: $f:\,]0,1[\,\to\,]0,1[$, $f(x):=x^2$. Für $x\in\,]0,1[$ ist $0<x^2<x<1$, also bildet $f$ tatsächlich $]0,1[$ nach $]0,1[$ ab, und $f$ ist stetig. Ein Fixpunkt erfüllte $x=x^2$, d.\,h.\ $x\in\{0,1\}$; keiner dieser Werte liegt in $]0,1[$. Also besitzt $f$ keinen Fixpunkt in $]0,1[$. (Der Beweis aus a) scheitert, weil das offene Intervall nicht kompakt ist bzw.\ die Randwerte fehlen.)
+
+\textbf{c)} Sei $P(x)=\sum_{k=0}^{n} c_k x^k$ mit $n=2m+1$ ungerade und $c_n\neq 0$. Ohne Einschränkung sei $c_n>0$ (sonst betrachte $-P$, das dieselben Nullstellen hat). Für $x\neq 0$ ist
+\[ P(x)=c_n x^{n}\Big(1+\tfrac{c_{n-1}}{c_n x}+\cdots+\tfrac{c_0}{c_n x^{n}}\Big), \]
+und der Klammerausdruck strebt für $|x|\to\infty$ gegen $1$. Da $n$ ungerade ist, gilt $x^{n}\to+\infty$ für $x\to+\infty$ und $x^{n}\to-\infty$ für $x\to-\infty$; also
+\[ \lim_{x\to+\infty}P(x)=+\infty,\qquad \lim_{x\to-\infty}P(x)=-\infty. \]
+Insbesondere gibt es $b$ mit $P(b)>0$ und $a<b$ mit $P(a)<0$. Als Polynom ist $P$ stetig; nach dem Nullstellensatz~2.1.14 existiert ein $\xi\in\,]a,b[$ mit $P(\xi)=0$. \qed
+
+% =====================================================================
+\aufgabe{4}{Mittelwertsatz und Kontraktionen}
+
+\textbf{a)} Seien $x,y\in\mathbb{R}$ mit $x\neq y$ (für $x=y$ ist nichts zu zeigen). $f$ ist auf $[\min\{x,y\},\max\{x,y\}]$ stetig und im Inneren differenzierbar; nach dem Mittelwertsatz~3.3.10 gibt es ein $\xi$ zwischen $x$ und $y$ mit
+\[ f(x)-f(y)=f'(\xi)\,(x-y). \]
+Mit $|f'(\xi)|\le q$ folgt
+\[ |f(x)-f(y)|=|f'(\xi)|\,|x-y|\le q\,|x-y|. \]
+Also ist $f$ dehnungsbeschränkt mit Konstante $q$ (Definition~2.3.9). Wegen $q<1$ ist $f$ sogar eine \emph{Kontraktion}.
+
+\textbf{b)} $(\mathbb{R},|\cdot|)$ ist vollständig (Satz~1.5.18--19), und $\mathbb{R}$ ist als Ganzes eine abgeschlossene Teilmenge von sich selbst. Nach a) ist $f:\mathbb{R}\to\mathbb{R}$ eine kontrahierende Selbstabbildung mit Kontraktionskonstante $q<1$. Der Banachsche Fixpunktsatz~4.1.6 liefert daher genau einen Fixpunkt $x^\ast\in\mathbb{R}$ mit $f(x^\ast)=x^\ast$. Der Zusatz des Satzes besagt zudem, dass die Iterationsfolge $x_k:=f(x_{k-1})$ für jeden Startwert $x_0\in\mathbb{R}$ gegen diesen Fixpunkt konvergiert, $x_k\to x^\ast$.
+
+\textbf{c)} Die Aussage ist \emph{falsch}. Gegenbeispiel: $f:\mathbb{R}\to\mathbb{R}$, $f(x):=\sqrt{1+x^2}$. $f$ ist differenzierbar mit
+\[ f'(x)=\frac{x}{\sqrt{1+x^2}},\qquad |f'(x)|=\frac{|x|}{\sqrt{1+x^2}}<1\quad\text{für jedes }x\in\mathbb{R}, \]
+denn $|x|<\sqrt{1+x^2}$. Ein Fixpunkt erfüllte $\sqrt{1+x^2}=x$, also $1+x^2=x^2$ und damit $1=0$ -- unmöglich. $f$ besitzt also keinen Fixpunkt. Der Grund: hier ist zwar $|f'(x)|<1$ punktweise, aber $\sup_{x}|f'(x)|=1$, also \emph{keine} gleichmäßige Kontraktionskonstante $q<1$; die Voraussetzung des Banachschen Fixpunktsatzes ist verletzt. \qed
+
+% =====================================================================
+\aufgabe{5}{Konvexität, Taylor und Extrema}
+
+\textbf{a)} Seien $a,x\in\mathbb{R}$ fest. $f$ ist zweimal (stetig) differenzierbar, also insbesondere einmal differenzierbar; wir wenden den Satz von Taylor~4.3.9 mit Entwicklungspunkt $a$ und $k=1$ an. Nach der Restdarstellung von Lagrange (4.3.9(iii)) gibt es ein $\xi$ zwischen $a$ und $x$ mit
+\[ f(x)=\underbrace{f(a)+f'(a)(x-a)}_{=\,T_1(x)}+\frac{f''(\xi)}{2!}\,(x-a)^2. \]
+Da $f''(\xi)\ge 0$ nach Voraussetzung und $(x-a)^2\ge 0$, ist das Restglied nichtnegativ, also
+\[ f(x)=f(a)+f'(a)(x-a)+\tfrac{1}{2}f''(\xi)(x-a)^2\ \ge\ f(a)+f'(a)(x-a). \]
+
+\textbf{b)} Setzt man in a) $f'(a)=0$ ein, so folgt $f(x)\ge f(a)$ für \emph{jedes} $x\in\mathbb{R}$. Also ist $f(a)$ das globale Minimum von $f$, und $a$ ist eine globale Minimalstelle.
+
+\textbf{c)} Die Aussage ist \emph{falsch}. Gegenbeispiel: $f:\mathbb{R}^2\to\mathbb{R}$, $f(x,y):=x^2-y^4$. Diese Funktion ist beliebig oft differenzierbar mit
+\[ \operatorname{grad} f(x,y)=(2x,\,-4y^3),\qquad \operatorname{grad} f(0,0)=(0,0). \]
+Die Hesse-Matrix ist
+\[ H(x,y)=\begin{pmatrix} 2 & 0\\ 0 & -12y^2\end{pmatrix},\qquad
+   H(0,0)=\begin{pmatrix} 2 & 0\\ 0 & 0\end{pmatrix}. \]
+Die zugehörige quadratische Form ist $Q(u)=u\cdot H(0,0)u=2u_1^2\ge 0$ für alle $u=(u_1,u_2)\in\mathbb{R}^2$; nach Definition~4.5.5 ist $H(0,0)$ also positiv \emph{semidefinit}, und wegen $Q(0,u_2)=0$ für $u_2\neq 0$ nicht positiv definit. Dennoch besitzt $f$ in $(0,0)$ \emph{kein} lokales Minimum: für $y\neq 0$ ist
+\[ f(0,y)=-y^4<0=f(0,0), \]
+und solche Punkte liegen beliebig nahe bei $(0,0)$. Im semidefiniten Fall ist eben keine Aussage möglich (Satz~4.5.6(iv)). \qed
+
+% =====================================================================
+\aufgabe{6}{Stetige Funktionen und Approximation}
+
+\textbf{a)} Angenommen, $f$ ist nicht die Nullfunktion, es gibt also ein $x_0\in I$ mit $f(x_0)\neq 0$, d.\,h.\ $c:=f(x_0)^2>0$. Die Funktion $g:=f^2$ ist als Produkt stetiger Funktionen stetig (Satz~2.1.10) mit $g(x_0)=c>0$. Nach der lokalen Trennung~2.1.12 (angewandt auf $g$ und die konstante Funktion $\tfrac{c}{2}$; beachte $g(x_0)=c>\tfrac{c}{2}$) gibt es eine Umgebung $U$ von $x_0$ mit $g(x)>\tfrac{c}{2}$ für alle $x\in U\cap I$. Wähle $\delta>0$ so, dass $J:=[x_0-\delta,x_0+\delta]\cap I$ ein Intervall positiver Länge $\ell>0$ mit $J\subseteq U\cap I$ ist (möglich, da $a<b$). Wegen $f^2\ge 0$ und der Monotonie des Integrals (Satz~5.1.7) folgt
+\[ \int_I f(x)^2\,dx\ \ge\ \int_J f(x)^2\,dx\ \ge\ \frac{c}{2}\,\ell\ >\ 0, \]
+im Widerspruch zu $\int_I f^2=0$. Also ist $f\equiv 0$.
+
+\textbf{b)} Nach dem Weierstraßschen Approximationssatz~5.5.4 gibt es eine Folge $(P_k)$ von Polynomfunktionen mit $\|P_k|_I-f\|_\infty\to 0$ für $k\to\infty$. Für jedes $k$ ist $P_k$ eine Polynomfunktion, also nach Voraussetzung $\int_I f\,P_k=0$. Damit gilt
+\[ \int_I f^2=\int_I f\,(f-P_k)+\underbrace{\int_I f\,P_k}_{=0}=\int_I f\,(f-P_k). \]
+Mit der Abschätzung aus Satz~5.1.7 ($\big|\int_I h\big|\le (b-a)\,\|h\|_\infty$) folgt
+\[ \Big|\int_I f^2\Big|=\Big|\int_I f\,(f-P_k)\Big|\le (b-a)\,\|f\|_\infty\,\|f-P_k\|_\infty\ \xrightarrow[k\to\infty]{}\ 0, \]
+da $\|f-P_k\|_\infty\to 0$ und $\|f\|_\infty<\infty$ (stetige Funktion auf kompaktem $I$, Satz~2.5.8). Die linke Seite hängt nicht von $k$ ab, also $\int_I f^2=0$. Nach Teil a) folgt $f\equiv 0$. \qed
+
+% =====================================================================
+\aufgabe{7}{Kurvenlänge und Wegunabhängigkeit}
+
+\textbf{a)} Da $W$ glatt mit glatter Parameterdarstellung $\varphi$ ist, gilt nach Satz~6.2.5
+\[ L(W)=\int_\alpha^\beta \|\dot\varphi(t)\|_2\,dt, \]
+wobei wir $\dot\varphi$ (wie im Standardfall) als auf ganz $[\alpha,\beta]$ stetig annehmen, sodass alle folgenden Integrale eigentliche Riemann-Integrale sind und 5.1.7 bzw.\ 5.1.10 anwendbar bleiben. Komponentenweise ist nach dem Hauptsatz~5.1.10 $q-p=\varphi(\beta)-\varphi(\alpha)=\int_\alpha^\beta\dot\varphi(t)\,dt=:w$. Ist $w=0$, so ist $\|q-p\|_2=0\le L(W)$ trivial. Sei also $w\neq 0$. Mit dem Skalarprodukt (1.4.5) und der Linearität des Integrals ist
+\[ \|w\|_2^2=w\cdot w=w\cdot\int_\alpha^\beta\dot\varphi(t)\,dt=\int_\alpha^\beta w\cdot\dot\varphi(t)\,dt. \]
+Nach der Cauchy-Schwarzschen Ungleichung (Satz~1.1.8) gilt punktweise $w\cdot\dot\varphi(t)\le\|w\|_2\,\|\dot\varphi(t)\|_2$, und mit der Monotonie des Integrals (Satz~5.1.7) folgt
+\[ \|w\|_2^2\le\int_\alpha^\beta \|w\|_2\,\|\dot\varphi(t)\|_2\,dt=\|w\|_2\int_\alpha^\beta\|\dot\varphi(t)\|_2\,dt=\|w\|_2\,L(W). \]
+Division durch $\|w\|_2>0$ ergibt $\|q-p\|_2=\|w\|_2\le L(W)$.
+
+\textbf{b)} Die Aussage ist \emph{wahr}. Sei $r^2:=x^2+y^2>0$ auf $G:=\mathbb{R}^2\setminus\{0\}$.
+
+\emph{Integrabilitätsbedingung.} Mit $f_1=\tfrac{-y}{x^2+y^2}$ und $f_2=\tfrac{x}{x^2+y^2}$ ist
+\[ D_1 f_2=\frac{(x^2+y^2)-x\cdot 2x}{(x^2+y^2)^2}=\frac{y^2-x^2}{(x^2+y^2)^2},\quad
+   D_2 f_1=\frac{-(x^2+y^2)+y\cdot 2y}{(x^2+y^2)^2}=\frac{y^2-x^2}{(x^2+y^2)^2}, \]
+also $D_1 f_2=D_2 f_1$ auf ganz $G$ (Integrabilitätsbedingung~6.4.2 erfüllt).
+
+\emph{Keine Stammfunktion.} Angenommen, $f$ besäße eine Stammfunktion $F$ auf $G$. Betrachte die geschlossene, stückweise (sogar) glatte Kurve $W$ (Einheitskreis) mit $\varphi(t)=(\cos t,\sin t)$, $t\in[0,2\pi]$, deren Spur $|W|\subseteq G$ liegt. Dann müsste nach dem Satz über die Wegunabhängigkeit~6.4.4 (geschlossene Kurve) $\int_W f\cdot dx=0$ gelten. Direkte Berechnung: mit $\dot\varphi(t)=(-\sin t,\cos t)$ und $f(\varphi(t))=(-\sin t,\cos t)$ (denn $\cos^2 t+\sin^2 t=1$) ist
+\[ \int_W f\cdot dx=\int_0^{2\pi} f(\varphi(t))\cdot\dot\varphi(t)\,dt
+   =\int_0^{2\pi}\big(\sin^2 t+\cos^2 t\big)\,dt=\int_0^{2\pi}1\,dt=2\pi\neq 0. \]
+Widerspruch. Also besitzt $f$ auf $G$ keine Stammfunktion. (Die Integrabilitätsbedingungen sind zwar notwendig, aber nicht hinreichend; Satz~6.4.6 fordert zusätzlich, dass $G$ sternförmig ist -- $G=\mathbb{R}^2\setminus\{0\}$ ist es nicht.) \qed
+
+\end{document}
