@@ -1,0 +1,190 @@
+\documentclass[a4paper,12pt]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[ngerman]{babel}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{enumitem}
+\usepackage{array}
+\usepackage{geometry}
+\geometry{a4paper, margin=2.5cm}
+\usepackage{fancyhdr}
+\usepackage{parskip}
+
+% Punkteangabe rechtsbündig am Ende eines Aufgabenteils
+\newcommand{\pkt}[1]{\hfill\textit{(#1\,P)}}
+% Kopf einer Aufgabe: \aufgabe{Nummer}{Titel}{Gesamtpunkte}
+\newcommand{\aufgabe}[3]{%
+  \bigskip\par\noindent\textbf{Aufgabe #1: #2}\hfill\textbf{#3 Punkte}%
+  \par\nobreak\medskip}
+
+\pagestyle{fancy}
+\fancyhf{}
+\lhead{\small 61211 Analysis -- Probeklausur 3}
+\rhead{\small Matr.-Nr.: \makebox[3cm]{\dotfill}}
+\cfoot{\small Seite \thepage}
+\renewcommand{\headrulewidth}{0.4pt}
+
+\begin{document}
+\thispagestyle{empty}
+
+\begin{center}
+  {\LARGE\bfseries Probeklausur 3}\\[0.4em]
+  {\large 61211 Analysis}\\[0.6em]
+  {\normalsize FernUniversität in Hagen $\cdot$ Fakultät für Mathematik und Informatik}
+\end{center}
+
+\vspace{0.8em}
+\noindent\small\textit{Diese Probeklausur ist bewusst beweis- und begriffsorientiert
+gehalten. Statt reiner Rechenaufgaben stehen \glqq beweisen\grqq{} und \glqq beweisen
+oder widerlegen\grqq{} im Vordergrund (Ordnungsvollständigkeit, Zwischenwertsatz,
+Mittelwertsatz, Fixpunktsätze, Taylor, Approximation, Kurvenintegrale). Alle Aufgaben
+lassen sich mit den Sätzen und Definitionen des Kurstextes lösen.}\normalsize
+
+\vspace{1.0em}
+
+\noindent
+\begin{tabular}{@{}ll@{}}
+  Name: & \makebox[7cm]{\dotfill}\\[1.0em]
+  Vorname: & \makebox[7cm]{\dotfill}\\[1.0em]
+  Matrikelnummer: & \makebox[7cm]{\dotfill}\\
+\end{tabular}
+
+\vspace{1.2em}
+
+\begin{center}
+  \renewcommand{\arraystretch}{1.5}
+  \begin{tabular}{|l|c|c|c|c|c|c|c||c|}
+    \hline
+    \textbf{Aufgabe} & 1 & 2 & 3 & 4 & 5 & 6 & 7 & \textbf{$\Sigma$}\\
+    \hline
+    max.\ Punkte & 20 & 12 & 14 & 16 & 14 & 14 & 10 & 100\\
+    \hline
+    erreicht & & & & & & & & \\
+    \hline
+  \end{tabular}
+\end{center}
+
+\vspace{0.8em}
+
+\noindent\textbf{Bearbeitungshinweise}
+\begin{itemize}[leftmargin=1.5em, itemsep=2pt]
+  \item Die Bearbeitungszeit beträgt \textbf{120 Minuten}. Es sind alle 7 Aufgaben zu bearbeiten.
+  \item Zugelassenes Hilfsmittel: ein handbeschriebenes DIN-A4-Blatt (auch beidseitig) mit eigenen Notizen.
+  \item Verwenden Sie keinen Bleistift und keinen Rotstift.
+  \item Formulieren Sie Ihre Beweise in vollständigen Sätzen und begründen Sie jeden Schritt. Verweise auf Sätze des Kurstextes dürfen benutzt werden.
+\end{itemize}
+
+\newpage
+
+% =====================================================================
+\aufgabe{1}{Multiple Choice}{20}
+
+Kreuzen Sie an, ob die jeweilige Aussage \emph{wahr} oder \emph{falsch} ist. Für jede
+richtig beantwortete Aussage erhalten Sie $2$ Punkte, für jede unbeantwortete Aussage
+$1$ Punkt und für jede falsch beantwortete Aussage $0$ Punkte.
+
+\medskip
+\renewcommand{\arraystretch}{1.5}
+\noindent\begin{tabular}{@{}c@{\hspace{0.6em}}p{11.4cm}@{\hspace{0.8em}}c@{\hspace{1.0em}}c@{}}
+  & & \small Wahr & \small Falsch\\[0.2em]
+  (a) & Jede nichtleere, nach oben beschränkte Teilmenge von $\mathbb{Q}$ besitzt ein Supremum in $\mathbb{Q}$. & $\square$ & $\square$\\
+  (b) & Der normierte Raum $(C([0,1]),\|\cdot\|_1)$ mit $\|f\|_1=\int_0^1|f(t)|\,dt$ ist vollständig. & $\square$ & $\square$\\
+  (c) & Die Menge $\mathbb{Q}\cap[0,1]$ ist kompakt in $\mathbb{R}$. & $\square$ & $\square$\\
+  (d) & Ist $M\subseteq\mathbb{R}^n$ kompakt und $f:M\to\mathbb{R}^m$ stetig, so ist $f(M)$ kompakt. & $\square$ & $\square$\\
+  (e) & Ist $f:\mathbb{R}^n\to\mathbb{R}$ in $a$ differenzierbar, so existiert für jeden Einheitsvektor $v$ die Richtungsableitung $D_v f(a)$, und es gilt $D_v f(a)=\operatorname{grad} f(a)\cdot v$. & $\square$ & $\square$\\
+  (f) & Ist $f:\mathbb{R}^n\to\mathbb{R}^n$ stetig differenzierbar mit $\operatorname{Rang} f'(a)=n$, so ist $f$ auf ganz $\mathbb{R}^n$ injektiv. & $\square$ & $\square$\\
+  (g) & Ist $f$ zweimal stetig differenzierbar, $\operatorname{grad} f(a)=0$ und die Hesse-Matrix $H(a)$ positiv definit, so besitzt $f$ in $a$ ein lokales Minimum. & $\square$ & $\square$\\
+  (h) & Jede monotone Funktion $f:[a,b]\to\mathbb{R}$ (mit $a<b$) ist Riemann-integrierbar. & $\square$ & $\square$\\
+  (i) & Für die Fourierkoeffizienten $(a_k),(b_k)$ einer Funktion $f\in\mathcal{R}(\,]-\pi,\pi])$ gilt $\lim_{k\to\infty}a_k=\lim_{k\to\infty}b_k=0$. & $\square$ & $\square$\\
+  (j) & Jede stetige Kurve $\varphi:[a,b]\to\mathbb{R}^n$ ist rektifizierbar. & $\square$ & $\square$\\
+\end{tabular}
+
+% =====================================================================
+\aufgabe{2}{Supremum und Infimum}{12}
+
+Seien $A,B\subseteq\mathbb{R}$ nichtleer und beschränkt.
+\begin{enumerate}[label=\alph*)]
+  \item Beweisen Sie $\displaystyle\sup(A\cup B)=\max\{\sup A,\ \sup B\}$. \pkt{4}
+  \item Für $A+B:=\{a+b\mid a\in A,\ b\in B\}$ beweisen Sie
+  \[ \sup(A+B)=\sup A+\sup B. \]
+  \pkt{5}
+  \item Für $A\cdot B:=\{a\,b\mid a\in A,\ b\in B\}$: Beweisen oder widerlegen Sie, dass \emph{stets}
+  $\sup(A\cdot B)=\sup A\cdot\sup B$ gilt. \pkt{3}
+\end{enumerate}
+
+% =====================================================================
+\aufgabe{3}{Zwischenwertsatz und Fixpunkte}{14}
+
+\begin{enumerate}[label=\alph*)]
+  \item Sei $f:[0,1]\to[0,1]$ stetig. Beweisen Sie, dass $f$ einen \emph{Fixpunkt} besitzt,
+  d.\,h.\ es gibt ein $\xi\in[0,1]$ mit $f(\xi)=\xi$. \pkt{6}
+  \item Beweisen oder widerlegen Sie: Jede stetige Funktion $f:\,]0,1[\,\to\,]0,1[$ besitzt einen Fixpunkt. \pkt{4}
+  \item Beweisen Sie mit Hilfe des Zwischenwertsatzes, dass jedes Polynom \emph{ungeraden} Grades
+  mit reellen Koeffizienten mindestens eine reelle Nullstelle besitzt. \pkt{4}
+\end{enumerate}
+
+% =====================================================================
+\aufgabe{4}{Mittelwertsatz und Kontraktionen}{16}
+
+Sei $f:\mathbb{R}\to\mathbb{R}$ differenzierbar.
+\begin{enumerate}[label=\alph*)]
+  \item Es gelte $q:=\sup_{x\in\mathbb{R}}|f'(x)|<1$. Beweisen Sie, dass $f$ dehnungsbeschränkt
+  mit Lipschitzkonstante $q$ ist, d.\,h.
+  \[ |f(x)-f(y)|\le q\,|x-y|\qquad\text{für alle }x,y\in\mathbb{R}. \]
+  \pkt{5}
+  \item Folgern Sie mit dem Banachschen Fixpunktsatz (Satz~4.1.6), dass $f$ genau einen Fixpunkt
+  $x^\ast\in\mathbb{R}$ besitzt und dass die Iterationsfolge $x_k:=f(x_{k-1})$ für jeden Startwert
+  $x_0\in\mathbb{R}$ gegen $x^\ast$ konvergiert. \pkt{6}
+  \item Beweisen oder widerlegen Sie: Ist $f:\mathbb{R}\to\mathbb{R}$ differenzierbar mit $|f'(x)|<1$
+  für \emph{jedes} $x\in\mathbb{R}$, so besitzt $f$ (mindestens) einen Fixpunkt. \pkt{5}
+\end{enumerate}
+
+% =====================================================================
+\aufgabe{5}{Konvexität, Taylor und Extrema}{14}
+
+\begin{enumerate}[label=\alph*)]
+  \item Sei $f:\mathbb{R}\to\mathbb{R}$ zweimal stetig differenzierbar mit $f''(x)\ge 0$ für alle
+  $x\in\mathbb{R}$. Beweisen Sie mit dem Satz von Taylor (Satz~4.3.9), dass für alle $a,x\in\mathbb{R}$
+  \[ f(x)\ge f(a)+f'(a)\,(x-a) \]
+  gilt (der Graph liegt oberhalb jeder Tangente). \pkt{6}
+  \item Folgern Sie: Gilt zusätzlich $f'(a)=0$, so besitzt $f$ in $a$ ein \emph{globales} Minimum. \pkt{3}
+  \item Beweisen oder widerlegen Sie: Ist $f:\mathbb{R}^2\to\mathbb{R}$ zweimal stetig differenzierbar
+  mit $\operatorname{grad} f(a)=0$ und ist die Hesse-Matrix $H(a)$ positiv \emph{semidefinit}, so besitzt
+  $f$ in $a$ ein lokales Minimum. \pkt{5}
+\end{enumerate}
+
+% =====================================================================
+\aufgabe{6}{Stetige Funktionen und Approximation}{14}
+
+Sei $I=[a,b]$ mit $a<b$.
+\begin{enumerate}[label=\alph*)]
+  \item Sei $f:I\to\mathbb{R}$ stetig mit $\displaystyle\int_I f(x)^2\,dx=0$. Beweisen Sie, dass
+  $f\equiv 0$ ist (d.\,h.\ $f(x)=0$ für jedes $x\in I$). \pkt{6}
+  \item Sei $f:I\to\mathbb{R}$ stetig, und es gelte $\displaystyle\int_I f(x)\,p(x)\,dx=0$ für
+  \emph{jede} Polynomfunktion $p$. Beweisen Sie $f\equiv 0$.
+  \emph{Hinweis:} Weierstraßscher Approximationssatz (Satz~5.5.4); verwenden Sie a). \pkt{8}
+\end{enumerate}
+
+% =====================================================================
+\aufgabe{7}{Kurvenlänge und Wegunabhängigkeit}{10}
+
+\begin{enumerate}[label=\alph*)]
+  \item Sei $W$ eine glatte Kurve in $\mathbb{R}^n$ mit glatter Parameterdarstellung
+  $\varphi:[\alpha,\beta]\to\mathbb{R}^n$, Anfangspunkt $p:=\varphi(\alpha)$ und Endpunkt
+  $q:=\varphi(\beta)$. Beweisen Sie
+  \[ L(W)\ \ge\ \|q-p\|_2 \]
+  (die geradlinige Strecke ist die kürzeste Verbindung).
+  \emph{Hinweis:} $q-p=\int_\alpha^\beta \dot\varphi(t)\,dt$ (komponentenweise) und
+  Cauchy-Schwarzsche Ungleichung. \pkt{5}
+  \item Betrachtet werde das Vektorfeld
+  \[ f:\mathbb{R}^2\setminus\{0\}\to\mathbb{R}^2,\qquad
+     f(x,y):=\Big(\tfrac{-y}{x^2+y^2},\ \tfrac{x}{x^2+y^2}\Big). \]
+  Beweisen oder widerlegen Sie: $f$ erfüllt zwar die Integrabilitätsbedingungen
+  $D_1 f_2=D_2 f_1$, besitzt aber \emph{keine} Stammfunktion auf $\mathbb{R}^2\setminus\{0\}$. \pkt{5}
+\end{enumerate}
+
+\vfill
+\begin{center}\small Viel Erfolg!\end{center}
+
+\end{document}
