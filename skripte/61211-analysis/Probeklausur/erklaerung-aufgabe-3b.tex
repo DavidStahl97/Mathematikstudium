@@ -1,0 +1,101 @@
+\documentclass[a4paper,12pt]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[ngerman]{babel}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{enumitem}
+\usepackage{geometry}
+\geometry{a4paper, margin=2.5cm}
+\usepackage{parskip}
+
+\title{Warum in Aufgabe 3\,b) die Gleichheit nur bei gleichen Koordinaten gilt\\[0.4em]
+\large 61211 Analysis -- Probeklausur}
+\author{}
+\date{}
+
+\begin{document}
+\maketitle
+
+\section*{Frage}
+Muss bei Gleichheit in Aufgabe~3\,a) wirklich in allen Koordinaten derselbe Wert stehen,
+also $x_1=x_2=\dots=x_n$? Kann man das nicht mit der euklidischen Norm untersuchen und
+dann auch ungleiche Koordinaten zulassen?
+
+\textbf{Antwort:} Ja, es muss $x_1=\dots=x_n$ gelten. Der Zugang über die euklidische Norm
+ist völlig richtig -- er liefert aber genau dasselbe Ergebnis.
+
+\section*{Ausgangslage}
+Betrachtet werden alle Vektoren $x=(x_1,\dots,x_n)\in\mathbb{R}^n$ mit
+\[
+  x_1+x_2+\dots+x_n=c .
+\]
+Die Behauptung aus a) lautet
+\[
+  \sum_{k=1}^n x_k^2 \;\ge\; \frac{c^2}{n}.
+\]
+
+\section*{Weg 1: Gleichheitsfall der Cauchy--Schwarzschen Ungleichung}
+In der Cauchy--Schwarzschen Ungleichung
+\[
+  \Big|\sum_{k=1}^n x_k\,y_k\Big|\le \Big(\sum_{k=1}^n x_k^2\Big)^{1/2}\Big(\sum_{k=1}^n y_k^2\Big)^{1/2}
+\]
+gilt Gleichheit \emph{genau dann}, wenn $x$ und $y$ linear abhängig sind. In a) ist
+$y=(1,1,\dots,1)$. Linear abhängig von $(1,\dots,1)$ bedeutet
+\[
+  x_k=\lambda \qquad\text{für alle } k,
+\]
+also gleiche Koordinaten. Einsetzen in die Nebenbedingung liefert $n\lambda=c$ und damit
+\[
+  \lambda=\frac{c}{n}
+  \qquad\Longrightarrow\qquad
+  x=\Big(\tfrac{c}{n},\tfrac{c}{n},\dots,\tfrac{c}{n}\Big).
+\]
+Es gibt also genau \emph{einen} Vektor mit Gleichheit.
+
+\section*{Weg 2: Die euklidische (geometrische) Sicht}
+$\sum_{k=1}^n x_k^2=\lVert x\rVert_2^2$ zu minimieren heißt, auf der Hyperebene
+\[
+  H=\{\,x\in\mathbb{R}^n : x_1+\dots+x_n=c\,\}
+\]
+den Punkt mit kleinstem Abstand zum Ursprung zu suchen (den Lotfußpunkt). Die
+Normalenrichtung von $H$ ist $(1,\dots,1)$; der Lotfußpunkt liegt daher auf dieser Richtung:
+\[
+  x=\frac{c}{n}\,(1,\dots,1).
+\]
+Da $\lVert x\rVert_2^2$ \emph{strikt konvex} ist, ist dieser nächstgelegene Punkt
+\emph{eindeutig} -- kein zweiter Vektor erreicht denselben Minimalwert. Genau das ist die
+Gleichheit in a).
+
+\section*{Konkreter Test ($n=2$, $c=2$)}
+Alle zulässigen $x$ haben die Form $x=(1+t,\,1-t)$ mit $t\in\mathbb{R}$, denn dann ist
+$x_1+x_2=2$. Es folgt
+\[
+  x_1^2+x_2^2=(1+t)^2+(1-t)^2=2+2t^2\;\ge\;2=\frac{c^2}{n}.
+\]
+\begin{itemize}[itemsep=2pt]
+  \item $t=0\ \Rightarrow\ x=(1,1)\ \Rightarrow\ $ Wert $2$ \;(das ist die Schranke $c^2/n$),
+  \item $t=\tfrac12\ \Rightarrow\ x=(1{,}5,\,0{,}5)\ \Rightarrow\ $ Wert $2{,}5$ \;(größer),
+  \item $t=1\ \Rightarrow\ x=(2,\,0)\ \Rightarrow\ $ Wert $4$ \;(noch größer).
+\end{itemize}
+Ungleiche Koordinaten sind also erlaubt, liefern aber \emph{stets} einen echt größeren Wert.
+Der kleinstmögliche Wert (die Gleichheit) tritt nur bei gleichen Koordinaten auf.
+
+\section*{Kernpunkt (auch per Lagrange)}
+Auf der Hyperebene darf $x$ frei gewählt werden. Sobald man aber das Minimum von
+$\sum x_k^2$ -- also die Gleichheit in a) -- verlangt, ist die Wahl erzwungen. Mit einem
+Lagrange-Multiplikator $\mu$ für die Nebenbedingung $g(x)=\sum x_k-c=0$:
+\[
+  \nabla\Big(\sum_{k=1}^n x_k^2\Big)=\mu\,\nabla g(x)
+  \quad\Longleftrightarrow\quad
+  2x_k=\mu\ \text{ für alle } k
+  \quad\Longrightarrow\quad
+  x_1=x_2=\dots=x_n.
+\]
+Zusammen mit $\sum x_k=c$ ergibt sich erneut $x_k=\tfrac{c}{n}$.
+
+\medskip
+\noindent\textbf{Fazit:} Die Musterlösung zu 3\,b) ist korrekt: Gleichheit gilt genau für
+$x=\big(\tfrac{c}{n},\dots,\tfrac{c}{n}\big)$.
+
+\end{document}

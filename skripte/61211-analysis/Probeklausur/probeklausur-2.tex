@@ -1,0 +1,178 @@
+\documentclass[a4paper,12pt]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[ngerman]{babel}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{enumitem}
+\usepackage{array}
+\usepackage{geometry}
+\geometry{a4paper, margin=2.5cm}
+\usepackage{fancyhdr}
+\usepackage{parskip}
+
+% Punkteangabe rechtsbündig am Ende eines Aufgabenteils
+\newcommand{\pkt}[1]{\hfill\textit{(#1\,P)}}
+% Kopf einer Aufgabe: \aufgabe{Nummer}{Titel}{Gesamtpunkte}
+\newcommand{\aufgabe}[3]{%
+  \bigskip\par\noindent\textbf{Aufgabe #1: #2}\hfill\textbf{#3 Punkte}%
+  \par\nobreak\medskip}
+
+\pagestyle{fancy}
+\fancyhf{}
+\lhead{\small 61211 Analysis -- Probeklausur 2}
+\rhead{\small Matr.-Nr.: \makebox[3cm]{\dotfill}}
+\cfoot{\small Seite \thepage}
+\renewcommand{\headrulewidth}{0.4pt}
+
+\begin{document}
+\thispagestyle{empty}
+
+\begin{center}
+  {\LARGE\bfseries Probeklausur 2}\\[0.4em]
+  {\large 61211 Analysis}\\[0.6em]
+  {\normalsize FernUniversität in Hagen $\cdot$ Fakultät für Mathematik und Informatik}
+\end{center}
+
+\vspace{0.8em}
+\noindent\small\textit{Diese Probeklausur ist bewusst beweisorientiert gehalten
+(Normen, Funktionenfolgen, Differenzierbarkeit, \glqq beweise oder widerlege\grqq),
+angelehnt an den Charakter der realen Klausuren.}\normalsize
+
+\vspace{1.0em}
+
+\noindent
+\begin{tabular}{@{}ll@{}}
+  Name: & \makebox[7cm]{\dotfill}\\[1.0em]
+  Vorname: & \makebox[7cm]{\dotfill}\\[1.0em]
+  Matrikelnummer: & \makebox[7cm]{\dotfill}\\
+\end{tabular}
+
+\vspace{1.2em}
+
+\begin{center}
+  \renewcommand{\arraystretch}{1.5}
+  \begin{tabular}{|l|c|c|c|c|c|c|c||c|}
+    \hline
+    \textbf{Aufgabe} & 1 & 2 & 3 & 4 & 5 & 6 & 7 & \textbf{$\Sigma$}\\
+    \hline
+    max.\ Punkte & 20 & 16 & 14 & 14 & 12 & 10 & 14 & 100\\
+    \hline
+    erreicht & & & & & & & & \\
+    \hline
+  \end{tabular}
+\end{center}
+
+\vspace{0.8em}
+
+\noindent\textbf{Bearbeitungshinweise}
+\begin{itemize}[leftmargin=1.5em, itemsep=2pt]
+  \item Die Bearbeitungszeit beträgt \textbf{120 Minuten}. Es sind alle 7 Aufgaben zu bearbeiten.
+  \item Zugelassenes Hilfsmittel: ein handbeschriebenes DIN-A4-Blatt (auch beidseitig) mit eigenen Notizen.
+  \item Verwenden Sie keinen Bleistift und keinen Rotstift.
+  \item Formulieren Sie Ihre Beweise in vollständigen Sätzen und begründen Sie jeden Schritt. Verweise auf Sätze des Kurstextes dürfen benutzt werden.
+\end{itemize}
+
+\newpage
+
+% =====================================================================
+\aufgabe{1}{Multiple Choice}{20}
+
+Kreuzen Sie an, ob die jeweilige Aussage \emph{wahr} oder \emph{falsch} ist. Für jede
+richtig beantwortete Aussage erhalten Sie $2$ Punkte, für jede unbeantwortete Aussage
+$1$ Punkt und für jede falsch beantwortete Aussage $0$ Punkte.
+
+\medskip
+\renewcommand{\arraystretch}{1.5}
+\noindent\begin{tabular}{@{}c@{\hspace{0.6em}}p{11.4cm}@{\hspace{0.8em}}c@{\hspace{1.0em}}c@{}}
+  & & \small Wahr & \small Falsch\\[0.2em]
+  (a) & Jede beschränkte Folge in einem normierten Raum besitzt eine in diesem Raum konvergente Teilfolge. & $\square$ & $\square$\\
+  (b) & In einem endlichdimensionalen normierten Raum konvergiert jede Cauchyfolge. & $\square$ & $\square$\\
+  (c) & Jede stetige Funktion $f:[a,b]\to\mathbb{R}$ (mit $a<b$) ist gleichmäßig stetig. & $\square$ & $\square$\\
+  (d) & Der punktweise Grenzwert einer Folge stetiger Funktionen $f_k:[0,1]\to\mathbb{R}$ ist stets stetig. & $\square$ & $\square$\\
+  (e) & Existieren in $a\in\mathbb{R}^2$ die Richtungsableitungen $D_v f(a)$ für \emph{jeden} Einheitsvektor $v$, so ist $f$ in $a$ stetig. & $\square$ & $\square$\\
+  (f) & Ist $f$ auf einer offenen Menge $U\subseteq\mathbb{R}^n$ stetig partiell differenzierbar, so ist $f$ auf $U$ total differenzierbar. & $\square$ & $\square$\\
+  (g) & Gilt $\operatorname{grad} f(a)=0$ und ist die Hesse-Matrix $H(a)$ positiv semidefinit, so besitzt $f$ in $a$ ein lokales Minimum. & $\square$ & $\square$\\
+  (h) & Besitzt $f$ unter der Nebenbedingung $g=0$ in $a$ ein lokales Extremum und ist $\operatorname{grad} g(a)\neq 0$, so gibt es ein $\lambda\in\mathbb{R}$ mit $\operatorname{grad} f(a)=\lambda\operatorname{grad} g(a)$. & $\square$ & $\square$\\
+  (i) & Jede stetige Funktion $f:[0,\infty[\to\mathbb{R}$ mit $\lim_{x\to\infty}f(x)=0$ ist uneigentlich Riemann-integrierbar über $[0,\infty[$. & $\square$ & $\square$\\
+  (j) & Jede stetig differenzierbare Kurve $\varphi:[a,b]\to\mathbb{R}^n$ ist rektifizierbar. & $\square$ & $\square$\\
+\end{tabular}
+
+% =====================================================================
+\aufgabe{2}{Wann ist $N_p$ eine Norm?}{16}
+
+Sei $n\ge 2$ und $p\in(0,1)$ fest. Betrachtet wird die Abbildung
+\[
+N_p:\mathbb{R}^n\to\mathbb{R},\qquad
+N_p(x)=\Big(\sum_{k=1}^n |x_k|^p\Big)^{1/p},\qquad x={}^t(x_1,\dots,x_n).
+\]
+(Für $p\ge 1$ liefert dieselbe Formel nach Satz und Definition 1.4.4 eine Norm $\|\cdot\|_p$ auf $\mathbb{R}^n$; hier ist dagegen $0<p<1$.)
+\begin{enumerate}[label=\alph*)]
+  \item Zeigen Sie, dass $N_p$ die \emph{Definitheit} erfüllt, d.\,h.\ $N_p(x)\ge 0$ für alle $x$ und $N_p(x)=0\iff x=0$. \pkt{3}
+  \item Zeigen Sie, dass $N_p$ \emph{positiv homogen} ist: $N_p(\alpha x)=|\alpha|\,N_p(x)$ für alle $\alpha\in\mathbb{R}$, $x\in\mathbb{R}^n$. \pkt{3}
+  \item Weisen Sie anhand des Beispiels $x=e_1$, $y=e_2$ (Standardbasisvektoren) nach, dass die \emph{Dreiecksungleichung} für $N_p$ verletzt ist. Folgern Sie, dass $N_p$ für $p\in(0,1)$ \textbf{keine} Norm auf $\mathbb{R}^n$ ist. Wo geht im Vergleich zu $p\ge 1$ (Minkowski-Ungleichung, Satz 1.1.8) die Bedingung $p\ge 1$ ein? \pkt{4}
+  \item Betrachten Sie nun $\displaystyle d(x,y):=\sum_{k=1}^n |x_k-y_k|^p$ (\emph{ohne} äußere $\tfrac1p$-Wurzel).
+  \begin{enumerate}[label=(\roman*)]
+    \item Beweisen Sie $(a+b)^p\le a^p+b^p$ für alle $a,b\ge 0$.
+    \item Folgern Sie, dass $d$ eine \emph{Metrik} auf $\mathbb{R}^n$ ist (Definitheit, Symmetrie, Dreiecksungleichung, vgl.\ Definition und Satz 1.4.2).
+    \item Begründen Sie kurz, dass $d$ dennoch von \emph{keiner} Norm erzeugt sein kann.
+  \end{enumerate}
+  \pkt{6}
+\end{enumerate}
+
+% =====================================================================
+\aufgabe{3}{Funktionenfolge und gleichmäßige Konvergenz}{14}
+
+Für $k\in\mathbb{N}$ sei
+\[f_k:\mathbb{R}\to\mathbb{R},\qquad f_k(x):=\frac{kx}{1+k^2x^2}.\]
+\begin{enumerate}[label=\alph*)]
+  \item Bestimmen Sie die punktweise Grenzfunktion $f$ von $(f_k)$ auf $\mathbb{R}$. \pkt{3}
+  \item Berechnen Sie $\|f_k-f\|_\infty=\sup_{x\in\mathbb{R}}|f_k(x)-f(x)|$ \emph{exakt} und entscheiden Sie, ob $(f_k)$ auf $\mathbb{R}$ gleichmäßig konvergiert. \pkt{5}
+  \item Sei $a>0$ fest. Zeigen Sie, dass $(f_k)$ auf $[a,\infty[$ gleichmäßig gegen $f$ konvergiert. \pkt{4}
+  \item Beweisen oder widerlegen Sie: \glqq Da alle $f_k$ stetig sind und die Grenzfunktion $f$ stetig ist, folgt aus dem Satz von Weierstraß 2.6.5, dass $(f_k)$ auf $\mathbb{R}$ gleichmäßig konvergiert.\grqq \pkt{2}
+\end{enumerate}
+
+% =====================================================================
+\aufgabe{4}{Richtungsableitungen und Differenzierbarkeit}{14}
+
+Sei $f:\mathbb{R}^2\to\mathbb{R}$ definiert durch
+\[
+f(x,y):=\begin{cases}\dfrac{x^3}{x^2+y^2},&(x,y)\neq(0,0),\\[1ex]0,&(x,y)=(0,0).\end{cases}
+\]
+\begin{enumerate}[label=\alph*)]
+  \item Zeigen Sie, dass $f$ in $(0,0)$ stetig ist. \pkt{4}
+  \item Zeigen Sie, dass für jeden Richtungsvektor $v=(v_1,v_2)^{T}$ mit $\|v\|_2=1$ die Richtungsableitung $D_v f(0,0)$ existiert, und berechnen Sie sie. Geben Sie insbesondere $\operatorname{grad} f(0,0)$ an. \pkt{6}
+  \item Entscheiden Sie mit Begründung, ob $f$ in $(0,0)$ (total) differenzierbar ist. \pkt{4}
+\end{enumerate}
+
+% =====================================================================
+\aufgabe{5}{Extremum unter einer Nebenbedingung}{12}
+
+Für welches Paar positiver Zahlen $(x,y)$ mit $x+y=5$ wird $f(x,y)=x^3y^2$ maximal?
+\begin{enumerate}[label=\alph*)]
+  \item Bestimmen Sie mit der Methode der Lagrangemultiplikatoren (Satz 4.5.9) alle Punkte der Menge $M(g)=\{(x,y): x>0,\ y>0,\ x+y-5=0\}$, die als Extremalstelle von $f|_{M(g)}$ in Frage kommen, und geben Sie den zugehörigen Multiplikator $\lambda$ an. \pkt{8}
+  \item Begründen Sie, dass $f|_{M(g)}$ dort tatsächlich ein globales Maximum annimmt. \emph{Hinweis:} Verhalten von $f$ am \glqq Rand\grqq{} $x\to0^+$ bzw. $y\to0^+$. \pkt{4}
+\end{enumerate}
+
+% =====================================================================
+\aufgabe{6}{Beweise oder widerlege: Grenzwert und Integral}{10}
+
+Beweisen oder widerlegen Sie die folgende Aussage:
+\begin{quote}
+\itshape Sei $(f_k)$ eine Folge in $R([0,1])$, die punktweise gegen $f\in R([0,1])$ konvergiert. Dann gilt stets $\displaystyle\lim_{k\to\infty}\int_0^1 f_k(x)\,dx=\int_0^1 f(x)\,dx$.
+\end{quote}
+Betrachten Sie zur Untersuchung die Folge $f_k:[0,1]\to\mathbb{R}$, $f_k(x):=k\,x\,(1-x^2)^k$.
+
+% =====================================================================
+\aufgabe{7}{Beweise oder widerlege: Kurvenintegrale}{14}
+
+Beweisen oder widerlegen Sie:
+\begin{enumerate}[label=\alph*)]
+  \item Für jede stückweise glatte geschlossene Kurve $W$ in $\mathbb{R}^2$ und jedes auf einem Gebiet $G\supseteq|W|$ stetige Vektorfeld $f$ gilt $\displaystyle\int_W f\cdot dx=0$. \pkt{7}
+  \item Erfüllt ein stetig differenzierbares Vektorfeld $f:G\to\mathbb{R}^n$ auf einem Gebiet $G$ die Integrabilitätsbedingungen $D_i f_j=D_j f_i$, so besitzt $f$ eine Stammfunktion. \pkt{7}
+\end{enumerate}
+
+\vfill
+\begin{center}\small Viel Erfolg!\end{center}
+
+\end{document}

@@ -1,0 +1,169 @@
+\documentclass[a4paper,12pt]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[ngerman]{babel}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{enumitem}
+\usepackage{array}
+\usepackage{geometry}
+\geometry{a4paper, margin=2.5cm}
+\usepackage{fancyhdr}
+\usepackage{parskip}
+
+\providecommand{\qed}{\hfill\ensuremath{\blacksquare}}
+\newcommand{\aufgabe}[2]{%
+  \bigskip\par\noindent\textbf{Aufgabe #1: #2}\par\nobreak\medskip}
+
+\pagestyle{fancy}
+\fancyhf{}
+\lhead{\small 61211 Analysis -- Probeklausur}
+\rhead{\small Lösungsvorschlag}
+\cfoot{\small Seite \thepage}
+\renewcommand{\headrulewidth}{0.4pt}
+
+\begin{document}
+
+\begin{center}
+  {\LARGE\bfseries Probeklausur 61211 Analysis}\\[0.4em]
+  {\large Lösungsvorschlag}
+\end{center}
+
+\medskip
+\noindent\textit{Dieser Lösungsvorschlag dient der Selbstkontrolle. Zitierte Satznummern
+beziehen sich auf den Kurstext 61211 Analysis.}
+
+% =====================================================================
+\aufgabe{1}{Multiple Choice}
+
+\renewcommand{\arraystretch}{1.4}
+\noindent\begin{tabular}{@{}c@{\hspace{0.8em}}c@{\hspace{0.8em}}p{12.5cm}@{}}
+  (a) & \textbf{Wahr} & $\|x\|_1^2=\|x\|_2^2+2\sum_{i<j}|x_i||x_j|\ge\|x\|_2^2$, also $\|x\|_2\le\|x\|_1$.\\
+  (b) & \textbf{Wahr} & $(\mathbb{R}^n,\|\cdot\|_2)$ ist vollständig (Satz~1.5.18), also konvergiert jede Cauchyfolge.\\
+  (c) & \textbf{Falsch} & Auf $\mathbb{R}^n$ sind je zwei Normen äquivalent (Satz~1.5.11); insbesondere $\|\cdot\|_1$ und $\|\cdot\|_\infty$.\\
+  (d) & \textbf{Wahr} & Satz~2.4.12 (stetiges Bild zusammenhängender Mengen).\\
+  (e) & \textbf{Falsch} & Gegenbeispiel $f(x)=x$: kein Maximum. Der Satz vom Maximum braucht Kompaktheit; $\mathbb{R}$ ist nicht kompakt.\\
+  (f) & \textbf{Falsch} & Partielle Differenzierbarkeit impliziert weder Stetigkeit noch totale Differenzierbarkeit.\\
+  (g) & \textbf{Wahr} & Aus $D_v f(a)=\operatorname{grad} f(a)\cdot v$ (Satz~3.6.7) und Cauchy-Schwarz folgt: das Maximum über $\|v\|_2=1$ wird in Richtung von $\operatorname{grad} f(a)$ angenommen.\\
+  (h) & \textbf{Wahr} & Ist die Hesse-Matrix im kritischen Punkt indefinit, so liegt kein lokales Extremum vor (Sattelpunkt), vgl.\ die hinreichende Bedingung Satz~4.5.6.\\
+  (i) & \textbf{Falsch} & Für die Vertauschung von Limes und Integral genügt punktweise Konvergenz nicht; man braucht gleichmäßige Konvergenz (Satz~5.1.15). Gegenbeispiel: geeignete \glqq Buckelfolgen\grqq.\\
+  (j) & \textbf{Wahr} & Besitzt $f$ eine Stammfunktion, so ist $\int_W f\cdot dx=F(b)-F(a)$ (Satz~6.4.4), also wegunabhängig.\\
+\end{tabular}
+
+\medskip
+\noindent Antworten kompakt: (a) W, (b) W, (c) F, (d) W, (e) F, (f) F, (g) W, (h) W, (i) F, (j) W.
+
+% =====================================================================
+\aufgabe{2}{Gradient und Richtungsableitung}
+
+\textbf{a)} $f$ ist eine Polynomfunktion; nach Beispiel~3.6.5 sind Polynomfunktionen auf $\mathbb{R}^n$ differenzierbar. Die partiellen Ableitungen sind
+\[ D_1f=2xy-z,\quad D_2f=x^2+z^2,\quad D_3f=2yz-x. \]
+An der Stelle $a=(1,-1,2)$:
+\[ D_1f(a)=2\cdot1\cdot(-1)-2=-4,\quad D_2f(a)=1^2+2^2=5,\quad D_3f(a)=2\cdot(-1)\cdot2-1=-5, \]
+also $\operatorname{grad} f(a)=(-4,\,5,\,-5)$.
+
+\textbf{b)} $\|v\|_2^2=\tfrac19(2^2+(-2)^2+1^2)=\tfrac19(4+4+1)=1$, also $\|v\|_2=1$: zulässig. Da $f$ differenzierbar ist, gilt nach Satz~3.6.7
+\begin{align*}
+  D_v f(a)&=\operatorname{grad} f(a)\cdot v=(-4,5,-5)\cdot\tfrac13(2,-2,1)\\
+  &=\tfrac13\bigl((-4)\cdot2+5\cdot(-2)+(-5)\cdot1\bigr)=\tfrac13(-8-10-5)=-\tfrac{23}{3}.
+\end{align*}
+
+\textbf{c)} Nach Satz~3.6.7 wird $D_w f(a)$ maximal, wenn $w$ die Richtung von $\bigl(\operatorname{grad} f(a)\bigr)^{T}=(-4,5,-5)^{T}$ hat, d.h.
+\[ w_{\max}=\frac{1}{\|\operatorname{grad} f(a)\|_2}(-4,5,-5)^{T}=\frac{1}{\sqrt{66}}(-4,5,-5)^{T}, \]
+denn $\|\operatorname{grad} f(a)\|_2=\sqrt{(-4)^2+5^2+(-5)^2}=\sqrt{16+25+25}=\sqrt{66}$. Der maximale Wert ist
+\[ D_{w_{\max}}f(a)=\|\operatorname{grad} f(a)\|_2=\sqrt{66}. \qed \]
+
+% =====================================================================
+\aufgabe{3}{Cauchy-Schwarz als Werkzeug}
+
+\textbf{a)} Wende die Cauchy-Schwarzsche Ungleichung~1.1.8 auf die Vektoren $x=(x_1,\dots,x_n)$ und $y=(1,1,\dots,1)$ an:
+\[ \Big|\sum_{k=1}^n x_k\cdot 1\Big| \le \sqrt{\sum_{k=1}^n x_k^2}\;\sqrt{\sum_{k=1}^n 1^2}
+   =\sqrt{\sum_{k=1}^n x_k^2}\cdot\sqrt{n}. \]
+Die linke Seite ist $\big|\sum x_k\big|=|c|$. Quadrieren (beide Seiten $\ge0$) liefert $c^2\le n\sum_{k=1}^n x_k^2$, also
+\[ \sum_{k=1}^n x_k^2 \ge \frac{c^2}{n}. \]
+
+\textbf{b)} In der Cauchy-Schwarzschen Ungleichung gilt Gleichheit genau dann, wenn die Vektoren $x$ und $y=(1,\dots,1)$ proportional sind, hier also $x_k=\lambda\cdot 1=\lambda$ für ein $\lambda\in\mathbb{R}$ und alle $k$. Aus der Nebenbedingung $\sum x_k = n\lambda = c$ folgt $\lambda=\tfrac{c}{n}$. Gleichheit gilt also genau für den konstanten Vektor
+\[ x=\Big(\tfrac{c}{n},\tfrac{c}{n},\dots,\tfrac{c}{n}\Big), \]
+denn dann ist $\sum x_k^2 = n\cdot\big(\tfrac{c}{n}\big)^2=\tfrac{c^2}{n}$.
+
+\textbf{c)} Für $n=5$, $c=10$: $\displaystyle \sum_{k=1}^5 x_k^2 \ge \frac{10^2}{5}=\frac{100}{5}=20.$ Der Minimalwert $20$ wird genau für $x=(2,2,2,2,2)$ angenommen (denn $\tfrac{c}{n}=\tfrac{10}{5}=2$ und $5\cdot 2^2=20$). \qed
+
+% =====================================================================
+\aufgabe{4}{Stammfunktion und Wegunabhängigkeit}
+
+\textbf{a)} $f$ ist stetig differenzierbar mit
+\[ D_1 f_2(x,y)=2x+\cos(xy)-xy\sin(xy),\qquad D_2 f_1(x,y)=2x+\cos(xy)-xy\sin(xy), \]
+denn $D_1\big(x\cos(xy)\big)=\cos(xy)-xy\sin(xy)$ und $D_2\big(y\cos(xy)\big)=\cos(xy)-xy\sin(xy)$. Also gilt $D_1 f_2=D_2 f_1$; die Integrabilitätsbedingung ist erfüllt. Da $\mathbb{R}^2$ sternförmig ist, besitzt $f$ nach Satz~6.4.6 eine Stammfunktion. Man errät (Stammfunktion von $f_1$ bezüglich $x$)
+\[ F(x,y):=x^{2}y+\sin(xy). \]
+Probe: $D_1 F=2xy+y\cos(xy)=f_1$ und $D_2 F=x^{2}+x\cos(xy)=f_2$. Also ist $F$ Stammfunktion, $f$ ein Gradientenfeld.
+
+\textbf{b)} Nach dem Satz über die Wegunabhängigkeit~6.4.4 gilt für die stückweise glatte Kurve $W$ von $a$ nach $b$
+\[ \int_W f\cdot d\!\begin{pmatrix}x\\y\end{pmatrix}=F(b)-F(a)=F\!\Big(1,\tfrac{\pi}{2}\Big)-F(0,0). \]
+Es ist $F(1,\tfrac{\pi}{2})=1^{2}\cdot\tfrac{\pi}{2}+\sin\!\big(\tfrac{\pi}{2}\big)=\tfrac{\pi}{2}+1$ und $F(0,0)=0$, also
+\[ \int_W f\cdot d\!\begin{pmatrix}x\\y\end{pmatrix}=\frac{\pi}{2}+1. \]
+Kontrollrechnung direkt: Auf $S(a,c)$ mit $\varphi(t)=(t,0)$, $\dot\varphi=\binom10$, ist $f_1(\varphi)=0$, Beitrag $0$. Auf $S(c,b)$ mit $\varphi(t)=(1,\tfrac{\pi}{2}t)$, $t\in[0,1]$, $\dot\varphi=\binom{0}{\pi/2}$ und $f_2(\varphi)=1+\cos(\tfrac{\pi}{2}t)$, also $\int_0^1(1+\cos(\tfrac{\pi}{2}t))\tfrac{\pi}{2}\,dt=\tfrac{\pi}{2}+\big[\sin(\tfrac{\pi}{2}t)\big]_0^1=\tfrac{\pi}{2}+1$. Bestätigt.
+
+\textbf{c)} Da $f$ auf ganz $\mathbb{R}^2$ eine Stammfunktion $F$ besitzt, hängt das Kurvenintegral nach 6.4.4 nur von Anfangspunkt $a$ und Endpunkt $b$ ab, nicht vom Verlauf der Kurve; jede stückweise glatte Kurve von $a$ nach $b$ liefert $F(b)-F(a)=\tfrac{\pi}{2}+1$. \qed
+
+% =====================================================================
+\aufgabe{5}{Satz über implizite Funktionen}
+
+Wir schreiben $z=\,^{t}(x,y,u,v)$ und fassen $(x,y)$ als \glqq freie\grqq{} und $(u,v)$ als \glqq abhängige\grqq{} Variablen auf.
+
+\textbf{a)} \textit{Nullstelle:} $F_1(c)=1^2+0^2+1-1-1=0$, $F_2(c)=1+0+1\cdot1-2=0$, also $F(c)=0$. $F$ ist als Polynomabbildung stetig differenzierbar. Die Funktionalmatrix bezüglich $(u,v)$ ist
+\[ F'_{(u,v)}(z)=\begin{pmatrix} D_uF_1 & D_vF_1\\ D_uF_2 & D_vF_2\end{pmatrix}=\begin{pmatrix} 2u & 2v\\ 1 & 1\end{pmatrix},\qquad
+   F'_{(u,v)}(c)=\begin{pmatrix} 2 & 0\\ 1 & 1\end{pmatrix}. \]
+Deren Determinante ist $2\cdot1-0\cdot1=2\neq 0$, also $\operatorname{Rang}F'_{(u,v)}(c)=2$. Damit sind alle Voraussetzungen von Satz~4.2.3 erfüllt: Es gibt offene Umgebungen $U$ von $(1,1)$ und $V$ von $(1,0)$ und ein stetig differenzierbares $g:U\to V$ mit $F(x,y,g(x,y))=0$ und $g(1,1)=(1,0)$.
+
+\textbf{b)} Nach 4.2.3(ii) gilt $g'(1,1)=-\bigl[F'_{(u,v)}(c)\bigr]^{-1}F'_{(x,y)}(c)$. Die Ableitung nach $(x,y)$ ist
+\[ F'_{(x,y)}(z)=\begin{pmatrix} D_xF_1 & D_yF_1\\ D_xF_2 & D_yF_2\end{pmatrix}=\begin{pmatrix} 1 & -1\\ y & x\end{pmatrix},\qquad
+   F'_{(x,y)}(c)=\begin{pmatrix} 1 & -1\\ 1 & 1\end{pmatrix}. \]
+Die Inverse von $\begin{pmatrix}2&0\\1&1\end{pmatrix}$ ist $\dfrac{1}{2}\begin{pmatrix}1&0\\-1&2\end{pmatrix}=\begin{pmatrix}\tfrac12&0\\[2pt]-\tfrac12&1\end{pmatrix}$. Somit
+\[ g'(1,1)=-\begin{pmatrix}\tfrac12&0\\[2pt]-\tfrac12&1\end{pmatrix}\begin{pmatrix}1&-1\\1&1\end{pmatrix}
+   = -\begin{pmatrix}\tfrac12&-\tfrac12\\[2pt]\tfrac12&\tfrac32\end{pmatrix}
+   = \begin{pmatrix}-\tfrac12&\tfrac12\\[2pt]-\tfrac12&-\tfrac32\end{pmatrix}. \]
+
+\textbf{c)} Ja. Für die Auflösung nach $(x,y)$ ist der Rang der Untermatrix der Ableitungen nach $(x,y)$ entscheidend. Aus b) ist $F'_{(x,y)}(c)=\begin{pmatrix}1&-1\\1&1\end{pmatrix}$ mit Determinante $1\cdot1-(-1)\cdot1=2\neq0$, also Rang $2$. Da $F(c)=0$ und $F$ stetig differenzierbar ist, sind (nach Umbenennung der Rollen von \glqq freien\grqq{} und \glqq abhängigen\grqq{} Variablen in Satz~4.2.3) auch hier alle Voraussetzungen erfüllt: $F(x,y,u,v)=0$ ist nahe $c$ eindeutig nach $(x,y)$ auflösbar. \qed
+
+% =====================================================================
+\aufgabe{6}{Zusammenhang und ganzzahlige Werte}
+
+\textbf{a)} Da $M$ zusammenhängend und $f:M\to\mathbb{R}$ stetig ist, ist nach Satz~2.4.12 das Bild $f(M)\subseteq\mathbb{R}$ zusammenhängend. Nach Satz~2.4.11 sind die zusammenhängenden Teilmengen von $\mathbb{R}$ genau die Intervalle; also ist $f(M)$ ein Intervall.
+
+Angenommen, $f$ wäre nicht konstant. Dann gäbe es $x,y\in M$ mit $f(x)\neq f(y)$, o.\,B.\,d.\,A.\ $f(x)<f(y)$. Nach dem verallgemeinerten Zwischenwertsatz 2.4.13(iii) wird jeder Wert $c$ mit $f(x)<c<f(y)$ angenommen. Da ein nichtentartetes reelles Intervall überabzählbar viele nicht-ganze Zahlen enthält, gibt es einen nicht-ganzzahligen Zwischenwert $c\in\,]f(x),f(y)[\,\setminus\mathbb{Z}$, und dazu ein $z\in M$ mit $f(z)=c\notin\mathbb{Z}$ --- Widerspruch zu $f(M)\subseteq\mathbb{Z}$.
+
+Also ist $f$ konstant. (Kurzfassung: $f(M)$ ist ein in $\mathbb{Z}$ enthaltenes Intervall; ein Intervall, das nur ganze Zahlen enthält, besteht aus höchstens einem Punkt.)
+
+\textbf{b)} Die Aussage wird \emph{falsch}, wenn man den Zusammenhang weglässt. Gegenbeispiel: $X=\mathbb{R}$, $M:=\{0,1\}$ (nicht zusammenhängend, denn eine zweielementige Menge ist nach Beispiel~2.4.10(2) nicht zusammenhängend). Definiere $f:M\to\mathbb{R}$ durch $f(0):=0$, $f(1):=1$. $f$ ist stetig (jeder Punkt von $M$ ist isoliert, also ist $f$ dort lokal konstant und nach Satz~2.3.4 stetig), und es gilt $f(M)=\{0,1\}\subseteq\mathbb{Z}$, aber $f$ ist nicht konstant. \qed
+
+% =====================================================================
+\aufgabe{7}{Fourierreihe}
+
+\textbf{a)} Auf $[-\pi,\pi]$ ist $f(x)=\cos(x/2)$; wegen $\cos(-x/2)=\cos(x/2)$ ist $f$ gerade, und als stetige Funktion ist $f|_{]-\pi,\pi]}$ integrierbar. Da $f$ gerade ist, verschwinden die Sinuskoeffizienten, $b_k=0$ für alle $k\in\mathbb{N}$, und
+\[ a_k=\frac{2}{\pi}\int_0^\pi \cos\!\Big(\frac{x}{2}\Big)\cos(kx)\,dx. \]
+Mit $\cos A\cos B=\tfrac12[\cos(A+B)+\cos(A-B)]$ und $A=x/2$, $B=kx$:
+\[ a_k=\frac{1}{\pi}\int_0^\pi\Big[\cos\!\big((k+\tfrac12)x\big)+\cos\!\big((k-\tfrac12)x\big)\Big]dx
+   = \frac{1}{\pi}\left[\frac{\sin((k+\frac12)x)}{k+\frac12}+\frac{\sin((k-\frac12)x)}{k-\frac12}\right]_0^\pi. \]
+An der oberen Grenze ist $\sin\!\big((k\pm\tfrac12)\pi\big)=\sin(k\pi\pm\tfrac{\pi}{2})=\pm\cos(k\pi)=\pm(-1)^k$; an der unteren Grenze verschwinden beide Terme. Also
+\[ a_k=\frac{1}{\pi}\left[\frac{(-1)^k}{k+\frac12}-\frac{(-1)^k}{k-\frac12}\right]
+   = \frac{(-1)^k}{\pi}\cdot\frac{(k-\frac12)-(k+\frac12)}{(k+\frac12)(k-\frac12)}
+   = \frac{(-1)^k}{\pi}\cdot\frac{-1}{k^2-\frac14}. \]
+Mit $k^2-\tfrac14=\tfrac14(4k^2-1)$ folgt
+\[ a_k=\frac{(-1)^{k+1}}{\pi\,(k^2-\frac14)}=\frac{4(-1)^{k+1}}{\pi\,(4k^2-1)}\qquad(k\in\mathbb{N}_0). \]
+(Speziell $a_0=\tfrac{4}{\pi}$; direkt: $a_0=\tfrac{2}{\pi}\int_0^\pi\cos(x/2)\,dx=\tfrac{2}{\pi}[2\sin(x/2)]_0^\pi=\tfrac{4}{\pi}$.) Die Fourierreihe lautet also
+\[ \frac{a_0}{2}+\sum_{k=1}^\infty a_k\cos(kx)=\frac{2}{\pi}+\frac{4}{\pi}\sum_{k=1}^\infty \frac{(-1)^{k+1}}{4k^2-1}\cos(kx). \]
+
+\textbf{b)} Die $2\pi$-periodische Funktion $f$ ist stetig (denn $\cos(\pi/2)=\cos(-\pi/2)=0$, die Nahtwerte passen) und in jedem Punkt rechts- und linksseitig differenzierbar. Nach dem Darstellungssatz~5.4.9 konvergiert die Fourierreihe daher in jedem $x\in\mathbb{R}$ gegen $f(x)$:
+\[ \cos\!\Big(\frac{x}{2}\Big)=\frac{2}{\pi}+\frac{4}{\pi}\sum_{k=1}^\infty\frac{(-1)^{k+1}}{4k^2-1}\cos(kx)\qquad(x\in[-\pi,\pi]). \]
+
+\emph{Auswertung bei $x=\pi$:} $f(\pi)=\cos(\pi/2)=0$ und $\cos(k\pi)=(-1)^k$, also
+\[ 0=\frac{2}{\pi}+\frac{4}{\pi}\sum_{k=1}^\infty\frac{(-1)^{k+1}(-1)^k}{4k^2-1}
+   = \frac{2}{\pi}-\frac{4}{\pi}\sum_{k=1}^\infty\frac{1}{4k^2-1}, \]
+wegen $(-1)^{k+1}(-1)^k=-1$. Auflösen ergibt $\displaystyle\sum_{k=1}^\infty\frac{1}{4k^2-1}=\frac{1}{2}.$
+
+\emph{Auswertung bei $x=0$:} $f(0)=\cos 0=1$ und $\cos 0=1$, also
+\[ 1=\frac{2}{\pi}+\frac{4}{\pi}\sum_{k=1}^\infty\frac{(-1)^{k+1}}{4k^2-1}
+   \ \Longrightarrow\ \sum_{k=1}^\infty\frac{(-1)^{k+1}}{4k^2-1}=\frac{\pi}{4}\Big(1-\frac{2}{\pi}\Big)=\frac{\pi}{4}-\frac{1}{2}. \]
+(Kontrolle: $\frac{1}{4k^2-1}=\frac{1}{2}\big(\frac{1}{2k-1}-\frac{1}{2k+1}\big)$ ist eine Teleskopreihe mit Summe $\tfrac12$ --- konsistent.) \qed
+
+\end{document}

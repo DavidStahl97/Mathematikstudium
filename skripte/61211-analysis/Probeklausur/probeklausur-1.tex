@@ -1,0 +1,173 @@
+\documentclass[a4paper,12pt]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[ngerman]{babel}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{enumitem}
+\usepackage{array}
+\usepackage{geometry}
+\geometry{a4paper, margin=2.5cm}
+\usepackage{fancyhdr}
+\usepackage{parskip}
+
+% Punkteangabe rechtsbündig am Ende eines Aufgabenteils
+\newcommand{\pkt}[1]{\hfill\textit{(#1\,P)}}
+% Kopf einer Aufgabe: \aufgabe{Nummer}{Titel}{Gesamtpunkte}
+\newcommand{\aufgabe}[3]{%
+  \bigskip\par\noindent\textbf{Aufgabe #1: #2}\hfill\textbf{#3 Punkte}%
+  \par\nobreak\medskip}
+
+\pagestyle{fancy}
+\fancyhf{}
+\lhead{\small 61211 Analysis -- Probeklausur}
+\rhead{\small Matr.-Nr.: \makebox[3cm]{\dotfill}}
+\cfoot{\small Seite \thepage}
+\renewcommand{\headrulewidth}{0.4pt}
+
+\begin{document}
+\thispagestyle{empty}
+
+\begin{center}
+  {\LARGE\bfseries Probeklausur}\\[0.4em]
+  {\large 61211 Analysis}\\[0.6em]
+  {\normalsize FernUniversität in Hagen $\cdot$ Fakultät für Mathematik und Informatik}
+\end{center}
+
+\vspace{1.2em}
+
+\noindent
+\begin{tabular}{@{}ll@{}}
+  Name: & \makebox[7cm]{\dotfill}\\[1.0em]
+  Vorname: & \makebox[7cm]{\dotfill}\\[1.0em]
+  Matrikelnummer: & \makebox[7cm]{\dotfill}\\
+\end{tabular}
+
+\vspace{1.5em}
+
+\begin{center}
+  \renewcommand{\arraystretch}{1.5}
+  \begin{tabular}{|l|c|c|c|c|c|c|c||c|}
+    \hline
+    \textbf{Aufgabe} & 1 & 2 & 3 & 4 & 5 & 6 & 7 & \textbf{$\Sigma$}\\
+    \hline
+    max.\ Punkte & 20 & 12 & 12 & 12 & 16 & 14 & 14 & 100\\
+    \hline
+    erreicht & & & & & & & & \\
+    \hline
+  \end{tabular}
+\end{center}
+
+\vspace{1.0em}
+
+\noindent\textbf{Bearbeitungshinweise}
+\begin{itemize}[leftmargin=1.5em, itemsep=2pt]
+  \item Die Bearbeitungszeit beträgt \textbf{120 Minuten}. Es sind alle 7 Aufgaben zu bearbeiten.
+  \item Zugelassenes Hilfsmittel: ein handbeschriebenes DIN-A4-Blatt (auch beidseitig) mit eigenen Notizen.
+  \item Verwenden Sie keinen Bleistift und keinen Rotstift.
+  \item Formulieren Sie Ihre Lösungen in vollständigen Sätzen und begründen Sie Ihre Schritte. Verweise auf Sätze des Kurstextes dürfen benutzt werden.
+\end{itemize}
+
+\newpage
+
+% =====================================================================
+\aufgabe{1}{Multiple Choice}{20}
+
+Kreuzen Sie an, ob die jeweilige Aussage \emph{wahr} oder \emph{falsch} ist. Für jede
+richtig beantwortete Aussage erhalten Sie $2$ Punkte, für jede unbeantwortete Aussage
+$1$ Punkt und für jede falsch beantwortete Aussage $0$ Punkte.
+
+\medskip
+\renewcommand{\arraystretch}{1.5}
+\noindent\begin{tabular}{@{}c@{\hspace{0.6em}}p{11.4cm}@{\hspace{0.8em}}c@{\hspace{1.0em}}c@{}}
+  & & \small Wahr & \small Falsch\\[0.2em]
+  (a) & Für alle $x\in\mathbb{R}^n$ gilt $\|x\|_2 \le \|x\|_1$. & $\square$ & $\square$\\
+  (b) & Jede Cauchyfolge in $(\mathbb{R}^n,\|\cdot\|_2)$ konvergiert. & $\square$ & $\square$\\
+  (c) & Auf $\mathbb{R}^n$ sind die Normen $\|\cdot\|_1$ und $\|\cdot\|_\infty$ \emph{nicht} äquivalent. & $\square$ & $\square$\\
+  (d) & Das stetige Bild einer zusammenhängenden Menge ist zusammenhängend. & $\square$ & $\square$\\
+  (e) & Jede auf ganz $\mathbb{R}$ stetige Funktion $f:\mathbb{R}\to\mathbb{R}$ nimmt ihr Maximum an. & $\square$ & $\square$\\
+  (f) & Ist $f:\mathbb{R}^2\to\mathbb{R}$ in $a$ partiell differenzierbar, so ist $f$ in $a$ total differenzierbar. & $\square$ & $\square$\\
+  (g) & Ist $f:\mathbb{R}^n\to\mathbb{R}$ in $a$ differenzierbar mit $\operatorname{grad} f(a)\neq 0$, so zeigt $\operatorname{grad} f(a)$ in die Richtung des stärksten Anstiegs von $f$ in $a$. & $\square$ & $\square$\\
+  (h) & Ist die Hesse-Matrix einer zweimal stetig differenzierbaren Funktion $f$ in einem kritischen Punkt $a$ indefinit, so besitzt $f$ in $a$ kein lokales Extremum. & $\square$ & $\square$\\
+  (i) & Konvergiert eine Folge stetiger Funktionen $f_k:[a,b]\to\mathbb{R}$ punktweise gegen $f$, so gilt stets $\displaystyle\int_a^b f_k(t)\,dt \longrightarrow \int_a^b f(t)\,dt$. & $\square$ & $\square$\\
+  (j) & Besitzt ein stetiges Vektorfeld $f:G\to\mathbb{R}^n$ auf einem Gebiet $G$ eine Stammfunktion, so sind seine Kurvenintegrale wegunabhängig. & $\square$ & $\square$\\
+\end{tabular}
+
+% =====================================================================
+\aufgabe{2}{Gradient und Richtungsableitung}{12}
+
+Sei $f:\mathbb{R}^3\to\mathbb{R}$, $f(x,y,z):=x^2y+yz^2-xz$, und $a:=(1,-1,2)^{T}$.
+\begin{enumerate}[label=\alph*)]
+  \item Begründen Sie kurz, dass $f$ auf ganz $\mathbb{R}^3$ differenzierbar ist, und berechnen Sie $\operatorname{grad} f(a)$. \pkt{4}
+  \item Berechnen Sie die Richtungsableitung $D_v f(a)$ für $v:=\tfrac13(2,-2,1)^{T}$. Weisen Sie zuvor nach, dass $v$ ein zulässiger Richtungsvektor ist. \pkt{4}
+  \item In welche Richtung wächst $f$ im Punkt $a$ am stärksten, und wie groß ist dort der maximale Wert einer Richtungsableitung $D_w f(a)$ (über alle $\|w\|_2=1$)? \pkt{4}
+\end{enumerate}
+
+% =====================================================================
+\aufgabe{3}{Cauchy-Schwarz als Werkzeug}{12}
+
+Sei $n\in\mathbb{N}$ und $c\in\mathbb{R}$ fest. Betrachten Sie alle Vektoren
+$x=(x_1,\dots,x_n)\in\mathbb{R}^n$ mit $\sum_{k=1}^n x_k = c$.
+\begin{enumerate}[label=\alph*)]
+  \item Beweisen Sie mit der Cauchy-Schwarzschen Ungleichung (Satz~1.1.8), dass für jedes solche $x$ gilt
+  \[ \sum_{k=1}^n x_k^2 \ge \frac{c^2}{n}. \]
+  \pkt{5}
+  \item Bestimmen Sie alle $x$, für die in a) Gleichheit gilt. \emph{Hinweis:} Überlegen Sie, wann in der Cauchy-Schwarzschen Ungleichung Gleichheit eintritt. \pkt{4}
+  \item Werten Sie das Ergebnis für $n=5$, $c=10$ konkret aus: Wie lautet der kleinstmögliche Wert von $\sum x_k^2$, und für welches $x$ wird er angenommen? \pkt{3}
+\end{enumerate}
+
+% =====================================================================
+\aufgabe{4}{Stammfunktion und Wegunabhängigkeit}{12}
+
+Gegeben sei das Vektorfeld
+\[ f:\mathbb{R}^2\longrightarrow\mathbb{R}^2,\qquad
+   f(x,y):=\begin{pmatrix} 2xy+y\cos(xy)\\ x^{2}+x\cos(xy)\end{pmatrix}. \]
+\begin{enumerate}[label=\alph*)]
+  \item Prüfen Sie, ob $f$ ein Gradientenfeld ist, und bestimmen Sie gegebenenfalls eine Stammfunktion $F$. \pkt{6}
+  \item Berechnen Sie $\displaystyle\int_W f\cdot d\!\begin{pmatrix}x\\y\end{pmatrix}$ für die Kurve $W:=S(a,c)+S(c,b)$ mit
+  $a=\binom{0}{0}$, $c=\binom{1}{0}$, $b=\binom{1}{\pi/2}$. Dabei bezeichne $S(p,q)$ die geradlinige Verbindungsstrecke von $p$ nach $q$. \pkt{4}
+  \item Warum liefert jede andere stückweise glatte Kurve von $a$ nach $b$ denselben Wert? \pkt{2}
+\end{enumerate}
+
+% =====================================================================
+\aufgabe{5}{Satz über implizite Funktionen}{16}
+
+Betrachtet werde $F=\,^{t}(F_1,F_2):\mathbb{R}^4\to\mathbb{R}^2$ mit
+\[ F_1(x,y,u,v):=u^2+v^2+x-y-1,\qquad F_2(x,y,u,v):=u+v+xy-2, \]
+und der Punkt $c=\,^{t}(1,1,1,0)$.
+\begin{enumerate}[label=\alph*)]
+  \item Zeigen Sie $F(c)=0$ und dass sich die Gleichung $F(x,y,u,v)=0$ in einer Umgebung von $c$ eindeutig \glqq nach $(u,v)$ auflösen\grqq{} lässt, d.h.\ es gibt eine stetig differenzierbare Funktion $g=\,^{t}(g_1,g_2)$ auf einer Umgebung $U$ von $(1,1)$ mit $(u,v)=g(x,y)$ und $g(1,1)=(1,0)$. \pkt{7}
+  \item Berechnen Sie die Jacobi-Matrix $g'(1,1)$. \pkt{6}
+  \item Lässt sich $F(x,y,u,v)=0$ nahe $c$ auch eindeutig \glqq nach $(x,y)$ auflösen\grqq? Begründen Sie kurz (ohne die auflösende Funktion anzugeben). \pkt{3}
+\end{enumerate}
+
+% =====================================================================
+\aufgabe{6}{Zusammenhang und ganzzahlige Werte}{14}
+
+Sei $(X,\|\cdot\|)$ ein normierter Raum, $\emptyset\neq M\subseteq X$ eine
+\emph{zusammenhängende} Teilmenge und $f:M\to\mathbb{R}$ stetig.
+\begin{enumerate}[label=\alph*)]
+  \item Beweisen Sie: Nimmt $f$ nur ganzzahlige Werte an (d.h.\ $f(M)\subseteq\mathbb{Z}$), so ist $f$ konstant. \pkt{9}
+  \item Beweisen oder widerlegen Sie: Die Aussage aus a) bleibt richtig, wenn man die Voraussetzung \glqq $M$ zusammenhängend\grqq{} streicht. \pkt{5}
+\end{enumerate}
+Benutzen Sie ausschließlich Sätze aus Kapitel~2.
+
+% =====================================================================
+\aufgabe{7}{Fourierreihe}{14}
+
+Sei $f:\mathbb{R}\to\mathbb{R}$ die $2\pi$-periodische Fortsetzung von
+\[ f(x)=\cos\!\Big(\frac{x}{2}\Big),\qquad x\in[-\pi,\pi]. \]
+\begin{enumerate}[label=\alph*)]
+  \item Zeigen Sie, dass $f$ gerade ist, und berechnen Sie die Fourierkoeffizienten. Weisen Sie nach, dass
+  \[ a_k=\frac{4(-1)^{k+1}}{\pi\,(4k^{2}-1)}\ (k\in\mathbb{N}_0),\qquad b_k=0\ (k\in\mathbb{N}). \]
+  \pkt{8}
+  \item Begründen Sie mit dem Darstellungssatz~5.4.9, dass $f$ in jedem Punkt durch seine Fourierreihe dargestellt wird, und leiten Sie durch Auswertung an geeigneten Stellen die Reihensummen
+  \[ \sum_{k=1}^{\infty}\frac{1}{4k^{2}-1}=\frac{1}{2}\qquad\text{und}\qquad
+     \sum_{k=1}^{\infty}\frac{(-1)^{k+1}}{4k^{2}-1}=\frac{\pi}{4}-\frac{1}{2} \]
+  her. \pkt{6}
+\end{enumerate}
+
+\vfill
+\begin{center}\small Viel Erfolg!\end{center}
+
+\end{document}

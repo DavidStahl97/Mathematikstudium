@@ -1,0 +1,2948 @@
+\documentclass[a4paper,12pt]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[ngerman]{babel}
+\usepackage{amsmath, amssymb}
+\usepackage{geometry}
+\usepackage{parskip}
+\usepackage{titlesec}
+\usepackage{enumitem}
+\usepackage{array}
+\usepackage{booktabs}
+
+\geometry{left=3cm, right=3cm, top=2.5cm, bottom=2.5cm}
+
+\titleformat{\section}{\large\bfseries}{}{0em}{}[\titlerule]
+\titleformat{\subsection}{\normalsize\bfseries\scshape}{}{0em}{}
+
+% Glossar-Eintrag: Nummer, fetter Titel, Inhalt
+\newcommand{\gentry}[3]{%
+  \noindent\textbf{#1\quad #2}\nopagebreak\\[0.2em]
+  #3\par\smallskip
+}
+
+\begin{document}
+
+\begin{center}
+  {\LARGE\bfseries Glossar zu Lektion 1}\\[0.5em]
+  {\large Analysis (Modul 61211)}
+\end{center}
+
+\vspace{1em}
+
+Dieses Glossar fasst die wesentlichen Definitionen, Merkregeln und Sätze der
+ersten Lektion kompakt zusammen. Nummerierungen entsprechen dem Lehrtext.
+
+% ======================================================================
+\section*{1.1 \quad Reelle Zahlen (Rückblick und Ergänzungen)}
+
+\gentry{1.1.1}{Körpereigenschaften}{%
+  $(\mathbb{R}, +, \cdot)$ ist ein \textbf{Körper}: Für alle $x, y, z \in \mathbb{R}$ gilt
+  \begin{enumerate}[label=(\roman*),topsep=2pt,itemsep=1pt]
+    \item Kommutativität: $x+y = y+x$, $x \cdot y = y \cdot x$,
+    \item Assoziativität: $x+(y+z) = (x+y)+z$, $x\cdot(y\cdot z) = (x\cdot y)\cdot z$,
+    \item Distributivität: $x\cdot(y+z) = x\cdot y + x\cdot z$ \quad (Punkt vor Strich),
+    \item Existenz neutraler Elemente $0$ und $1$ ($0 \neq 1$): $x+0 = x$, $x\cdot 1 = x$,
+    \item Existenz inverser Elemente: $\forall\, a \;\exists\, x: a+x = 0$; $\forall\, a \neq 0 \;\exists\, y: a\cdot y = 1$.
+  \end{enumerate}
+  Die neutralen und inversen Elemente sind eindeutig bestimmt; inverse Elemente heißen $-a$
+  bzw.\ $a^{-1} = \frac{1}{a}$. Subtraktion: $a - b := a + (-b)$; Division: $\frac{a}{b} := a \cdot \frac{1}{b}$.
+}
+
+\gentry{1.1.3}{Geordnete Menge}{%
+  Sei $M$ eine nichtleere Menge mit Relation $\upsilon \subseteq M \times M$.
+  $(M, \upsilon)$ heißt \textbf{geordnete Menge}, wenn für alle $x, y, z \in M$ gilt:
+  (i) $x\,\upsilon\,x$ (Reflexivität),
+  (ii) $x\,\upsilon\,y \land y\,\upsilon\,x \Rightarrow x = y$ (Antisymmetrie),
+  (iii) $x\,\upsilon\,y \land y\,\upsilon\,z \Rightarrow x\,\upsilon\,z$ (Transitivität).\\
+  Gilt zusätzlich (iv) $x\,\upsilon\,y \lor y\,\upsilon\,x$, so heißt $(M, \upsilon)$
+  \textbf{linear geordnete Menge}.
+}
+
+\gentry{1.1.5}{Linear geordneter Körper $\mathbb{R}$}{%
+  Es gibt eine lineare Ordnung $\leq$ auf $\mathbb{R}$, sodass $(\mathbb{R}, \leq)$ mit den
+  Körperoperationen verträglich ist:
+  \begin{enumerate}[label=(\roman*),topsep=2pt,itemsep=1pt]
+    \item $x \leq y \Rightarrow x+z \leq y+z$ \quad (Verträglichkeit mit der Addition),
+    \item $x \leq y,\; 0 \leq z \Rightarrow xz \leq yz$ \quad (Verträglichkeit mit der Multiplikation).
+  \end{enumerate}
+  Trichotomie: Für $x, y \in \mathbb{R}$ gilt genau eine der Beziehungen $x < y$, $x = y$, $x > y$.
+}
+
+\gentry{1.1.7}{Rechenregeln für Ungleichungen}{%
+  Für alle $a, b, c, d \in \mathbb{R}$:
+  \begin{itemize}[topsep=2pt,itemsep=1pt]
+    \item $a < b \Rightarrow a+c < b+c$; gleichgerichtete Ungleichungen darf man addieren.
+    \item $a < b,\; 0 < c \Rightarrow ac < bc$; Multiplikation mit $c < 0$ kehrt das Zeichen um.
+    \item $0 \leq a \leq b,\; 0 \leq c \leq d \Rightarrow ac \leq bd$.
+    \item $0 < a < b \Rightarrow \frac{1}{b} < \frac{1}{a}$; ferner $0 < 1$.
+  \end{itemize}
+}
+
+\gentry{1.1.8}{Cauchy-Schwarzsche und Minkowskische Ungleichung}{%
+  Seien $n \in \mathbb{N}$ und $x_1, \ldots, x_n, y_1, \ldots, y_n \in \mathbb{R}$. Dann gilt:
+  \[
+    \sum_{k=1}^n x_k y_k \;\leq\; \sqrt{\sum_{k=1}^n x_k^2}\,\sqrt{\sum_{k=1}^n y_k^2}
+    \quad \text{(Cauchy-Schwarzsche Ungleichung)}
+  \]
+  \[
+    \sqrt{\sum_{k=1}^n (x_k + y_k)^2} \;\leq\; \sqrt{\sum_{k=1}^n x_k^2} + \sqrt{\sum_{k=1}^n y_k^2}
+    \quad \text{(Minkowskische Ungleichung)}
+  \]
+}
+
+\gentry{1.1.9}{Beschränkte Menge}{%
+  Sei $\emptyset \neq M \subseteq \mathbb{R}$, $s \in \mathbb{R}$.
+  $s$ heißt \textbf{obere Schranke} von $M$, wenn $\forall\, x \in M: x \leq s$.
+  $M$ heißt \textbf{nach oben beschränkt}, wenn eine obere Schranke existiert;
+  analog \textbf{nach unten beschränkt}. $M$ heißt \textbf{beschränkt}, wenn beides gilt.
+}
+
+\gentry{1.1.10}{Supremum, Infimum}{%
+  $S \in \mathbb{R}$ heißt \textbf{Supremum} (kleinste obere Schranke) von $\emptyset \neq M \subseteq \mathbb{R}$,
+  wenn $S$ obere Schranke von $M$ ist und $S \leq s$ für jede obere Schranke $s$ gilt.
+  Analog: \textbf{Infimum} (größte untere Schranke).
+  Notation: $\sup M$, $\inf M$. Falls $\sup M \in M$: $\max M$; falls $\inf M \in M$: $\min M$.
+}
+
+\gentry{1.1.12}{Existenz des Supremums/Infimums}{%
+  Zu jeder nichtleeren, nach oben beschränkten Menge reeller Zahlen existiert das Supremum in $\mathbb{R}$.
+  Analog für das Infimum bei nach unten beschränkten Mengen.
+}
+
+\gentry{1.1.13}{Erweiterte reelle Zahlengerade}{%
+  $\widehat{\mathbb{R}} := \mathbb{R} \cup \{-\infty, \infty\}$ mit $-\infty < x < \infty$ für alle $x \in \mathbb{R}$.
+  Für $\emptyset \neq M \subseteq \mathbb{R}$: $\sup M := \infty$, falls $M$ nicht nach oben beschränkt;
+  $\inf M := -\infty$, falls $M$ nicht nach unten beschränkt.
+}
+
+\gentry{1.1.14}{Intervalle}{%
+  Für $a, b \in \mathbb{R}$:
+  $]a,b[ := \{x \in \mathbb{R} \mid a < x < b\}$ (offen),
+  $[a,b] := \{x \in \mathbb{R} \mid a \leq x \leq b\}$ (abgeschlossen),
+  $]a,b] := \{x \mid a < x \leq b\}$, $[a,b[ := \{x \mid a \leq x < b\}$ (halboffen).
+  Analog für unbeschränkte Intervalle wie $]a, \infty[$, $]-\infty, b]$ usw.
+}
+
+\gentry{1.1.17}{Beschränkte Funktion, Supremumnorm}{%
+  Sei $\emptyset \neq M$. $f \in \mathrm{Abb}(M, \mathbb{R})$ heißt \textbf{beschränkt}, wenn
+  $\|f\|_\infty := \sup_{x \in M} |f(x)| < \infty$. Die Zahl $\|f\|_\infty$ heißt
+  \textbf{Supremumnorm} von $f$. Die Menge aller beschränkten Funktionen: $B(M)$.
+}
+
+\gentry{1.1.18--19}{Raum $B(M)$ und Eigenschaften von $\|\cdot\|_\infty$}{%
+  $B(M)$ ist abgeschlossen unter Addition, Subtraktion, skalarer Multiplikation und
+  Multiplikation. Die Supremumnorm erfüllt:
+  (i) $\|f\|_\infty \geq 0$, $\|f\|_\infty = 0 \Leftrightarrow f = 0$ (Definitheit),
+  (ii) $\|\alpha f\|_\infty = |\alpha|\,\|f\|_\infty$ (Homogenität),
+  (iii) $\|f+g\|_\infty \leq \|f\|_\infty + \|g\|_\infty$ (Dreiecksungleichung),
+  (iv) $\|fg\|_\infty \leq \|f\|_\infty\,\|g\|_\infty$.
+}
+
+\gentry{1.1.20}{Klassische Schlussweise}{%
+  Sei $x \in \mathbb{R}$. Gilt $0 \leq x \leq \varepsilon$ für jedes $\varepsilon > 0$, so ist $x = 0$.
+}
+
+% ======================================================================
+\section*{1.2 \quad Konvergenz (Rückblick und Ergänzungen)}
+
+\gentry{1.2.2}{Betrag}{%
+  $|x| := x$ falls $x \geq 0$, $|x| := -x$ falls $x < 0$.
+  Für alle $x, y \in \mathbb{R}$:
+  (i) $|x| \geq 0$, $|x| = 0 \Leftrightarrow x = 0$,
+  (ii) $|xy| = |x||y|$,
+  (iii) $|x+y| \leq |x| + |y|$ (Dreiecksungleichung),
+  (iv) $|x| - |y| \leq |x+y|$ (zweite Dreiecksungleichung),
+  (v) $|x| \leq y \Leftrightarrow -y \leq x \leq y$.
+}
+
+\gentry{1.2.3}{Abstand}{%
+  $d(x,y) := |x - y|$ für $x, y \in \mathbb{R}$.
+  Eigenschaften: Definitheit, Symmetrie, Dreiecksungleichung
+  $d(x,y) \leq d(x,z) + d(z,y)$.
+}
+
+\gentry{1.2.4}{$\varepsilon$-Umgebung, Umgebung}{%
+  Für $a \in \mathbb{R}$, $\varepsilon > 0$:
+  $U_\varepsilon(a) := \{x \in \mathbb{R} \mid d(x,a) < \varepsilon\}$ heißt \textbf{$\varepsilon$-Umgebung} von $a$.
+  $U \subseteq \mathbb{R}$ heißt \textbf{Umgebung} von $a$, wenn es $\varepsilon > 0$ gibt mit
+  $U_\varepsilon(a) \subseteq U$.
+}
+
+\gentry{1.2.5}{Eigenschaften von Umgebungen}{%
+  Sei $U$ eine Umgebung von $a \in \mathbb{R}$. Dann:
+  (i) $a \in U$,
+  (ii) jede Obermenge von $U$ ist Umgebung von $a$,
+  (iii) der Durchschnitt endlich vieler Umgebungen von $a$ ist Umgebung von $a$.
+}
+
+\gentry{1.2.6}{Hausdorffeigenschaft}{%
+  Zu $a, b \in \mathbb{R}$ mit $a \neq b$ gibt es eine Umgebung $U$ von $a$ und eine
+  Umgebung $V$ von $b$ mit $U \cap V = \emptyset$.
+}
+
+\gentry{1.2.1}{Folge}{%
+  Eine \textbf{Folge} in $M \neq \emptyset$ ist eine Abbildung $f: \mathbb{N} \to M$.
+  Schreibweise: $(a_k)_{k \in \mathbb{N}}$ oder $(a_k)$ mit Gliedern $a_k := f(k)$.
+  Im Fall $M = \mathbb{R}$: \textbf{reelle Folge}.
+}
+
+\gentry{1.2.7--8}{Konvergente Folge, Grenzwert}{%
+  $(a_k)$ heißt \textbf{konvergent gegen} $a \in \mathbb{R}$, wenn in jeder Umgebung von $a$
+  fast alle Glieder liegen (,,fast alle'' = alle bis auf endlich viele).
+  Der Grenzwert ist eindeutig und wird mit $\lim_{k \to \infty} a_k$ oder $\lim f$ bezeichnet.
+  Nicht konvergente Folgen heißen \textbf{divergent}.
+}
+
+\gentry{1.2.10}{Raum $c$ konvergenter Folgen}{%
+  Konvergente Folgen sind beschränkt: $c \subseteq \ell^\infty := B(\mathbb{N})$.
+  Rechenregeln: Für $(a_k), (b_k) \in c$ und $\alpha \in \mathbb{R}$ gilt
+  $(a_k) \pm (b_k), \alpha(a_k), (a_k)(b_k) \in c$ mit den erwarteten Grenzwertregeln.
+  Ferner: Ist $\lim a_k = 0$ und $(c_k)$ beschränkt, so $\lim a_k c_k = 0$.
+  Sandwich-Theorem: Gilt $a_k \leq c_k \leq b_k$ (f.a.) und $\lim a_k = \lim b_k$,
+  so $\lim c_k = \lim a_k$.
+}
+
+\gentry{1.2.12}{Teilfolge}{%
+  $(a_{k_j})_{j \in \mathbb{N}}$ heißt \textbf{Teilfolge} von $(a_k)$, wenn $(k_j)$ streng monoton
+  wachsend in $\mathbb{N}$ ist. Jede Teilfolge einer konvergenten Folge konvergiert
+  gegen denselben Grenzwert.
+}
+
+\gentry{1.2.13}{Divergenzkriterium}{%
+  Besitzt $(a_k)$ eine divergente Teilfolge oder zwei konvergente Teilfolgen mit
+  verschiedenen Grenzwerten, so ist $(a_k)$ divergent.
+}
+
+\gentry{1.2.14}{$\varepsilon$-$n_0$-Kriterium}{%
+  $\lim_{k \to \infty} a_k = a \;\Longleftrightarrow\;
+  \forall\,\varepsilon > 0\;\exists\,n_0 \in \mathbb{N}\;\forall\,k \geq n_0: |a_k - a| < \varepsilon$.
+}
+
+\gentry{1.2.15--16}{Monotone Folge, Monotoniekriterium}{%
+  $(a_k)$ heißt \textbf{monoton wachsend}, wenn $a_k \leq a_{k+1}$ für alle $k$;
+  \textbf{monoton fallend}, wenn $a_k \geq a_{k+1}$ für alle $k$.
+  \textbf{Monotoniekriterium:} Eine monotone beschränkte Folge ist konvergent.
+}
+
+\gentry{1.2.17}{Monotone Teilfolgen, Bolzano-Weierstraß}{%
+  (i) Jede reelle Folge enthält eine monotone Teilfolge.\\
+  (ii) \textbf{Satz von Bolzano-Weierstraß:} Jede beschränkte reelle Folge
+  enthält eine konvergente Teilfolge.
+}
+
+\gentry{1.2.18--19}{Cauchyfolge}{%
+  $(a_k)$ heißt \textbf{Cauchyfolge}, wenn
+  $\forall\,\varepsilon > 0\;\exists\,n_0 \in \mathbb{N}\;\forall\,k,\ell \geq n_0: |a_k - a_\ell| < \varepsilon$.
+}
+
+\gentry{1.2.20}{Eigenschaften von Cauchyfolgen}{%
+  (i) Jede konvergente Folge ist eine Cauchyfolge.
+  (ii) Jede Cauchyfolge ist beschränkt.
+  (iii) Besitzt eine Cauchyfolge eine konvergente Teilfolge, so ist sie selbst konvergent.
+}
+
+\gentry{1.2.21}{Cauchykriterium}{%
+  Jede reelle Cauchyfolge ist konvergent. Damit gilt: Eine reelle Folge ist genau
+  dann konvergent, wenn sie eine Cauchyfolge ist.
+}
+
+\gentry{1.2.23--24}{Bestimmt divergente Folgen}{%
+  $U \subseteq \widehat{\mathbb{R}}$ heißt \textbf{Umgebung von $\infty$}, wenn $\infty \in U$ und
+  $]{\alpha, \infty[} \subseteq U$ für ein $\alpha \in \mathbb{R}$; analog für $-\infty$.
+  $(a_k)$ heißt \textbf{bestimmt divergent gegen} $a = \infty$ (bzw.\ $-\infty$),
+  wenn in jeder Umgebung von $a$ fast alle Glieder liegen.
+  $\varepsilon$-$n_0$-Kriterium: $\lim a_k = \infty \Leftrightarrow \forall\,\varepsilon > 0\;\exists\,n_0:
+  k \geq n_0 \Rightarrow a_k > \frac{1}{\varepsilon}$.
+}
+
+% ======================================================================
+\section*{1.3 \quad $\mathbb{R}^n$ als reeller Vektorraum}
+
+\gentry{1.3.1}{Die Menge $\mathbb{R}^n$}{%
+  $\mathbb{R}^n := \left\{ \begin{pmatrix}x_1\\\vdots\\x_n\end{pmatrix} \;\middle|\; x_k \in \mathbb{R},\; k=1,\ldots,n \right\}$
+  heißt \textbf{$n$-dimensionaler reeller Raum}. $x_k$ heißt \textbf{$k$-te Koordinate}.
+  Standardbasisvektoren: $e_k$ mit $(e_k)_k = 1$, sonst $0$. Jedes $x \in \mathbb{R}^n$ lässt
+  sich eindeutig als $x = \sum_{k=1}^n x_k e_k$ schreiben.
+}
+
+\gentry{1.3.2}{Addition und skalare Multiplikation in $\mathbb{R}^n$}{%
+  \[
+    \begin{pmatrix}x_1\\\vdots\\x_n\end{pmatrix} + \begin{pmatrix}y_1\\\vdots\\y_n\end{pmatrix}
+    := \begin{pmatrix}x_1+y_1\\\vdots\\x_n+y_n\end{pmatrix}, \qquad
+    \alpha \begin{pmatrix}x_1\\\vdots\\x_n\end{pmatrix} := \begin{pmatrix}\alpha x_1\\\vdots\\\alpha x_n\end{pmatrix}.
+  \]
+  Nullvektor: $0 = (0,\ldots,0)^T$; entgegengesetzter Vektor: $-a = (-a_1,\ldots,-a_n)^T$.
+}
+
+\gentry{1.3.3}{Reeller Vektorraum}{%
+  Sei $X$ eine nichtleere Menge mit Addition und skalarer Multiplikation (über $\mathbb{R}$).
+  $X$ heißt \textbf{reeller Vektorraum}, wenn die Axiome (Add$_{1}$)--(Add$_{4}$) und
+  (Mult$_{1}$)--(Mult$_{3}$) erfüllt sind:
+  \begin{itemize}[topsep=2pt,itemsep=1pt]
+    \item (Add$_1$) Assoziativität der Addition,
+    \item (Add$_2$) Existenz eines Nullvektors $0 \in X$,
+    \item (Add$_3$) Existenz inverser Elemente $-x$ für jedes $x \in X$,
+    \item (Add$_4$) Kommutativität der Addition,
+    \item (Mult$_1$) $\alpha(\beta x) = (\alpha\beta)x$,
+    \item (Mult$_2$) Distributivgesetze: $\alpha(x+y) = \alpha x + \alpha y$, $(\alpha+\beta)x = \alpha x + \beta x$,
+    \item (Mult$_3$) $1 \cdot x = x$.
+  \end{itemize}
+  $\mathbb{R}^n$ ist mit obiger Addition und skalarer Multiplikation ein reeller Vektorraum.
+}
+
+\gentry{1.3.4}{Weitere Beispiele reeller Vektorräume}{%
+  \begin{itemize}[topsep=2pt,itemsep=1pt]
+    \item $\mathrm{Abb}(M, \mathbb{R})$, $B(M)$ (beschränkte Funktionen), $\ell^\infty = B(\mathbb{N})$,
+    \item $C(M)$ (stetige Funktionen), $C^1(M)$ (stetig differenzierbar),
+    \item $\mathcal{R}(I)$ (Riemann-integrierbare Funktionen auf abgeschlossenem Intervall $I$),
+    \item $P_n$ (Polynome vom Grad $\leq n$), $P$ (alle Polynome),
+    \item $c$ (konvergente Folgen), $c_0$ (Nullfolgen), $\omega = \mathrm{Abb}(\mathbb{N}, \mathbb{R})$.
+  \end{itemize}
+}
+
+% ======================================================================
+\section*{1.4 \quad $\mathbb{R}^n$ als normierter Raum}
+
+\gentry{1.4.1}{Norm, normierter Raum}{%
+  Eine Funktion $\|\cdot\|: X \to \mathbb{R}$ auf einem reellen Vektorraum $X$ heißt
+  \textbf{Norm} auf $X$, und $(X, \|\cdot\|)$ heißt \textbf{normierter Raum}, falls:
+  \begin{enumerate}[label=(\roman*),topsep=2pt,itemsep=1pt]
+    \item $\|x\| \geq 0$ und $(\|x\| = 0 \Leftrightarrow x = 0)$ \quad (Definitheit),
+    \item $\|\alpha x\| = |\alpha|\,\|x\|$ \quad (positive Homogenität),
+    \item $\|x + y\| \leq \|x\| + \|y\|$ \quad (Dreiecksungleichung).
+  \end{enumerate}
+  Ferner gilt die zweite Dreiecksungleichung: $\bigl|\|x\| - \|y\|\bigr| \leq \|x+y\|$.
+}
+
+\gentry{1.4.2}{Induzierter Abstand}{%
+  Sei $(X, \|\cdot\|)$ ein normierter Raum. Durch $d(x, y) := \|x - y\|$ wird der
+  \textbf{von der Norm induzierte Abstand} definiert. Er ist Definitheit, Symmetrie
+  und Dreiecksungleichung (vgl.\ 1.2.3).
+}
+
+\gentry{1.4.3}{Beispiele normierter Räume}{%
+  \begin{itemize}[topsep=2pt,itemsep=1pt]
+    \item $(\mathbb{R}, |\cdot|)$: Betragsfunktion als Norm.
+    \item $(B(M), \|\cdot\|_\infty)$: Supremumnorm.
+    \item $(\ell^\infty, \|\cdot\|_\infty)$: $\|(a_k)\|_\infty := \sup_{k \in \mathbb{N}} |a_k|$.
+    \item $(C([a,b]), \|\cdot\|_\infty)$ und $(C([a,b]), \|\cdot\|_1)$ mit $\|f\|_1 := \int_a^b |f(t)|\,dt$.
+  \end{itemize}
+}
+
+\gentry{1.4.4}{Normen auf $\mathbb{R}^n$}{%
+  Für $x = (x_1, \ldots, x_n)^T \in \mathbb{R}^n$ und $p = 1$ oder $p = 2$:
+  \[
+    \|x\|_p := \Bigl(\sum_{k=1}^n |x_k|^p\Bigr)^{1/p}, \qquad
+    \|x\|_\infty := \max_{1 \leq k \leq n} |x_k|.
+  \]
+  $\|\cdot\|_2$ heißt \textbf{euklidische Norm} (Schreibweise auch $|x|$);
+  $\|\cdot\|_\infty$ heißt \textbf{Maximumnorm}.
+  Die induzierten Abstände: $d_1$, $d_2$ (euklidisch), $d_\infty$.
+}
+
+\gentry{1.4.5}{Skalarprodukt auf $\mathbb{R}^n$}{%
+  $x \cdot y := \sum_{k=1}^n x_k y_k$ heißt \textbf{Skalarprodukt} (inneres Produkt).
+  $x$ und $y$ heißen \textbf{orthogonal}, wenn $x \cdot y = 0$.
+  Eigenschaften: Bilinearität, Kommutativität $x \cdot y = y \cdot x$,
+  positive Definitheit $x \cdot x \geq 0$ und $(x \cdot x = 0 \Leftrightarrow x = 0)$.
+  Es gilt $|x| = \|x\|_2 = \sqrt{x \cdot x}$.
+}
+
+\gentry{1.4.7}{Satz des Pythagoras}{%
+  Sind $x, y \in \mathbb{R}^n$ orthogonal ($x \cdot y = 0$), so gilt:
+  \[
+    |x - y|^2 = |x|^2 + |y|^2.
+  \]
+}
+
+% ======================================================================
+\section*{1.5 \quad Konvergenz in $\mathbb{R}^n$}
+
+\gentry{1.5.1}{$\varepsilon$-Umgebung, Umgebung in $(X, \|\cdot\|)$}{%
+  Sei $(X, \|\cdot\|)$ ein normierter Raum, $a \in X$, $\varepsilon > 0$:
+  \[
+    U_\varepsilon(a) := \{x \in X \mid \|x - a\| < \varepsilon\}
+  \]
+  heißt \textbf{$\varepsilon$-Umgebung} von $a$. $U \subseteq X$ heißt \textbf{Umgebung} von $a$,
+  wenn es $\varepsilon > 0$ gibt mit $U_\varepsilon(a) \subseteq U$.
+}
+
+\gentry{1.5.2--3}{Eigenschaften von Umgebungen, Hausdorffeigenschaft}{%
+  In einem normierten Raum gelten die analogen Eigenschaften wie in 1.2.5 und 1.2.6:
+  (i) $a \in U$,
+  (ii) jede Obermenge einer Umgebung von $a$ ist Umgebung von $a$,
+  (iii) endliche Durchschnitte von Umgebungen von $a$ sind Umgebungen von $a$.
+  \textbf{Hausdorffeigenschaft:} Für $a \neq b$ gibt es disjunkte Umgebungen $U$ von $a$
+  und $V$ von $b$.
+}
+
+\gentry{1.5.4--5}{Konvergente Folge, Grenzwert in $(X, \|\cdot\|)$}{%
+  $(x_k)$ heißt \textbf{konvergent gegen} $a$ in $(X, \|\cdot\|)$ (Schreibweise $x_k \to a$),
+  wenn in jeder Umgebung von $a$ fast alle Glieder liegen.
+  Der Grenzwert ist eindeutig: $\lim_{k \to \infty} x_k$.
+  Nicht konvergente Folgen heißen \textbf{divergent}.
+}
+
+\gentry{1.5.6}{$\varepsilon$-$n_0$-Kriterium in $(X, \|\cdot\|)$}{%
+  $(x_k)$ konvergiert gegen $a$ in $(X, \|\cdot\|)$ genau dann, wenn
+  $\forall\,\varepsilon > 0\;\exists\,n_0 \in \mathbb{N}\;\forall\,k \geq n_0: \|x_k - a\| < \varepsilon$,
+  d.\,h.\ $\lim_{k \to \infty} \|x_k - a\| = 0$ (im gewöhnlichen Sinne in $\mathbb{R}$).
+}
+
+\gentry{1.5.8}{Konvergenz in $(\mathbb{R}^n, \|\cdot\|_\infty)$}{%
+  Für $x_k = (x_{k1}, \ldots, x_{kn})^T \in \mathbb{R}^n$ und $a = (a_1, \ldots, a_n)^T$ gilt:
+  \[
+    x_k \to a \text{ in } (\mathbb{R}^n, \|\cdot\|_\infty) \;\Longleftrightarrow\;
+    \lim_{k \to \infty} x_{k\nu} = a_\nu \;\text{ für alle } \nu = 1, \ldots, n.
+  \]
+  Konvergenz in $(\mathbb{R}^n, \|\cdot\|_\infty)$ bedeutet also komponentenweise Konvergenz.
+}
+
+\gentry{1.5.9}{Satz von Bolzano-Weierstraß in $(\mathbb{R}^n, \|\cdot\|_\infty)$}{%
+  Jede $\|\cdot\|_\infty$-beschränkte Folge in $\mathbb{R}^n$ besitzt eine in
+  $(\mathbb{R}^n, \|\cdot\|_\infty)$ konvergente Teilfolge.
+}
+
+\gentry{1.5.10}{Normen auf $\mathbb{R}^n$ sind vergleichbar}{%
+  Sei $\|\cdot\|$ eine Norm auf $\mathbb{R}^n$, $\|\cdot\|_\infty$ die Maximumnorm. Dann
+  existieren $\alpha, \beta > 0$ mit
+  $\|x\| \leq \alpha \|x\|_\infty$ und $\|x\|_\infty \leq \beta \|x\|$ für alle $x \in \mathbb{R}^n$.
+}
+
+\gentry{1.5.11}{Äquivalenz der Normen auf $\mathbb{R}^n$}{%
+  Seien $\|\cdot\|$ und $\|\cdot\|_*$ zwei Normen auf $\mathbb{R}^n$. Dann sind äquivalent:
+  (i) $U$ ist Umgebung von $a$ in $({\mathbb{R}^n}, \|\cdot\|)$ $\Leftrightarrow$
+  $U$ ist Umgebung von $a$ in $(\mathbb{R}^n, \|\cdot\|_*)$.
+  (ii) $(x_k)$ konvergiert (gegen $a$) in $(\mathbb{R}^n, \|\cdot\|)$ $\Leftrightarrow$
+  $(x_k)$ konvergiert (gegen $a$) in $(\mathbb{R}^n, \|\cdot\|_*)$ $\Leftrightarrow$
+  jede Koordinatenfolge konvergiert im gewöhnlichen Sinne.
+}
+
+\gentry{1.5.13}{Rechenregeln für konvergente Folgen in $(X, \|\cdot\|)$}{%
+  Seien $(x_k) \to a$ und $(y_k) \to b$ in $(X, \|\cdot\|)$, $\alpha \in \mathbb{R}$. Dann:
+  (i) $(x_k) + (y_k) \to a + b$,
+  (ii) $\alpha (x_k) \to \alpha a$.
+}
+
+\gentry{1.5.14}{Cauchyfolge in $(X, \|\cdot\|)$}{%
+  $(x_k)$ heißt \textbf{Cauchyfolge} in $(X, \|\cdot\|)$, wenn
+  $\forall\,\varepsilon > 0\;\exists\,n_0 \in \mathbb{N}\;\forall\,k > n_0: \|x_k - x_{n_0}\| < \varepsilon$.
+}
+
+\gentry{1.5.15}{Eigenschaften von Cauchyfolgen in $(X, \|\cdot\|)$}{%
+  (i) Jede konvergente Folge ist eine Cauchyfolge.
+  (ii) Jede Cauchyfolge ist beschränkt.
+  (iii) Besitzt eine Cauchyfolge eine konvergente Teilfolge, so ist sie selbst konvergent.
+}
+
+\gentry{1.5.17}{Vollständiger normierter Raum, Banachraum}{%
+  Ein normierter Raum $(X, \|\cdot\|)$, in welchem jede Cauchyfolge konvergiert,
+  heißt \textbf{vollständig} oder \textbf{Banachraum}.
+}
+
+\gentry{1.5.18--19}{$\mathbb{R}^n$ als Banachraum; weitere Beispiele}{%
+  $({\mathbb{R}^n}, \|\cdot\|)$ ist für jede Norm $\|\cdot\|$ ein Banachraum.\\
+  Weitere Banachräume: $(B(M), \|\cdot\|_\infty)$ und $(C([a,b]), \|\cdot\|_\infty)$.\\
+  Nicht vollständig: $(C([0,1]), \|\cdot\|_1)$.
+}
+
+\newpage
+
+\begin{center}
+  {\LARGE\bfseries Glossar zu Lektion 2}\\[0.5em]
+  {\large Analysis (Modul 61211)}
+\end{center}
+
+\vspace{1em}
+
+Dieses Glossar fasst die wesentlichen Definitionen, Merkregeln und Sätze der
+zweiten Lektion kompakt zusammen. Nummerierungen entsprechen dem Lehrtext.
+
+% ======================================================================
+\section*{2.1 \quad Rückblick und Ergänzungen: Stetigkeit}
+
+\gentry{2.1.1}{Bezeichnungen (Funktion)}{%
+  Sei $f: A \to B$ eine Funktion. $A$ heißt \textbf{Definitionsbereich}, $B$
+  heißt \textbf{Zielbereich} (oder Bild-/Wertebereich). Für $x \in A$ heißt
+  $f(x)$ \textbf{Funktionswert}, $x$ selbst \textbf{Argument}.
+  Für $U \subseteq A$: \textbf{Bild} $f(U) := \{f(x) \mid x \in U\}$.
+  Für $S$: \textbf{Urbild} $f^{-1}(S) := \{x \in A \mid f(x) \in S\}$;
+  im Fall $S = \{b\}$: \textbf{$b$-Stellenmenge}. Für $f$ reell ist $f^{-1}(\{0\})$
+  die Menge der \textbf{Nullstellen}.
+}
+
+\gentry{2.1.2}{Umkehrfunktion}{%
+  Sei $f: A \to B$ injektiv. Die Funktion $g: f(A) \to A$, $y \mapsto g(y) :=$
+  (das eindeutige $x \in A$ mit $f(x) = y$) heißt \textbf{Umkehrfunktion} (oder
+  \textbf{inverse Funktion}) von $f$, geschrieben $f^{-1}$.
+  Es gilt $g(f(x)) = x$ für alle $x \in A$ und $f(g(y)) = y$ für alle $y \in f(A)$.
+}
+
+\gentry{2.1.3}{Satz (Charakterisierung der Umkehrfunktion)}{%
+  Seien $f: A \to B$ und $g: f(A) \to A$ gegeben. Genau dann ist $f$ injektiv
+  und $g$ die Umkehrfunktion von $f$, wenn $g(f(x)) = x$ für jedes $x \in A$ gilt.
+}
+
+\gentry{2.1.4}{Monotone Funktion}{%
+  Sei $\emptyset \neq M \subseteq \mathbb{R}$, $f \in \mathrm{Abb}(M, \mathbb{R})$.
+  $f$ heißt \textbf{monoton wachsend} (bzw.\ \textbf{fallend}), wenn
+  $x < y \Rightarrow f(x) \leq f(y)$ (bzw.\ $\geq$) für alle $x, y \in M$.
+  \textbf{Streng monoton wachsend} (bzw.\ \textbf{fallend}): $x < y \Rightarrow f(x) < f(y)$
+  (bzw.\ $>$). $f$ heißt \textbf{(streng) monoton}, wenn $f$ (streng) monoton
+  wachsend oder fallend ist.
+}
+
+\gentry{2.1.5}{Monotonie und Umkehrfunktion}{%
+  Sei $\emptyset \neq M \subseteq \mathbb{R}$, $f \in \mathrm{Abb}(M, \mathbb{R})$
+  streng monoton. Dann ist $f$ injektiv, und $f^{-1}: f(M) \to M$ ist ebenfalls
+  streng monoton (im gleichen Sinn).
+}
+
+\gentry{2.1.6}{Stetigkeit}{%
+  Seien $a \in M \subseteq \mathbb{R}$, $f \in \mathrm{Abb}(M, \mathbb{R})$.
+  \begin{enumerate}[label=(\roman*),topsep=2pt,itemsep=1pt]
+    \item $f$ heißt \textbf{stetig im Punkt $a$}, wenn es zu jeder Umgebung $V$
+          von $b := f(a)$ eine Umgebung $U$ von $a$ gibt mit $f(U \cap M) \subseteq V$.
+    \item Für $\emptyset \neq E \subseteq M$: $f$ heißt \textbf{stetig auf $E$},
+          wenn $f$ in jedem $a \in E$ stetig ist.
+    \item $f$ heißt \textbf{stetig}, wenn $f$ auf $M$ stetig ist.
+  \end{enumerate}
+}
+
+\gentry{2.1.7}{Stetigkeit als lokale Eigenschaft}{%
+  Seien $a \in M \subseteq \mathbb{R}$, $f \in \mathrm{Abb}(M, \mathbb{R})$, $a \in W \subseteq \mathbb{R}$.
+  (i) Ist $f$ in $a$ stetig, so auch $f|_{W \cap M}$.
+  (ii) Ist $f|_{W \cap M}$ in $a$ stetig und $W$ eine Umgebung von $a$, so ist
+  auch $f$ in $a$ stetig.
+}
+
+\gentry{2.1.8}{$\varepsilon$-$\delta$-Kriterium}{%
+  Sei $a \in M \subseteq \mathbb{R}$, $f: M \to \mathbb{R}$. Dann gilt:
+  \[
+    f \text{ stetig in } a \;\Longleftrightarrow\;
+    \forall \varepsilon > 0\;\exists \delta > 0\;\forall x \in M:
+    |x - a| < \delta \Rightarrow |f(x) - f(a)| < \varepsilon.
+  \]
+}
+
+\gentry{2.1.9}{Folgenkriterium}{%
+  Sei $a \in M \subseteq \mathbb{R}$, $f: M \to \mathbb{R}$. Dann gilt:
+  \[
+    f \text{ stetig in } a \;\Longleftrightarrow\;
+    \forall (x_k) \text{ in } M \text{ mit } \lim x_k = a:\; \lim f(x_k) = f(a).
+  \]
+  Stetige Funktionen sind also ,,konvergenzerhaltend``.
+}
+
+\gentry{2.1.10}{Operationen mit stetigen Funktionen}{%
+  Seien $a \in M \subseteq \mathbb{R}$, $\alpha \in \mathbb{R}$, $f, g: M \to \mathbb{R}$ stetig in $a$.
+  Dann sind auch stetig in $a$:
+  (i) $f + g$, $f - g$, $\alpha f$, \quad
+  (ii) $fg$, \quad
+  (iii) $f/g$ (falls $g(x) \neq 0$ für alle $x \in M$), \quad
+  (iv) $f|_{M'}$ für $M' \subseteq M$, \quad
+  (v) \textbf{Kettenregel:} Ist $h: E \to \mathbb{R}$ mit $f(M) \subseteq E$ stetig in $f(a)$,
+  so ist $h \circ f$ stetig in $a$.
+}
+
+\gentry{2.1.11}{Lokale Beschränktheit}{%
+  Sei $a \in M \subseteq \mathbb{R}$, $f \in \mathrm{Abb}(M, \mathbb{R})$ stetig in $a$.
+  Dann gibt es eine Umgebung $U$ von $a$ derart, dass $f|_{U \cap M}$ beschränkt ist.
+}
+
+\gentry{2.1.12}{Lokale Trennung}{%
+  Seien $f, g \in \mathrm{Abb}(M, \mathbb{R})$ stetig in $a \in M \subseteq \mathbb{R}$
+  mit $f(a) > g(a)$. Dann gibt es eine Umgebung $U$ von $a$ mit
+  $f(x) > g(x)$ für jedes $x \in U \cap M$.
+}
+
+\gentry{2.1.13}{Zwischenwertsatz}{%
+  Sei $I$ ein nichtleeres Intervall, $f: I \to \mathbb{R}$ stetig. Sind
+  $y_1, y_2 \in f(I)$ mit $y_1 < y_2$, so gilt $[y_1, y_2] \subseteq f(I)$.
+  Genauer: Ist $y_i = f(x_i)$, so existiert zu jedem $c \in \,]y_1, y_2[\,$ ein
+  $\xi$ zwischen $x_1$ und $x_2$ mit $c = f(\xi)$.
+}
+
+\gentry{2.1.14}{Existenz einer Nullstelle}{%
+  Sei $I = [a, b]$ mit $a < b$, $f: I \to \mathbb{R}$ stetig. Ist
+  $f(a)f(b) < 0$, so gibt es ein $\xi \in \,]a, b[\,$ mit $f(\xi) = 0$.
+}
+
+\gentry{2.1.15}{Stetiges Bild eines Intervalls}{%
+  Ist $I$ ein nichtleeres Intervall und $f: I \to \mathbb{R}$ stetig, so ist
+  das Bild $f(I)$ ein Intervall.
+}
+
+\gentry{2.1.16}{Stetigkeit der Umkehrfunktion}{%
+  Sei $I$ ein nichtleeres Intervall, $f: I \to \mathbb{R}$ stetig.
+  (i) $f$ ist genau dann injektiv, wenn $f$ streng monoton ist.
+  (ii) Ist $f$ streng monoton, so ist $f^{-1}: f(I) \to I$ stetig und
+  streng monoton (im gleichen Sinne).
+}
+
+\gentry{2.1.17}{Stetiges Bild eines kompakten Intervalls}{%
+  Sei $I = [a, b]$ mit $a \leq b$, $f: I \to \mathbb{R}$ stetig. Dann ist
+  $f(I) = [c, d]$ ein kompaktes Intervall. Es existieren $x_1, x_2 \in I$ mit
+  $c = f(x_1) \leq f(x) \leq f(x_2) = d$ für alle $x \in I$.
+  $x_1$ heißt \textbf{Minimalstelle}, $x_2$ \textbf{Maximalstelle}.
+}
+
+\gentry{2.1.18}{Häufungspunkt, abgeschlossene Menge (in $\mathbb{R}$)}{%
+  Sei $M \subseteq \mathbb{R}$.
+  (i) $a \in \mathbb{R}$ heißt \textbf{Häufungspunkt} von $M$, wenn es in jeder
+  Umgebung von $a$ mindestens einen von $a$ verschiedenen Punkt aus $M$ gibt.
+  (ii) $M$ heißt \textbf{abgeschlossen}, wenn jeder Häufungspunkt von $M$ in $M$ liegt.
+  Äquivalent: $a$ ist Häufungspunkt $\Leftrightarrow$ es gibt eine Folge $(a_k)$
+  in $M \setminus \{a\}$ mit $\lim a_k = a$.
+}
+
+\gentry{2.1.20}{Satz von Bolzano-Weierstraß (für Mengen)}{%
+  Jede beschränkte, unendliche Teilmenge $M \subseteq \mathbb{R}$ besitzt
+  mindestens einen Häufungspunkt (der nicht notwendig in $M$ liegen muss).
+}
+
+\gentry{2.1.21}{Kompakte Teilmenge von $\mathbb{R}$}{%
+  Eine nichtleere Teilmenge von $\mathbb{R}$ heißt \textbf{kompakt}, wenn sie
+  abgeschlossen und beschränkt ist.
+}
+
+\gentry{2.1.22}{Stetiges Bild einer kompakten Menge}{%
+  Sei $\emptyset \neq M \subseteq \mathbb{R}$, $f: M \to \mathbb{R}$ stetig.
+  Ist $M$ kompakt, so ist auch $f(M)$ kompakt.
+}
+
+\gentry{2.1.23}{Satz von Weierstraß (Maximum/Minimum)}{%
+  Sei $\emptyset \neq M \subseteq \mathbb{R}$ kompakt, $f: M \to \mathbb{R}$ stetig.
+  Dann existieren $\min f(M)$ und $\max f(M)$: es gibt $x_1, x_2 \in M$ mit
+  $\inf f(M) = f(x_1)$ und $\sup f(M) = f(x_2)$. Kurz: $f$ \textbf{nimmt
+  Minimum und Maximum an}.
+}
+
+\gentry{2.1.24}{Gleichmäßige Stetigkeit}{%
+  Sei $\emptyset \neq M \subseteq \mathbb{R}$, $f \in \mathrm{Abb}(M, \mathbb{R})$.
+  $f$ heißt \textbf{gleichmäßig stetig (auf $M$)}, wenn
+  \[
+    \forall \varepsilon > 0\;\exists \delta > 0\;\forall x, y \in M:
+    |x - y| < \delta \Rightarrow |f(x) - f(y)| < \varepsilon.
+  \]
+  Unterschied zur einfachen Stetigkeit: $\delta$ darf nur von $\varepsilon$ abhängen,
+  nicht von der Stelle $a$.
+}
+
+\gentry{2.1.25}{Folgerung (gleichmäßig stetig $\Rightarrow$ stetig)}{%
+  Ist $f$ gleichmäßig stetig auf $M$, so ist $f$ auch stetig auf $M$. Die
+  Umkehrung gilt im Allgemeinen nicht (z.\,B.\ $x \mapsto x^2$ auf $\mathbb{R}$).
+}
+
+\gentry{2.1.27}{Gleichmäßige Stetigkeit auf kompakten Mengen}{%
+  Sei $\emptyset \neq M \subseteq \mathbb{R}$ kompakt, $f: M \to \mathbb{R}$ stetig
+  auf $M$. Dann ist $f$ sogar gleichmäßig stetig auf $M$.
+}
+
+\gentry{2.1.28}{Satz von Heine-Borel (in $\mathbb{R}$)}{%
+  Sei $\emptyset \neq M \subseteq \mathbb{R}$ abgeschlossen und beschränkt,
+  und sei $\delta: M \to \,]0, \infty[\,$ gegeben. Dann gibt es endlich viele
+  $x_1, \ldots, x_m \in M$ mit
+  $M \subseteq \bigcup_{k=1}^m U_{\delta(x_k)}(x_k)$.
+}
+
+% ======================================================================
+\section*{2.2 \quad Funktionen von $\mathbb{R}^n$ nach $\mathbb{R}^m$}
+
+\gentry{}{Graph einer Funktion}{%
+  Für $f: M \to \mathbb{R}^m$ mit $M \subseteq \mathbb{R}^n$:
+  $G_f := \{{}^t(x, f(x)) \in \mathbb{R}^{n+m} \mid x \in M\}$.
+  Veranschaulichung im Fall $n = 2, m = 1$: Fläche im Raum; alternativ durch
+  \textbf{Höhenlinien} $H_c := \{x \in M \mid f(x) = c\}$.
+}
+
+\gentry{2.2.1}{Operationen in $\mathrm{Abb}(M, \mathbb{R}^m)$}{%
+  Seien $f, g \in \mathrm{Abb}(M, \mathbb{R}^m)$, $h \in \mathrm{Abb}(M, \mathbb{R})$,
+  $\alpha \in \mathbb{R}$. Dann sind punktweise erklärt:
+  (i) $f \pm g$, \quad (ii) $\alpha f$, \quad (iii) $hf$,
+  \quad (iv) $\frac{1}{h} f$ (falls $h(x) \neq 0$ für alle $x \in M$).
+  Alle Ergebnisse liegen in $\mathrm{Abb}(M, \mathbb{R}^m)$.
+  $f \in \mathrm{Abb}(M, \mathbb{R}^m)$ lässt sich über \textbf{Koordinatenfunktionen}
+  $f = {}^t(f_1, \ldots, f_m)$ mit $f_\mu \in \mathrm{Abb}(M, \mathbb{R})$ darstellen.
+}
+
+\gentry{2.2.2}{Projektion}{%
+  Für $k \in \{1, \ldots, n\}$ heißt
+  $\pi_k: \mathbb{R}^n \to \mathbb{R}$, ${}^t(x_1, \ldots, x_n) \mapsto x_k$
+  die \textbf{Projektion auf die $k$-te Koordinate}.
+}
+
+\gentry{2.2.3}{Lineare Funktionen in $\mathrm{Abb}(\mathbb{R}^n, \mathbb{R})$}{%
+  Eine Abbildung $f: X \to Y$ (reelle Vektorräume) heißt \textbf{linear} (oder
+  \textbf{Homomorphismus}), wenn
+  $f(x + y) = f(x) + f(y)$ und $f(\alpha x) = \alpha f(x)$ für alle $x, y, \alpha$.\\
+  $f \in \mathrm{Abb}(\mathbb{R}^n, \mathbb{R})$ ist genau dann linear, wenn es
+  ein $a \in \mathbb{R}^n$ gibt mit $f(x) = a \cdot x$ für alle $x \in \mathbb{R}^n$.
+  Dabei ist $a = {}^t(f(e_1), \ldots, f(e_n))$ eindeutig bestimmt.
+}
+
+\gentry{2.2.4}{Lineare Abbildungen in $\mathrm{Abb}(\mathbb{R}^n, \mathbb{R}^m)$}{%
+  $f = {}^t(f_1, \ldots, f_m) \in \mathrm{Abb}(\mathbb{R}^n, \mathbb{R}^m)$ ist
+  genau dann linear, wenn es Vektoren $a_1, \ldots, a_m \in \mathbb{R}^n$ gibt mit
+  \[
+    f(x) = {}^t(a_1 \cdot x, \ldots, a_m \cdot x) \quad \text{für alle } x \in \mathbb{R}^n.
+  \]
+  Die $a_\mu = {}^t(f_\mu(e_1), \ldots, f_\mu(e_n))$ sind eindeutig bestimmt.
+}
+
+\gentry{2.2.5}{Polynomfunktion}{%
+  $f \in \mathrm{Abb}(\mathbb{R}^n, \mathbb{R})$ heißt \textbf{Polynomfunktion}
+  (oder \textbf{Polynom}), wenn sie endliche Summe von Funktionen des Typs
+  $g(x_1, \ldots, x_n) := c\, x_1^{i_1} \cdots x_n^{i_n}$
+  mit $c \in \mathbb{R}$, $i_1, \ldots, i_n \in \mathbb{N}_0$ ist.
+}
+
+\gentry{2.2.6}{Rationale Funktion}{%
+  $f \in \mathrm{Abb}(M, \mathbb{R})$ heißt \textbf{rational}, wenn es
+  Polynomfunktionen $P, Q$ mit $Q \neq 0$ gibt, sodass
+  $M = \{x \in \mathbb{R}^n \mid Q(x) \neq 0\}$ und $f = P|_M / Q|_M$.
+}
+
+% ======================================================================
+\section*{2.3 \quad Stetigkeit. Lokale Eigenschaften}
+
+\gentry{2.3.1}{Stetigkeit (in normierten Räumen)}{%
+  Seien $(X, \|\cdot\|_X)$, $(Y, \|\cdot\|_Y)$ normierte Räume, $a \in M \subseteq X$,
+  $f \in \mathrm{Abb}(M, Y)$.
+  \begin{enumerate}[label=(\roman*),topsep=2pt,itemsep=1pt]
+    \item $f$ \textbf{stetig in $a$}: Zu jeder Umgebung $V$ von $b := f(a)$ gibt
+          es eine Umgebung $U$ von $a$ mit $f(U \cap M) \subseteq V$.
+    \item $f$ \textbf{stetig auf $E$} ($\emptyset \neq E \subseteq M$):
+          $f$ ist in jedem $a \in E$ stetig.
+    \item $f$ \textbf{stetig}: $f$ ist stetig auf $M$.
+  \end{enumerate}
+}
+
+\gentry{2.3.2}{$\varepsilon$-$\delta$-Kriterium}{%
+  Unter den Voraussetzungen von 2.3.1 gilt:
+  \[
+    f \text{ stetig in } a \;\Longleftrightarrow\;
+    \forall \varepsilon > 0\;\exists \delta > 0\;\forall x \in M:
+    \|x - a\|_X < \delta \Rightarrow \|f(x) - f(a)\|_Y < \varepsilon.
+  \]
+}
+
+\gentry{2.3.3}{Folgenkriterium}{%
+  Unter den Voraussetzungen von 2.3.1 gilt:
+  $f$ stetig in $a$ $\Longleftrightarrow$ für jede Folge $(x_k)$ in $M$ mit
+  $x_k \to a$ in $(X, \|\cdot\|_X)$ gilt $f(x_k) \to f(a)$ in $(Y, \|\cdot\|_Y)$.
+}
+
+\gentry{2.3.4}{Restriktion / lokale Eigenschaft}{%
+  Seien $a \in M \subseteq X$, $f \in \mathrm{Abb}(M, Y)$, $a \in W \subseteq X$.
+  (i) Ist $f$ in $a$ stetig, so auch $f|_{W \cap M}$.
+  (ii) Ist $f|_{W \cap M}$ in $a$ stetig und $W$ eine Umgebung von $a$, so ist
+  $f$ in $a$ stetig. Stetigkeit ist damit eine \textbf{lokale Eigenschaft}.
+}
+
+\gentry{2.3.5}{Lokale Beschränktheit}{%
+  Sei $a \in M \subseteq X$, $f \in \mathrm{Abb}(M, Y)$ stetig in $a$. Dann gibt
+  es eine Umgebung $U$ von $a$ mit $\sup\{\|f(x)\|_Y \mid x \in U \cap M\} < \infty$.
+}
+
+\gentry{2.3.6}{Lokale Trennung}{%
+  Seien $f, g \in \mathrm{Abb}(M, Y)$ stetig in $a \in M \subseteq X$ mit
+  $f(a) \neq g(a)$. Dann gibt es eine Umgebung $U$ von $a$ mit
+  $f(x) \neq g(x)$ für alle $x \in U \cap M$.
+}
+
+\gentry{2.3.7}{Kettenregel für stetige Funktionen}{%
+  Seien $(X, \|\cdot\|_X)$, $(Y, \|\cdot\|_Y)$, $(Z, \|\cdot\|_Z)$ normierte Räume,
+  $a \in M \subseteq X$, $f \in \mathrm{Abb}(M, Y)$ mit $f(M) \subseteq N \subseteq Y$,
+  $g \in \mathrm{Abb}(N, Z)$. Ist $f$ stetig in $a$ und $g$ stetig in $f(a)$, so
+  ist $g \circ f: M \to Z$ stetig in $a$.
+}
+
+\gentry{2.3.8}{Operationen}{%
+  Sei $a \in M \subseteq X$, $f, g \in \mathrm{Abb}(M, \mathbb{R}^m)$,
+  $h \in \mathrm{Abb}(M, \mathbb{R})$, $\alpha \in \mathbb{R}$; $f, g, h$ stetig in $a$.
+  Dann sind auch stetig in $a$:
+  (i) $f \pm g$, \quad (ii) $\alpha f$, \quad (iii) $hf$,
+  \quad (iv) $\frac{1}{h} f$ (falls $h(x) \neq 0$).
+}
+
+\gentry{2.3.9}{Dehnungsbeschränkte Funktionen (Lipschitz)}{%
+  $f \in \mathrm{Abb}(M, Y)$ heißt \textbf{dehnungsbeschränkt}
+  (Lipschitz-stetig), wenn es eine \textbf{Lipschitzkonstante} $L > 0$ gibt mit
+  \[
+    \|f(x) - f(x')\|_Y \leq L \|x - x'\|_X \quad \text{für alle } x, x' \in M.
+  \]
+  Jede dehnungsbeschränkte Funktion ist stetig. Konstante Funktionen sind stetig.
+}
+
+\gentry{2.3.11}{Komponentenweise Stetigkeit}{%
+  Sei $a \in M \subseteq X$. Eine Funktion $f = {}^t(f_1, \ldots, f_m): M \to \mathbb{R}^m$
+  ist genau dann in $a$ stetig, wenn alle Koordinatenfunktionen
+  $f_\mu: M \to \mathbb{R}$ in $a$ stetig sind.
+  Insbesondere: Jede Polynomfunktion $P: \mathbb{R}^n \to \mathbb{R}$ ist stetig,
+  jede rationale Funktion ist auf ihrem Definitionsbereich stetig, jede lineare
+  Abbildung $f: \mathbb{R}^n \to \mathbb{R}^m$ ist stetig.
+}
+
+% ======================================================================
+\section*{2.4 \quad Stetige Funktionen auf zusammenhängenden Mengen}
+
+\gentry{2.4.1}{Offene Menge}{%
+  Sei $(X, \|\cdot\|)$ ein normierter Raum, $M \subseteq X$. $M$ heißt
+  \textbf{offen}, wenn $M$ Umgebung von jedem $a \in M$ ist.
+  Offenheit in $\mathbb{R}^n$ ist normunabhängig.
+}
+
+\gentry{2.4.4}{Eigenschaften offener Mengen}{%
+  Sei $(X, \|\cdot\|)$ ein normierter Raum. Dann gilt:
+  (i) $\emptyset$ und $X$ sind offen.
+  (ii) Die Vereinigung beliebig vieler offener Teilmengen ist offen.
+  (iii) Der Durchschnitt endlich vieler offener Teilmengen ist offen.
+  Insbesondere ist jede $\varepsilon$-Umgebung $U_\varepsilon(b)$ offen.
+}
+
+\gentry{2.4.5}{Häufungspunkt, abgeschlossene Menge}{%
+  Sei $(X, \|\cdot\|)$ ein normierter Raum, $M \subseteq X$.
+  (i) $a \in X$ heißt \textbf{Häufungspunkt} von $M$, wenn in jeder Umgebung
+  von $a$ mindestens ein von $a$ verschiedener Punkt aus $M$ liegt.
+  (ii) $M$ heißt \textbf{abgeschlossen}, wenn jeder Häufungspunkt von $M$ in $M$ liegt.
+}
+
+\gentry{2.4.6}{Offen und abgeschlossen}{%
+  Sei $(X, \|\cdot\|)$ ein normierter Raum, $M \subseteq X$. Dann:
+  $M$ offen $\Leftrightarrow$ $X \setminus M$ abgeschlossen;
+  $M$ abgeschlossen $\Leftrightarrow$ $X \setminus M$ offen.
+  $X$ und $\emptyset$ sind sowohl offen als auch abgeschlossen.
+}
+
+\gentry{2.4.7}{Charakterisierung der Stetigkeit durch offene Mengen}{%
+  Seien $(X, \|\cdot\|_X), (Y, \|\cdot\|_Y)$ normierte Räume, $\emptyset \neq M \subseteq X$,
+  $f \in \mathrm{Abb}(M, Y)$. Äquivalent sind:
+  \begin{enumerate}[label=(\roman*),topsep=2pt,itemsep=1pt]
+    \item $f$ ist stetig (auf $M$).
+    \item Zu jeder in $(Y, \|\cdot\|_Y)$ offenen Teilmenge $S$ von $Y$ gibt es
+          eine in $(X, \|\cdot\|_X)$ offene Teilmenge $Q$ von $X$ mit
+          $f^{-1}(S) = Q \cap M$.
+  \end{enumerate}
+  Kurz: ,,Die Urbilder offener Mengen sind offen``.
+}
+
+\gentry{2.4.9}{Zusammenhängende Menge}{%
+  Sei $(X, \|\cdot\|)$ ein normierter Raum, $\emptyset \neq M \subseteq X$.
+  $M$ heißt \textbf{zusammenhängend}, wenn es keine zwei in $X$ offenen Mengen
+  $Q_1, Q_2$ gibt mit
+  \[
+    M \subseteq Q_1 \cup Q_2,\quad Q_1 \cap Q_2 = \emptyset,\quad
+    Q_1 \cap M \neq \emptyset,\quad Q_2 \cap M \neq \emptyset.
+  \]
+  Anschaulich: $M$ lässt sich nicht in zwei nichtleere, durch offene Mengen
+  getrennte Teilmengen zerlegen.
+}
+
+\gentry{2.4.11}{Zusammenhängende Mengen in $\mathbb{R}$}{%
+  Sei $\emptyset \neq M \subseteq \mathbb{R}$. Dann gilt:
+  \[
+    M \text{ zusammenhängend} \;\Longleftrightarrow\; M \text{ ist ein Intervall}.
+  \]
+}
+
+\gentry{2.4.12}{Stetiges Bild zusammenhängender Mengen}{%
+  Seien $(X, \|\cdot\|_X), (Y, \|\cdot\|_Y)$ normierte Räume, $\emptyset \neq M \subseteq X$,
+  $f: M \to Y$ stetig. Ist $M$ zusammenhängend, so ist $f(M)$ zusammenhängend.
+}
+
+\gentry{2.4.13}{Verallgemeinerter Zwischenwertsatz}{%
+  (i) Für ein nichtleeres Intervall $I \subseteq \mathbb{R}$ und stetiges
+  $f: I \to \mathbb{R}^m$ ist $f(I)$ zusammenhängend; ein solches $f$ heißt
+  \textbf{parametrisierte Kurve}.\\
+  (ii) Für stetiges $f: I \to \mathbb{R}$ ist $f(I)$ ein Intervall (= 2.1.15).\\
+  (iii) Ist $(X, \|\cdot\|_X)$ normierter Raum, $M \subseteq X$ zusammenhängend,
+  $f: M \to \mathbb{R}$ stetig, $x, y \in M$ mit $f(x) < c < f(y)$, so gibt es
+  ein $z \in M$ mit $f(z) = c$.
+}
+
+% ======================================================================
+\section*{2.5 \quad Stetige Funktionen auf kompakten Mengen}
+
+\gentry{2.5.1}{Offene Überdeckung, kompakte Menge}{%
+  Sei $(X, \|\cdot\|)$ ein normierter Raum, $M \subseteq X$.
+  (i) Eine \textbf{offene Überdeckung} $\mathcal{F}$ von $M$ ist eine nichtleere
+  Menge offener Mengen in $X$ mit $M \subseteq \bigcup_{Q \in \mathcal{F}} Q$.
+  (ii) $M$ heißt \textbf{kompakt}, wenn \textbf{jede} offene Überdeckung $\mathcal{F}$
+  von $M$ eine endliche \textbf{Teilüberdeckung} $\mathcal{F}_0 \subseteq \mathcal{F}$
+  enthält (die $M$ ebenfalls überdeckt).
+}
+
+\gentry{2.5.3}{Folgenkompaktheit}{%
+  Sei $(X, \|\cdot\|)$ ein normierter Raum, $\emptyset \neq M \subseteq X$.
+  $M$ ist genau dann kompakt, wenn $M$ \textbf{folgenkompakt} ist, d.\,h.\ wenn
+  jede Folge in $M$ eine konvergente Teilfolge mit Grenzwert in $M$ besitzt.
+}
+
+\gentry{2.5.4}{Beschränkte Menge}{%
+  Sei $(X, \|\cdot\|)$ ein normierter Raum, $\emptyset \neq M \subseteq X$.
+  $M$ heißt \textbf{beschränkt}, wenn $\sup\{\|x\| \mid x \in M\} < \infty$,
+  d.\,h.\ wenn es ein $r > 0$ mit $M \subseteq U_r(0)$ gibt.
+}
+
+\gentry{2.5.5}{Kompaktheit $\Rightarrow$ abgeschlossen + beschränkt}{%
+  Sei $(X, \|\cdot\|)$ ein normierter Raum, $\emptyset \neq M \subseteq X$
+  kompakt. Dann ist $M$ abgeschlossen und beschränkt. Die Umkehrung gilt
+  \textbf{im Allgemeinen nicht} in beliebigen normierten Räumen.
+}
+
+\gentry{2.5.6}{Satz von Heine-Borel (in $\mathbb{R}^n$)}{%
+  Sei $\emptyset \neq M \subseteq \mathbb{R}^n$. Dann gilt:
+  \[
+    M \text{ kompakt} \;\Longleftrightarrow\; M \text{ abgeschlossen und beschränkt}.
+  \]
+  Normunabhängig.
+}
+
+\gentry{2.5.7}{Stetiges Bild kompakter Mengen}{%
+  Seien $(X, \|\cdot\|_X), (Y, \|\cdot\|_Y)$ normierte Räume,
+  $\emptyset \neq M \subseteq X$, $f: M \to Y$ stetig. Ist $M$ kompakt, so ist
+  auch $f(M)$ kompakt.
+}
+
+\gentry{2.5.8}{Satz vom Maximum}{%
+  Sei $(X, \|\cdot\|)$ ein normierter Raum, $\emptyset \neq M \subseteq X$
+  kompakt, $f: M \to \mathbb{R}$ stetig. Dann nimmt $f$ auf $M$ Maximum und
+  Minimum an: Es gibt $\overline{x}, \underline{x} \in M$ mit
+  $f(\overline{x}) = \sup f(M)$ und $f(\underline{x}) = \inf f(M)$.
+  Insbesondere ist $f(M)$ beschränkt.
+}
+
+\gentry{2.5.9}{Gleichmäßige Stetigkeit (allgemein)}{%
+  Seien $(X, \|\cdot\|_X), (Y, \|\cdot\|_Y)$ normierte Räume,
+  $\emptyset \neq M \subseteq X$, $f \in \mathrm{Abb}(M, Y)$.
+  \begin{enumerate}[label=(\roman*),topsep=2pt,itemsep=1pt]
+    \item $f$ heißt \textbf{gleichmäßig stetig (auf $M$)}, wenn
+    \[
+      \forall \varepsilon > 0\;\exists \delta > 0\;\forall a, x \in M:
+      \|x - a\|_X < \delta \Rightarrow \|f(x) - f(a)\|_Y < \varepsilon.
+    \]
+    \item Ist $M$ kompakt und $f$ stetig auf $M$, so ist $f$ sogar gleichmäßig
+    stetig auf $M$.
+  \end{enumerate}
+}
+
+% ======================================================================
+\section*{2.6 \quad Punktweise und gleichmäßige Konvergenz}
+
+\gentry{2.6.1}{Punktweise Konvergenz}{%
+  Sei $M$ eine nichtleere Menge, $(Y, \|\cdot\|_Y)$ ein normierter Raum, $(f_k)$
+  eine Folge in $\mathrm{Abb}(M, Y)$. $(f_k)$ heißt \textbf{punktweise konvergent},
+  wenn die Folge $(f_k(x))_{k \in \mathbb{N}}$ für jedes $x \in M$ in
+  $(Y, \|\cdot\|_Y)$ konvergiert. Die Funktion
+  $f: M \to Y$, $x \mapsto f(x) := \lim_{k \to \infty} f_k(x)$ heißt
+  \textbf{Grenzfunktion}.
+}
+
+\gentry{2.6.2}{Gleichmäßige Konvergenz}{%
+  $(f_k)$ heißt \textbf{gleichmäßig konvergent} (gegen $f \in \mathrm{Abb}(M, Y)$), wenn
+  \[
+    \sup\{\|f_k(x) - f(x)\|_Y \mid x \in M\} \to 0 \quad \text{für } k \to \infty.
+  \]
+  $\varepsilon$-$n_0$-Kriterien:
+  \begin{itemize}[topsep=2pt,itemsep=1pt]
+    \item \textbf{punktweise:} $\forall \varepsilon > 0\;\forall x \in M\;\exists n_0\;\forall k \geq n_0: \|f_k(x) - f(x)\|_Y < \varepsilon$.
+    \item \textbf{gleichmäßig:} $\forall \varepsilon > 0\;\exists n_0\;\forall x \in M\;\forall k \geq n_0: \|f_k(x) - f(x)\|_Y < \varepsilon$.
+  \end{itemize}
+  ($n_0$ und $x$ haben die Quantoren getauscht.)
+}
+
+\gentry{2.6.3}{Bemerkung (gleichmäßige $\Rightarrow$ punktweise Konvergenz)}{%
+  Ist $(f_k)$ gleichmäßig konvergent, so ist $(f_k)$ auch punktweise konvergent
+  (gegen dieselbe Grenzfunktion). Die Umkehrung gilt im Allgemeinen nicht.
+}
+
+\gentry{2.6.5}{Satz von Weierstraß (Stetigkeit der Grenzfunktion)}{%
+  Seien $(X, \|\cdot\|_X), (Y, \|\cdot\|_Y)$ normierte Räume, $a \in M \subseteq X$,
+  $(f_k)$ Folge in $\mathrm{Abb}(M, Y)$, $f \in \mathrm{Abb}(M, Y)$.
+  Konvergiert $(f_k)$ gleichmäßig gegen $f$ und sind fast alle $f_k$ stetig in
+  $a$ (bzw.\ auf $M$), so ist auch $f$ stetig in $a$ (bzw.\ auf $M$).
+}
+
+\gentry{2.6.6}{Funktionenreihe}{%
+  Sei $(f_k)$ Folge in $\mathrm{Abb}(M, Y)$. Unter der \textbf{Funktionenreihe}
+  $\sum_{k=1}^\infty f_k$ versteht man die Folge $(s_k)$ der Partialsummen
+  $s_k := \sum_{j=1}^k f_j$. Die Reihe heißt \textbf{punktweise} bzw.\
+  \textbf{gleichmäßig konvergent}, wenn $(s_k)$ punktweise bzw.\ gleichmäßig
+  konvergiert. Ihre Grenzfunktion heißt \textbf{Summenfunktion}.
+}
+
+\gentry{2.6.7}{Stetigkeit der Summenfunktion}{%
+  Konvergiert $\sum_{k=1}^\infty f_k$ gleichmäßig gegen $s \in \mathrm{Abb}(M, Y)$
+  und sind alle $f_k$ stetig in $a$ (bzw.\ auf $M$), so ist auch $s$ stetig in $a$
+  (bzw.\ auf $M$).
+}
+
+\gentry{2.6.8}{Majorantenkriterium}{%
+  Sei $M$ nichtleer, $(Y, \|\cdot\|_Y)$ ein \textbf{Banachraum}, $(f_k)$ Folge in
+  $\mathrm{Abb}(M, Y)$. Gibt es für jedes $k$ ein $a_k \in \mathbb{R}$ mit
+  $\sup\{\|f_k(x)\|_Y \mid x \in M\} \leq a_k$, und ist $\sum_{k=1}^\infty a_k$
+  konvergent, so konvergiert $\sum_{k=1}^\infty f_k$ gleichmäßig.
+}
+
+\gentry{2.6.9}{Potenzreihenfunktion}{%
+  Hat die Potenzreihe $\sum_{k=0}^\infty a_k(x - a)^k$ Konvergenzradius $R > 0$,
+  so konvergiert die Reihe auf jedem kompakten Teilintervall
+  $[\alpha, \beta] \subseteq \,]a - R, a + R[\,$ gleichmäßig, und die
+  Summenfunktion (\textbf{Potenzreihenfunktion}) ist stetig auf
+  $\,]a - R, a + R[\,$.
+}
+
+\newpage
+
+\begin{center}
+  {\LARGE\bfseries Glossar zu Lektion 3}\\[0.5em]
+  {\large Analysis (Modul 61211)}
+\end{center}
+
+\vspace{1em}
+
+Dieses Glossar fasst die wesentlichen Definitionen, Merkregeln und S\"atze
+der dritten Lektion kompakt zusammen. Nummerierungen entsprechen dem Lehrtext.
+
+% ======================================================================
+\section*{3.1 \quad Grenzwerte reeller Funktionen (R\"uckblick und Erg\"anzungen)}
+
+\gentry{3.1.1}{Stetige Fortsetzung}{%
+  Seien $\emptyset \neq M \subseteq \mathbb{R}$, $f \in \mathrm{Abb}(M, \mathbb{R})$ und
+  $a \in \mathbb{R}$ ein H\"aufungspunkt von $M$. Dann gibt es \emph{h\"ochstens eine}
+  in $a$ stetige Funktion $F : M \cup \{a\} \to \mathbb{R}$ mit
+  $F(x) = f(x)$ f\"ur jedes $x \in M \setminus \{a\}$. Falls existent, hei{\ss}t $F$
+  die \textbf{stetige Fortsetzung} von $f$ in $a$, und $f$ hei{\ss}t nach $a$
+  stetig fortsetzbar.
+}
+
+\gentry{3.1.2}{Grenzwert einer Funktion}{%
+  Seien $\emptyset \neq M \subseteq \mathbb{R}$, $f \in \mathrm{Abb}(M, \mathbb{R})$ und
+  $a \in \mathbb{R}$ ein H\"aufungspunkt von $M$. $f$ besitzt in $a$ einen
+  \textbf{Grenzwert}, wenn eine Funktion $F : M \cup \{a\} \to \mathbb{R}$ existiert mit
+  \begin{enumerate}[label=(\roman*),topsep=2pt,itemsep=1pt]
+    \item $F(x) = f(x)$ f\"ur jedes $x \in M \setminus \{a\}$,
+    \item $F$ ist stetig in $a$.
+  \end{enumerate}
+  Dann hei{\ss}t $b := F(a)$ \textbf{Grenzwert} von $f$ in $a$, Schreibweise
+  $\lim_{x \to a} f(x) = b$ oder $f(x) \to b$ f\"ur $x \to a$.
+}
+
+\gentry{3.1.4}{Stetigkeit und Grenzwert}{%
+  Ist $a$ ein H\"aufungspunkt von $M$, der in $M$ liegt, so gilt:
+  \[
+    f \text{ ist stetig in } a \;\Longleftrightarrow\; \lim_{x \to a} f(x) = f(a).
+  \]
+}
+
+\gentry{3.1.5}{Umgebungskriterium, $\varepsilon$-$\delta$-Kriterium, Folgenkriterium}{%
+  Sei $a$ ein H\"aufungspunkt von $M$ und $b \in \mathbb{R}$. Die folgenden
+  Aussagen sind \"aquivalent:
+  \begin{enumerate}[label=(\roman*),topsep=2pt,itemsep=1pt]
+    \item $\lim_{x \to a} f(x) = b$,
+    \item zu jeder Umgebung $V$ von $b$ gibt es eine Umgebung $U$ von $a$ mit
+          $f(U \cap M \setminus \{a\}) \subseteq V$,
+    \item $\forall\, \varepsilon > 0 \; \exists\, \delta > 0 \; \forall\, x \in M \setminus \{a\}:
+          (|x - a| < \delta \Rightarrow |f(x) - b| < \varepsilon)$,
+    \item f\"ur jede Folge $(x_k)$ in $M \setminus \{a\}$ mit $x_k \to a$ gilt $f(x_k) \to b$.
+  \end{enumerate}
+}
+
+\gentry{3.1.6}{Operationen mit Grenzwerten}{%
+  Seien $f, g \in \mathrm{Abb}(M, \mathbb{R})$ mit $\lim_{x \to a} f(x) = u$ und
+  $\lim_{x \to a} g(x) = v$ sowie $\alpha \in \mathbb{R}$. Dann:
+  \begin{enumerate}[label=(\roman*),topsep=2pt,itemsep=1pt]
+    \item $\lim_{x \to a}(f \pm g)(x) = u \pm v$,
+    \item $\lim_{x \to a}(\alpha f)(x) = \alpha u$,
+    \item $\lim_{x \to a}(f g)(x) = u v$,
+    \item $\lim_{x \to a}\bigl(\tfrac{1}{f}\bigr)(x) = \tfrac{1}{u}$, falls $f(x) \neq 0$ auf $M$ und $u \neq 0$.
+  \end{enumerate}
+  \textbf{Kettenregel f\"ur Grenzwerte:} Sei $E \subseteq \mathbb{R}$ mit H\"aufungspunkt $u$ und
+  $f(M) \subseteq E$, $\tilde f \in \mathrm{Abb}(E, \mathbb{R})$ mit $\lim_{y \to u} \tilde f(y) = w$.
+  Ist $\tilde F$ die stetige Fortsetzung von $\tilde f$ in $u$, so gilt
+  $\lim_{x \to a}(\tilde F \circ f)(x) = w$.
+}
+
+\gentry{3.1.7}{Cauchykriterium}{%
+  $f$ besitzt genau dann einen Grenzwert in $a$, wenn gilt:
+  \[
+    \forall\, \varepsilon > 0 \; \exists\, \delta > 0 \; \forall\, x, x' \in M \setminus \{a\}:
+    (|x - a| < \delta,\; |x' - a| < \delta \Rightarrow |f(x) - f(x')| < \varepsilon).
+  \]
+}
+
+\gentry{3.1.8}{Grenzwert in $\infty$ oder $-\infty$}{%
+  Sei $M$ eine nichtleere, nach oben (bzw.\ unten) nicht beschr\"ankte Teilmenge von
+  $\mathbb{R}$, $b \in \mathbb{R}$. $f \in \mathrm{Abb}(M, \mathbb{R})$ besitzt in
+  $\infty$ (bzw.\ $-\infty$) den Grenzwert $b$, in Zeichen
+  $\lim_{x \to \infty} f(x) = b$ (bzw.\ $\lim_{x \to -\infty} f(x) = b$), wenn es
+  zu jeder Umgebung $V$ von $b$ eine Umgebung $U$ von $\infty$ (bzw.\ $-\infty$) gibt mit
+  $f(U \cap M) \subseteq V$.
+}
+
+\gentry{3.1.9}{Kriterien f\"ur Grenzwerte in $\pm\infty$}{%
+  \"Aquivalent sind:
+  (a1) $\lim_{x \to \infty} f(x) = b$,
+  (a2) $\forall\, \varepsilon > 0 \; \exists\, \delta > 0 \; \forall\, x \in M:
+       (x > \tfrac{1}{\delta} \Rightarrow |f(x) - b| < \varepsilon)$,
+  (a3) f\"ur jede Folge $(x_k)$ in $M$ mit $\lim x_k = \infty$ gilt $\lim f(x_k) = b$.
+  Analog f\"ur $x \to -\infty$.
+}
+
+\gentry{3.1.10}{Uneigentlicher Grenzwert}{%
+  Seien $\emptyset \neq M \subseteq \mathbb{R}$, $f \in \mathrm{Abb}(M, \mathbb{R})$.
+  \begin{enumerate}[label=(\arabic*),topsep=2pt,itemsep=1pt]
+    \item Ist $a \in \mathbb{R}$ ein H\"aufungspunkt von $M$, so besitzt $f$ in $a$
+          den uneigentlichen Grenzwert $\infty$ ($\lim_{x \to a} f(x) = \infty$),
+          wenn es zu jeder Umgebung $V$ von $\infty$ eine Umgebung $U$ von $a$ gibt mit
+          $f(U \cap M \setminus \{a\}) \subseteq V$.
+          \"Aquivalent: $\forall\, \varepsilon > 0 \; \exists\, \delta > 0: |x - a| < \delta \Rightarrow f(x) > \tfrac{1}{\varepsilon}$.
+    \item Ist $M$ nach oben nicht beschr\"ankt, so besitzt $f$ in $\infty$ den uneigentlichen
+          Grenzwert $\infty$ ($\lim_{x \to \infty} f(x) = \infty$), wenn es zu jeder
+          Umgebung $V$ von $\infty$ eine Umgebung $U$ von $\infty$ gibt mit $f(U \cap M) \subseteq V$.
+    \item Analog f\"ur $\lim_{x \to -\infty} f(x) = \infty$.
+  \end{enumerate}
+  Entsprechend sind uneigentliche Grenzwerte $-\infty$ definiert.
+}
+
+\gentry{}{Rechts- und linksseitiger Grenzwert}{%
+  Besitzt $f$ in $a$ den rechtsseitigen und den linksseitigen Grenzwert $b$, so
+  besitzt $f$ in $a$ den Grenzwert $b$. Eine entsprechende Aussage gilt auch im
+  Fall $b \in \{-\infty, \infty\}$.
+}
+
+\gentry{}{Monotoniekriterium}{%
+  Sei $M$ eine nach oben beschr\"ankte, nichtleere Teilmenge von $\mathbb{R}$, und
+  $a := \sup M$ sei ein H\"aufungspunkt von $M$. Ist $f \in \mathrm{Abb}(M, \mathbb{R})$
+  monoton wachsend und $f(M)$ nach oben beschr\"ankt, so besitzt $f$ in $a$ einen
+  Grenzwert.
+}
+
+% ======================================================================
+\section*{3.2 \quad Grenzwerte von Funktionen auf normierten R\"aumen}
+
+\gentry{3.2.1}{Stetige Fortsetzung, Grenzwert}{%
+  Seien $(X, \|\cdot\|_X)$ und $(Y, \|\cdot\|_Y)$ normierte R\"aume,
+  $\emptyset \neq M \subseteq X$, $f \in \mathrm{Abb}(M, Y)$ und $a \in X$ ein
+  H\"aufungspunkt von $M$. Dann gibt es h\"ochstens eine in $a$ stetige Funktion
+  $F : M \cup \{a\} \to Y$ mit $F(x) = f(x)$ f\"ur $x \in M \setminus \{a\}$.
+  Falls existent, hei{\ss}t $f$ nach $a$ stetig fortsetzbar, $F$ die stetige
+  Fortsetzung von $f$ in $a$ und $F(a)$ der \textbf{Grenzwert} von $f$ in $a$.
+}
+
+\gentry{3.2.2}{Stetigkeit und Grenzwert}{%
+  Ist $a$ ein H\"aufungspunkt von $M$ mit $a \in M$, so gilt:
+  $f$ stetig in $a \;\Leftrightarrow\; \lim_{x \to a} f(x) = f(a)$.
+}
+
+\gentry{3.2.4}{Umgebungskriterium, $\varepsilon$-$\delta$-Kriterium, Folgenkriterium}{%
+  Sei $a$ ein H\"aufungspunkt von $M$, $b \in Y$. \"Aquivalent sind:
+  \begin{enumerate}[label=(\roman*),topsep=2pt,itemsep=1pt]
+    \item $\lim_{x \to a} f(x) = b$,
+    \item zu jeder Umgebung $V$ von $b$ existiert eine Umgebung $U$ von $a$ mit
+          $f(U \cap M \setminus \{a\}) \subseteq V$,
+    \item $\forall\, \varepsilon > 0 \; \exists\, \delta > 0 \; \forall\, x \in M \setminus \{a\}:
+          (\|x - a\|_X < \delta \Rightarrow \|f(x) - b\|_Y < \varepsilon)$,
+    \item f\"ur jede Folge $(x_k)$ in $M \setminus \{a\}$ mit $x_k \to a$ in $(X, \|\cdot\|_X)$
+          gilt $f(x_k) \to b$ in $(Y, \|\cdot\|_Y)$.
+  \end{enumerate}
+}
+
+\gentry{3.2.5}{Einschr\"ankung und Verkettung}{%
+  Seien $(X, \|\cdot\|_X)$, $(Y, \|\cdot\|_Y)$, $(Z, \|\cdot\|_Z)$ normierte R\"aume,
+  $M \subseteq X$, $a \in X$ H\"aufungspunkt von $M$, $f \in \mathrm{Abb}(M, Y)$ mit
+  $\lim_{x \to a} f(x) = u$.
+  \begin{enumerate}[label=(\roman*),topsep=2pt,itemsep=1pt]
+    \item Ist $M_1 \subseteq M$ und $a$ H\"aufungspunkt von $M_1$, so gilt
+          $\lim_{x \to a} f|_{M_1}(x) = u$.
+    \item Sei $E \subseteq Y$ mit H\"aufungspunkt $u$, $f(M) \subseteq E$, und
+          $\tilde f \in \mathrm{Abb}(E, Z)$ mit $\lim_{y \to u} \tilde f(y) = w$.
+          Ist $\tilde F$ die stetige Fortsetzung von $\tilde f$ in $u$, so
+          $\lim_{x \to a}(\tilde F \circ f)(x) = w$.
+  \end{enumerate}
+}
+
+\gentry{3.2.6}{Operationen}{%
+  Seien $(X, \|\cdot\|)$ ein normierter Raum, $M \subseteq X$, $a \in X$
+  H\"aufungspunkt von $M$, $f, g \in \mathrm{Abb}(M, \mathbb{R}^m)$ mit
+  $\lim f = u$, $\lim g = v$, $h \in \mathrm{Abb}(M, \mathbb{R})$ mit
+  $\lim h = \gamma$. Dann:
+  \begin{enumerate}[label=(\roman*),topsep=2pt,itemsep=1pt]
+    \item $\lim(f \pm g)(x) = u \pm v$,
+    \item $\lim(\alpha f)(x) = \alpha u$ f\"ur $\alpha \in \mathbb{R}$,
+    \item $\lim(h f)(x) = \gamma u$,
+    \item $\lim\bigl(\tfrac{1}{h} f\bigr)(x) = \tfrac{1}{\gamma} u$, falls $h(x) \neq 0$ auf $M$ und $\gamma \neq 0$.
+  \end{enumerate}
+}
+
+% ======================================================================
+\section*{3.3 \quad Differenzierbarkeit in $\mathbb{R}$ (R\"uckblick und Erg\"anzungen)}
+
+\gentry{3.3.1}{Differenzierbarkeit}{%
+  Seien $a \in M \subseteq \mathbb{R}$ und $f : M \to \mathbb{R}$.
+  \begin{enumerate}[label=(\roman*),topsep=2pt,itemsep=1pt]
+    \item $f$ hei{\ss}t \textbf{differenzierbar in $a$}, wenn $a$ H\"aufungspunkt von $M$ ist
+          und es ein $\alpha \in \mathbb{R}$ gibt mit
+          \[
+            \lim_{x \to a} \frac{f(x) - [f(a) + \alpha(x - a)]}{x - a} = 0.
+          \]
+          Falls existent, ist $\alpha$ eindeutig bestimmt als
+          $\alpha = \lim_{x \to a} \tfrac{f(x) - f(a)}{x - a}$.
+    \item Gilt $\emptyset \neq E \subseteq M$, so hei{\ss}t $f$ differenzierbar auf $E$, wenn $f$
+          in jedem Punkt von $E$ differenzierbar ist.
+  \end{enumerate}
+}
+
+\gentry{3.3.2}{Ableitung}{%
+  Sei $f : M \to \mathbb{R}$ differenzierbar in $a$.
+  Die eindeutig bestimmte Zahl $\alpha$ aus 3.3.1 hei{\ss}t die \textbf{Ableitung} (oder
+  der Differenzialquotient) von $f$ an der Stelle $a$; Schreibweise $f'(a)$.
+  Ist $f$ auf $M$ differenzierbar, so hei{\ss}t $f' : M \to \mathbb{R}$, $x \mapsto f'(x)$
+  die Ableitung von $f$.
+}
+
+\gentry{3.3.3}{Differenzierbarkeit und Stetigkeit}{%
+  Ist $f : M \to \mathbb{R}$ in $a \in M$ differenzierbar, so ist $f$ in $a$ stetig.
+  Die Umkehrung ist im Allgemeinen falsch.
+}
+
+\gentry{3.3.5}{Differenziationsregeln}{%
+  Seien $f, g : M \to \mathbb{R}$ differenzierbar in $a$ und $\alpha \in \mathbb{R}$.
+  \begin{enumerate}[label=(\roman*),topsep=2pt,itemsep=1pt]
+    \item $(f \pm g)'(a) = f'(a) \pm g'(a)$, $(\alpha f)'(a) = \alpha f'(a)$,
+    \item Produktregel: $(f g)'(a) = f'(a) g(a) + f(a) g'(a)$,
+    \item Quotientenregel: Ist $g(x) \neq 0$ auf $M$, so
+          $\bigl(\tfrac{f}{g}\bigr)'(a) = \tfrac{f'(a) g(a) - f(a) g'(a)}{(g(a))^2}$,
+    \item Kettenregel: Ist $h : E \to \mathbb{R}$ mit $f(M) \subseteq E$ differenzierbar
+          in $f(a)$, so ist $h \circ f$ differenzierbar in $a$ mit
+          $(h \circ f)'(a) = h'(f(a)) f'(a)$.
+  \end{enumerate}
+}
+
+\gentry{}{Restriktion}{%
+  Seien $a \in E \subseteq M \subseteq \mathbb{R}$, $f \in \mathrm{Abb}(M, \mathbb{R})$.
+  \begin{enumerate}[label=(\roman*),topsep=2pt,itemsep=1pt]
+    \item Ist $a$ H\"aufungspunkt von $E$ und $f$ in $a$ differenzierbar, so ist auch
+          $f|_E$ in $a$ differenzierbar mit $(f|_E)'(a) = f'(a)$.
+    \item Ist $U$ eine Umgebung von $a$ und $f|_{U \cap M}$ in $a$ differenzierbar,
+          so ist $f$ in $a$ differenzierbar.
+    \item Sind $f_1 := f|_{]-\infty, a] \cap M}$ und $f_2 := f|_{[a, \infty[ \cap M}$
+          in $a$ differenzierbar mit $f_1'(a) = f_2'(a)$, so ist $f$ in $a$
+          differenzierbar mit $f'(a) = f_1'(a) = f_2'(a)$.
+  \end{enumerate}
+}
+
+\gentry{3.3.6}{Polynomfunktion}{%
+  Seien $n \in \mathbb{N}_0$, $a_0, \ldots, a_n \in \mathbb{R}$. Die Polynomfunktion
+  $P : \mathbb{R} \to \mathbb{R}$, $P(x) := \sum_{k=0}^n a_k x^k$, ist auf $\mathbb{R}$
+  differenzierbar mit
+  $P'(x) = \sum_{k=1}^n a_k k x^{k-1}$ (bzw.\ $0$, falls $n = 0$).
+}
+
+\gentry{3.3.7}{Rationale Funktion}{%
+  Jede rationale Funktion ist auf ihrem Definitionsbereich differenzierbar; ihre
+  Ableitung ist eine rationale Funktion.
+}
+
+\gentry{3.3.8}{Umkehrfunktion}{%
+  Sei $I$ ein Intervall mit mehr als einem Punkt, $f : I \to \mathbb{R}$ injektiv,
+  stetig auf $I$ und differenzierbar in $a \in I$. Dann ist die Umkehrfunktion
+  $f^{-1} : f(I) \to I$ genau dann in $b := f(a)$ differenzierbar, wenn $f'(a) \neq 0$.
+  In diesem Fall:
+  \[
+    (f^{-1})'(b) = \frac{1}{f'(a)} = \frac{1}{f'(f^{-1}(b))}.
+  \]
+}
+
+\gentry{3.3.10}{Mittelwertsatz der Differenzialrechnung}{%
+  Sei $I := [a, b]$ mit $a < b$, $f : I \to \mathbb{R}$ stetig auf $I$ und differenzierbar
+  auf $\mathring I = ]a, b[$. Dann gibt es (mindestens) ein $\xi \in \mathring I$ mit
+  \[
+    \frac{f(b) - f(a)}{b - a} = f'(\xi).
+  \]
+}
+
+\gentry{3.3.11}{2.~Mittelwertsatz der Differenzialrechnung}{%
+  Sei $I := [a, b]$ mit $a < b$, $f, g : I \to \mathbb{R}$ stetig auf $I$ und
+  differenzierbar auf $\mathring I = ]a, b[$, und $g'(x) \neq 0$ f\"ur jedes
+  $x \in \mathring I$. Dann ist $g(a) \neq g(b)$, und es gibt (mindestens)
+  $\xi \in \mathring I$ mit
+  \[
+    \frac{f(b) - f(a)}{g(b) - g(a)} = \frac{f'(\xi)}{g'(\xi)}.
+  \]
+}
+
+\gentry{3.3.12}{Charakterisierung der konstanten Funktionen}{%
+  Sei $I$ ein Intervall mit mehr als einem Punkt, $\mathring I$ das Innere von $I$,
+  $f : I \to \mathbb{R}$ stetig auf $I$ und differenzierbar auf $\mathring I$.
+  $f$ ist genau dann konstant, wenn $f'(x) = 0$ f\"ur jedes $x \in \mathring I$.
+}
+
+\gentry{3.3.13}{Charakterisierung monotoner Funktionen}{%
+  Unter den Voraussetzungen von 3.3.12:
+  \begin{enumerate}[label=(\roman*),topsep=2pt,itemsep=1pt]
+    \item $f$ monoton wachsend $\Leftrightarrow$ $f'(x) \geq 0$ f\"ur jedes $x \in \mathring I$,
+    \item $f$ monoton fallend $\Leftrightarrow$ $f'(x) \leq 0$ f\"ur jedes $x \in \mathring I$,
+    \item Gilt $f'(x) > 0$ (bzw.\ $<0$) f\"ur jedes $x \in \mathring I$, so ist $f$
+          streng monoton wachsend (bzw.\ fallend), insbesondere injektiv.
+  \end{enumerate}
+}
+
+\gentry{3.3.14}{Regel von de l'Hospital, Typ $\tfrac{0}{0}$}{%
+  Seien $I$ ein Intervall und $a$ ein H\"aufungspunkt von $I$. Seien $f, g : I \to \mathbb{R}$
+  differenzierbar auf $I \setminus \{a\}$ mit $g'(x) \neq 0$ f\"ur $x \in I \setminus \{a\}$.
+  Gilt $\lim_{x \to a} f(x) = 0$ und $\lim_{x \to a} g(x) = 0$ und existiert
+  $\lim_{x \to a} \tfrac{f'(x)}{g'(x)}$ (evtl.\ uneigentlich), so existiert auch
+  $\lim_{x \to a} \tfrac{f(x)}{g(x)}$, und
+  $\lim_{x \to a} \tfrac{f(x)}{g(x)} = \lim_{x \to a} \tfrac{f'(x)}{g'(x)}$.
+}
+
+\gentry{3.3.15}{Regel von de l'Hospital, Typ $\tfrac{0}{0}$ (in $\infty$)}{%
+  Sei $I = ]\alpha, \infty[$, $f, g : I \to \mathbb{R}$ differenzierbar auf $I$ mit
+  $g'(x) \neq 0$. Gilt $\lim_{x \to \infty} f(x) = 0$, $\lim_{x \to \infty} g(x) = 0$ und
+  existiert $\lim_{x \to \infty} \tfrac{f'(x)}{g'(x)}$ (evtl.\ uneigentlich),
+  so $\lim_{x \to \infty} \tfrac{f(x)}{g(x)} = \lim_{x \to \infty} \tfrac{f'(x)}{g'(x)}$.
+}
+
+\gentry{3.3.16}{Regel von de l'Hospital, Typ $\tfrac{\infty}{\infty}$}{%
+  Sei $I$ ein Intervall und $a$ H\"aufungspunkt von $I$ (oder $a = \infty$,
+  $I = ]\alpha, \infty[$). Seien $f, g : I \to \mathbb{R}$ differenzierbar auf
+  $I \setminus \{a\}$ mit $g'(x) \neq 0$. Gilt $\lim_{x \to a} f(x) = \infty$ und
+  $\lim_{x \to a} g(x) = \infty$ und existiert $\lim_{x \to a} \tfrac{f'(x)}{g'(x)}$
+  (evtl.\ uneigentlich), so $\lim_{x \to a} \tfrac{f(x)}{g(x)} = \lim_{x \to a} \tfrac{f'(x)}{g'(x)}$.
+}
+
+\gentry{3.3.17}{Differenzierbarkeit der Grenzfunktion}{%
+  Sei $I = [a, b]$, $a < b$, und $(f_k)$ eine Folge differenzierbarer Funktionen in
+  $\mathrm{Abb}(I, \mathbb{R})$. $(f_k')$ sei gleichm\"a{\ss}ig konvergent und $(f_k(c))$
+  konvergiere f\"ur wenigstens ein $c \in I$. Dann:
+  \begin{enumerate}[label=(\roman*),topsep=2pt,itemsep=1pt]
+    \item $(f_k)$ konvergiert gleichm\"a{\ss}ig gegen eine Funktion $f \in \mathrm{Abb}(I, \mathbb{R})$,
+    \item $f$ ist differenzierbar mit $f'(x) = \lim_{k \to \infty} f_k'(x)$ f\"ur jedes $x \in I$.
+  \end{enumerate}
+}
+
+\gentry{3.3.18}{Gliedweise Differenziation}{%
+  Sei $I = [a, b]$, $a < b$, $(f_k)$ Folge differenzierbarer Funktionen in
+  $\mathrm{Abb}(I, \mathbb{R})$. $\sum_{k=1}^\infty f_k'$ sei gleichm\"a{\ss}ig konvergent
+  und $\sum_{k=1}^\infty f_k(c)$ konvergiere f\"ur wenigstens ein $c \in I$. Dann
+  konvergiert $\sum_{k=1}^\infty f_k$ gleichm\"a{\ss}ig gegen ein differenzierbares
+  $s \in \mathrm{Abb}(I, \mathbb{R})$, und
+  $s'(x) = \sum_{k=1}^\infty f_k'(x)$ f\"ur jedes $x \in I$.
+}
+
+\gentry{3.3.19}{Potenzreihenfunktion}{%
+  Hat die Potenzreihe $\sum_{\nu=0}^\infty a_\nu (x - a)^\nu$ einen Konvergenzradius
+  $R > 0$, so hat die gliedweise differenzierte Potenzreihe
+  $\sum_{\nu=1}^\infty a_\nu \nu (x - a)^{\nu-1}$ ebenfalls den Konvergenzradius $R$,
+  und $f(x) = \sum_{\nu=0}^\infty a_\nu (x - a)^\nu$ ist auf $]a - R, a + R[$
+  differenzierbar mit $f'(x) = \sum_{\nu=1}^\infty a_\nu \nu (x - a)^{\nu-1}$.
+  $f$ ist sogar beliebig oft differenzierbar.
+}
+
+% ======================================================================
+\section*{3.4 \quad Der Raum $\mathrm{Hom}(\mathbb{R}^n, \mathbb{R}^m)$}
+
+\gentry{3.4.1}{Darstellung linearer Abbildungen durch Matrizen}{%
+  Ist $L : \mathbb{R}^n \to \mathbb{R}^m$ linear, so gibt es genau eine $(m, n)$-Matrix
+  $A$ mit $L(x) = Ax$ f\"ur jedes $x \in \mathbb{R}^n$. Umgekehrt gilt f\"ur jede
+  $(m, n)$-Matrix $A$, dass durch $L(x) := Ax$ eine lineare Abbildung
+  $L : \mathbb{R}^n \to \mathbb{R}^m$ definiert wird.
+  Die $k$-te Spalte der Matrix ist $L(e_k)$ (Bild des $k$-ten kanonischen Basisvektors).
+}
+
+\gentry{3.4.2}{Beispiele}{%
+  \begin{itemize}[topsep=2pt,itemsep=1pt]
+    \item Identit\"at $\mathrm{id}_n : \mathbb{R}^n \to \mathbb{R}^n$: Einheitsmatrix
+          $E_n = (\delta_{ij})$.
+    \item Nullabbildung $0 : \mathbb{R}^n \to \mathbb{R}^m$: $(m, n)$-Nullmatrix $0_{mn}$.
+    \item Drehung $D_\varphi : \mathbb{R}^2 \to \mathbb{R}^2$ um den Nullpunkt um den
+          Winkel $\varphi$: Matrix $\bigl(\begin{smallmatrix} \cos \varphi & -\sin \varphi \\ \sin \varphi & \cos \varphi \end{smallmatrix}\bigr)$.
+  \end{itemize}
+}
+
+\gentry{3.4.3}{Operationen mit linearen Abbildungen}{%
+  \begin{enumerate}[label=(\roman*),topsep=2pt,itemsep=1pt]
+    \item Sind $f, g : \mathbb{R}^n \to \mathbb{R}^m$ linear und $\alpha \in \mathbb{R}$,
+          so sind auch $f + g$, $f - g$, $\alpha f$ linear.
+    \item Ist $h : \mathbb{R}^m \to \mathbb{R}^\ell$ linear, so ist auch
+          $h \circ f : \mathbb{R}^n \to \mathbb{R}^\ell$ linear.
+  \end{enumerate}
+}
+
+\gentry{3.4.4}{Matrizenoperationen}{%
+  Seien $A = (a_{\mu\nu})$ und $B = (b_{\mu\nu})$ $(m, n)$-Matrizen, $\alpha \in \mathbb{R}$.
+  \[
+    A + B := (a_{\mu\nu} + b_{\mu\nu}), \qquad
+    \alpha A := (\alpha a_{\mu\nu}).
+  \]
+  F\"ur eine $(\ell, m)$-Matrix $C = (c_{\lambda\mu})$ ist das \textbf{Matrizenprodukt}
+  $CA = (p_{\lambda\nu})$ mit
+  \[
+    p_{\lambda\nu} := \sum_{\mu=1}^m c_{\lambda\mu} a_{\mu\nu}.
+  \]
+}
+
+\gentry{3.4.5}{Rechenregeln}{%
+  F\"ur Matrizen $A, B, C$ gilt, soweit die Operationen ausf\"uhrbar sind:
+  $(AB)C = A(BC)$ (Assoziativit\"at), $(A + B)C = AC + BC$, $A(B + C) = AB + AC$
+  (Distributivit\"at). Die Matrizenmultiplikation ist nicht kommutativ.
+}
+
+\gentry{3.4.6}{Norm auf $\mathbb{R}^{mn}$ (Zeilensummennorm)}{%
+  Sei $\mathbb{R}^{mn} := \{A \mid A$ ist $(m, n)$-Matrix$\}$. F\"ur
+  $A = (a_{\mu\nu}) \in \mathbb{R}^{mn}$ setze
+  \[
+    \|A\| := \max\Bigl\{\sum_{\nu=1}^n |a_{1\nu}|, \ldots, \sum_{\nu=1}^n |a_{m\nu}|\Bigr\}.
+  \]
+  Dann gilt:
+  \begin{enumerate}[label=(\roman*),topsep=2pt,itemsep=1pt]
+    \item $\|\cdot\| : \mathbb{R}^{mn} \to \mathbb{R}$ ist eine Norm auf $\mathbb{R}^{mn}$
+          (\textbf{Zeilensummennorm}),
+    \item $\|Ax\|_\infty \leq \|A\| \cdot \|x\|_\infty$ f\"ur alle $A \in \mathbb{R}^{mn}$
+          und $x \in \mathbb{R}^n$ (Maximumnorm auf $\mathbb{R}^n$ bzw.\ $\mathbb{R}^m$),
+    \item Ist $A$ die zu $L \in \mathrm{Hom}(\mathbb{R}^n, \mathbb{R}^m)$ geh\"orige Matrix,
+          und setzt man $\|L\|_{\mathrm{Hom}} := \|A\|$, so ist $\|\cdot\|_{\mathrm{Hom}}$
+          eine Norm auf $\mathrm{Hom}(\mathbb{R}^n, \mathbb{R}^m)$.
+  \end{enumerate}
+}
+
+\gentry{3.4.7}{Stetigkeit einer Abbildung nach $\mathbb{R}^{mn}$}{%
+  Seien $(X, \|\cdot\|)$ ein normierter Raum, $a \in M \subseteq X$ und
+  $H \in \mathrm{Abb}(M, \mathbb{R}^{mn})$, $H(t) = (h_{\mu\nu}(t))$ f\"ur $t \in M$. Dann:
+  \[
+    H \text{ ist stetig in } a \;\Longleftrightarrow\;
+    \forall\, \mu \in \{1,\ldots,m\}\, \forall\, \nu \in \{1,\ldots,n\}:
+    h_{\mu\nu} : M \to \mathbb{R} \text{ ist stetig in } a.
+  \]
+}
+
+% ======================================================================
+\section*{3.5 \quad Differenzierbare Funktionen}
+
+\gentry{3.5.1}{Differenzierbarkeit}{%
+  Seien $a \in M \subseteq \mathbb{R}^n$ und $f \in \mathrm{Abb}(M, \mathbb{R}^m)$.
+  \begin{enumerate}[label=(\roman*),topsep=2pt,itemsep=1pt]
+    \item $f$ hei{\ss}t \textbf{differenzierbar in $a$}, wenn $a$ ein innerer Punkt von $M$
+          ist (d.\,h.\ $M$ ist Umgebung von $a$) und es eine $(m, n)$-Matrix $A$ gibt mit
+          \[
+            \lim_{x \to a} \frac{f(x) - [f(a) + A(x - a)]}{\|x - a\|} = 0.
+          \]
+    \item Gilt $\emptyset \neq E \subseteq M$, so hei{\ss}t $f$ differenzierbar auf $E$,
+          wenn $f$ in jedem Punkt von $E$ differenzierbar ist.
+  \end{enumerate}
+  Die Norm $\|\cdot\|$ kann beliebig auf $\mathbb{R}^n$ gew\"ahlt werden (\"Aquivalenz der Normen).
+}
+
+\gentry{3.5.2}{Ableitung}{%
+  Die $(m, n)$-Matrix $A$ in 3.5.1 ist eindeutig bestimmt. Sie hei{\ss}t die
+  \textbf{Ableitung} (auch totale Ableitung) von $f$ an der Stelle $a$, Schreibweise
+  $f'(a)$. Ist $f$ auf $M$ differenzierbar, so hei{\ss}t
+  $f' : M \to \mathbb{R}^{mn}$, $a \mapsto f'(a)$, die Ableitung von $f$.
+  Die durch $A = f'(a)$ definierte lineare Abbildung hei{\ss}t das \textbf{Differenzial}
+  von $f$ in $a$.
+}
+
+\gentry{3.5.3}{Spezialfall $n = m = 1$}{%
+  Seien $M \subseteq \mathbb{R}$, $a$ innerer Punkt von $M$, $f \in \mathrm{Abb}(M, \mathbb{R})$.
+  Dann ist $f$ in $a$ differenzierbar gem\"a{\ss} 3.5.1 genau dann, wenn
+  $\lim_{x \to a} \tfrac{f(x) - f(a)}{x - a}$ existiert. Die ,,neue'' Ableitung ist
+  die $(1, 1)$-Matrix mit der ,,alten'' Ableitung als einzigem Element.
+}
+
+\gentry{3.5.4}{Beispiel (lineare Abbildung)}{%
+  Ist $f : \mathbb{R}^n \to \mathbb{R}^m$ linear, $f(x) = Ax$ mit $A \in \mathbb{R}^{mn}$,
+  so ist $f$ auf $\mathbb{R}^n$ differenzierbar mit $f'(a) = A$ f\"ur jedes
+  $a \in \mathbb{R}^n$. Die Ableitung $f' : \mathbb{R}^n \to \mathbb{R}^{mn}$ ist konstant.
+}
+
+\gentry{3.5.5}{Differenzierbarkeit und Stetigkeit}{%
+  Ist $f$ differenzierbar in $a$, so ist $f$ in $a$ auch stetig.
+}
+
+\gentry{}{Restriktion}{%
+  Seien $E \subseteq M \subseteq \mathbb{R}^n$ und $a$ innerer Punkt von $E$.
+  $f : M \to \mathbb{R}^m$ ist genau dann in $a$ differenzierbar, wenn $f|_E$ in $a$
+  differenzierbar ist; in diesem Fall $f'(a) = (f|_E)'(a)$.
+}
+
+\gentry{3.5.6}{Differenziationsregeln}{%
+  Sei $a \in M \subseteq \mathbb{R}^n$.
+  \begin{enumerate}[label=(\roman*),topsep=2pt,itemsep=1pt]
+    \item \textbf{Linearit\"at:} Sind $f, g \in \mathrm{Abb}(M, \mathbb{R}^m)$ differenzierbar
+          in $a$ und $\alpha \in \mathbb{R}$, so sind auch $f + g$ und $\alpha f$
+          differenzierbar in $a$ mit $(f + g)'(a) = f'(a) + g'(a)$,
+          $(\alpha f)'(a) = \alpha f'(a)$.
+    \item \textbf{Produktregel:} Sind $f, g \in \mathrm{Abb}(M, \mathbb{R})$ differenzierbar
+          in $a$, so ist $fg$ differenzierbar in $a$ mit
+          $(f g)'(a) = g(a) f'(a) + f(a) g'(a)$.
+    \item \textbf{Kettenregel:} Ist $f \in \mathrm{Abb}(M, \mathbb{R}^m)$ differenzierbar
+          in $a$, $N \subseteq \mathbb{R}^m$ mit $f(M) \subseteq N$ und
+          $g \in \mathrm{Abb}(N, \mathbb{R}^\ell)$ differenzierbar in $b := f(a)$,
+          so ist $g \circ f$ differenzierbar in $a$ mit
+          $(g \circ f)'(a) = g'(f(a)) f'(a)$.
+  \end{enumerate}
+}
+
+\gentry{3.5.7}{Koordinatenfunktionen}{%
+  Seien $a \in M \subseteq \mathbb{R}^n$, $f = {}^t(f_1, \ldots, f_m) \in \mathrm{Abb}(M, \mathbb{R}^m)$.
+  \[
+    f \text{ ist differenzierbar in } a \;\Longleftrightarrow\;
+    \forall\, \mu \in \{1,\ldots,m\}: f_\mu \text{ ist differenzierbar in } a.
+  \]
+  Gegebenenfalls ist $f'(a) = {}^t(f_1'(a), \ldots, f_m'(a))$.
+}
+
+\gentry{3.5.8}{Inneres einer Menge}{%
+  Seien $(X, \|\cdot\|)$ ein normierter Vektorraum und $M \subseteq X$.
+  Die Menge der inneren Punkte
+  \[
+    \mathring M := \{a \in M \mid M \text{ ist Umgebung von } a\}
+  \]
+  hei{\ss}t das \textbf{Innere} von $M$. $M$ ist genau dann offen, wenn $M = \mathring M$.
+}
+
+\gentry{3.5.9}{Mittelwertsatz}{%
+  Seien $a, b$ zwei verschiedene Punkte in $M \subseteq \mathbb{R}^n$ derart, dass die
+  ,,offene Verbindungsstrecke''
+  $]a, b[ := \{x = a + t(b - a) \mid 0 < t < 1\}$ im Innern von $M$ enthalten ist.
+  Ist $f : M \to \mathbb{R}$ in $a$ und in $b$ stetig und auf $]a, b[$ differenzierbar,
+  so gibt es ein $z \in {]a, b[}$ mit
+  \[
+    f(b) - f(a) = f'(z)(b - a).
+  \]
+}
+
+\gentry{3.5.10}{Konstante Funktionen}{%
+  Sei $f : M \to \mathbb{R}$ differenzierbar auf $M \subseteq \mathbb{R}^n$. Ist $M$
+  zusammenh\"angend, so gilt:
+  \[
+    f \text{ ist konstant} \;\Longleftrightarrow\; f'(x) = 0_{1n} \text{ f\"ur jedes } x \in M.
+  \]
+}
+
+\gentry{3.5.11}{Satz vom endlichen Zuwachs}{%
+  Seien $a, b \in M \subseteq \mathbb{R}^n$ derart, dass die offene Verbindungsstrecke
+  $]a, b[$ im Innern von $M$ enthalten ist. Ist $f : M \to \mathbb{R}^m$ auf $]a, b[$
+  differenzierbar und in $a$ und in $b$ stetig, und gibt es ein $C > 0$ mit
+  $\|f'(x)\| \leq C$ f\"ur jedes $x \in {]a, b[}$ (Matrixnorm aus 3.4.6), so gilt
+  \[
+    \|f(b) - f(a)\| \leq C \|b - a\|.
+  \]
+}
+
+% ======================================================================
+\section*{3.6 \quad Partielle Ableitungen, Richtungsableitungen}
+
+\gentry{3.6.1}{Partielle Ableitungen}{%
+  Seien $M \subseteq \mathbb{R}^n$, $f \in \mathrm{Abb}(M, \mathbb{R})$,
+  $a = {}^t(a_1, \ldots, a_n)$ innerer Punkt von $M$. F\"ur $k \in \{1, \ldots, n\}$ sei
+  \[
+    J_k := \{x_k \in \mathbb{R} \mid {}^t(a_1, \ldots, a_{k-1}, x_k, a_{k+1}, \ldots, a_n) \in M\}
+  \]
+  und $\iota_k : J_k \to \mathbb{R}^n$,
+  $x_k \mapsto {}^t(a_1, \ldots, a_{k-1}, x_k, a_{k+1}, \ldots, a_n)$.
+  \begin{enumerate}[label=(\roman*),topsep=2pt,itemsep=1pt]
+    \item $f$ hei{\ss}t in $a$ \textbf{nach der $k$-ten Koordinate partiell differenzierbar},
+          wenn $f \circ \iota_k$ in $a_k$ differenzierbar ist.
+    \item $f$ hei{\ss}t in $a$ \textbf{partiell differenzierbar}, wenn $f$ in $a$ nach
+          jeder Koordinate partiell differenzierbar ist.
+  \end{enumerate}
+  Die Ableitung $(f \circ \iota_k)'(a_k)$ wird mit
+  $D_k f(a) = \tfrac{\partial f}{\partial x_k}(a) = f_{x_k}(a)$ bezeichnet und hei{\ss}t
+  die \textbf{partielle Ableitung} von $f$ nach $x_k$ an der Stelle $a$.
+}
+
+\gentry{3.6.3}{Totale und partielle Differenzierbarkeit}{%
+  Ist $f$ differenzierbar in $a$, so ist $f$ nach jeder Koordinate partiell
+  differenzierbar in $a$, und es gilt
+  \[
+    f'(a) = (D_1 f(a)\; D_2 f(a)\; \ldots\; D_n f(a)).
+  \]
+  Die $(1, n)$-Matrix (Zeilenvektor) bezeichnet man meist mit
+  $\mathrm{grad}\, f(a)$ oder $\nabla f(a)$ (,,Gradient an der Stelle $a$'',
+  ,,Nabla $f$ an der Stelle $a$'').
+}
+
+\gentry{3.6.4}{Partielle und totale Differenzierbarkeit}{%
+  Die partiellen Ableitungen $D_1 f(x), \ldots, D_n f(x)$ seien f\"ur alle $x$ einer
+  Umgebung $U$ von $a$ mit $U \subseteq M$ vorhanden. Sind die Abbildungen
+  $D_k f : U \to \mathbb{R}$, $x \mapsto D_k f(x)$, f\"ur $k = 1, \ldots, n$ s\"amtlich
+  stetig in $a$, so ist $f$ differenzierbar in $a$ mit
+  $f'(a) = \mathrm{grad}\, f(a)$.
+}
+
+\gentry{3.6.5}{Polynomfunktionen, rationale Funktionen}{%
+  Jede Polynomfunktion ist differenzierbar (auf $\mathbb{R}^n$). Jede rationale
+  Funktion ist auf ihrem gesamten Definitionsbereich differenzierbar.
+}
+
+\gentry{3.6.6}{Richtungsableitung}{%
+  F\"ur $v \in \mathbb{R}^n$ mit $\|v\|_2 = 1$ seien
+  \[
+    J := \{t \in \mathbb{R} \mid a + tv \in M\}, \quad
+    \iota : J \to \mathbb{R}^n,\; t \mapsto \iota(t) := a + tv
+  \]
+  gesetzt. $f$ hei{\ss}t \textbf{in $a$ in Richtung $v$ differenzierbar}, wenn $f \circ \iota$
+  in $t = 0$ differenzierbar ist. Die Ableitung $(f \circ \iota)'(0)$ wird mit
+  $D_v f(a) = \tfrac{\partial f}{\partial v}(a)$ bezeichnet und hei{\ss}t die
+  \textbf{Richtungsableitung} von $f$ in $a$ in Richtung $v$.
+}
+
+\gentry{3.6.7}{Ableitung und Richtungsableitung}{%
+  Sei $v = {}^t(v_1, \ldots, v_n)$ mit $\|v\|_2 = 1$. Ist $f$ in $a$ differenzierbar,
+  so ist $f$ in $a$ auch in Richtung $v$ differenzierbar, und
+  \[
+    D_v f(a) = f'(a) v = \sum_{k=1}^n D_k f(a) v_k.
+  \]
+  Ist $\mathrm{grad}\, f(a) \neq 0$, so wird $D_v f(a)$ maximal, wenn $v$ die Richtung
+  von ${}^t\mathrm{grad}\, f(a)$ hat, und minimal, wenn $v$ die Richtung von
+  $-{}^t\mathrm{grad}\, f(a)$ hat.
+}
+
+\gentry{3.6.8}{Funktionalmatrix}{%
+  Ist $f = {}^t(f_1, \ldots, f_m)$ in $a$ differenzierbar, so gilt
+  \[
+    f'(a) = \begin{pmatrix}
+      D_1 f_1(a) & \ldots & D_n f_1(a) \\
+      \vdots & & \vdots \\
+      D_1 f_m(a) & \ldots & D_n f_m(a)
+    \end{pmatrix}.
+  \]
+  Diese $(m, n)$-Matrix der partiellen Ableitungen hei{\ss}t die
+  \textbf{Funktionalmatrix} oder \textbf{Jacobische Matrix} von $f$ an der Stelle $a$.
+}
+
+\gentry{3.6.9}{Differenzierbarkeit der Grenzfunktion}{%
+  Seien $a \in M \subseteq \mathbb{R}^n$, $a$ innerer Punkt von $M$ und $(f_k)$ eine
+  Folge in $\mathrm{Abb}(M, \mathbb{R})$, die punktweise gegen $f \in \mathrm{Abb}(M, \mathbb{R})$
+  konvergiert. Es gebe eine Umgebung $U$ von $a$ mit $U \subseteq M$ derart, dass
+  die partiellen Ableitungen $D_1 f_k(x), \ldots, D_n f_k(x)$ f\"ur alle $k$ auf $U$
+  existieren und stetig in $a$ sind. Konvergieren die Folgen $(D_\nu f_k(x))_{k \in \mathbb{N}}$
+  f\"ur $\nu = 1, \ldots, n$ gleichm\"a{\ss}ig f\"ur $x \in U$, so ist $f$ in $a$
+  differenzierbar mit
+  $D_\nu f(a) = \lim_{k \to \infty} D_\nu f_k(a)$ f\"ur $\nu = 1, \ldots, n$.
+}
+
+\gentry{3.6.10}{Differenzierbarkeit der Summenfunktion}{%
+  Seien $a \in M \subseteq \mathbb{R}^n$, $a$ innerer Punkt von $M$ und $(f_k)$ eine
+  Folge in $\mathrm{Abb}(M, \mathbb{R})$, f\"ur welche $\sum_{k=1}^\infty f_k$
+  punktweise konvergiert. Es gebe eine Umgebung $U$ von $a$ mit $U \subseteq M$
+  derart, dass die partiellen Ableitungen $D_1 f_k, \ldots, D_n f_k$ auf $U$
+  existieren und in $a$ stetig sind, und die Reihen
+  $\sum_{k=1}^\infty D_\nu f_k(x)$ ($\nu = 1, \ldots, n$) gleichm\"a{\ss}ig f\"ur
+  $x \in U$ konvergieren. Dann ist $\sum_{k=1}^\infty f_k$ in $a$ differenzierbar, und
+  \[
+    \Bigl(\sum_{k=1}^\infty f_k\Bigr)'(a)
+    = \Bigl(\sum_{k=1}^\infty D_1 f_k(a)\; \ldots\; \sum_{k=1}^\infty D_n f_k(a)\Bigr).
+  \]
+}
+
+\newpage
+
+\begin{center}
+  {\LARGE\bfseries Glossar zu Lektion 4}\\[0.5em]
+  {\large Analysis (Modul 61211)}
+\end{center}
+
+\vspace{1em}
+
+Dieses Glossar fasst die wesentlichen Definitionen, Merkregeln und Sätze der
+vierten Lektion (Differenzierbare Funktionen, 2.\,Teil) kompakt zusammen.
+Nummerierungen entsprechen dem Lehrtext.
+
+% ======================================================================
+\section*{4.1 \quad Der Umkehrsatz}
+
+\gentry{4.1.1}{Umkehrsatz für $f \in \mathrm{Hom}(\mathbb{R}^n, \mathbb{R}^n)$}{%
+  Sei $f: \mathbb{R}^n \to \mathbb{R}^n$ linear, und sei $A$ die Matrix von $f$, bezogen auf
+  die kanonische Basis von $\mathbb{R}^n$ (also $f(x) = Ax$ für $x \in \mathbb{R}^n$). Dann gilt:
+  \[
+    f \text{ injektiv} \;\Leftrightarrow\; f \text{ surjektiv} \;\Leftrightarrow\;
+    \mathrm{Rang}\,A = n \;\Leftrightarrow\; A^{-1} \text{ existiert.}
+  \]
+  Im Fall der Injektivität ist $f^{-1}: \mathbb{R}^n \to \mathbb{R}^n$ linear und ihre
+  Matrix bezüglich der kanonischen Basis ist $A^{-1}$, d.\,h.\ $f^{-1}(y) = A^{-1}y$.
+}
+
+\gentry{4.1.2}{Lokaler Umkehrsatz}{%
+  Seien $a \in M$, $M \subseteq \mathbb{R}^n$ und $f: M \to \mathbb{R}^n$ stetig differenzierbar,
+  d.\,h.\ differenzierbar mit stetigen partiellen Ableitungen $D_\mu f_\nu$
+  ($\mu, \nu \in \{1, \ldots, n\}$), wobei die $f_\nu$ die Koordinatenfunktionen von $f$ sind.
+  Ist $\mathrm{Rang}\,f'(a) = n$, so gibt es eine offene Umgebung $U$ von $a$ mit $U \subseteq M$
+  und eine offene Umgebung $V$ von $b := f(a)$ mit:
+  \begin{enumerate}[label=(\roman*),topsep=2pt,itemsep=1pt]
+    \item $f|_U$ ist injektiv, und es gilt $f(U) = V$.
+    \item Ist $g: V \to U$ die Umkehrfunktion von $f|_U$, so ist $g$ stetig differenzierbar auf $V$,
+          und für jedes $y \in V$ gilt $g'(y) = f'(x)^{-1}$, wobei $x := g(y)$.
+  \end{enumerate}
+}
+
+\gentry{4.1.3}{Ebene Polarkoordinaten}{%
+  Für $M := \{(r, \varphi) \in \mathbb{R}^2 \mid r > 0\}$:
+  \[
+    f: M \to \mathbb{R}^2, \quad (r, \varphi) \mapsto f(r, \varphi) := \begin{pmatrix} r\cos\varphi \\ r\sin\varphi \end{pmatrix}.
+  \]
+  Die Voraussetzungen des lokalen Umkehrsatzes sind für jedes $a = (r, \varphi) \in M$ erfüllt.
+}
+
+\gentry{4.1.4}{Räumliche Polarkoordinaten}{%
+  Für $M := \{(r, \varphi, \psi) \in \mathbb{R}^3 \mid r > 0\}$:
+  \[
+    f: M \to \mathbb{R}^3, \quad (r, \varphi, \psi) \mapsto
+    \begin{pmatrix} r\cos\varphi\cos\psi \\ r\sin\varphi\cos\psi \\ r\sin\psi \end{pmatrix}.
+  \]
+  Die Voraussetzungen des lokalen Umkehrsatzes sind für jedes $a = (r, \varphi, \psi)$ mit
+  $\cos\psi \neq 0$ erfüllt.
+}
+
+\gentry{4.1.5}{Offene Abbildung}{%
+  Ist $M$ eine nichtleere Teilmenge von $\mathbb{R}^n$ und ist $f: M \to \mathbb{R}^n$ stetig
+  differenzierbar mit $\mathrm{Rang}\,f'(x) = n$ für jedes $x \in M$, so ist $f(Q)$ offen für jede
+  offene Menge $Q$ mit $Q \subseteq M$. Man sagt: $f$ ist eine \textbf{offene Abbildung}.
+}
+
+\gentry{4.1.6}{Banachscher Fixpunktsatz}{%
+  Seien $(X, \|\cdot\|)$ ein vollständiger normierter Raum (Banachraum),
+  $M \neq \emptyset$ eine abgeschlossene Teilmenge von $X$ und $F: M \to X$ eine
+  \textbf{kontrahierende Selbstabbildung}, d.\,h.\ $F(M) \subseteq M$ und es gebe
+  eine reelle Konstante $q$ mit $0 \leq q < 1$ derart, dass
+  \[
+    \|F(x) - F(y)\| \leq q\,\|x - y\| \quad \text{für alle } x, y \in M.
+  \]
+  Dann existiert genau ein Punkt $x^* \in M$ mit $F(x^*) = x^*$ (\textbf{Fixpunkt}).\\
+  \emph{Zusatz:} $x^*$ ist der Grenzwert jeder Iterationsfolge $(x_k)$, definiert durch
+  $x_k := F(x_{k-1})$ für $k \in \mathbb{N}$, wobei $x_0 \in M$ ein beliebiger Startpunkt ist.
+}
+
+\gentry{4.1.7}{Invertierbare Matrizen}{%
+  Sei $\mathbf{A}_{nn} := \{A \in \mathbb{R}^{n \times n} \mid A \text{ ist invertierbar}\}$,
+  und $\mathbb{R}^{n \times n}$ sei mit der Zeilensummennorm aus 3.4.6 versehen.
+  \begin{enumerate}[label=(\roman*),topsep=2pt,itemsep=1pt]
+    \item Ist $A \in \mathbf{A}_{nn}$ und $B \in \mathbb{R}^{n \times n}$ mit
+          $\|A - B\| < \frac{1}{\|A^{-1}\|}$, so gilt
+          \[
+            B \in \mathbf{A}_{nn} \quad \text{und} \quad
+            \|B^{-1}\| \leq \frac{\|A^{-1}\|}{1 - \|A^{-1}\|\,\|A - B\|}.
+          \]
+    \item Die Abbildung $\mathrm{inv}: \mathbf{A}_{nn} \to \mathbb{R}^{n \times n},\; A \mapsto A^{-1}$ ist stetig.
+  \end{enumerate}
+}
+
+% ======================================================================
+\section*{4.2 \quad Implizit definierte Funktionen}
+
+\gentry{4.2.1}{Implizite lineare Funktionen}{%
+  Sei $L: \mathbb{R}^{m+n} \to \mathbb{R}^n$ linear, und sei $A$ die $(n, m+n)$-Matrix von $L$.
+  Ist $A_2$ die Untermatrix aus den letzten $n$ Spalten von $A$ und gilt $\mathrm{Rang}\,A_2 = n$,
+  so lässt sich die Gleichung
+  \[
+    L(z_1, \ldots, z_m, z_{m+1}, \ldots, z_{m+n}) = 0
+  \]
+  \textbf{eindeutig nach $z_{m+1}, \ldots, z_{m+n}$ auflösen}, d.\,h.\ es gibt genau eine
+  Funktion $g = (g_1, \ldots, g_n): \mathbb{R}^m \to \mathbb{R}^n$ mit
+  $L(z_1, \ldots, z_m, g_1(z_1, \ldots, z_m), \ldots, g_n(z_1, \ldots, z_m)) = 0$
+  für alle $(z_1, \ldots, z_m) \in \mathbb{R}^m$. $g$ heißt \textbf{implizit definiert}.
+  Explizit: $g$ ist linear mit $g(x) = -(A_2^{-1} A_1) x$, wobei $A_1$ die Untermatrix aus
+  den ersten $m$ Spalten von $A$ ist.
+}
+
+\gentry{4.2.3}{Satz über implizite Funktionen}{%
+  Sei $M$ eine nichtleere Teilmenge von $\mathbb{R}^{m+n}$; für $z = (z_1, \ldots, z_{m+n})$
+  schreibe $z = (x_1, \ldots, x_m, y_1, \ldots, y_n) = \binom{x}{y}$. Sei
+  \[
+    F = (F_1, \ldots, F_n): M \to \mathbb{R}^n, \quad z \mapsto F(z) = F(x, y)
+  \]
+  stetig differenzierbar. Es gebe einen Punkt $c = \binom{a}{b} \in M$ mit $a \in \mathbb{R}^m$,
+  $b \in \mathbb{R}^n$, sodass
+  \[
+    F(c) = 0 \quad \text{und} \quad \mathrm{Rang}\,F_y(c) = n,
+  \]
+  wobei $F_y(z)$ die Untermatrix von $F'(z)$ mit den partiellen Ableitungen nach
+  $y_1, \ldots, y_n$ ist:
+  \[
+    F_y(z) = \begin{pmatrix}
+      D_{m+1} F_1(z) & \cdots & D_{m+n} F_1(z) \\
+      \vdots & & \vdots \\
+      D_{m+1} F_n(z) & \cdots & D_{m+n} F_n(z)
+    \end{pmatrix}.
+  \]
+  Dann lässt sich $F(x, y) = 0$ in einer geeigneten Umgebung von $c$
+  \textbf{eindeutig nach $y$ auflösen}: Es gibt eine offene Umgebung $U$ von $a$ in $\mathbb{R}^m$,
+  eine offene Umgebung $V$ von $b$ in $\mathbb{R}^n$ und eine stetig differenzierbare
+  Funktion $g: U \to V$ mit:
+  \begin{enumerate}[label=(\roman*),topsep=2pt,itemsep=1pt]
+    \item $U \times V \subseteq M$ und $F(x, g(x)) = 0$ für jedes $x \in U$.
+          Ist $\binom{x}{y} \in U \times V$ mit $F(x, y) = 0$, so gilt $y = g(x)$.
+    \item $g'(x) = -[F_y(x, g(x))]^{-1}\,F_x(x, g(x))$ für jedes $x \in U$,
+          wobei $F_x(z)$ die Untermatrix von $F'(z)$ mit den partiellen Ableitungen nach
+          $x_1, \ldots, x_m$ ist. Insbesondere: $g'(a) = -[F_y(c)]^{-1}\,F_x(c)$.
+  \end{enumerate}
+}
+
+% ======================================================================
+\section*{4.3 \quad Ableitungen höherer Ordnung (Rückblick und Ergänzungen)}
+
+\gentry{4.3.1}{Ableitung höherer Ordnung}{%
+  Sei $f: M \to \mathbb{R}$ mit $\emptyset \neq M \subseteq \mathbb{R}$. Die
+  \textbf{$k$-te Ableitung} (Ableitung $k$-ter Ordnung) $f^{(k)}$ wird für $k \in \mathbb{N}_0$
+  rekursiv definiert:
+  \begin{enumerate}[label=(\roman*),topsep=2pt,itemsep=1pt]
+    \item $f^{(0)} := f$.
+    \item Existiert $f^{(k)}: M \to \mathbb{R}$ und ist $f^{(k)}$ differenzierbar, so wird
+          $f^{(k+1)} := (f^{(k)})'$ gesetzt.
+  \end{enumerate}
+  $f$ heißt \textbf{$k$-mal differenzierbar}, wenn $f^{(k)}$ existiert;
+  \textbf{beliebig oft differenzierbar}, wenn $f^{(k)}$ für jedes $k \in \mathbb{N}$ existiert.
+}
+
+\gentry{4.3.2}{Operationen, Leibnizsche Formel}{%
+  Seien $k \in \mathbb{N}$, $\alpha \in \mathbb{R}$, $\emptyset \neq M \subseteq \mathbb{R}$,
+  und seien $f, g: M \to \mathbb{R}$ $k$-mal differenzierbar.
+  \begin{enumerate}[label=(\roman*),topsep=2pt,itemsep=1pt]
+    \item Dann sind $f+g$, $f-g$, $\alpha f$, $fg$ und (falls $g(x) \neq 0$) $f/g$ $k$-mal
+          differenzierbar, und es gilt:
+          \begin{align*}
+            (f+g)^{(k)} &= f^{(k)} + g^{(k)}, \quad (f-g)^{(k)} = f^{(k)} - g^{(k)}, \quad (\alpha f)^{(k)} = \alpha f^{(k)},\\
+            (fg)^{(k)} &= \sum_{\nu=0}^{k} \binom{k}{\nu} f^{(\nu)} g^{(k-\nu)} \quad \text{(\textbf{Leibnizsche Formel})}.
+          \end{align*}
+    \item Ist $\emptyset \neq M' \subseteq M$ und jeder Punkt von $M'$ Häufungspunkt von $M'$,
+          so ist $f|_{M'}$ $k$-mal differenzierbar mit $(f|_{M'})^{(k)} = f^{(k)}|_{M'}$.
+    \item Ist $f(M) \subseteq E \subseteq \mathbb{R}$ und $h: E \to \mathbb{R}$ $k$-mal
+          differenzierbar, so ist auch $h \circ f$ $k$-mal differenzierbar.
+  \end{enumerate}
+}
+
+\gentry{4.3.3}{Polynomfunktionen}{%
+  Polynomfunktionen sind beliebig oft differenzierbar. Für jedes $k \in \mathbb{N}$ ist die
+  $k$-te Ableitung eine Polynomfunktion.
+}
+
+\gentry{4.3.4}{Identitätssatz für Potenzreihenfunktionen}{%
+  Sei $\sum_{n=0}^{\infty} a_n (x-a)^n$ eine Potenzreihe mit Konvergenzradius $R > 0$. Dann
+  ist die Potenzreihenfunktion
+  \[
+    f: \,]a-R, a+R[\, \to \mathbb{R}, \quad x \mapsto f(x) := \sum_{\nu=0}^{\infty} a_\nu (x-a)^\nu
+  \]
+  beliebig oft differenzierbar, und für $k \in \mathbb{N}$ gilt
+  \[
+    f^{(k)}(x) = \sum_{\nu = k}^{\infty} \nu(\nu-1)\cdots(\nu-k+1)\, a_\nu (x-a)^{\nu-k}.
+  \]
+  Insbesondere $f^{(k)}(a) = k!\,a_k$. Aus $f(x) = \sum a_\nu (x-a)^\nu = \sum b_\nu (x-a)^\nu$
+  (beide Darstellungen mit positivem Konvergenzradius) folgt $a_\nu = b_\nu$ für alle
+  $\nu \in \mathbb{N}_0$ (\textbf{Identitätssatz für Potenzreihen}).
+}
+
+\gentry{4.3.5}{Rationale Funktionen}{%
+  Rationale Funktionen sind beliebig oft differenzierbar. Für jedes $k \in \mathbb{N}$ ist
+  die $k$-te Ableitung eine rationale Funktion.
+}
+
+\gentry{4.3.6}{$k$-te Ableitung in einem Punkt}{%
+  Seien $k \in \mathbb{N}$, $a \in M \subseteq \mathbb{R}$ und $f: M \to \mathbb{R}$.
+  $f$ heißt \textbf{$k$-mal differenzierbar in $a$}, wenn es eine Umgebung $U$ von $a$ gibt mit:
+  \begin{enumerate}[label=(\roman*),topsep=2pt,itemsep=1pt]
+    \item $f|_{U \cap M}$ ist (gemäß 4.3.1) $(k-1)$-mal differenzierbar.
+    \item $(f|_{U \cap M})^{(k-1)}$ ist (gemäß 3.3.1) in $a$ differenzierbar.
+  \end{enumerate}
+  Die Ableitung von $(f|_{U \cap M})^{(k-1)}$ an der Stelle $a$ heißt \textbf{$k$-te Ableitung
+  von $f$ an der Stelle $a$} und wird mit $f^{(k)}(a)$ bezeichnet.
+  $f$ heißt \textbf{beliebig oft differenzierbar in $a$}, wenn $f$ für jedes $k \in \mathbb{N}$
+  $k$-mal differenzierbar in $a$ ist. Gilt $\emptyset \neq E \subseteq M$, so heißt $f$
+  $k$-mal (bzw.\ beliebig oft) differenzierbar auf $E$, wenn $f$ in jedem Punkt von $E$ $k$-mal
+  (bzw.\ beliebig oft) differenzierbar ist.
+}
+
+\gentry{4.3.8}{Taylorpolynom}{%
+  Seien $k \in \mathbb{N}_0$, $a \in M \subseteq \mathbb{R}$ und $f: M \to \mathbb{R}$ $k$-mal
+  differenzierbar in $a$. Dann ist
+  \[
+    T_k: \mathbb{R} \to \mathbb{R}, \quad x \mapsto T_k(x) := \sum_{\nu=0}^{k} \frac{f^{(\nu)}(a)}{\nu!}\,(x-a)^\nu
+  \]
+  eine Polynomfunktion vom Grad $\leq k$, für welche
+  \[
+    T_k^{(\nu)}(a) = \begin{cases} f^{(\nu)}(a) & \text{für } 0 \leq \nu \leq k, \\ 0 & \text{für } \nu > k \end{cases}
+  \]
+  gilt. $T_k$ heißt \textbf{$k$-tes Taylorpolynom von $f$ mit Entwicklungspunkt $a$}.
+}
+
+\gentry{4.3.9}{Satz von Taylor}{%
+  Seien $k \in \mathbb{N}_0$, $I$ ein nichtleeres Intervall, $a \in I$, und sei
+  $f: I \to \mathbb{R}$ $k$-mal differenzierbar. Ist $T_k$ das $k$-te Taylorpolynom von $f$
+  mit Entwicklungspunkt $a$ und ist die \textbf{$k$-te Restfunktion} $R_k: I \to \mathbb{R}$
+  durch $f(x) = T_k(x) + R_k(x)$ ($x \in I$) definiert, so gilt:
+  \begin{enumerate}[label=(\roman*),topsep=2pt,itemsep=1pt]
+    \item $\displaystyle \lim_{x \to a} \frac{R_k(x)}{(x-a)^k} = 0$, falls $k \geq 1$.
+    \item $\displaystyle \lim_{x \to a} \frac{R_k(x)}{(x-a)^{k+1}} = \frac{f^{(k+1)}(a)}{(k+1)!}$,
+          falls $f^{(k+1)}(a)$ existiert.
+    \item Ist $f$ sogar $(k+1)$-mal differenzierbar, so gibt es zu jedem $x \in I \setminus \{a\}$
+          (mindestens) ein $\xi \in \,]\min\{x, a\}, \max\{x, a\}[\,$ mit
+          \[
+            R_k(x) = \frac{f^{(k+1)}(\xi)}{(k+1)!}\,(x-a)^{k+1} \quad \text{(\textbf{Restdarstellung von Lagrange}).}
+          \]
+          Die Gleichung ist auch im Fall $x = a$ richtig, wenn man $\xi = a$ wählt.
+  \end{enumerate}
+}
+
+% ======================================================================
+\section*{4.4 \quad Ableitungen höherer Ordnung}
+
+\gentry{4.4.1}{Partielle Ableitungen der Ordnung $k$}{%
+  Seien $a \in M \subseteq \mathbb{R}^n$ mit $a$ innerer Punkt von $M$,
+  $f \in \mathrm{Abb}(M, \mathbb{R})$ und $k \in \mathbb{N}$.
+  \begin{enumerate}[label=(\roman*),topsep=2pt,itemsep=1pt]
+    \item Für $k = 1$ seien die \textbf{partiellen Ableitungen der Ordnung 1} von $f$ in $a$
+          die in 3.6.1 definierten Zahlen $D_1 f(a), \ldots, D_n f(a)$.
+    \item Sei $D_{\nu_1 \ldots \nu_k} f(a)$ ($1 \leq \nu_j \leq n$, $1 \leq j \leq k$) der
+          Ordnung $k$ bereits definiert. Existiert $D_{\nu_1 \ldots \nu_k} f(x)$ für alle
+          $x \in M \cap U$ einer Umgebung $U$ von $a$ und ist die Funktion
+          $D_{\nu_1 \ldots \nu_k} f: M \cap U \to \mathbb{R}$ in $a$ nach der $\nu_{k+1}$-ten
+          Koordinate ($1 \leq \nu_{k+1} \leq n$) partiell differenzierbar, so wird
+          \[
+            D_{\nu_1 \ldots \nu_k \nu_{k+1}} f(a) := D_{\nu_{k+1}} (D_{\nu_1 \ldots \nu_k} f)(a).
+          \]
+          Andere Schreibweisen: $\displaystyle \frac{\partial^k f}{\partial x_{\nu_k} \cdots \partial x_{\nu_1}}(a)$
+          oder $f_{x_{\nu_1} \ldots x_{\nu_k}}(a)$.
+    \item $f$ heißt \textbf{$k$-mal partiell differenzierbar in $a$}, wenn alle partiellen
+          Ableitungen $D_{\nu_1 \ldots \nu_k} f(a)$ der Ordnung $k$ in $a$ existieren.
+    \item $f$ heißt $k$-mal partiell differenzierbar auf $E$ (bzw.\ $k$-mal partiell
+          differenzierbar), wenn $f$ in jedem $x \in E$ (bzw.\ jedem $x \in M$) $k$-mal partiell
+          differenzierbar ist.
+  \end{enumerate}
+}
+
+\gentry{4.4.3}{Satz von Schwarz}{%
+  Seien $M \subseteq \mathbb{R}^n$, $a$ innerer Punkt von $M$, $f \in \mathrm{Abb}(M, \mathbb{R})$,
+  $k \in \mathbb{N}$ mit $k \geq 2$ und $U$ eine Umgebung von $a$ mit $U \subseteq M$,
+  auf der $f$ $(k-1)$-mal partiell differenzierbar ist.
+  \begin{enumerate}[label=(\roman*),topsep=2pt,itemsep=1pt]
+    \item Ist $k = 2$, existiert für gegebene $\nu_1, \nu_2 \in \{1, \ldots, n\}$ die partielle
+          Ableitung $D_{\nu_1 \nu_2} f(x)$ für jedes $x \in U$ und ist $D_{\nu_1 \nu_2} f: U \to \mathbb{R}$
+          stetig in $a$, so existiert $D_{\nu_2 \nu_1} f(a)$, und es gilt
+          $D_{\nu_2 \nu_1} f(a) = D_{\nu_1 \nu_2} f(a)$.
+    \item Ist $k \geq 2$, sind alle partiellen Ableitungen der Ordnung $k-1$ auf $U$ differenzierbar
+          und alle partiellen Ableitungen der Ordnung $k$ in $a$ stetig, so kommt es bei allen
+          partiellen Ableitungen von $f$ im Punkt $a$ bis zur Ordnung $k$ auf die Reihenfolge
+          der partiellen Differenziationen nicht an.
+  \end{enumerate}
+}
+
+\gentry{4.4.4}{Differenzierbarkeit höherer Ordnung}{%
+  Seien $M \subseteq \mathbb{R}^n$, $a \in M$, $f = (f_1, \ldots, f_m) \in \mathrm{Abb}(M, \mathbb{R}^m)$,
+  $k \in \mathbb{N}$.
+  \begin{enumerate}[label=(\roman*),topsep=2pt,itemsep=1pt]
+    \item $f$ heißt \textbf{einmal differenzierbar in $a$}, wenn $f$ total differenzierbar in $a$
+          ist (3.5.1(i)).
+    \item Für $k \geq 2$: $f$ heißt \textbf{$k$-mal differenzierbar in $a$}, wenn es eine
+          Umgebung $U$ von $a$ mit $U \subseteq M$ gibt, sodass $f_1, \ldots, f_m$ alle
+          $(k-1)$-mal partiell differenzierbar auf $U$ sind und sämtliche partielle Ableitungen
+          $D_{\nu_1 \ldots \nu_{k-1}} f_\mu: U \to \mathbb{R}$ in $a$ differenzierbar sind.
+    \item Ist $\emptyset \neq E \subseteq M$, so heißt $f$ \textbf{$k$-mal differenzierbar auf $E$},
+          wenn $f$ in jedem Punkt von $E$ $k$-mal differenzierbar ist.
+    \item $f$ heißt \textbf{$k$-mal stetig differenzierbar} -- in Zeichen $f \in C^k(M)$ --,
+          wenn $f$ $k$-mal differenzierbar auf $M$ ist und die sämtlichen partiellen Ableitungen
+          $D_{\nu_1 \ldots \nu_k} f_\mu: M \to \mathbb{R}$ stetig sind.
+  \end{enumerate}
+}
+
+\gentry{4.4.6}{Taylorpolynom (mehrere Veränderliche)}{%
+  Seien $k \in \mathbb{N}_0$, $a = (a_1, \ldots, a_n) \in M \subseteq \mathbb{R}^n$ innerer Punkt
+  von $M$, und sei $f: M \to \mathbb{R}$ $k$-mal partiell differenzierbar in $a$. Dann ist das
+  \textbf{$k$-te Taylorpolynom von $f$ mit Entwicklungspunkt $a$} die Funktion
+  \[
+    T_k: \mathbb{R}^n \to \mathbb{R}, \quad x \mapsto T_k(x) := \sum_{j=0}^{k} \frac{1}{j!}\,t_j(x-a),
+  \]
+  mit $t_j: \mathbb{R}^n \to \mathbb{R}$ gegeben durch
+  \[
+    t_0(u) := f(a), \quad
+    t_j(u) := \sum_{\nu_1=1}^{n} \cdots \sum_{\nu_j=1}^{n} D_{\nu_1 \ldots \nu_j} f(a)\,u_{\nu_1} \cdots u_{\nu_j}
+  \]
+  für $1 \leq j \leq k$ und $u = (u_1, \ldots, u_n) \in \mathbb{R}^n$.
+}
+
+\gentry{4.4.8}{Satz von Taylor (mehrere Veränderliche)}{%
+  Seien $k \in \mathbb{N}$, $\emptyset \neq M \subseteq \mathbb{R}^n$ und $f \in \mathrm{Abb}(M, \mathbb{R})$.
+  Ferner seien $a = (a_1, \ldots, a_n)$ und $x = (x_1, \ldots, x_n)$ Punkte von $M$ derart, dass
+  die Verbindungsstrecke $[a, x] := \{a + t(x-a) \mid 0 \leq t \leq 1\}$ im Innern von $M$
+  enthalten ist. Ist $f$ $k$-mal differenzierbar auf $[a, x]$, so gibt es ein $\theta \in \,]0, 1[\,$
+  derart, dass mit $z := a + \theta(x-a)$ die \textbf{Taylorsche Formel} gilt:
+  \[
+    f(x) - T_{k-1}(x) = \frac{1}{k!} \sum_{\nu_1=1}^{n} \cdots \sum_{\nu_k=1}^{n}
+    D_{\nu_1 \ldots \nu_k} f(z)\,(x_{\nu_1} - a_{\nu_1}) \cdots (x_{\nu_k} - a_{\nu_k}).
+  \]
+  Hier ist $T_{k-1}$ das $(k-1)$-te Taylorpolynom von $f$ mit Entwicklungspunkt $a$.
+}
+
+\gentry{4.4.9}{Approximationsgeschwindigkeit}{%
+  Seien $k \in \mathbb{N}$ und $a \in M \subseteq \mathbb{R}^n$. Gibt es eine Umgebung $U$
+  von $a$ mit $U \subseteq M$, sodass $f \in \mathrm{Abb}(M, \mathbb{R})$ $k$-mal stetig
+  differenzierbar auf $U$ ist, so gilt
+  \[
+    \frac{f(x) - T_k(x)}{\|x - a\|^k} \longrightarrow 0 \quad \text{für } x \to a.
+  \]
+  Dabei ist $T_k$ das $k$-te Taylorpolynom von $f$ mit Entwicklungspunkt $a$.
+}
+
+% ======================================================================
+\section*{4.5 \quad Extrema}
+
+\gentry{4.5.1}{Lokales Extremum}{%
+  Seien $a \in M \subseteq \mathbb{R}^n$ und $f \in \mathrm{Abb}(M, \mathbb{R})$.
+  $a$ heißt \textbf{Stelle eines lokalen Maximums} (bzw.\ \textbf{lokalen Minimums}) von $f$,
+  und man sagt, $f$ habe in $a$ ein lokales Maximum (bzw.\ Minimum), wenn es eine Umgebung $U$
+  von $a$ gibt mit
+  \[
+    f(a) \geq f(x) \text{ für jedes } x \in U \cap M \quad
+    (\text{bzw.\ } f(a) \leq f(x) \text{ für jedes } x \in U \cap M).
+  \]
+}
+
+\gentry{4.5.2}{Lokales Extremum, $n = 1$}{%
+  Seien $U \subseteq M \subseteq \mathbb{R}$, $U$ Umgebung von $a$ und $f: M \to \mathbb{R}$
+  auf $U$ differenzierbar.
+  \begin{enumerate}[label=(\roman*),topsep=2pt,itemsep=1pt]
+    \item Hat $f$ in $a$ ein lokales Extremum, so gilt $f'(a) = 0$.
+    \item Ist $f'(a) = 0$, $f$ in $a$ zweimal differenzierbar und $f''(a) < 0$, so hat $f$ in $a$
+          ein lokales Maximum.
+    \item Ist $f'(a) = 0$, $f$ in $a$ zweimal differenzierbar und $f''(a) > 0$, so hat $f$ in $a$
+          ein lokales Minimum.
+  \end{enumerate}
+}
+
+\gentry{4.5.3}{Notwendige Bedingung, $n \geq 1$}{%
+  Sei $a \in M \subseteq \mathbb{R}^n$, und $f \in \mathrm{Abb}(M, \mathbb{R})$ habe in $a$ ein
+  lokales Extremum. Ist $f$ in $a$ differenzierbar (insbesondere ist $a$ innerer Punkt von $M$),
+  so gilt
+  \[
+    f'(a) = 0, \quad \text{d.\,h.\ } \mathrm{grad}\,f(a) = 0,
+  \]
+  also $D_1 f(a) = 0, \ldots, D_n f(a) = 0$.
+}
+
+\gentry{4.5.5}{Quadratische Form}{%
+  Sei $A = (a_{ij})$ eine $(n, n)$-Matrix mit $a_{ij} = a_{ji}$ für alle $i, j \in \{1, \ldots, n\}$
+  (\textbf{symmetrisch}). Dann heißt
+  \[
+    Q: \mathbb{R}^n \to \mathbb{R}, \quad x = (x_1, \ldots, x_n) \mapsto x \cdot Ax = \sum_{i=1}^{n} \sum_{j=1}^{n} a_{ij}\,x_i\,x_j
+  \]
+  die \textbf{von $A$ erzeugte quadratische Form}. Sowohl $A$ als auch $Q$ heißt
+  \begin{itemize}[topsep=2pt,itemsep=1pt]
+    \item \textbf{positiv (bzw.\ negativ) definit}, wenn $Q(x) > 0$ (bzw.\ $Q(x) < 0$) für alle $x \in \mathbb{R}^n \setminus \{0\}$,
+    \item \textbf{positiv (bzw.\ negativ) semidefinit}, wenn $Q(x) \geq 0$ (bzw.\ $Q(x) \leq 0$) für alle $x \in \mathbb{R}^n$,
+    \item \textbf{indefinit}, wenn es $x, y \in \mathbb{R}^n$ mit $Q(x) > 0$ und $Q(y) < 0$ gibt.
+  \end{itemize}
+}
+
+\gentry{4.5.6}{Lokales Extremum (Hessesche Matrix)}{%
+  Seien $M$ eine nichtleere Teilmenge von $\mathbb{R}^n$ und $f: M \to \mathbb{R}$ zweimal stetig
+  differenzierbar. Ist $a$ ein Punkt von $M$ mit $f'(a) = 0$ und ist
+  $H(a) := (D_{ij} f(a))$ die \textbf{Hessesche Matrix} von $f$ an der Stelle $a$, so gilt:
+  \begin{enumerate}[label=(\roman*),topsep=2pt,itemsep=1pt]
+    \item $f$ hat in $a$ ein lokales Maximum, wenn $H(a)$ negativ definit ist.
+    \item $f$ hat in $a$ ein lokales Minimum, wenn $H(a)$ positiv definit ist.
+    \item $f$ hat in $a$ kein lokales Extremum, wenn $H(a)$ indefinit ist.
+    \item Ist $H(a)$ nur positiv semidefinit oder negativ semidefinit, so kann keine Aussage gemacht werden.
+  \end{enumerate}
+}
+
+\gentry{4.5.8}{Spezialfall $n = 2$}{%
+  Seien $M$ eine nichtleere Teilmenge von $\mathbb{R}^2$ und $f: M \to \mathbb{R}$ zweimal stetig
+  differenzierbar. Ist $a \in M$ mit $f'(a) = 0$ und
+  $\Delta(a) := D_{11} f(a)\,D_{22} f(a) - (D_{12} f(a))^2$, so gilt:
+  \begin{enumerate}[label=(\roman*),topsep=2pt,itemsep=1pt]
+    \item Ist $\Delta(a) > 0$, so hat $f$ in $a$ ein strenges
+          \begin{itemize}[topsep=1pt,itemsep=0pt]
+            \item lokales Maximum, falls $D_{11} f(a) < 0$,
+            \item lokales Minimum, falls $D_{11} f(a) > 0$.
+          \end{itemize}
+    \item Ist $\Delta(a) < 0$, so hat $f$ in $a$ kein lokales Extremum ($a$ heißt \textbf{Sattelpunkt}).
+    \item Ist $\Delta(a) = 0$, so ist keine Aussage möglich.
+  \end{enumerate}
+}
+
+\gentry{4.5.9}{Extremum unter Nebenbedingungen (Lagrangemultiplikatoren)}{%
+  Sei $M$ eine nichtleere Teilmenge von $\mathbb{R}^n$, und seien $f: M \to \mathbb{R}$ und
+  $g = (g_1, \ldots, g_m): M \to \mathbb{R}^m$ stetig differenzierbar mit $m < n$. Sei
+  \[
+    M(g) := \{ z \in M \mid g(z) = 0 \} \neq \emptyset,
+  \]
+  und die Funktionalmatrix $g'(z)$ habe Höchstrang, d.\,h.\ $\mathrm{Rang}\,g'(z) = m$ für jedes
+  $z \in M(g)$. Hat $f|_{M(g)}$ in einem $c \in M(g)$ ein lokales Extremum (d.\,h.\ $f$ hat unter
+  den Nebenbedingungen $g_1(x) = 0, \ldots, g_m(x) = 0$ in $c$ ein lokales Extremum), so gibt
+  es reelle Zahlen $\lambda_1, \ldots, \lambda_m$ (\textbf{Lagrangemultiplikatoren}) mit
+  \[
+    f'(c) = (\lambda_1 \; \cdots \; \lambda_m)\,g'(c),
+    \quad \text{d.\,h.\ } D_\nu f(c) = \sum_{\mu=1}^{m} \lambda_\mu D_\nu g_\mu(c) \text{ für } \nu = 1, \ldots, n.
+  \]
+}
+
+\newpage
+
+\begin{center}
+  {\LARGE\bfseries Glossar zu Lektion 5}\\[0.5em]
+  {\large Analysis (Modul 61211)}
+\end{center}
+
+\vspace{1em}
+
+Dieses Glossar fasst die wesentlichen Definitionen, Merkregeln und Sätze der
+fünften Lektion (Integration) kompakt zusammen. Nummerierungen entsprechen
+dem Lehrtext.
+
+% ======================================================================
+\section*{5.1 \quad Rückblick und Ergänzungen: Das Riemannintegral}
+
+\gentry{5.1.1}{Partition}{%
+  Seien $I = [a,b]$ mit $a<b$, $r \in \mathbb{N}$ und $t_0, t_1, \ldots, t_r \in \mathbb{R}$.
+  $P = (t_0, t_1, \ldots, t_r)$ heißt \textbf{Partition} von $I$, wenn
+  \[
+    a = t_0 < t_1 < \ldots < t_r = b.
+  \]
+  Die Zahlen $t_\nu$ heißen \textbf{Teilpunkte}. Eine zweite Partition $P'$ heißt
+  \textbf{Verfeinerung} von $P$, wenn alle Teilpunkte von $P$ auch Teilpunkte
+  von $P'$ sind.
+}
+
+\gentry{5.1.2}{Gemeinsame Verfeinerung}{%
+  Zu je zwei Partitionen $P$ und $P'$ von $I$ gibt es eine gemeinsame
+  Verfeinerung $P''$.
+}
+
+\gentry{5.1.3}{Unter-/Obersumme}{%
+  Seien $I=[a,b]$, $f: I \to \mathbb{R}$ beschränkt, $P = (t_0,\ldots,t_r)$ Partition.
+  Mit
+  \[
+    m_\nu := \inf\{f(t)\mid t_{\nu-1} \leq t \leq t_\nu\}, \quad
+    M_\nu := \sup\{f(t)\mid t_{\nu-1} \leq t \leq t_\nu\}
+  \]
+  heißen
+  \[
+    U(f,P) := \sum_{\nu=1}^{r} m_\nu (t_\nu - t_{\nu-1}), \qquad
+    O(f,P) := \sum_{\nu=1}^{r} M_\nu (t_\nu - t_{\nu-1})
+  \]
+  die \textbf{Riemannsche Untersumme} bzw.\ \textbf{Obersumme} von $f$ für $P$.
+}
+
+\gentry{5.1.4}{Monotonie bei Verfeinerung}{%
+  Ist $P'$ eine Verfeinerung von $P$, so gilt
+  \[
+    U(f,P) \leq U(f,P') \leq O(f,P') \leq O(f,P).
+  \]
+}
+
+\gentry{5.1.5}{Riemannintegral}{%
+  Sei $I=[a,b]$, $f: I \to \mathbb{R}$ beschränkt. $f$ heißt
+  \textbf{Riemann-integrierbar} (über $I$), wenn
+  \[
+    \sup\{U(f,P)\mid P \text{ Partition von } I\}
+    = \inf\{O(f,P)\mid P \text{ Partition von } I\}.
+  \]
+  Dieser gemeinsame Wert heißt das \textbf{Riemannintegral} von $f$ und wird mit
+  \[
+    \int_I f \quad\text{oder}\quad \int_a^b f(x)\,dx
+  \]
+  bezeichnet. $f$ heißt \textbf{Integrand}, $a$ untere, $b$ obere
+  \textbf{Integrationsgrenze}, $x$ \textbf{Integrationsvariable}. Die Menge der
+  über $I$ Riemann-integrierbaren Funktionen wird mit $\mathcal{R}(I)$ bezeichnet.
+  Es gilt $C(I) \subseteq \mathcal{R}(I) \subseteq B(I)$.
+}
+
+\gentry{5.1.6}{Monotone Funktion}{%
+  Sei $I=[a,b]$, $a<b$. Jede monotone Funktion $f: I \to \mathbb{R}$ ist
+  integrierbar.
+}
+
+\gentry{5.1.7}{Eigenschaften des Integrals}{%
+  Sei $I=[a,b]$. Für $f, g \in \mathcal{R}(I)$ und $\alpha \in \mathbb{R}$ gilt:
+  \begin{itemize}[topsep=2pt,itemsep=1pt]
+    \item $f+g, f-g \in \mathcal{R}(I)$ mit $\int_I (f\pm g) = \int_I f \pm \int_I g$ \hfill (Additivität),
+    \item $\alpha f \in \mathcal{R}(I)$ mit $\int_I (\alpha f) = \alpha \int_I f$ \hfill (Homogenität),
+    \item $0 \leq f \Rightarrow 0 \leq \int_I f$; \ $f \leq g \Rightarrow \int_I f \leq \int_I g$ \hfill (Positivität, Monotonie),
+    \item $|f| \in \mathcal{R}(I)$ und $\left|\int_I f\right| \leq \int_I |f| \leq (b-a)\|f\|_\infty$ \hfill (Abschätzungen),
+    \item Für jede Partition $(t_0,\ldots,t_r)$ von $I$: $f \in \mathcal{R}(I) \Leftrightarrow f|_{I_\nu} \in \mathcal{R}(I_\nu)$ für alle $\nu$, und
+          $\int_a^b f = \int_{t_0}^{t_1} f + \ldots + \int_{t_{r-1}}^{t_r} f$ \hfill (Additivität bzgl.\ Intervall),
+    \item $\max\{f,g\}, \min\{f,g\} \in \mathcal{R}(I)$,
+    \item Ändert man $f$ an endlich vielen Stellen ab, so ändern sich weder
+          Integrierbarkeit noch Integralwert.
+  \end{itemize}
+}
+
+\gentry{5.1.8}{Unbestimmtes Integral, Stammfunktion}{%
+  (i) Sei $I=[a,b]$, $f \in \mathcal{R}(I)$, $c \in I$. Die Funktion
+  \[
+    F: I \to \mathbb{R}, \quad x \mapsto F(x) := \int_c^x f(t)\,dt
+  \]
+  heißt \textbf{unbestimmtes Integral} von $f$ (mit $\int_c^c f := 0$ und
+  $\int_c^x f := -\int_x^c f$ für $x<c$).\\
+  (ii) Sei $M \subseteq \mathbb{R}$, $f, F: M \to \mathbb{R}$. $F$ heißt
+  \textbf{Stammfunktion} von $f$, wenn $F$ differenzierbar ist und $F' = f$
+  erfüllt.
+}
+
+\gentry{5.1.9}{Vertauschung der Integrationsgrenzen}{%
+  Sei $I=[a,b]$, $f, g \in \mathcal{R}(I)$, $\alpha \in \mathbb{R}$. Mit
+  $\int_c^c f := 0$ und $\int_a^b f := -\int_b^a f$ gilt:
+  \begin{itemize}[topsep=2pt,itemsep=1pt]
+    \item $\int_b^a (f \pm g) = \int_b^a f \pm \int_b^a g$,
+    \item $\int_b^a \alpha f = \alpha \int_b^a f$,
+    \item $\left|\int_b^a f\right| \leq (b-a)\|f\|_\infty$,
+    \item $\int_{x_1}^{x_2} f + \int_{x_2}^{x_3} f = \int_{x_1}^{x_3} f$ für alle $x_1, x_2, x_3 \in I$.
+  \end{itemize}
+}
+
+\gentry{5.1.10}{Hauptsatz der Differenzial- und Integralrechnung}{%
+  Sei $I=[a,b]$, $f \in \mathcal{R}(I)$.
+  \begin{itemize}[topsep=2pt,itemsep=1pt]
+    \item[(i)] Ist $F$ ein unbestimmtes Integral von $f$ und $f$ in $x_0 \in I$ stetig,
+      so ist $F$ in $x_0$ differenzierbar mit $F'(x_0) = f(x_0)$. Ist $f$ stetig,
+      so besitzt $f$ eine Stammfunktion; jedes unbestimmte Integral ist eine solche.
+    \item[(ii)] Besitzt $f$ eine Stammfunktion $F$, so gilt
+      \[
+        \int_a^b f(t)\,dt = F(b) - F(a) =: F(t)\bigr|_a^b.
+      \]
+  \end{itemize}
+}
+
+\gentry{5.1.11}{Partielle Integration}{%
+  Seien $f, g$ stetig differenzierbar auf einem Intervall $I$. Dann gilt
+  \[
+    \int_a^b f'(x) g(x)\,dx = f(x)g(x)\bigr|_a^b - \int_a^b f(x)g'(x)\,dx
+    \quad \text{für alle } a, b \in I.
+  \]
+}
+
+\gentry{5.1.12}{Substitutionsregel}{%
+  Seien $I, J$ Intervalle, $f: I \to \mathbb{R}$ stetig und $\varphi: J \to \mathbb{R}$
+  stetig differenzierbar mit $\varphi(J) \subseteq I$. Dann gilt
+  \[
+    \int_{\varphi(\alpha)}^{\varphi(\beta)} f(x)\,dx = \int_\alpha^\beta f(\varphi(t))\varphi'(t)\,dt
+    \quad \text{für alle } \alpha, \beta \in J.
+  \]
+  Merkregel: $x = \varphi(t)$, $dx = \varphi'(t)\,dt$.
+}
+
+\gentry{5.1.13}{2.\ Form der Substitutionsregel}{%
+  Seien $I, J$ Intervalle, $f: I \to \mathbb{R}$ stetig und $\varphi: J \to I$
+  stetig differenzierbar, injektiv mit $\varphi(J) = I$. Dann gilt
+  \[
+    \int_a^b f(x)\,dx = \int_{\varphi^{-1}(a)}^{\varphi^{-1}(b)} f(\varphi(t))\varphi'(t)\,dt.
+  \]
+}
+
+\gentry{5.1.14}{Mittelwertsatz der Integralrechnung}{%
+  Sei $f \in C([a,b])$ mit $a<b$. Dann gibt es (mindestens) ein
+  $\xi \in\,]a,b[$ mit
+  \[
+    \frac{1}{b-a} \int_a^b f(x)\,dx = f(\xi),
+    \quad \text{d.\,h.} \int_a^b f(x)\,dx = f(\xi)(b-a).
+  \]
+  Geometrisch: Die Fläche unter dem Graphen ist gleich der Fläche des Rechtecks
+  mit Seiten $f(\xi)$ und $b-a$.
+}
+
+\gentry{5.1.15}{Folgen integrierbarer Funktionen}{%
+  Sei $I=[a,b]$, $(f_k)_{k\in\mathbb{N}}$ eine Folge in $\mathcal{R}(I)$, die
+  gleichmäßig gegen $f \in \mathrm{Abb}(I,\mathbb{R})$ konvergiert. Dann gilt
+  \[
+    f \in \mathcal{R}(I) \quad \text{und} \quad \int_I f = \lim_{k\to\infty} \int_I f_k.
+  \]
+}
+
+\gentry{5.1.16}{Gliedweise Integration}{%
+  Sei $I=[a,b]$, $(f_k)$ Folge in $\mathcal{R}(I)$, sodass $\sum_{k=1}^\infty f_k$
+  gleichmäßig gegen $s \in \mathrm{Abb}(I, \mathbb{R})$ konvergiert. Dann gilt
+  \[
+    s \in \mathcal{R}(I) \quad \text{und} \quad \int_I s = \sum_{k=1}^\infty \int_I f_k.
+  \]
+  Kurz: $\int_I \sum_{k=1}^\infty f_k = \sum_{k=1}^\infty \int_I f_k$ (Vertauschung von
+  $\int$ und $\sum$).
+}
+
+% ======================================================================
+\section*{5.2 \quad Uneigentliche Integrale}
+
+\gentry{5.2.1}{Uneigentliches Integral}{%
+  Sei $I$ ein Intervall mit Endpunkten $a, b$, $a<b$ und $a,b \in \widehat{\mathbb{R}}$.
+  $f: I \to \mathbb{R}$ sei so beschaffen, dass $f|_{[\alpha,\beta]} \in \mathcal{R}([\alpha,\beta])$
+  für alle $\alpha, \beta \in \mathbb{R}$ mit $a<\alpha<\beta<b$.
+  $f$ heißt \textbf{uneigentlich integrierbar} (über $I$), falls für ein
+  $\gamma \in\,]a,b[$ beide Grenzwerte existieren:
+  \[
+    \int_a^b f(x)\,dx := \lim_{\substack{\alpha \to a\\ a<\alpha<b}}\int_\alpha^\gamma f(x)\,dx
+    + \lim_{\substack{\beta \to b\\ a<\beta<b}}\int_\gamma^\beta f(x)\,dx.
+  \]
+  Man sagt dann: $\int_a^b f(x)\,dx$ \textbf{existiert} oder \textbf{konvergiert}.
+  Die Summe ist unabhängig von $\gamma$.
+}
+
+\gentry{5.2.2}{Verträglichkeit}{%
+  Sei $I=[a,b]$ mit $a,b\in\mathbb{R}$, $\gamma \in\,]a,b[$, $f \in \mathcal{R}(I)$.
+  Dann gilt für das (eigentliche) Integral
+  \[
+    \lim_{\alpha \to a} \int_\alpha^\gamma f(x)\,dx = \int_a^\gamma f(x)\,dx,
+    \quad \lim_{\beta \to b} \int_\gamma^\beta f(x)\,dx = \int_\gamma^b f(x)\,dx,
+  \]
+  sodass eigentliches und uneigentliches Integral übereinstimmen.
+}
+
+\gentry{5.2.3}{Nur ein Intervallende kritisch}{%
+  Sei $I$ Intervall mit Endpunkten $a, b$.
+  \begin{itemize}[topsep=2pt,itemsep=1pt]
+    \item[(i)] Ist $b \in \mathbb{R}$ und $f|_{[\alpha, b]} \in \mathcal{R}([\alpha,b])$
+      für alle $\alpha \in\,]a,b[$, so ist $f$ genau dann uneigentlich
+      integrierbar, wenn $\lim_{\alpha \to a} \int_\alpha^b f(x)\,dx$ existiert.
+    \item[(ii)] Analog für $a \in \mathbb{R}$ und $f|_{[a,\beta]} \in \mathcal{R}([a,\beta])$:
+      $\lim_{\beta \to b} \int_a^\beta f(x)\,dx$.
+  \end{itemize}
+}
+
+\gentry{5.2.5}{Gammafunktion}{%
+  Die Funktion
+  \[
+    \Gamma: \,]0,\infty[\, \to \mathbb{R}, \quad
+    x \mapsto \Gamma(x) := \int_0^\infty t^{x-1} e^{-t}\,dt
+  \]
+  heißt \textbf{Gammafunktion}. Sie hat folgende Eigenschaften:
+  \begin{itemize}[topsep=2pt,itemsep=1pt]
+    \item Funktionalgleichung: $\Gamma(x+1) = x\,\Gamma(x)$ für $x>0$.
+    \item Spezielle Werte: $\Gamma(n+1) = n!$ für $n \in \mathbb{N}_0$, insbesondere $\Gamma(1) = \Gamma(2) = 1$.
+  \end{itemize}
+}
+
+\gentry{5.2.6}{Cauchykriterium}{%
+  Seien $\beta \in \mathbb{R}$, $a \in \widehat{\mathbb{R}}$ mit $a < \beta$,
+  $f: \,]a, \beta]\, \to \mathbb{R}$ mit $f|_{[\alpha, \beta]} \in \mathcal{R}([\alpha, \beta])$
+  für alle $\alpha \in\,]a, \beta[$. Dann konvergiert $\int_a^\beta f(x)\,dx$
+  genau dann, wenn
+  \[
+    \forall\, \varepsilon > 0\; \exists\, \alpha_0 \in\,]a,\beta[\;
+    \forall\, \alpha, \alpha' \in\,]a, \alpha_0[:\;
+    \left|\int_\alpha^{\alpha'} f(x)\,dx\right| < \varepsilon.
+  \]
+  Ein analoges Kriterium gilt am rechten Intervallende.
+}
+
+\gentry{}{Majorantenkriterium (Ü 5.2.4)}{%
+  Seien $a, b \in \widehat{\mathbb{R}}$, $a<b$, und $f, g: \,]a,b[\, \to \mathbb{R}$
+  mit $f|_{[\alpha,\beta]}, g|_{[\alpha,\beta]} \in \mathcal{R}([\alpha,\beta])$.
+  Gilt $|f(x)| \leq g(x)$ für alle $x \in\,]a,b[$ und konvergiert $\int_a^b g(x)\,dx$,
+  so konvergieren auch $\int_a^b |f(x)|\,dx$ und $\int_a^b f(x)\,dx$, und
+  \[
+    \left|\int_a^b f(x)\,dx\right| \leq \int_a^b |f(x)|\,dx \leq \int_a^b g(x)\,dx.
+  \]
+}
+
+% ======================================================================
+\section*{5.3 \quad Parameterintegrale}
+
+\gentry{}{Parameterintegral}{%
+  Sei $M \neq \emptyset$ und $I = [\alpha, \beta]$ mit $\alpha < \beta$. Ist
+  $K: M \times I \to \mathbb{R}$ eine Funktion, sodass $K(x, \cdot): I \to \mathbb{R}$,
+  $t \mapsto K(x,t)$ für jedes $x \in M$ über $I$ integrierbar ist (ggf.\ im
+  uneigentlichen Sinn), so heißt
+  \[
+    F(x) := \int_\alpha^\beta K(x,t)\,dt \quad (x \in M)
+  \]
+  ein \textbf{Parameterintegral}.
+}
+
+\gentry{5.3.1}{Stetigkeit des Parameterintegrals}{%
+  Seien $\emptyset \neq M \subseteq \mathbb{R}^n$, $G := M \times [\alpha, \beta]$,
+  $\alpha < \beta$. Ist
+  \[
+    K: G \to \mathbb{R}, \quad \tbinom{x}{t} \mapsto K(x,t)
+  \]
+  stetig auf $G$, so ist durch $F(x) := \int_\alpha^\beta K(x,t)\,dt$ eine auf
+  $M$ stetige Funktion $F: M \to \mathbb{R}$ gegeben.
+}
+
+\gentry{5.3.2}{Uneigentliches Parameterintegral}{%
+  Seien $a \in M \subseteq \mathbb{R}^n$, $\alpha \in \mathbb{R}$, $G := M \times [\alpha, \infty[$,
+  $K: G \to \mathbb{R}$ stetig, und $F(x) := \int_\alpha^\infty K(x,t)\,dt$
+  konvergiere für jedes $x \in M$. Gibt es eine Folge $(T_k)$ in $\,]\alpha, \infty[$
+  mit $T_k \to \infty$ und eine Umgebung $U$ von $a$, sodass
+  $F_k(x) := \int_\alpha^{T_k} K(x,t)\,dt$ auf $U \cap M$ gleichmäßig konvergiert,
+  so ist $F$ in $a$ stetig.
+}
+
+\gentry{5.3.4}{Leibnizsche Regel (eigentlich)}{%
+  Sei $M \subseteq \mathbb{R}^n$ offen, $G := M \times [\alpha, \beta]$ mit $\alpha < \beta$,
+  $K: G \to \mathbb{R}$ stetig. Existieren und sind die partiellen Ableitungen
+  $D_\mu K: G \to \mathbb{R}$ ($\mu = 1, \ldots, n$) stetig, so ist
+  $F(x) := \int_\alpha^\beta K(x,t)\,dt$ stetig differenzierbar auf $M$ mit
+  \[
+    D_\mu F(x) = \int_\alpha^\beta D_\mu K(x,t)\,dt \quad (x \in M).
+  \]
+}
+
+\gentry{5.3.5}{Leibnizsche Regel (uneigentlich)}{%
+  Sei $M \subseteq \mathbb{R}^n$ offen, $G := M \times [\alpha, \infty[$,
+  $K: G \to \mathbb{R}$ stetig, sodass $F(x) := \int_\alpha^\infty K(x,t)\,dt$ für
+  jedes $x \in M$ konvergiert. Existieren und sind die partiellen Ableitungen
+  $D_\mu K$ stetig und konvergieren $\int_\alpha^\infty D_\mu K(x,t)\,dt$, und gibt
+  es eine Folge $(T_k)$ in $]\alpha, \infty[$ mit $T_k \to \infty$, sodass
+  $H_{k\mu}(x) := \int_\alpha^{T_k} D_\mu K(x,t)\,dt$ gleichmäßig auf $M$ konvergieren,
+  so besitzt $F$ stetige partielle Ableitungen und
+  \[
+    D_\mu F(x) = \int_\alpha^\infty D_\mu K(x,t)\,dt \quad (x \in M).
+  \]
+}
+
+% ======================================================================
+\section*{5.4 \quad Fourierreihen}
+
+\gentry{}{$2\pi$-periodische Funktion}{%
+  Sei $p \in \mathbb{R}\setminus\{0\}$. $f: \mathbb{R} \to \mathbb{R}$ heißt
+  \textbf{periodisch mit Periode $p$} oder \textbf{$p$-periodisch}, wenn
+  \[
+    f(x+p) = f(x) \quad \text{für jedes } x \in \mathbb{R}.
+  \]
+  Durch lineare Maßstabsänderung der Variablen lässt sich jede Periode auf
+  $p = 2\pi$ bringen; im Folgenden werden stets $2\pi$-periodische Funktionen
+  betrachtet.
+}
+
+\gentry{5.4.1}{Bezeichnung $C_k, S_k$}{%
+  Für $k \in \mathbb{N}_0$ seien $C_k, S_k: \mathbb{R} \to \mathbb{R}$ definiert durch
+  \[
+    C_k(x) := \cos(kx), \quad S_k(x) := \sin(kx) \quad (x \in \mathbb{R}).
+  \]
+  Alle $C_k, S_k$ sind $2\pi$-periodisch.
+}
+
+\gentry{}{Trigonometrische Reihe}{%
+  Eine Reihe der Form
+  \[
+    \frac{1}{2} a_0 + \sum_{k=1}^\infty \bigl(a_k \cos(kx) + b_k \sin(kx)\bigr)
+    = \frac{1}{2} a_0 C_0 + \sum_{k=1}^\infty (a_k C_k + b_k S_k)
+  \]
+  mit $a_k, b_k, x \in \mathbb{R}$ heißt \textbf{trigonometrische Reihe}.
+}
+
+\gentry{5.4.2}{Skalarprodukt}{%
+  $f \in \mathrm{Abb}(]-\pi,\pi], \mathbb{R})$ heißt \textbf{integrierbar},
+  $f \in \mathcal{R}(]-\pi,\pi])$, wenn $f$ nach willkürlicher Festsetzung von
+  $f(-\pi)$ über $[-\pi,\pi]$ integrierbar ist. Für $f, g \in \mathcal{R}(]-\pi,\pi])$
+  sei
+  \[
+    \langle f, g \rangle := \frac{1}{\pi} \int_{-\pi}^\pi f(x) g(x)\,dx
+  \]
+  das \textbf{Skalarprodukt}. $f$ und $g$ heißen \textbf{orthogonal}
+  (senkrecht zueinander), wenn $\langle f, g \rangle = 0$.\\
+  Eigenschaften: Bilinearität, Kommutativität $\langle f,g \rangle = \langle g,f\rangle$,
+  positive Semidefinitheit $0 \leq \langle f, f \rangle$, Cauchy-Schwarzsche
+  Ungleichung $|\langle f,g\rangle| \leq \sqrt{\langle f,f\rangle\langle g,g\rangle}$.
+  (Definitheit gilt nur für stetiges $f$.)
+}
+
+\gentry{5.4.3}{Orthogonalitätsrelationen}{%
+  Für $k, \ell \in \mathbb{N}_0$ gilt:
+  \[
+    \langle C_k, C_\ell \rangle =
+    \begin{cases} 2, & k=\ell=0,\\ 1, & k=\ell \geq 1,\\ 0, & k\neq\ell,\end{cases}
+    \quad
+    \langle S_k, S_\ell \rangle =
+    \begin{cases} 1, & k=\ell \geq 1,\\ 0, & k\neq\ell \text{ oder } k=\ell=0,\end{cases}
+  \]
+  \[
+    \langle C_k, S_\ell \rangle = 0.
+  \]
+}
+
+\gentry{5.4.4}{Euler-Fouriersche Formeln}{%
+  Konvergiert die trigonometrische Reihe $\frac{1}{2}a_0 + \sum_{k=1}^\infty (a_k \cos(kx) + b_k \sin(kx))$
+  gleichmäßig für $x \in\,]-\pi,\pi]$ gegen $f: ]-\pi,\pi] \to \mathbb{R}$, so gilt
+  \begin{align*}
+    a_k &= \langle f, C_k \rangle = \frac{1}{\pi} \int_{-\pi}^\pi f(x) \cos(kx)\,dx \quad (k \in \mathbb{N}_0),\\
+    b_k &= \langle f, S_k \rangle = \frac{1}{\pi} \int_{-\pi}^\pi f(x) \sin(kx)\,dx \quad (k \in \mathbb{N}).
+  \end{align*}
+  Insbesondere ist $\frac{1}{2} a_0 = \frac{1}{2\pi}\int_{-\pi}^\pi f(x)\,dx$ der
+  Integralmittelwert von $f$.
+}
+
+\gentry{5.4.5}{Fourierreihe}{%
+  Sei $f \in \mathcal{R}(]-\pi,\pi])$. Mit
+  \[
+    a_k := \langle f, C_k \rangle \; (k \in \mathbb{N}_0), \quad
+    b_k := \langle f, S_k \rangle \; (k \in \mathbb{N})
+  \]
+  heißt die trigonometrische Reihe
+  \[
+    \frac{1}{2} a_0 + \sum_{k=1}^\infty \bigl(a_k \cos(kx) + b_k \sin(kx)\bigr)
+  \]
+  die \textbf{Fourierreihe} von $f$; $a_k, b_k$ heißen die
+  \textbf{Fourierkoeffizienten} von $f$.
+}
+
+\gentry{5.4.7}{Besselsche Ungleichung}{%
+  Sei $f \in \mathcal{R}(]-\pi,\pi])$ mit Fourierkoeffizienten $(a_k), (b_k)$.
+  Für jedes $n \in \mathbb{N}$ gilt
+  \[
+    \frac{1}{2} a_0^2 + \sum_{k=1}^n (a_k^2 + b_k^2)
+    \leq \frac{1}{\pi} \int_{-\pi}^\pi f^2(x)\,dx.
+  \]
+  Folglich konvergiert $\frac{1}{2} a_0^2 + \sum_{k=1}^\infty (a_k^2 + b_k^2)$
+  (gegen $\frac{1}{\pi}\int_{-\pi}^\pi f^2(x)\,dx$), und
+  \[
+    \lim_{k\to\infty} a_k = \lim_{k\to\infty} b_k = 0.
+  \]
+}
+
+\gentry{5.4.8}{Teilsummen und Dirichletkern}{%
+  Sei $f: \mathbb{R} \to \mathbb{R}$ $2\pi$-periodisch mit
+  $f|_{]-\pi,\pi]} \in \mathcal{R}(]-\pi,\pi])$,
+  $s_n(x) := \frac{1}{2} a_0 + \sum_{k=1}^n (a_k \cos(kx) + b_k \sin(kx))$ die
+  $n$-te Teilsumme der Fourierreihe. Dann gilt
+  \[
+    s_n(x) = \frac{1}{\pi} \int_{-\pi}^\pi f(t) D_n(x - t)\,dt
+  \]
+  mit dem \textbf{$n$-ten Dirichletkern}
+  \[
+    D_n(u) := \frac{1}{2} + \sum_{k=1}^n \cos(ku) =
+    \begin{cases}
+      \dfrac{\sin\bigl((2n+1)\frac{u}{2}\bigr)}{2 \sin\frac{u}{2}}, & u \neq 0, \pm 2\pi, \pm 4\pi, \ldots,\\[0.5em]
+      \dfrac{2n+1}{2}, & u = 0, \pm 2\pi, \ldots
+    \end{cases}
+  \]
+  Ferner:
+  \[
+    s_n(x) - f(x) = \frac{1}{\pi} \int_{-\pi}^\pi \left[\frac{f(x+u) + f(x-u)}{2} - f(x)\right] D_n(u)\,du.
+  \]
+}
+
+\gentry{5.4.9}{Darstellungssatz}{%
+  Sei $f: \mathbb{R} \to \mathbb{R}$ $2\pi$-periodisch mit
+  $f|_{]-\pi,\pi]} \in \mathcal{R}(]-\pi,\pi])$, und sei $x_0 \in \mathbb{R}$ ein
+  Punkt, in dem $f$ \textbf{rechts- und linksseitig differenzierbar} ist, d.\,h.\
+  $f|_{[x_0, \infty[}$ und $f|_{]-\infty, x_0]}$ seien in $x_0$ differenzierbar.
+  (Insbesondere ist $f$ in $x_0$ stetig.) Dann konvergiert die Fourierreihe von
+  $f$ für $x = x_0$ gegen $f(x_0)$.
+}
+
+% ======================================================================
+\section*{5.5 \quad Der Weierstraßsche Approximationssatz}
+
+\gentry{5.5.1}{Fejérsche Summen}{%
+  Sei $f: \mathbb{R} \to \mathbb{R}$ $2\pi$-periodisch mit $f|_{]-\pi,\pi]} \in \mathcal{R}(]-\pi,\pi])$,
+  $s_n(x)$ die $n$-te Teilsumme der Fourierreihe. Die Funktionen
+  \[
+    \sigma_n(x) := \frac{1}{n+1} \sum_{k=0}^n s_k(x) \quad (n \in \mathbb{N}_0, x \in \mathbb{R})
+  \]
+  heißen \textbf{Fejérsche Summen} von $f$. Es gilt
+  \[
+    \sigma_n(x) = \frac{1}{\pi} \int_{-\pi}^\pi f(t) F_n(x-t)\,dt
+  \]
+  mit dem \textbf{$n$-ten Fejérkern}
+  \[
+    F_n(u) := \frac{1}{n+1} \sum_{k=0}^n D_k(u) =
+    \begin{cases}
+      \dfrac{\sin^2\bigl(\frac{n+1}{2} u\bigr)}{2(n+1) \sin^2\frac{u}{2}}, & u \neq 2\pi m,\\[0.5em]
+      \dfrac{1}{2}(n+1), & u = 2\pi m, \; m \in \mathbb{Z}.
+    \end{cases}
+  \]
+}
+
+\gentry{5.5.2}{Eigenschaften der Fejérkerne}{%
+  Die Fejérkerne $F_n$ ($n \in \mathbb{N}_0$) haben folgende Eigenschaften:
+  \begin{itemize}[topsep=2pt,itemsep=1pt]
+    \item[(i)] $F_n$ ist $2\pi$-periodisch und stetig.
+    \item[(ii)] $F_n$ ist gerade: $F_n(-u) = F_n(u)$ für alle $u \in \mathbb{R}$.
+    \item[(iii)] $0 \leq F_n(u) \leq \frac{1}{2}(n+1)$ für alle $u \in \mathbb{R}$.
+    \item[(iv)] $0 \leq F_n(u) \leq \dfrac{1}{2(n+1)} \left(\dfrac{\pi}{u}\right)^2$ für $0 < |u| \leq \pi$.
+    \item[(v)] $\dfrac{1}{\pi} \int_{-\pi}^\pi F_n(u)\,du = 1$.
+  \end{itemize}
+}
+
+\gentry{5.5.3}{Satz von Fejér}{%
+  Ist $f: \mathbb{R} \to \mathbb{R}$ $2\pi$-periodisch und stetig, so konvergiert
+  die Folge $(\sigma_n)$ der Fejérschen Summen von $f$ gleichmäßig gegen $f$.
+}
+
+\gentry{5.5.4}{Weierstraßscher Approximationssatz}{%
+  Sei $I = [a,b]$ mit $a<b$ ein kompaktes Intervall und $f: I \to \mathbb{R}$
+  stetig. Dann gibt es eine Folge $(P_n)$ von Polynomfunktionen, die auf $I$
+  gleichmäßig gegen $f$ konvergiert:
+  \[
+    \|P_n|_I - f\|_\infty \to 0 \quad \text{für } n \to \infty.
+  \]
+}
+
+\gentry{}{Tschebyscheffpolynom (Ü 5.5.2)}{%
+  Für $n \in \mathbb{N}_0$ ist $T_n: [-1,1] \to \mathbb{R}$ durch
+  $T_n(x) := \cos(n \arccos x)$ definiert und ist eine Polynomfunktion vom
+  Grade $n$ (eingeschränkt auf $[-1,1]$). Es gilt
+  \[
+    T_0(x) = 1, \quad T_1(x) = x, \quad T_{n+2}(x) = 2 x T_{n+1}(x) - T_n(x).
+  \]
+  $T_n$ heißt \textbf{Tschebyscheffpolynom} vom Grad $n$.
+}
+
+\newpage
+
+\begin{center}
+  {\LARGE\bfseries Glossar zu Kurseinheit 6}\\[0.5em]
+  {\large Analysis (Modul 61211) -- Kurven}
+\end{center}
+
+\vspace{1em}
+
+Dieses Glossar fasst die wesentlichen Definitionen, Sätze und Rechenregeln der
+sechsten Kurseinheit kompakt zusammen. Nummerierungen entsprechen dem Lehrtext.
+
+% ======================================================================
+\section*{6.1 \quad Der Kurvenbegriff}
+
+\gentry{6.1.1}{Parametrisierte Kurve}{%
+  Eine \textbf{parametrisierte Kurve} (auch parametrisierter Weg oder parametrisierter
+  Bogen) in $\mathbb{R}^n$ ist eine stetige Abbildung $\varphi : I \longrightarrow \mathbb{R}^n$,
+  wobei $I$ ein nichtleeres Intervall in $\mathbb{R}$ ist. Das Bild $\varphi(I)$ heißt die
+  \textbf{Spur} von $\varphi$ und wird mit $\mathrm{Spur}(\varphi)$ bezeichnet.
+}
+
+\gentry{6.1.2}{Äquivalenz parametrisierter Kurven}{%
+  Eine parametrisierte Kurve $\varphi : I \longrightarrow \mathbb{R}^n$ heißt \textbf{äquivalent}
+  zu $\psi : J \longrightarrow \mathbb{R}^n$, in Zeichen $\varphi \sim \psi$, wenn es eine
+  streng monoton wachsende, stetige Funktion $f : I \longrightarrow \mathbb{R}$ mit
+  $f(I) = J$ und $\varphi = \psi \circ f$ gibt.\\
+  $\sim$ ist eine Äquivalenzrelation:
+  \begin{enumerate}[label=(\roman*),topsep=2pt,itemsep=1pt]
+    \item $\varphi \sim \varphi$ \quad (Reflexivität),
+    \item $\varphi \sim \psi \Rightarrow \psi \sim \varphi$ \quad (Symmetrie),
+    \item $\varphi \sim \psi,\; \psi \sim \chi \Rightarrow \varphi \sim \chi$ \quad (Transitivität).
+  \end{enumerate}
+  Die Menge $[\varphi] := \{\psi \mid \psi \text{ parametrisierte Kurve mit } \varphi \sim \psi\}$
+  heißt die von $\varphi$ erzeugte \textbf{Äquivalenzklasse}.
+}
+
+\gentry{6.1.3}{Eigenschaften äquivalenter parametrisierter Kurven}{%
+  Seien $\varphi : I \longrightarrow \mathbb{R}^n$ und $\psi : J \longrightarrow \mathbb{R}^n$
+  äquivalente parametrisierte Kurven. Dann gilt:
+  \begin{enumerate}[label=(\roman*),topsep=2pt,itemsep=1pt,start=0]
+    \item $[\varphi] = [\psi]$.
+    \item $\mathrm{Spur}(\varphi) = \mathrm{Spur}(\psi)$.
+    \item Zu $t_1, t_2 \in I$ mit $t_1 < t_2$ gibt es $\tau_1, \tau_2 \in J$ mit $\tau_1 < \tau_2$,
+          sodass $\varphi(t_1) = \psi(\tau_1)$ und $\varphi(t_2) = \psi(\tau_2)$.
+    \item Enthält $I$ seinen linken (bzw.\ rechten) Endpunkt $t^*$, so enthält auch $J$
+          seinen linken (bzw.\ rechten) Endpunkt $\tau^*$, und es gilt $\varphi(t^*) = \psi(\tau^*)$.
+  \end{enumerate}
+}
+
+\gentry{6.1.4}{Kurve}{%
+  \begin{enumerate}[label=(\roman*),topsep=2pt,itemsep=1pt]
+    \item Eine \textbf{Kurve} (auch Weg oder Bogen) $W$ in $\mathbb{R}^n$ ist eine
+          Äquivalenzklasse $[\varphi]$ von parametrisierten Kurven in $\mathbb{R}^n$.
+          Jede parametrisierte Kurve in $W$ heißt auch eine \textbf{Parameterdarstellung} von $W$.
+    \item Die Spur einer Parameterdarstellung von $W$ heißt die \textbf{Spur} von $W$,
+          in Zeichen $|W|$.
+    \item Enthält das Definitionsintervall einer Parameterdarstellung seinen linken
+          (bzw.\ rechten) Endpunkt, so heißt der entsprechende Punkt der Spur von $W$
+          der \textbf{Anfangspunkt} (bzw.\ der \textbf{Endpunkt}) von $W$.
+  \end{enumerate}
+}
+
+\gentry{6.1.6}{Entgegengesetzte Kurve}{%
+  Seien $W$ eine Kurve in $\mathbb{R}^n$ und $\varphi : I \longrightarrow \mathbb{R}^n$ eine
+  Parameterdarstellung von $W$. Dann ist $-I := \{t \in \mathbb{R} \mid -t \in I\}$ ein
+  Intervall und $\varphi^- : -I \longrightarrow \mathbb{R}^n$, $t \mapsto \varphi^-(t) := \varphi(-t)$
+  eine parametrisierte Kurve. Damit wird
+  \[
+    -W := [\varphi^-], \quad \text{die zu } W \text{ \textbf{entgegengesetzte Kurve}},
+  \]
+  definiert. Diese hat die gleiche Spur wie $W$, aber den entgegengesetzten
+  Durchlaufungssinn. (Hat $W$ einen Anfangspunkt [bzw.\ Endpunkt], so hat $-W$ diesen
+  als Endpunkt [bzw.\ Anfangspunkt].)
+}
+
+\gentry{6.1.7}{Aneinanderfügen von Kurven}{%
+  Seien $W_1, W_2$ Kurven in $\mathbb{R}^n$. $W_1$ besitze einen Endpunkt $b$,
+  $W_2$ einen Anfangspunkt $a$. Ist $b = a$, so wird die zusammengesetzte Kurve
+  $W_1 + W_2$ definiert: Sind $\varphi_1 : I_1 \longrightarrow \mathbb{R}^n$ und
+  $\varphi_2 : I_2 \longrightarrow \mathbb{R}^n$ Parameterdarstellungen mit rechtem
+  Endpunkt $\beta_1$ von $I_1$ und linkem Endpunkt $\alpha_2$ von $I_2$
+  ($\varphi_1(\beta_1) = b = a = \varphi_2(\alpha_2)$), so setze
+  \[
+    I := I_1 \cup \{\tau + \beta_1 - \alpha_2 \mid \tau \in I_2\},
+  \]
+  \[
+    \psi(t) := \begin{cases} \varphi_1(t) & \text{für } t \leq \beta_1,\; t \in I,\\
+                             \varphi_2(\alpha_2 + t - \beta_1) & \text{für } t > \beta_1,\; t \in I\end{cases}
+  \]
+  und $W_1 + W_2 := [\psi]$.
+}
+
+\gentry{Ü 6.1.4}{Addition von Kurven (Assoziativität)}{%
+  Seien $W_1, W_2, W_3$ Kurven in $\mathbb{R}^n$ derart, dass $W_1 + W_2$ und $W_2 + W_3$
+  gebildet werden können. Dann können auch $(W_1 + W_2) + W_3$ und $W_1 + (W_2 + W_3)$
+  gebildet werden, und es gilt
+  \[
+    (W_1 + W_2) + W_3 = W_1 + (W_2 + W_3).
+  \]
+  (Man kann daher auf die Klammern verzichten.)
+}
+
+% ======================================================================
+\section*{6.2 \quad Länge einer Kurve}
+
+\gentry{}{Gerichtete Strecke $S(a,b)$}{%
+  Die gerichtete Strecke, die $a \in \mathbb{R}^n$ mit $b \in \mathbb{R}^n$ verbindet,
+  ist die Kurve
+  \[
+    S(a,b) = [\varphi] \text{ mit } \varphi(t) := a + t(b-a),\; 0 \leq t \leq 1;
+  \]
+  ihre Länge wird als $L(S(a,b)) := \|b - a\|_2$ definiert.
+}
+
+\gentry{6.2.1}{Einbeschriebener Polygonzug}{%
+  Seien $W$ eine Kurve in $\mathbb{R}^n$ und $\varphi : I \longrightarrow \mathbb{R}^n$ eine
+  Parameterdarstellung. Sind $a_0, a_1, \ldots, a_r$ mit $a_\rho = \varphi(t_\rho)$,
+  $t_\rho \in I$, $t_0 < t_1 < \ldots < t_r$ aufeinanderfolgende Kurvenpunkte, so heißt
+  \[
+    P := P(a_0, a_1, \ldots, a_r) := S(a_0, a_1) + \ldots + S(a_{r-1}, a_r)
+  \]
+  ein der Kurve $W$ \textbf{einbeschriebener (gerichteter) Polygonzug}. Seine Länge ist
+  \[
+    L(P) := \sum_{\rho=1}^{r} \|a_\rho - a_{\rho-1}\|_2.
+  \]
+}
+
+\gentry{6.2.2}{Länge einer Kurve, Rektifizierbarkeit}{%
+  Seien $W$ eine Kurve in $\mathbb{R}^n$ und $\varphi : I \longrightarrow \mathbb{R}^n$ eine
+  Parameterdarstellung. Enthält $I$ mehr als einen Punkt, dann sei
+  \[
+    L(W) := \sup \{L(P) \mid P \text{ ist einbeschriebener Polygonzug von } W\};
+  \]
+  ist $I$ einpunktig, so sei $L(W) := 0$. $L(W)$ heißt die \textbf{Länge} von $W$.
+  $W$ heißt \textbf{rektifizierbar}, wenn $L(W) < \infty$ ist.
+}
+
+\gentry{6.2.4}{Eigenschaften der Kurvenlänge}{%
+  Seien $W, W_0, W_1, W_2$ Kurven in $\mathbb{R}^n$. $W_0$ sei eine Teilkurve von $W$,
+  und $W_1 + W_2$ sei definiert. Dann gilt:
+  \begin{enumerate}[label=(\roman*),topsep=2pt,itemsep=1pt]
+    \item $L(-W) = L(W)$,
+    \item $L(W_0) \leq L(W)$,
+    \item $L(W_1 + W_2) = L(W_1) + L(W_2)$.
+  \end{enumerate}
+  Insbesondere ist $W_0$ rektifizierbar, wenn $W$ es ist, und $W_1 + W_2$ ist genau dann
+  rektifizierbar, wenn $W_1$ und $W_2$ es sind.
+}
+
+\gentry{6.2.5}{Länge stetig differenzierbarer Kurven}{%
+  Sei $W$ eine Kurve in $\mathbb{R}^n$ mit Anfangs- und Endpunkt. Es gebe eine
+  Parameterdarstellung $\varphi : [\alpha, \beta] \longrightarrow \mathbb{R}^n$
+  ($\alpha < \beta$), die auf $]\alpha, \beta[$ eine stetige Ableitung besitzt.
+  $W$ ist genau dann rektifizierbar, wenn $\int_\alpha^\beta \|\dot{\varphi}(t)\|_2\,dt$
+  (evtl.\ als uneigentliches Integral) existiert, und gegebenenfalls ist
+  \[
+    L(W) = \int_\alpha^\beta \|\dot{\varphi}(t)\|_2\, dt.
+  \]
+}
+
+\gentry{6.2.8}{Bogenlänge und ausgezeichnete Parameterdarstellung}{%
+  Sei $W$ eine rektifizierbare Kurve in $\mathbb{R}^n$ mit Anfangs- und Endpunkt und
+  $\varphi : [\alpha, \beta] \longrightarrow \mathbb{R}^n$ eine Parameterdarstellung
+  mit stetiger Ableitung auf $]\alpha, \beta[$. Mit $W_{\varphi(t)} := [\varphi|_{[\alpha,t]}]$
+  heißt
+  \[
+    s_\varphi : [\alpha, \beta] \longrightarrow [0, L(W)], \quad
+    t \mapsto s_\varphi(t) := L(W_{\varphi(t)})
+  \]
+  die \textbf{Bogenlänge} von $W$ bezüglich $\varphi$.
+  \begin{enumerate}[label=(\roman*),topsep=2pt,itemsep=1pt]
+    \item $s_\varphi$ ist stetig und auf $]\alpha, \beta[$ differenzierbar mit
+          $\dot{s}_\varphi(t) = \|\dot{\varphi}(t)\|_2$.
+    \item Ist $\dot{\varphi}(t) \neq 0$ für alle $t \in\, ]\alpha, \beta[$, so existiert
+          $s_\varphi^{-1} : [0, L(W)] \longrightarrow [\alpha, \beta]$, und
+          $\Phi := \varphi \circ s_\varphi^{-1}$ ist eine Parameterdarstellung von $W$.
+    \item $\Phi$ hängt nicht von $\varphi$ ab.
+    \item $\Phi$ heißt die \textbf{ausgezeichnete Parameterdarstellung} von $W$. Sie ist
+          auf $]0, L(W)[$ differenzierbar mit $\|\dot{\Phi}(t)\|_2 = 1$.
+  \end{enumerate}
+}
+
+\gentry{6.2.10}{Glatte und stückweise glatte Kurven}{%
+  Eine Kurve $W$ in $\mathbb{R}^n$ mit Anfangs- und Endpunkt heißt \textbf{glatt}, wenn sie
+  eine Parameterdarstellung $\varphi : [\alpha, \beta] \longrightarrow \mathbb{R}^n$
+  ($\alpha < \beta$) mit auf $]\alpha, \beta[$ stetiger Ableitung besitzt, sodass
+  $\dot{\varphi}(t) \neq 0$ für alle $t \in\, ]\alpha, \beta[$ und
+  $\int_\alpha^\beta \|\dot{\varphi}(t)\|_2\,dt$ existiert. Eine solche Parameterdarstellung
+  heißt \textbf{glatt}.\\
+  Eine Kurve $W$ heißt \textbf{stückweise glatt}, wenn es endlich viele glatte Kurven
+  $W_1, \ldots, W_k$ mit $W = W_1 + \ldots + W_k$ gibt.
+}
+
+% ======================================================================
+\section*{6.3 \quad Kurvenintegrale}
+
+\gentry{6.3.1}{Kurvenintegral für skalare Funktionen}{%
+  \begin{enumerate}[label=(\roman*),topsep=2pt,itemsep=2pt]
+    \item Seien $W$ eine glatte Kurve in $\mathbb{R}^n$ und
+          $\varphi : [\alpha, \beta] \longrightarrow \mathbb{R}^n$ eine glatte
+          Parameterdarstellung. Ist $f : M \longrightarrow \mathbb{R}$ mit
+          $|W| \subseteq M \subseteq \mathbb{R}^n$ stetig, so heißt
+          \[
+            \int_W f\, ds := \int_\alpha^\beta f(\varphi(t))\, \|\dot{\varphi}(t)\|_2\, dt
+          \]
+          das \textbf{Kurvenintegral} von $f$ längs $W$.
+    \item Ist $W = W_1 + \ldots + W_k$ stückweise glatt mit glatten $W_\mu$, so heißt
+          \[
+            \int_W f\, ds := \sum_{\mu=1}^{k} \int_{W_\mu} f\, ds
+          \]
+          das Kurvenintegral von $f$ längs $W$.
+  \end{enumerate}
+}
+
+\gentry{6.3.4}{Kurvenintegral für Vektorfunktionen}{%
+  \begin{enumerate}[label=(\roman*),topsep=2pt,itemsep=2pt]
+    \item Seien $W$ eine glatte Kurve in $\mathbb{R}^n$ und
+          $\varphi : [\alpha, \beta] \longrightarrow \mathbb{R}^n$ eine glatte
+          Parameterdarstellung. Ist $f : M \longrightarrow \mathbb{R}^n$ mit
+          $|W| \subseteq M \subseteq \mathbb{R}^n$ stetig, so heißt
+          \[
+            \int_W f \cdot dx := \int_\alpha^\beta f(\varphi(t)) \cdot \dot{\varphi}(t)\, dt
+          \]
+          das \textbf{Kurvenintegral} von $f$ längs $W$. Alternative Schreibweisen:
+          \[
+            \int_W (f_1\, dx_1 + \ldots + f_n\, dx_n).
+          \]
+    \item Ist $W = W_1 + \ldots + W_k$ stückweise glatt mit glatten $W_\mu$, so heißt
+          \[
+            \int_W f \cdot dx := \sum_{\mu=1}^{k} \int_{W_\mu} f \cdot dx
+          \]
+          das Kurvenintegral von $f$ längs $W$.
+  \end{enumerate}
+}
+
+\gentry{6.3.6}{Rechenregeln für Kurvenintegrale}{%
+  Seien $W, \widetilde{W}$ stückweise glatte Kurven in $\mathbb{R}^n$,
+  $f, g : M \longrightarrow \mathbb{R}^n$ stetig mit $|W|, |\widetilde{W}| \subseteq M$,
+  und sei $\alpha \in \mathbb{R}$. Dann gilt:
+  \begin{enumerate}[label=(\roman*),topsep=2pt,itemsep=1pt]
+    \item $\displaystyle \int_W (f+g) \cdot dx = \int_W f \cdot dx + \int_W g \cdot dx$,
+          \quad $\displaystyle \int_W (\alpha f) \cdot dx = \alpha \int_W f \cdot dx$
+          \hfill (Linearität).
+    \item $\displaystyle \int_{W+\widetilde{W}} f \cdot dx = \int_W f \cdot dx + \int_{\widetilde{W}} f \cdot dx$,
+          falls $W + \widetilde{W}$ definiert \hfill (Additivität).
+    \item $\displaystyle \int_{-W} f \cdot dx = -\int_W f \cdot dx$.
+    \item $\displaystyle \left|\int_W f \cdot dx\right| \leq \max\{\|f(x)\|_2 \mid x \in |W|\} \cdot L(W)$
+          \hfill (Abschätzung).
+  \end{enumerate}
+}
+
+% ======================================================================
+\section*{6.4 \quad Stammfunktionen}
+
+\gentry{6.4.1}{Stammfunktion}{%
+  Sei $G$ ein \textbf{Gebiet} in $\mathbb{R}^n$, d.\,h.\ eine nichtleere, zusammenhängende,
+  offene Teilmenge von $\mathbb{R}^n$, und seien $f : G \longrightarrow \mathbb{R}^n$ und
+  $F : G \longrightarrow \mathbb{R}$ gegeben. Ist $F$ differenzierbar mit
+  \[
+    {}^t F'(x) = f(x) \quad \text{für jedes } x \in G,
+  \]
+  so heißt $F$ eine \textbf{Stammfunktion} von $f$.\\
+  Ist $F$ Stammfunktion von $f$, so ist $\widetilde{F}$ genau dann eine Stammfunktion von $f$,
+  wenn $\widetilde{F} = F + \alpha \cdot \widehat{1}|_G$ mit einem $\alpha \in \mathbb{R}$ gilt.\\
+  (In der Physik wird $U := -F$ oft ein \textbf{Potenzial} zum Vektorfeld $f$ genannt und
+  $f$ das vom Potenzial $U$ erzeugte \textbf{Gradientenfeld}.)
+}
+
+\gentry{6.4.2}{Integrabilitätsbedingungen}{%
+  Sei $G$ ein Gebiet in $\mathbb{R}^n$, und sei $f \in \mathrm{Abb}(G, \mathbb{R}^n)$ stetig
+  differenzierbar. Besitzt $f = {}^t(f_1, \ldots, f_n)$ eine Stammfunktion, so gelten die
+  \textbf{Integrabilitätsbedingungen}
+  \[
+    D_i f_j = D_j f_i \quad \text{für alle } i, j \in \{1, \ldots, n\}.
+  \]
+}
+
+\gentry{6.4.4}{Wegunabhängigkeit}{%
+  Seien $G$ ein Gebiet in $\mathbb{R}^n$ und $f : G \longrightarrow \mathbb{R}^n$ stetig.
+  Ferner sei $W$ eine stückweise glatte Kurve in $\mathbb{R}^n$ mit Anfangspunkt $a$ und
+  Endpunkt $b$, die ganz in $G$ verläuft ($|W| \subseteq G$). Besitzt $f$ eine Stammfunktion
+  $F : G \longrightarrow \mathbb{R}$, so gilt
+  \[
+    \int_W f \cdot dx = F(b) - F(a).
+  \]
+  Ist $b = a$ (\textbf{geschlossene Kurve}), so ergibt sich
+  \[
+    \int_W f \cdot dx = 0.
+  \]
+}
+
+\gentry{6.4.6}{Existenz einer Stammfunktion}{%
+  Sei $f = {}^t(f_1, \ldots, f_n) : G \longrightarrow \mathbb{R}^n$ stetig differenzierbar
+  auf einem Gebiet $G \subseteq \mathbb{R}^n$ und erfülle dort die Integrabilitätsbedingungen
+  $D_i f_j = D_j f_i$ für $i, j \in \{1, \ldots, n\}$.\\
+  Ist $G$ \textbf{sternförmig}, d.\,h.\ gibt es einen Punkt $a \in G$ derart, dass für jedes
+  $u \in G$ die Spur der Strecke $S(a, u)$ in $G$ enthalten ist, so besitzt $f$ eine
+  Stammfunktion $F$, z.\,B.
+  \[
+    F(u) := \int_{S(a,u)} f \cdot dx \quad \text{für } u \in G.
+  \]
+}
+
+% ======================================================================
+\section*{6.5 \quad Flächen- und Volumenberechnungen}
+
+\gentry{6.5.1}{Fläche unter dem Graphen}{%
+  Sei $I = [\alpha, \beta]$ mit $\alpha < \beta$ und $f \in R(I)$ mit $f(x) \geq 0$ für
+  jedes $x \in I$. Dann heißt
+  \[
+    F := \left\{ \tbinom{x}{y} \in \mathbb{R}^2 \;\middle|\; x \in I \text{ und } 0 \leq y \leq f(x) \right\}
+  \]
+  die \textbf{Fläche unter dem Graphen} von $f$ und
+  \[
+    \lambda_2(F) := \int_I f
+  \]
+  der \textbf{Flächeninhalt} von $F$.
+}
+
+\gentry{6.5.2}{Fläche zwischen zwei Graphen}{%
+  Sei $I$ ein nichtleeres Intervall, und seien $f, g \in \mathrm{Abb}(I, \mathbb{R})$ mit
+  $g(x) \leq f(x)$ für alle $x \in I$. Dann heißt
+  \[
+    F := \left\{ \tbinom{x}{y} \in \mathbb{R}^2 \;\middle|\; x \in I \text{ und } g(x) \leq y \leq f(x) \right\}
+  \]
+  die \textbf{Fläche zwischen den Graphen} von $f$ und $g$. Als deren Flächeninhalt
+  wird
+  \[
+    \lambda_2(F) := \int_I (f - g)
+  \]
+  definiert, falls das Integral (evtl.\ im uneigentlichen Sinn) existiert. (Existiert das
+  Integral nicht, wird $F$ kein Inhalt zugeordnet.)
+}
+
+\gentry{6.5.4}{Körper zwischen zwei Graphen}{%
+  Sei $K \subseteq \mathbb{R}^3$ mit folgenden Eigenschaften:
+  \begin{enumerate}[label=(\roman*),topsep=2pt,itemsep=1pt]
+    \item Die Menge der $x \in \mathbb{R}$, für welche der \glqq{}Schnitt\grqq{}
+          \[
+            K_x := \left\{ {}^t(y,z) \;\middle|\; {}^t(x,y,z) \in K \right\} \neq \emptyset
+          \]
+          ist, ist ein Intervall $I = [a, b]$ mit $a < b$.
+    \item Für jedes $x \in I$ ist $K_x = \{x\} \times F(x)$, wobei $F(x)$ die Fläche zwischen
+          den Graphen zweier Funktionen
+          $f(x, \cdot), g(x, \cdot) : [\alpha(x), \beta(x)] \longrightarrow \mathbb{R}$
+          mit $g(x,t) \leq f(x,t)$ und existierendem Flächeninhalt
+          $\lambda_2(F(x)) = \int_{\alpha(x)}^{\beta(x)} (f(x,t) - g(x,t))\, dt$ ist.
+  \end{enumerate}
+  Dann gilt für das Volumen von $K$
+  \[
+    \lambda_3(K) = \int_a^b \lambda_2(F(x))\, dx = \int_a^b \left( \int_{\alpha(x)}^{\beta(x)} (f(x,t) - g(x,t))\, dt \right) dx,
+  \]
+  falls das Integral (evtl.\ im uneigentlichen Sinn) existiert.
+}
+
+\gentry{6.5.5}{Rotationskörper}{%
+  Sei $K$ durch Rotation der Fläche unter dem Graphen einer Funktion
+  $f \in \mathrm{Abb}(I, \mathbb{R})$, $f \geq \widehat{0}|_I$, entstanden. Dann ist das
+  Volumen des \textbf{Rotationskörpers}
+  \[
+    \lambda_3(K) = \pi \int_a^b (f(x))^2\, dx,
+  \]
+  falls dieses Integral existiert.
+}
+
+\end{document}
